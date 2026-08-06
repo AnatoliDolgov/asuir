@@ -1,0 +1,12 @@
+[
+    {
+        "source": "mod01",
+        "target": "mod02",
+        "type": "передача сигнала"
+    },
+    {
+        "source": "mod02",
+        "target": "mod03",
+        "type": "создание узла"
+    }
+]

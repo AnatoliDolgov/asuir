@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>АСУИР — Намерение</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        input,
+        button {
+            font-size: 1em;
+            margin: 0.4em 0;
+            width: 100%;
+        }
+
+        .block {
+            border: 1px solid #ccc;
+            padding: 1em;
+            margin-top: 1em;
+        }
+
+        li {
+            margin: 0.2em 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Выбор Намерения</h1>
+        <p class="sub">Опиши свою цель — система подберёт сценарий</p>
+    </header>
+
+    <section>
+        <label>Твоя цель:
+      <input type="text" id="input-goal" placeholder="Например: подготовить презентацию" />
+    </label>
+
+        <div id="result" class="block" style="display:none;">
+            <p><strong>Найдено намерение:</strong> <span id="matched-goal"></span></p>
+            <p><strong>Описание:</strong> <span id="matched-desc"></span></p>
+            <p><strong>Рекомендуемые сценарии:</strong></p>
+            <ul id="matched-scenarios"></ul>
+        </div>
+    </section>
+
+    <footer>
+        <a href="panel.html">← Панель</a>
+    </footer>
+
+    <script>
+        let intents = [];
+
+    fetch('intents.json')
+      .then(res => res.json())
+      .then(data => { intents = data; });
+
+    document.getElementById('input-goal').addEventListener('input', e => {
+      const text = e.target.value.toLowerCase();
+      if (!text || text.length < 2) return document.getElementById('result').style.display = 'none';
+
+      const match = intents.find(i =>
+        i.goal.toLowerCase().includes(text) || i.description.toLowerCase().includes(text)
+      );
+
+      if (!match) {
+        document.getElementById('result').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('matched-goal').textContent = match.goal;
+      document.getElementById('matched-desc').textContent = match.description;
+      const ul = document.getElementById('matched-scenarios');
+      ul.innerHTML = '';
+      match.scenarios.forEach(name => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.textContent = `▶ ${name}`;
+        btn.onclick = () => {
+          const encoded = encodeURIComponent(name);
+          location.href = `exec.html?scenario=${encoded}`;
+        };
+        li.appendChild(btn);
+        ul.appendChild(li);
+      });
+      document.getElementById('result').style.display = 'block';
+    });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>АСУИР — Редактор Узлов</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <header>
+        <h1>Редактор Узлов</h1>
+        <p class="sub">Добавь смысл — и он станет узлом</p>
+    </header>
+
+    <section>
+        <form id="editor-form">
+            <label>Имя узла:
+        <input type="text" name="title" required />
+      </label>
+            <label>ID:
+        <input type="text" name="id" required />
+      </label>
+            <label>Описание:
+        <textarea name="description" rows="4" required></textarea>
+      </label>
+            <button type="submit">Добавить</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Активные узлы:</h2>
+        <ul id="node-list"></ul>
+        <button id="export">⬇️ Скачать JSON</button>
+    </section>
+
+    <footer>
+        <a href="panel.html">← Панель</a>
+    </footer>
+
+    <script>
+        const form = document.getElementById('editor-form');
+    const list = document.getElementById('node-list');
+    const exportBtn = document.getElementById('export');
+    const nodes = [];
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = form.title.value.trim();
+      const id = form.id.value.trim();
+      const desc = form.description.value.trim();
+      if (!title || !id || !desc) return;
+
+      const node = { id, title, description: desc };
+      nodes.push(node);
+
+      const li = document.createElement('li');
+      li.textContent = `[${id}] ${title} — ${desc}`;
+      list.appendChild(li);
+      form.reset();
+    });
+
+    exportBtn.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(nodes, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'core.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+    </script>
+
+</body>
+
+</html>

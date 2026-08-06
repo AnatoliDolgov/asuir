@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор эффективности — ASUIR Gemini</title>
+    <style>
+        /* ================================================================
+           СТИЛИСТИКА INNOVATION MATRIX — ПОЛНАЯ ВЕРСИЯ
+           ================================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f5f7fa; color: #1a2632; padding: 30px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: #ffffff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); padding: 24px 24px 30px; }
+
+        .main-title { font-size: 28px; font-weight: 600; color: #1a2632; margin-bottom: 2px; }
+        .main-title span { color: #1f4e78; }
+        .main-title small { font-size: 14px; font-weight: 300; color: #6c7a8a; margin-left: 12px; }
+        .subtitle { font-size: 14px; color: #6c7a8a; margin-bottom: 20px; border-bottom: 1px solid #e0e4e8; padding-bottom: 12px; }
+
+        .nav-primary { display: flex; flex-wrap: wrap; gap: 4px; background: #f7f9fa; padding: 6px 12px; border-radius: 6px; border: 1px solid #e0e4e8; margin-bottom: 8px; }
+        .nav-primary a { color: #6c7a8a; text-decoration: none; padding: 8px 18px; font-size: 13px; font-weight: 500; border-radius: 4px; transition: 0.15s; }
+        .nav-primary a:hover { color: #1a2632; background: rgba(0,0,0,0.04); }
+        .nav-primary a.active { color: #1f4e78; background: rgba(31,78,120,0.08); }
+
+        .nav-divider { height: 1px; background: #d0d7dd; margin: 8px 0 12px 0; }
+
+        .nav-tabs { display: flex; flex-wrap: wrap; gap: 0; background: transparent; padding: 0; margin-bottom: 20px; border-bottom: 2px solid #e0e4e8; position: relative; }
+        .nav-tabs a { color: #6c7a8a; text-decoration: none; padding: 10px 20px 10px 20px; font-size: 13px; font-weight: 500; transition: 0.15s; display: flex; align-items: center; gap: 6px; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+        .nav-tabs a:hover { color: #1a2632; background: #f0f2f5; }
+        .nav-tabs a.active { color: #1a2632; border-bottom-color: #e68a00; font-weight: 600; }
+        .nav-tabs a .icon { font-size: 16px; line-height: 1; }
+
+        .section { display: none; animation: fadeIn 0.2s ease; }
+        .section.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0.3; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-title { font-size: 18px; font-weight: 600; color: #1a2632; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #1f4e78; display: inline-block; }
+
+        .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 16px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 10px 14px; border: 1px solid #e0e4e8; text-align: left; vertical-align: middle; }
+        th { background: #f7f9fa; font-weight: 600; color: #1a2632; }
+        td.right { text-align: right; font-weight: 600; }
+        .total-row { background: #f7f9fa; }
+        .result-row { background: #f0f5fa; border-top: 2px solid #1f4e78; }
+        .result-row td { font-size: 18px; font-weight: 700; }
+
+        .input-field { padding: 8px 12px; border: 1px solid #d0d7dd; border-radius: 4px; font-size: 14px; background: #fcfcfc; color: #1a2632; outline: none; transition: 0.15s; width: 100%; height: 38px; }
+        .input-field:focus { border-color: #1f4e78; box-shadow: 0 0 0 3px rgba(31,78,120,0.1); }
+        .input-field-sm { max-width: 120px; text-align: right; font-weight: 600; height: 38px; }
+        .input-url { width: 100%; padding: 6px 10px; font-size: 12px; border: 1px dashed #d0d7dd; border-radius: 4px; background: #fcfcfc; color: #6c7a8a; height: 38px; }
+        .input-url:focus { border-color: #1f4e78; border-style: solid; }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0 20px; border: none; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.15s; height: 38px; white-space: nowrap; line-height: 1; min-width: 80px; }
+        .btn-primary { background: #4a90d9; color: #ffffff; }
+        .btn-primary:hover { background: #357abd; }
+        .btn-green { background: #007600; color: #fff; }
+        .btn-green:hover { background: #005a00; }
+        .btn-sm { padding: 0 12px; font-size: 12px; height: 38px; min-width: 36px; }
+        .btn-block { display: block; width: 100%; text-align: center; }
+        
+        .btn-icon { background: transparent; border: none; font-size: 20px; cursor: pointer; padding: 0 6px; color: #6c7a8a; height: 38px; display: inline-flex; align-items: center; justify-content: center; transition: 0.15s; }
+        .btn-icon:hover { transform: scale(1.15); color: #1f4e78; }
+        .btn-icon-sm { height: 34px; font-size: 18px; padding: 0 4px; }
+        .btn-delete-icon { background: transparent; border: none; color: #c40000; font-size: 18px; cursor: pointer; padding: 0 4px; line-height: 1; transition: 0.15s; }
+        .btn-delete-icon:hover { color: #a00000; transform: scale(1.2); }
+
+        .info-hint { background: #f0f5fa; padding: 12px 16px; border-left: 4px solid #1f4e78; border-radius: 4px; font-size: 13px; color: #3a4a5a; margin-bottom: 16px; line-height: 1.5; }
+
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); padding-top: 60px; overflow-y: auto; }
+        .modal-content { background: #fff; max-width: 600px; margin: auto; padding: 24px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); position: relative; margin-bottom: 40px;}
+        .modal-close { position: absolute; right: 16px; top: 12px; font-size: 24px; cursor: pointer; color: #6c7a8a; }
+        .modal-close:hover { color: #1a2632; }
+        
+        .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+        .catalog-card { background: #f7f9fa; border: 1px solid #e0e4e8; padding: 12px 16px; border-radius: 4px; cursor: pointer; font-weight: 500; transition: 0.15s; font-size: 13px; }
+        .catalog-card:hover { border-color: #4a90d9; background: #f0f5fa; }
+        .catalog-card.full-width { grid-column: 1 / -1; }
+
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e8ecf0; font-size: 12px; color: #6c7a8a; text-align: center; }
+
+        .components-table th { background: #e8edf2; font-weight: 600; color: #1a2632; padding: 8px 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+        .components-table td { padding: 6px 10px; vertical-align: middle; }
+        .components-table .row-name { min-width: 160px; }
+        .components-table .row-url { min-width: 180px; }
+        .components-table .row-search { text-align: center; width: 50px; }
+        .components-table .row-qty { width: 80px; }
+        .components-table .row-price { width: 120px; }
+        .components-table .row-delete { text-align: center; width: 50px; }
+        .components-table .input-sm { height: 34px; font-size: 13px; padding: 4px 10px; }
+        .components-table .input-url-sm { height: 34px; font-size: 12px; padding: 4px 10px; }
+        .components-table tr:hover td { background: #f8faff; }
+        .components-table tfoot td { background: #f0f5fa; font-weight: 600; }
+
+        .text-regular { font-weight: 400; }
+        .text-regular td { font-weight: 400; }
+        .text-regular .right { font-weight: 400; }
+        .text-regular input { font-weight: 400; }
+        .section-results td { font-weight: 400; font-size: 15px; padding: 12px 14px; }
+        .section-results .right { font-weight: 400; font-size: 15px; }
+        .section-results .result-row td { font-weight: 700; font-size: 18px; }
+
+        .icon-text { display: inline-flex; align-items: center; gap: 8px; }
+        .icon-text .ico { font-size: 16px; line-height: 1; }
+
+        @media (max-width: 768px) {
+            body { padding: 16px 10px; }
+            .container { padding: 16px; }
+            .nav-primary { flex-direction: column; align-items: stretch; }
+            .nav-primary a { text-align: center; }
+            .nav-tabs { flex-direction: column; align-items: stretch; border-bottom: none; }
+            .nav-tabs a { border-bottom: 2px solid #e0e4e8; margin-bottom: 2px; justify-content: center; }
+            .nav-tabs a.active { border-bottom-color: #e68a00; }
+            .catalog-grid { grid-template-columns: 1fr; }
+            .components-table .row-url { min-width: 120px; }
+            .components-table .row-name { min-width: 100px; }
+        }
+        
+        @media print {
+            body { background: white; color: black; padding: 0; margin: 0; }
+            .container { box-shadow: none; border: none; max-width: 100%; padding:0;}
+            .nav-primary, .nav-tabs, .nav-divider, button, .info-hint, .row-delete, .row-search { display: none !important; }
+            .input-field, .input-url { border: none; background: transparent; padding: 0; outline: none; }
+            .table-responsive { overflow-x: visible; }
+            table { min-width: 100%; margin-bottom: 20px;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="main-title">
+        <span>Генератор</span> эффективности
+        <small>ASUIR Gemini</small>
+    </h1>
+    <div class="subtitle">Синтез моделей с наивысшей зарплатой и наинизшей себестоимостью</div>
+
+    <div class="nav-primary">
+        <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
+		<a href="flowsolve.html" class="active">🏠 FlowSolve (Анализ проблем)</a>
+        <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
+        <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
+        <a href="#" onclick="openModal('feedback-modal')">💡 Обратная связь</a>
+    </div>
+
+    <div class="nav-divider"></div>
+
+    <div class="nav-tabs" id="tabHeaders">
+        <a href="#" class="active" data-tab="tab1">
+            <span class="icon">💰</span><span class="label">1. Определяем общие затраты</span>
+        </a>
+        <a href="#" data-tab="tab2">
+            <span class="icon">📦</span><span class="label">2. Остальные издержки</span>
+        </a>
+        <a href="#" data-tab="tab3">
+            <span class="icon">⚙️</span><span class="label">3. Сырьё и комплектующие</span>
+        </a>
+        <a href="#" data-tab="tab4">
+            <span class="icon">📊</span><span class="label">4. Себестоимость</span>
+        </a>
+        <a href="#" data-tab="tab5">
+            <span class="icon">🎯</span><span class="label">5. Результаты</span>
+        </a>
+    </div>
+
+    <!-- ТАБ 1 -->
+    <div class="section active" id="tab1">
+        <h2 class="section-title">1. Определяем общие затраты</h2>
+        <div class="table-responsive">
+            <table class="text-regular">
+                <tr>
+                    <td>
+                        <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тип оборудования</span></span><br>
+                        <span style="font-size: 13px; color: #6c7a8a;">Выберите или введите оборудование для поиска на Alibaba</span>
+                    </td>
+                    <td class="right" style="width: 30%;">
+                        <div style="display: flex; gap: 8px; align-items: center; justify-content: flex-end;">
+                            <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="дрон assembly line" style="max-width: 180px;">
+                            <button class="btn-icon" onclick="searchAlibaba('equip')" title="Поиск на Alibaba">🔍</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на выбранный товар</span></span>
+                        <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)...">
+                    </td>
+                    <td class="right">
+                        <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Стоимость $</span><input type="number" id="val-equip" class="input-field input-field-sm" value="120000">
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество операторов</span></span></td>
+                    <td class="right">
+                        <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Зарплата одного оператора в месяц</span></span></td>
+                    <td class="right">
+                        $ <input type="number" id="val-salary" class="input-field input-field-sm" value="10000">
+                    </td>
+                </tr>
+                <tr class="total-row">
+                    <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Общие постоянные расходы за день</span></span></td>
+                    <td class="right">$ <span id="base-overhead">0</span></td>
+                </tr>
+                <tr class="total-row" style="background: #f0f5fa; border-top: 2px solid #1f4e78;">
+                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Общие затраты на оборудование и персонал (за день)</span></span></td>
+                    <td class="right">$ <span id="total-daily-cost">0</span></td>
+                </tr>
+            </table>
+        </div>
+        <div style="font-size:13px; color:#6c7a8a; margin-top:6px;">
+            ⚙️ Амортизация оборудования (5 лет) уже включена в расчёт.
+        </div>
+    </div>
+
+    <!-- ТАБ 2 -->
+    <div class="section" id="tab2">
+        <h2 class="section-title">2. Остальные издержки</h2>
+        <div class="table-responsive">
+            <table class="text-regular">
+                <tr>
+                    <td><span class="icon-text"><span class="ico">🏢</span> <span style="font-weight: 600;">Аренда помещения (за день)</span></span></td>
+                    <td class="right">$ <input type="number" id="val-rent" class="input-field input-field-sm" value="50"></td>
+                </tr>
+                <tr>
+                    <td><span class="icon-text"><span class="ico">🚚</span> <span style="font-weight: 600;">Логистика и доставка (за день)</span></span></td>
+                    <td class="right">$ <input type="number" id="val-logistics" class="input-field input-field-sm" value="30"></td>
+                </tr>
+                <tr>
+                    <td><span class="icon-text"><span class="ico">🔧</span> <span style="font-weight: 600;">Прочие расходы (за день)</span></span></td>
+                    <td class="right">$ <input type="number" id="val-other" class="input-field input-field-sm" value="20"></td>
+                </tr>
+                <tr class="total-row">
+                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Итого остальные издержки (за день)</span></span></td>
+                    <td class="right">$ <span id="total-other-costs">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ТАБ 3 -->
+    <div class="section" id="tab3">
+        <h2 class="section-title">3. Сырьё и комплектующие</h2>
+        <div class="info-hint">
+            💡 <b>Это лишь шаблон.</b> Вы можете удалять, добавлять свои строки. 🔍 Используйте иконку лупы для поиска. Если деталь оптовая, нажмите на иконку калькулятора 🧮 для расчета за 1 шт.
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+            <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог МКТУ</button>
+            <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0)">＋ Добавить строку</button>
+        </div>
+        <div class="table-responsive">
+            <table class="components-table">
+                <thead>
+                    <tr>
+                        <th class="row-name">📦 Название детали</th>
+                        <th class="row-url">🔗 Ссылка на товар</th>
+                        <th class="row-search">🔍</th>
+                        <th class="row-qty">📐 Кол-во</th>
+                        <th class="row-price">💰 Цена за 1 шт. ($)</th>
+                        <th class="row-delete"></th>
+                    </tr>
+                </thead>
+                <tbody id="component-dynamic-rows">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Итоговая стоимость сырья и комплектующих на 1 шт:</span></span></td>
+                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">0</span></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <!-- ТАБ 4 -->
+    <div class="section" id="tab4">
+        <h2 class="section-title">4. Полная себестоимость</h2>
+        <div class="table-responsive">
+            <table class="text-regular">
+                <tr>
+                    <td><span class="icon-text"><span class="ico">📦</span> <span style="font-weight: 400;">Сырьё и комплектующие (на 1 шт.)</span></span></td>
+                    <td class="right">$ <span id="cost-raw">0.00</span></td>
+                </tr>
+                <tr>
+                    <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 400;">Доля оборудования и персонала (на 1 шт.)</span></span></td>
+                    <td class="right">$ <span id="cost-equip-share">0.00</span></td>
+                </tr>
+                <tr>
+                    <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Остальные издержки (на 1 шт.)</span></span></td>
+                    <td class="right">$ <span id="cost-other-share">0.00</span></td>
+                </tr>
+                <tr class="result-row">
+                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 700;">Итоговая себестоимость 1 единицы продукции</span></span></td>
+                    <td class="right" style="font-size:20px; color:#1f4e78; font-weight:700;">$ <span id="total-product-cost">0.00</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ТАБ 5 -->
+    <div class="section" id="tab5">
+        <h2 class="section-title">5. Сводка финансовых результатов</h2>
+        <div class="table-responsive">
+            <table class="section-results">
+                <tr>
+                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Рыночная цена продажи (за 1 шт.)</span></td>
+                    <td class="right" style="font-weight: 400; font-size: 15px;">
+                        $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Необходимая производительность (шт./день)</span></td>
+                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Срок полной окупаемости оборудования</span></td>
+                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> дней</td>
+                </tr>
+                <tr class="result-row">
+                    <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Прогнозируемая чистая прибыль с 1 линии за 1 мес.</span></td>
+                    <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
+                </tr>
+            </table>
+        </div>
+        <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button>
+    </div>
+
+    <div class="footer">
+        © Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование.
+    </div>
+</div>
+
+<!-- МОДАЛКИ -->
+<div id="catalog-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('catalog-modal')">&times;</span>
+        <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">Выберите категорию производства (МКТУ)</h3>
+        <div class="catalog-grid">
+            <div class="catalog-card" onclick="loadCatalogTemplate('drone')">🚁 Дроны и Радиоэлектроника</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📱 Планшеты / Мобильные устройства</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 Телевизоры и дисплеи</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Телеком и компьютеры</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Хлебопекарная линия</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('jewelry')">💍 Ювелирные изделия</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('watch')">⌚ Сборка часов</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('costume')">💎 Производство бижутерии</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('clothes')">👗 Пошив одежды</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('furniture')">🛋️ Мебель</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('instruments')">🔬 Измерительные приборы</div>
+            <div class="catalog-card" onclick="loadCatalogTemplate('cnc')">⚙️ Настольные ЧПУ станки</div>
+            <div class="catalog-card full-width" onclick="loadCatalogTemplate('universal')">📦 Другой товар (Универсальный шаблон)</div>
+        </div>
+    </div>
+</div>
+
+<div id="bulk-modal" class="modal">
+    <div class="modal-content" style="max-width:400px;">
+        <span class="modal-close" onclick="closeModal('bulk-modal')">&times;</span>
+        <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">🧮 Калькулятор оптовой партии</h3>
+        <p style="font-size: 12px; color: #6c7a8a; margin-bottom: 15px;">Если деталь продается оптом (например, 1000 шт. за $50), введите данные, и система вычислит точную цену за 1 шт.</p>
+        <div style="margin-bottom: 10px;">
+            <label style="font-size: 13px; font-weight: 600;">💰 Стоимость всей партии ($):</label>
+            <input type="number" id="bulk-total-price" class="input-field" placeholder="Например: 50" style="margin-top:4px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="font-size: 13px; font-weight: 600;">📐 Количество штук (или грамм) в партии:</label>
+            <input type="number" id="bulk-total-qty" class="input-field" placeholder="Например: 1000" style="margin-top:4px;">
+        </div>
+        <button onclick="applyBulkCalc()" class="btn btn-primary btn-block">🧮 Рассчитать и применить</button>
+    </div>
+</div>
+
+<div id="feedback-modal" class="modal">
+    <div class="modal-content" style="max-width:500px;">
+        <span class="modal-close" onclick="closeModal('feedback-modal')">&times;</span>
+        <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom: 15px;">💡 Обратная связь</h3>
+        <form id="feedback-form" onsubmit="handleFormSubmit(event, 'ru')">
+            <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что вам понравилось в системе?</label>
+            <textarea id="fb-like" rows="3" class="input-field" style="height:auto; resize:vertical; margin-bottom: 15px;"></textarea>
+            
+            <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что стоит улучшить или добавить?</label>
+            <textarea id="fb-dislike" rows="4" required class="input-field" style="height:auto; resize:vertical; margin-bottom: 20px;"></textarea>
+            
+            <button type="submit" class="btn btn-primary btn-block">Отправить письмо</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ===== ПЕРЕКЛЮЧЕНИЕ ТАБОВ =====
+    document.querySelectorAll('#tabHeaders a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(this.dataset.tab).classList.add('active');
+        });
+    });
+
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    window.onclick = function(event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; }
+
+    // ===== ПОИСК НА ALIBABA =====
+    function searchAlibaba(rowId) {
+        if (rowId === 'equip') {
+            const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
+            window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+        } else {
+            const nameInput = document.getElementById(rowId + '-name');
+            if (nameInput) {
+                const query = nameInput.value.trim() || 'Material';
+                window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+            }
+        }
+    }
+
+    // ===== ОБРАТНАЯ СВЯЗЬ =====
+    function handleFormSubmit(event, lang) {
+        event.preventDefault();                
+        const likedText = document.getElementById('fb-like').value.trim();
+        const dislikedText = document.getElementById('fb-dislike').value.trim();
+        let subject = "Feedback from ASUIR Gemini (RU)";
+        let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
+        
+        window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        setTimeout(function() { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
+    }
+
+    // ===== ОПТОВАЯ ПАРТИЯ =====
+    let activeBulkRowId = null;
+
+    function openBulkCalc(rowId) {
+        activeBulkRowId = rowId;
+        document.getElementById('bulk-total-price').value = '';
+        document.getElementById('bulk-total-qty').value = '';
+        openModal('bulk-modal');
+    }
+
+    function applyBulkCalc() {
+        const totalPrice = parseFloat(document.getElementById('bulk-total-price').value) || 0;
+        const totalQty = parseFloat(document.getElementById('bulk-total-qty').value) || 1;
+        const unitPrice = totalQty > 0 ? totalPrice / totalQty : 0;
+        if (activeBulkRowId) {
+            const priceInput = document.getElementById(activeBulkRowId + '-price');
+            if (priceInput) {
+                priceInput.value = unitPrice.toFixed(4);
+                calculateAll();
+            }
+        }
+        closeModal('bulk-modal');
+    }
+
+    // ===== ДОБАВИТЬ СТРОКУ =====
+    function addComponentRow(name, qty, price) {
+        const tbody = document.getElementById('component-dynamic-rows');
+        const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
+        const tr = document.createElement('tr');
+        tr.id = rowId;
+        tr.innerHTML = `
+            <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
+            <td><input type="text" id="${rowId}-url" class="input-url input-url-sm" placeholder="🔗 Вставьте ссылку..."></td>
+            <td class="row-search">
+                <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+            </td>
+            <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+            <td>
+                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                    <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
+                </div>
+            </td>
+            <td class="row-delete">
+                <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+        calculateAll();
+    }
+
+    // ===== БАЗА ДАННЫХ КАТАЛОГА =====
+    const catalogDB = {
+        'drone': { eq: '120000', mkt: '423', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
+        'tablet': { eq: '45000', mkt: '150', q: 'tablet assembly equipment', c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]] },
+        'tv': { eq: '280000', mkt: '550', q: 'lcd tv assembly line', c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]] },
+        'pc': { eq: '180000', mkt: '1100', q: 'computer assembly machine', c: [['Процессор (Desktop CPU)', 1, 340.0], ['Графическая карта (GPU)', 1, 520.0], ['Материнская плата ATX/ITX', 1, 140.0], ['Оперативная память (RAM)', 1, 105.0], ['Накопитель SSD NVMe 2TB', 1, 115.0], ['Корпус и блок питания', 1, 130.0]] },
+        'bakery': { eq: '45000', mkt: '1.5', q: 'commercial bakery line', c: [['Мука высшего сорта (кг)', 0.6, 0.4], ['Дрожжи и добавки', 1, 0.05], ['Упаковочный пакет', 1, 0.08]] },
+        'jewelry': { eq: '45000', mkt: '350', q: 'jewelry casting machine', c: [['Золото/Серебро в гранулах', 10, 8.0], ['Вставки (камни, фианиты)', 2, 20.0], ['Ювелирная фурнитура', 1, 5.0], ['Бархатный футляр', 1, 5.0]] },
+        'watch': { eq: '35000', mkt: '450', q: 'watch assembly tools', c: [['Корпус и сапфировое стекло', 1, 30.0], ['Точный часовой механизм', 1, 40.0], ['Циферблат и стрелки', 1, 10.0], ['Ремешок (кожа/металл)', 1, 15.0], ['Подарочный футляр', 1, 8.0]] },
+        'costume': { eq: '15000', mkt: '25', q: 'costume jewelry press', c: [['Сплав (Заготовка)', 1, 2.0], ['Декоративные стразы', 1, 1.0], ['Фурнитура', 1, 0.5], ['Эко-пакетик', 1, 1.5]] },
+        'clothes': { eq: '35000', mkt: '65', q: 'industrial sewing machine', c: [['Текстиль (метры)', 1.8, 12.0], ['Мягкая подкладка', 1.2, 3.5], ['Нити и фурнитура', 1, 5.0], ['Упаковка и бирка', 1, 1.5]] },
+        'furniture': { eq: '90000', mkt: '280', q: 'cnc woodworking machine', c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]] },
+        'instruments': { eq: '110000', mkt: '450', q: 'precision assembly machine', c: [['Сенсорный измерительный модуль', 1, 120.0], ['Плата обработки сигналов', 1, 65.0], ['ЖК-дисплей', 1, 25.0], ['Ударопрочный корпус IP65', 1, 40.0]] },
+        'cnc': { eq: '25000', mkt: '1500', q: 'desktop cnc machine', c: [['Алюминиевая станина', 1, 300.0], ['Шаговые моторы', 1, 150.0], ['Контроллер ЧПУ', 1, 80.0], ['Шпиндель и блок питания', 1, 200.0]] },
+        'universal': { eq: '60000', mkt: '200', q: 'manufacturing machine', c: [['Основной базовый материал', 1, 40.0], ['Функциональные модули', 1, 25.0], ['Декоративный корпус', 1, 12.0], ['Потребительская коробка', 1, 3.0]] }
+    };
+
+    function loadCatalogTemplate(key) {
+        closeModal('catalog-modal');
+        const data = catalogDB[key] || catalogDB['universal'];
+        document.getElementById('val-equip').value = data.eq;
+        document.getElementById('market-price-input').value = data.mkt;
+        document.getElementById('equip-search-query').value = data.q;
+        
+        const tbody = document.getElementById('component-dynamic-rows');
+        tbody.innerHTML = '';
+        data.c.forEach(item => addComponentRow(item[0], item[1], item[2]));
+        calculateAll();
+    }
+
+    // ===== ЗАГРУЗИТЬ ПРИМЕР (ПО УМОЛЧАНИЮ) =====
+    function loadDemoComponents() {
+        loadCatalogTemplate('drone');
+    }
+
+    // ===== ОСНОВНОЙ РАСЧЁТ =====
+    function calculateAll() {
+        const equip = parseFloat(document.getElementById('val-equip').value) || 0;
+        const staff = parseFloat(document.getElementById('val-staff').value) || 0;
+        const salary = parseFloat(document.getElementById('val-salary').value) || 0;
+        const rent = parseFloat(document.getElementById('val-rent').value) || 0;
+        const logistics = parseFloat(document.getElementById('val-logistics').value) || 0;
+        const other = parseFloat(document.getElementById('val-other').value) || 0;
+        const market = parseFloat(document.getElementById('market-price-input').value) || 0;
+
+        let rawCost = 0;
+        document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
+            const inputs = tr.querySelectorAll('input');
+            if (inputs.length >= 3) {
+                const qty = parseFloat(inputs[2]?.value) || 0;
+                const price = parseFloat(inputs[3]?.value) || 0;
+                rawCost += qty * price;
+            }
+        });
+        document.getElementById('total-bom-cost').textContent = rawCost.toFixed(2);
+
+        const amort = equip / 5 / 365;
+        const salaryPerDay = (salary * staff) / 30;
+        const overhead = amort + salaryPerDay;
+        document.getElementById('base-overhead').textContent = Math.round(overhead);
+        document.getElementById('total-daily-cost').textContent = Math.round(overhead);
+
+        const otherCosts = rent + logistics + other;
+        document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
+
+        const totalDailyCost = overhead + otherCosts;
+        const perf = rawCost > 0 ? Math.ceil(totalDailyCost / (rawCost * 0.1)) : 0;
+        const machineShare = perf > 0 ? totalDailyCost / perf : 0;
+        const otherShare = perf > 0 ? otherCosts / perf : 0;
+        const totalCost = rawCost + machineShare + otherShare;
+
+        document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
+        document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
+        document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
+        document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
+
+        document.getElementById('perf-val').textContent = perf;
+        const profitPerDay = perf * (market - totalCost);
+        const monthProfit = Math.round(profitPerDay * 30);
+        const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
+        document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
+        document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
+    }
+
+    document.addEventListener('input', calculateAll);
+
+    window.onload = function() {
+        loadDemoComponents();
+    };
+</script>
+
+</body>
+</html>

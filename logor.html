@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>АСУИР — Журнал</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 0.5em;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        td.intent {
+            width: 20%;
+        }
+
+        td.actor {
+            width: 20%;
+        }
+
+        td.node {
+            width: 25%;
+        }
+
+        td.time {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Журнал Действий</h1>
+        <p class="sub">Все цели, роли, узлы и времена</p>
+    </header>
+
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>🎯 Цель</th>
+                    <th>🧩 Актор</th>
+                    <th>📍 Узел</th>
+                    <th>⏱ Время</th>
+                </tr>
+            </thead>
+            <tbody id="log-body">
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <a href="panel.html">← Панель</a>
+    </footer>
+
+    <script>
+        fetch('log.json')
+      .then(res => res.json())
+      .then(data => {
+        const body = document.getElementById('log-body');
+        data.forEach(entry => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td class="intent">${entry.intent}</td>
+            <td class="actor">${entry.actor}</td>
+            <td class="node">${entry.node}</td>
+            <td class="time">${entry.time}</td>
+          `;
+          body.appendChild(row);
+        });
+      });
+    </script>
+
+</body>
+
+</html>

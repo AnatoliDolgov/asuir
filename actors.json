@@ -1,0 +1,39 @@
+[
+    {
+        "name": "визуализатор",
+        "description": "Отвечает за отображение структуры, карт и маршрутов",
+        "nodes": [
+            "map01",
+            "trailor01",
+            "mindor01"
+        ],
+        "entry": "map.html"
+    },
+    {
+        "name": "редактор",
+        "description": "Управляет узлами, связями и структурой сценариев",
+        "nodes": [
+            "scriptor01",
+            "editor01"
+        ],
+        "entry": "scriptor.html"
+    },
+    {
+        "name": "исполнитель",
+        "description": "Запускает сценарии и пошаговое исполнение",
+        "nodes": [
+            "exec01",
+            "intentor01"
+        ],
+        "entry": "exec.html"
+    },
+    {
+        "name": "координатор",
+        "description": "Фиксирует состояние мышления и маршрут",
+        "nodes": [
+            "mindor01",
+            "trailor01"
+        ],
+        "entry": "mindor.html"
+    }
+]

@@ -1,0 +1,1512 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+.bodySiteDefault {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    width: 70%;
+}
+
+.bodySiteQuery {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    width: 99.8%;
+    height: auto;
+}
+
+.bodySiteQuery95 {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    width: 95%;
+}
+
+.bodyPart {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    width: 55%;
+}
+
+.project {
+    color: rgb(103, 101, 101);
+    font-family: Times New Roman;
+    font-size: 48pt;
+}
+
+.project2 {
+    color: rgb(103, 101, 101);
+    font-family: Times New Roman;
+    font-size: 24pt;
+}
+
+.container {
+    background-color: rgb(245, 247, 249);
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.SearchTextBox {
+    text-align: center;
+}
+
+.Arent {
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide
+input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+/* Innovation Matrix - menu */
+
+#navi {
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#navi li {
+    display: inline;
+    position: relative;
+}
+
+#navi a {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+#navi ul {
+    /*top:100%; Uncommenting this makes the dropdowns work in IE7 but looks a little worse in all other browsers. Your call. */
+    left: -9999px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+}
+
+#navi ul li {
+    display: block;
+}
+
+#navi li:hover ul {
+    left: 0;
+}
+
+#navi li:hover a {
+    background: #f1f1f1;
+    text-decoration: underline;
+}
+
+#navi li:hover ul a {
+    background: none;
+    text-decoration: none;
+}
+
+#navi li:hover ul a:hover {
+    background: #f1f1f1;
+    text-decoration: underline;
+}
+
+#navi ul a {
+    border-bottom: 1px solid #ccc;
+    display: block;
+    white-space: nowrap;
+}
+
+a {
+    color: #444242;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    background: #f1f1f1;
+    text-decoration: underline;
+}
+
+.menu a:hover {
+    background: #f1f1f1;
+    text-decoration: none;
+}
+
+/*
+.menu:hover {
+    background: rgb(83, 81, 81);
+}
+*/
+
+/* Innovation Matrix - menu */
+
+#naviblack {
+    border: 1px solid #514e4e;
+    border-width: 1px 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#naviblack li {
+    display: inline;
+    position: relative;
+}
+
+#naviblack a {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+#naviblack ul {
+    /*top:100%; Uncommenting this makes the dropdowns work in IE7 but looks a little worse in all other browsers. Your call. */
+    left: -9999px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+}
+
+#naviblack ul li {
+    display: block;
+}
+
+#naviblack li:hover ul {
+    left: 0;
+}
+
+#naviblack li:hover a {
+    background: #514e4e;
+    text-decoration: underline;
+}
+
+#naviblack li:hover ul a {
+    background: none;
+    text-decoration: none;
+}
+
+#naviblack li:hover ul a:hover {
+    background: #f1f1f1;
+    text-decoration: underline;
+}
+
+#naviblack ul a {
+    border-bottom: 1px solid #514e4e;
+    display: block;
+    white-space: nowrap;
+}
+
+/* 5 колонок в Bootstrap */
+
+.col-xs-1-5,
+.col-sm-1-5,
+.col-md-1-5,
+.col-lg-1-5 {
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+}
+
+.col-xs-1-5 {
+    float: left;
+    width: 20%;
+}
+
+@media (min-width: 768px) {
+    .col-sm-1-5 {
+        float: left;
+        width: 20%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-1-5 {
+        float: left;
+        width: 20%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-1-5 {
+        float: left;
+        width: 20%;
+    }
+}
+
+/*
+inspired from http://codepen.io/Rowno/pen/Afykb
+*/
+
+.carousel-fade .carousel-inner .item {
+    /* ReSharper disable once CssBrowserCompatibility */
+    opacity: 0;
+    /* ReSharper disable once CssBrowserCompatibility */
+    transition-property: opacity;
+}
+
+/* ReSharper disable once CssBrowserCompatibility */
+.carousel-fade .carousel-inner .active {
+    opacity: 1;
+}
+
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+    left: 0;
+    /* ReSharper disable once CssBrowserCompatibility */
+    opacity: 0;
+    z-index: 1;
+}
+
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
+.carousel-fade .carousel-inner .next.left,
+    /* ReSharper disable once CssBrowserCompatibility */
+.carousel-fade .carousel-inner .prev.right {
+    opacity: 1;
+}
+
+.carousel-fade .carousel-control {
+    z-index: 2;
+}
+
+/*
+WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
+now override the 3.3 new styles for modern browsers & apply opacity
+*/
+
+/* ReSharper disable once CssNotResolved */
+
+@media all and (transform-3d), (-webkit-transform-3d) {
+    .carousel-fade .carousel-inner > .item.next,
+    .carousel-fade .carousel-inner > .item.active.right {
+        -webkit-transform: translate3d(0, 0, 0);
+        /* ReSharper disable once CssBrowserCompatibility */
+        opacity: 0;
+        /* ReSharper disable once CssBrowserCompatibility */
+        transform: translate3d(0, 0, 0);
+    }
+
+    .carousel-fade .carousel-inner > .item.prev,
+    .carousel-fade .carousel-inner > .item.active.left {
+        -webkit-transform: translate3d(0, 0, 0);
+        /* ReSharper disable once CssBrowserCompatibility */
+        opacity: 0;
+        /* ReSharper disable once CssBrowserCompatibility */
+        transform: translate3d(0, 0, 0);
+    }
+
+    .carousel-fade .carousel-inner > .item.next.left,
+    .carousel-fade .carousel-inner > .item.prev.right,
+    .carousel-fade .carousel-inner > .item.active {
+        -webkit-transform: translate3d(0, 0, 0);
+        /* ReSharper disable once CssBrowserCompatibility */
+        opacity: 1;
+        /* ReSharper disable once CssBrowserCompatibility */
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.textboxwidth {
+    width: 800px
+}
+
+/* Wrapping element */
+
+/* Set some basic padding to keep content from hitting the edges */
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.bodySite {
+    font-family: Verdana;
+    font-size: 8pt;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    vertical-align: top;
+    width: 100%;
+}
+
+.bodywrapper {
+    width: 100%;
+}
+
+.sitelogobox {
+    color: #65738e;
+    font-family: Palatino;
+    font-size: 7pt;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+    margin-top: 2px;
+    vertical-align: bottom;
+}
+
+.imglogo {
+    height: 88px;
+    width: 491px;
+}
+
+#columnleft {
+    float: left;
+    width: 180px;
+}
+
+.columnleft {
+    float: left;
+    width: 180px;
+}
+
+#columnleft_iframe {
+    float: left;
+    width: 5px;
+}
+
+#columnright {
+    border-left: #dcdcdc 1px dotted;
+    height: 500px;
+    margin-left: 190px;
+}
+
+.item {
+    background-color: #E0FFFF;
+}
+
+.alternatingItem {
+    background-color: #B0E0E6;
+}
+
+.drop-down-list {
+    direction: rtl;
+}
+
+.td-border-left-listview {
+    font-size: 9pt;
+    padding: 20px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.td-border-center-listview {
+    font-size: 9pt;
+    padding: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.td-border-center2-listview {
+    font-size: 9pt;
+    padding: 10px;
+    text-align: center;
+    vertical-align: central;
+}
+
+.td-border-left-hyperlink {
+    padding-bottom: 25px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+.td-border-right-hyperlink {
+    padding-top: 5px;
+    text-align: right;
+    vertical-align: top;
+}
+
+.td-border-left-modebasiclabel {
+    padding-bottom: 25px;
+    text-align: left;
+}
+
+.td-border-left-additionbasiclabel {
+    padding-bottom: 0;
+    text-align: left;
+}
+
+.td-border-left-grouplabel {
+    text-align: left;
+}
+
+.panel-padding {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/*CSS for Accordion*/
+
+.accordionHeader {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    font-family: Arial, Sans-Serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 2px;
+    padding: 1px;
+}
+
+.accordionContent {
+    background-color: white;
+    padding-left: 9px;
+}
+
+/* Helps position submenu */
+
+.dropdown-submenu {
+    position: relative;
+}
+
+/* Menus under the submenu should show up on the right of the parent */
+
+.dropdown-submenu > .dropdown-menu {
+    -moz-border-radius: 0 6px 6px 6px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    /* ReSharper disable once CssBrowserCompatibility */
+    border-radius: 0 6px 6px 6px;
+    left: 100%;
+    margin-left: -1px;
+    margin-top: -6px;
+    top: 0;
+}
+
+/* Make submenu visible when hovering on link */
+
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block; /* block */
+}
+
+/* Add carot to submenu links */
+
+.dropdown-submenu > a:after {
+    border-color: transparent;
+    border-left-color: #cccccc;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    color: #cccccc;
+    /*simple */
+    content: "?";
+    display: block;
+    float: right;
+    height: 0;
+    margin-right: -10px;
+    margin-top: 5px;
+    /* looks a little better */
+    width: 0;
+}
+
+/* Change carot color on hover */
+
+.dropdown-submenu:hover > a:after {
+    border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none !important;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu {
+    -moz-border-radius: 6px 0 6px 6px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    /* ReSharper disable once CssBrowserCompatibility */
+    border-radius: 6px 0 6px 6px;
+    left: -100%;
+    margin-left: 10px;
+}
+
+/* ====== верхняя и нижняя горизонтальная линия меню ===========*/
+
+.backgroundCap03 {
+    height: 7px;
+}
+
+.backgroundCap03_inv {
+    height: 7px;
+}
+
+/* ====== центральная часть меню ===========*/
+
+.backgroundCap07 {
+    font-size: 9pt;
+    text-align: center;
+    vertical-align: inherit;
+}
+
+/* ajax__tab_yuitabview-theme theme (img/yui/sprite.png) */
+
+.ajax__tab_yuitabview-theme .ajax__tab_header {
+    border-bottom: solid 5px #2647a0;
+    font-family: arial, helvetica, clean, sans-serif;
+    font-size: small;
+}
+
+.ajax__tab_yuitabview-theme .ajax__tab_header .ajax__tab_outer {
+    background: url(img/yui/sprite.png) #d8d8d8 repeat-x;
+    border: solid 1px #a3a3a3;
+    border-bottom-width: 0;
+    margin: 0 0.16em 0 0;
+    padding: 1px 0 1px 0;
+    vertical-align: bottom;
+}
+
+.ajax__tab_yuitabview-theme .ajax__tab_header .ajax__tab_tab {
+    color: #000;
+    margin-right: 0.01em;
+    padding: 0.35em 0.75em;
+}
+
+.ajax__tab_yuitabview-theme .ajax__tab_hover .ajax__tab_outer {
+    background: url(img/yui/sprite.png) #bfdaff repeat-x left -1300px;
+}
+
+.ajax__tab_yuitabview-theme .ajax__tab_active .ajax__tab_tab {
+    color: #fff;
+}
+
+.ajax__tab_yuitabview-theme .ajax__tab_active .ajax__tab_outer {
+    background: url(img/yui/sprite.png) #2647a0 repeat-x left -1400px;
+}
+
+.ajax__tab_yuitabview-theme .ajax__tab_body {
+    background-color: #edf5ff;
+    border: solid 1px #808080;
+    border-top-width: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 0.25em 0.5em;
+}
+
+/*Tab Red*/
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_header /* стиль для заголовка вкладки */
+{
+    border-bottom: solid 5px #990000;
+    font-family: arial, helvetica, clean, sans-serif;
+    font-size: small;
+}
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_header .ajax__tab_outer /* задание левого фонового изображения на вкладке */
+{
+    /* ReSharper disable once Html.PathError */
+    background: #D49E97 url('~/Content/images/sprite.png') repeat-x;
+    border-bottom: 0 solid #FB0202;
+    border-left: 1px solid #FB0202;
+    border-right: 1px solid #FB0202;
+    border-top: 1px solid #FB0202;
+    margin: 0;
+    margin-left: 0;
+    margin-right: 0.16em;
+    margin-top: 0;
+    padding: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 1px;
+    vertical-align: bottom;
+}
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_header .ajax__tab_tab /* элемент на вкладку, которая содержит текстовое содержимое */
+{
+    color: #000;
+    margin-right: 0.01em;
+    padding: 0.35em 0.75em;
+}
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_hover .ajax__tab_outer /* применения стилей для вкладки, когда мышь нависнет над */
+{
+    background: #bfdaff url('~/Content/img/yui/sprite.png') repeat-x left -1300px;
+}
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_active .ajax__tab_tab /* применения стилей для выбранной вкладки */
+{
+    color: #fff;
+}
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_active .ajax__tab_outer /* применения стилей для выбранной вкладки */
+{
+    background: #990000 url('~/Content/img/yui/sprite.png') repeat-x left -1400px;
+}
+
+.ajax__tab_yuitabview-theme2 .ajax__tab_body /* применения стилей для контейнера TabPanel */
+{
+    background-color: #edf5ff;
+    border: solid 1px #808080;
+    border-top-width: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 0.25em 0.5em;
+}
+
+.separator {
+    border-right: 1px solid #ccc;
+    height: 6px;
+}
+
+/* Tab green*/
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_header { /* стиль для заголовка вкладки */
+    border-bottom: solid 5px #14762D;
+    font-family: arial, helvetica, clean, sans-serif;
+    font-size: small;
+}
+
+/* не выбранная вкладка */
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_header .ajax__tab_outer { /* задание левого фонового изображения на вкладке */
+    background: #97D4A7 url('~/Content/img/yui/sprite.png') repeat-x; /* цвет фона не выбранной вкладки */
+    border-bottom: 0 solid #2C9547;
+    border-left: 1px solid #2C9547;
+    border-right: 1px solid #2C9547;
+    border-top: 1px solid #2C9547;
+    margin: 0;
+    margin-left: 0;
+    margin-right: 0.16em;
+    margin-top: 0;
+    padding: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 1px;
+    vertical-align: bottom;
+}
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_header .ajax__tab_tab { /* элемент на вкладку, которая содержит текстовое содержимое */
+    color: #000;
+    margin-right: 0.01em;
+    padding: 0.35em 0.75em;
+}
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_hover .ajax__tab_outer { /* применения стилей для вкладки, когда мышь нависнет над */
+    background: #bfdaff url('~/Content/img/yui/sprite.png') repeat-x left -1300px;
+}
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_active .ajax__tab_tab { /* применения стилей для выбранной вкладки */
+    color: #fff;
+}
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_active .ajax__tab_outer { /* применения стилей для выбранной вкладки */
+    background: #14762D url('~/Content/img/yui/sprite.png') repeat-x left -1400px;
+}
+
+.ajax__tab_yuitabview-theme1 .ajax__tab_body { /* применения стилей для контейнера TabPanel */
+    background-color: #edf5ff;
+    border: solid 1px #808080;
+    border-top-width: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 0.25em 0.5em;
+}
+
+.ajax__html_editor_extender_texteditor {
+    overflow-wrap: break-word;
+}
+
+/* Tab gray*/
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_header { /* стиль для заголовка вкладки */
+    border-bottom: solid 5px #76bb1f; /* цвет нижней длинной рамки*/
+    font-family: arial, helvetica, clean, sans-serif;
+    font-size: small;
+    font-weight: lighter;
+}
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_header .ajax__tab_outer { /* задание левого фонового изображения на вкладке */
+    background: #cbcbcb url('~/Content/img/yui/sprite.png') repeat-x; /* цвет фона не выбранной вкладки */
+    border-bottom: 0 solid rgb(35, 47, 62); /* цвет рамки при наведении на выбранную вкладку*/
+    border-left: 1px solid rgb(35, 47, 62); /* цвет рамки при наведении на выбранную вкладку*/
+    border-right: 1px solid rgb(35, 47, 62); /* цвет рамки при наведении на выбранную вкладку*/
+    border-top: 1px solid rgb(35, 47, 62); /* цвет рамки при наведении на выбранную вкладку*/
+    margin: 0;
+    margin-left: 0;
+    margin-right: 0.16em;
+    margin-top: 0;
+    padding: 1px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 1px;
+    vertical-align: bottom;
+}
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_header .ajax__tab_tab { /* элемент на вкладку, которая содержит текстовое содержимое */
+    color: #5d5b5b; /* цвет букв не выбранной вкладки*/
+    font-weight: lighter;
+    margin-right: 0.01em;
+    padding: 0.35em 0.75em;
+}
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_hover .ajax__tab_outer { /* применения стилей для вкладки, когда мышь нависнет над */
+    background: #cbcbcb url('~/Content/img/yui/sprite.png') repeat-x left -1300px;
+}
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_active .ajax__tab_tab { /* применения стилей для выбранной вкладки */
+    color: #fefefe; /* цвет букв выбранного таб*/
+}
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_active .ajax__tab_outer { /* применения стилей для выбранной вкладки */
+    background: rgb(35, 47, 62) url('~/Content/img/yui/sprite.png') repeat-x left -1400px; /* цвет фона выбранной таб*/
+}
+
+.ajax__tab_yuitabview-theme4 .ajax__tab_body { /* применения стилей для контейнера TabPanel */
+    background-color: #ffffff; /* цвет фона панели выбранного таб*/
+    border: solid 1px #808080; /* цвет рамки выбранной панели */
+    border-top-width: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    font-weight: lighter;
+    padding: 0.25em 0.5em;
+}
+
+/* xp theme*/
+
+.ajax__tab_xp-theme .ajax__tab_header {
+    background: url(img/xp/tab-line.gif) repeat-x bottom;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 11px;
+}
+
+.ajax__tab_xp-theme .ajax__tab_header .ajax__tab_outer {
+    background: url(img/xp/tab-right.gif) no-repeat right;
+    height: 21px;
+    padding-right: 4px;
+}
+
+.ajax__tab_xp-theme .ajax__tab_header .ajax__tab_inner {
+    background: url(img/xp/tab-left.gif) no-repeat;
+    padding-left: 3px;
+}
+
+.ajax__tab_xp-theme .ajax__tab_header .ajax__tab_tab {
+    background: url(img/xp/tab.gif) repeat-x;
+    height: 13px;
+    margin: 0;
+    padding: 4px;
+}
+
+.ajax__tab_xp-theme .ajax__tab_hover .ajax__tab_outer {
+    background: url(img/xp/tab-hover-right.gif) no-repeat right;
+}
+
+.ajax__tab_xp-theme .ajax__tab_hover .ajax__tab_inner {
+    background: url(img/xp/tab-hover-left.gif) no-repeat;
+}
+
+.ajax__tab_xp-theme .ajax__tab_hover .ajax__tab_tab {
+    background: url(img/xp/tab-hover.gif) repeat-x;
+}
+
+.ajax__tab_xp-theme .ajax__tab_active .ajax__tab_outer {
+    background: url(img/xp/tab-active-right.gif) no-repeat right;
+}
+
+.ajax__tab_xp-theme .ajax__tab_active .ajax__tab_inner {
+    background: url(img/xp/tab-active-left.gif) no-repeat;
+}
+
+.ajax__tab_xp-theme .ajax__tab_active .ajax__tab_tab {
+    background: url(img/xp/tab-active.gif) repeat-x;
+}
+
+.ajax__tab_xp-theme .ajax__tab_body {
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    border-top: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 8px;
+}
+
+/* Tab ajax__tab_technorati-theme theme - прозрачные обычные по размеру рамки с небольшими буквами*/
+
+.ajax__tab_technorati-theme .ajax__tab_header {
+    background: url('img/technorati/tab-line.png') repeat-x bottom;
+    display: block;
+    font-family: "Helvetica Neue", Arial, Sans-Serif;
+    font-size: 12px;
+}
+
+.ajax__tab_technorati-theme .ajax__tab_header .ajax__tab_outer {
+    background: url('img/technorati/tab.png') no-repeat left top;
+    border-color: #222;
+    color: #222;
+    margin-right: 3px;
+    padding-left: 10px;
+}
+
+.ajax__tab_technorati-theme .ajax__tab_header .ajax__tab_inner {
+    background: url('img/technorati/tab.png') no-repeat right top;
+    border-color: #666;
+    color: #666;
+    padding: 2px;
+    padding-left: 0;
+    padding-right: 10px;
+    padding-top: 3px;
+}
+
+.ajax__tab_technorati-theme .ajax__tab_hover .ajax__tab_inner {
+    color: #000000;
+}
+
+.ajax__tab_technorati-theme .ajax__tab_active .ajax__tab_outer {
+    background: url('img/technorati/tab.png') no-repeat 0 -40px;
+    border-bottom-color: #ffffff;
+}
+
+.ajax__tab_technorati-theme .ajax__tab_active .ajax__tab_inner {
+    background: url('img/technorati/tab.png') no-repeat right -40px;
+    border-color: #333;
+    color: #000000;
+}
+
+.ajax__tab_technorati-theme .ajax__tab_body {
+    background-color: #ffffff;
+    border-bottom: 1px solid #d7d7d7;
+    border-left: 1px solid #d7d7d7;
+    border-right: 1px solid #d7d7d7;
+    border-top: 0 solid #d7d7d7;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 8px;
+}
+
+/* Tab ajax__tab_msngallery-theme theme - прозрачные табы, разные по высоте, в зависимости от размера заголовка*/
+
+.ajax__tab_msngallery-theme .ajax__tab_header {
+    background: url('img/msngallery/tab-line.png') repeat-x bottom;
+    display: block;
+    font-size: 12px;
+}
+
+.ajax__tab_msngallery-theme .ajax__tab_header .ajax__tab_outer {
+    background-color: #edf2fb;
+    border: solid 1px #D7DCE1;
+    border-bottom: solid 2px #A8D4D9;
+    padding: 1px 1px 0 1px;
+}
+
+.ajax__tab_msngallery-theme .ajax__tab_header .ajax__tab_tab {
+    color: #444444;
+    display: block;
+    padding: 6px 10px 6px 10px;
+    text-align: center;
+    width: 117px;
+}
+
+.ajax__tab_msngallery-theme .ajax__tab_header .ajax__tab_tab img {
+    height: 24px;
+    width: 24px;
+}
+
+.ajax__tab_msngallery-theme .ajax__tab_header .ajax__tab_tab div {
+    font-family: Verdana, Arial, Sans-Serif;
+    font-size: 92%;
+    font-weight: bold;
+    line-height: 145%;
+    white-space: nowrap;
+}
+
+.ajax__tab_msngallery-theme .ajax__tab_active .ajax__tab_outer {
+    background-color: #ffffff;
+    border: solid 2px #A8D4D9;
+    border-bottom-color: #ffffff;
+    padding: 0 0 0 0;
+}
+
+.ajax__tab_msngallery-theme .ajax__tab_body {
+    background-color: #ffffff;
+    border-bottom: 2px solid #A8D4D9;
+    border-left: 2px solid #A8D4D9;
+    border-right: 2px solid #A8D4D9;
+    border-top: 0 solid #A8D4D9;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 8px;
+}
+
+/* ajax__tab_ie-theme theme */
+
+.ajax__tab_ie-theme .ajax__tab_header {
+    padding-left: 5px;
+}
+
+.ajax__tab_ie-theme .ajax__tab_header .ajax__tab_tab {
+    background: url(img/ie/tab_unselected.gif);
+    color: #006699;
+    display: block;
+    font-family: verdana;
+    font-size: 13px;
+    margin-right: 0;
+    padding: 9px 0 3px 0;
+    text-align: center;
+    width: 116px;
+}
+
+.ajax__tab_ie-theme .ajax__tab_active .ajax__tab_tab {
+    background: url(img/ie/tab_selected.gif);
+    padding: 6px 0 3px 0;
+}
+
+.ajax__tab_ie-theme .ajax__tab_body {
+    background: url(img/ie/ie_tabbacker_720x296.jpg) no-repeat;
+    font-family: verdana;
+    font-size: 13px;
+    height: 296px;
+    width: 716px;
+}
+
+.ajax__tab_ie-theme .ajax__tab_body div {
+    padding: 8px;
+}
+
+/* Tab зеленый, серый, салатовый !!!!!!!!! */
+
+.MyTabStyle .ajax__tab_header {
+    display: block;
+    font-family: "Helvetica Neue", Arial, Sans-Serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.MyTabStyle .ajax__tab_header .ajax__tab_outer {
+    border: solid 1px #d7d7d7;
+    border-color: #222;
+    color: #222;
+    margin-right: 3px;
+    padding-left: 10px;
+}
+
+.MyTabStyle .ajax__tab_header .ajax__tab_inner {
+    border-color: #666;
+    color: #666;
+    padding: 3px 10px 2px 0;
+}
+
+.MyTabStyle .ajax__tab_hover .ajax__tab_outer {
+    background-color: #9c3;
+}
+
+.MyTabStyle .ajax__tab_hover .ajax__tab_inner {
+    color: #fff;
+}
+
+.MyTabStyle .ajax__tab_active .ajax__tab_outer {
+    background-color: #d7d7d7;
+    border-bottom-color: #ffffff;
+}
+
+.MyTabStyle .ajax__tab_active .ajax__tab_inner {
+    border-color: #333;
+    color: #000;
+}
+
+.MyTabStyle .ajax__tab_body {
+    background-color: #fff;
+    border: solid 1px #d7d7d7;
+    border-top-color: #ffffff;
+    border-top-width: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+}
+
+.ajax__tab_blue-theme .ajax__tab_header {
+    border-bottom: solid 5px #8694EF;
+    font-family: arial, helvetica, clean, sans-serif;
+    font-size: small;
+}
+
+.ajax__tab_blue-theme .ajax__tab_header .ajax__tab_outer {
+    background: #d8d8d8 repeat-x;
+    border: solid 1px #a3a3a3;
+    border-bottom-width: 0;
+    margin: 0 0.16em 0 0;
+    padding: 1px 0 1px 0;
+    vertical-align: bottom;
+}
+
+.ajax__tab_blue-theme .ajax__tab_header .ajax__tab_tab {
+    color: #000;
+    margin-right: 0.01em;
+    padding: 0.35em 0.75em;
+}
+
+.ajax__tab_blue-theme .ajax__tab_hover .ajax__tab_outer {
+    background: #bfdaff repeat-x left -1300px;
+}
+
+.ajax__tab_blue-theme .ajax__tab_active .ajax__tab_tab {
+    color: #fff;
+}
+
+.ajax__tab_blue-theme .ajax__tab_active .ajax__tab_outer {
+    background: #8694EF repeat-x left -1400px;
+}
+
+.ajax__tab_blue-theme .ajax__tab_body {
+    background-color: #D7E2E8;
+    border: solid 1px #808080;
+    border-top-width: 0;
+    font-family: verdana, tahoma, helvetica;
+    font-size: 10pt;
+    padding: 0.25em 0.5em;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
+*/
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="select"] {
+    max-width: 280px;
+}*/
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+}
+
+/* VALIGNMENT */
+
+.vtd-top {
+    caption-side: top;
+}
+
+.vtd-bottom {
+    caption-side: bottom;
+}
+
+.td-right {
+    text-align: right;
+}
+
+.td-left {
+    text-align: left;
+}
+
+.td-center {
+    text-align: center;
+}
+
+.td-top {
+    vertical-align: top;
+}
+
+.td-middle {
+    vertical-align: middle;
+}
+
+.td-bottom {
+    vertical-align: bottom;
+}
+
+.center-align {
+    text-align: center;
+}
+
+.center-div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right-div {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.left-div {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.arrow {
+    overflow: hidden;
+    padding-left: 1em;
+    position: relative;
+    white-space: nowrap;
+    width: 10%;
+}
+
+.arrow:before {
+    border-bottom: .585em solid transparent;
+    border-left: .585em solid black;
+    border-right: 0;
+    border-top: .585em solid transparent;
+    content: " ";
+    height: 0;
+    left: 0;
+    position: absolute;
+    width: 0;
+}
+
+.CustomStyle {
+    background-image: url(../Areas/../Content/images/cap07.jpg);
+    Color: #ffc4b0;
+    font-size: 9pt;
+    text-align: center;
+    vertical-align: inherit;
+}
+
+.QueryTextBox {
+    border: 0;
+    border-bottom: solid 1px #c0c0c0;
+    outline: none;
+}
+
+.panel.with-nav-tabs .panel-heading {
+    padding: 5px 5px 0 5px;
+}
+
+.panel.with-nav-tabs .nav-tabs {
+    border-bottom: none;
+}
+
+.panel.with-nav-tabs .nav-justified {
+    margin-bottom: -1px;
+}
+
+/********************************************************************/
+
+/*** PANEL DEFAULT ***/
+
+.with-nav-tabs.panel-default .nav-tabs > li > a,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    color: #777;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > .open > a,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
+    background-color: #ddd;
+    border-color: transparent;
+    color: #777;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li.active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
+    background-color: #fff;
+    border-bottom-color: transparent;
+    border-color: #ddd;
+    color: #555;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #777;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #ddd;
+}
+
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    background-color: #555;
+    color: #fff;
+}
+
+/********************************************************************/
+
+/*** PANEL PRIMARY ***/
+
+.with-nav-tabs.panel-primary .nav-tabs > li > a,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+    color: #fff;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > .open > a,
+.with-nav-tabs.panel-primary .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+    background-color: #3071a9;
+    border-color: transparent;
+    color: #fff;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a,
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+    background-color: #fff;
+    border-bottom-color: transparent;
+    border-color: #428bca;
+    color: #428bca;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #428bca;
+    border-color: #3071a9;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #fff;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #3071a9;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    background-color: #4a9fe9;
+}
+
+/********************************************************************/
+
+/*** PANEL SUCCESS ***/
+
+.with-nav-tabs.panel-success .nav-tabs > li > a,
+.with-nav-tabs.panel-success .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-success .nav-tabs > li > a:focus {
+    color: #3c763d;
+}
+
+.with-nav-tabs.panel-success .nav-tabs > .open > a,
+.with-nav-tabs.panel-success .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-success .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-success .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-success .nav-tabs > li > a:focus {
+    background-color: #d6e9c6;
+    border-color: transparent;
+    color: #3c763d;
+}
+
+.with-nav-tabs.panel-success .nav-tabs > li.active > a,
+.with-nav-tabs.panel-success .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-success .nav-tabs > li.active > a:focus {
+    background-color: #fff;
+    border-bottom-color: transparent;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #3c763d;
+}
+
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #d6e9c6;
+}
+
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    background-color: #3c763d;
+    color: #fff;
+}
+
+/********************************************************************/
+
+/*** PANEL INFO ***/
+
+.with-nav-tabs.panel-info .nav-tabs > li > a,
+.with-nav-tabs.panel-info .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li > a:focus {
+    color: #31708f;
+}
+
+.with-nav-tabs.panel-info .nav-tabs > .open > a,
+.with-nav-tabs.panel-info .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-info .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li > a:focus {
+    background-color: #bce8f1;
+    border-color: transparent;
+    color: #31708f;
+}
+
+.with-nav-tabs.panel-info .nav-tabs > li.active > a,
+.with-nav-tabs.panel-info .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li.active > a:focus {
+    background-color: #fff;
+    border-bottom-color: transparent;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #31708f;
+}
+
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #bce8f1;
+}
+
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    background-color: #31708f;
+    color: #fff;
+}
+
+/********************************************************************/
+
+/*** PANEL WARNING ***/
+
+.with-nav-tabs.panel-warning .nav-tabs > li > a,
+.with-nav-tabs.panel-warning .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-warning .nav-tabs > li > a:focus {
+    color: #8a6d3b;
+}
+
+.with-nav-tabs.panel-warning .nav-tabs > .open > a,
+.with-nav-tabs.panel-warning .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-warning .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-warning .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-warning .nav-tabs > li > a:focus {
+    background-color: #faebcc;
+    border-color: transparent;
+    color: #8a6d3b;
+}
+
+.with-nav-tabs.panel-warning .nav-tabs > li.active > a,
+.with-nav-tabs.panel-warning .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-warning .nav-tabs > li.active > a:focus {
+    background-color: #fff;
+    border-bottom-color: transparent;
+    border-color: #faebcc;
+    color: #8a6d3b;
+}
+
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #8a6d3b;
+}
+
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #faebcc;
+}
+
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    background-color: #8a6d3b;
+    color: #fff;
+}
+
+/********************************************************************/
+
+/*** PANEL DANGER ***/
+
+.with-nav-tabs.panel-danger .nav-tabs > li > a,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
+    color: #a94442;
+}
+
+.with-nav-tabs.panel-danger .nav-tabs > .open > a,
+.with-nav-tabs.panel-danger .nav-tabs > .open > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > .open > a:focus,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
+    background-color: #ebccd1;
+    border-color: transparent;
+    color: #a94442;
+}
+
+.with-nav-tabs.panel-danger .nav-tabs > li.active > a,
+.with-nav-tabs.panel-danger .nav-tabs > li.active > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li.active > a:focus {
+    background-color: #fff;
+    border-bottom-color: transparent;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu {
+    background-color: #f2dede; /* bg color */
+    border-color: #ebccd1; /* border color */
+}
+
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a {
+    color: #a94442; /* normal text color */
+}
+
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
+    background-color: #ebccd1; /* hover bg color */
+}
+
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a,
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
+.with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
+    background-color: #a94442; /* active bg color */
+    color: #fff; /* active text color */
+}

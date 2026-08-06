@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>АСУИР — Состояние</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        button {
+            font-size: 1em;
+            margin: 0.4em 0;
+        }
+
+        .block {
+            border: 1px solid #ccc;
+            padding: 1em;
+            margin-top: 1em;
+        }
+
+        li {
+            margin: 0.2em 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Состояние Мышления</h1>
+        <p class="sub">Текущая цель, маршрут и шаги</p>
+    </header>
+
+    <section id="mind-block" class="block" style="display:none;">
+        <p><strong>🎯 Цель:</strong> <span id="intent"></span></p>
+        <p><strong>📜 Сценарий:</strong> <span id="scenario"></span></p>
+        <p><strong>📍 Пройдено:</strong> <span id="trail"></span></p>
+        <p><strong>🔄 Состояние:</strong> <span id="state"></span></p>
+        <p><strong>🔜 Следующий шаг:</strong> <span id="next"></span></p>
+
+        <button onclick="runScenario()">▶ Продолжить в exec</button>
+        <button onclick="clearMind()">🧹 Сбросить мышление</button>
+    </section>
+
+    <footer>
+        <a href="panel.html">← Панель</a>
+    </footer>
+
+    <script>
+        let mind = {};
+
+    fetch('mind.json')
+      .then(res => res.json())
+      .then(data => {
+        mind = data;
+        document.getElementById('intent').textContent = mind.intent || '–';
+        document.getElementById('scenario').textContent = mind.scenario || '–';
+        document.getElementById('trail').textContent = (mind.trail || []).join(' → ') || '–';
+        document.getElementById('state').textContent = mind.state || '–';
+        document.getElementById('next').textContent = mind.next || '–';
+        document.getElementById('mind-block').style.display = 'block';
+      });
+
+    function runScenario() {
+      if (!mind.scenario) return;
+      const encoded = encodeURIComponent(mind.scenario);
+      location.href = `exec.html?scenario=${encoded}`;
+    }
+
+    function clearMind() {
+      fetch('mind.json', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          intent: "", scenario: "", trail: [], state: "сброшено", next: ""
+        })
+      }).then(() => location.reload());
+    }
+    </script>
+
+</body>
+
+</html>

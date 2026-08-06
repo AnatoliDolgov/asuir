@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ASUIR Gemini v2 - Интеллектуальный оптимизатор</title>
+    <style>
+        :root {
+            --primary-blue: #1f4e78;
+            --light-blue: #2b5b84;
+            --accent-blue: #31859c;
+            --orange-brown: #c65911;
+            --dark-green: #375623;
+            --light-green-bg: #e2efda;
+            --main-green-bg: #c6e0b4;
+            --text-dark: #333333;
+            --border-color: #bfbfbf;
+            --accent-orange: #ed7d31;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: #f5f6f8; color: var(--text-dark); padding: 30px 15px; }
+        .container { max-width: 900px; margin: 0 auto; background: #ffffff; border: 1px solid var(--border-color); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
+        h1 { background-color: var(--accent-blue); color: #ffffff; font-size: 18px; padding: 12px 15px; text-align: center; font-weight: bold; }
+        .section-header { background-color: var(--light-blue); color: #ffffff; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid var(--border-color); padding: 10px 15px; font-size: 13px; vertical-align: middle; }
+        td.right { text-align: right; font-weight: bold; width: 25%; }
+        .total-row { background-color: #f2f2f2; font-weight: bold; }
+        .components-header { background-color: var(--primary-blue); color: #ffffff; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; display: flex; justify-content: space-between; align-items: center; }
+        .header-links a { color: #ffeb3b; text-decoration: underline; font-size: 11px; margin-left: 10px; font-weight: normal; }
+        .header-links a:hover { color: #ffffff; }
+        .btn-search { background-color: var(--accent-orange); color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase; }
+        .btn-search:hover { background-color: #d66a23; }
+        .status-badge { font-size: 11px; color: #7f7f7f; font-style: italic; }
+        .search-results-box { margin: 15px; padding: 15px; border: 2px dashed var(--accent-orange); background-color: #fffaf7; border-radius: 4px; display: none; }
+        .search-results-title { font-size: 13px; font-weight: bold; color: var(--accent-orange); margin-bottom: 10px; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 8px 12px; border: 1px solid var(--border-color); margin-bottom: 5px; border-radius: 3px; font-size: 12px; }
+        .result-link { color: #1f4e78; text-decoration: underline; font-weight: bold; margin-right: 10px; }
+        .inline-source-link { font-size: 11px; color: #1f4e78; text-decoration: underline; margin-left: 5px; }
+        .btn-select { background-color: var(--dark-green); color: white; border: none; padding: 4px 10px; font-size: 11px; cursor: pointer; border-radius: 2px; font-weight: bold; }
+        .btn-select:hover { background-color: #273d19; }
+        .input-price { width: 110px; padding: 6px; font-size: 14px; font-weight: bold; text-align: right; border: 2px solid var(--accent-blue); border-radius: 4px; color: #1f4e78; background-color: #ffffff; }
+        .cost-header { background-color: var(--orange-brown); color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .perf-header { background-color: var(--dark-green); color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .check-header { background-color: #7f7f7f; color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .green-zone-header { background-color: #548235; color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .result-day { background-color: var(--light-green-bg); font-weight: bold; color: #375623; }
+        .result-day td { font-size: 15px; }
+        .result-month { background-color: var(--main-green-bg); font-weight: bold; color: #1e4620; border-top: 2px solid #548235; }
+        .result-month td { font-size: 18px; padding: 15px 15px; }
+        .spacer { height: 20px; background-color: #f5f6f8; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ASUIR Gemini v2: Интеллектуальный оптимизатор производственных моделей</h1>
+
+    <div class="section-header">1. Прямые затраты на оборудование, аренду, зарплату в день</div>
+    <table>
+        <tr>
+            <td>
+                <strong>Тип оборудования / Линии сборки</strong><br>
+                <span id="status-equip" class="status-badge" style="color: #ed7d31; font-weight: bold;">Базовое ($50 000)</span>
+            </td>
+            <td style="text-align: center; width: 25%;">
+                <button class="btn-search" onclick="openScanner('equip')">Выбрать</button>
+            </td>
+            <td class="right">$<span id="val-equip">50000</span></td>
+        </tr>
+        <tr>
+            <td colspan="2">аренда помещения <a href="https://www.avito.ru" target="_blank" class="inline-source-link">Каталог площадей ↗</a></td>
+            <td class="right">$400</td>
+        </tr>
+        <tr>
+            <td colspan="2">персонал (кол-во человек)</td>
+            <td class="right" style="color: #555; font-weight: normal;">2</td>
+        </tr>
+        <tr>
+            <td colspan="2">зарплата <a href="https://hh.ru" target="_blank" class="inline-source-link">Ставки рынка ↗</a></td>
+            <td class="right">$10 000</td>
+        </tr>
+        <tr class="total-row">
+            <td colspan="2">Суммарные производственные расходы на день</td>
+            <td class="right">$<span id="base-overhead">707</span></td>
+        </tr>
+    </table>
+
+    <div id="scanner-box" class="search-results-box">
+        <div id="scanner-title" class="search-results-title"></div>
+        <div id="scanner-results-list"></div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="components-header">
+        <span>2. Расходы на комплектующие в единице продукции</span>
+        <div class="header-links">
+            <a href="https://www.alibaba.com" target="_blank">Alibaba ↗</a>
+            <a href="https://best.aliexpress.com" target="_blank">AliExpress ↗</a>
+            <a href="https://octopart.com" target="_blank">Octopart ↗</a>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr style="background-color: #f9f9f9;">
+                <th style="text-align: left; padding-left: 15px;">Наименование комплектующей</th>
+                <th style="text-align: center; width: 25%;">Сканер ASUIR Gemini</th>
+                <th style="text-align: right; width: 25%; padding-right: 15px;">Цена в модели</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Рама (5")</strong><br><span id="status-rama" class="status-badge">Оригинал</span></td>
+                <td style="text-align: center;"><button class="btn-search" onclick="openScanner('rama')">Поиск</button></td>
+                <td class="right" style="font-weight: normal;">$<span id="val-rama">5</span></td>
+            </tr>
+            <tr>
+                <td><strong>Стек (FC + ESC 50A)</strong><br><span id="status-stack" class="status-badge">Оригинал</span></td>
+                <td style="text-align: center;"><button class="btn-search" onclick="openScanner('stack')">Поиск</button></td>
+                <td class="right" style="font-weight: normal;">$<span id="val-stack">45</span></td>
+            </tr>
+            <tr>
+                <td><strong>Моторы (4 шт.)</strong><br><span id="status-motors" class="status-badge">Оригинал</span></td>
+                <td style="text-align: center;"><button class="btn-search" onclick="openScanner('motors')">Поиск</button></td>
+                <td class="right" style="font-weight: normal;">$<span id="val-motors">40</span></td>
+            </tr>
+            <tr>
+                <td><strong>Цифровая система (VTX+Cam)</strong><br><span id="status-vtx" class="status-badge">Оригинал</span></td>
+                <td style="text-align: center;"><button class="btn-search" onclick="openScanner('vtx')">Поиск</button></td>
+                <td class="right" style="font-weight: normal;">$<span id="val-vtx">35</span></td>
+            </tr>
+            <tr>
+                <td><strong>Мелочи (Пропы, антенна, TPU)</strong><br><span id="status-acc" class="status-badge">Оригинал</span></td>
+                <td style="text-align: center;"><button class="btn-search" onclick="openScanner('acc')">Поиск</button></td>
+                <td class="right" style="font-weight: normal;">$<span id="val-acc">5</span></td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="2">Всего затраты на комплектующие</td>
+                <td class="right">$<span id="total-components">130</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="spacer"></div>
+
+    <div class="cost-header">3. Себестоимость единицы продукции</div>
+    <table>
+        <tr><td>Стоимость комплектующих в единице продукции</td><td class="right" style="font-weight: normal;">$<span id="cost-comp-mirror">130</span></td></tr>
+        <tr><td>Процентное отношение производственных расходов</td><td class="right" style="font-weight: normal;">10%</td></tr>
+        <tr><td>Абсолютная величина производственных расходов</td><td class="right" style="font-weight: normal;">$<span id="cost-overhead">13.00</span></td></tr>
+        <tr class="total-row" style="background-color: #f9ebdf; color: #7e2f00;">
+            <td>Общая себестоимость единицы продукции</td>
+            <td class="right">$<span id="total-product-cost">143</span></td>
+        </tr>
+    </table>
+
+    <div class="spacer"></div>
+
+    <div class="perf-header">4. Расчет производительности оборудования в день</div>
+    <table>
+        <tr style="font-weight: bold;">
+            <td>Производительность оборудования (шт)</td>
+            <td class="right" style="font-size: 16px; color: var(--dark-green);"><span id="perf-val">54</span></td>
+        </tr>
+    </table>
+
+    <div class="spacer"></div>
+
+    <div class="check-header">5. Проверяем доходы и затраты при продаже по себестоимости</div>
+    <table>
+        <tr><td>доходы</td><td class="right" style="font-weight: normal;">$<span id="check-income">7 781</span></td></tr>
+        <tr><td>расходы</td><td class="right" style="font-weight: normal;">$<span id="check-outcome">7 781</span></td></tr>
+    </table>
+
+    <div class="spacer"></div>
+
+    <div class="green-zone-header">6. Доходы от продажи (Привязка к рыночной цене дрона)</div>
+    <table>
+        <tr>
+            <td><strong>Рыночная цена одного готового дрона ($):</strong></td>
+            <td class="right">
+                <input type="number" id="market-drone-price" class="input-price" value="423" oninput="calculateAll()">
+            </td>
+        </tr>
+        <tr>
+            <td>Полученная чистая наценка на одно изделие (Цена − Себестоимость)</td>
+            <td class="right" style="color: var(--orange-brown); font-size: 14px;">$<span id="calculated-natsenka">280</span></td>
+        </tr>
+        <tr class="result-day">
+            <td>Суммарные дополнительные доходы за день</td>
+            <td class="right">$<span id="income-day">15 236</span></td>
+        </tr>
+        <tr class="result-month">
+            <td>Суммарные дополнительные доходы за месяц</td>
+            <td class="right">$<span id="income-month">457 087</span></td>
+        </tr>
+    </table>
+
+    <div style="background-color: #f2f2f2; padding: 15px; text-align: center; font-size: 12px; color: #555555; border-top: 1px solid var(--border-color); font-weight: bold;">
+        © Анатолий Долгов, Лос-Анджелес, США, Россия. Все права защищены.
+    </div>
+</div>
+
+<script>
+    // База данных для сканера
+    const database = {
+        'equip': [
+            {n: 'Мини-мастерская (3D-принтер + паяльник)', p: 2500, q: '3D+printer+soldering+station'},
+            {n: 'Полуавтоматический стенд (Базовый)', p: 50000, q: 'SMD+assembly+line'},
+            {n: 'Автоматизированный комплекс ASUIR Ultra', p: 120000, q: 'Automated+factory+equipment'}
+        ],
+        'rama': [
+            {n: 'Apex 5" Carbon (Опт)', p: 4, q: 'FPV+Frame+5+inch'},
+            {n: 'Mark4 5" Racing OEM', p: 5, q: 'Mark4+FPV+Frame'},
+            {n: 'iFlight Nazgul5 V2', p: 8, q: 'iFlight+Nazgul+Frame'}
+        ],
+        'stack': [
+            {n: 'SpeedyBee F405 V3', p: 41, q: 'SpeedyBee+F405+Stack'},
+            {n: 'Mamba MK4 F405 50A', p: 45, q: 'Mamba+F405+Stack'},
+            {n: 'HGLRC Specter F450', p: 49, q: 'HGLRC+Stack+FPV'}
+        ],
+        'motors': [
+            {n: 'Emax ECO II 2207', p: 36, q: 'Emax+ECO+II+2207'},
+            {n: 'XING2 2207 Factory', p: 40, q: 'iFlight+XING2+2207'},
+            {n: 'T-Motor Velox V2 Pack', p: 45, q: 'T-Motor+Velox+2306'}
+        ],
+        'vtx': [
+            {n: 'Caddx Vista Kit HD', p: 30, q: 'Caddx+Vista+Kit'},
+            {n: 'Walksnail Avatar Nano', p: 35, q: 'Walksnail+Avatar+Kit'},
+            {n: 'DJI O3 Air Unit Bulk', p: 42, q: 'DJI+O3+Air+Unit'}
+        ],
+        'acc': [
+            {n: 'HQProp 5" + Accessories', p: 3, q: 'HQProp+5+inch'},
+            {n: 'Standard FPV TPU Kit', p: 5, q: 'FPV+propellers+accessories'},
+            {n: 'Gemfan Flash Props Pack', p: 7, q: 'Gemfan+Flash+Props'}
+        ]
+    };
+
+    let currentCategory = "";
+
+    function openScanner(category) {
+        currentCategory = category;
+        const box = document.getElementById('scanner-box');
+        const title = document.getElementById('scanner-title');
+        const list = document.getElementById('scanner-results-list');
+
+        let names = {
+            'equip': 'Оборудование', 'rama': 'Рама (5")', 'stack': 'Стек FC+ESC',
+            'motors': 'Моторы', 'vtx': 'Цифровая система', 'acc': 'Мелочи'
+        };
+
+        title.innerHTML = `📊 Сканер ASUIR Gemini по запросу: <strong>${names[category]}</strong>`;
+        list.innerHTML = "";
+
+        database[category].forEach((item, index) => {
+            let url = `https://www.alibaba.com/trade/search?SearchText=${item.q}`;
+            list.innerHTML += `
+                <div class="result-item">
+                    <span><strong>Вариант #${index + 1}:</strong> ${item.n} — <strong>$${item.p.toLocaleString('ru-RU')}</strong></span>
+                    <div>
+                        <a href="${url}" target="_blank" class="result-link">Поиск ↗</a>
+                        <button class="btn-select" onclick="selectVariant(${item.p}, '${item.n.replace(/'/g, "\\'")}')">Выбрать</button>
+                    </div>
+                </div>`;
+        });
+
+        box.style.display = 'block';
+        box.scrollIntoView({behavior: 'smooth'});
+    }
+
+    function selectVariant(price, name) {
+        if (currentCategory === 'equip') {
+            document.getElementById('val-equip').innerText = price;
+            document.getElementById('status-equip').innerText = name;
+            
+            let dynamicOverhead = Math.round((price * 0.01) + 207);
+            document.getElementById('base-overhead').innerText = dynamicOverhead;
+        } else {
+            document.getElementById(`val-${currentCategory}`).innerText = price;
+            document.getElementById(`status-${currentCategory}`).innerText = `Выбрано: $${price}`;
+            document.getElementById(`status-${currentCategory}`).style.color = "#548235";
+        }
+
+        calculateAll();
+        document.getElementById('scanner-box').style.display = 'none';
+    }
+
+    function calculateAll() {
+        let r = parseFloat(document.getElementById('val-rama').innerText) || 0;
+        let s = parseFloat(document.getElementById('val-stack').innerText) || 0;
+        let m = parseFloat(document.getElementById('val-motors').innerText) || 0;
+        let v = parseFloat(document.getElementById('val-vtx').innerText) || 0;
+        let a = parseFloat(document.getElementById('val-acc').innerText) || 0;
+
+        let totalComp = r + s + m + v + a;
+        document.getElementById('total-components').innerText = totalComp;
+        document.getElementById('cost-comp-mirror').innerText = totalComp;
+
+        let overhead = totalComp * 0.1;
+        document.getElementById('cost-overhead').innerText = overhead.toFixed(2);
+
+        let totalCost = Math.round(totalComp + overhead);
+        document.getElementById('total-product-cost').innerText = totalCost;
+
+        let perf = parseFloat(document.getElementById('perf-val').innerText) || 0;
+        let baseOverhead = parseFloat(document.getElementById('base-overhead').innerText) || 0;
+        
+        let checkVal = Math.round((totalCost * perf) + baseOverhead);
+        document.getElementById('check-income').innerText = checkVal.toLocaleString('ru-RU');
+        document.getElementById('check-outcome').innerText = checkVal.toLocaleString('ru-RU');
+
+        let marketPrice = parseFloat(document.getElementById('market-drone-price').value) || 0;
+        let margin = marketPrice - totalCost;
+        document.getElementById('calculated-natsenka').innerText = margin;
+
+        let dayProfit = Math.round((perf * margin) + 116);
+        let monthProfit = Math.round(dayProfit * 30);
+
+        document.getElementById('income-day').innerText = dayProfit > 0 ? dayProfit.toLocaleString('ru-RU') : 0;
+        document.getElementById('income-month').innerText = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : 0;
+    }
+
+    window.onload = function() {
+        calculateAll();
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ASUIR Gemini. Можно ли реально зарабатывать сотни тысяч долларов в месяц? Да, возможно!</title>
+    <style>
+        :root {
+            --primary-blue: #1f4e78;
+            --light-blue: #2b5b84;
+            --accent-blue: #31859c;
+            --orange-brown: #c65911;
+            --dark-green: #375623;
+            --light-green-bg: #e2efda;
+            --main-green-bg: #c6e0b4;
+            --text-dark: #333333;
+            --border-color: #bfbfbf;
+            --accent-orange: #ed7d31;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: #f5f6f8; color: var(--text-dark); padding: 30px 15px; }
+        .container { max-width: 950px; margin: 0 auto; background: #ffffff; border: 1px solid var(--border-color); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
+        h1 { background-color: var(--accent-blue); color: #ffffff; font-size: 18px; padding: 12px 15px; text-align: center; font-weight: bold; }
+        
+        .nav-tabs { display: flex; background-color: #e9eef2; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .nav-tab-btn { flex: 1; text-align: center; padding: 10px; font-size: 12px; font-weight: bold; color: var(--primary-blue); text-decoration: none; border-right: 1px solid var(--border-color); transition: background 0.2s; min-width: 150px; }
+        .nav-tab-btn:last-child { border-right: none; }
+        .nav-tab-btn:hover { background-color: #dbe4eb; }
+        .nav-tab-btn.active { background-color: #ffffff; color: var(--orange-brown); border-bottom: 2px solid var(--orange-brown); padding-bottom: 8px; pointer-events: none; }
+        .nav-tab-btn.feedback-btn { color: var(--accent-orange); }
+        .nav-tab-btn.feedback-btn:hover { background-color: #fff8f5; }
+        
+        .strategy-box { background-color: #f9ebdf; padding: 20px; border-bottom: 1px solid var(--border-color); }
+        .strategy-title { font-size: 13px; font-weight: bold; color: var(--orange-brown); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-product-name { width: 100%; padding: 10px 12px; font-size: 14px; font-weight: bold; border: 2px solid var(--accent-blue); border-radius: 6px; color: var(--primary-blue); background: white; }
+        
+        .section-header { background-color: var(--light-blue); color: #ffffff; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
+        th, td { border: 1px solid var(--border-color); padding: 10px 15px; font-size: 13px; vertical-align: middle; }
+        td.right { text-align: right; font-weight: bold; width: 20%; }
+        .total-row { background-color: #f2f2f2; font-weight: bold; }
+        
+        .input-live-cell { width: 120px; padding: 6px; font-size: 13px; font-weight: bold; text-align: right; border: 2px solid var(--accent-blue); border-radius: 4px; color: #1f4e78; background-color: #fffdf0; }
+        .input-table-cell { width: 100%; padding: 6px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 4px; font-weight: bold; color: var(--primary-blue); }
+        .input-table-cell-num { width: 85px; padding: 6px; font-size: 13px; text-align: right; border: 1px solid var(--accent-blue); border-radius: 4px; font-weight: bold; }
+
+        .components-header { background-color: var(--primary-blue); color: #ffffff; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; display: flex; justify-content: space-between; align-items: center; }
+        .btn-add-item { background-color: #548235; color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase; }
+        .btn-add-item:hover { background-color: #3d6125; }
+        .btn-delete { background-color: #c65911; color: white; border: none; padding: 4px 8px; font-size: 11px; cursor: pointer; border-radius: 3px; }
+        .btn-search { background-color: var(--accent-orange); color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase; }
+        
+        .btn-spec-generator { background-color: var(--orange-brown); color: white; border: none; padding: 6px 14px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase; display: inline-block; margin-left: auto; margin-right: 10px; }
+        .btn-spec-generator:hover { background-color: #9e430a; }
+        
+        .search-results-box { margin: 15px; padding: 15px; border: 1px solid var(--border-color); background-color: #fffaf7; border-radius: 4px; display: none; }
+        .search-results-title { font-size: 13px; font-weight: bold; color: var(--accent-orange); margin-bottom: 10px; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 8px 12px; border: 1px solid var(--border-color); margin-bottom: 5px; border-radius: 3px; font-size: 12px; gap: 10px; }
+        .result-info { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: bold; color: var(--primary-blue); }
+        .result-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .result-link { color: #1f4e78; text-decoration: underline; font-weight: bold; }
+        .btn-select { background-color: var(--dark-green); color: white; border: none; padding: 4px 10px; font-size: 11px; cursor: pointer; border-radius: 2px; font-weight: bold; }
+
+        .comp-media-box { display: flex; align-items: center; gap: 15px; margin-top: 8px; padding: 5px; background: #fffdfa; border: 1px solid #f2e3d5; border-radius: 4px; }
+        .comp-thumb { width: 55px; height: 44px; object-fit: cover; border: 1px solid var(--border-color); border-radius: 3px; background: #eee; }
+        .btn-buy-alibaba { display: inline-flex; align-items: center; background-color: #ff6a00; color: white; padding: 5px 10px; font-size: 10px; font-weight: bold; text-decoration: none; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.3px; box-shadow: 0 2px 4px rgba(255,106,0,0.2); }
+        .btn-buy-alibaba:hover { background-color: #e05d00; }
+        .cost-header { background-color: var(--orange-brown); color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .perf-header { background-color: var(--dark-green); color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .green-zone-header { background-color: #548235; color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        
+        .result-month { background-color: var(--main-green-bg); font-weight: bold; color: #1e4620; border-top: 2px solid #548235; }
+        .result-month td { font-size: 18px; padding: 18px 15px; }
+        .spacer { height: 20px; background-color: #f5f6f8; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>ASUIR Gemini. Можно ли реально зарабатывать сотни тысяч долларов в месяц? Да, возможно!</h1>
+    
+    <div class="nav-tabs">
+        <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
+        <a href="#" class="nav-tab-btn active">📊 АСУИР</a>
+        <a href="Help_ru.html" class="nav-tab-btn">❓ Документация / Помощь</a>
+        <a href="#" class="nav-tab-btn feedback-btn" onclick="openFeedbackModal(event)">💡 Обратная связь</a>
+    </div>
+
+    <div class="strategy-box">
+        <div class="strategy-title">Цель проектируемого производства. Введите наименование товара для продажи.</div>
+        <input type="text" id="product-name-input" class="input-product-name" 
+               value="Автоматизированная линия производства телевизоров" placeholder="Введите название продукта..." oninput="handleProcessInputChange()">
+    </div>
+    
+    <div class="section-header">1. Введите показатели стоимости проектируемого производства.</div>
+    <table>
+        <tr>
+            <td>
+                <strong>Конфигурация сборочной линии</strong><br>
+                <span id="status-equip" class="status-badge" style="color: #ed7d31; font-weight: bold;">Базовый сборочный стенд</span>
+                <div id="equip-media-box" style="margin-top: 6px; display: none;">
+                    <a id="equip-buy-btn" class="btn-buy-alibaba" href="#" target="_blank">🛒 Купить линию на Alibaba</a>
+                </div>
+            </td>
+            <td style="text-align: center; width: 22%;">
+                <button class="btn-search" id="btn-equip-scanner" onclick="openScanner('equip', 'product-name-input')">Выбрать</button>
+            </td>
+            <td class="right">$<input type="number" id="val-equip" class="input-live-cell" value="50000" oninput="updateDynamicOverhead()"></td>
+        </tr>
+        <tr>
+            <td colspan="2">Аренда помещения (в месяц)</td>
+            <td class="right">$<input type="number" id="val-rent" class="input-live-cell" value="400" oninput="updateDynamicOverhead()"></td>
+        </tr>
+        <tr>
+            <td colspan="2">Персонал линии (Количество операторов в смену)</td>
+            <td class="right"><input type="number" id="val-staff" class="input-live-cell" value="2" oninput="updateDynamicOverhead()"></td>
+        </tr>
+        <tr>
+            <td colspan="2">Зарплата одного рабочего смены (в месяц)</td>
+            <td class="right">$<input type="number" id="val-salary" class="input-live-cell" value="5000" oninput="updateDynamicOverhead()"></td>
+        </tr>
+        <tr id="row-overhead" class="total-row">
+            <td colspan="2">Общие производственные расходы, приходящиеся на 1 день (Амортизация оборудования + Аренда + Зарплата)</td>
+            <td class="right">$<span id="base-overhead">0</span></td>
+        </tr>
+    </table>
+
+    <div id="scanner-box" class="search-results-box">
+        <div id="scanner-title" class="search-results-title"></div>
+        <div id="scanner-results-list"></div>
+    </div>
+    
+    <div id="asuir-calculation-zone">
+        <div class="spacer"></div>
+        
+        <div class="perf-header">2. Количество готовой продукции на выходе производственной линии. Также введите рыночную стоимость ваших изделий.</div>    
+        <table>
+            <tr style="font-weight: bold;">
+                <td>Планируемая производительность оборудования или выше</td>
+                <td class="right" style="font-size: 16px; color: var(--dark-green);"><span id="perf-val">54</span> шт.</td>
+            </tr>
+            <tr>
+                <td>Целевая розничная/оптовая рыночная цена за готовую единицу</td>
+                <td class="right">$<input type="number" id="market-price-input" class="input-live-cell" value="423" oninput="calculateAll()"></td>
+            </tr>
+        </table>
+        
+        <div class="spacer"></div>
+        
+        <div class="components-header">
+            <span>3. Выбор комплектующих производственной линии, по результатам поиска</span>
+            <button class="btn-spec-generator" id="btn-spec-gen" onclick="generateDynamicAsuirSpecificationRu()">🔍 Развернуть спецификацию</button>
+            <button class="btn-add-item" onclick="addComponentRow('', 1, 0)">＋ Добавить строку</button>
+        </div>    
+        <table>
+            <thead>
+                <tr style="background-color: #f9f9f9;">
+                    <th style="text-align: left; width: 45%;">Описание компонента продукта</th>
+                    <th style="text-align: center; width: 15%;">Сканер</th>
+                    <th style="text-align: right; width: 15%;">Кол-во</th>
+                    <th style="text-align: right; width: 15%;">Цена ($)</th>
+                    <th style="text-align: center; width: 10%;">❌</th>
+                </tr>
+            </thead>
+            <tbody id="component-dynamic-rows">
+                <!-- Управляется JS -->
+            </tbody>
+            <tfoot>
+                <tr class="total-row" style="background-color: #fffaf0;">
+                    <td colspan="3">Общая стоимость комплектующих на 1 единицу:</td>
+                    <td class="right" style="color: var(--orange-brown); font-size:14px;">$<span id="total-bom-cost">0</span></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div class="spacer"></div>
+        
+        <div class="cost-header">4. Полная себестоимость произведенных товаров</div>    
+        <table>
+            <tr>
+                <td>Распределенная себестоимость</td>
+                <td class="right" style="font-weight: normal;">$<span id="machine-share-cost">0</span></td>
+            </tr>
+            <tr class="total-row" style="background-color: #f9ebdf; color: #7e2f00;">
+                <td>Итоговая расчетная себестоимость</td>
+                <td class="right">$<span id="total-product-cost">0</span></td>
+            </tr>
+        </table>
+        
+        <div class="spacer"></div>
+        
+        <div class="green-zone-header">5. Ожидаемая прибыльность проектируемого бизнеса</div>    
+        <table>
+            <tr class="result-month">
+                <td>Прогнозируемая чистая прибыль за 1 месяц</td>
+                <td class="right">$<span id="income-month">0</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="background-color: #f2f2f2; padding: 15px; text-align: center; font-size: 12px; color: #555555; border-top: 1px solid var(--border-color); font-weight: bold;">
+        © Анатолий Долгов, Лос-Анджелес, Калифорния, США. All Rights Reserved.        
+    </div>
+</div>
+
+<script>        
+    const industriesProfiles = {
+        bakery: { 
+            name: 'Автоматизированная хлебопекарная линия INTER-3000', price: 85000, rent: 250, staff: 3, salary: 1500, perf: 1500, marketPrice: 1.5,
+            marketQuery: 'commercial+automated+bakery+line',
+            components: [
+                { name: 'Пшеничная мука высшего сорта (кг)', qty: 0.6, price: 0.4 },
+                { name: 'Дрожжи и хлебопекарные смеси (микс)', qty: 1, price: 0.05 },
+                { name: 'Брендированный упаковочный пакет', qty: 1, price: 0.08 }
+            ]
+        },
+        drones: { 
+            name: 'Роботизированный сборочный комплекс ASUIR Ultra', price: 120000, rent: 400, staff: 2, salary: 5000, perf: 54, marketPrice: 423,
+            marketQuery: 'automated+drone+assembly+line',
+            components: [
+                { name: 'Карбоновая рама (5") Mark4 Racing OEM', qty: 1, price: 5.0 },
+                { name: 'Полетный контроллер в сборе (FC + ESC 50A) Mamba MK4', qty: 1, price: 45.0 },
+                { name: 'Бесколлекторные моторы (4 шт.) XING2 2207 Factory', qty: 1, price: 40.0 },
+                { name: 'Цифровая видеосистема VTX и камера Walksnail Avatar Nano', qty: 1, price: 35.0 },
+                { name: 'Высокоемкостный аккумулятор LiPo Battery Pack 6S 1300mAh', qty: 1, price: 25.0 }
+            ]
+        },
+        custom: { 
+            name: 'Автоматизированный комплекс (Пользовательская конфигурация)', price: 100000, rent: 500, staff: 2, salary: 4400, perf: 100, marketPrice: 250,
+            marketQuery: 'industrial+automated+machine',
+            components: [
+                { name: 'Основной несущий аппаратный узел (Шасси)', qty: 1, price: 50.0 },
+                { name: 'Вспомогательный функциональный рабочий узел', qty: 1, price: 15.0 },
+                { name: 'Защитный материал и упаковка готового изделия', qty: 1, price: 5.0 }
+            ]
+        }
+    };
+
+    let activeProfile = industriesProfiles.drones;
+    let isUserOverridden = false; 
+
+    // Helper: Перечень всех компонентов и узлов необходимых для производства (BOM)
+    function toggleSpecButtonVisibility() {
+        const genBtn = document.getElementById('btn-spec-gen');
+        if (genBtn) genBtn.style.display = 'inline-block'; 
+    }
+
+    function handleProcessInputChange() {
+        isUserOverridden = false;
+        analyzeInputString();
+        toggleSpecButtonVisibility();
+    }
+
+    function analyzeInputString() {
+        if (isUserOverridden) return; 
+
+        const originalInput = document.getElementById('product-name-input').value;
+        const inputVal = originalInput.toLowerCase().trim();
+        
+        if (inputVal === "") return;
+        
+        if (inputVal.includes('bakery') || inputVal.includes('bread') || inputVal.includes('baking') || inputVal.includes('хлеб') || inputVal.includes('пекарн')) {
+            activeProfile = industriesProfiles.bakery;
+        } else if (inputVal.includes('drone') || inputVal.includes('quadcopter') || inputVal.includes('дрон') || inputVal.includes('коптер')) {
+            activeProfile = industriesProfiles.drones;
+        } else {
+            activeProfile = Object.assign({}, industriesProfiles.custom);
+            activeProfile.name = `Сборочный комплекс для: (${originalInput})`;
+            activeProfile.marketQuery = encodeURIComponent(inputVal);
+        }
+
+        document.getElementById('status-equip').innerText = activeProfile.name;
+        document.getElementById('perf-val').innerText = activeProfile.perf;
+        document.getElementById('market-price-input').value = activeProfile.marketPrice;
+        
+        document.getElementById('val-equip').value = activeProfile.price;
+        document.getElementById('val-rent').value = activeProfile.rent;
+        document.getElementById('val-staff').value = activeProfile.staff;
+        document.getElementById('val-salary').value = activeProfile.salary;
+
+        const tbody = document.getElementById('component-dynamic-rows');
+        tbody.innerHTML = "";
+        activeProfile.components.forEach(comp => {
+            renderStaticRow(comp.name, comp.qty, comp.price);
+        });
+
+        updateDynamicOverhead();
+    }
+
+    function renderStaticRow(name, qty, price) {
+        const tbody = document.getElementById('component-dynamic-rows');
+        const rowId = 'comp-row-' + Math.random().toString(36).substr(2, 5);
+        const tr = document.createElement('tr');
+        tr.id = rowId;
+        tr.innerHTML = `
+            <td><input type="text" id="${rowId}-name" class="input-table-cell" value="${name}"></td>
+            <td style="text-align: center;"><button class="btn-search" onclick="openScanner('${rowId}', '${rowId}-name')">Поиск</button></td>
+            <td><input type="number" step="0.1" class="input-table-cell-num comp-qty" value="${qty}" oninput="calculateAll()"></td>
+            <td><input type="number" step="0.01" class="input-table-cell-num comp-price" id="${rowId}-price" value="${price}" oninput="calculateAll()"></td>
+            <td style="text-align: center;"><button class="btn-delete" onclick="deleteComponentRow('${rowId}')">❌</button></td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    function generateDynamicAsuirSpecificationRu() {
+        const originalInput = document.getElementById('product-name-input').value.trim();
+        const lowInput = originalInput.toLowerCase();
+        let dynamicComponents = [];
+        let specPrice = 200, setupPerf = 100, setupEquipPrice = 120000;
+
+        if (lowInput.includes('научн')) {
+            specPrice = 850; setupPerf = 50; setupEquipPrice = 320000;
+            dynamicComponents = [
+                { name: 'Прецизионный лазерный интерферометр с ЧПУ для поверки эталонов и оптических поверхностей', qty: 1, price: 120.0 },
+                { name: 'Автоматизированный комплекс вакуумного магнетронного напыления тонких пленок', qty: 1, price: 95.0 },
+                { name: 'ЧПУ-установка плазмохимического травления кремниевых и полупроводниковых подложек', qty: 1, price: 70.0 }
+            ];
+        }
+        else if (lowInput.includes('морск')) {
+            specPrice = 950; setupPerf = 45; setupEquipPrice = 280000;
+            dynamicComponents = [
+                { name: 'Автоматизированный стенд ультразвукового контроля герметичности гидроакустических корпусов', qty: 1, price: 110.0 },
+                { name: 'ЧПУ-станок для заливки и герметизации плат полимерными компаундами под высоким давлением', qty: 1, price: 85.0 },
+                { name: 'Камера циклического испытания узлов в условиях искусственного соляного тумана с программным управлением', qty: 1, price: 60.0 }
+            ];
+        }
+        else if (lowInput.includes('геодез')) {
+            specPrice = 750; setupPerf = 60; setupEquipPrice = 240000;
+            dynamicComponents = [
+                { name: 'Высокоточный делительный ЧПУ-аппарат для нанесения угловых и лимбовых шкал', qty: 1, price: 95.0 },
+                { name: 'Стенд коллиматорной автоматической юстировки лазерных и оптических осевых линий', qty: 1, price: 70.0 },
+                { name: 'Автоматизированный вибростенд для проверки стабильности датчиков угла наклона', qty: 1, price: 55.0 }
+            ];
+        }
+        else if (lowInput.includes('фотограф')) {
+            specPrice = 680; setupPerf = 90; setupEquipPrice = 210000;
+            dynamicComponents = [
+                { name: 'Роботизированный автомат прецизионной сборки многолинзовых оптических объективов', qty: 1, price: 90.0 },
+                { name: 'ЧПУ-станок для ультразвуковой очистки линз и затворных механизмов в беспылевой камере', qty: 1, price: 65.0 },
+                { name: 'Автоматизированный ЧПУ-стенд тестирования светочувствительных матриц и калибровки баланса белого', qty: 1, price: 40.0 }
+            ];
+        }
+        else if (lowInput.includes('кинематогр')) {
+            specPrice = 1450; setupPerf = 40; setupEquipPrice = 380000;
+            dynamicComponents = [
+                { name: 'Пятиосевой обрабатывающий ЧПУ-центр для фрезерования прецизионных узлов стабилизации камер (гимбалов)', qty: 1, price: 180.0 },
+                { name: 'Автоматическая линия лазерного раскроя и ламинирования светофильтров и оптических затворов', qty: 1, price: 110.0 },
+                { name: 'Компьютеризированный стенд калибровки сервоприводов следящего фокуса', qty: 1, price: 75.0 }
+            ];
+        }
+        else if (lowInput.includes('зеркал')) {
+            specPrice = 320; setupPerf = 150; setupEquipPrice = 195000;
+            dynamicComponents = [
+                { name: 'Высокоточный стол с ЧПУ и алмазных резцов для раскроя стекла', qty: 1, price: 65.0 },
+                { name: 'Оборудование для шлифовки и полировки торцов стекла (фацетирование)', qty: 1, price: 45.0 },
+                { name: 'Оборудование для мойки стекла', qty: 1, price: 25.0 },
+                { name: 'Оборудование для нанесения нитрата серебра и его восстановления', qty: 1, price: 50.0 },
+                { name: 'Оборудование для нанесения защитного лакокрасочного слоя', qty: 1, price: 30.0 }
+            ];
+        }
+        else if (lowInput.includes('оптич')) {
+            specPrice = 580; setupPerf = 110; setupEquipPrice = 260000;
+            dynamicComponents = [
+                { name: 'Высокоточный ЧПУ-стол раскроя оптического сырья', qty: 1, price: 75.0 },
+                { name: 'Автоматическая ЧПУ-установка вакуумного напыления просветляющих покрытий', qty: 1, price: 90.0 },
+                { name: 'ЧПУ-станок двухсторонней шлифовки и полировки сферических и асферических линз', qty: 1, price: 80.0 }
+            ];
+        }
+        else if (lowInput.includes('взвешив')) {
+            specPrice = 420; setupPerf = 130; setupEquipPrice = 145000;
+            dynamicComponents = [
+                { name: 'ЧПУ-пресс для штамповки прецизионных тензометрических датчиков и весовых платформ', qty: 1, price: 60.0 },
+                { name: 'Автоматизированная лазерная установка для точной подгонки массы калибровочных гирь', qty: 1, price: 45.0 },
+                { name: 'Программный калибровочный стенд компенсации температурного дрейфа весовых модулей', qty: 1, price: 30.0 }
+            ];
+        }
+        else if (lowInput.includes('сигнализ')) {
+            specPrice = 240; setupPerf = 220; setupEquipPrice = 130000;
+            dynamicComponents = [
+                { name: 'Автоматическая линия поверхностного монтажа радиочастотных (RF) компонентов сигнализаций', qty: 1, price: 45.0 },
+                { name: 'ЧПУ-автомат для селективной заливки датчиков дыма и газа защитными гелями', qty: 1, price: 30.0 },
+                { name: 'Стенд автоматического акустического и оптического контроля извещателей на отказ', qty: 1, price: 20.0 }
+            ];
+        }
+        else if (lowInput.includes('контрол')) {
+            specPrice = 620; setupPerf = 95; setupEquipPrice = 220000;
+            dynamicComponents = [
+                { name: 'Координатно-измерительная машина (КИМ) с ЧПУ для трехмерного контроля точности деталей', qty: 1, price: 110.0 },
+                { name: 'Автоматическая линия вихретокового и магнитопорошкового контроля дефектов металла', qty: 1, price: 55.0 },
+                { name: 'Роботизированный оптический сканер для дефектоскопии печатных плат', qty: 1, price: 45.0 }
+            ];
+        }
+        else if (lowInput.includes('спасан')) {
+            specPrice = 540; setupPerf = 85; setupEquipPrice = 175000;
+            dynamicComponents = [
+                { name: 'Автоматизированный ЧПУ-комплекс проверки и тестирования дыхательных автоматов под давлением', qty: 1, price: 75.0 },
+                { name: 'ЧПУ-станок для ультразвуковой сварки швов надувных плотов и спасательных жилетов', qty: 1, price: 50.0 },
+                { name: 'Автоматическая линия тестирования и укладки пиротехнических средств спасения', qty: 1, price: 40.0 }
+            ];
+        }
+        else if (lowInput.includes('обучен')) {
+            specPrice = 190; setupPerf = 250; setupEquipPrice = 95000;
+            dynamicComponents = [
+                { name: 'ЧПУ-фрезерный комплекс для прототипирования и создания наглядных интерактивных макетов', qty: 1, price: 35.0 },
+                { name: 'Роботизированная линия сборки учебных лабораторных модулей и электронных конструкторов', qty: 1, price: 25.0 },
+                { name: 'ЧПУ-лазер для гравировки маркировки и мнемосхем на учебных пультах', qty: 1, price: 15.0 }
+            ];
+        }
+        else if (lowInput.includes('распредел')) {
+            specPrice = 890; setupPerf = 75; setupEquipPrice = 240000;
+            dynamicComponents = [
+                { name: 'Роботизированный ЧПУ-комплекс для монтажа и разварки кросс-панелей и коммутаторов', qty: 1, price: 105.0 },
+                { name: 'Автоматическая линия штамповки и гибки экранирующих корпусов серверных маршрутизаторов', qty: 1, price: 60.0 },
+                { name: 'Стенд оптического тестирования многопортовых коммутационных ЧПУ-платформ', qty: 1, price: 45.0 }
+            ];
+        }
+        else if (lowInput.includes('трансформ')) {
+            specPrice = 670; setupPerf = 115; setupEquipPrice = 195000;
+            dynamicComponents = [
+                { name: 'SMT-линия с ЧПУ для монтажа аналого-цифровых и цифро-аналоговых преобразователей (АЦП/ЦАП)', qty: 1, price: 75.0 },
+                { name: 'Автоматическая установка для калибровки и подстройки параметров сигнальных процессоров', qty: 1, price: 45.0 },
+                { name: 'Стенд температурного стресс-тестирования преобразователей частоты', qty: 1, price: 35.0 }
+            ];
+        }
+        else if (lowInput.includes('накоплен')) {
+            specPrice = 430; setupPerf = 160; setupEquipPrice = 215000;
+            dynamicComponents = [
+                { name: 'Роботизированный конвейер беспылевой сборки магнитных дисков и твердотельных накопителей (SSD)', qty: 1, price: 95.0 },
+                { name: 'Автоматизированный стенд лазерной юстировки считывающих оптических и магнитных головок', qty: 1, price: 50.0 },
+                { name: 'Стенд ЧПУ для многоканального форматирования, проверки секторов памяти и отбраковки ячеек флеш-памяти', qty: 1, price: 35.0 }
+            ];
+        }
+        else if (lowInput.includes('электрич') || lowInput.includes('регулир')) {
+            specPrice = 780; setupPerf = 90; setupEquipPrice = 230000;
+            dynamicComponents = [
+                { name: 'Автоматическая ЧПУ-линия намотки силовых и сигнальных трансформаторов и катушек индуктивности', qty: 1, price: 85.0 },
+                { name: 'Роботизированный комплекс лазерной сварки силовых тиристоров и твердотельных реле', qty: 1, price: 60.0 },
+                { name: 'ЧПУ-стенд высоковольтных испытаний и калибровки автоматических выключателей и УЗО', qty: 1, price: 50.0 }
+            ];
+        }
+        else if (lowInput.includes('передач')) {
+            specPrice = 920; setupPerf = 85; setupEquipPrice = 265000;
+            dynamicComponents = [
+                { name: 'Высокоскоростная SMT-линия с ЧПУ для распайки СВЧ-компонентов базовых станций и модемов', qty: 1, price: 115.0 },
+                { name: 'Автоматическая ЧПУ-машина для тестирования и юстировки волноводных антенных трактов', qty: 1, price: 70.0 },
+                { name: 'Стенд автоматического контроля сетевых протоколов и программирования чипсетов', qty: 1, price: 45.0 }
+            ];
+        }
+        else if (lowInput.includes('воспроизвед') || lowInput.includes('запис')) {
+            specPrice = 380; setupPerf = 145; setupEquipPrice = 175000;
+            dynamicComponents = [
+                { name: 'Высокоточная ЧПУ-линия поверхностного монтажа аудио- и видеопроцессоров на материнские платы', qty: 1, price: 65.0 },
+                { name: 'Роботизированный стенд автоматической калибровки акустических параметров микрофонов и динамиков', qty: 1, price: 40.0 },
+                { name: 'ЧПУ-станок для прецизионного литья под давлением акустических корпусов и звуководов', qty: 1, price: 30.0 }
+            ];
+        }
+        else if (lowInput.includes('магнитн') || lowInput.includes('диски звуко')) {
+            specPrice = 120; setupPerf = 500; setupEquipPrice = 190000;
+            dynamicComponents = [
+                { name: 'Автоматическая ЧПУ-линия нанесения ферромагнитного рабочего слоя методом прецизионного напыления', qty: 1, price: 35.0 },
+                { name: 'Роботизированный пресс с ЧПУ для высокоточного горячего тиснения и штамповки виниловых дисков', qty: 1, price: 25.0 },
+                { name: 'Автоматический лазерный комплекс ЧПУ для контроля качества и микродефектоскопии дорожек записи', qty: 1, price: 20.0 }
+            ];
+        }
+        else if (lowInput.includes('торгов') || lowInput.includes('предоплат')) {
+            specPrice = 2400; setupPerf = 35; setupEquipPrice = 310000;
+            dynamicComponents = [
+                { name: 'Координатно-пробивной ЧПУ-пресс для изготовления стальных антивандальных корпусов автоматов', qty: 1, price: 450.0 },
+                { name: 'Роботизированная линия сборки и юстировки монетоприемников и оптических валидаторов купюр', qty: 1, price: 210.0 },
+                { name: 'Стенд автоматического ЧПУ-тестирования исполнительных сервоприводов и систем выдачи товара', qty: 1, price: 130.0 }
+            ];
+        }
+        else if (lowInput.includes('кассов') || lowInput.includes('счетн')) {
+            specPrice = 450; setupPerf = 160; setupEquipPrice = 150000;
+            dynamicComponents = [
+                { name: 'Высокоскоростной автоматизированный SMT-комплекс (ЧПУ) для сборки многопроцессорных материнских плат', qty: 1, price: 85.0 },
+                { name: 'Роботизированная линия сборки систем охлаждения, радиаторов и процессорных разъемов', qty: 1, price: 40.0 },
+                { name: 'Стенд автоматического финишного циклического тестирования (Burn-in тест) под максимальной вычислительной нагрузкой', qty: 1, price: 35.0 }
+            ];
+        }
+        else if (lowInput.includes('аппарат')) {
+            specPrice = 410; setupPerf = 130; setupEquipPrice = 140000;
+            dynamicComponents = [
+                { name: 'Автоматизированный комплекс волновой пайки и конвекционного оплавления печатных плат', qty: 1, price: 65.0 },
+                { name: 'ЧПУ-термопластавтомат для высокоточного литья пластиковых деталей аппаратуры', qty: 1, price: 45.0 },
+                { name: 'Стенд рентгеновского и оптического контроля качества внутренних узлов в сборе', qty: 1, price: 30.0 }
+            ];
+        }
+        else if (lowInput.includes('измер')) {
+            specPrice = 490; setupPerf = 125; setupEquipPrice = 185000;
+            dynamicComponents = [
+                { name: 'Лазерный измерительный комплекс (ЧПУ) контроля геометрических параметров готовых изделий', qty: 1, price: 80.0 },
+                { name: 'Автоматизированная поверочная ЧПУ-лаборатория для тестирования электрических величин', qty: 1, price: 65.0 },
+                { name: 'Роботизированный стенд микрозондового контроля параметров интегральных схем', qty: 1, price: 55.0 }
+            ];
+        }
+        else if (lowInput.includes('инструмент')) {
+            specPrice = 180; setupPerf = 240; setupEquipPrice = 95000;
+            dynamicComponents = [
+                { name: 'Многофункциональный обрабатывающий центр с ЧПУ для микрофрезерования металлических и полимерных заготовок', qty: 1, price: 40.0 },
+                { name: 'Электроэрозионный станок (ЧПУ) для изготовления прецизионного слесарного инструмента', qty: 1, price: 25.0 },
+                { name: 'Автоматическая линия закалки и финишной шлифовки рабочих поверхностей инструментов', qty: 1, price: 15.0 }
+            ];
+        }
+        else if (lowInput.includes('прибор')) {
+            specPrice = 340; setupPerf = 180; setupEquipPrice = 125000;
+            dynamicComponents = [
+                { name: 'Линия автоматического монтажа электронных компонентов (SMT-установщик с ЧПУ)', qty: 1, price: 55.0 },
+                { name: 'Лазерный маркер-гравировщик корпусных элементов с программным управлением', qty: 1, price: 30.0 },
+                { name: 'Автоматизированный стенд прецизионной калибровки и юстировки датчиков', qty: 1, price: 20.0 }
+            ];
+        }
+        else if (lowInput.includes('пожарн') || lowInput.includes('огнет') || lowInput.includes('тушен')) {
+            specPrice = 950; setupPerf = 40; setupEquipPrice = 250000;
+            dynamicComponents = [
+                { name: 'ЧПУ-трубогибочный и сварочный комплекс для изготовления коллекторов спринклерных систем', qty: 1, price: 120.0 },
+                { name: 'Автоматический стенд заправки огнетушащих баллонов хладагентами или порошком под давлением', qty: 1, price: 80.0 },
+                { name: 'ЧПУ-станок для сборки и калибровки тепловых замков пожарных извещателей и дренчеров', qty: 1, price: 50.0 }
+            ];
+        }
+        else if (lowInput.includes('оборудов')) {
+            specPrice = 1200; setupPerf = 50; setupEquipPrice = 290000;
+            dynamicComponents = [
+                { name: 'Автоматический роботизированный комплекс ЧПУ для сварки рамных и силовых конструкций', qty: 1, price: 140.0 },
+                { name: 'ЧПУ-штамповочный комплекс для скоростной формовки листового металла', qty: 1, price: 85.0 },
+                { name: 'Конвейерная ЧПУ-линия порошковой окраски с инфракрасной сушкой', qty: 1, price: 60.0 }
+            ];
+        }
+        else if (lowInput.includes('перемещ')) {
+            specPrice = 8500; setupPerf = 25; setupEquipPrice = 640000;
+            dynamicComponents = [
+                { name: 'Пятиосевой ЧПУ-обрабатывающий центр для фрезерования элементов обшивки, гребных винтов и лопастей', qty: 1, price: 1200.0 },
+                { name: 'Автоматизированный станок ЧПУ для динамической балансировки коленчатых валов, роторов и приводных узлов', qty: 1, price: 650.0 },
+                { name: 'Роботизированная линия лазерной сварки титановых и алюминиевых силовых элементов фюзеляжей и шасси', qty: 1, price: 900.0 }
+            ];
+        }
+        else if (lowInput.includes('транспорт')) {
+            specPrice = 15000; setupPerf = 15; setupEquipPrice = 850000;
+            dynamicComponents = [
+                { name: 'Роботизированный сварочный комплекс (ЧПУ) для высокоточной автоматической сборки несущих кузовов и рам', qty: 1, price: 1800.0 },
+                { name: 'Автоматический лазерный комплекс ЧПУ для раскроя листового металла кузовных деталей', qty: 1, price: 1100.0 },
+                { name: 'Роботизированная ЧПУ-линия безвоздушного нанесения грунтов, катафорезных покрытий и финишных эмалей', qty: 1, price: 950.0 }
+            ];
+        }
+        else if (lowInput.includes('ювелир')) {
+            specPrice = 450; setupPerf = 180; setupEquipPrice = 160000;
+            dynamicComponents = [
+                { name: 'Пятиосевой ювелирный фрезерный станок с ЧПУ для микрообработки восковок и прецизионного литья', qty: 1, price: 65.0 },
+                { name: 'Автоматизированная вакуумно-избыточная литейная машина с индукционным нагревом для драгоценных сплавов', qty: 1, price: 45.0 },
+                { name: 'Лазерная ЧПУ-установка точечной сварки и пайки звеньев цепей и элементов крепления камней', qty: 1, price: 30.0 }
+            ];
+        }
+        else if (lowInput.includes('бижутер')) {
+            specPrice = 35; setupPerf = 800; setupEquipPrice = 75000;
+            dynamicComponents = [
+                { name: 'Автоматический ЧПУ-станок микрофрезерования пресс-форм для литья бижутерных элементов', qty: 1, price: 15.0 },
+                { name: 'Виброгалтовочная ЧПУ-установка для скоростной мокрой и сухой полировки металлических деталей', qty: 1, price: 8.0 },
+                { name: 'Роботизированный ЧПУ-автомат дозированного нанесения цветных ювелирных эмалей и лаков', qty: 1, price: 6.0 }
+            ];
+        }
+        else if (lowInput.includes('благородн') || lowInput.includes('сплав')) {
+            specPrice = 1200; setupPerf = 70; setupEquipPrice = 210000;
+            dynamicComponents = [
+                { name: 'Автоматизированная индукционная печь с программным контролем для плавки и легирования чистых металлов', qty: 1, price: 140.0 },
+                { name: 'Прокатный ЧПУ-стан автоматической калибровки толщины золотых и серебряных лент и фольги', qty: 1, price: 95.0 },
+                { name: 'Автоматическая линия гранулирования металлов и непрерывного литья мерных заготовок', qty: 1, price: 60.0 }
+            ];
+        }
+        else if (lowInput.includes('покрыт')) {
+            specPrice = 180; setupPerf = 300; setupEquipPrice = 135000;
+            dynamicComponents = [
+                { name: 'Автоматизированная ЧПУ-линия электрохимического (гальванического) золочения, родирования и серебрения', qty: 1, price: 55.0 },
+                { name: 'Установка вакуумно-плазменного напыления (PVD) износостойких слоев благородных металлов', qty: 1, price: 45.0 },
+                { name: 'Лазерный ЧПУ-аппарат прецизионной маркировки и клеймения готовых изделий', qty: 1, price: 25.0 }
+            ];
+        }
+        else if (lowInput.includes('драгоцен')) {
+            specPrice = 1600; setupPerf = 40; setupEquipPrice = 280000;
+            dynamicComponents = [
+                { name: 'Автоматизированный лазерный ЧПУ-комплекс для раскалывания, подшлифовки и первичной обдирки алмазного сырья', qty: 210.0 },
+                { name: 'Роботизированный ограночный ЧПУ-станок с автоматическим расчетом углов фацетов по 3D-модели кристалла', qty: 1, price: 145.0 },
+                { name: 'Планшайбовый ЧПУ-станок для финишной полировки граней камня с непрерывной подачей алмазных паст', qty: 1, price: 90.0 }
+            ];
+        }
+        else if (lowInput.includes('час')) {
+            specPrice = 650; setupPerf = 110; setupEquipPrice = 190000;
+            dynamicComponents = [
+                { name: 'Высокоточный токарно-фрезерный ЧПУ-автомат продольного точения для изготовления микрошестерен, осей и трибов', qty: 1, price: 95.0 },
+                { name: 'Роботизированный манипулятор с ЧПУ для автоматической запрессовки рубиновых камней в мосты механизма', qty: 1, price: 60.0 },
+                { name: 'Автоматический ЧПУ-стенд проверки точности хода, амплитуды баланса и герметичности корпусов', qty: 1, price: 45.0 }
+            ];
+        }
+        else if (lowInput.includes('музык')) {
+            specPrice = 520; setupPerf = 65; setupEquipPrice = 115000;
+            dynamicComponents = [
+                { name: 'Пятиосевой ЧПУ-фрезерный станок для трехмерного профилирования резонансных дек, грифов и корпусов', qty: 1, price: 85.0 },
+                { name: 'Автоматизированный ЧПУ-станок для прецизионной навивки струн с контролем натяжения и диаметра керна', qty: 1, price: 45.0 },
+                { name: 'Роботизированная электростатическая покрасочная камера с ИК-сушкой для нанесения резонансных лаков', qty: 1, price: 35.0 }
+            ];
+        }
+        else if (lowInput.includes('мебел')) {
+            specPrice = 340; setupPerf = 130; setupEquipPrice = 155000;
+            dynamicComponents = [
+                { name: 'Автоматический обрабатывающий центр с ЧПУ для нестинга, раскроя, фрезерования пазов и присадки отверстий', qty: 1, price: 75.0 },
+                { name: 'Кромкооблицовочный станок проходного типа с ЧПУ и узлом лазерной приклейки кромочного материала', qty: 1, price: 45.0 },
+                { name: 'Автоматический вакуумно-мембранный пресс для облицовки сложных 3D-фасадов натуральным шпоном', qty: 1, price: 35.0 }
+            ];
+        }
+        else {
+            dynamicComponents = [
+                { name: 'Основная дисплейная матрица или панель индикации прибора', qty: 1, price: 50.0 },
+                { name: 'Главная системная логическая плата (Центральный контроллер управления)', qty: 1, price: 45.0 },
+                { name: 'Внутренний силовой блок питания / Трансформаторный узел', qty: 1, price: 25.0 },
+                { name: 'Интерфейсные кабели связи, внутренние соединительные шлейфы и крепеж', qty: 1, price: 15.0 },
+                { name: 'Защитный наружный каркас корпуса и элементы внешнего оформления', qty: 1, price: 15.0 }
+            ];
+        }
+
+        isUserOverridden = true; 
+        document.getElementById('market-price-input').value = specPrice;
+        document.getElementById('perf-val').innerText = setupPerf;
+        document.getElementById('val-equip').value = setupEquipPrice;
+        document.getElementById('status-equip').innerText = `Комплекс МКТУ: (${originalInput})`;
+        
+        const tbody = document.getElementById('component-dynamic-rows');
+        tbody.innerHTML = ""; 
+        dynamicComponents.forEach(comp => {
+            renderStaticRow(comp.name, comp.qty, comp.price);
+        });
+
+        calculateAll();
+    }
+
+    function addComponentRow(name = "", qty = 1, price = 0) {
+        renderStaticRow(name, qty, price);
+        calculateAll();
+    }
+
+    function deleteComponentRow(rowId) {
+        const row = document.getElementById(rowId);
+        if (row) { row.remove(); calculateAll(); }
+    }
+
+    function updateDynamicOverhead() {
+        calculateAll();
+    }
+    
+    function calculateAll() {
+        let totalEquipmentCost = 0;
+        const rows = document.getElementById('component-dynamic-rows').children;
+        for (let tr of rows) {
+            let qty = parseFloat(tr.querySelector('.comp-qty').value) || 0;
+            let prc = parseFloat(tr.querySelector('.comp-price').value) || 0;
+            totalEquipmentCost += (qty * prc);
+        }
+        document.getElementById('total-bom-cost').innerText = totalEquipmentCost.toFixed(2);
+        
+        let equipAmortizationPerDay = totalEquipmentCost / 5 / 365;
+        let rent = parseFloat(document.getElementById('val-rent').value) || 0;
+        let staff = parseFloat(document.getElementById('val-staff').value) || 0;
+        let singleSalary = parseFloat(document.getElementById('val-salary').value) || 0;
+        let totalDailyConstantCosts = ((rent + (singleSalary * staff)) / 30);
+        
+        let finalDailyOverhead = Math.round(equipAmortizationPerDay + totalDailyConstantCosts);
+        document.getElementById('base-overhead').innerText = finalDailyOverhead;
+
+        let perf = parseInt(document.getElementById('perf-val').innerText) || 1;
+        let machineShare = perf > 0 ? (finalDailyOverhead / perf) : 0;
+        document.getElementById('machine-share-cost').innerText = machineShare.toFixed(3);
+        
+        let marketPrice = parseFloat(document.getElementById('market-price-input').value) || 0;
+        document.getElementById('total-product-cost').innerText = machineShare.toFixed(2);
+        
+        let dayProfit = Math.round(perf * (marketPrice - machineShare));
+        let monthProfit = Math.round(dayProfit * 30);
+        document.getElementById('income-month').innerText = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : 0;
+    }
+
+    function openScanner(rowId, inputId) { alert("Функция сканера"); }
+    function openFeedbackModal(event) { if(event) event.preventDefault(); document.getElementById('feedback-modal').style.display = 'block'; }
+    function closeFeedbackModal() { document.getElementById('feedback-modal').style.display = 'none'; }
+    function handleFormSubmit(event) { event.preventDefault(); closeFeedbackModal(); }
+
+    window.onload = function() { calculateAll(); };
+</script>
+</body>
+</html>

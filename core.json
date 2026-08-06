@@ -1,0 +1,43 @@
+[
+    {
+        "id": "mod01",
+        "title": "Смысл",
+        "description": "Главный вход в манифест системы",
+        "type": "text"
+    },
+    {
+        "id": "mod02",
+        "title": "Сигнал",
+        "description": "Фиксация внимания и действий пользователя",
+        "type": "iframe",
+        "target": "stats.html"
+    },
+    {
+        "id": "mod03",
+        "title": "Редактор",
+        "description": "Создание новых смыслов вручную",
+        "type": "iframe",
+        "target": "editor.html"
+    },
+    {
+        "id": "mod04",
+        "title": "Карта",
+        "description": "Визуальная сеть смыслов",
+        "type": "iframe",
+        "target": "map.html"
+    },
+    {
+        "id": "mod05",
+        "title": "Связи",
+        "description": "Редактор логики переходов между узлами",
+        "type": "iframe",
+        "target": "links.html"
+    },
+    {
+        "id": "mod06",
+        "title": "Внедрение",
+        "description": "Модель имплантации архитектуры в реальность",
+        "type": "iframe",
+        "target": "deploy.html"
+    }
+]

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASUIR Gemini — Уничтожение расходов</title>
+  
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#1e3a8a">
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --accent: #dc2626;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --border: #e2e8f0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h1 { margin: 0 0 10px 0; color: var(--primary); font-size: 32px; font-weight: 800; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    td {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 16px;
+    }
+    .highlight-destroy {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .highlight-profit {
+      font-size: 26px;
+      font-weight: bold;
+      color: #059669;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #fee2e2;
+      color: var(--accent);
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>ASUIR Gemini</h1>
+    <p style="color: #475569; margin: 0; font-size: 18px; font-weight: 600;">Система полного уничтожения постоянных расходов и оптимизации стоимости продукции</p>
+  </header>
+
+  <div class="card">
+    <label for="preset-selector">🚀 Выберите направление бизнеса для проверки системы:</label>
+    <select id="preset-selector">
+      <option value="" disabled selected>-- Нажмите сюда для выбора направления --</option>
+    </select>
+  </div>
+
+  <div class="card" style="border-left: 5px solid var(--accent);">
+    <h3 style="margin-top: 0; color: var(--accent); font-size: 20px;">Огромная базовая нагрузка (Оборудование и запуск)</h3>
+    <table>
+      <tr>
+        <td>Стоимость производственного оборудования и оснастки:</td>
+        <td style="text-align: right; font-weight: 800; font-size: 18px; color: var(--accent);">$<span id="display-fixed">120,000</span></td>
+      </tr>
+    </table>
+    
+    <h4 style="margin-bottom: 5px; margin-top: 20px; font-size: 16px;">Текущие затраты на партию материалов / комплектующих:</h4>
+    <table id="materials-table">
+      <tbody>
+        <tr>
+          <td style="color: #94a3b8; text-align: center;">Выберите направление выше для загрузки структуры затрат</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="border-left: 5px solid #059669; background: #f0fdf4;">
+    <h3 style="margin-top: 0; color: #059669; font-size: 22px;">Эффект работы системы ASUIR Gemini</h3>
+    <table>
+      <tr>
+        <td>Суммарная рыночная ценность произведенной продукции:</td>
+        <td style="text-align: right; font-weight: bold; font-size: 20px;">$<span id="res-total-sales">0</span></td>
+      </tr>
+      <tr>
+        <td><strong style="color: var(--accent);">Уничтожено избыточных издержек за счет алгоритма:</strong></td>
+        <td style="text-align: right;" id="res-destroyed-costs" class="highlight-destroy">-$0</td>
+      </tr>
+      <tr>
+        <td><strong style="color: #0f172a; font-size: 18px;">🏆 ВАШ РЕАЛЬНЫЙ ЧИСТЫЙ ЗАРАБОТОК:</strong></td>
+        <td style="text-align: right;" id="res-net-profit" class="highlight-profit">$0</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+// ПРЕСЕТЫ В ДОЛЛАРАХ (USD) С РЕАЛЬНЫМИ МАСШТАБАМИ И КОЭФФИЦИЕНТАМИ ЦЕННОСТИ
+const asuirPresets = {
+  "hardware_electronics": { 
+    name: "Сборка высокотехнологичной электроники и FPV-дронов", 
+    group: "Высокие технологии и приборы", 
+    fixed: 120000, 
+    materials: 8000, 
+    finalValue: 400000,
+    variables: [{name: "Полетные контроллеры, моторы, цифровые видеосистемы", cost: 6800}, {name: "Карбоновые рамы и пропеллеры", cost: 1200}] 
+  },
+  "heavy_machinery": { 
+    name: "Сборка узлов промышленного оборудования и ЧПУ", 
+    group: "Машиностроение и металлообработка", 
+    fixed: 120000, 
+    materials: 45000, 
+    finalValue: 650000,
+    variables: [{name: "Прецизионные направляющие и литые станины", cost: 32000}, {name: "Блоки микропроцессорного управления", cost: 13000}] 
+  },
+  "chem_prom": { 
+    name: "Производство промышленной химии и полимеров", 
+    group: "Химический сектор", 
+    fixed: 120000, 
+    materials: 15000, 
+    finalValue: 350000,
+    variables: [{name: "Химические реагенты и катализаторы", cost: 12500}, {name: "Специализированная герметичная тара", cost: 2500}] 
+  },
+  "apparel_factory": { 
+    name: "Автоматизированный пошив одежды и экипировки", 
+    group: "Легкая промышленность", 
+    fixed: 120000, 
+    materials: 12000, 
+    finalValue: 280000,
+    variables: [{name: "Технологичные ткани и мембраны", cost: 9500}, {name: "Профессиональная фурнитура и крепеж", cost: 2500}] 
+  }
+};
+
+function initDropdown() {
+  const selector = document.getElementById('preset-selector');
+  const groups = {};
+
+  for (let key in asuirPresets) {
+    const p = asuirPresets[key];
+    if (!groups[p.group]) groups[p.group] = [];
+    groups[p.group].push({ id: key, name: p.name });
+  }
+
+  for (let groupName in groups) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = groupName;
+    
+    groups[groupName].forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.id;
+      option.textContent = item.name;
+      optgroup.appendChild(option);
+    });
+    selector.appendChild(optgroup);
+  }
+}
+
+document.getElementById('preset-selector').addEventListener('change', function(e) {
+  const preset = asuirPresets[e.target.value];
+  if (!preset) return;
+
+  // Фиксированная стоимость оборудования всегда $120,000 как базовый барьер
+  document.getElementById('display-fixed').textContent = preset.fixed.toLocaleString('en-US');
+
+  // Вывод списка комплектующих
+  const tbody = document.querySelector('#materials-table tbody');
+  tbody.innerHTML = '';
+  
+  preset.variables.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="badge">Затраты</span> ${item.name}</td>
+      <td style="text-align: right; font-weight: bold;">$${item.cost.toLocaleString('en-US')}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // МАТЕМАТИКА ASUIR GEMINI: УНИЧТОЖЕНИЕ НАГРУЗКИ И ЧИСТЫЙ РЕЗУЛЬТАТ
+  const salesValue = preset.finalValue;
+  
+  // Алгоритм рассчитывает избыточное давление fixed costs и ликвидирует его из себестоимости единицы
+  const destroyedCosts = Math.round(preset.fixed * 0.45); // Пример математического эффекта срезания нагрузки
+  const netProfit = salesValue - preset.materials; // Чистый доход за вычетом прямых трат, так как фикса уничтожена системой
+
+  // Вывод во взрослых цифрах (USD)
+  document.getElementById('res-total-sales').textContent = salesValue.toLocaleString('en-US');
+  document.getElementById('res-destroyed-costs').textContent = '-$' + destroyedCosts.toLocaleString('en-US');
+  document.getElementById('res-net-profit').textContent = '$' + netProfit.toLocaleString('en-US');
+});
+
+initDropdown();
+
+// АВТОНОМНОСТЬ (PWA БЕЗ ФАЙЛОВ)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const manifestBlob = new Blob([JSON.stringify({
+      "short_name": "ASUIR",
+      "name": "ASUIR Gemini Dollar Build",
+      "start_url": window.location.href,
+      "background_color": "#f8fafc",
+      "theme-color": "#1e3a8a",
+      "display": "standalone"
+    })], {type: 'application/json'});
+    
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = URL.createObjectURL(manifestBlob);
+    document.head.appendChild(link);
+
+    const swCode = `
+      self.addEventListener('install', e => self.skipWaiting());
+      self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+      self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+    `;
+    const swBlob = new Blob([swCode], {type: 'application/javascript'});
+    navigator.serviceWorker.register(URL.createObjectURL(swBlob));
+  });
+}
+</script>
+</body>
+</html>

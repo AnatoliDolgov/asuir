@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>АСУИР — Редактор Сценариев</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        select,
+        input,
+        button {
+            font-size: 1em;
+            margin: 0.3em 0;
+        }
+
+        li {
+            margin-bottom: 0.3em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Редактор сценариев</h1>
+        <p class="sub">Собери маршрут исполнения, как цепочку мысли</p>
+    </header>
+
+    <section>
+        <label>Название:
+      <input type="text" id="title" placeholder="Название сценария" />
+    </label><br/>
+        <label>Описание:
+      <input type="text" id="description" placeholder="Описание сценария" />
+    </label>
+
+        <h3>Шаги:</h3>
+        <ol id="steps-list"></ol>
+
+        <label>Добавить шаг:
+      <select id="node-select"></select>
+      <button id="add-step">➕ Добавить</button>
+    </label>
+
+        <hr />
+        <button id="download">💾 Скачать exec.json</button>
+        <button id="clear">🧹 Очистить</button>
+    </section>
+
+    <footer>
+        <a href="exec.html">← Исполнение</a>
+    </footer>
+
+    <script>
+        let nodes = [], steps = [];
+
+    fetch('core.json')
+      .then(res => res.json())
+      .then(data => {
+        nodes = data;
+        const select = document.getElementById('node-select');
+        nodes.forEach(n => {
+          const opt = document.createElement('option');
+          opt.value = n.id;
+          opt.textContent = `[${n.id}] ${n.title}`;
+          select.appendChild(opt);
+        });
+      });
+
+    function renderSteps() {
+      const list = document.getElementById('steps-list');
+      list.innerHTML = '';
+      steps.forEach((id, i) => {
+        const node = nodes.find(n => n.id === id);
+        const li = document.createElement('li');
+        li.innerHTML = `[${id}] ${node?.title || '❓'}
+          <button onclick="moveStep(${i},-1)">⬆️</button>
+          <button onclick="moveStep(${i},1)">⬇️</button>
+          <button onclick="removeStep(${i})">❌</button>`;
+        list.appendChild(li);
+      });
+    }
+
+    function moveStep(index, dir) {
+      const target = index + dir;
+      if (target < 0 || target >= steps.length) return;
+      [steps[index], steps[target]] = [steps[target], steps[index]];
+      renderSteps();
+    }
+
+    function removeStep(index) {
+      steps.splice(index, 1);
+      renderSteps();
+    }
+
+    document.getElementById('add-step').addEventListener('click', () => {
+      const id = document.getElementById('node-select').value;
+      steps.push(id);
+      renderSteps();
+    });
+
+    document.getElementById('download').addEventListener('click', () => {
+      const title = document.getElementById('title').value.trim() || 'Без названия';
+      const description = document.getElementById('description').value.trim() || 'Без описания';
+      const scenario = [{ title, description, steps }];
+      const blob = new Blob([JSON.stringify(scenario, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'exec.json'; a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('clear').addEventListener('click', () => {
+      steps = [];
+      renderSteps();
+    });
+
+    window.moveStep = moveStep;
+    window.removeStep = removeStep;
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>АСУИР — Делегатор</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        input,
+        button {
+            font-size: 1em;
+            margin: 0.5em 0;
+            width: 100%;
+        }
+
+        .block {
+            border: 1px solid #ccc;
+            padding: 1em;
+            margin-top: 1em;
+            border-radius: 6px;
+        }
+
+        .actor {
+            margin: 0.4em 0;
+            padding: 0.5em;
+            background: #f9f9f9;
+            border-left: 4px solid #339;
+        }
+
+        .actor h4 {
+            margin: 0 0 0.2em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Делегатор смысла</h1>
+        <p class="sub">Определи цель — система определит, какие акторы её выполняют</p>
+    </header>
+
+    <section>
+        <label>Твоя цель:
+      <input type="text" id="goal-input" placeholder="например: визуализировать структуру" />
+    </label>
+        <div id="result" class="block" style="display:none;"></div>
+    </section>
+
+    <footer>
+        <a href="panel.html">← Панель</a>
+    </footer>
+
+    <script>
+        let intents = [], actors = [];
+
+    Promise.all([
+      fetch('intents.json').then(r => r.json()),
+      fetch('actors.json').then(r => r.json())
+    ]).then(([i, a]) => {
+      intents = i; actors = a;
+    });
+
+    document.getElementById('goal-input').addEventListener('input', e => {
+      const text = e.target.value.toLowerCase();
+      if (!text || text.length < 2) return document.getElementById('result').style.display = 'none';
+
+      const intent = intents.find(i =>
+        i.goal.toLowerCase().includes(text) || i.description.toLowerCase().includes(text)
+      );
+
+      const res = document.getElementById('result');
+      res.innerHTML = '';
+      if (!intent) {
+        res.textContent = '⏳ Цель не найдена в intents.json';
+        res.style.display = 'block';
+        return;
+      }
+
+      const title = document.createElement('h3');
+      title.textContent = `🎯 Найдено намерение: ${intent.goal}`;
+      res.appendChild(title);
+
+      const desc = document.createElement('p');
+      desc.textContent = intent.description;
+      res.appendChild(desc);
+
+      const foundActors = actors.filter(actor =>
+        actor.nodes?.some(nid => intent.scenarios?.some(s => s.includes(nid) || s.includes(actor.name)))
+      );
+
+    foundActors.forEach(actor => {
+    const div = document.createElement('div');
+    div.className = 'actor';
+    div.innerHTML = `<h4>🧩 ${actor.name}</h4>
+    <p>${actor.description}</p>`;
+    
+    if (actor.entry) {
+    const btn = document.createElement('button');
+    btn.textContent = `▶ Вызвать`;
+    btn.onclick = () => location.href = actor.entry;
+    div.appendChild(btn);
+    }
+    
+    res.appendChild(div);
+    });
+
+      if (!foundActors.length) {
+        const note = document.createElement('p');
+        note.textContent = 'Нет прямого совпадения с акторами. Возможно — новое распределение.';
+        res.appendChild(note);
+      }
+
+      res.style.display = 'block';
+    });
+    </script>
+
+</body>
+
+</html>

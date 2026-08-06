@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>АСУИР — Связи Узлов</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <header>
+        <h1>Редактор связей</h1>
+        <p class="sub">Формируй логические связи между смыслами</p>
+    </header>
+
+    <section>
+        <form id="link-form">
+            <label>Источник:
+        <select id="source" required></select>
+      </label>
+            <label>Цель:
+        <select id="target" required></select>
+      </label>
+            <label>Тип связи:
+        <input type="text" id="type" value="влияние" required />
+      </label>
+            <button type="submit">Добавить связь</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Текущие связи:</h2>
+        <ul id="link-list"></ul>
+        <button id="export">⬇️ Скачать links.json</button>
+    </section>
+
+    <footer>
+        <a href="panel.html">← Панель</a>
+    </footer>
+
+    <script>
+        let nodes = [], links = [];
+    const sourceSelect = document.getElementById('source');
+    const targetSelect = document.getElementById('target');
+    const list = document.getElementById('link-list');
+
+    fetch('core.json')
+      .then(res => res.json())
+      .then(data => {
+        nodes = data;
+        nodes.forEach(n => {
+          [sourceSelect, targetSelect].forEach(select => {
+            const opt = document.createElement('option');
+            opt.value = n.id;
+            opt.textContent = `[${n.id}] ${n.title}`;
+            select.appendChild(opt.cloneNode(true));
+          });
+        });
+      });
+
+    document.getElementById('link-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const src = sourceSelect.value;
+      const tgt = targetSelect.value;
+      const type = document.getElementById('type').value.trim();
+      if (src === tgt || !type) return;
+
+      const link = { source: src, target: tgt, type };
+      links.push(link);
+
+      const li = document.createElement('li');
+      li.textContent = `${src} → ${tgt} (${type})`;
+      list.appendChild(li);
+    });
+
+    document.getElementById('export').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(links, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'links.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+    </script>
+
+</body>
+
+</html>

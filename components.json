@@ -1,0 +1,26 @@
+{
+  "frames": [
+    { "name": "TBS Source One V5", "price": 29 },
+    { "name": "GEPRC Mark5",       "price": 49 },
+    { "name": "iFlight Nazgul",    "price": 39 }
+  ],
+  "stacks": [
+    { "name": "SpeedyBee F405", "price": 45 },
+    { "name": "Mamba F722",     "price": 58 },
+    { "name": "iFlight Blitz",  "price": 62 }
+  ],
+  "motors": [
+    { "name": "Emax Eco II 2207",   "price": 42 },
+    { "name": "T-Motor Velox 2207", "price": 49 },
+    { "name": "iFlight Xing 2207",  "price": 55 }
+  ],
+  "digital": [
+    { "name": "Walksnail Avatar", "price": 89 },
+    { "name": "DJI O3",           "price": 149 },
+    { "name": "HDZero Whoop",     "price": 79 }
+  ],
+  "small": [
+    { "name": "HQProp + TPU",  "price": 7 },
+    { "name": "Gemfan + TPU",  "price": 6 }
+  ]
+}

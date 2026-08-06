@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ASUIR Gemini v2 - Финальный Модуль Автоматических Линий</title>
+    <style>
+        :root {
+            --primary-blue: #1f4e78;
+            --light-blue: #2b5b84;
+            --accent-blue: #31859c;
+            --orange-brown: #c65911;
+            --dark-green: #375623;
+            --light-green-bg: #e2efda;
+            --main-green-bg: #c6e0b4;
+            --text-dark: #333333;
+            --border-color: #bfbfbf;
+            --accent-orange: #ed7d31;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: #f5f6f8; color: var(--text-dark); padding: 30px 15px; }
+        .container { max-width: 900px; margin: 0 auto; background: #ffffff; border: 1px solid var(--border-color); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
+        h1 { background-color: var(--accent-blue); color: #ffffff; font-size: 18px; padding: 12px 15px; text-align: center; font-weight: bold; }
+                
+        /* Навигация */
+        .nav-tabs { display: flex; background-color: #e9eef2; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; }
+        .nav-tab-btn { flex: 1; text-align: center; padding: 10px; font-size: 12px; font-weight: bold; color: var(--primary-blue); text-decoration: none; border-right: 1px solid var(--border-color); transition: background 0.2s; min-width: 150px; }
+        .nav-tab-btn:last-child { border-right: none; }
+        .nav-tab-btn:hover { background-color: #dbe4eb; }
+        .nav-tab-btn.active { background-color: #ffffff; color: var(--orange-brown); border-bottom: 2px solid var(--orange-brown); padding-bottom: 8px; pointer-events: none; }
+
+        /* Панель строки ввода */
+        .strategy-box { background-color: #f9ebdf; padding: 20px; border-bottom: 1px solid var(--border-color); }
+        .strategy-title { font-size: 13px; font-weight: bold; color: var(--orange-brown); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-product-name { width: 100%; padding: 10px 12px; font-size: 14px; font-weight: bold; border: 2px solid var(--accent-blue); border-radius: 6px; color: var(--primary-blue); background: white; }
+        
+        .section-header { background-color: var(--light-blue); color: #ffffff; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
+        th, td { border: 1px solid var(--border-color); padding: 10px 15px; font-size: 13px; vertical-align: middle; }
+        td.right { text-align: right; font-weight: bold; width: 22%; }
+        .total-row { background-color: #f2f2f2; font-weight: bold; }
+        
+        .input-equip-price { width: 140px; padding: 6px; font-size: 14px; font-weight: bold; text-align: right; border: 2px solid var(--accent-blue); border-radius: 4px; color: #1f4e78; background-color: #fffdf0; }
+        .input-equip-price:focus { outline: none; border-color: var(--orange-brown); }
+        .input-table-cell { width: 100%; padding: 6px; font-size: 13px; border: 1px solid var(--border-color); border-radius: 4px; }
+        .input-table-cell-num { width: 90px; padding: 6px; font-size: 13px; text-align: right; border: 1px solid var(--accent-blue); border-radius: 4px; font-weight: bold; }
+
+        .components-header { background-color: var(--primary-blue); color: #ffffff; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; display: flex; justify-content: space-between; align-items: center; }
+        .btn-add-item { background-color: #548235; color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase; }
+        .btn-add-item:hover { background-color: #3d6125; }
+        .btn-delete { background-color: #c65911; color: white; border: none; padding: 4px 8px; font-size: 11px; cursor: pointer; border-radius: 3px; }
+        .btn-search { background-color: var(--accent-orange); color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; text-transform: uppercase; }
+        .btn-search:hover { background-color: #d66a23; }
+        
+        .search-results-box { margin: 15px; padding: 15px; border: 2px dashed var(--accent-orange); background-color: #fffaf7; border-radius: 4px; display: none; }
+        .search-results-title { font-size: 13px; font-weight: bold; color: var(--accent-orange); margin-bottom: 10px; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 8px 12px; border: 1px solid var(--border-color); margin-bottom: 5px; border-radius: 3px; font-size: 12px; }
+        .result-link { color: #1f4e78; text-decoration: underline; font-weight: bold; margin-right: 10px; }
+        .btn-select { background-color: var(--dark-green); color: white; border: none; padding: 4px 10px; font-size: 11px; cursor: pointer; border-radius: 2px; font-weight: bold; }
+
+        .cost-header { background-color: var(--orange-brown); color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .perf-header { background-color: var(--dark-green); color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        .green-zone-header { background-color: #548235; color: white; font-size: 14px; padding: 10px 15px; font-weight: bold; text-align: center; }
+        
+        .result-day { background-color: var(--light-green-bg); font-weight: bold; color: #375623; }
+        .result-day td { font-size: 15px; }
+        .result-month { background-color: var(--main-green-bg); font-weight: bold; color: #1e4620; border-top: 2px solid #548235; }
+        .result-month td { font-size: 18px; padding: 15px 15px; }
+        .spacer { height: 20px; background-color: #f5f6f8; border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>ASUIR Gemini v2: Интегрированный Конструктор Автоматических Линий</h1>
+    
+    <div class="nav-tabs">
+        <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
+        <a href="ASUIRGemeniStep1_ru.html" class="nav-tab-btn">📋 Шаг 1: Как это работает</a>
+        <a href="#" class="nav-tab-btn active">📊 Шаг 2: Оптимизатор маржи</a>
+        <a href="Help_ru.html" class="nav-tab-btn">❓ Помощь / Инструкция</a>
+    </div>
+
+    <div class="strategy-box">
+        <div class="strategy-title">Целевой автоматизированный процесс (Контекст АСУИР)</div>
+        <input type="text" id="product-name-input" class="input-product-name" 
+               value="Автоматическая линия производства дронов" placeholder="Введите название процесса..." oninput="analyzeInputString()">
+    </div>
+    
+    <div class="section-header">1. Капитальные затраты и суточная амортизация автомата</div>
+    <table>
+        <tr>
+            <td>
+                <strong>Комплектация автоматической линии под ключ</strong><br>
+                <span id="status-equip" class="status-badge" style="color: #ed7d31; font-weight: bold;">Промышленный комплекс</span>
+            </td>
+            <td style="text-align: center; width: 25%;">
+                <button class="btn-search" id="btn-equip-scanner" onclick="openScanner('equip', 'product-name-input')">Сканер рынка</button>
+            </td>
+            <td class="right">$<input type="number" id="val-equip" class="input-equip-price" value="120000" placeholder="Введите цену..." oninput="updateDynamicOverhead()"></td>
+        </tr>
+        <tr id="row-overhead" class="total-row">
+            <td colspan="2">Прямые производственные затраты автоматической линии за 1 день (Капитал / 5 / 365)</td>
+            <td class="right">$<span id="base-overhead">66</span></td>
+        </tr>
+    </table>
+
+    <div id="scanner-box" class="search-results-box">
+        <div id="scanner-title" class="search-results-title"></div>
+        <div id="scanner-results-list"></div>
+    </div>
+    
+    <div id="asuir-calculation-zone">
+        <div class="spacer"></div>
+        
+        <div class="perf-header">2. Нормативы выпуска готовой продукции</div>    
+        <table>
+            <tr style="font-weight: bold;">
+                <td>Планируемый объем выпуска изделий в день (Паспортная норма линии)</td>
+                <td class="right" style="font-size: 16px; color: var(--dark-green);"><span id="perf-val">54</span> шт.</td>
+            </tr>
+            <tr>
+                <td>Установленная рыночная цена реализации за единицу готового изделия</td>
+                <td class="right">$<span id="market-price-val">423</span></td>
+            </tr>
+        </table>
+        
+        <div class="spacer"></div>
+        
+        <div class="components-header">
+            <span>3. Спецификация и размещение составляющих продукции (Поиск и выборка вариантов)</span>
+            <button class="btn-add-item" onclick="addComponentRow()">＋ Добавить компонент</button>
+        </div>    
+        <table>
+            <thead>
+                <tr style="background-color: #f9f9f9;">
+                    <th style="text-align: left; width: 40%;">Наименование составляющей продукции (BOM)</th>
+                    <th style="text-align: center; width: 18%;">Сканер АСУИР</th>
+                    <th style="text-align: right; width: 16%;">Кол-во на ед.</th>
+                    <th style="text-align: right; width: 18%;">Цена ($)</th>
+                    <th style="text-align: center; width: 8%;">❌</th>
+                </tr>
+            </thead>
+            <tbody id="component-dynamic-rows">
+                </tbody>
+            <tfoot>
+                <tr class="total-row" style="background-color: #fffaf0;">
+                    <td colspan="3">Итого чистая стоимость сырья и комплектующих на 1 изделие:</td>
+                    <td class="right" style="color: var(--orange-brown); font-size:14px;">$<span id="total-bom-cost">0</span></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div class="spacer"></div>
+        
+        <div class="cost-header">4. Полная интегрированная себестоимость изделия</div>    
+        <table>
+            <tr>
+                <td>Доля амортизационных затрат автомата на одно изделие (Затраты дня / Выпуск дня)</td>
+                <td class="right" style="font-weight: normal;">$<span id="machine-share-cost">1.222</span></td>
+            </tr>
+            <tr class="total-row" style="background-color: #f9ebdf; color: #7e2f00;">
+                <td>Полная расчетная себестоимость единицы продукции (Сырье + Доля автомата)</td>
+                <td class="right">$<span id="total-product-cost">0</span></td>
+            </tr>
+        </table>
+        
+        <div class="spacer"></div>
+        
+        <div class="green-zone-header">5. Максимизация маржинального дохода производства</div>    
+        <table>
+            <tr class="result-day">
+                <td>Чистый маржинальный доход проекта за 1 день работы линии</td>
+                <td class="right">$<span id="income-day">0</span></td>
+            </tr>
+            <tr class="result-month">
+                <td>Итоговый чистый доход за 1 месяц (Проекция АСУИР)</td>
+                <td class="right">$<span id="income-month">0</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="background-color: #f2f2f2; padding: 15px; text-align: center; font-size: 12px; color: #555555; border-top: 1px solid var(--border-color); font-weight: bold;">
+        © Анатолий Долгов, Лос-Анджелес, США, Russia. Все права защищены.    
+    </div>
+</div>
+
+<script>    
+    // Структурированная кросс-отраслевая база данных АСУИР для автоматической подгрузки списков
+    const industriesProfiles = {
+        bakery: { 
+            name: 'Автоматическая хлебопекарная линия ИНТЕР-3000', price: 85000, perf: 1500, marketPrice: 1.5,
+            components: [
+                { name: 'Мука высшего сорта (кг)', qty: 0.6, price: 0.4 },
+                { name: 'Дрожжи и добавки (порция)', qty: 1, price: 0.05 },
+                { name: 'Упаковочный брендированный пакет', qty: 1, price: 0.08 }
+            ]
+        },
+        drones: { 
+            name: 'Роботизированный комплекс сборки ASUIR Ultra', price: 120000, perf: 54, marketPrice: 423,
+            components: [
+                { name: 'Карбоновая облегченная рама 7"', qty: 1, price: 45.0 },
+                { name: 'Полетный контроллер (стек ЧПУ)', qty: 1, price: 85.0 },
+                { name: 'Бесколлекторные моторы (комплект 4 шт)', qty: 1, price: 68.0 },
+                { name: 'Аккумуляторная батарея LiPo', qty: 1, price: 42.0 }
+            ]
+        }
+    };
+
+    let activeProfile = industriesProfiles.drones;
+    let currentTargetRowId = "";
+    let currentTargetInputId = "";
+
+    // Функция, которая налету анализирует строку и выкатывает нужные компоненты продукции
+    function analyzeInputString() {
+        const inputVal = document.getElementById('product-name-input').value.toLowerCase();
+        
+        if (inputVal.includes('хлеб') || inputVal.includes('пекарн') || inputVal.includes('батон')) {
+            activeProfile = industriesProfiles.bakery;
+        } else {
+            activeProfile = industriesProfiles.drones;
+        }
+
+        document.getElementById('status-equip').innerText = activeProfile.name;
+        document.getElementById('perf-val').innerText = activeProfile.perf;
+        document.getElementById('market-price-val').innerText = activeProfile.marketPrice;
+
+        const tbody = document.getElementById('component-dynamic-rows');
+        tbody.innerHTML = ""; // чистим старое
+        
+        // Переразвертываем компоненты продукции наружу
+        activeProfile.components.forEach(comp => {
+            addComponentRow(comp.name, comp.qty, comp.price);
+        });
+
+        updateDynamicOverhead();
+    }
+
+    // Добавление новой строки компонента продукции с кнопкой индивидуального поиска
+    function addComponentRow(name = "", qty = "", price = "") {
+        const tbody = document.getElementById('component-dynamic-rows');
+        const rowId = 'comp-row-' + Date.now() + Math.random().toString(36).substr(2, 5);
+        
+        const tr = document.createElement('tr');
+        tr.id = rowId;
+        tr.innerHTML = `
+            <td><input type="text" id="${rowId}-name" class="input-table-cell" value="${name}" placeholder="Наименование детали/сырья..."></td>
+            <td style="text-align: center;"><button class="btn-search" onclick="openScanner('${rowId}', '${rowId}-name')">Поиск</button></td>
+            <td><input type="number" step="0.1" class="input-table-cell-num comp-qty" value="${qty}" placeholder="1" oninput="calculateAll()"></td>
+            <td><input type="number" step="0.01" class="input-table-cell-num comp-price" id="${rowId}-price" value="${price}" placeholder="0.00" oninput="calculateAll()"></td>
+            <td style="text-align: center;"><button class="btn-delete" onclick="deleteComponentRow('${rowId}')">❌</button></td>
+        `;
+        tbody.appendChild(tr);
+        calculateAll();
+    }
+
+    function deleteComponentRow(rowId) {
+        const row = document.getElementById(rowId);
+        if (row) {
+            row.remove();
+            calculateAll();
+        }
+    }
+
+    function updateDynamicOverhead() {
+        let price = parseFloat(document.getElementById('val-equip').value) || 0;
+        let amortizationPerDay = price > 0 ? Math.round(price / 5 / 365) : 0;
+        document.getElementById('base-overhead').innerText = amortizationPerDay;
+        calculateAll();
+    }
+    
+    function calculateAll() {        
+        let baseOverhead = parseFloat(document.getElementById('base-overhead').innerText) || 0;                
+        let perf = activeProfile.perf;        
+
+        // Суммируем сырьевую базу компонентов
+        let totalBomCost = 0;
+        const rows = document.getElementById('component-dynamic-rows').children;
+        for (let tr of rows) {
+            let qty = parseFloat(tr.querySelector('.comp-qty').value) || 0;
+            let prc = parseFloat(tr.querySelector('.comp-price').value) || 0;
+            totalBomCost += (qty * prc);
+        }
+        document.getElementById('total-bom-cost').innerText = totalBomCost.toFixed(2);
+
+        // Доля станка на единицу товара
+        let machineShare = perf > 0 ? (baseOverhead / perf) : 0;
+        document.getElementById('machine-share-cost').innerText = machineShare.toFixed(3);        
+        
+        // Полная себестоимость единицы изделия
+        let totalUnitCost = totalBomCost + machineShare;
+        document.getElementById('total-product-cost').innerText = totalUnitCost.toFixed(2);        
+        
+        // Итоговые прибыли
+        let marketPrice = activeProfile.marketPrice;
+        let dayProfit = Math.round(perf * (marketPrice - totalUnitCost));
+        let monthProfit = Math.round(dayProfit * 30);        
+        
+        document.getElementById('income-day').innerText = dayProfit > 0 ? dayProfit.toLocaleString('ru-RU') : 0;
+        document.getElementById('income-month').innerText = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : 0;    
+    }    
+
+    // Универсальный АСУИР-сканер рынка
+    function openScanner(rowId, inputId) {        
+        currentTargetRowId = rowId;
+        currentTargetInputId = inputId;
+        
+        const box = document.getElementById('scanner-box');
+        const title = document.getElementById('scanner-title');
+        const list = document.getElementById('scanner-results-list');        
+        const targetSearchText = document.getElementById(inputId).value.trim();
+        
+        title.innerHTML = `📊 Сканер АСУИР: Анализ рынка и подбор для — <strong>${targetSearchText || "Компонент"}</strong>`;        
+        list.innerHTML = "";        
+        
+        let currentPrice = 50;
+        if(rowId !== 'equip') {
+            currentPrice = parseFloat(document.getElementById(rowId + '-price').value) || 10;
+        } else {
+            currentPrice = activeProfile.price;
+        }
+
+        const variations = [
+            { n: `Опт/Эконом альтернатива: ${targetSearchText}`, p: Math.round(currentPrice * 0.8 * 100) / 100 },
+            { n: `Базовый/Оптимальный вариант: ${targetSearchText}`, p: currentPrice },
+            { n: `Премиум качество (Проверено АСУИР): ${targetSearchText}`, p: Math.round(currentPrice * 1.25 * 100) / 100 }
+        ];
+        
+        variations.forEach((item, index) => {
+            let url = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(targetSearchText)}`;            
+            list.innerHTML += `                
+                <div class="result-item">                    
+                    <span><strong>Вариант #${index + 1}:</strong> ${item.n} — <strong>$${item.p.toLocaleString('en-US')}</strong></span>                    
+                    <div>                        
+                        <a href="${url}" target="_blank" class="result-link">Аналитика рынка ↗</a>                        
+                        <button class="btn-select" onclick="selectVariant(${item.p}, '${item.n.replace(/'/g, "\\'")}')">Интегрировать</button>                    
+                    </div>                
+                </div>`;
+        });        
+        box.style.display = 'block';
+        box.scrollIntoView({behavior: 'smooth'});    
+    }    
+    
+    function selectVariant(price, name) {        
+        if (currentTargetRowId === 'equip') {
+            document.getElementById('val-equip').value = price;            
+        } else {
+            document.getElementById(currentTargetRowId + '-price').value = price;            
+            document.getElementById(currentTargetInputId).value = name;            
+        }
+        updateDynamicOverhead();        
+        document.getElementById('scanner-box').style.display = 'none';    
+    }    
+    
+    // Автозапуск при старте
+    window.onload = function() {        
+        analyzeInputString();    
+    };
+</script>
+</body>
+</html>

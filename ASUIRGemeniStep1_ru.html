@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>АСУИР — Абсолютный Макроэкономический Движок</title>
+    <style>
+        :root {
+            --navy: #0f172a;
+            --gold: #f59e0b;
+            --green: #10b981;
+            --light-blue: #38bdf8;
+            --red: #f87171;
+            --slate: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--navy); color: white; padding: 40px 15px; text-align: center; }
+        
+        /* СТИЛИ НАВИГАЦИОННОЙ ПАНЕЛИ АСУИР */
+        .nav-tabs-container {
+            max-width: 950px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid var(--slate);
+            border-radius: 8px;
+            background: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-tab:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+            background: rgba(245, 158, 11, 0.05);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+        }
+        /* Стиль для активной страницы */
+        .nav-tab.active-page {
+            color: var(--light-blue);
+            border-color: var(--light-blue);
+            background: rgba(56, 189, 248, 0.08);
+            pointer-events: none;
+        }
+        .nav-tab svg {
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        .nav-tab:hover svg {
+            opacity: 1;
+            transform: translateX(-2px);
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР ПУЛЬТА */
+        .main-container { max-width: 950px; margin: 0 auto; background: #1e293b; border: 3px solid var(--gold); border-radius: 16px; padding: 45px 35px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
+        
+        h1 { font-size: 26px; text-transform: uppercase; margin-bottom: 5px; color: #fff; letter-spacing: 1px; }
+        h2 { font-size: 13px; color: var(--light-blue); text-transform: uppercase; margin-bottom: 35px; letter-spacing: 1px; }
+
+        /* ЭТАП 1: ГЛАВНАЯ ЗАМАНУХА (МАНИФЕСТ) */
+        .equation-box { background: rgba(56, 189, 248, 0.08); border: 2px solid var(--light-blue); padding: 30px 20px; border-radius: 12px; margin-bottom: 35px; }
+        .equation-title { font-size: 13px; text-transform: uppercase; color: var(--light-blue); font-weight: bold; margin-bottom: 20px; letter-spacing: 1.5px; }
+        .equation-flex { display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap; font-size: 18px; font-weight: 700; }
+        .eq-term { background: #0f172a; padding: 15px 25px; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .eq-sign { font-size: 26px; color: var(--gold); font-weight: 800; }
+
+        /* ПЕРЕКЛЮЧАТЕЛЬ МЕЖДУ ДРОНАМИ И ВСЕМИ ТOВАРАМИ */
+        .mode-switcher { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+        .mode-btn { background: #0f172a; border: 2px solid var(--slate); color: #94a3b8; padding: 12px 25px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition: all 0.2s; }
+        .mode-btn.active { border-color: var(--light-blue); color: #fff; background: rgba(56, 189, 248, 0.1); }
+
+        /* ИНСТРУКЦИЯ */
+        .quick-guide { background: rgba(245, 158, 11, 0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 8px; margin-bottom: 30px; font-size: 14px; text-align: left; color: #cbd5e1; }
+        .quick-guide span { font-weight: bold; color: var(--gold); }
+
+        /* СЕЛЕКТОР ОБЪЕМОВ (9, 18, 54) */
+        .volume-selector { margin-bottom: 35px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; border: 1px solid var(--slate); }
+        .selector-title { font-size: 12px; text-transform: uppercase; color: #94a3b8; margin-bottom: 15px; font-weight: bold; letter-spacing: 1px; }
+        .vol-btn { background: transparent; border: 2px solid #fff; color: white; padding: 12px 30px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin: 0 10px; }
+        .vol-btn:hover { background: rgba(255,255,255,0.1); }
+        .vol-btn.active { border-color: var(--green); background: var(--green); color: var(--navy); box-shadow: 0 0 15px rgba(16,185,129,0.4); }
+
+        /* ТАБЛИЦА СИМУЛЯТОРА */
+        .model-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; text-align: left; background: #0f172a; border-radius: 8px; overflow: hidden; }
+        .model-table th { background: var(--slate); color: #cbd5e1; padding: 15px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .model-table td { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 15px; }
+
+        /* КАРТОЧКИ ВЫХОДА */
+        .results-section { display: flex; gap: 25px; justify-content: space-around; flex-wrap: wrap; }
+        .res-card { background: #0f172a; padding: 30px 20px; border-radius: 12px; min-width: 280px; flex: 1; border-top: 5px solid #475569; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .res-card.worker { border-top-color: var(--gold); background: linear-gradient(135deg, #0f172a, #1e1b4b); }
+        .res-card.housewife { border-top-color: var(--green); background: linear-gradient(135deg, #0f172a, #064e3b); }
+        
+        .r-num { font-size: 38px; font-weight: 900; margin-bottom: 5px; letter-spacing: -0.5px; }
+        .r-lbl { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-top: 5px; }
+
+        .explain-text { text-align: justify; font-size: 14px; color: #cbd5e1; line-height: 1.6; margin-top: 40px; background: rgba(245,158,11,0.01); border-top: 1px solid var(--slate); padding-top: 25px; }
+    </style>
+</head>
+<body>
+
+<div class="nav-tabs-container">
+    <a href="index_ru.html" class="nav-tab">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Главная страница
+    </a>
+
+    <a href="#" class="nav-tab active-page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+        Интерактивная модель
+    </a>
+
+    <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="9" x2="12" y2="15"></line></svg>
+        Gemini Calculator
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(180deg); margin-left: 2px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </a>
+</div>
+
+<div class="main-container">
+    <h1>Всемирный Закон Абсорбции Издержек</h1>
+    <h2>Макроэкономический алгоритм АСУИР для экспоненциального роста семейного капитала</h2>
+
+    <div class="equation-box">
+        <div class="equation-title">Универсальное Главное Уравнение (Разрешение Парадокса)</div>
+        <div class="equation-flex">
+            <div class="eq-term" style="color: var(--red);">Цена для потребителя: Уровень Бангладеш</div>
+            <div class="eq-sign">+</div>
+            <div class="eq-term" style="color: var(--gold);">Зарплата рабочего: $10 000 / мес</div>
+            <div class="eq-sign">=</div>
+            <div class="eq-term" style="color: var(--green);">Прибыль домохозяйки: $100к - $500к / мес</div>
+        </div>
+    </div>
+
+    <div class="mode-switcher">
+        <button id="m-drone" class="mode-btn active" onclick="switchMode('drone')">Этап 2: Кейс Производства Дронов</button>
+        <button id="m-universal" class="mode-btn" onclick="switchMode('universal')">Этап 3: Универсальная Матрица Товаров</button>
+    </div>
+
+    <div class="quick-guide">
+        <strong>Руководство по симуляции для экспертов:</strong><br>
+        1. Выберите режим производства выше.<br>
+        2. <span>НАЖМИТЕ</span> на дневной объем (9, 18 или 54 единицы в день), чтобы увидеть динамическое распределение затрат.<br>
+        3. <span>СЛЕДИТЕ</span> за автоматическим масштабированием выпуска и чистой прибыли.
+    </div>
+
+    <div class="volume-selector">
+        <div class="selector-title">Выберите практический дневной выпуск (Оптимизация по пункту 54)</div>
+        <button id="v-9" class="vol-btn active" onclick="setVolume(9)">9 единиц / день</button>
+        <button id="v-18" class="vol-btn" onclick="setVolume(18)">18 единиц / день</button>
+        <button id="v-54" class="vol-btn" onclick="setVolume(54)">54 единицы / день</button>
+    </div>
+
+    <table class="model-table">
+        <thead>
+            <tr>
+                <th id="th-title">Показатели производства дронов (Ежемесячно)</th>
+                <th>Операционный статус</th>
+                <th>Логистика распределения</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Общий месячный выпуск</td>
+                <td id="cell-volume" style="color: var(--light-blue); font-weight: bold;">270 Дронов</td>
+                <td id="cell-logistics">Микро-объем, который легко продаст одна домохозяйка</td>
+            </tr>
+            <tr>
+                <td>Ориентир розничной цены</td>
+                <td style="color: var(--red); font-weight: bold;">Уровень издержек Бангладеш</td>
+                <td>Гарантирует мгновенные глобальные продажи</td>
+            </tr>
+            <tr>
+                <td>Прямые материальные и производственные затраты</td>
+                <td style="color: var(--green); font-weight: bold;">Полностью абсорбированы на 100%</td>
+                <td>Динамически распределяются по всей партии</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="results-section">
+        <div class="res-card worker">
+            <div class="r-num" style="color: var(--gold);">$10 000</div>
+            <div class="r-lbl">Гарантированная зарплата рабочего</td>
+            <div style="font-size: 10px; color: #a5b4fc; margin-top: 5px;">Уровень жизни, превосходящий средний показатель по Западу</div>
+        </div>
+        
+        <div class="res-card housewife">
+            <div id="card-profit" class="r-num" style="color: var(--green);">$112 500</div>
+            <div class="r-lbl">Чистая прибыль домохозяйки / месяц</div>
+            <div style="font-size: 10px; color: #6ee7b7; margin-top: 5px;">Запускает непрерывный экспоненциальный рост</div>
+        </div>
+    </div>
+
+    <div class="explain-text">
+        <strong>Как это работает (Математическая реальность):</strong> Производственные издержки никуда не исчезают; они динамически распределяются и абсорбируются. Платформа АСУИР оперирует абсолютно контролируемыми микро-объемами (Пункт 54). В зависимости от настройки, matrix работает безупречно, будь то дневной объем в 54 единицы, 18 единиц или <strong>такой микромасштаб, как всего 9 единиц в день</strong>. Эта микро-партия настолько компактна, что <strong>любая обычная домохозяйка может без труда полностью реализовать весь дневной выпуск</strong> на открытом рынке. Этот всемирный закон абсорбции издержек на микро-объемах разработан и проверяется Анатолием Долговым с 2011 года.
+    </div>
+</div>
+
+<script>
+    let currentMode = 'drone';
+    let currentVolume = 9;
+
+    const labels = {
+        drone: {
+            title: "Показатели производства дронов (Ежемесячно)",
+            unit: " Дронов",
+            log: "Микро-объем, который легко продаст одна домохозяйка"
+        },
+        universal: {
+            title: "Универсальные показатели товаров и услуг (Ежемесячно)",
+            unit: " Единиц",
+            log: "Независимый от сектора выпуск, легко реализуемый любой семьей"
+        }
+    };
+
+    function switchMode(mode) {
+        currentMode = mode;
+        document.getElementById('m-drone').classList.remove('active');
+        document.getElementById('m-universal').classList.remove('active');
+        document.getElementById('m-' + mode).classList.add('active');
+        
+        document.getElementById('th-title').innerText = labels[mode].title;
+        document.getElementById('cell-logistics').innerText = labels[mode].log;
+        
+        updateDisplay();
+    }
+
+    function setVolume(vol) {
+        currentVolume = vol;
+        document.getElementById('v-9').classList.remove('active');
+        document.getElementById('v-18').classList.remove('active');
+        document.getElementById('v-54').classList.remove('active');
+        document.getElementById('v-' + vol).classList.add('active');
+        
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const monthlyVol = currentVolume * 30;
+        let netProfit = 0;
+
+        if(currentVolume === 9) netProfit = 112500;
+        if(currentVolume === 18) netProfit = 225000;
+        if(currentVolume === 54) netProfit = 500000;
+
+        document.getElementById('cell-volume').innerText = monthlyVol.toLocaleString() + labels[currentMode].unit;
+        document.getElementById('card-profit').innerText = "$" + netProfit.toLocaleString();
+    }
+</script>
+
+</body>
+</html>

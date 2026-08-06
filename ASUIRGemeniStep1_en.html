@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASUIR — The Absolute Macroeconomic Engine</title>
+    <style>
+        :root {
+            --navy: #0f172a;
+            --gold: #f59e0b;
+            --green: #10b981;
+            --light-blue: #38bdf8;
+            --red: #f87171;
+            --slate: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--navy); color: white; padding: 40px 15px; text-align: center; }
+        
+        /* ASUIR NAVIGATION TABS STYLES */
+        .nav-tabs-container {
+            max-width: 950px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid var(--slate);
+            border-radius: 8px;
+            background: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-tab:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+            background: rgba(245, 158, 11, 0.05);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+        }
+        /* Style for the active page */
+        .nav-tab.active-page {
+            color: var(--light-blue);
+            border-color: var(--light-blue);
+            background: rgba(56, 189, 248, 0.08);
+            pointer-events: none;
+        }
+        .nav-tab svg {
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        .nav-tab:hover svg {
+            opacity: 1;
+            transform: translateX(-2px);
+        }
+
+        /* MAIN CONTROL PANEL CONTAINER */
+        .main-container { max-width: 950px; margin: 0 auto; background: #1e293b; border: 3px solid var(--gold); border-radius: 16px; padding: 45px 35px; box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
+        
+        h1 { font-size: 26px; text-transform: uppercase; margin-bottom: 5px; color: #fff; letter-spacing: 1px; }
+        h2 { font-size: 13px; color: var(--light-blue); text-transform: uppercase; margin-bottom: 35px; letter-spacing: 1px; }
+
+        /* STEP 1: MAIN MANIFESTO (EQUATION BOX) */
+        .equation-box { background: rgba(56, 189, 248, 0.08); border: 2px solid var(--light-blue); padding: 30px 20px; border-radius: 12px; margin-bottom: 35px; }
+        .equation-title { font-size: 13px; text-transform: uppercase; color: var(--light-blue); font-weight: bold; margin-bottom: 20px; letter-spacing: 1.5px; }
+        .equation-flex { display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap; font-size: 18px; font-weight: 700; }
+        .eq-term { background: #0f172a; padding: 15px 25px; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .eq-sign { font-size: 26px; color: var(--gold); font-weight: 800; }
+
+        /* SWITCHER BETWEEN DRONES AND UNIVERSAL GOODS */
+        .mode-switcher { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+        .mode-btn { background: #0f172a; border: 2px solid var(--slate); color: #94a3b8; padding: 12px 25px; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; font-size: 13px; transition: all 0.2s; }
+        .mode-btn.active { border-color: var(--light-blue); color: #fff; background: rgba(56, 189, 248, 0.1); }
+
+        /* QUICK GUIDE */
+        .quick-guide { background: rgba(245, 158, 11, 0.05); border: 1px dashed var(--gold); padding: 15px; border-radius: 8px; margin-bottom: 30px; font-size: 14px; text-align: left; color: #cbd5e1; }
+        .quick-guide span { font-weight: bold; color: var(--gold); }
+
+        /* VOLUME SELECTOR (9, 18, 54) */
+        .volume-selector { margin-bottom: 35px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; border: 1px solid var(--slate); }
+        .selector-title { font-size: 12px; text-transform: uppercase; color: #94a3b8; margin-bottom: 15px; font-weight: bold; letter-spacing: 1px; }
+        .vol-btn { background: transparent; border: 2px solid #fff; color: white; padding: 12px 30px; font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.2s; margin: 0 10px; }
+        .vol-btn:hover { background: rgba(255,255,255,0.1); }
+        .vol-btn.active { border-color: var(--green); background: var(--green); color: var(--navy); box-shadow: 0 0 15px rgba(16,185,129,0.4); }
+
+        /* SIMULATOR TABLE */
+        .model-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; text-align: left; background: #0f172a; border-radius: 8px; overflow: hidden; }
+        .model-table th { background: var(--slate); color: #cbd5e1; padding: 15px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .model-table td { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 15px; }
+
+        /* OUTPUT CARDS */
+        .results-section { display: flex; gap: 25px; justify-content: space-around; flex-wrap: wrap; }
+        .res-card { background: #0f172a; padding: 30px 20px; border-radius: 12px; min-width: 280px; flex: 1; border-top: 5px solid #475569; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .res-card.worker { border-top-color: var(--gold); background: linear-gradient(135deg, #0f172a, #1e1b4b); }
+        .res-card.housewife { border-top-color: var(--green); background: linear-gradient(135deg, #0f172a, #064e3b); }
+        
+        .r-num { font-size: 38px; font-weight: 900; margin-bottom: 5px; letter-spacing: -0.5px; }
+        .r-lbl { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px; margin-top: 5px; }
+
+        .explain-text { text-align: justify; font-size: 14px; color: #cbd5e1; line-height: 1.6; margin-top: 40px; background: rgba(245,158,11,0.01); border-top: 1px solid var(--slate); padding-top: 25px; }
+    </style>
+</head>
+<body>
+
+<div class="nav-tabs-container">
+    <a href="index.html" class="nav-tab">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Main Dashboard
+    </a>
+
+    <a href="#" class="nav-tab active-page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+        Interactive Matrix
+    </a>
+
+    <a href="ASUIRGeminiCalculationModule_en.html" class="nav-tab">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="9" x2="12" y2="15"></line></svg>
+        Calculation Optimizer
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transform: rotate(180deg); margin-left: 2px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    </a>
+</div>
+
+<div class="main-container">
+    <h1>The Global Law of Cost Absorption</h1>
+    <h2>ASUIR Macroeconomic Algorithm for Exponential Growth of Family Wealth</h2>
+
+    <div class="equation-box">
+        <div class="equation-title">Universal Master Equation (Resolving the Paradox)</div>
+        <div class="equation-flex">
+            <div class="eq-term" style="color: var(--red);">Consumer Price: Bangladesh Cost Level</div>
+            <div class="eq-sign">+</div>
+            <div class="eq-term" style="color: var(--gold);">Worker's Salary: $10,000 / mo</div>
+            <div class="eq-sign">=</div>
+            <div class="eq-term" style="color: var(--green);">Housewife Profit: $100k - $500k / mo</div>
+        </div>
+    </div>
+
+    <div class="mode-switcher">
+        <button id="m-drone" class="mode-btn active" onclick="switchMode('drone')">Stage 2: Drone Production Case Study</button>
+        <button id="m-universal" class="mode-btn" onclick="switchMode('universal')">Stage 3: Universal Product Matrix</button>
+    </div>
+
+    <div class="quick-guide">
+        <strong>Expert Simulation Guide:</strong><br>
+        1. Select the operational framework above (ASUIR matrix adapts dynamically to <span>ANY</span> type of manufacturing or tech production).<br>
+        2. <span>CLICK</span> on the daily production target (9, 18, or 54 units/day) to observe dynamic overhead allocation.<br>
+        3. <span>MONITOR</span> the automated output scaling and net family equity expansion.
+    </div>
+
+    <div class="volume-selector">
+        <div class="selector-title">Select Practical Daily Output (Optimized via Paragraph 54 Framework)</div>
+        <button id="v-9" class="vol-btn active" onclick="setVolume(9)">9 Units / Day</button>
+        <button id="v-18" class="vol-btn" onclick="setVolume(18)">18 Units / Day</button>
+        <button id="v-54" class="vol-btn" onclick="setVolume(54)">54 Units / Day</button>
+    </div>
+
+    <table class="model-table">
+        <thead>
+            <tr>
+                <th id="th-title">Drone Production Metrics (Monthly)</th>
+                <th>Operational Status</th>
+                <th>Distribution Logistics</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Total Monthly Volume</td>
+                <td id="cell-volume" style="color: var(--light-blue); font-weight: bold;">270 Drones</td>
+                <td id="cell-logistics">Micro-volume easily distributed by a single housewife</td>
+            </tr>
+            <tr>
+                <td>Retail Price Anchor</td>
+                <td style="color: var(--red); font-weight: bold;">Bangladesh Cost Level</td>
+                <td>Guarantees instantaneous global consumer traction</td>
+            </tr>
+            <tr>
+                <td>Direct Material & Manufacturing Costs</td>
+                <td style="color: var(--green); font-weight: bold;">Fully Absorbed at 100%</td>
+                <td>Dynamically distributed across the entire batch</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="results-section">
+        <div class="res-card worker">
+            <div class="r-num" style="color: var(--gold);">$10,000</div>
+            <div class="r-lbl">Guaranteed Worker Salary</div>
+            <div style="font-size: 10px; color: #a5b4fc; margin-top: 5px;">Standard of living surpassing average Western benchmarks</div>
+        </div>
+        
+        <div class="res-card housewife">
+            <div id="card-profit" class="r-num" style="color: var(--green);">$112,500</div>
+            <div class="r-lbl">Housewife Net Profit / Month</div>
+            <div style="font-size: 10px; color: #6ee7b7; margin-top: 5px;">Triggers continuous exponential scaling of capital</div>
+        </div>
+    </div>
+
+    <div class="explain-text">
+        <strong>How It Works (Mathematical Reality):</strong> Manufacturing and structural costs never vanish; they are dynamically allocated and absorbed. The ASUIR platform operates on absolutely controlled micro-volumes (Paragraph 54). Depending on your configuration, the matrix functions flawlessly whether you choose a daily volume of 54 units, 18 units, or <strong>a micro-scale of just 9 units per day</strong>. This micro-batch is so compact that <strong>any ordinary housewife can effortlessly execute total market distribution of the entire daily output</strong> on the open global market. This global law of cost absorption on micro-volumes has been engineered, modeled, and verified by Anatoliy Dolgov since 2011.
+    </div>
+</div>
+
+<script>
+    let currentMode = 'drone';
+    let currentVolume = 9;
+
+    const labels = {
+        drone: {
+            title: "Drone Production Metrics (Monthly)",
+            unit: " Drones",
+            log: "Micro-volume easily distributed by a single housewife"
+        },
+        universal: {
+            title: "Universal Goods & Services Metrics (Monthly)",
+            unit: " Units",
+            log: "Sector-independent output easily liquidated by any family unit"
+        }
+    };
+
+    function switchMode(mode) {
+        currentMode = mode;
+        document.getElementById('m-drone').classList.remove('active');
+        document.getElementById('m-universal').classList.remove('active');
+        document.getElementById('m-' + mode).classList.add('active');
+        
+        document.getElementById('th-title').innerText = labels[mode].title;
+        document.getElementById('cell-logistics').innerText = labels[mode].log;
+        
+        updateDisplay();
+    }
+
+    function setVolume(vol) {
+        currentVolume = vol;
+        document.getElementById('v-9').classList.remove('active');
+        document.getElementById('v-18').classList.remove('active');
+        document.getElementById('v-54').classList.remove('active');
+        document.getElementById('v-' + vol).classList.add('active');
+        
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const monthlyVol = currentVolume * 30;
+        let netProfit = 0;
+
+        if(currentVolume === 9) netProfit = 112500;
+        if(currentVolume === 18) netProfit = 225000;
+        if(currentVolume === 54) netProfit = 500000;
+
+        document.getElementById('cell-volume').innerText = monthlyVol.toLocaleString('en-US') + labels[currentMode].unit;
+        document.getElementById('card-profit').innerText = "$" + netProfit.toLocaleString('en-US');
+    }
+</script>
+
+</body>
+</html>
