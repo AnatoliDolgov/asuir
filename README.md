@@ -5,5 +5,6 @@
 <p>At the same time, the entrepreneur does not need to carry out the work themselves. – The calculations assume that each employee will receive a monthly salary of $10,000;</p>
 <img width="2184" height="539" alt="image" src="https://github.com/user-attachments/assets/12a227d0-7acb-4b43-8b03-9d12ebeef64e" />
 <img width="2148" height="614" alt="image" src="https://github.com/user-attachments/assets/03785756-c82f-4637-87ad-50b613e63c73" />
+<img width="2725" height="1695" alt="image" src="https://github.com/user-attachments/assets/afc9765f-d4f6-4bae-b17a-02ba4226bf23" />
 <p>details: https://anatolidolgov.github.io/asuir/index.html</p>
 <p>[asuir.org](https://asuir.org/)</p>
