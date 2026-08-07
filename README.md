@@ -4,3 +4,4 @@ The salary of an entrepreneur, who could be a stay-at-home parent, ranges from $
 The Gemini ASUIR platform's economic algorithms are identical across the board, enabling production plans to be generated for any country that ensure:
 Prices of manufactured goods Prices of manufactured goods as in Bangladesh + workers' salaries: $10,000 per month : $100,000–$1,000,000 per month;
 At the same time, the entrepreneur does not need to carry out the work themselves. – The calculations assume that each employee will receive a monthly salary of $10,000.;
+<img width="2184" height="539" alt="image" src="https://github.com/user-attachments/assets/12a227d0-7acb-4b43-8b03-9d12ebeef64e" />
