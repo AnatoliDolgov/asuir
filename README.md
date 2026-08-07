@@ -1,4 +1,4 @@
-Welcome! The Gemini ASUIR is a ready-to-use automated AI system for developing technologies, products, equipment and production modules. It also facilitates the retooling of equipment for new product types.
+<p>Welcome! The Gemini ASUIR is a ready-to-use automated AI system for developing technologies, products, equipment and production modules. It also facilitates the retooling of equipment for new product types.</p>
 The main advantage of the Gemini Automated Production Management System is its ability to create highly efficient manufacturing operations. Production costs are consistently comparable to those in Bangladesh, with staff salaries amounting to $10,000 per month.
 The salary of an entrepreneur, who could be a stay-at-home parent, ranges from $100,000 to $1,000,000 per month.
 The Gemini ASUIR platform's economic algorithms are identical across the board, enabling production plans to be generated for any country that ensure:
