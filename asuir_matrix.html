@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АСУИР Gemini — 3-Матричный Синтезатор и База Данных</title>
+    <style>
+        /* ================================================================
+           СТИЛИСТИКА INNOVATION MATRIX + FLOWSOLVE
+           ================================================================ */
+        :root {
+            --primary-blue: #1f4e78;
+            --light-blue: #4a90d9;
+            --accent-orange: #e68a00;
+            --orange-brown: #c65911;
+            --dark-green: #007600;
+            --light-green-bg: #e2efda;
+            --bg-light: #f5f7fa;
+            --border-color: #e0e4e8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--bg-light);
+            color: #1a2632;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 24px 24px 30px;
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a2632;
+            margin-bottom: 2px;
+        }
+
+            .main-title span {
+                color: var(--primary-blue);
+            }
+
+            .main-title small {
+                font-size: 14px;
+                font-weight: 300;
+                color: #6c7a8a;
+                margin-left: 12px;
+            }
+
+        .subtitle {
+            font-size: 14px;
+            color: #6c7a8a;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .nav-primary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: #f7f9fa;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+            .nav-primary a {
+                color: #6c7a8a;
+                text-decoration: none;
+                padding: 8px 18px;
+                font-size: 13px;
+                font-weight: 500;
+                border-radius: 4px;
+                transition: 0.15s;
+            }
+
+                .nav-primary a:hover {
+                    color: #1a2632;
+                    background: rgba(0,0,0,0.04);
+                }
+
+                .nav-primary a.active {
+                    color: var(--primary-blue);
+                    background: rgba(31,78,120,0.08);
+                    font-weight: 600;
+                }
+
+        /* БЛОК ВВОДА ИДЕИ ИЛИ ПРОБЛЕМЫ */
+        .search-box {
+            background: linear-gradient(135deg, #f0f5fa 0%, #e8edf2 100%);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid #d0d7dd;
+            margin-bottom: 24px;
+        }
+
+        .search-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .search-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 6px;
+            outline: none;
+            background: #fff;
+        }
+
+            .search-input:focus {
+                border-color: var(--accent-orange);
+                box-shadow: 0 0 6px rgba(230,138,0,0.3);
+            }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            height: 42px;
+            white-space: nowrap;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: var(--light-blue);
+            color: #ffffff;
+        }
+
+            .btn-primary:hover {
+                background: #357abd;
+            }
+
+        .btn-orange {
+            background: var(--orange-brown);
+            color: #fff;
+        }
+
+            .btn-orange:hover {
+                background: #9e460d;
+            }
+
+        .btn-green {
+            background: var(--dark-green);
+            color: #fff;
+        }
+
+            .btn-green:hover {
+                background: #005a00;
+            }
+
+        .btn-sm {
+            height: 34px;
+            padding: 0 12px;
+            font-size: 12px;
+        }
+
+        /* ВКЛАДКИ МАТРИЦЫ */
+        .matrix-tabs {
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .matrix-tab {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6c7a8a;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .matrix-tab:hover {
+                color: var(--primary-blue);
+                background: #f7f9fa;
+            }
+
+            .matrix-tab.active {
+                color: var(--primary-blue);
+                border-bottom-color: var(--accent-orange);
+                background: #ffffff;
+            }
+
+        /* КАРТОЧКИ ТРИПЛЕТОВ (СВЯЗОК) */
+        .triplet-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+            transition: 0.2s;
+        }
+
+            .triplet-card:hover {
+                border-color: var(--light-blue);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            }
+
+        .triplet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f2f5;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .triplet-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .rule10-badge {
+            background: var(--light-green-bg);
+            color: var(--dark-green);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid #bcd1a9;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .triplet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .triplet-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 14px;
+        }
+
+        .triplet-box-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #6c7a8a;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .triplet-box-val {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a2632;
+        }
+
+        .triplet-box-sub {
+            font-size: 12px;
+            color: #6c7a8a;
+            margin-top: 4px;
+        }
+
+        .triplet-metrics {
+            background: #f0f5fa;
+            padding: 12px 16px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #6c7a8a;
+            font-weight: 600;
+        }
+
+        .metric-val {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        /* ИНФО-ПАНЕЛЬ КАНАЛОВ ПОПОЛНЕНИЯ */
+        .channel-banner {
+            background: #eef6ff;
+            border-left: 4px solid var(--light-blue);
+            padding: 14px 18px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* МОДАЛКИ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            padding-top: 50px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 650px;
+            margin: auto;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 16px;
+            top: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c7a8a;
+        }
+
+        .input-field {
+            padding: 8px 12px;
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+            .input-field:focus {
+                border-color: var(--primary-blue);
+            }
+
+        @media (max-width: 900px) {
+            .triplet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1 class="main-title">
+            <span>АСУИР</span> Gemini
+            <small>3-Матричный Синтезатор Производств</small>
+        </h1>
+        <div class="subtitle">Связка: Продукция ↔ Оборудование ↔ Технологические модули переналадки</div>
+
+        <div class="nav-primary">
+            <a href="index_ru.html">🏠 Главная панель</a>
+            <a href="flowsolve.html">🧠 FlowSolve (Анализ)</a>
+            <a href="ASUIRGemeniCalculatOptimizer_ru.html">📊 Генератор эффективности</a>
+            <a href="asuir_matrix.html" class="active">🧩 3D-Матрица (LEGO)</a>
+            <a href="#" onclick="openModal('add-matrix-modal')">➕ Добавить модуль (Канал 1)</a>
+        </div>
+
+        <!-- ВВОД ИДЕИ ИЛИ ПРОБЛЕМЫ -->
+        <div class="search-box">
+            <div class="search-title">🔍 Введите Идею, Продукт или Тип Оборудования для синтеза триплета:</div>
+            <div class="search-group">
+                <input type="text" id="matrix-query" class="search-input" value="Дрон FPV" placeholder="Например: Дрон, Планшет, Ювелирные изделия, ЧПУ станок...">
+                <button class="btn btn-orange" onclick="synthesizeTriplets()">🧠 Синтезировать связку (1 Клик)</button>
+            </div>
+        </div>
+
+        <!-- ИНФО О ДВУХ КАНАЛАХ -->
+        <div class="channel-banner">
+            <div>
+                <b>🌐 Легальные каналы формирования базы АСУИР:</b><br>
+                • <b>Канал 1 (Маркетплейс)</b>: Инженеры и пользователи создают ликвидные LEGO-модули и получают доход.<br>
+                • <b>Канал 2 (Генератор эффективности)</b>: Автоматическое сохранение связок при расчетах и поиске компонентов на Alibaba.
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="openModal('add-matrix-modal')">➕ Добавить решение</button>
+        </div>
+
+        <!-- ВКЛАДКИ РЕЖИМОВ ОТОБРАЖЕНИЯ МАТРИЦЫ -->
+        <div class="matrix-tabs">
+            <div class="matrix-tab active" onclick="switchTab('by-product')">📦 Листинг по Продукции</div>
+            <div class="matrix-tab" onclick="switchTab('by-equip')">⚙️ Листинг по Оборудованию</div>
+            <div class="matrix-tab" onclick="switchTab('by-module')">🔧 Листинг по Модулям переналадки</div>
+        </div>
+
+        <!-- РЕЗУЛЬТАТЫ СИНТЕЗА СВЯЗОК (ТРИПЛЕТОВ) -->
+        <div id="triplets-container">
+            <!-- Карточки триплетов рендерятся через JavaScript -->
+        </div>
+
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ РЕШЕНИЯ В БАЗУ (КАНАЛ 1 И 2) -->
+    <div id="add-matrix-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('add-matrix-modal')">&times;</span>
+            <h3 style="border-bottom:2px solid var(--primary-blue); padding-bottom:8px; margin-bottom:15px; color:var(--primary-blue);">
+                ➕ Добавить новое решение в 3-Матрицу АСУИР
+            </h3>
+            <p style="font-size:12px; color:#6c7a8a; margin-bottom:15px;">
+                Создайте ликвидный модуль для Маркетплейса (Канал 1) или зафиксируйте данные расчета (Канал 2).
+            </p>
+
+            <label style="font-size:13px; font-weight:600;">📦 Название продукции / Идеи:</label>
+            <input type="text" id="new-prod-name" class="input-field" placeholder="Например: Автомобильный видеорегистратор">
+
+            <label style="font-size:13px; font-weight:600;">⚙️ Необходимое оборудование:</label>
+            <input type="text" id="new-equip-name" class="input-field" placeholder="Например: Линия поверхностного монтажа SMT">
+
+            <label style="font-size:13px; font-weight:600;">💰 Стоимость оборудования ($):</label>
+            <input type="number" id="new-equip-cost" class="input-field" value="85000">
+
+            <label style="font-size:13px; font-weight:600;">🔧 Модуль переналадки (LEGO-компонент):</label>
+            <input type="text" id="new-mod-name" class="input-field" placeholder="Например: Пресс-форма корпуса + прошивка контроллера">
+
+            <label style="font-size:13px; font-weight:600;">📐 Себестоимость сырья (BOM на 1 шт, $):</label>
+            <input type="number" id="new-bom-cost" class="input-field" value="28.5">
+
+            <label style="font-size:13px; font-weight:600;">🏷️ Рыночная цена продажи ($):</label>
+            <input type="number" id="new-mkt-price" class="input-field" value="120">
+
+            <button onclick="saveUserTriplet()" class="btn btn-green" style="width:100%; margin-top:10px;">💾 Опубликовать и сохранить в АСУИР</button>
+        </div>
+    </div>
+
+    <script>// ================================================================
+    // ИНИЦИАЛИЗАЦИЯ 3-МАТРИЧНОЙ БАЗЫ ДАННЫХ (КАНАЛЫ 1 и 2)
+    // ================================================================
+    let asuirDB = [
+        {
+            id: 'trip-1',
+            product: 'FPV Дрон 5" (Сборный)',
+            category: '09 - Радиоэлектроника',
+            equipment: 'Автоматическая линия монтажа печатных плат (SMT)',
+            equip_cost: 120000,
+            staff_count: 2,
+            module: 'Модуль переналадки: Пайка планарных компонентов + Прошивка Flight Controller',
+            module_cost: 450,
+            bom_cost: 150.00,
+            market_price: 423.00,
+            tags: ['дрон', 'fpv', 'электроника', 'smt']
+        },
+        {
+            id: 'trip-2',
+            product: 'Планшетный ПК 10.1"',
+            category: '09 - Компьютеры',
+            equipment: 'Универсальный сборочный конвейер мелкой электроники',
+            equip_cost: 45000,
+            staff_count: 2,
+            module: 'Модуль переналадки: Вакуумная запрессовка дисплейного модуля IPS',
+            module_cost: 300,
+            bom_cost: 100.00,
+            market_price: 250.00,
+            tags: ['планшет', 'компьютер', 'электроника']
+        },
+        {
+            id: 'trip-3',
+            product: 'Золотое кольцо с фианитом',
+            category: '14 - Ювелирные изделия',
+            equipment: 'Вакуумная индукционная литейная машина',
+            equip_cost: 45000,
+            staff_count: 1,
+            module: 'Модуль переналадки: 3D-печать восковых моделей + 3D фрезер',
+            module_cost: 1200,
+            bom_cost: 135.00,
+            market_price: 380.00,
+            tags: ['ювелирные', 'кольцо', 'золото', 'литье']
+        }
+    ];
+
+    let currentTab = 'by-product';
+
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
+
+    function switchTab(tabName) {
+        currentTab = tabName;
+        document.querySelectorAll('.matrix-tab').forEach(t => t.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        synthesizeTriplets();
+    }
+
+    // ================================================================
+    // МАТЕМАТИЧЕСКИЙ ДВИЖОК: ПРАВИЛО 10% АСУИР & ГЕНЕРАТОР ЭФФЕКТИВНОСТИ
+    // ================================================================
+    function calculateRule10(triplet) {
+        const salaryPerStaff = 10000; // Целевая зарплата $10,000/мес
+        const totalDailySalary = (salaryPerStaff * triplet.staff_count) / 30; // ЗП за день
+        const dailyAmort = (triplet.equip_cost / 5) / 365; // Амортизация 5 лет
+        const dailyRentOther = 100; // Аренда и прочие издержки в день
+
+        const totalDailyFixed = totalDailySalary + dailyAmort + dailyRentOther;
+
+        // ПРАВИЛО 10%: Постоянные издержки не превышают 10% от стоимости сырья BOM!
+        const reqPerformance = Math.ceil(totalDailyFixed / (triplet.bom_cost * 0.10));
+
+        // Доля оборудования и персонала на 1 шт продукции
+        const equipShareUnit = totalDailyFixed / reqPerformance;
+        const totalUnitCost = triplet.bom_cost + equipShareUnit; // Полная себестоимость (Бангладеш)
+
+        // Прибыль за месяц при производительности reqPerformance
+        const profitPerDay = reqPerformance * (triplet.market_price - totalUnitCost);
+        const monthlyProfit = Math.round(profitPerDay * 30);
+
+        return {
+            totalDailyFixed: Math.round(totalDailyFixed),
+            reqPerformance: reqPerformance,
+            totalUnitCost: totalUnitCost.toFixed(2),
+            monthlyProfit: monthlyProfit.toLocaleString('ru-RU')
+        };
+    }
+
+    // ================================================================
+    // СИНТЕЗ ТРИПЛЕТОВ И ВЫВОД В ИНТЕРФЕЙС (1 КЛИК)
+    // ================================================================
+    function synthesizeTriplets() {
+        const query = document.getElementById('matrix-query').value.toLowerCase().trim();
+        const container = document.getElementById('triplets-container');
+        container.innerHTML = '';
+
+        // Фильтрация базы данных по тегам и имени
+        const filtered = asuirDB.filter(item => {
+            if (!query) return true;
+            return item.product.toLowerCase().includes(query) ||
+                   item.equipment.toLowerCase().includes(query) ||
+                   item.tags.some(t => t.toLowerCase().includes(query));
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:40px; background:#fff; border-radius:6px; border:1px dashed #bfbfbf;">
+                    <h3 style="color:#6c7a8a;">Связка для "${query}" пока не найдена в локальной базе.</h3>
+                    <p style="font-size:13px; color:#888; margin-top:8px;">Используйте Канал 1 или Канал 2, чтобы создать новую связку через Алибабу и зафиксировать её.</p>
+                    <button class="btn btn-primary btn-sm" style="margin-top:15px;" onclick="openModal('add-matrix-modal')">➕ Добавить решение в базу</button>
+                </div>
+            `;
+            return;
+        }
+
+        filtered.forEach(t => {
+            const calc = calculateRule10(t);
+            const card = document.createElement('div');
+            card.className = 'triplet-card';
+
+            card.innerHTML = `
+                <div class="triplet-header">
+                    <div class="triplet-title">${t.product}</div>
+                    <div class="rule10-badge">
+                        ✅ Правило 10% соблюдено | Доход предпринимателя: $${calc.monthlyProfit}/мес
+                    </div>
+                </div>
+
+                <div class="triplet-grid">
+                    <div class="triplet-box">
+                        <div class="triplet-box-title">📦 Продукция (МКТУ)</div>
+                        <div class="triplet-box-val">${t.product}</div>
+                        <div class="triplet-box-sub">Категория: ${t.category}</div>
+                    </div>
+                    <div class="triplet-box">
+                        <div class="triplet-box-title">⚙️ Оборудование</div>
+                        <div class="triplet-box-val">${t.equipment}</div>
+                        <div class="triplet-box-sub">Стоимость: $${t.equip_cost.toLocaleString()} | Персонал: ${t.staff_count} чел.</div>
+                    </div>
+                    <div class="triplet-box">
+                        <div class="triplet-box-title">🔧 Модуль Переналадки (LEGO)</div>
+                        <div class="triplet-box-val">${t.module}</div>
+                        <div class="triplet-box-sub">Цена модуля: $${t.module_cost} (Ликвидный актив)</div>
+                    </div>
+                </div>
+
+                <div class="triplet-metrics">
+                    <div class="metric-item">
+                        <span class="metric-label">Себестоимость 1 шт (Бангладеш):</span>
+                        <span class="metric-val">$${calc.totalUnitCost}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Зарплата рабочего:</span>
+                        <span class="metric-val" style="color:var(--dark-green);">$10,000 / мес</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Требуемая скорость линии:</span>
+                        <span class="metric-val">${calc.reqPerformance} шт / день</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Рыночная цена продажи:</span>
+                        <span class="metric-val">$${t.market_price}</span>
+                    </div>
+                    <div>
+                        <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="btn btn-green btn-sm">Передать в Генератор →</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // ================================================================
+    // ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЬСКОГО ТРИПЛЕТА (КАНАЛ 1 И 2)
+    // ================================================================
+    function saveUserTriplet() {
+        const prod = document.getElementById('new-prod-name').value.trim();
+        const equip = document.getElementById('new-equip-name').value.trim();
+        const cost = parseFloat(document.getElementById('new-equip-cost').value) || 50000;
+        const mod = document.getElementById('new-mod-name').value.trim();
+        const bom = parseFloat(document.getElementById('new-bom-cost').value) || 10;
+        const mkt = parseFloat(document.getElementById('new-mkt-price').value) || 50;
+
+        if (!prod || !equip || !mod) {
+            alert("Пожалуйста, заполните основные поля названий продукции, оборудования и модуля.");
+            return;
+        }
+
+        const newTriplet = {
+            id: 'trip-' + Date.now(),
+            product: prod,
+            category: 'Специфическая категория АСУИР',
+            equipment: equip,
+            equip_cost: cost,
+            staff_count: 2,
+            module: mod,
+            module_cost: 500,
+            bom_cost: bom,
+            market_price: mkt,
+            tags: [prod.toLowerCase(), equip.toLowerCase()]
+        };
+
+        asuirDB.unshift(newTriplet); // Добавляем на первое место
+        closeModal('add-matrix-modal');
+        document.getElementById('matrix-query').value = prod;
+        synthesizeTriplets();
+        alert("✅ Связка успешно добавлена в 3-Матрицу АСУИР и готова к использованию!");
+    }
+
+    // Старт при загрузке страницы
+    window.onload = function() {
+        synthesizeTriplets();
+    };</script>
+
+</body>
+</html>
