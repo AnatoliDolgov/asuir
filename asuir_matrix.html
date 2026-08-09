@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>АСУИР Gemini — 3-Матричный Синтезатор и База Данных</title>
+
+    <!-- СТИЛИ СИСТЕМЫ INNOVATION MATRIX -->
     <style>
-        /* ================================================================
-           СТИЛИСТИКА INNOVATION MATRIX + FLOWSOLVE
-           ================================================================ */
         :root {
             --primary-blue: #1f4e78;
             --light-blue: #4a90d9;
@@ -67,6 +66,7 @@
             padding-bottom: 12px;
         }
 
+        /* НАВИГАЦИЯ */
         .nav-primary {
             display: flex;
             flex-wrap: wrap;
@@ -153,6 +153,7 @@
             white-space: nowrap;
             line-height: 1;
             text-transform: uppercase;
+            text-decoration: none;
         }
 
         .btn-primary {
@@ -188,7 +189,7 @@
             font-size: 12px;
         }
 
-        /* ВКЛАДКИ МАТРИЦЫ */
+        /* ВНУТРЕННИЕ ВКЛАДКИ МАТРИЦЫ */
         .matrix-tabs {
             display: flex;
             border-bottom: 2px solid var(--border-color);
@@ -208,6 +209,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            user-select: none;
         }
 
             .matrix-tab:hover {
@@ -350,7 +352,7 @@
             gap: 10px;
         }
 
-        /* МОДАЛКИ */
+        /* МОДАЛЬНЫЕ ОКНА */
         .modal {
             display: none;
             position: fixed;
@@ -366,7 +368,7 @@
 
         .modal-content {
             background: #fff;
-            max-width: 650px;
+            max-width: 600px;
             margin: auto;
             padding: 24px;
             border-radius: 8px;
@@ -413,6 +415,10 @@
             }
         }
     </style>
+
+    <!-- ТОЧКА 1: Подключение SDK Stripe и PayPal -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 </head>
 <body>
 
@@ -424,11 +430,12 @@
         </h1>
         <div class="subtitle">Связка: Продукция ↔ Оборудование ↔ Технологические модули переналадки</div>
 
+        <!-- ОСНОВНАЯ НАВИГАЦИЯ ПЛАТФОРМЫ -->
         <div class="nav-primary">
             <a href="index_ru.html">🏠 Главная панель</a>
             <a href="flowsolve.html">🧠 FlowSolve (Анализ)</a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html">📊 Генератор эффективности</a>
-            <a href="asuir_matrix.html" class="active">🧩 3D-Матрица (LEGO)</a>
+            <a href="asuir_matrix.html" class="active">🧩 3-Матрица (LEGO)</a>
             <a href="#" onclick="openModal('add-matrix-modal')">➕ Добавить модуль (Канал 1)</a>
         </div>
 
@@ -436,36 +443,36 @@
         <div class="search-box">
             <div class="search-title">🔍 Введите Идею, Продукт или Тип Оборудования для синтеза триплета:</div>
             <div class="search-group">
-                <input type="text" id="matrix-query" class="search-input" value="Дрон FPV" placeholder="Например: Дрон, Планшет, Ювелирные изделия, ЧПУ станок...">
+                <input type="text" id="matrix-query" class="search-input" value="Дрон FPV" placeholder="Например: Дрон, Планшет, Ювелирные изделия, Хлеб...">
                 <button class="btn btn-orange" onclick="synthesizeTriplets()">🧠 Синтезировать связку (1 Клик)</button>
             </div>
         </div>
 
-        <!-- ИНФО О ДВУХ КАНАЛАХ -->
+        <!-- ИНФОРМАЦИЯ О КАНАЛАХ -->
         <div class="channel-banner">
             <div>
                 <b>🌐 Легальные каналы формирования базы АСУИР:</b><br>
-                • <b>Канал 1 (Маркетплейс)</b>: Инженеры и пользователи создают ликвидные LEGO-модули и получают доход.<br>
-                • <b>Канал 2 (Генератор эффективности)</b>: Автоматическое сохранение связок при расчетах и поиске компонентов на Alibaba.
+                • <b>Канал 1 (Маркетплейс)</b>: Монетизация авторских LEGO-модулей (автор 95%, АСУИР 5%).<br>
+                • <b>Канал 2 (Генератор эффективности)</b>: Автоматическое сохранение связок при расчетах и поиске на Alibaba.
             </div>
             <button class="btn btn-primary btn-sm" onclick="openModal('add-matrix-modal')">➕ Добавить решение</button>
         </div>
 
-        <!-- ВКЛАДКИ РЕЖИМОВ ОТОБРАЖЕНИЯ МАТРИЦЫ -->
-        <div class="matrix-tabs">
-            <div class="matrix-tab active" onclick="switchTab('by-product')">📦 Листинг по Продукции</div>
-            <div class="matrix-tab" onclick="switchTab('by-equip')">⚙️ Листинг по Оборудованию</div>
-            <div class="matrix-tab" onclick="switchTab('by-module')">🔧 Листинг по Модулям переналадки</div>
+        <!-- ВНУТРЕННИЕ ВКЛАДКИ МАТРИЦЫ (ИСПРАВЛЕННОЕ ПЕРЕКЛЮЧЕНИЕ) -->
+        <div class="matrix-tabs" id="matrixTabHeaders">
+            <div class="matrix-tab active" onclick="switchTab('by-product', this)">📦 Листинг по Продукции</div>
+            <div class="matrix-tab" onclick="switchTab('by-equip', this)">⚙️ Листинг по Оборудованию</div>
+            <div class="matrix-tab" onclick="switchTab('by-module', this)">🔧 Листинг по Модулям переналадки</div>
         </div>
 
-        <!-- РЕЗУЛЬТАТЫ СИНТЕЗА СВЯЗОК (ТРИПЛЕТОВ) -->
+        <!-- КОНТЕЙНЕР ДЛЯ КАРТОЧЕК СВЯЗОК -->
         <div id="triplets-container">
-            <!-- Карточки триплетов рендерятся через JavaScript -->
+            <!-- Рендерится через JavaScript -->
         </div>
 
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ РЕШЕНИЯ В БАЗУ (КАНАЛ 1 И 2) -->
+    <!-- МОДАЛЬНОЕ ОКНО: ДОБАВЛЕНИЕ МОДУЛЯ В БАЗУ (КАНАЛ 1 И 2) -->
     <div id="add-matrix-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('add-matrix-modal')">&times;</span>
@@ -477,240 +484,319 @@
             </p>
 
             <label style="font-size:13px; font-weight:600;">📦 Название продукции / Идеи:</label>
-            <input type="text" id="new-prod-name" class="input-field" placeholder="Например: Автомобильный видеорегистратор">
+            <input type="text" id="new-prod-name" class="input-field" placeholder="Например: Планшет 10 дюймов">
 
             <label style="font-size:13px; font-weight:600;">⚙️ Необходимое оборудование:</label>
-            <input type="text" id="new-equip-name" class="input-field" placeholder="Например: Линия поверхностного монтажа SMT">
+            <input type="text" id="new-equip-name" class="input-field" placeholder="Например: Сборочная линия мелкой электроники">
 
             <label style="font-size:13px; font-weight:600;">💰 Стоимость оборудования ($):</label>
-            <input type="number" id="new-equip-cost" class="input-field" value="85000">
+            <input type="number" id="new-equip-cost" class="input-field" value="45000">
 
             <label style="font-size:13px; font-weight:600;">🔧 Модуль переналадки (LEGO-компонент):</label>
-            <input type="text" id="new-mod-name" class="input-field" placeholder="Например: Пресс-форма корпуса + прошивка контроллера">
+            <input type="text" id="new-mod-name" class="input-field" placeholder="Например: Вакуумная запрессовка дисплейного модуля">
 
             <label style="font-size:13px; font-weight:600;">📐 Себестоимость сырья (BOM на 1 шт, $):</label>
-            <input type="number" id="new-bom-cost" class="input-field" value="28.5">
+            <input type="number" id="new-bom-cost" class="input-field" value="100">
 
             <label style="font-size:13px; font-weight:600;">🏷️ Рыночная цена продажи ($):</label>
-            <input type="number" id="new-mkt-price" class="input-field" value="120">
+            <input type="number" id="new-mkt-price" class="input-field" value="250">
 
             <button onclick="saveUserTriplet()" class="btn btn-green" style="width:100%; margin-top:10px;">💾 Опубликовать и сохранить в АСУИР</button>
         </div>
     </div>
 
-    <script>// ================================================================
-    // ИНИЦИАЛИЗАЦИЯ 3-МАТРИЧНОЙ БАЗЫ ДАННЫХ (КАНАЛЫ 1 и 2)
-    // ================================================================
-    let asuirDB = [
-        {
-            id: 'trip-1',
-            product: 'FPV Дрон 5" (Сборный)',
-            category: '09 - Радиоэлектроника',
-            equipment: 'Автоматическая линия монтажа печатных плат (SMT)',
-            equip_cost: 120000,
-            staff_count: 2,
-            module: 'Модуль переналадки: Пайка планарных компонентов + Прошивка Flight Controller',
-            module_cost: 450,
-            bom_cost: 150.00,
-            market_price: 423.00,
-            tags: ['дрон', 'fpv', 'электроника', 'smt']
-        },
-        {
-            id: 'trip-2',
-            product: 'Планшетный ПК 10.1"',
-            category: '09 - Компьютеры',
-            equipment: 'Универсальный сборочный конвейер мелкой электроники',
-            equip_cost: 45000,
-            staff_count: 2,
-            module: 'Модуль переналадки: Вакуумная запрессовка дисплейного модуля IPS',
-            module_cost: 300,
-            bom_cost: 100.00,
-            market_price: 250.00,
-            tags: ['планшет', 'компьютер', 'электроника']
-        },
-        {
-            id: 'trip-3',
-            product: 'Золотое кольцо с фианитом',
-            category: '14 - Ювелирные изделия',
-            equipment: 'Вакуумная индукционная литейная машина',
-            equip_cost: 45000,
-            staff_count: 1,
-            module: 'Модуль переналадки: 3D-печать восковых моделей + 3D фрезер',
-            module_cost: 1200,
-            bom_cost: 135.00,
-            market_price: 380.00,
-            tags: ['ювелирные', 'кольцо', 'золото', 'литье']
+    <!-- ТОЧКА 2: ВСПЛЫВАЮЩЕЕ ОКНО ОПЛАТЫ (STRIPE / PAYPAL) -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content" style="max-width: 480px; text-align: center;">
+            <span class="modal-close" onclick="closeModal('payment-modal')">&times;</span>
+
+            <h3 style="color: var(--primary-blue); margin-bottom: 10px;">💳 Покупка LEGO-модуля</h3>
+            <p id="pay-item-name" style="font-weight: 600; font-size: 15px; margin-bottom: 5px; color: #333;"></p>
+            <p id="pay-item-price" style="font-size: 20px; font-weight: 700; color: var(--dark-green); margin-bottom: 20px;"></p>
+
+            <!-- Кнопка Stripe -->
+            <button id="stripe-pay-btn" class="btn btn-primary" style="width: 100%; margin-bottom: 12px; height: 46px; font-size: 14px;">
+                💳 Оплатить картой (Stripe)
+            </button>
+
+            <div style="margin: 12px 0; font-size: 12px; color: #888;">— или через —</div>
+
+            <!-- Контейнер PayPal -->
+            <div id="paypal-button-container" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЙ СКРИПТ ПЛАТФОРМЫ -->
+    <script>
+        // ================================================================
+        // 1. БАЗА ДАННЫХ 3-МАТРИЦЫ (ПРИМЕРЫ СВЯЗОК)
+        // ================================================================
+        let asuirDB = [
+            {
+                id: 'trip-1',
+                product: 'FPV Дрон 5" (Сборный)',
+                category: '09 - Радиоэлектроника',
+                equipment: 'Автоматическая линия монтажа печатных плат (SMT)',
+                equip_cost: 120000,
+                staff_count: 2,
+                module: 'Модуль переналадки: Пайка планарных компонентов + Прошивка Flight Controller',
+                module_cost: 50,
+                bom_cost: 150.00,
+                market_price: 423.00,
+                tags: ['дрон', 'fpv', 'электроника', 'smt']
+            },
+            {
+                id: 'trip-2',
+                product: 'Планшетный ПК 10.1"',
+                category: '09 - Компьютеры',
+                equipment: 'Универсальный сборочный конвейер мелкой электроники',
+                equip_cost: 45000,
+                staff_count: 2,
+                module: 'Модуль переналадки: Вакуумная запрессовка дисплейного модуля IPS',
+                module_cost: 35,
+                bom_cost: 100.00,
+                market_price: 250.00,
+                tags: ['планшет', 'компьютер', 'электроника']
+            },
+            {
+                id: 'trip-3',
+                product: 'Золотое кольцо с фианитом',
+                category: '14 - Ювелирные изделия',
+                equipment: 'Вакуумная индукционная литейная машина',
+                equip_cost: 45000,
+                staff_count: 1,
+                module: 'Модуль переналадки: 3D-печать восковых моделей + 3D фрезер',
+                module_cost: 75,
+                bom_cost: 135.00,
+                market_price: 380.00,
+                tags: ['ювелирные', 'кольцо', 'золото', 'литье']
+            }
+        ];
+
+        let currentTabMode = 'by-product';
+
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        window.onclick = function (e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
+
+        // ================================================================
+        // 2. НАДЕЖНОЕ ПЕРЕКЛЮЧЕНИЕ ВНУТРЕННИХ ВКЛАДОК (ИСПРАВЛЕНО)
+        // ================================================================
+        function switchTab(mode, element) {
+            currentTabMode = mode;
+            // Снимаем активность со всех вкладок
+            const tabs = document.querySelectorAll('#matrixTabHeaders .matrix-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Добавляем активность на нажатую вкладку
+            if (element) {
+                element.classList.add('active');
+            }
+
+            synthesizeTriplets();
         }
-    ];
 
-    let currentTab = 'by-product';
+        // ================================================================
+        // 3. МАТЕМАТИЧЕСКИЙ ДВИЖОК: ПРАВИЛО 10% АСУИР
+        // ================================================================
+        function calculateRule10(triplet) {
+            const salaryPerStaff = 10000; // $10,000 / мес
+            const totalDailySalary = (salaryPerStaff * triplet.staff_count) / 30;
+            const dailyAmort = (triplet.equip_cost / 5) / 365; // Амортизация 5 лет
+            const dailyRentOther = 100;
 
-    function openModal(id) { document.getElementById(id).style.display = 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    window.onclick = function(e) { if (e.target.classList.contains('modal')) e.target.style.display = 'none'; }
+            const totalDailyFixed = totalDailySalary + dailyAmort + dailyRentOther;
 
-    function switchTab(tabName) {
-        currentTab = tabName;
-        document.querySelectorAll('.matrix-tab').forEach(t => t.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        synthesizeTriplets();
-    }
+            // ПРАВИЛО 10%: Постоянные затраты в день <= 10% от стоимости сырья
+            const reqPerformance = Math.ceil(totalDailyFixed / (triplet.bom_cost * 0.10));
 
-    // ================================================================
-    // МАТЕМАТИЧЕСКИЙ ДВИЖОК: ПРАВИЛО 10% АСУИР & ГЕНЕРАТОР ЭФФЕКТИВНОСТИ
-    // ================================================================
-    function calculateRule10(triplet) {
-        const salaryPerStaff = 10000; // Целевая зарплата $10,000/мес
-        const totalDailySalary = (salaryPerStaff * triplet.staff_count) / 30; // ЗП за день
-        const dailyAmort = (triplet.equip_cost / 5) / 365; // Амортизация 5 лет
-        const dailyRentOther = 100; // Аренда и прочие издержки в день
+            const equipShareUnit = totalDailyFixed / reqPerformance;
+            const totalUnitCost = triplet.bom_cost + equipShareUnit; // Себестоимость Бангладеш
 
-        const totalDailyFixed = totalDailySalary + dailyAmort + dailyRentOther;
+            const profitPerDay = reqPerformance * (triplet.market_price - totalUnitCost);
+            const monthlyProfit = Math.round(profitPerDay * 30);
 
-        // ПРАВИЛО 10%: Постоянные издержки не превышают 10% от стоимости сырья BOM!
-        const reqPerformance = Math.ceil(totalDailyFixed / (triplet.bom_cost * 0.10));
+            return {
+                totalDailyFixed: Math.round(totalDailyFixed),
+                reqPerformance: reqPerformance,
+                totalUnitCost: totalUnitCost.toFixed(2),
+                monthlyProfit: monthlyProfit.toLocaleString('ru-RU')
+            };
+        }
 
-        // Доля оборудования и персонала на 1 шт продукции
-        const equipShareUnit = totalDailyFixed / reqPerformance;
-        const totalUnitCost = triplet.bom_cost + equipShareUnit; // Полная себестоимость (Бангладеш)
+        // ================================================================
+        // 4. ОТОБРАЖЕНИЕ РЕЗУЛЬТАТОВ СИНТЕЗА СВЯЗОК (1 КЛИК)
+        // ================================================================
+        function synthesizeTriplets() {
+            const query = document.getElementById('matrix-query').value.toLowerCase().trim();
+            const container = document.getElementById('triplets-container');
+            container.innerHTML = '';
 
-        // Прибыль за месяц при производительности reqPerformance
-        const profitPerDay = reqPerformance * (triplet.market_price - totalUnitCost);
-        const monthlyProfit = Math.round(profitPerDay * 30);
+            const filtered = asuirDB.filter(item => {
+                if (!query) return true;
+                return item.product.toLowerCase().includes(query) ||
+                    item.equipment.toLowerCase().includes(query) ||
+                    item.module.toLowerCase().includes(query) ||
+                    item.tags.some(t => t.toLowerCase().includes(query));
+            });
 
-        return {
-            totalDailyFixed: Math.round(totalDailyFixed),
-            reqPerformance: reqPerformance,
-            totalUnitCost: totalUnitCost.toFixed(2),
-            monthlyProfit: monthlyProfit.toLocaleString('ru-RU')
-        };
-    }
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:40px; background:#fff; border-radius:6px; border:1px dashed #bfbfbf;">
+                        <h3 style="color:#6c7a8a;">Связка для "${query}" пока не найдена в 3-Матрице.</h3>
+                        <p style="font-size:13px; color:#888; margin-top:8px;">Вы можете добавить первое решение через Канал 1 или Канал 2.</p>
+                        <button class="btn btn-primary btn-sm" style="margin-top:15px;" onclick="openModal('add-matrix-modal')">➕ Добавить решение в базу</button>
+                    </div>
+                `;
+                return;
+            }
 
-    // ================================================================
-    // СИНТЕЗ ТРИПЛЕТОВ И ВЫВОД В ИНТЕРФЕЙС (1 КЛИК)
-    // ================================================================
-    function synthesizeTriplets() {
-        const query = document.getElementById('matrix-query').value.toLowerCase().trim();
-        const container = document.getElementById('triplets-container');
-        container.innerHTML = '';
+            filtered.forEach(t => {
+                const calc = calculateRule10(t);
+                const card = document.createElement('div');
+                card.className = 'triplet-card';
 
-        // Фильтрация базы данных по тегам и имени
-        const filtered = asuirDB.filter(item => {
-            if (!query) return true;
-            return item.product.toLowerCase().includes(query) ||
-                   item.equipment.toLowerCase().includes(query) ||
-                   item.tags.some(t => t.toLowerCase().includes(query));
+                card.innerHTML = `
+                    <div class="triplet-header">
+                        <div class="triplet-title">${t.product}</div>
+                        <div class="rule10-badge">
+                            ✅ Правило 10% соблюдено | Доход предпринимателя: $${calc.monthlyProfit}/мес
+                        </div>
+                    </div>
+
+                    <div class="triplet-grid">
+                        <div class="triplet-box">
+                            <div class="triplet-box-title">📦 Продукция (МКТУ)</div>
+                            <div class="triplet-box-val">${t.product}</div>
+                            <div class="triplet-box-sub">Категория: ${t.category}</div>
+                        </div>
+                        <div class="triplet-box">
+                            <div class="triplet-box-title">⚙️ Оборудование</div>
+                            <div class="triplet-box-val">${t.equipment}</div>
+                            <div class="triplet-box-sub">Стоимость: $${t.equip_cost.toLocaleString()} | Персонал: ${t.staff_count} чел.</div>
+                        </div>
+                        <div class="triplet-box">
+                            <div class="triplet-box-title">🔧 Модуль Переналадки (LEGO)</div>
+                            <div class="triplet-box-val">${t.module}</div>
+                            <div class="triplet-box-sub">Цена модуля: $${t.module_cost} (Маркетплейс)</div>
+                        </div>
+                    </div>
+
+                    <div class="triplet-metrics">
+                        <div class="metric-item">
+                            <span class="metric-label">Себестоимость 1 шт (Бангладеш):</span>
+                            <span class="metric-val">$${calc.totalUnitCost}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Зарплата рабочего:</span>
+                            <span class="metric-val" style="color:var(--dark-green);">$10,000 / мес</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Требуемая скорость линии:</span>
+                            <span class="metric-val">${calc.reqPerformance} шт / день</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Рыночная цена продажи:</span>
+                            <span class="metric-val">$${t.market_price}</span>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="btn btn-green btn-sm">⚡ В Генератор</a>
+                            <button class="btn btn-orange btn-sm" onclick="openPaymentModal('${t.id}', '${t.module}', ${t.module_cost})">
+                                💳 Add ($${t.module_cost})
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ================================================================
+        // 5. СОХРАНЕНИЕ ПОЛЬЗОВАТЕЛЬСКОГО ТРИПЛЕТА (КАНАЛ 1 И 2)
+        // ================================================================
+        function saveUserTriplet() {
+            const prod = document.getElementById('new-prod-name').value.trim();
+            const equip = document.getElementById('new-equip-name').value.trim();
+            const cost = parseFloat(document.getElementById('new-equip-cost').value) || 50000;
+            const mod = document.getElementById('new-mod-name').value.trim();
+            const bom = parseFloat(document.getElementById('new-bom-cost').value) || 10;
+            const mkt = parseFloat(document.getElementById('new-mkt-price').value) || 50;
+
+            if (!prod || !equip || !mod) {
+                alert("Пожалуйста, заполните основные поля названий продукции, оборудования и модуля.");
+                return;
+            }
+
+            const newTriplet = {
+                id: 'trip-' + Date.now(),
+                product: prod,
+                category: 'Специфическая категория АСУИР',
+                equipment: equip,
+                equip_cost: cost,
+                staff_count: 2,
+                module: mod,
+                module_cost: 50,
+                bom_cost: bom,
+                market_price: mkt,
+                tags: [prod.toLowerCase(), equip.toLowerCase()]
+            };
+
+            asuirDB.unshift(newTriplet);
+            closeModal('add-matrix-modal');
+            document.getElementById('matrix-query').value = prod;
+            synthesizeTriplets();
+            alert("✅ Новое решение успешно зафиксировано в 3-Матрице АСУИР!");
+        }
+
+        // ================================================================
+        // ТОЧКА 3: ИНИЦИАЛИЗАЦИЯ И ОБРАБОТКА ОПЛАТЫ (STRIPE / PAYPAL)
+        // ================================================================
+        const stripe = Stripe('pk_test_TYooMQwvd7D2y154P30D26bB');
+        let currentPayItem = { sku: '', name: '', price: 0 };
+
+        function openPaymentModal(sku, name, price) {
+            currentPayItem = { sku, name, price };
+
+            document.getElementById('pay-item-name').innerText = name;
+            document.getElementById('pay-item-price').innerText = `$${price} USD`;
+
+            document.getElementById('paypal-button-container').innerHTML = '';
+            renderPayPalButtons(price);
+
+            openModal('payment-modal');
+        }
+
+        document.getElementById('stripe-pay-btn')?.addEventListener('click', function () {
+            alert(`[Stripe Checkout Test]\nЗапуск оплаты за модуль: ${currentPayItem.name}\nСумма: $${currentPayItem.price}\nКомиссия АСУИР (5%): $${(currentPayItem.price * 0.05).toFixed(2)}`);
         });
 
-        if (filtered.length === 0) {
-            container.innerHTML = `
-                <div style="text-align:center; padding:40px; background:#fff; border-radius:6px; border:1px dashed #bfbfbf;">
-                    <h3 style="color:#6c7a8a;">Связка для "${query}" пока не найдена в локальной базе.</h3>
-                    <p style="font-size:13px; color:#888; margin-top:8px;">Используйте Канал 1 или Канал 2, чтобы создать новую связку через Алибабу и зафиксировать её.</p>
-                    <button class="btn btn-primary btn-sm" style="margin-top:15px;" onclick="openModal('add-matrix-modal')">➕ Добавить решение в базу</button>
-                </div>
-            `;
-            return;
+        function renderPayPalButtons(price) {
+            if (typeof paypal === 'undefined') return;
+
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'gold', shape: 'rect' },
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            description: `Модуль АСУИР: ${currentPayItem.sku}`,
+                            amount: { currency_code: 'USD', value: price.toString() }
+                        }]
+                    });
+                },
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        alert(`✅ Оплата прошел успешно!\nПокупатель: ${details.payer.name.given_name}\nМодуль разблокирован.`);
+                        closeModal('payment-modal');
+                    });
+                }
+            }).render('#paypal-button-container');
         }
 
-        filtered.forEach(t => {
-            const calc = calculateRule10(t);
-            const card = document.createElement('div');
-            card.className = 'triplet-card';
-
-            card.innerHTML = `
-                <div class="triplet-header">
-                    <div class="triplet-title">${t.product}</div>
-                    <div class="rule10-badge">
-                        ✅ Правило 10% соблюдено | Доход предпринимателя: $${calc.monthlyProfit}/мес
-                    </div>
-                </div>
-
-                <div class="triplet-grid">
-                    <div class="triplet-box">
-                        <div class="triplet-box-title">📦 Продукция (МКТУ)</div>
-                        <div class="triplet-box-val">${t.product}</div>
-                        <div class="triplet-box-sub">Категория: ${t.category}</div>
-                    </div>
-                    <div class="triplet-box">
-                        <div class="triplet-box-title">⚙️ Оборудование</div>
-                        <div class="triplet-box-val">${t.equipment}</div>
-                        <div class="triplet-box-sub">Стоимость: $${t.equip_cost.toLocaleString()} | Персонал: ${t.staff_count} чел.</div>
-                    </div>
-                    <div class="triplet-box">
-                        <div class="triplet-box-title">🔧 Модуль Переналадки (LEGO)</div>
-                        <div class="triplet-box-val">${t.module}</div>
-                        <div class="triplet-box-sub">Цена модуля: $${t.module_cost} (Ликвидный актив)</div>
-                    </div>
-                </div>
-
-                <div class="triplet-metrics">
-                    <div class="metric-item">
-                        <span class="metric-label">Себестоимость 1 шт (Бангладеш):</span>
-                        <span class="metric-val">$${calc.totalUnitCost}</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">Зарплата рабочего:</span>
-                        <span class="metric-val" style="color:var(--dark-green);">$10,000 / мес</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">Требуемая скорость линии:</span>
-                        <span class="metric-val">${calc.reqPerformance} шт / день</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">Рыночная цена продажи:</span>
-                        <span class="metric-val">$${t.market_price}</span>
-                    </div>
-                    <div>
-                        <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="btn btn-green btn-sm">Передать в Генератор →</a>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    // ================================================================
-    // ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЬСКОГО ТРИПЛЕТА (КАНАЛ 1 И 2)
-    // ================================================================
-    function saveUserTriplet() {
-        const prod = document.getElementById('new-prod-name').value.trim();
-        const equip = document.getElementById('new-equip-name').value.trim();
-        const cost = parseFloat(document.getElementById('new-equip-cost').value) || 50000;
-        const mod = document.getElementById('new-mod-name').value.trim();
-        const bom = parseFloat(document.getElementById('new-bom-cost').value) || 10;
-        const mkt = parseFloat(document.getElementById('new-mkt-price').value) || 50;
-
-        if (!prod || !equip || !mod) {
-            alert("Пожалуйста, заполните основные поля названий продукции, оборудования и модуля.");
-            return;
-        }
-
-        const newTriplet = {
-            id: 'trip-' + Date.now(),
-            product: prod,
-            category: 'Специфическая категория АСУИР',
-            equipment: equip,
-            equip_cost: cost,
-            staff_count: 2,
-            module: mod,
-            module_cost: 500,
-            bom_cost: bom,
-            market_price: mkt,
-            tags: [prod.toLowerCase(), equip.toLowerCase()]
+        // Автостарт при загрузке страницы
+        window.onload = function () {
+            synthesizeTriplets();
         };
-
-        asuirDB.unshift(newTriplet); // Добавляем на первое место
-        closeModal('add-matrix-modal');
-        document.getElementById('matrix-query').value = prod;
-        synthesizeTriplets();
-        alert("✅ Связка успешно добавлена в 3-Матрицу АСУИР и готова к использованию!");
-    }
-
-    // Старт при загрузке страницы
-    window.onload = function() {
-        synthesizeTriplets();
-    };</script>
+    </script>
 
 </body>
 </html>
