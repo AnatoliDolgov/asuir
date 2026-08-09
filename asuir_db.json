@@ -1,0 +1,79 @@
+[
+  {
+    "id": "trip-1",
+    "sku": "PROD-DRONE-5INCH",
+    "product": "FPV Дрон 5\" (Сборный)",
+    "category": "09 - Радиоэлектроника",
+    "equipment": "Автоматическая линия монтажа печатных плат (SMT)",
+    "equip_cost": 120000,
+    "staff_count": 2,
+    "module": "Модуль переналадки: Пайка планарных компонентов + Прошивка FC",
+    "module_cost": 50,
+    "bom_cost": 150.00,
+    "market_price": 423.00,
+    "tags": [ "дрон", "fpv", "электроника", "smt" ],
+    "public_media": {
+      "photos": [
+        "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=300",
+        "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=300"
+      ],
+      "preview_video_url": "https://www.youtube.com/"
+    },
+    "unlocked_post_sale_data": {
+      "is_free": false,
+      "cad_drawings_url": "https://asuir.org/docs/drone_cad.zip",
+      "manual_pdf": "https://asuir.org/docs/drone_manual.pdf",
+      "full_instruction_video": "https://asuir.org/video/setup.mp4"
+    }
+  },
+  {
+    "id": "trip-2",
+    "sku": "PROD-TABLET-10INCH",
+    "product": "Планшетный ПК 10.1\"",
+    "category": "09 - Компьютеры",
+    "equipment": "Универсальный сборочный конвейер мелкой электроники",
+    "equip_cost": 45000,
+    "staff_count": 2,
+    "module": "Модуль переналадки: Вакуумная запрессовка дисплейного модуля IPS",
+    "module_cost": 35,
+    "bom_cost": 100.00,
+    "market_price": 250.00,
+    "tags": [ "планшет", "компьютер", "электроника" ],
+    "public_media": {
+      "photos": [
+        "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300"
+      ],
+      "preview_video_url": "https://www.youtube.com/"
+    },
+    "unlocked_post_sale_data": {
+      "is_free": false,
+      "cad_drawings_url": "https://asuir.org/docs/tablet_cad.zip",
+      "manual_pdf": "https://asuir.org/docs/tablet_manual.pdf"
+    }
+  },
+  {
+    "id": "trip-3",
+    "sku": "PROD-GOLD-RING",
+    "product": "Золотое кольцо с фианитом",
+    "category": "14 - Ювелирные изделия",
+    "equipment": "Вакуумная индукционная литейная машина",
+    "equip_cost": 45000,
+    "staff_count": 1,
+    "module": "Модуль переналадки: 3D-печать восковых моделей + 3D фрезер",
+    "module_cost": 75,
+    "bom_cost": 135.00,
+    "market_price": 380.00,
+    "tags": [ "ювелирные", "кольцо", "золото", "литье" ],
+    "public_media": {
+      "photos": [
+        "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300"
+      ],
+      "preview_video_url": "https://www.youtube.com/"
+    },
+    "unlocked_post_sale_data": {
+      "is_free": false,
+      "cad_drawings_url": "https://asuir.org/docs/ring_cad.zip",
+      "manual_pdf": "https://asuir.org/docs/ring_manual.pdf"
+    }
+  }
+]
