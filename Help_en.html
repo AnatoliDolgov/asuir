@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>ASUIR Gemini v4 - Help & Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASUIR Gemini - Документация и Руководство</title>
     <style>
         :root {
             --primary-blue: #1f4e78;
@@ -30,12 +31,12 @@
             padding: 30px 15px;
         }
 
-        /* GLOBAL NAVIGATION PANEL STYLES */
+        /* НАВИГАЦИОННАЯ ПАНЕЛЬ */
         .nav-tabs-container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto 20px auto;
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: flex-start;
             flex-wrap: wrap;
         }
@@ -48,7 +49,7 @@
             text-decoration: none;
             font-size: 11px;
             font-weight: bold;
-            padding: 10px 18px;
+            padding: 10px 16px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             background: #ffffff;
@@ -69,12 +70,11 @@
                 border-color: var(--primary-blue);
                 background: var(--primary-blue);
                 pointer-events: none;
-                box-shadow: none;
             }
 
-        /* LANGUAGE SWITCHER TABS */
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ */
         .lang-switcher {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto 15px auto;
             display: flex;
             border-bottom: 2px solid var(--border-color);
@@ -95,10 +95,6 @@
             transition: all 0.2s;
         }
 
-            .lang-btn:hover {
-                background: #f1f5f9;
-            }
-
             .lang-btn.active-lang {
                 background: #ffffff;
                 color: var(--primary-blue);
@@ -107,13 +103,13 @@
                 top: 2px;
             }
 
-        /* MAIN CONTENT HOLDER */
+        /* КОНТЕЙНЕР КОНТЕНТА */
         .container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
             background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             overflow: hidden;
             padding: 35px;
@@ -127,7 +123,7 @@
                 display: block;
             }
 
-        /* TYPOGRAPHY & LAYOUT STYLES */
+        /* СТИЛИ ТЕКСТА И БЛОКОВ */
         h1 {
             color: var(--primary-blue);
             font-size: 22px;
@@ -139,19 +135,22 @@
 
         h2 {
             color: var(--light-blue);
-            font-size: 16px;
-            margin-top: 25px;
+            font-size: 17px;
+            margin-top: 30px;
             margin-bottom: 15px;
             font-weight: bold;
             border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 5px;
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         h3 {
             color: var(--primary-blue);
             font-size: 14px;
             margin-top: 15px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
         }
 
@@ -163,7 +162,6 @@
             text-align: justify;
         }
 
-        /* CALLOUT BOXES */
         .platform-mission {
             background-color: #fdf5f0;
             border-left: 5px solid var(--accent-orange);
@@ -172,12 +170,6 @@
             border-radius: 4px;
         }
 
-            .platform-mission h3 {
-                color: var(--orange-brown);
-                font-size: 15px;
-                margin-bottom: 10px;
-            }
-
         .info-highlight {
             background-color: #e2efda;
             border-left: 4px solid var(--dark-green);
@@ -185,6 +177,24 @@
             margin: 15px 0;
             font-size: 13.5px;
             border-radius: 3px;
+        }
+
+        .module-card {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 18px;
+            margin: 20px 0;
+        }
+
+        .module-card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         ul, ol {
@@ -203,42 +213,6 @@
             color: #0f172a;
         }
 
-        /* ИЛЛЮСТРАЦИИ / СКРИНШОТЫ */
-        .image-container {
-            margin: 15px 0 25px 0;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .screenshot-img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .image-caption {
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 6px;
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        .footer {
-            margin-top: 40px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            font-size: 12px;
-            color: #64748b;
-            font-weight: bold;
-        }
-
         .meta-box {
             background-color: #f1f5f9;
             border: 1px solid #cbd5e1;
@@ -247,15 +221,6 @@
             margin: 20px 0;
             font-size: 13px;
         }
-
-            .meta-box p {
-                margin-bottom: 8px;
-                font-size: 13px;
-            }
-
-                .meta-box p:last-child {
-                    margin-bottom: 0;
-                }
 
         .appendix-table {
             width: 100%;
@@ -276,404 +241,256 @@
                 font-weight: bold;
                 color: var(--primary-blue);
             }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: bold;
+        }
     </style>
 
     <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFQ8P31GG"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
-        gtag('config', 'G-KWFQ8P31GG');
+        gtag('config', 'G-SCZYX0Z5VX');
     </script>
-
 </head>
 <body>
 
-<!-- Навигационная панель АСУИР верхнего уровня -->
-<div class="nav-tabs-container">    
-    <a href="index_ru.html" id="nav-link-dashboard" class="nav-tab">        
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>        
-        <span id="txt-tab-dashboard">Главная панель</span>    
-    </a>   
-
-	<a href="flowsolve.html" id="nav-link-flow" class="nav-tab">        
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="9" x2="12" y2="15"></line></svg>        
-        <span id="txt-tab-asuir">FlowSolve(Анализ)</span>    
-    </a> 
-	
-    <a href="ASUIRGemeniCalculatOptimizer_ru.html" id="nav-link-optimizer" class="nav-tab">        
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="9" x2="12" y2="15"></line></svg>        
-        <span id="txt-tab-asuir">Генератор эффективности</span>    
-    </a>    
-    <a href="#" class="nav-tab active-page">        
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>        
-        <span id="txt-tab-doc">Documentation</span>    
-    </a>
-</div>	
-
-<!-- Переключатель языков -->
-<div class="lang-switcher">    
-    <button id="btn-ru" class="lang-btn" onclick="switchLang('ru')">Русский (RU)</button>    
-    <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English (EN)</button>
-</div>
-
-<div class="container">    
-    
-    <!-- ======================================================== -->
-    <!-- РУССКАЯ ВЕРСИЯ СПРАВКИ -->    
-    <!-- ======================================================== -->
-    <div id="content-ru" class="help-content">        
-        <h1>Добро пожаловать в АСУИР Gemini - генератор сверхэффективных производств</h1>
-        <p>Алгоритмы экономики платформы АСУИР Gemini идентичны везде – в любой стране: Цены произведенной продукции: уровень Бангладеш + Зарплата рабочего: $10,000 / мес + доход домохозяйки: $100к – 1000к / мес.</p>
-        <p>При этом предпринимателю нет необходимости работать самому – в расчетах заложена оплата наемного персонала на уровне $10,000 / мес каждому.</p>
-        
-        <div class="platform-mission">
-            <h3>Система позволяет спроектировать производства, обеспечивающие:</h3>
-            <ul>
-                <li><strong>Экспоненциальный рост:</strong> экспоненциальный экономический рост ($100,000 - $1,000,000 /мес) домохозяйств, за счет производства и продажи любой готовой продукции.</li>
-                <li><strong>Ликвидацию бедности во всех странах, за счет:</strong></li>
-                <ul>
-                    <li>увеличения зарплаты наемного персонала до уровня Швейцарии - $10,000 / месяц;</li>
-                    <li>Экспоненциального предпринимательского дохода - $100,000 - $1,000,000 / месяц;</li>
-                    <li>Стоимости производимой продукции на уровне Бангладеш.</li>
-                </ul>
-            </ul>
-        </div>
-
-        <div class="meta-box">
-            <p><strong>🏛 Государственная экспертиза и верификация:</strong></p>
-            <p>• Алгоритмы, положенные в основу платформы АСУИР Gemini, прошли экспертизу в Министерстве экономического развития России в 2011 году. По инициативе Президента Д. А. Медведева платформа была рекомендована к рассмотрению в профильных экспертных группах для выработки единой стратегии формирования экономической политики России (исх. ОГ-Д19-2366 от 09.12.2011).</p>
-            <p>• Сертификация платформы АСУИР Gemini произведена в 2025 году. Сертификат подписан генеральным директором АСИ С. В. Чупшевой и директором Фонда Росконгресс А. А. Стуглевым.</p>
-        </div>
-
-        <h2>🏛 Пример - проектирование производства телевизоров</h2>
-        <p>Настройка сверхэффективной конфигурации производственной линии. Она может осуществляться, как вручную, так и путем выбора того или иного значения из списка (Каталога), предложенного искусственным интеллектом – Gemini.</p>
-        
-        <p>1/ Прежде всего в разделе «Цель производства» укажите тему. </p>
-        <div class="info-highlight">
-            <strong>💡 Интеллектуальный Каталог идей (МКТУ):</strong> Если вы еще не решили, что именно производить, нажмите на кнопку <b>«Каталог идей»</b> рядом с полем ввода. Система откроет удобный список прибыльных категорий (дроны, планшеты, мебель, бижутерия и др.). По клику на любую карточку программа автоматически загрузит готовую спецификацию комплектующих и экономическую модель.
-        </div>
-        <div class="image-container">
-            <!-- Здесь будет ваш скриншот ввода -->
-            <img class="screenshot-img" src="111.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Рисунок 111">
-        </div>
-
-        <h2>Раздел 1: Прямые затраты на оборудование, аренду и оплату труда</h2>
-        <p>В этой секции аккумулируются все постоянные операционные расходы предприятия за один рабочий день:</p>
-        <ul>
-            <li>Аренда помещения (в месяц)</li>
-            <li>Количество наемного персонала</li>
-            <li>Зарплата на единицу персонала в месяц</li>
-        </ul>
-        
-        <div class="info-highlight">
-            <strong>💡 Что такое "Одна производственная линия"?</strong> Это не гигантский завод. Это компактный автоматизированный сборочный узел или станок, который легко помещается в стандартном личном гараже или пристройке. Им может управлять 1-2 человека (например, обычная семья), без специального инженерного образования. Под эту модель и рассчитано помещение.
-        </div>
-        <div class="info-highlight">
-            <strong>💵 Ликвидация бедности (UN SDG 2030):</strong> Зарплата рабочего в системе АСУИР по умолчанию установлена на беспрецедентно высоком уровне — <strong>$10,000 в месяц</strong> на человека. Это не ошибка, а требование: доказать, что благодаря автоматизации и алгоритмам можно устранить глобальную бедность, сохранив низкую цену товара и огромную прибыль владельца.
-        </div>
-
-        <p>Оборудование может выбираться из списка, предлагаемого ИИ Gemini, заканчивая выборку нажатием «интегрировать». Возможна немедленная покупка выбранного образца. Другим вариантом будет просто изменение значения в ячейке стоимости оборудования вручную.</p>
-        <div class="image-container">
-            <img class="screenshot-img" src="113.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Рисунок 113">
-        </div>
-
-        <h2>Раздел 2. Выпуск готовой продукции и Правило 10%</h2>
-        <p>Здесь вам потребуется ввести целевую цену продажи готовой продукции (или оставить предложенную системой).</p>
-        
-        <div class="info-highlight">
-            <strong>⚙️ Правило 10% (Автоматический расчет мощности):</strong> Вам больше не нужно гадать, сколько товара нужно выпускать. АСУИР работает по жесткому алгоритму рентабельности: постоянные расходы предприятия (из Раздела 1) <b>не должны превышать 10%</b> от базовой стоимости комплектующих на 1 единицу. Исходя из этого, ИИ автоматически высчитывает <i>Минимально необходимую производительность</i> станков в день.
-        </div>
-        <div class="image-container">
-            <img class="screenshot-img" src="114.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Рисунок 114">
-        </div>
-
-        <h2>Раздел 3. Размещение составляющих продукции (Спецификация)</h2>
-        <p>Здесь размещается список комплектующих (BOM) предполагаемой к производству продукции. Шаблоны строк формируются путем нажатия кнопки «добавить строку», или автоматически, с разворачиванием самой спецификации комплектующих — путем нажатия кнопки «развернуть спецификацию».</p>
-        <div class="image-container">
-            <img class="screenshot-img" src="115.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Рисунок 115">
-        </div>
-
-        <h2>Раздел 4: Полная себестоимость производимых товаров</h2>
-        <div class="image-container">
-            <img class="screenshot-img" src="116.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Рисунок 116">
-        </div>
-
-        <h2>Раздел 5: Предпринимательский доход и Масштабирование</h2>
-        <p>В этом разделе теперь отображается не только чистая прогнозируемая прибыль в месяц, но и важнейшие бизнес-показатели:</p>
-        <ul>
-            <li><strong>Срок окупаемости оборудования (ROI):</strong> За сколько дней чистая прибыль полностью покроет стоимость купленных вами станков. (Обычно это считанные недели).</li>
-            <li><strong>Scale-Up Roadmap:</strong> Точное количество таких компактных линий, которое вам нужно запустить (клонировать в том же гараже), чтобы выйти на гарантированный чистый доход в <b>$1,000,000 в месяц</b>.</li>
-        </ul>
-        <div class="image-container">
-            <img class="screenshot-img" src="117.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Рисунок 117">
-        </div>
-
-        <h2>Как это работает на примере?</h2>
-        <p>К примеру домохозяйка - Х решила выпускать ... станки с чпу. Проверяем, а есть ли в продаже готовая линия? есть нам предлагается 3 варианта, выбираем за $360,000.</p>
-        <p>Но X - продвинутая кухарка - она будет собирать станки в гараже (не она конечно, а 2 наемных лица), зарабатывая $1,308,570. Для этого ей надо еще раз просмотреть спецификацию, проверить целесообразность собирать станки с заданной производительностью, и выбрать нужные версии комплектующих на Alibaba через встроенный сканер АСУИР.</p>
-
-        <h2>Приложение – список МКТУ – международной классификации товаров и услуг</h2>
-        <table class="appendix-table">
-            <thead>
-                <tr>
-                    <th style="width: 30%;">Глобальный сектор МКТУ</th>
-                    <th>Подкатегории и входящие классы продукции</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Приборы, аппаратура и компьютеры</strong></td>
-                    <td>приборы, инструменты, аппаратура, компьютеры, приборы научные, морские, геодезические, фотографические, измерительные, контрольные. Оборудование для связи. Кассовые и счетные машины.</td>
-                </tr>
-                <tr>
-                    <td><strong>Транспортные средства</strong></td>
-                    <td>транспортные средства, аппараты, перемещающиеся по земле, воде и воздуху (включая легкий транспорт и дроны).</td>
-                </tr>
-                <tr>
-                    <td><strong>Ювелирные изделия и часы</strong></td>
-                    <td>ювелирные, бижутерия и часы, благородные металлы, драгоценные камни, хронометрические приборы.</td>
-                </tr>
-                <tr>
-                    <td><strong>Музыкальные инструменты</strong></td>
-                    <td>музыкальные инструменты и акустические системы.</td>
-                </tr>
-                <tr>
-                    <td><strong>Мебель и деревянные изделия</strong></td>
-                    <td>мебель, столярные изделия, зеркала. Изделия из дерева, пробки, камыша.</td>
-                </tr>
-                <tr>
-                    <td><strong>Ткани и текстиль</strong></td>
-                    <td>ткани, текстильные полотна, одеяла, покрывала, шторы и палатки.</td>
-                </tr>
-                <tr>
-                    <td><strong>Одежда и обувь</strong></td>
-                    <td>одежда (взрослая/детская), обувь, головные уборы и аксессуары.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- БЛОК ПРЕДУПРЕЖДЕНИЯ -->
-        <div class="platform-mission" style="background-color: #f0fdf4; border-left: 5px solid var(--primary-blue); margin-top: 30px;">
-            <h3 style="color: var(--primary-blue); font-size: 16px; margin-bottom: 12px;">⚠️ Внимание! АСУИР Gemini — не средство получения сверхдоходов "из воздуха", а инструмент, показывающий КАК ИМЕННО это сделать математически – делай как я!</h3>
-            <ol style="padding-left: 20px;">
-                <li>Это, в первую очередь, нивелирование всех производственных расходов (стоимость станков, аренда, зарплаты), чтобы итоговая себестоимость продукции была не выше уровня Бангладеш.</li>
-                <li>Как следствие, появляется возможность не работать самому (использовать труд роботов), выплачивая наемному персоналу зарплату на уровне Америки/Швейцарии — $10,000.</li>
-                <li>Как следствие, возможность получения дохода домохозяйством в сотни тысяч в месяц.</li>
-                <li>Как следствие, возможность резкого увеличения уровня жизни населения.</li>
-                <li>Как следствие, возможность тестирования в 1 клик эффективности производства. К примеру, производить дорогие станки выгодно — прибыль более 1 миллиона в месяц! Однако производить их нужно минимум 25 штук в день, это требует квалификации и ангара. А вот выпускать дроны или бижутерию — требует лишь гаража. Платформа сразу покажет, что для окупаемости дронов нужно всего 54 штуки в день. Это превращает в ноль все операционные издержки.</li>
-            </ol>
-        </div>
-        
-        <div style="font-size: 11px; color: #888888; text-align: justify; margin-top: 30px; padding-top: 15px; border-top: 1px dashed #bfbfbf; line-height: 1.4;">
-            Ограничение ответственности: Информация, представленная на платформе, носит справочно-информационный характер. Разработчики не дают никаких гарантий достижения указанных финансовых результатов. Эта модель является математической абстракцией рентабельности бизнеса. Пользователь самостоятельно несет профессиональные и юридические риски, связанные с коммерческой деятельностью.
-        </div>
-        <div class="footer">© Анатолий Долгов, Лос-Анджелес, Калифорния, США.</div>    
+    <!-- НАВИГАЦИОННАЯ ПАНЕЛЬ -->
+    <div class="nav-tabs-container">
+        <a href="index_ru.html" id="nav-link-dashboard" class="nav-tab">🏠 <span id="txt-tab-dashboard">Главная панель</span></a>
+        <a href="flowsolve.html" id="nav-link-flow" class="nav-tab">🧠 <span id="txt-tab-flow">FlowSolve (Анализ)</span></a>
+        <a href="ASUIRGemeniCalculatOptimizer_ru.html" id="nav-link-optimizer" class="nav-tab">📊 <span id="txt-tab-asuir">Генератор эффективности</span></a>
+        <a href="asuir_matrix.html" id="nav-link-matrix" class="nav-tab">🧩 <span id="txt-tab-matrix">3D / 3-Матрица</span></a>
+        <a href="#" class="nav-tab active-page">❓ <span id="txt-tab-doc">Документация</span></a>
     </div>
 
-    <!-- ======================================================== -->
-    <!-- ENGLISH VERSION OF HELP -->    
-    <!-- ======================================================== -->
-    <div id="content-en" class="help-content">        
-        <h1>Welcome to ASUIR Gemini - an ultra-efficient manufacturing driver</h1>
-        <p>The economic algorithms powering the ASUIR Gemini platform are globally invariant—they operate identically regardless of the country. The mathematics delivers an economic model where manufactured product pricing aligns with the competitive cost levels of <strong>Bangladesh</strong>, while personnel salaries are sustained at a robust <strong>$10,000 / month</strong>, enabling regular homemakers to unlock independent revenue streams ranging from <strong>$100,000 to $1,000,000 / month</strong>.</p>
-        <p>Crucially, there is no structural requirement for the entrepreneur to engage in manual labor themselves. The computational matrices intrinsically account for hired operational personnel, factoring in competitive remuneration at an elite level of <strong>$10,000 / month each</strong>.</p>
-        
-        <div class="platform-mission">
-            <h3>The system enables you to design production facilities that offer:</h3>
-            <ul>
-                <li><strong>Exponential Growth:</strong> Driven by scale-up economic margins ($100,000 - $1,000,000 / month) for households through the manufacturing and sale of physical commodities.</li>
-                <li><strong>Global Poverty Eradication realized by:</strong></li>
-                <ul>
-                    <li>Raising hired staff wages to Swiss/US market levels—<strong>$10,000 / month</strong>;</li>
-                    <li>Ensuring exponential entrepreneurial margins;</li>
-                    <li>Maintaining retail and prime manufacturing costs at the level of Bangladesh.</li>
-                </ul>
-            </ul>
-        </div>
-
-        <div class="meta-box">
-            <p><strong>🏛 State Expertise & Official Verification:</strong></p>
-            <p>• The core algorithms of ASUIR Gemini successfully passed state expertise within the Ministry of Economic Development of the Russian Federation in 2011, recommended for creating unified strategies. (Ref No. OG-D19-2366, 2011).</p>
-            <p>• Official platform certification was fully completed in 2025, endorsed by the Agency for Strategic Initiatives (ASI) and the Roscongress Foundation leadership.</p>
-        </div>
-
-        <h2>🏛 Example: Production Planning inside ASUIR</h2>
-        <p>Deploying an ultra-efficient automated assembly line can be done manually or automatically through our Artificial Intelligence database.</p>
-        
-        <p>First, input your target commodity name into the "Production Goal" field.</p>
-        <div class="info-highlight">
-            <strong>💡 New Feature: Built-in Idea Catalog (Nice Class.):</strong> If you are unsure what to produce, simply click the <b>"Idea Catalog"</b> button. The system will display a convenient list of highly profitable niches (drones, tablets, jewelry, furniture, etc.). Clicking a card automatically populates a ready-made specification and economic matrix.
-        </div>
-        <div class="image-container">
-            <img class="screenshot-img" src="211.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Image 211">           
-        </div>
-
-        <h2>Section 1: Direct Machinery, Rental & Labor Overhead</h2>
-        <p>This zone consolidates all operational and fixed daily expenditures of the facility:</p>
-        <ul>
-            <li>Premises Lease / Rent expenses</li>
-            <li>Line Personnel count allocated per shift</li>
-            <li>Wage rates per single shift operator</li>
-        </ul>
-        
-        <div class="info-highlight">
-            <strong>💡 What is "One Production Line"?</strong> It is not a massive, noisy factory. It is a compact automated assembly unit or CNC machine that easily fits in a standard residential garage or extension. It can be operated by 1-2 everyday people (e.g., a household) without requiring a complex engineering degree.
-        </div>
-        <div class="info-highlight">
-            <strong>💵 UN SDG 2030 Priority:</strong> The salary operates at a hardcoded default of <strong>$10,000 per month</strong>. This is the cornerstone of the model. We demonstrate that thanks to ASUIR algorithms, any business can pay its workers massive wages (eliminating global poverty) while retaining huge profit margins for the owner.
-        </div>
-        
-        <p>You can search and select your base machinery from Alibaba dynamically using the "Search" scanner module integrated into the table.</p>
-        <div class="image-container">
-            <img class="screenshot-img" src="213.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Image 213">
-        </div>
-
-        <h2>Section 2. Production Line Output Metrics & The 10% Rule</h2>
-        <p>In this section, you establish the target wholesale or retail unit sales price.</p>
-        
-        <div class="info-highlight">
-            <strong>⚙️ The 10% Rule (Automated Performance):</strong> You no longer need to guess how many units to output. The system evaluates the raw parts cost, calculates 10% of that value, and ensures that your entire daily facility overhead (rent, salary, machines) fits inside that 10% margin. The AI calculates the <i>Absolute Minimum Quantity of goods per day</i> needed to keep you highly profitable!
-        </div>
-        <div class="image-container">
-            <img class="screenshot-img" src="214.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Image 214">
-        </div>
-
-        <h2>Section 3. Product Bill of Materials (BOM Component Specifications)</h2>
-        <p>This dynamic grid contains the components required to manufacture your item. The AI will populate this table automatically when you hit "Expand Specification".</p>
-        <div class="image-container">
-            <img class="screenshot-img" src="215.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Image 215">
-        </div>
-
-        <h2>Section 4: Total Cost of Manufactured Goods</h2>
-        <div class="image-container">
-            <img class="screenshot-img" src="216.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Image 216">
-        </div>
-
-        <h2>Section 5: Net Profit & The Growth Roadmap</h2>
-        <p>This final section visualizes your economic success:</p>
-        <ul>
-            <li><strong>ROI / Payback Period:</strong> Shows the exact timeframe (in days) required to fully recoup your capital investment on machinery.</li>
-            <li><strong>Scale-Up Roadmap:</strong> Provides a distinct operational guide telling the entrepreneur how many exact duplicate lines they must launch to consistently achieve <b>$1,000,000 a month</b> in net profit.</li>
-        </ul>
-        <div class="image-container">
-            <img class="screenshot-img" src="217.png" onerror="if(this.src.indexOf('.png') !== -1) this.src=this.src.replace('.png','.PNG');" alt="Image 217">
-        </div>
-
-        <h2>Demonstration Case Study</h2>
-        <p>For example, a homemaker—let's call her "X"—decides to establish a production run for <strong>CNC Machine Tools</strong>. By checking the database, the system reviews the marketplace and presents optimized machinery line configurations, prompting her to select one priced at $360,000.</p>
-        <p>As an advanced strategist, X decides to coordinate the assembly inside a spacious garage setup utilizing 2 hired operators, generating a calculated net projection of over $1,000,000. She only needs to verify the BOM specification and procure parts via the built-in scanner linked to Alibaba.</p>
-
-        <h2>Appendix: Nice Classification System (Core Supported Groups)</h2>
-        <table class="appendix-table">
-            <thead>
-                <tr>
-                    <th style="width: 30%;">Global Industrial Sector</th>
-                    <th>Sub-Categories & Included Product Classes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Apparatus & Computers</strong></td>
-                    <td>Optical, weighing, measuring, signaling, control, and life-saving instruments. Cash registers, data processing equipment, servers, PCs.</td>
-                </tr>
-                <tr>
-                    <td><strong>Vehicles & Transport</strong></td>
-                    <td>Vehicles; apparatus for locomotion by land, air (UAV/Drones), or water.</td>
-                </tr>
-                <tr>
-                    <td><strong>Jewelry & Horology</strong></td>
-                    <td>Precious metals, alloys, fashion jewelry (bijouterie), precious stones, and watches.</td>
-                </tr>
-                <tr>
-                    <td><strong>Furniture & Wood Articles</strong></td>
-                    <td>Furniture, cabinets, mirrors, frames. Articles of wood, MDF.</td>
-                </tr>
-                <tr>
-                    <td><strong>Textiles & Clothing</strong></td>
-                    <td>Fabrics, textiles, bedding covers. Clothing, footwear, and apparel accessories.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- ПРЕДУПРЕЖДАЮЩИЙ БЛОК EN -->
-        <div class="platform-mission" style="background-color: #f0fdf4; border-left: 5px solid var(--primary-blue); margin-top: 30px;">
-            <h3 style="color: var(--primary-blue); font-size: 16px; margin-bottom: 12px;">⚠️ Attention! ASUIR Gemini is not a "get-rich-quick" scheme, but a mathematical matrix showing EXACTLY how scale is achieved.</h3>
-            <ol style="padding-left: 20px;">
-                <li>The core is mitigating all overheads (machinery costs, premises, payroll) so that your final product cost meets the baseline of underdeveloped nations.</li>
-                <li>Consequently, you unlock the structural freedom to step away from manual labor, while paying your staff premium salaries (e.g., $10,000/mo).</li>
-                <li>This ensures high household incomes and helps elevate global living standards.</li>
-                <li>ASUIR gives you 1-click viability testing. For instance, heavy industrial machinery yields $1M/mo, but requires an output of 25 massive units per day (hard for a simple household). But compiling FPV Drones requires only 54 small units a day—perfect for a compact garage setup with 0 operational friction!</li>
-            </ol>
-        </div>
-        
-        <div style="font-size: 11px; color: #888888; text-align: justify; margin-top: 30px; padding-top: 15px; border-top: 1px dashed #bfbfbf; line-height: 1.4;">
-            Disclaimer: The information provided on this platform, including all automated calculations, is strictly for informational and reference purposes only. The developers offer no guarantees of achieving these specific financial outcomes. All metrics are based on theoretical modeling. The user assumes sole commercial and financial risk when setting up physical operations.
-        </div>
-        <div class="footer">© Anatoli Dolgov, Los Angeles, CA, USA. No Rights Reserved for Humanity.</div>    
+    <!-- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ -->
+    <div class="lang-switcher">
+        <button id="btn-ru" class="lang-btn" onclick="switchLang('ru')">Русский (RU)</button>
+        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English (EN)</button>
     </div>
-</div>
 
-<script>    
-    function switchLang(lang) {        
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));        
-        document.querySelectorAll('.help-content').forEach(content => content.classList.remove('active-content'));                
-        
-        const dbLink = document.getElementById('nav-link-dashboard');
-        const optLink = document.getElementById('nav-link-optimizer');
+    <div class="container">
 
-        if (lang === 'ru') {            
-            document.getElementById('content-ru').classList.add('active-content');            
-            document.getElementById('btn-ru').classList.add('active-lang');
-            
-            document.getElementById('txt-tab-dashboard').innerText = "Главная панель";
-			document.getElementById('txt-tab-flow').innerText = "FlowSolv";
-            document.getElementById('txt-tab-asuir').innerText = "АСУИР Gemini";
-            document.getElementById('txt-tab-doc').innerText = "Справка / Документация";
-            
-            dbLink.href = "index_ru.html";
-            optLink.href = "ASUIRGemeniCalculatOptimizer_ru.html"; // <-- Ссылка на ваш рабочий РУ-проект
-        } else {            
-            document.getElementById('content-en').classList.add('active-content');            
-            document.getElementById('btn-en').classList.add('active-lang');
-            
-            document.getElementById('txt-tab-dashboard').innerText = "Main Dashboard";
-			 document.getElementById('txt-tab-flow').innerText = "FlowSolve";
-            document.getElementById('txt-tab-asuir').innerText = "ASUIR Gemini";
-            document.getElementById('txt-tab-doc').innerText = "Documentation / Help";
-            
-            dbLink.href = "index_en.html";
-            optLink.href = "ASUIRGemeniCalculatOptimizer_en.html"; // <-- Ссылка на ваш рабочий EN-проект
-        }        
-        localStorage.setItem('asuir_lang', lang);    
-    }
-    
-    window.addEventListener('DOMContentLoaded', () => {        
-        const urlParams = new URLSearchParams(window.location.search);        
-        const langParam = urlParams.get('lang');        
-        const referrer = document.referrer.toLowerCase();                
-        
-        let targetLang = 'ru'; 
-        
-        if (langParam === 'ru' || langParam === 'en') {            
-            targetLang = langParam;        
-        }         
-        else if (referrer) {            
-            if (referrer.includes('_en') || referrer.includes('optimizer_en')) {                
-                targetLang = 'en';            
-            } else if (referrer.includes('_ru') || referrer.includes('optimizer_ru') || referrer.includes('index_ru')) {                
-                targetLang = 'ru';            
-            }        
-        }         
-        else if (localStorage.getItem('asuir_lang')) {            
-            targetLang = localStorage.getItem('asuir_lang');        
-        }        
-        
-        switchLang(targetLang);    
-    });
-</script>
+        <!-- ======================================================== -->
+        <!-- РУССКАЯ ВЕРСИЯ СПРАВКИ -->
+        <!-- ======================================================== -->
+        <div id="content-ru" class="help-content">
+            <h1>Документация АСУИР Gemini — Триптих Подсистем</h1>
+            <p><strong>АСУИР Gemini</strong> — это готовая к использованию, автоматизированная ИИ-платформа проектирования сверхэффективных производств. Алгоритмы платформы обеспечивают экономическую модель: <b>Себестоимость продукции: уровень Бангладеш + Зарплата рабочего: $10,000/мес + Предпринимательский доход: $100,000–$1,000,000/мес</b>.</p>
+
+            <div class="platform-mission">
+                <h3>Миссия платформы и Экономический Равновесный Эффект:</h3>
+                <ul>
+                    <li><b>Ликвидация бедности (UN SDG 2030)</b>: Подъем зарплаты наемных рабочих до $10,000/мес без увеличения себестоимости продукции.</li>
+                    <li><b>Экспоненциальный рост домохозяйств</b>: Создание бизнеса домохозяйками и предпринимателями без личного физического труда.</li>
+                    <li><b>Снятие геополитических причин конфликтов</b>: Выравнивание стоимости производства во всех странах устраняет причины трудовой миграции и торговых войн.</li>
+                </ul>
+            </div>
+
+            <div class="meta-box">
+                <p><strong>🏛 Государственная экспертиза и верификация:</strong></p>
+                <p>• Алгоритмы платформы прошедшие экспертизу в Минэкономразвития РФ в 2011 г. (исх. ОГ-Д19-2366 от 09.12.2011) по инициативе Президента Д. А. Медведева.</p>
+                <p>• Официальная сертификация платформы произведена в 2025 г. за подписью гендиректора АСИ С. В. Чупшевой и директора Фонда Росконгресс А. А. Стуглева.</p>
+            </div>
+
+            <!-- МОДУЛЬ 1: FLOWSOLVE -->
+            <h2>🧠 1. Подсистема FlowSolve (Анализ проблем и поиск ИКР)</h2>
+            <div class="module-card">
+                <div class="module-card-title">Назначение модуля FlowSolve</div>
+                <p>Модуль находит пути решения глобальных, технических и бизнес-задач методом рекурсивного анализа. Пользователь формулирует <b>Проблему</b> и задает <b>Идеальное Конечное Решение (ИКР)</b>, а FlowSolve перебирает 84 стратегии блока «Аристотель» и строит кратчайшие пути реализации.</p>
+                <h3>Ключевые функции FlowSolve:</h3>
+                <ul>
+                    <li><b>Декомпозиция проблемы</b> на атомарные шаги и технологические узлы.</li>
+                    <li><b>Отбор по «Правилу 10%»</b>: Автоматический отсев нерентабельных путей, где издержки превышают 10% от сырья.</li>
+                    <li><b>Аккордеон решений и Риски</b>: Описание реализации, сложнейшие барьеры и технологические риски по каждому пути.</li>
+                    <li><b>Матрица сравнения</b>: Табличное сопоставление капиталных затрат, КПД решения и рекомендаций Аристотеля.</li>
+                    <li><b>Передача в 1 клик</b>: Прямой экспорт найденного решения в *3-Матрицу* и *Генератор эффективности*.</li>
+                </ul>
+            </div>
+
+            <!-- МОДУЛЬ 2: 3D / 3-МАТРИЦА -->
+            <h2>🧩 2. Подсистема 3D / 3-Матрица (LEGO-Синтезатор Связок)</h2>
+            <div class="module-card">
+                <div class="module-card-title">Назначение 3-Матричного Модуля</div>
+                <p>Модуль формирует целостную цепочку производства в 1 клик по матричной связке: <b>Продукция (МКТУ) ↔ Оборудование ↔ Технологические модули переналадки</b>.</p>
+                <h3>Интерфейс и структура объектов (Items):</h3>
+                <ul>
+                    <li><b>Публичный Превью-пакет (До продажи)</b>: Содержит 4–5 фотографий высокого разрешения, видео-демонстрацию работы станка и расчетные ТТХ для калькулятора.</li>
+                    <li><b>Закрытый Пакет (После продажи / Клик Add)</b>: Содержит техническую документацию (CAD/3D чертежи, схемы CAN-шин, бинарные прошивки контроллеров, PDF-мануалы и обучающие видео для операторов).</li>
+                    <li><b>Интеграция Stripe / PayPal</b>: Моментальный эквайринг для разблокировки авторских модулей. Комиссия АСУИР 5%, автору 95%.</li>
+                    <li>
+                        <b>2 Легальных Канала Пополнения базы (без разведки/АНБ)</b>:
+                        <br>• <i>Канал 1 (Маркетплейс)</i>: Инженеры сами вносят ликвидные модули для монетизации.
+                        <br>• <i>Канал 2 (Генератор эффективности)</i>: Автоматическая фиксация данных при поиске оборудования на Alibaba.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- МОДУЛЬ 3: ГЕНЕРАТОР ЭФФЕКТИВНОСТИ -->
+            <h2>📊 3. Подсистема «Генератор эффективности» (Расчетный оптимизатор)</h2>
+            <div class="module-card">
+                <div class="module-card-title">5 Разделов Генератора эффективности</div>
+                <p>Определяет полную экономическую модель, окупаемость и сжатие издержек.</p>
+                <ol>
+                    <li><b>Раздел 1: Постоянные затраты</b> (Амортизация оборудования за 5 лет, аренда помещения, фонд зарплаты наемного персонала из расчета $10,000/мес на человека).</li>
+                    <li><b>Раздел 2: Остальные издержки</b> (Логистика, коммунальные услуги, прочие накладные расходы за день).</li>
+                    <li><b>Раздел 3: Сырьё и комплектующие (BOM)</b> (Каталог МКТУ, автоматическая развертка компонентов, калькулятор оптовой партии).</li>
+                    <li><b>Раздел 4: Полная себестоимость</b> (Формирование единицы продукции на уровне Бангладеш).</li>
+                    <li><b>Раздел 5: Результаты и Масштабирование</b> (Вычисление окупаемости ROI за дни, чистой прибыли домохозяйства от $100,000/мес и роадмапа выхода на $1,000,000/мес).</li>
+                </ol>
+                <div class="info-highlight">
+                    <strong>⚙️ Математическое «Правило 10% АСУИР»:</strong> Необходимая производительность линии ($P_{req}$) вычисляется автоматически так, чтобы ВСЕ постоянные издержки (зарплата $10k + амортизация + аренда) составляли <b>не более 10%</b> от стоимости сырья (BOM). Это математически гарантирует отсутствие убытков и дает экспоненциальную сверхприбыль.
+                </div>
+            </div>
+
+            <h2>Приложение: Глобальные секторы МКТУ</h2>
+            <table class="appendix-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Сектор МКТУ</th>
+                        <th>Входящие классы продукции</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>09 - Приборы и компьютеры</strong></td><td>Электроника, компьютеры, FPV-дроны, контроллеры, измерительные приборы.</td></tr>
+                    <tr><td><strong>12 - Транспортные средства</strong></td><td>Легкий транспорт, беспилотные аппараты, узлы робототехники.</td></tr>
+                    <tr><td><strong>14 - Ювелирные изделия</strong></td><td>Украшения из драгметаллов, бижутерия, часы, хронометры.</td></tr>
+                    <tr><td><strong>20 - Мебель и дерево</strong></td><td>Корпусная мебель, ЧПУ-изделия из дерева и МДФ.</td></tr>
+                    <tr><td><strong>25 - Одежда и текстиль</strong></td><td>Автоматизированный пошив одежды, спецодежда, фурнитура.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="footer">© Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.</div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- ENGLISH VERSION OF HELP -->
+        <!-- ======================================================== -->
+        <div id="content-en" class="help-content">
+            <h1>ASUIR Gemini Documentation — Subsystems Triptych</h1>
+            <p><strong>ASUIR Gemini</strong> is an automated AI platform for designing hyper-efficient manufacturing lines. Its mathematical algorithms enforce a global economic rule: <b>Product Cost = Bangladesh baseline + Staff Wage = $10,000/mo + Household Profit = $100,000–$1,000,000/mo</b>.</p>
+
+            <div class="platform-mission">
+                <h3>Platform Mission & Global Equalization Effect:</h3>
+                <ul>
+                    <li><b>UN SDG 2030 Poverty Eradication</b>: Raising hired labor wages to $10,000/mo without increasing unit production costs.</li>
+                    <li><b>Exponential Household Income</b>: Passive entrepreneurship without manual labor requirement.</li>
+                    <li><b>Eliminating Migration & Conflicts</b>: Uniform global production costs remove economic incentives for forced labor migration and trade sanctions.</li>
+                </ul>
+            </div>
+
+            <div class="meta-box">
+                <p><strong>🏛 State Expertise & Verification:</strong></p>
+                <p>• Passed state expertise in the Ministry of Economic Development of RF in 2011 (Ref. OG-D19-2366).</p>
+                <p>• Officially certified in 2025 by the Agency for Strategic Initiatives (ASI) and Roscongress Foundation leadership.</p>
+            </div>
+
+            <!-- MODULE 1: FLOWSOLVE -->
+            <h2>🧠 1. FlowSolve Subsystem (Problem Analysis & IFR)</h2>
+            <div class="module-card">
+                <div class="module-card-title">FlowSolve Purpose & Mechanism</div>
+                <p>Analyzes complex technical or business problems using recursive logic. The user formulates a <b>Problem</b> and specifies an <b>Ideal Final Result (IFR)</b>. FlowSolve evaluates 84 Aristotle strategies to find the shortest execution pathway.</p>
+                <h3>Core Features:</h3>
+                <ul>
+                    <li><b>Problem Decomposition</b> into atomic steps and technological building blocks.</li>
+                    <li><b>The 10% Rule Filter</b>: Auto-discards unprofitable paths where overhead exceeds 10% of raw BOM.</li>
+                    <li><b>Solution Accordions</b>: Details implementation, technological barriers, and risk assessments.</li>
+                    <li><b>Comparison Matrix</b>: Compares capital requirements, solution efficiency, and Aristotle recommendations.</li>
+                    <li><b>1-Click Export</b>: Transfers solutions directly to the 3-Matrix and Efficiency Generator.</li>
+                </ul>
+            </div>
+
+            <!-- MODULE 2: 3D / 3-MATRIX -->
+            <h2>🧩 2. 3D / 3-Matrix Subsystem (LEGO Chain Synthesizer)</h2>
+            <div class="module-card">
+                <div class="module-card-title">3-Matrix Functionality</div>
+                <p>Assembles 1-click production chains using cross-linked relational matrices: <b>Products (Nice Class.) ↔ Equipment ↔ Tech Retooling Modules</b>.</p>
+                <h3>Item Architecture:</h3>
+                <ul>
+                    <li><b>Pre-sale Public Media</b>: Includes 4-5 high-resolution photos, short video demonstrations, and operational specs.</li>
+                    <li><b>Post-sale Unlocked Data (Via Add Button)</b>: Delivers CAD/3D blueprints, CAN-bus schematics, firmware binaries, operator PDF manuals, and training videos.</li>
+                    <li><b>PayPal / Stripe Integration</b>: Enables instant unlocking of custom author modules. 95% goes to the author, 5% to ASUIR.</li>
+                    <li>
+                        <b>Two Legal Data Expansion Channels</b>:
+                        <br>• <i>Channel 1 (Marketplace)</i>: Engineers monetize custom modules.
+                        <br>• <i>Channel 2 (Efficiency Generator)</i>: Automatic data capture during Alibaba queries.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- MODULE 3: EFFICIENCY GENERATOR -->
+            <h2>📊 3. Efficiency Generator Subsystem</h2>
+            <div class="module-card">
+                <div class="module-card-title">5 Operational Sections</div>
+                <p>Calculates complete financial feasibility, ROI, and cost compression.</p>
+                <ol>
+                    <li><b>Section 1: Fixed Overhead</b> (5-year machinery amortization, premises rent, $10,000/mo operator wages).</li>
+                    <li><b>Section 2: Secondary Overhead</b> (Daily logistics, utilities, and miscellany).</li>
+                    <li><b>Section 3: Bill of Materials (BOM)</b> (Nice classification catalog, component expansion, bulk calculator).</li>
+                    <li><b>Section 4: Total Unit Cost</b> (Maintains Bangladesh baseline unit costs).</li>
+                    <li><b>Section 5: Profit & Scale Roadmap</b> (Calculates payback ROI in days, household profits over $100k/mo, and $1M/mo scaling roadmap).</li>
+                </ol>
+            </div>
+
+            <div class="footer">© Anatoli Dolgov, Los Angeles, CA, USA. Free Open Source Utility for Humanity.</div>
+        </div>
+    </div>
+
+    <script>
+        function switchLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
+            document.querySelectorAll('.help-content').forEach(content => content.classList.remove('active-content'));
+
+            const dbLink = document.getElementById('nav-link-dashboard');
+            const optLink = document.getElementById('nav-link-optimizer');
+            const matrixLink = document.getElementById('nav-link-matrix');
+
+            if (lang === 'ru') {
+                document.getElementById('content-ru').classList.add('active-content');
+                document.getElementById('btn-ru').classList.add('active-lang');
+
+                document.getElementById('txt-tab-dashboard').innerText = "Главная панель";
+                document.getElementById('txt-tab-flow').innerText = "FlowSolve (Анализ)";
+                document.getElementById('txt-tab-asuir').innerText = "Генератор эффективности";
+                document.getElementById('txt-tab-matrix').innerText = "3D / 3-Матрица";
+                document.getElementById('txt-tab-doc').innerText = "Документация";
+
+                dbLink.href = "index_ru.html";
+                optLink.href = "ASUIRGemeniCalculatOptimizer_ru.html";
+                matrixLink.href = "asuir_matrix.html";
+            } else {
+                document.getElementById('content-en').classList.add('active-content');
+                document.getElementById('btn-en').classList.add('active-lang');
+
+                document.getElementById('txt-tab-dashboard').innerText = "Main Dashboard";
+                document.getElementById('txt-tab-flow').innerText = "FlowSolve (Analysis)";
+                document.getElementById('txt-tab-asuir').innerText = "Efficiency Generator";
+                document.getElementById('txt-tab-matrix').innerText = "3D / 3-Matrix";
+                document.getElementById('txt-tab-doc').innerText = "Documentation";
+
+                dbLink.href = "index_en.html";
+                optLink.href = "ASUIRGemeniCalculatOptimizer_en.html";
+                matrixLink.href = "asuir_matrix.html";
+            }
+            localStorage.setItem('asuir_lang', lang);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            let targetLang = langParam || localStorage.getItem('asuir_lang') || 'ru';
+            switchLang(targetLang);
+        });
+    </script>
 </body>
 </html>
