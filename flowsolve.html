@@ -31,7 +31,7 @@
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
             background: #ffffff;
             border: 1px solid var(--border-color);
@@ -41,7 +41,7 @@
             padding-bottom: 20px;
         }
 
-        /* ЗАГОЛОВОК И НАВИГАЦИЯ АСУИР */
+        /* ЗАГОЛОВОК И НАВИГАЦИЯ */
         h1 {
             background-color: var(--primary-blue);
             color: #ffffff;
@@ -93,7 +93,7 @@
                 pointer-events: none;
             }
 
-        /* БЛОК ВВОДА ИДЕИ (FLOWSOLVE) */
+        /* ВВОД ИДЕИ / ПРОБЛЕМЫ */
         .strategy-box {
             background-color: #f9ebdf;
             padding: 25px 20px;
@@ -151,7 +151,7 @@
                 transform: translateY(-1px);
             }
 
-        /* ИМИТАЦИЯ ЗАГРУЗКИ (РАБОТА ИИ) */
+        /* ИМИТАЦИЯ РАБОТЫ ИИ */
         #loading-view {
             display: none;
             text-align: center;
@@ -195,7 +195,6 @@
             display: none;
         }
 
-        /* ЛОКАЛЬНЫЕ ВКЛАДКИ FLOWSOLVE */
         .fs-subtabs {
             display: flex;
             background: #f0f4f8;
@@ -223,7 +222,7 @@
                 border-bottom-color: var(--primary-blue);
             }
 
-        /* ВЕРТИКАЛЬНЫЙ АКОРДЕОН РЕШЕНИЙ */
+        /* АККОРДЕОН РЕШЕНИЙ */
         #view-list {
             padding: 20px;
         }
@@ -404,248 +403,248 @@
                 align-items: flex-start;
                 gap: 10px;
             }
-
-            .solution-toggle {
-                display: none;
-            }
         }
     </style>
-
-    <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFQ8P31GG"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-KWFQ8P31GG');
-    </script>
-
 </head>
 <body>
 
-<div class="container">
-    <h1>ASUIR <span>Gemini</span></h1>
-    
-    <div class="nav-tabs">
-        <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
-        <a href="flowsolve.html" class="nav-tab-btn active">🧠 FlowSolve (Анализ)</a>
-        <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn"> 📊 Генератор эффективности</a>
-        <a href="asuir_matrix.html" class="nav-tab-btn">🧩 3D-Матрица (LEGO)</a>
-        <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
-        <a href="#" class="nav-tab-btn feedback-btn">💡 Обратная связь</a>
-    </div>
+    <div class="container">
+        <h1>ASUIR <span>Gemini</span> — FlowSolve</h1>
 
-    <!-- ВВОД ИДЕИ -->
-    <div class="strategy-box">
-        <div class="strategy-title">Глобальная проблема или Идея продукта</div>
-        <div class="input-group">
-            <input type="text" id="flow-input" class="input-product-name" 
-                   value="Как исключить столкновения на перекрестках?" placeholder="Опишите техническую, бизнес или социальную задачу...">
-            <button class="btn-start" onclick="startFlowSolve()">🧠 Синтезировать решения</button>
-        </div>
-    </div>
-
-    <!-- ЭКРАН ЗАГРУЗКИ ПОИСКА -->
-    <div id="loading-view">
-        <div class="spinner"></div>
-        <div id="loading-text">Инициализация рекурсивного интеллекта FlowSolve...</div>
-        <div class="loading-subtext" id="loading-subtext">Анализ базы данных 84 стратегий АСУИР</div>
-    </div>
-
-    <!-- ЭКРАН РЕЗУЛЬТАТОВ -->
-    <div id="results-view">
-        <div class="fs-subtabs">
-            <div class="fs-tab active" onclick="switchView('list')">📋 Вертикальный список решений</div>
-            <div class="fs-tab" onclick="switchView('compare')">⚖️ Матрица сравнения</div>
+        <div class="nav-tabs">
+            <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
+            <a href="flowsolve.html" class="nav-tab-btn active">🧠 FlowSolve (Анализ)</a>
+            <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn">📊 Генератор эффективности</a>
+            <a href="asuir_matrix.html" class="nav-tab-btn">🧩 3D / 3-Матрица</a>
+            <a href="help.html" class="nav-tab-btn">❓ Документация</a>
         </div>
 
-        <!-- СПИСОК РЕШЕНИЙ (АККОРДЕОН) -->
-        <div id="view-list">
-            <!-- Решение 1 -->
-            <div class="solution-item expanded" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">1. Радарная сеть + V2X коммуникация <span class="solution-score">Топ-выбор АСУИР</span></div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-block">
-                        <div class="s-block-title">🛠 Описание реализации (Как это работает):</div>
-                        <div class="s-text">
-                            Создание компактных вычислительных модулей для установки на светофорные опоры. Принцип "умного перекрестка": интеллектуальная система с микроволновыми радарами отслеживает векторы движения машин. Атомарные элементы производства: радарные сенсоры, контроллеры V2X, ударопрочные корпуса.
-                        </div>
-                    </div>
-                    <div class="s-block">
-                        <div class="s-block-title">⚠️ Сложности и барьеры (Risks):</div>
-                        <div class="s-text">
-                            • Требуется интеграция с муниципальной инфраструктурой (бюрократия).<br>
-                            • Необходимость закупки микроволновых чипов партиями (потребует оборотный капитал).<br>
-                            • Дорогая первоначальная разработка ПО для предсказания траекторий.
-                        </div>
-                    </div>
-                    <a href="calculator_ru.html" class="btn-select-solution">Передать модули в "Генератор Эффективности" →</a>
-                </div>
-            </div>
-
-            <!-- Решение 2 -->
-            <div class="solution-item" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">2. Нейро-камеры контроля усталости водителя </div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-block">
-                        <div class="s-block-title">🛠 Описание реализации (Как это работает):</div>
-                        <div class="s-text">
-                            Индивидуальное портативное устройство на приборную панель автомобиля. Камера с ИИ отслеживает направление зрачков водителя. При отвлечении на перекрестке подается резкий звуковой и световой сигнал. Атомарные элементы: CMOS-матрица, процессор компьютерного зрения, зуммер, пластиковый корпус.
-                        </div>
-                    </div>
-                    <div class="s-block">
-                        <div class="s-block-title">⚠️ Сложности и барьеры (Risks):</div>
-                        <div class="s-text">
-                            • Высокая конкуренция на рынке автомобильных гаджетов (B2C сектор).<br>
-                            • Водители могут отключать устройство из-за раздражающего звука.<br>
-                            • Снижение маржи из-за необходимости огромных трат на маркетинг.
-                        </div>
-                    </div>
-                    <a href="calculator_ru.html" class="btn-select-solution">Передать модули в "Генератор Эффективности" →</a>
-                </div>
-            </div>
-
-            <!-- Решение 3 -->
-            <div class="solution-item" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">3. Аппаратный GPS-лимитатор скорости</div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-block">
-                        <div class="s-block-title">🛠 Описание реализации (Как это работает):</div>
-                        <div class="s-text">
-                            Модуль встраивается в бортовую сеть автомобиля (CAN-шина). Прибор принудительно ограничивает подачу топлива/электричества, не позволяя авто превысить скорость в зоне перекрестка. Атомарные элементы: телематический чип, GPS-приемник, реле блокировки.
-                        </div>
-                    </div>
-                    <div class="s-block">
-                        <div class="s-block-title">⚠️ Сложности и барьеры (Risks):</div>
-                        <div class="s-text">
-                            • Проблема безопасности: случайная блокировка газа может привести к аварии.<br>
-                            • Невозможность повсеместного внедрения без закона на государственном уровне.<br>
-                            • Проблемы с гарантией на автомобили при вмешательстве в CAN-шину.
-                        </div>
-                    </div>
-                    <a href="calculator_ru.html" class="btn-select-solution">Передать модули в "Генератор Эффективности" →</a>
-                </div>
+        <!-- ВВОД ИДЕИ ИЛИ ПРОБЛЕМЫ -->
+        <div class="strategy-box">
+            <div class="strategy-title">Глобальная проблема или Идея продукта</div>
+            <div class="input-group">
+                <input type="text" id="flow-input" class="input-product-name"
+                       value="как организовать серийную сборку дронов без инженерного образования персонала?"
+                       placeholder="Опишите проблему, идею или целевой продукт...">
+                <button class="btn-start" onclick="startFlowSolve()">🧠 Синтезировать решения</button>
             </div>
         </div>
 
-        <!-- МАТРИЦА СРАВНЕНИЯ -->
-        <div id="view-compare">
-            <table class="compare-table">
-                <thead>
-                    <tr>
-                        <th>Параметр / Критерий</th>
-                        <th>1. Радарная сеть V2X</th>
-                        <th>2. Нейро-камеры</th>
-                        <th>3. GPS-лимитатор</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Сложность внедрения</td>
-                        <td>Высокая (Госсектор)</td>
-                        <td><span class="best-val">Низкая (Для масс-маркета)</span></td>
-                        <td>Крайне высокая</td>
-                    </tr>
-                    <tr>
-                        <td>Эффективность решения (КПД)</td>
-                        <td><span class="best-val">~98% (Системный подход)</span></td>
-                        <td>~40% (Зависит от человека)</td>
-                        <td>~80% (Физическое ограничение)</td>
-                    </tr>
-                    <tr>
-                        <td>Капитал для запуска (Оборудование)</td>
-                        <td>~$150,000 (SMT станки)</td>
-                        <td>~$80,000 (Простая сборка)</td>
-                        <td><span class="best-val">~$45,000</span></td>
-                    </tr>
-                    <tr>
-                        <td>Оценка по "Правилу 10% АСУИР"</td>
-                        <td><span class="best-val">Высшая (Дорогая продажа узла)</span></td>
-                        <td>Средняя (Высокая цена деталей)</td>
-                        <td>Низкая (Маленькая маржа)</td>
-                    </tr>
-                    <tr>
-                        <td>Рекомендация Аристотеля (ИИ)</td>
-                        <td><b>Стратегическое превосходство</b></td>
-                        <td>Быстрый возврат денег</td>
-                        <td>Нерентабельно (тупик)</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- ЭКРАН ЗАГРУЗКИ ПОИСКА -->
+        <div id="loading-view">
+            <div class="spinner"></div>
+            <div id="loading-text">Инициализация рекурсивного интеллекта FlowSolve...</div>
+            <div class="loading-subtext" id="loading-subtext">Анализ базы данных 84 стратегий АСУИР</div>
         </div>
 
+        <!-- ЭКРАН РЕЗУЛЬТАТОВ -->
+        <div id="results-view">
+            <div class="fs-subtabs">
+                <div class="fs-tab active" onclick="switchView('list')">📋 Вертикальный список решений</div>
+                <div class="fs-tab" onclick="switchView('compare')">⚖️ Матрица сравнения</div>
+            </div>
+
+            <!-- ДИНАМИЧЕСКИЙ СПИСОК РЕШЕНИЙ -->
+            <div id="view-list">
+                <!-- Заполняется через JS -->
+            </div>
+
+            <!-- ДИНАМИЧЕСКАЯ МАТРИЦА СРАВНЕНИЯ -->
+            <div id="view-compare">
+                <!-- Заполняется через JS -->
+            </div>
+
+        </div>
     </div>
-</div>
 
-<script>
-    // Раскрытие аккордеона
-    function toggleAccordion(element) {
-        element.classList.toggle('expanded');
-    }
-
-    // Переключение вкладок Список/Сравнение
-    function switchView(view) {
-        document.querySelectorAll('.fs-tab').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('view-list').style.display = 'none';
-        document.getElementById('view-compare').style.display = 'none';
-        
-        if (view === 'list') {
-            document.querySelectorAll('.fs-tab')[0].classList.add('active');
-            document.getElementById('view-list').style.display = 'block';
-        } else {
-            document.querySelectorAll('.fs-tab')[1].classList.add('active');
-            document.getElementById('view-compare').style.display = 'block';
+    <script>
+        function toggleAccordion(element) {
+            element.classList.toggle('expanded');
         }
-    }
 
-    // Имитация "могучей работы ИИ" и рекурсивного расчета
-    function startFlowSolve() {
-        const input = document.getElementById('flow-input').value.trim();
-        if(!input) return alert("Пожалуйста, введите проблему или идею.");
+        function switchView(view) {
+            document.querySelectorAll('.fs-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-compare').style.display = 'none';
 
-        // Прячем результаты, показываем загрузку
-        document.getElementById('results-view').style.display = 'none';
-        document.getElementById('loading-view').style.display = 'block';
-        document.getElementById('view-list').style.display = 'block';
-        document.getElementById('view-compare').style.display = 'none';
-        document.querySelectorAll('.fs-tab')[0].classList.add('active');
-        document.querySelectorAll('.fs-tab')[1].classList.remove('active');
-
-        // Тексты для эффекта присутствия ИИ
-        const texts = [
-            "Декомпозиция проблемы на атомарные шаги...",
-            "Проверка 84 стратегий блока «Аристотель»...",
-            "Отсев нерентабельных путей по Правилу 10%...",
-            "Формирование финальных Триплов..."
-        ];
-
-        let i = 0;
-        document.getElementById('loading-text').innerText = "Инициализация рекурсивного интеллекта FlowSolve...";
-        document.getElementById('loading-subtext').innerText = texts[0];
-
-        const interval = setInterval(() => {
-            i++;
-            if (i < texts.length) {
-                document.getElementById('loading-subtext').innerText = texts[i];
+            if (view === 'list') {
+                document.querySelectorAll('.fs-tab')[0].classList.add('active');
+                document.getElementById('view-list').style.display = 'block';
             } else {
-                clearInterval(interval);
-                document.getElementById('loading-view').style.display = 'none';
-                document.getElementById('results-view').style.display = 'block';
+                document.querySelectorAll('.fs-tab')[1].classList.add('active');
+                document.getElementById('view-compare').style.display = 'block';
             }
-        }, 800); // 800 милисекунд на каждую фразу (общая загрузка ~3 сек)
-    }
-</script>
+        }
+
+        // ДИНАМИЧЕСКИЙ СИНТЕЗАТОР РЕШЕНИЙ ПОД ЛЮБОЙ ЗАПРОС
+        function generateSolutionsForQuery(query) {
+            const q = query.toLowerCase();
+
+            // 1. Шаблоны решений под тему "ДРОНЫ"
+            if (q.includes('дрон') || q.includes('беспилот') || q.includes('fpv') || q.includes('авиа')) {
+                return [
+                    {
+                        title: "1. Автоматическая SMT-пайка плат + LEGO-модульная сборка рамы",
+                        score: "Топ-выбор АСУИР",
+                        description: "Использование готовой SMT-линии для автоматической расстановки радиокомпонентов полетного контроллера. Персонал без инженерного образования выполняет только стыковку готовых штекеров и закручивание 8 винтов рамы по пошаговой видеоинструкции.",
+                        risks: "• Требуются первоначальные затраты на SMT-оборудование (~$120,000).<br>• Закупка качественных карбоновых лучей партией от 100 шт.",
+                        matrix_key: "дрон",
+                        cost: "$120,000",
+                        efficiency: "~98% (Исключен человеческий фактор)",
+                        rule10: "Высшая (Простая сборка за 12 мин)"
+                    },
+                    {
+                        title: "2. Беспаечная конвейерная сборка на готовых PnP-модулях",
+                        score: "Быстрый запуск",
+                        description: "Закупка готовых пропаянных полетных стеков с защелкивающимися разъемами (Plug-and-Play). Оператор лишь защелкивает разъемы моторов в регулятор скорости (ESC). Настройка прошивки производится авто-сканером при подключении USB.",
+                        risks: "• Стоимость покупных PnP-модулей выше на 15-20% чем сырых компонентов.<br>• Зависимость от фабрик-поставщиков разъемов.",
+                        matrix_key: "дрон",
+                        cost: "$45,000",
+                        efficiency: "~85% (Высокая скорость)",
+                        rule10: "Средняя (Чуть выше себестоимость BOM)"
+                    },
+                    {
+                        title: "3. Полная робот-ячейка с авто-тестированием на стенде",
+                        score: "Максимальная автоматизация",
+                        description: "Настольный ЧПУ-манипулятор собирает моторы и раму, а оператор занимается только упаковкой готового изделия в коробки.",
+                        risks: "• Дорогая настройка робота-манипулятора.<br>• Требуется сервисный инженер для первой пуско-наладки.",
+                        matrix_key: "дрон",
+                        cost: "$180,000",
+                        efficiency: "~99% (Полный робот)",
+                        rule10: "Высокая (При объемах от 100 шт/день)"
+                    }
+                ];
+            }
+
+            // 2. УНИВЕРСАЛЬНЫЙ ШАБЛОН ПОД ЛЮБОЙ ДРУГОЙ ЗАПРОС
+            return [
+                {
+                    title: `1. Автоматизированная модульная линия для "${query}"`,
+                    score: "Топ-выбор АСУИР",
+                    description: `Применение стандартизированного оборудования с адаптивным модулем переналадки. Оператор осуществляет лишь визуальный контроль и загрузку сырья. Все сложная обработка выполняется ЧПУ-контроллером.`,
+                    risks: "• Необходимость первичной настройки алгоритма переналадки.<br>• Закупка базового комплекта оборудования.",
+                    matrix_key: query,
+                    cost: "$60,000",
+                    efficiency: "~95% (Автоматический цикл)",
+                    rule10: "Соблюдено (Отклонение < 8%)"
+                },
+                {
+                    title: `2. Пошаговая полуавтоматическая сборка с ИИ-подсказками`,
+                    score: "Минимальный капитал",
+                    description: `Использование недорогого станка и интерактивного экрана-подсказчика для рабочего. Каждое действие подсвечивается лазерным указателем, что исключает ошибки сборки даже у неквалифицированного персонала.`,
+                    risks: "• Скорость сборки зависит от ритма оператора.<br>• Требуется планшетный контроллер на рабочее место.",
+                    matrix_key: query,
+                    cost: "$25,000",
+                    efficiency: "~80% (Доступный запуск)",
+                    rule10: "Высшая (Низкий порог входа)"
+                }
+            ];
+        }
+
+        // СТАРТ ПОИСКА
+        function startFlowSolve() {
+            const input = document.getElementById('flow-input').value.trim();
+            if (!input) return alert("Пожалуйста, введите проблему или идею.");
+
+            document.getElementById('results-view').style.display = 'none';
+            document.getElementById('loading-view').style.display = 'block';
+
+            const texts = [
+                "Декомпозиция проблемы на атомарные шаги...",
+                "Проверка 84 стратегий блока «Аристотель»...",
+                "Отсев нерентабельных путей по Правилу 10%...",
+                "Синтез триплетов и генерация 3D-связок..."
+            ];
+
+            let i = 0;
+            document.getElementById('loading-text').innerText = "Инициализация рекурсивного интеллекта FlowSolve...";
+            document.getElementById('loading-subtext').innerText = texts[0];
+
+            const interval = setInterval(() => {
+                i++;
+                if (i < texts.length) {
+                    document.getElementById('loading-subtext').innerText = texts[i];
+                } else {
+                    clearInterval(interval);
+                    renderResults(input);
+                    document.getElementById('loading-view').style.display = 'none';
+                    document.getElementById('results-view').style.display = 'block';
+                }
+            }, 600);
+        }
+
+        // РЕНДЕР ДИНАМИЧЕСКИХ РЕЗУЛЬТАТОВ
+        function renderResults(query) {
+            const solutions = generateSolutionsForQuery(query);
+            const listContainer = document.getElementById('view-list');
+            const compareContainer = document.getElementById('view-compare');
+
+            // 1. Рендер списка
+            let listHtml = '';
+            solutions.forEach((s, idx) => {
+                const isExpanded = idx === 0 ? 'expanded' : '';
+                listHtml += `
+                    <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
+                        <div class="solution-header">
+                            <div class="solution-title">${s.title} <span class="solution-score">${s.score}</span></div>
+                            <div class="solution-toggle">▼</div>
+                        </div>
+                        <div class="solution-body" onclick="event.stopPropagation()">
+                            <div class="s-block">
+                                <div class="s-block-title">🛠 Описание реализации (Как это работает):</div>
+                                <div class="s-text">${s.description}</div>
+                            </div>
+                            <div class="s-block">
+                                <div class="s-block-title">⚠️ Сложности и барьеры (Risks):</div>
+                                <div class="s-text">${s.risks}</div>
+                            </div>
+                            <a href="asuir_matrix.html?query=${encodeURIComponent(s.matrix_key)}" class="btn-select-solution">
+                                Передать в "3D / 3-Матрицу" и "Генератор эффективности" →
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = listHtml;
+
+            // 2. Рендер таблицы сравнения
+            let compareHtml = `
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Критерий / Параметр</th>
+                            ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Эффективность (КПД)</td>
+                            ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td>Капитал на оборудование</td>
+                            ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td>Оценка по Правилу 10%</td>
+                            ${solutions.map(s => `<td>${s.rule10}</td>`).join('')}
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            compareContainer.innerHTML = compareHtml;
+        }
+
+        // Автостарт при открытии
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const q = urlParams.get('query');
+            if (q) {
+                document.getElementById('flow-input').value = q;
+                startFlowSolve();
+            }
+        };
+    </script>
 
 </body>
 </html>
