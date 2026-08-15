@@ -548,6 +548,7 @@
         <div class="nav-primary">
             <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
+            <a href="asuir_matrix.html" class="nav-tab-btn">🧩 3D / 3-Матрица</a>
             <a href="help.html" class="nav-tab-btn">❓ Документация</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Обратная связь</a>
         </div>
@@ -580,11 +581,13 @@
                     <tr>
                         <td>
                             <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тип оборудования</span></span><br>
-                            <span style="font-size: 13px; color: #6c7a8a;">Выберите или введите оборудование для поиска на Alibaba</span>
+                            <span style="font-size: 13px; color: #6c7a8a;">Выберите готовый проект из Каталога МКТУ или введите оборудование для поиска</span>
                         </td>
-                        <td class="right" style="width: 30%;">
+                        <td class="right" style="width: 45%;">
                             <div style="display: flex; gap: 8px; align-items: center; justify-content: flex-end;">
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="drone assembly line" style="max-width: 180px;">
+                                <!-- КНОПКА КАТАЛОГА МКТУ ПЕРЕНЕСЕНА В РАЗДЕЛ 1 -->
+                                <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог МКТУ</button>
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="drone assembly line" style="max-width: 170px;">
                                 <button class="btn-icon" onclick="searchAlibaba('equip')" title="Поиск на Alibaba">🔍</button>
                             </div>
                         </td>
@@ -663,7 +666,6 @@
                 💡 <b>Кликабельные ссылки:</b> Нажмите на значок <b>🔗</b> рядом со ссылкой, чтобы открыть товар на Alibaba в один клик. Нажмите на калькулятор <b>🧮</b> для расчета оптовой партии.
             </div>
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-                <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог МКТУ</button>
                 <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Добавить строку</button>
             </div>
             <div class="table-responsive">
@@ -923,7 +925,7 @@
             calculateAll();
         }
 
-        // ===== БАЗА ДАННЫХ КАТАЛОГА (ПРОВЕРЕНА И ИСПРАВЛЕНА 100%) =====
+        // ===== БАЗА ДАННЫХ КАТАЛОГА =====
         const catalogDB = {
             'drone': { eq: '120000', mkt: '423', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
             'tablet': { eq: '45000', mkt: '150', q: 'tablet assembly equipment', c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]] },
