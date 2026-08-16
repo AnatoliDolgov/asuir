@@ -276,6 +276,44 @@
                 font-weight: bold;
                 color: var(--primary-blue);
             }
+
+        /* МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            padding-top: 60px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 16px;
+            top: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c7a8a;
+        }
+
+            .modal-close:hover {
+                color: #1a2632;
+            }
     </style>
 </head>
 <body>
@@ -294,6 +332,11 @@
         <a href="#" class="nav-tab active-page">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             <span id="txt-tab-doc">Documentation</span>
+        </a>
+        <!-- ВКЛАДКА ОБРАТНОЙ СВЯЗИ -->
+        <a href="#" onclick="openModal('feedback-modal')" class="nav-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span id="txt-tab-feedback">Обратная связь</span>
         </a>
     </div>
 
@@ -336,7 +379,7 @@
             <p>Настройка сверхэффективной конфигурации производственной линии. Она осуществляется в полуавтоматическом режиме, с помощью искусственного интеллекта – Gemini, в том числе с использованием каталога МК.</p>
             <div class="info-highlight">
                 <strong>💡 Что такое "Одна производственная линия"?</strong> Это не гигантский завод. Это компактный автоматизированный сборочный узел или станок, который легко помещается
-                в стандартном личном гараже или пристройке. Им может 	управлять 1-2 человека (например, обычная семья), без специального инженерного образования. Под эту модель и рассчитано помещение.
+                в стандартном личной гараже или пристройке. Им может управлять 1-2 человека (например, обычная семья), без специального инженерного образования. Под эту модель и рассчитано помещение.
             </div>
             <div class="info-highlight">
                 <strong>💵 Ликвидация бедности (UN SDG 2030):</strong> Зарплата рабочего в системе АСУИР по умолчанию установлена на беспрецедентно высоком уровне — <strong>$10,000 в месяц</strong> на человека.
@@ -372,7 +415,7 @@
                 постоянные расходы предприятия (из Раздела 1) не должны превышать 10% от базовой стоимости комплектующих на 1 единицу. Исходя из этого, ИИ автоматически высчитывает
                 Минимально необходимую производительность станков в день (смотри раздел 5).
             </div>
-            <h2>Раздел 3: Сырье и комплектующие</h2> 
+            <h2>Раздел 3: Сырье и комплектующие</h2>
             <p><b>Выбор комплектующих:</b> аналогично, выбору оборудования в разделе 1, выберите конкретный тип комплектующих.</p>
 
             <h2>Раздел 5: Предпринимательский доход и Масштабирование</h2>
@@ -408,7 +451,7 @@
                 <h3>The system enables you to design production facilities that offer the following:</h3>
                 <ul>
                     <li><strong>Exponential Growth: </strong> Exponential economic growth ($100,000–$1,000,000 per month) for households driven by the production and sale of finished goods.</li>
-                    <li><strong>o	Poverty can be eradicated in all countries by:</strong></li>
+                    <li><strong>o Poverty can be eradicated in all countries by:</strong></li>
                     <ul>
                         <li>Raising the wages of salaried employees to the Swiss level ($10,000 per month);</li>
                         <li>Encouraging exponential entrepreneurial income ($100,000–$1,000,000 per month);</li>
@@ -429,8 +472,7 @@
                 <strong>💡 What is a "single production line"? </strong> It's not a giant factory. It's a compact, automated assembly unit that can easily fit into a standard residential garage or outbuilding. One or two people (for example, an ordinary family) can operate it without any specialized engineering training. The facility is designed specifically for this model.
             </div>
             <div class="info-highlight">
-                <strong>💡 Default Wage Requirement:</strong> The default wage for workers in the ASUIR system is set at an unprecedentedly high level of $10,000 per person per month. 
-                This is not an error but rather a requirement to demonstrate that automation and algorithms can eradicate global poverty while keeping prices low and ensuring substantial profits for the owner.
+                💵 Ending Poverty (UN SDG 2030): The default wage for workers in the ASUIR system is set at an unprecedentedly high level of $10,000 per person per month. This is not an error but rather a requirement to demonstrate that automation and algorithms can eradicate global poverty while keeping prices low and ensuring substantial profits for the owner.
             </div>
             <h2>Section 1: Direct Costs for Equipment, Rent, and Labor</h2>
             <p>This section lists all of the company's fixed operating expenses for one business day.</p>
@@ -470,11 +512,11 @@
             <div class="platform-mission" style="background-color: #f0fdf4; border-left: 5px solid var(--primary-blue); margin-top: 30px;">
                 <h3 style="color: var(--primary-blue); font-size: 16px; margin-bottom: 12px;">⚠️ Attention! The Gemini Automated Production Management System is not a way to generate windfall profits "out of thin air," but rather a tool that shows exactly how to do so mathematically. Follow my lead!</h3>
                 <ol style="padding-left: 20px;">
-                    <li>1.	First, offset all production costs (machinery, rent, and salaries) so the final production cost does not exceed Bangladesh's.</li>
-                    <li>2.	As a result, you can avoid working while paying employees salaries comparable to those in the U.S. or Switzerland—$10,000.</li>
-                    <li>3.	This enables a household to generate hundreds of thousands of dollars in monthly income.</li>
-                    <li>4.	This dramatically increases the population’s standard of living.</li>
-                    <li>5.	It also becomes possible to test production efficiency with a single click. For example, manufacturing expensive machine tools is profitable, yielding a profit of over $1 million per month. However, at least 25 units must be produced daily, requiring skilled labor and a hangar. But producing drones or costume jewelry requires nothing more than a garage. The platform will show you immediately that you only need to produce 54 drones a day to break even. This effectively eliminates all operating costs.</li>
+                    <li>1. First, offset all production costs (machinery, rent, and salaries) so the final production cost does not exceed Bangladesh's.</li>
+                    <li>2. As a result, you can avoid working while paying employees salaries comparable to those in the U.S. or Switzerland—$10,000.</li>
+                    <li>3. This enables a household to generate hundreds of thousands of dollars in monthly income.</li>
+                    <li>4. This dramatically increases the population’s standard of living.</li>
+                    <li>5. It also becomes possible to test production efficiency with a single click. For example, manufacturing expensive machine tools is profitable, yielding a profit of over $1 million per month. However, at least 25 units must be produced daily, requiring skilled labor and a hangar. But producing drones or costume jewelry requires nothing more than a garage. The platform will show you immediately that you only need to produce 54 drones a day to break even. This effectively eliminates all operating costs.</li>
                 </ol>
             </div>
 
@@ -485,7 +527,40 @@
         </div>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ -->
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('feedback-modal')">&times;</span>
+            <h3 id="fb-modal-title" style="border-bottom:2px solid var(--primary-blue); padding-bottom:8px; margin-bottom: 15px; font-size:16px; color:var(--primary-blue);">💡 Обратная связь</h3>
+            <form id="feedback-form" onsubmit="handleFormSubmit(event)">
+                <label id="fb-label-like" style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что вам понравилось в системе?</label>
+                <textarea id="fb-like" rows="3" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; margin-bottom: 15px; font-size:13px; font-family:inherit; outline:none;"></textarea>
+
+                <label id="fb-label-dislike" style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что стоит улучшить или добавить?</label>
+                <textarea id="fb-dislike" rows="4" required style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; margin-bottom: 20px; font-size:13px; font-family:inherit; outline:none;"></textarea>
+
+                <button type="submit" id="fb-btn-submit" style="display:block; width:100%; background:var(--primary-blue); color:#fff; border:none; padding:10px; font-weight:bold; border-radius:4px; cursor:pointer; font-size:13px;">Отправить письмо</button>
+            </form>
+        </div>
+    </div>
+
     <script>
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const likedText = document.getElementById('fb-like').value.trim();
+            const dislikedText = document.getElementById('fb-dislike').value.trim();
+            const currentLang = localStorage.getItem('asuir_lang') || 'ru';
+            let subject = currentLang === 'ru' ? "Feedback from ASUIR Gemini (RU)" : "Feedback from ASUIR Gemini (EN)";
+            let emailBody = (currentLang === 'ru' ? "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" : "FEEDBACK ASUIR GEMINI\n\n1. What liked:\n") + (likedText || "N/A") + (currentLang === 'ru' ? "\n\n2. Что добавить или улучшить:\n" : "\n\n2. What to improve:\n") + dislikedText + "\n";
+
+            window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
+        }
+
         function switchLang(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
             document.querySelectorAll('.help-content').forEach(content => content.classList.remove('active-content'));
@@ -498,23 +573,33 @@
                 document.getElementById('btn-ru').classList.add('active-lang');
 
                 document.getElementById('txt-tab-dashboard').innerText = "Главная панель";
-                document.getElementById('txt-tab-flow').innerText = "FlowSolv";
                 document.getElementById('txt-tab-asuir').innerText = "АСУИР Gemini";
                 document.getElementById('txt-tab-doc').innerText = "Справка / Документация";
+                document.getElementById('txt-tab-feedback').innerText = "Обратная связь";
+
+                document.getElementById('fb-modal-title').innerText = "💡 Обратная связь";
+                document.getElementById('fb-label-like').innerText = "Что вам понравилось в системе?";
+                document.getElementById('fb-label-dislike').innerText = "Что стоит улучшить или добавить?";
+                document.getElementById('fb-btn-submit').innerText = "Отправить письмо";
 
                 dbLink.href = "index_ru.html";
-                optLink.href = "ASUIRGemeniCalculatOptimizer_ru.html"; // <-- Ссылка на ваш рабочий РУ-проект
+                optLink.href = "ASUIRGemeniCalculatOptimizer_ru.html";
             } else {
                 document.getElementById('content-en').classList.add('active-content');
                 document.getElementById('btn-en').classList.add('active-lang');
 
                 document.getElementById('txt-tab-dashboard').innerText = "Main Dashboard";
-                document.getElementById('txt-tab-flow').innerText = "FlowSolve";
                 document.getElementById('txt-tab-asuir').innerText = "ASUIR Gemini";
                 document.getElementById('txt-tab-doc').innerText = "Documentation / Help";
+                document.getElementById('txt-tab-feedback').innerText = "Feedback";
+
+                document.getElementById('fb-modal-title').innerText = "💡 Feedback";
+                document.getElementById('fb-label-like').innerText = "What did you like about the system?";
+                document.getElementById('fb-label-dislike').innerText = "What should be improved or added?";
+                document.getElementById('fb-btn-submit').innerText = "Send Email";
 
                 dbLink.href = "index_en.html";
-                optLink.href = "ASUIRGemeniCalculatOptimizer_en.html"; // <-- Ссылка на ваш рабочий EN-проект
+                optLink.href = "ASUIRGemeniCalculatOptimizer_en.html";
             }
             localStorage.setItem('asuir_lang', lang);
         }
