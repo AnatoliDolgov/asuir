@@ -225,7 +225,7 @@
             }
 
         .input-field-sm {
-            max-width: 120px;
+            max-width: 130px;
             text-align: right;
             font-weight: 600;
             height: 38px;
@@ -345,6 +345,26 @@
             color: #3a4a5a;
             margin-bottom: 16px;
             line-height: 1.5;
+        }
+
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .status-success {
+            background: #e2efda;
+            color: #007600;
+            border: 1px solid #bcd1a9;
+        }
+
+        .status-warning {
+            background: #fce4d6;
+            color: #c65911;
+            border: 1px solid #f2b897;
         }
 
         .modal {
@@ -568,7 +588,7 @@
                 <span class="icon">📊</span><span class="label">4. Себестоимость</span>
             </a>
             <a href="#" data-tab="tab5">
-                <span class="icon">🎯</span><span class="label">5. Результаты</span>
+                <span class="icon">🎯</span><span class="label">5. Результаты и Листинг</span>
             </a>
         </div>
 
@@ -579,15 +599,17 @@
                 <table class="text-regular">
                     <tr>
                         <td>
-                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тип оборудования</span></span><br>
-                            <span style="font-size: 13px; color: #6c7a8a;">Выберите готовый проект из Каталога МКТУ или введите оборудование для поиска</span>
+                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тип оборудования и Проект</span></span><br>
+                            <span style="font-size: 13px; color: #6c7a8a;">Выберите тему из Каталога МКТУ или введите свой поисковый запрос</span>
                         </td>
-                        <td class="right" style="width: 45%;">
-                            <div style="display: flex; gap: 8px; align-items: center; justify-content: flex-end;">
-                                <!-- КНОПКА КАТАЛОГА МКТУ ПЕРЕНЕСЕНА В РАЗДЕЛ 1 -->
+                        <td class="right" style="width: 50%;">
+                            <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог МКТУ</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="drone assembly line" style="max-width: 170px;">
-                                <button class="btn-icon" onclick="searchAlibaba('equip')" title="Поиск на Alibaba">🔍</button>
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Тема, линия..." value="drone assembly line" style="max-width: 160px;">
+                                <!-- КНОПКА ПРЯМОГО ВЫХОДА НА СПИСОК ОБОРУДОВАНИЯ ALIBABA ПО ТЕМЕ -->
+                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Открыть готовый список вариантов оборудования на Alibaba для выбранной темы">
+                                    🔍 Варианты на Alibaba ↗
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -599,6 +621,9 @@
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Открыть ссылку на Alibaba в новой вкладке">
                                     🔗 Перейти
                                 </button>
+                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()" title="Запросить параметры у продавца">
+                                    ✉️ Запрос
+                                </button>
                             </div>
                         </td>
                         <td class="right">
@@ -606,6 +631,26 @@
                             <input type="number" id="val-equip" class="input-field input-field-sm" value="120000">
                         </td>
                     </tr>
+
+                    <!-- ФАКТИЧЕСКАЯ ПАСПОРТНАЯ ПРОИЗВОДИТЕЛЬНОСТЬ С АЛИБАБЫ -->
+                    <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
+                        <td>
+                            <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность станка (с Alibaba)</span></span><br>
+                            <span style="font-size: 12px; color: #6c7a8a;">Возьмите значение из спецификации Alibaba (Capacity / Output)</span>
+                        </td>
+                        <td class="right">
+                            <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
+                                <select id="perf-input-mode" class="input-field input-sm" style="width: 130px; font-size: 11px;" onchange="convertAlibabaSpecs()">
+                                    <option value="pcs_day">Штук в день</option>
+                                    <option value="pcs_hour">Штук в час</option>
+                                    <option value="sec_pc">Секунд на 1 шт</option>
+                                </select>
+                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="100" style="width: 90px; font-weight:700; color:#c65911;">
+                                <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">шт/день</span>
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество операторов</span></span></td>
                         <td class="right">
@@ -613,7 +658,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Зарплата одного оператора в месяц</span></span></td>
+                        <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Базовая целевая зарплата рабочего в месяц</span></span></td>
                         <td class="right">
                             $ <input type="number" id="val-salary" class="input-field input-field-sm" value="10000">
                         </td>
@@ -658,33 +703,37 @@
             </div>
         </div>
 
-        <!-- ТАБ 3 -->
+        <!-- ТАБ 3: ЗАПОЛНЕННЫЙ ПО УМОЛЧАНИЮ BOM КЛИЕНТА -->
         <div class="section" id="tab3">
-            <h2 class="section-title">3. Сырьё и комплектующие</h2>
-            <div class="info-hint">
-                💡 <b>Кликабельные ссылки:</b> Нажмите на значок <b>🔗</b> рядом со ссылкой, чтобы открыть товар на Alibaba в один клик. Нажмите на калькулятор <b>🧮</b> для расчета оптовой партии.
+            <h2 class="section-title">3. Сырьё и комплектующие (Спецификация BOM)</h2>
+
+            <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
+                <b>💡 Комплектация сформирована автоматически</b> под выбранный проект (Дроны и Радиоэлектроника).
+                Вы можете изменять цены, количества деталей, нажимать <b>🔗</b> для перехода на Alibaba или добавлять новые строки кнопкой ниже.
             </div>
+
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-                <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Добавить строку</button>
+                <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Добавить деталь в спецификацию</button>
             </div>
+
             <div class="table-responsive">
                 <table class="components-table">
                     <thead>
                         <tr>
-                            <th class="row-name">📦 Название детали</th>
-                            <th class="row-url">🔗 Ссылка на товар</th>
+                            <th class="row-name">📦 Название детали / узла</th>
+                            <th class="row-url">🔗 Ссылка на Alibaba</th>
                             <th class="row-search">🔍</th>
                             <th class="row-qty">📐 Кол-во</th>
-                            <th class="row-price">💰 Цена за 1 шт. ($)</th>
+                            <th class="row-price">💰 Цена 1 шт. ($)</th>
                             <th class="row-delete"></th>
                         </tr>
                     </thead>
                     <tbody id="component-dynamic-rows">
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Итоговая стоимость сырья и комплектующих на 1 шт:</span></span></td>
-                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">0</span></td>
+                        <tr style="background:#f0f5fa;">
+                            <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Итоговая стоимость сырья (BOM) на 1 шт:</span></span></td>
+                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">150.00</span></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -717,9 +766,9 @@
             </div>
         </div>
 
-        <!-- ТАБ 5 -->
+        <!-- ТАБ 5: РЕЗУЛЬТАТЫ И СРАВНИТЕЛЬНЫЙ ЛИСТИНГ -->
         <div class="section" id="tab5">
-            <h2 class="section-title">5. Сводка финансовых результатов</h2>
+            <h2 class="section-title">5. Сводка финансовых результатов и Листинг Вариантов</h2>
             <div class="table-responsive">
                 <table class="section-results">
                     <tr>
@@ -729,8 +778,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Необходимая производительность (шт./день)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span></td>
+                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Необходимая производительность (Правило 10%)</span></td>
+                        <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> шт./день</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Паспортная скорость станка (с Alibaba)</span></td>
+                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">100</span> шт./день</td>
+                    </tr>
+                    <tr style="background: #fcfcfc;">
+                        <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Индикатор выполнимости мощности:</span></td>
+                        <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">Проверка...</span></td>
+                    </tr>
+                    <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
+                        <td style="font-weight: 700; color: #007600;">
+                            <span class="icon-text"><span class="ico">💵</span> Достигаемая Зарплата 1 рабочего под ЭТОТ станок:</span><br>
+                            <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш</span>
+                        </td>
+                        <td class="right">
+                            <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">
+                                $0 / мес
+                            </span>
+                        </td>
                     </tr>
                     <tr>
                         <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Срок полной окупаемости оборудования</span></td>
@@ -742,6 +810,29 @@
                     </tr>
                 </table>
             </div>
+
+            <!-- СРАВНИТЕЛЬНЫЙ ЛИСТИНГ ОБОРУДОВАНИЯ ПОД BOM КЛИЕНТА -->
+            <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
+                <h3 style="font-size:15px; font-weight:700; color:#1f4e78; margin-bottom:12px;">
+                    📋 Сравнительный Листинг вариантов оборудования с Alibaba под комплектующие Клиента (BOM = $<span id="client-bom-display">150.00</span>)
+                </h3>
+
+                <table class="components-table" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>Тип линии (Alibaba)</th>
+                            <th>Цена линии</th>
+                            <th>Скорость ($P_{fact}$)</th>
+                            <th>Персонал</th>
+                            <th style="color:#007600;">Достигаемая Зарплата Рабочего</th>
+                            <th>Доход Домохозяйки</th>
+                        </tr>
+                    </thead>
+                    <tbody id="client-matched-equipment-rows">
+                    </tbody>
+                </table>
+            </div>
+
             <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button>
         </div>
 
@@ -773,17 +864,32 @@
         </div>
     </div>
 
+    <div id="inquiry-modal" class="modal">
+        <div class="modal-content" style="max-width:450px;">
+            <span class="modal-close" onclick="closeModal('inquiry-modal')">&times;</span>
+            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom:12px;">✉️ Запрос продавцу на Alibaba</h3>
+            <p style="font-size:12px; color:#6c7a8a; margin-bottom:15px;">Скопируйте данный текст и отправьте продавцу в Alibaba Trade Messenger:</p>
+            <textarea id="inquiry-text-area" rows="6" class="input-field" style="height:auto; font-size:12px; margin-bottom:15px;" readonly>
+Dear Supplier,
+We are evaluating your equipment line for production setup. Please specify:
+1. Exact Daily Production Capacity (Pcs/Day or Cycle Time per 1 unit).
+2. Minimum required operators/staff to run this line.
+Thank you!
+        </textarea>
+            <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText(document.getElementById('inquiry-text-area').value); alert('Текст запроса скопирован!'); closeModal('inquiry-modal');">📋 Скопировать текст запроса</button>
+        </div>
+    </div>
+
     <div id="bulk-modal" class="modal">
         <div class="modal-content" style="max-width:400px;">
             <span class="modal-close" onclick="closeModal('bulk-modal')">&times;</span>
             <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">🧮 Калькулятор оптовой партии</h3>
-            <p style="font-size: 12px; color: #6c7a8a; margin-bottom: 15px;">Если деталь продается оптом (например, 1000 шт. за $50), введите данные, и система вычислит точную цену за 1 шт.</p>
             <div style="margin-bottom: 10px;">
                 <label style="font-size: 13px; font-weight: 600;">💰 Стоимость всей партии ($):</label>
                 <input type="number" id="bulk-total-price" class="input-field" placeholder="Например: 50" style="margin-top:4px;">
             </div>
             <div style="margin-bottom: 15px;">
-                <label style="font-size: 13px; font-weight: 600;">📐 Количество штук (или грамм) в партии:</label>
+                <label style="font-size: 13px; font-weight: 600;">📐 Количество штук в партии:</label>
                 <input type="number" id="bulk-total-qty" class="input-field" placeholder="Например: 1000" style="margin-top:4px;">
             </div>
             <button onclick="applyBulkCalc()" class="btn btn-primary btn-block">🧮 Рассчитать и применить</button>
@@ -807,7 +913,6 @@
     </div>
 
     <script>
-        // ===== ПЕРЕКЛЮЧЕНИЕ ТАБОВ =====
         document.querySelectorAll('#tabHeaders a').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -820,26 +925,17 @@
 
         function openModal(id) { document.getElementById(id).style.display = 'block'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function openAlibabaInquiryModal() { openModal('inquiry-modal'); }
         window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; }
 
-        // ===== УНИВЕРСАЛЬНОЕ ОТКРЫТИЕ ССЫЛКИ В ОДИН КЛИК =====
         function openExternalUrl(inputId) {
             const input = document.getElementById(inputId);
             let url = input ? input.value.trim() : '';
-
-            if (!url) {
-                alert("Пожалуйста, вставьте ссылку на товар с сайта Alibaba.");
-                return;
-            }
-
-            if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                url = 'https://' + url;
-            }
-
+            if (!url) return alert("Пожалуйста, вставьте ссылку на товар с сайта Alibaba.");
+            if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
             window.open(url, '_blank');
         }
 
-        // ===== ПОИСК НА ALIBABA =====
         function searchAlibaba(rowId) {
             if (rowId === 'equip') {
                 const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
@@ -853,21 +949,17 @@
             }
         }
 
-        // ===== ОБРАТНАЯ СВЯЗЬ =====
         function handleFormSubmit(event, lang) {
             event.preventDefault();
             const likedText = document.getElementById('fb-like').value.trim();
             const dislikedText = document.getElementById('fb-dislike').value.trim();
             let subject = "Feedback from ASUIR Gemini (RU)";
             let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
-
             window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
         }
 
-        // ===== ОПТОВАЯ ПАРТИЯ =====
         let activeBulkRowId = null;
-
         function openBulkCalc(rowId) {
             activeBulkRowId = rowId;
             document.getElementById('bulk-total-price').value = '';
@@ -889,13 +981,11 @@
             closeModal('bulk-modal');
         }
 
-        // ===== ДОБАВИТЬ СТРОКУ КОМПОНЕНТА С КЛИКАБЕЛЬНОЙ ССЫЛКОЙ =====
         function addComponentRow(name, qty, price, url = '') {
             const tbody = document.getElementById('component-dynamic-rows');
             const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
             const tr = document.createElement('tr');
             tr.id = rowId;
-
             const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
 
             tr.innerHTML = `
@@ -924,42 +1014,54 @@
             calculateAll();
         }
 
-        // ===== БАЗА ДАННЫХ КАТАЛОГА =====
         const catalogDB = {
-            'drone': { eq: '120000', mkt: '423', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
-            'tablet': { eq: '45000', mkt: '150', q: 'tablet assembly equipment', c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]] },
-            'tv': { eq: '280000', mkt: '550', q: 'lcd tv assembly line', c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]] },
-            'pc': { eq: '180000', mkt: '1850', q: 'computer assembly machine', c: [['Процессор (Desktop CPU)', 1, 340.0], ['Графическая карта (GPU)', 1, 520.0], ['Материнская плата ATX/ITX', 1, 140.0], ['Оперативная память (RAM)', 1, 105.0], ['Накопитель SSD NVMe 2TB', 1, 115.0], ['Корпус и блок питания', 1, 130.0]] },
-            'bakery': { eq: '45000', mkt: '1.5', q: 'commercial bakery line', c: [['Мука высшего сорта (кг)', 0.6, 0.4], ['Дрожжи и добавки', 1, 0.05], ['Упаковочный пакет', 1, 0.08]] },
-            'jewelry': { eq: '45000', mkt: '350', q: 'jewelry casting machine', c: [['Золото/Серебро в гранулах', 10, 8.0], ['Вставки (камни, фианиты)', 2, 20.0], ['Ювелирная фурнитура', 1, 5.0], ['Бархатный футляр', 1, 5.0]] },
-            'watch': { eq: '35000', mkt: '450', q: 'watch assembly tools', c: [['Корпус и сапфировое стекло', 1, 30.0], ['Точный часовой механизм', 1, 40.0], ['Циферблат и стрелки', 1, 10.0], ['Ремешок (кожа/металл)', 1, 15.0], ['Подарочный футляр', 1, 8.0]] },
-            'costume': { eq: '15000', mkt: '25', q: 'costume jewelry press', c: [['Сплав (Заготовка)', 1, 2.0], ['Декоративные стразы', 1, 1.0], ['Фурнитура', 1, 0.5], ['Эко-пакетик', 1, 1.5]] },
-            'clothes': { eq: '35000', mkt: '65', q: 'industrial sewing machine', c: [['Текстиль (метры)', 1.8, 12.0], ['Мягкая подкладка', 1.2, 3.5], ['Нити и фурнитура', 1, 5.0], ['Упаковка и бирка', 1, 1.5]] },
-            'furniture': { eq: '90000', mkt: '280', q: 'cnc woodworking machine', c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]] },
-            'instruments': { eq: '110000', mkt: '450', q: 'precision assembly machine', c: [['Сенсорный измерительный модуль', 1, 120.0], ['Плата обработки сигналов', 1, 65.0], ['ЖК-дисплей', 1, 25.0], ['Ударопрочный корпус IP65', 1, 40.0]] },
-            'cnc': { eq: '25000', mkt: '1500', q: 'desktop cnc machine', c: [['Алюминиевая станина', 1, 300.0], ['Шаговые моторы', 1, 150.0], ['Контроллер ЧПУ', 1, 80.0], ['Шпиндель и блок питания', 1, 200.0]] },
-            'universal': { eq: '60000', mkt: '200', q: 'manufacturing machine', c: [['Основной базовый материал', 1, 40.0], ['Функциональные модули', 1, 25.0], ['Декоративный корпус', 1, 12.0], ['Потребительская коробка', 1, 3.0]] }
+            'drone': { eq: '120000', mkt: '423', perf: '100', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
+            'tablet': { eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]] },
+            'tv': { eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]] },
+            'pc': { eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Процессор (Desktop CPU)', 1, 340.0], ['Графическая карта (GPU)', 1, 520.0], ['Материнская плата ATX/ITX', 1, 140.0], ['Оперативная память (RAM)', 1, 105.0], ['Накопитель SSD NVMe 2TB', 1, 115.0], ['Корпус и блок питания', 1, 130.0]] },
+            'bakery': { eq: '45000', mkt: '1.5', perf: '25000', q: 'commercial bakery line', c: [['Мука высшего сорта (кг)', 0.6, 0.4], ['Дрожжи и добавки', 1, 0.05], ['Упаковочный пакет', 1, 0.08]] },
+            'jewelry': { eq: '45000', mkt: '350', perf: '150', q: 'jewelry casting machine', c: [['Золото/Серебро в гранулах', 10, 8.0], ['Вставки (камни, фианиты)', 2, 20.0], ['Ювелирная фурнитура', 1, 5.0], ['Бархатный футляр', 1, 5.0]] },
+            'watch': { eq: '35000', mkt: '450', perf: '150', q: 'watch assembly tools', c: [['Корпус и сапфировое стекло', 1, 30.0], ['Точный часовой механизм', 1, 40.0], ['Циферблат и стрелки', 1, 10.0], ['Ремешок (кожа/металл)', 1, 15.0], ['Подарочный футляр', 1, 8.0]] },
+            'costume': { eq: '15000', mkt: '25', perf: '3000', q: 'costume jewelry press', c: [['Сплав (Заготовка)', 1, 2.0], ['Декоративные стразы', 1, 1.0], ['Фурнитура', 1, 0.5], ['Эко-пакетик', 1, 1.5]] },
+            'clothes': { eq: '35000', mkt: '65', perf: '300', q: 'industrial sewing machine', c: [['Текстиль (метры)', 1.8, 12.0], ['Мягкая подкладка', 1.2, 3.5], ['Нити и фурнитура', 1, 5.0], ['Упаковка и бирка', 1, 1.5]] },
+            'furniture': { eq: '90000', mkt: '280', perf: '120', q: 'cnc woodworking machine', c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]] },
+            'instruments': { eq: '110000', mkt: '450', perf: '60', q: 'precision assembly machine', c: [['Сенсорный измерительный модуль', 1, 120.0], ['Плата обработки сигналов', 1, 65.0], ['ЖК-дисплей', 1, 25.0], ['Ударопрочный корпус IP65', 1, 40.0]] },
+            'cnc': { eq: '25000', mkt: '1500', perf: '20', q: 'desktop cnc machine', c: [['Алюминиевая станина', 1, 300.0], ['Шаговые моторы', 1, 150.0], ['Контроллер ЧПУ', 1, 80.0], ['Шпиндель и блок питания', 1, 200.0]] },
+            'universal': { eq: '60000', mkt: '200', perf: '200', q: 'manufacturing machine', c: [['Основной базовый материал', 1, 40.0], ['Функциональные модули', 1, 25.0], ['Декоративный корпус', 1, 12.0], ['Потребительская коробка', 1, 3.0]] }
         };
 
         function loadCatalogTemplate(key) {
             closeModal('catalog-modal');
-            const data = catalogDB[key] || catalogDB['universal'];
+            const data = catalogDB[key] || catalogDB['drone'];
             document.getElementById('val-equip').value = data.eq;
             document.getElementById('market-price-input').value = data.mkt;
             document.getElementById('equip-search-query').value = data.q;
+            document.getElementById('val-actual-perf').value = data.perf || 100;
             document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
 
             const tbody = document.getElementById('component-dynamic-rows');
             tbody.innerHTML = '';
-            data.c.forEach(item => addComponentRow(item[0], item[1], item[2]));
+            data.c.forEach(item => {
+                const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
+                addComponentRow(item[0], item[1], item[2], itemUrl);
+            });
             calculateAll();
         }
 
-        function loadDemoComponents() {
-            loadCatalogTemplate('drone');
+        function convertAlibabaSpecs() {
+            const mode = document.getElementById('perf-input-mode').value;
+            const valInput = document.getElementById('val-actual-perf');
+            let val = parseFloat(valInput.value) || 0;
+
+            if (mode === 'pcs_hour') {
+                valInput.value = Math.round(val * 8);
+            } else if (mode === 'sec_pc') {
+                valInput.value = val > 0 ? Math.round(28800 / val) : 100;
+            }
+            document.getElementById('perf-input-mode').value = 'pcs_day';
+            calculateAll();
         }
 
-        // ===== ОСНОВНОЙ РАСЧЁТ И ПРАВИЛО 10% =====
         function calculateAll() {
             const equip = parseFloat(document.getElementById('val-equip').value) || 0;
             const staff = parseFloat(document.getElementById('val-staff').value) || 0;
@@ -968,6 +1070,7 @@
             const logistics = parseFloat(document.getElementById('val-logistics').value) || 0;
             const other = parseFloat(document.getElementById('val-other').value) || 0;
             const market = parseFloat(document.getElementById('market-price-input').value) || 0;
+            const actualPerf = parseFloat(document.getElementById('val-actual-perf').value) || 1;
 
             let rawCost = 0;
             document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
@@ -990,9 +1093,13 @@
             document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
 
             const totalDailyCost = overhead + otherCosts;
-            const perf = rawCost > 0 ? Math.ceil(totalDailyCost / (rawCost * 0.1)) : 0;
-            const machineShare = perf > 0 ? totalDailyCost / perf : 0;
-            const otherShare = perf > 0 ? otherCosts / perf : 0;
+
+            const reqPerf = rawCost > 0 ? Math.ceil(totalDailyCost / (rawCost * 0.1)) : 0;
+            document.getElementById('perf-val').textContent = reqPerf;
+            document.getElementById('actual-perf-val').textContent = actualPerf;
+
+            const machineShare = actualPerf > 0 ? totalDailyCost / actualPerf : 0;
+            const otherShare = actualPerf > 0 ? otherCosts / actualPerf : 0;
             const totalCost = rawCost + machineShare + otherShare;
 
             document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
@@ -1000,18 +1107,75 @@
             document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
             document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
-            document.getElementById('perf-val').textContent = perf;
-            const profitPerDay = perf * (market - totalCost);
+            const dailyAmort = equip / 5 / 365;
+            const dailyFixedNoSalary = dailyAmort + otherCosts;
+            const maxAllowedDailyOverhead = actualPerf * (rawCost * 0.10);
+            const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
+            const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
+
+            document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
+
+            const badge = document.getElementById('feasibility-status-badge');
+
+            if (actualPerf >= reqPerf) {
+                const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
+                badge.className = 'status-badge status-success';
+                badge.innerHTML = `✅ ТЕХНИЧЕСКИ ВЫПОЛНИМО! (Запас мощности: +${surplus}%)`;
+            } else {
+                const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
+                badge.className = 'status-badge status-warning';
+                badge.innerHTML = `⚠️ НЕДОСТАТОЧНО МОЩНОСТИ 1 СТАНКА! (Дефицит: -${deficit}%)`;
+            }
+
+            const profitPerDay = actualPerf * (market - totalCost);
             const monthProfit = Math.round(profitPerDay * 30);
             const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
+
             document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
             document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
+
+            renderEquipmentListingForClientBOM(rawCost, market);
+        }
+
+        function renderEquipmentListingForClientBOM(rawCost, marketPrice) {
+            document.getElementById('client-bom-display').textContent = rawCost.toFixed(2);
+            const container = document.getElementById('client-matched-equipment-rows');
+            container.innerHTML = '';
+
+            const sampleAlibabaLines = [
+                { name: "Компактная мини-линия (Alibaba)", cost: 25000, perf: 35, staff: 1 },
+                { name: "Стандартная SMT/ЧПУ линия (Alibaba)", cost: 120000, perf: 100, staff: 2 },
+                { name: "Высокоскоростной пром-комплекс (Alibaba)", cost: 280000, perf: 250, staff: 3 }
+            ];
+
+            sampleAlibabaLines.forEach(line => {
+                const dailyAmort = line.cost / 5 / 365;
+                const dailyFixedNoSalary = dailyAmort + 100;
+                const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
+                const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
+                const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
+
+                const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
+                const unitCost = rawCost + (totalDailyCost / line.perf);
+                const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><b>${line.name}</b></td>
+                    <td>$${line.cost.toLocaleString()}</td>
+                    <td>${line.perf} шт/день</td>
+                    <td>${line.staff} чел</td>
+                    <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
+                    <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                `;
+                container.appendChild(tr);
+            });
         }
 
         document.addEventListener('input', calculateAll);
 
         window.onload = function () {
-            loadDemoComponents();
+            loadCatalogTemplate('drone');
         };
     </script>
 
