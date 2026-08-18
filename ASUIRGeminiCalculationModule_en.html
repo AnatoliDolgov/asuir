@@ -225,7 +225,7 @@
             }
 
         .input-field-sm {
-            max-width: 120px;
+            max-width: 130px;
             text-align: right;
             font-weight: 600;
             height: 38px;
@@ -566,9 +566,9 @@
         <div class="subtitle">Synthesis of models with maximum salaries and minimum unit costs</div>
 
         <div class="nav-primary">
-            <a href="index.html" class="nav-tab-btn">🏠 Main Dashboard</a>
+            <a href="index_en.html" class="nav-tab-btn">🏠 Main Dashboard</a>
             <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-tab-btn active">📊 ASUIR Gemini</a>
-            <a href="Help_en.html?lang=en" class="nav-tab-btn">❓ Documentation</a>
+            <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Feedback</a>
         </div>
 
@@ -605,8 +605,8 @@
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Nice Class Catalog</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="drone assembly line" style="max-width: 160px;">
-                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Open Alibaba equipment catalog for selected topic">
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="drone assembly line" style="max-width: 170px;">
+                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Open Alibaba equipment options">
                                     🔍 Alibaba Options ↗
                                 </button>
                             </div>
@@ -667,13 +667,16 @@
                         <td class="right">$ <span id="base-overhead">0</span></td>
                     </tr>
                     <tr class="total-row" style="background: #f0f5fa; border-top: 2px solid #1f4e78;">
-                        <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Daily Equipment & Labor Costs</span></span></td>
+                        <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Daily Equipment & Personnel Costs</span></span></td>
                         <td class="right">$ <span id="total-daily-cost">0</span></td>
                     </tr>
                 </table>
             </div>
-            <div style="font-size:13px; color:#6c7a8a; margin-top:6px;">
-                ⚙️ Equipment depreciation (5 years) is already included in the calculation.
+
+            <div style="margin-top:12px; text-align:right;">
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Save current machine parameters into Section 5 Cloud Listing">
+                    💾 Save Equipment to Database
+                </button>
             </div>
         </div>
 
@@ -728,6 +731,97 @@
                         </tr>
                     </thead>
                     <tbody id="component-dynamic-rows">
+                        <!-- DEFAULT PRE-FILLED DRONE ROWS IN HTML -->
+                        <tr id="default-row-1">
+                            <td><input type="text" id="default-row-1-name" class="input-field input-sm" value="Carbon frame (5&quot;)" placeholder="Component name..."></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px;">
+                                    <input type="text" id="default-row-1-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Carbon+frame" placeholder="🔗 Link...">
+                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-1-url')" title="Open link on Alibaba">🔗</button>
+                                </div>
+                            </td>
+                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-1')" title="Search on Alibaba">🔍</button></td>
+                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-1-price" value="5" style="width:100px;">
+                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-1')" title="Bulk calculator">🧮</button>
+                                </div>
+                            </td>
+                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-1').remove(); calculateAll();" title="Remove row">✕</button></td>
+                        </tr>
+                        <tr id="default-row-2">
+                            <td><input type="text" id="default-row-2-name" class="input-field input-sm" value="Flight controller" placeholder="Component name..."></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px;">
+                                    <input type="text" id="default-row-2-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Flight+controller" placeholder="🔗 Link...">
+                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-2-url')" title="Open link on Alibaba">🔗</button>
+                                </div>
+                            </td>
+                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-2')" title="Search on Alibaba">🔍</button></td>
+                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-2-price" value="45" style="width:100px;">
+                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-2')" title="Bulk calculator">🧮</button>
+                                </div>
+                            </td>
+                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-2').remove(); calculateAll();" title="Remove row">✕</button></td>
+                        </tr>
+                        <tr id="default-row-3">
+                            <td><input type="text" id="default-row-3-name" class="input-field input-sm" value="Brushless motors (4 pcs)" placeholder="Component name..."></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px;">
+                                    <input type="text" id="default-row-3-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Brushless+motors" placeholder="🔗 Link...">
+                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-3-url')" title="Open link on Alibaba">🔗</button>
+                                </div>
+                            </td>
+                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-3')" title="Search on Alibaba">🔍</button></td>
+                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-3-price" value="40" style="width:100px;">
+                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-3')" title="Bulk calculator">🧮</button>
+                                </div>
+                            </td>
+                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-3').remove(); calculateAll();" title="Remove row">✕</button></td>
+                        </tr>
+                        <tr id="default-row-4">
+                            <td><input type="text" id="default-row-4-name" class="input-field input-sm" value="VTX Video system &amp; camera" placeholder="Component name..."></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px;">
+                                    <input type="text" id="default-row-4-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=VTX+camera" placeholder="🔗 Link...">
+                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-4-url')" title="Open link on Alibaba">🔗</button>
+                                </div>
+                            </td>
+                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-4')" title="Search on Alibaba">🔍</button></td>
+                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-4-price" value="35" style="width:100px;">
+                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-4')" title="Bulk calculator">🧮</button>
+                                </div>
+                            </td>
+                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-4').remove(); calculateAll();" title="Remove row">✕</button></td>
+                        </tr>
+                        <tr id="default-row-5">
+                            <td><input type="text" id="default-row-5-name" class="input-field input-sm" value="LiPo Battery 6S" placeholder="Component name..."></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px;">
+                                    <input type="text" id="default-row-5-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=LiPo+battery" placeholder="🔗 Link...">
+                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-5-url')" title="Open link on Alibaba">🔗</button>
+                                </div>
+                            </td>
+                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-5')" title="Search on Alibaba">🔍</button></td>
+                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
+                            <td>
+                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-5-price" value="25" style="width:100px;">
+                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-5')" title="Bulk calculator">🧮</button>
+                                </div>
+                            </td>
+                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-5').remove(); calculateAll();" title="Remove row">✕</button></td>
+                        </tr>
                     </tbody>
                     <tfoot>
                         <tr style="background:#f0f5fa;">
@@ -765,7 +859,7 @@
             </div>
         </div>
 
-        <!-- TAB 5: RESULTS AND CALIBRATED LISTING MATCHING CLIENT BOM -->
+        <!-- TAB 5 -->
         <div class="section" id="tab5">
             <h2 class="section-title">5. Financial Results Summary & Options Listing</h2>
             <div class="table-responsive">
@@ -810,16 +904,20 @@
                 </table>
             </div>
 
-            <!-- COMPARATIVE EQUIPMENT LISTING MATCHED TO CLIENT'S BOM -->
+            <!-- COMPARATIVE EQUIPMENT LISTING GROUPED BY TOPIC (NICE CLASS) -->
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
-                <h3 style="font-size:15px; font-weight:700; color:#1f4e78; margin-bottom:12px;">
-                    📋 Calibrated Alibaba Equipment Listing Matched to Client's Components (BOM = $<span id="client-bom-display">150.00</span>)
-                </h3>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
+                        📋 Calibrated Alibaba Equipment Listing (Grouped by Topic / Nice Class)
+                    </h3>
+                    <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
+                </div>
 
                 <table class="components-table" style="width:100%;">
                     <thead>
                         <tr>
                             <th>Alibaba Line Type</th>
+                            <th>Link</th>
                             <th>Line Price</th>
                             <th>Capacity ($P_{fact}$)</th>
                             <th>Staff</th>
@@ -1013,25 +1111,92 @@ Thank you!
             calculateAll();
         }
 
+        const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
+        let currentTopicTitle = "Drones & Radioelectronics";
+
+        function getSavedEquipmentDatabase() {
+            try {
+                const stored = localStorage.getItem('asuir_saved_equip_db');
+                if (stored) return JSON.parse(stored);
+            } catch (e) { }
+
+            return [
+                { topic_title: "Drones & Radioelectronics", name: "Compact Drone Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
+                { topic_title: "Drones & Radioelectronics", name: "Standard SMT Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 120000, perf: 100, staff: 2 },
+                { topic_title: "Drones & Radioelectronics", name: "High-Speed Industrial Line (Alibaba)", url: "https://www.alibaba.com/", cost: 280000, perf: 250, staff: 3 },
+                { topic_title: "Tablets & Mobile PCs", name: "Vacuum Lamination Tablet Line (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 2 },
+                { topic_title: "Fine Jewelry", name: "Induction Jewelry Casting Machine (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 1 }
+            ];
+        }
+
+        let savedEquipmentDatabase = getSavedEquipmentDatabase();
+
+        async function loadCloudDatabaseIfAvailable() {
+            try {
+                const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
+                if (res.ok) {
+                    const cloudData = await res.json();
+                    if (cloudData) {
+                        const cloudArr = Object.keys(cloudData).map(k => cloudData[k]);
+                        savedEquipmentDatabase = cloudArr.concat(savedEquipmentDatabase);
+                        calculateAll();
+                    }
+                }
+            } catch (e) { }
+        }
+
+        async function saveCurrentEquipmentToDatabase() {
+            const query = document.getElementById('equip-search-query').value.trim() || "Line from Alibaba";
+            const url = document.getElementById('equip-url').value.trim();
+            const cost = parseFloat(document.getElementById('val-equip').value) || 0;
+            const perf = parseFloat(document.getElementById('val-actual-perf').value) || 1;
+            const staff = parseFloat(document.getElementById('val-staff').value) || 1;
+
+            const newItem = {
+                topic_title: currentTopicTitle,
+                name: query,
+                url: url,
+                cost: cost,
+                perf: perf,
+                staff: staff
+            };
+
+            savedEquipmentDatabase.unshift(newItem);
+
+            try {
+                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+                await fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newItem)
+                });
+            } catch (e) { }
+
+            calculateAll();
+            alert(`✅ Equipment "${query}" ($${cost.toLocaleString()}) saved to Section 5 Listing under "${currentTopicTitle}"!`);
+        }
+
         const catalogDB = {
-            'drone': { eq: '120000', mkt: '423', perf: '100', q: 'drone assembly line', c: [['Carbon frame (5")', 1, 5.0], ['Flight controller', 1, 45.0], ['Brushless motors (4 pcs)', 1, 40.0], ['VTX Video system & Camera', 1, 35.0], ['LiPo Battery 6S', 1, 25.0]] },
-            'tablet': { eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['IPS/OLED Display assembly', 1, 35.0], ['SoC Motherboard (ARM)', 1, 45.0], ['Li-Po Battery', 1, 10.0], ['Ultra-thin chassis & cables', 1, 8.0], ['Packaging box', 1, 2.0]] },
-            'tv': { eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['LCD / OLED Display matrix', 1, 140.0], ['Main Board', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['LED Backlight strip', 1, 15.0], ['Housing & Speakers', 1, 28.0]] },
-            'pc': { eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]] },
-            'bakery': { eq: '45000', mkt: '1.5', perf: '25000', q: 'commercial bakery line', c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Additives', 1, 0.05], ['Packaging bag', 1, 0.08]] },
-            'jewelry': { eq: '45000', mkt: '350', perf: '150', q: 'jewelry casting machine', c: [['Gold/Silver granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry fittings', 1, 5.0], ['Velvet gift box', 1, 5.0]] },
-            'watch': { eq: '35000', mkt: '450', perf: '150', q: 'watch assembly tools', c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]] },
-            'costume': { eq: '15000', mkt: '25', perf: '3000', q: 'costume jewelry press', c: [['Alloy blank workpiece', 1, 2.0], ['Decorative rhinestones', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]] },
-            'clothes': { eq: '35000', mkt: '65', perf: '300', q: 'industrial sewing machine', c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]] },
-            'furniture': { eq: '90000', mkt: '280', perf: '120', q: 'cnc woodworking machine', c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]] },
-            'instruments': { eq: '110000', mkt: '450', perf: '60', q: 'precision assembly machine', c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]] },
-            'cnc': { eq: '25000', mkt: '1500', perf: '20', q: 'desktop cnc machine', c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors (set)', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]] },
-            'universal': { eq: '60000', mkt: '200', perf: '200', q: 'manufacturing machine', c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]] }
+            'drone': { title: "Drones & Radioelectronics", eq: '120000', mkt: '423', perf: '100', q: 'drone assembly line', c: [['Carbon frame (5")', 1, 5.0], ['Flight controller', 1, 45.0], ['Brushless motors (4 pcs)', 1, 40.0], ['VTX Video system & Camera', 1, 35.0], ['LiPo Battery 6S', 1, 25.0]] },
+            'tablet': { title: "Tablets & Mobile PCs", eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['IPS/OLED Display assembly', 1, 35.0], ['SoC Motherboard (ARM)', 1, 45.0], ['Li-Po Battery', 1, 10.0], ['Ultra-thin chassis & cables', 1, 8.0], ['Packaging box', 1, 2.0]] },
+            'tv': { title: "TVs & Displays", eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['LCD / OLED Display matrix', 1, 140.0], ['Main Board', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['LED Backlight strip', 1, 15.0], ['Housing & Speakers', 1, 28.0]] },
+            'pc': { title: "Telecom & Computers", eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]] },
+            'bakery': { title: "Commercial Bakery Line", eq: '45000', mkt: '1.5', perf: '25000', q: 'commercial bakery line', c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Additives', 1, 0.05], ['Packaging bag', 1, 0.08]] },
+            'jewelry': { title: "Fine Jewelry", eq: '45000', mkt: '350', perf: '150', q: 'jewelry casting machine', c: [['Gold/Silver granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry fittings', 1, 5.0], ['Velvet gift box', 1, 5.0]] },
+            'watch': { title: "Watch Assembly", eq: '35000', mkt: '450', perf: '150', q: 'watch assembly tools', c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]] },
+            'costume': { title: "Costume Jewelry Press", eq: '15000', mkt: '25', perf: '3000', q: 'costume jewelry press', c: [['Alloy blank workpiece', 1, 2.0], ['Decorative rhinestones', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]] },
+            'clothes': { title: "Apparel Sewing", eq: '35000', mkt: '65', perf: '300', q: 'industrial sewing machine', c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]] },
+            'furniture': { title: "Furniture Woodworking", eq: '90000', mkt: '280', perf: '120', q: 'cnc woodworking machine', c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]] },
+            'instruments': { title: "Precision Instruments", eq: '110000', mkt: '450', perf: '60', q: 'precision assembly machine', c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]] },
+            'cnc': { title: "Desktop CNC Machines", eq: '25000', mkt: '1500', perf: '20', q: 'desktop cnc machine', c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors (set)', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]] },
+            'universal': { title: "Universal Template", eq: '60000', mkt: '200', perf: '200', q: 'manufacturing machine', c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]] }
         };
 
         function loadCatalogTemplate(key) {
             closeModal('catalog-modal');
             const data = catalogDB[key] || catalogDB['drone'];
+            currentTopicTitle = data.title || "General Topic";
+
             document.getElementById('val-equip').value = data.eq;
             document.getElementById('market-price-input').value = data.mkt;
             document.getElementById('equip-search-query').value = data.q;
@@ -1133,48 +1298,64 @@ Thank you!
             document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
             document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('en-US') : '0';
 
-            renderEquipmentListingForClientBOM(rawCost, market);
+            renderEquipmentListingGroupedByTopic(rawCost, market);
         }
 
-        function renderEquipmentListingForClientBOM(rawCost, marketPrice) {
+        function renderEquipmentListingGroupedByTopic(rawCost, marketPrice) {
             document.getElementById('client-bom-display').textContent = rawCost.toFixed(2);
             const container = document.getElementById('client-matched-equipment-rows');
             container.innerHTML = '';
 
-            const sampleAlibabaLines = [
-                { name: "Compact Mini-Line (Alibaba)", cost: 25000, perf: 35, staff: 1 },
-                { name: "Standard SMT/CNC Line (Alibaba)", cost: 120000, perf: 100, staff: 2 },
-                { name: "High-Speed Industrial Line (Alibaba)", cost: 280000, perf: 250, staff: 3 }
-            ];
-
-            sampleAlibabaLines.forEach(line => {
-                const dailyAmort = line.cost / 5 / 365;
-                const dailyFixedNoSalary = dailyAmort + 100;
-                const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
-                const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
-                const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
-
-                const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
-                const unitCost = rawCost + (totalDailyCost / line.perf);
-                const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><b>${line.name}</b></td>
-                    <td>$${line.cost.toLocaleString()}</td>
-                    <td>${line.perf} pcs/day</td>
-                    <td>${line.staff} staff</td>
-                    <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
-                    <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
-                `;
-                container.appendChild(tr);
+            const groupedByTopic = {};
+            savedEquipmentDatabase.forEach(item => {
+                const topicName = item.topic_title || "General Category (Alibaba)";
+                if (!groupedByTopic[topicName]) {
+                    groupedByTopic[topicName] = [];
+                }
+                groupedByTopic[topicName].push(item);
             });
+
+            for (const [topic, items] of Object.entries(groupedByTopic)) {
+                const headerTr = document.createElement('tr');
+                headerTr.style.background = "#eef6ff";
+                headerTr.innerHTML = `
+                    <td colspan="7" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                        📂 TOPIC: ${topic.toUpperCase()} (Client BOM Specification = $${rawCost.toFixed(2)})
+                    </td>
+                `;
+                container.appendChild(headerTr);
+
+                items.forEach(line => {
+                    const dailyAmort = line.cost / 5 / 365;
+                    const dailyFixedNoSalary = dailyAmort + 100;
+                    const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
+                    const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
+                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
+
+                    const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
+                    const unitCost = rawCost + (totalDailyCost / line.perf);
+                    const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="padding-left:20px;"><b>${line.name}</b></td>
+                        <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                        <td>$${line.cost.toLocaleString()}</td>
+                        <td>${line.perf} pcs/day</td>
+                        <td>${line.staff} staff</td>
+                        <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
+                        <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                    `;
+                    container.appendChild(tr);
+                });
+            }
         }
 
         document.addEventListener('input', calculateAll);
 
         window.onload = function () {
-            loadCatalogTemplate('drone');
+            calculateAll();
+            loadCloudDatabaseIfAvailable();
         };
     </script>
 
