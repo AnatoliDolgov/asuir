@@ -566,7 +566,7 @@
         <div class="subtitle">Synthesis of models with maximum salaries and minimum unit costs</div>
 
         <div class="nav-primary">
-            <a href="index_en.html" class="nav-tab-btn">🏠 Main Dashboard</a>
+            <a href="index.html" class="nav-tab-btn">🏠 Main Dashboard</a>
             <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-tab-btn active">📊 ASUIR Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Feedback</a>
@@ -609,7 +609,7 @@
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Nice Class Catalog</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="drone assembly line" style="max-width: 170px;">
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Customized UAV Assembly Line (Sanhok)" style="max-width: 220px;">
                                 <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Open Alibaba equipment options">
                                     🔍 Alibaba Options ↗
                                 </button>
@@ -620,7 +620,7 @@
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Selected Item Link</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line">
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Open Alibaba link in new tab">
                                     🔗 Open Link
                                 </button>
@@ -631,7 +631,7 @@
                         </td>
                         <td class="right">
                             <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Cost $</span>
-                            <input type="number" id="val-equip" class="input-field input-field-sm" value="120000">
+                            <input type="number" id="val-equip" class="input-field input-field-sm" value="199000">
                         </td>
                     </tr>
 
@@ -655,15 +655,15 @@
                     </tr>
 
                     <tr>
-                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Operators</span></span></td>
+                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Line Operators (Headcount)</span></span></td>
                         <td class="right">
-                            <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
+                            <input type="number" id="val-staff" class="input-field input-field-sm" value="12">
                         </td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Monthly Salary per Operator</span></span></td>
                         <td class="right">
-                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="10000">
+                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="4000">
                         </td>
                     </tr>
                     <tr class="total-row">
@@ -709,7 +709,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: CLIENT BOM SPECIFICATION PRE-FILLED BY DEFAULT -->
+        <!-- TAB 3: CLIENT BOM SPECIFICATION -->
         <div class="section" id="tab3">
             <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
 
@@ -739,7 +739,7 @@
                     <tfoot>
                         <tr style="background:#f0f5fa;">
                             <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
-                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">150.00</span></td>
+                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -1074,9 +1074,9 @@ Thank you!
 
         function getDefaultInitialDatabase() {
             return [
-                { topic_title: "Drones & Radioelectronics", name: "Compact Drone Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
-                { topic_title: "Drones & Radioelectronics", name: "Standard SMT Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 120000, perf: 100, staff: 2 },
-                { topic_title: "Drones & Radioelectronics", name: "High-Speed Industrial Line (Alibaba)", url: "https://www.alibaba.com/", cost: 280000, perf: 250, staff: 3 },
+                { topic_title: "Drones & Radioelectronics", name: "Customized UAV Assembly Line (Sanhok 100/day)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
+                { topic_title: "Drones & Radioelectronics", name: "High-Throughput UAV Line (Sanhok 500/day)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
+                { topic_title: "Drones & Radioelectronics", name: "Compact Drone Prototyping Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 3 },
                 { topic_title: "Tablets & Mobile PCs", name: "Vacuum Lamination Tablet Line (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 2 },
                 { topic_title: "Fine Jewelry", name: "Induction Jewelry Casting Machine (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 1 }
             ];
@@ -1217,20 +1217,196 @@ Thank you!
             }
         }
 
+        // CALIBRATED CATALOG DATABASE ACROSS NICE CLASSES
         const catalogDB = {
-            'drone': { title: "Drones & Radioelectronics", eq: '120000', mkt: '423', perf: '100', q: 'drone assembly line', c: [['Carbon frame (5")', 1, 5.0], ['Flight controller', 1, 45.0], ['Brushless motors (4 pcs)', 1, 40.0], ['VTX Video system & Camera', 1, 35.0], ['LiPo Battery 6S', 1, 25.0]] },
-            'tablet': { title: "Tablets & Mobile PCs", eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['IPS/OLED Display assembly', 1, 35.0], ['SoC Motherboard (ARM)', 1, 45.0], ['Li-Po Battery', 1, 10.0], ['Ultra-thin chassis & cables', 1, 8.0], ['Packaging box', 1, 2.0]] },
-            'tv': { title: "TVs & Displays", eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['LCD / OLED Display matrix', 1, 140.0], ['Main Board', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['LED Backlight strip', 1, 15.0], ['Housing & Speakers', 1, 28.0]] },
-            'pc': { title: "Telecom & Computers", eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]] },
-            'bakery': { title: "Commercial Bakery Line", eq: '45000', mkt: '1.5', perf: '25000', q: 'commercial bakery line', c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Additives', 1, 0.05], ['Packaging bag', 1, 0.08]] },
-            'jewelry': { title: "Fine Jewelry", eq: '45000', mkt: '350', perf: '150', q: 'jewelry casting machine', c: [['Gold/Silver granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry fittings', 1, 5.0], ['Velvet gift box', 1, 5.0]] },
-            'watch': { title: "Watch Assembly", eq: '35000', mkt: '450', perf: '150', q: 'watch assembly tools', c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]] },
-            'costume': { title: "Costume Jewelry Press", eq: '15000', mkt: '25', perf: '3000', q: 'costume jewelry press', c: [['Alloy blank workpiece', 1, 2.0], ['Decorative rhinestones', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]] },
-            'clothes': { title: "Apparel Sewing", eq: '35000', mkt: '65', perf: '300', q: 'industrial sewing machine', c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]] },
-            'furniture': { title: "Furniture Woodworking", eq: '90000', mkt: '280', perf: '120', q: 'cnc woodworking machine', c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]] },
-            'instruments': { title: "Precision Instruments", eq: '110000', mkt: '450', perf: '60', q: 'precision assembly machine', c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]] },
-            'cnc': { title: "Desktop CNC Machines", eq: '25000', mkt: '1500', perf: '20', q: 'desktop cnc machine', c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors (set)', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]] },
-            'universal': { title: "Universal Template", eq: '60000', mkt: '200', perf: '200', q: 'manufacturing machine', c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]] }
+            'drone': {
+                title: "Drones & Radioelectronics",
+                eq: '199000',
+                mkt: '423',
+                perf: '100',
+                staff: '12',
+                q: 'Customized UAV Assembly Line (Sanhok)',
+                c: [
+                    ['Carbon frame kit with arms', 1, 26.0],
+                    ['Flight Controller (FC + PDB)', 1, 45.0],
+                    ['Brushless motors & ESC combo (4 pcs)', 1, 55.0],
+                    ['VTX Video system & FPV Camera', 1, 35.0],
+                    ['LiPo Battery 6S', 1, 25.0]
+                ]
+            },
+            'tablet': {
+                title: "Tablets & Mobile PCs",
+                eq: '45000',
+                mkt: '150',
+                perf: '120',
+                staff: '4',
+                q: 'tablet assembly equipment',
+                c: [
+                    ['IPS/OLED Display assembly', 1, 35.0],
+                    ['SoC Motherboard (ARM)', 1, 45.0],
+                    ['Li-Po Battery', 1, 10.0],
+                    ['Ultra-thin chassis & cables', 1, 8.0],
+                    ['Packaging box', 1, 2.0]
+                ]
+            },
+            'tv': {
+                title: "TVs & Displays",
+                eq: '280000',
+                mkt: '550',
+                perf: '50',
+                staff: '8',
+                q: 'lcd tv assembly line',
+                c: [
+                    ['LCD / OLED Display matrix', 1, 140.0],
+                    ['Main Board', 1, 45.0],
+                    ['Inverter Power Supply', 1, 25.0],
+                    ['LED Backlight strip', 1, 15.0],
+                    ['Housing & Speakers', 1, 28.0]
+                ]
+            },
+            'pc': {
+                title: "Telecom & Computers",
+                eq: '180000',
+                mkt: '1850',
+                perf: '20',
+                staff: '6',
+                q: 'computer assembly machine',
+                c: [
+                    ['Desktop CPU', 1, 340.0],
+                    ['Graphics Card (GPU)', 1, 520.0],
+                    ['ATX/ITX Motherboard', 1, 140.0],
+                    ['RAM Memory', 1, 105.0],
+                    ['NVMe 2TB SSD', 1, 115.0],
+                    ['Case & Power Supply', 1, 130.0]
+                ]
+            },
+            'bakery': {
+                title: "Commercial Bakery Line",
+                eq: '45000',
+                mkt: '1.5',
+                perf: '25000',
+                staff: '3',
+                q: 'commercial bakery line',
+                c: [
+                    ['Premium Wheat Flour (kg)', 0.6, 0.4],
+                    ['Yeast & Additives', 1, 0.05],
+                    ['Packaging bag', 1, 0.08]
+                ]
+            },
+            'jewelry': {
+                title: "Fine Jewelry",
+                eq: '45000',
+                mkt: '350',
+                perf: '150',
+                staff: '2',
+                q: 'jewelry casting machine',
+                c: [
+                    ['Gold/Silver granules (g)', 10, 8.0],
+                    ['Stone inserts (cubic zirconia)', 2, 20.0],
+                    ['Jewelry fittings', 1, 5.0],
+                    ['Velvet gift box', 1, 5.0]
+                ]
+            },
+            'watch': {
+                title: "Watch Assembly",
+                eq: '35000',
+                mkt: '450',
+                perf: '150',
+                staff: '3',
+                q: 'watch assembly tools',
+                c: [
+                    ['Case & Sapphire crystal', 1, 30.0],
+                    ['Precision watch movement', 1, 40.0],
+                    ['Dial & Hands', 1, 10.0],
+                    ['Leather/Metal strap', 1, 15.0],
+                    ['Gift presentation box', 1, 8.0]
+                ]
+            },
+            'costume': {
+                title: "Costume Jewelry Press",
+                eq: '15000',
+                mkt: '25',
+                perf: '3000',
+                staff: '2',
+                q: 'costume jewelry press',
+                c: [
+                    ['Alloy blank workpiece', 1, 2.0],
+                    ['Decorative rhinestones', 1, 1.0],
+                    ['Jewelry findings', 1, 0.5],
+                    ['Eco packaging pouch', 1, 1.5]
+                ]
+            },
+            'clothes': {
+                title: "Apparel Sewing",
+                eq: '35000',
+                mkt: '65',
+                perf: '300',
+                staff: '5',
+                q: 'industrial sewing machine',
+                c: [
+                    ['Fabric textile (meters)', 1.8, 12.0],
+                    ['Soft inner lining', 1.2, 3.5],
+                    ['Threads & hardware', 1, 5.0],
+                    ['Packaging & Brand tag', 1, 1.5]
+                ]
+            },
+            'furniture': {
+                title: "Furniture Woodworking",
+                eq: '90000',
+                mkt: '280',
+                perf: '120',
+                staff: '4',
+                q: 'cnc woodworking machine',
+                c: [
+                    ['MDF/Laminated board (sqm)', 4, 15.0],
+                    ['Edge banding tape', 1, 5.0],
+                    ['Mirror sheet', 1, 22.0],
+                    ['Metal hardware fittings', 1, 8.0],
+                    ['Cardboard packaging', 1, 6.0]
+                ]
+            },
+            'instruments': {
+                title: "Precision Instruments",
+                eq: '110000',
+                mkt: '450',
+                perf: '60',
+                staff: '4',
+                q: 'precision assembly machine',
+                c: [
+                    ['Sensor measurement module', 1, 120.0],
+                    ['Signal processing board', 1, 65.0],
+                    ['LCD Display screen', 1, 25.0],
+                    ['IP65 Heavy-duty housing', 1, 40.0]
+                ]
+            },
+            'cnc': {
+                title: "Desktop CNC Machines",
+                eq: '25000',
+                mkt: '1500',
+                perf: '20',
+                staff: '2',
+                q: 'desktop cnc machine',
+                c: [
+                    ['Aluminum frame chassis', 1, 300.0],
+                    ['Stepper motors (set)', 1, 150.0],
+                    ['CNC Controller board', 1, 80.0],
+                    ['Spindle & Power supply', 1, 200.0]
+                ]
+            },
+            'universal': {
+                title: "Universal Template",
+                eq: '60000',
+                mkt: '200',
+                perf: '200',
+                staff: '3',
+                q: 'manufacturing machine',
+                c: [
+                    ['Primary base material', 1, 40.0],
+                    ['Functional modules', 1, 25.0],
+                    ['Decorative housing', 1, 12.0],
+                    ['Retail consumer box', 1, 3.0]
+                ]
+            }
         };
 
         function loadCatalogTemplate(key) {
@@ -1242,7 +1418,14 @@ Thank you!
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
-            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
+            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 1;
+            if (document.getElementById('equip-url')) {
+                if (key === 'drone') {
+                    document.getElementById('equip-url').value = "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html";
+                } else {
+                    document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
+                }
+            }
 
             const tbody = document.getElementById('component-dynamic-rows');
             if (tbody) {
@@ -1271,7 +1454,7 @@ Thank you!
 
         function calculateAll() {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
-            const staff = parseFloat(document.getElementById('val-staff')?.value) || 0;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
             const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
             const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
             const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
@@ -1355,9 +1538,6 @@ Thank you!
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
-            const bomDispElem = document.getElementById('client-bom-display');
-            if (bomDispElem) bomDispElem.textContent = rawCost.toFixed(2);
-
             container.innerHTML = '';
 
             const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
@@ -1395,9 +1575,9 @@ Thank you!
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
                     const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
-                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
+                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
 
-                    const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
+                    const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + 100;
                     const unitCost = rawCost + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
@@ -1413,7 +1593,7 @@ Thank you!
                         <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                         <td>$${line.cost.toLocaleString()}</td>
                         <td>${line.perf} pcs/day</td>
-                        <td>${line.staff} staff</td>
+                        <td>${line.staff || 1} staff</td>
                         <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
                         <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
                         ${adminDeleteCell}
