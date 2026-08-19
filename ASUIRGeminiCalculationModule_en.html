@@ -570,6 +570,10 @@
             <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-tab-btn active">📊 ASUIR Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Feedback</a>
+            <!-- SECRET ADMIN MODE TOGGLE BUTTON -->
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Toggle Admin Mode for entry deletion">
+                🔑 Admin Mode
+            </button>
         </div>
 
         <div class="nav-divider"></div>
@@ -813,9 +817,9 @@
                 </table>
             </div>
 
-            <!-- COMPARATIVE EQUIPMENT LISTING GROUPED BY TOPIC (ON THE FLY TRANSLATION) -->
+            <!-- COMPARATIVE EQUIPMENT LISTING GROUPED BY TOPIC -->
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
                         📋 Calibrated Alibaba Equipment Listing (Grouped by Topic / Nice Class)
                     </h3>
@@ -835,6 +839,7 @@
                             <th>Staff</th>
                             <th style="color:#007600;">Achievable Worker Salary</th>
                             <th>Household Net Profit</th>
+                            <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                         </tr>
                     </thead>
                     <tbody id="client-matched-equipment-rows">
@@ -1024,8 +1029,48 @@ Thank you!
             calculateAll();
         }
 
+        // SECRET ADMIN MODE & CLOUD SYNC
         const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
         let currentTopicTitle = "Drones & Radioelectronics";
+        let isAdminMode = false;
+
+        function toggleAdminMode() {
+            if (isAdminMode) {
+                isAdminMode = false;
+                document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
+                document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
+                document.getElementById('admin-col-header').style.display = "none";
+                alert("🔒 Admin mode deactivated.");
+            } else {
+                const pwd = prompt("Enter secret Admin password:");
+                if (pwd === "AnatoliD") {
+                    isAdminMode = true;
+                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
+                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
+                    document.getElementById('admin-col-header').style.display = "table-cell";
+                    alert("🔓 Admin Mode activated! Deletion button 🗑️ is now visible next to every row in Section 5.");
+                } else if (pwd !== null) {
+                    alert("❌ Incorrect Admin Password!");
+                }
+            }
+            calculateAll();
+        }
+
+        function deleteItemFromLiveDatabase(index) {
+            if (!isAdminMode) return;
+            const item = savedEquipmentDatabase[index];
+            if (!item) return;
+
+            if (confirm(`🗑️ Delete equipment "${item.name}" from global database?`)) {
+                savedEquipmentDatabase.splice(index, 1);
+                try {
+                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+                } catch (e) { }
+
+                calculateAll();
+                alert(`✅ Item "${item.name}" removed from database.`);
+            }
+        }
 
         function getDefaultInitialDatabase() {
             return [
@@ -1048,7 +1093,6 @@ Thank you!
 
         let savedEquipmentDatabase = getSavedEquipmentDatabase();
 
-        // ПЕРЕВОД НА ЛЕТУ ВСЕХ ТЕКСТОВ И ТЕМ
         function translateTextOnTheFly(text) {
             if (!text) return "Equipment Line (Alibaba)";
             let t = text.trim();
@@ -1327,19 +1371,25 @@ Thank you!
                 groupedByTopic[topicName].push(item);
             });
 
+            const adminColHeader = document.getElementById('admin-col-header');
+            if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
+
+            let globalItemIndex = 0;
+
             for (const [topic, items] of Object.entries(groupedByTopic)) {
                 const translatedTopic = translateTextOnTheFly(topic);
 
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                    <td colspan="7" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                    <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
                         📂 TOPIC: ${translatedTopic.toUpperCase()} (Client BOM Specification = $${rawCost.toFixed(2)})
                     </td>
                 `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
+                    const currentIndex = globalItemIndex++;
                     const translatedLineName = translateTextOnTheFly(line.name);
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + 100;
@@ -1351,6 +1401,12 @@ Thank you!
                     const unitCost = rawCost + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
+                    const adminDeleteCell = isAdminMode ? `
+                        <td style="text-align:center;">
+                            <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase(${currentIndex})" title="Delete entry from database">🗑️</button>
+                        </td>
+                    ` : '';
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td style="padding-left:20px;"><b>${translatedLineName}</b></td>
@@ -1360,6 +1416,7 @@ Thank you!
                         <td>${line.staff} staff</td>
                         <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
                         <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                        ${adminDeleteCell}
                     `;
                     container.appendChild(tr);
                 });

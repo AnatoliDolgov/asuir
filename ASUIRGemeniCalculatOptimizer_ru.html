@@ -570,6 +570,10 @@
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Обратная связь</a>
+            <!-- СЕКРЕТНАЯ КНОПКА АДМИНИСТРАТОРА ДЛЯ УДАЛЕНИЯ ЗАПИСЕЙ -->
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Включить режим администратора для удаления записей">
+                🔑 Admin Mode
+            </button>
         </div>
 
         <div class="nav-divider"></div>
@@ -705,7 +709,7 @@
             </div>
         </div>
 
-        <!-- ТАБ 3: ЗАПОЛНЕННЫЙ ПО УМОЛЧАНИЮ BOM КЛИЕНТА -->
+        <!-- ТАБ 3 -->
         <div class="section" id="tab3">
             <h2 class="section-title">3. Сырьё и комплектующие (Спецификация BOM)</h2>
 
@@ -768,7 +772,7 @@
             </div>
         </div>
 
-        <!-- ТАБ 5: РЕЗУЛЬТАТЫ И ТЕМАТИЧЕСКИЙ ЛИСТИНГ -->
+        <!-- ТАБ 5 -->
         <div class="section" id="tab5">
             <h2 class="section-title">5. Сводка финансовых результатов и Тематический Листинг</h2>
             <div class="table-responsive">
@@ -815,12 +819,12 @@
 
             <!-- ЛИСТИНГ ОБОРУДОВАНИЯ СГРУППИРОВАННЫЙ ПО ТЕМАМ -->
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
                         📋 Откалибрированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
                     </h3>
                     <div>
-                        <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Сбросить накопленные дубликаты">🧹 Очистить повторы</button>
+                        <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Сбросить повторы">🧹 Очистить повторы</button>
                         <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок в Базу</button>
                     </div>
                 </div>
@@ -835,6 +839,7 @@
                             <th>Персонал</th>
                             <th style="color:#007600;">Достигаемая Зарплата Рабочего</th>
                             <th>Доход Домохозяйки</th>
+                            <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                         </tr>
                     </thead>
                     <tbody id="client-matched-equipment-rows">
@@ -1024,10 +1029,53 @@ Thank you!
             calculateAll();
         }
 
+        // ================================================================
+        // СЕКРЕТНЫЙ РЕЖИМ АДМИНИСТРАТОРА (ANATOLID) И ОБЛАЧНАЯ БАЗА
+        // ================================================================
         const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
         let currentTopicTitle = "Дроны и Радиоэлектроника";
+        let isAdminMode = false;
 
-        // ИСХОДНЫЕ ЧИСТЫЕ ШАБЛОНЫ
+        // ВКТЮЧЕНИЕ РЕЖИМА АДМИНИСТРАТОРА ПО ПАРОЛЮ AnatoliD
+        function toggleAdminMode() {
+            if (isAdminMode) {
+                isAdminMode = false;
+                document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
+                document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
+                document.getElementById('admin-col-header').style.display = "none";
+                alert("🔒 Режим администратора выключен.");
+            } else {
+                const pwd = prompt("Введите секретный пароль владельца системы АСУИР:");
+                if (pwd === "AnatoliD") {
+                    isAdminMode = true;
+                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
+                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
+                    document.getElementById('admin-col-header').style.display = "table-cell";
+                    alert("🔓 Режим Администратора активирован! Теперь у каждой строки доступна кнопка 🗑️ для удаления записи из живой базы.");
+                } else if (pwd !== null) {
+                    alert("❌ Неверный пароль администратора!");
+                }
+            }
+            calculateAll();
+        }
+
+        // УДАЛЕНИЕ СТРОКИ ИЗ ЖИВОЙ БАЗЫ ВЛАДЕЛЬЦЕМ
+        function deleteItemFromLiveDatabase(index) {
+            if (!isAdminMode) return;
+            const item = savedEquipmentDatabase[index];
+            if (!item) return;
+
+            if (confirm(`🗑️ Вы действительно хотите удалить станок "${item.name}" из глобальной базы?`)) {
+                savedEquipmentDatabase.splice(index, 1);
+                try {
+                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+                } catch (e) { }
+
+                calculateAll();
+                alert(`✅ Запись "${item.name}" удалена из базы.`);
+            }
+        }
+
         function getDefaultInitialDatabase() {
             return [
                 { topic_title: "Дроны и Радиоэлектроника", name: "Компактная линия сборки дронов (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
@@ -1049,7 +1097,6 @@ Thank you!
 
         let savedEquipmentDatabase = getSavedEquipmentDatabase();
 
-        // НОРМАЛИЗАЦИЯ НАЗВАНИЙ ТЕМ
         function normalizeTopicTitle(rawTitle) {
             if (!rawTitle) return "Дроны и Радиоэлектроника";
             const t = rawTitle.trim().toLowerCase();
@@ -1062,7 +1109,6 @@ Thank you!
             return rawTitle;
         }
 
-        // ДЕДУПЛИКАЦИЯ СТРОК (БЕЗ ПОПВТОРОВ)
         function getDeduplicatedDatabase(database) {
             const uniqueItems = [];
             const seenKeys = new Set();
@@ -1087,7 +1133,6 @@ Thank you!
             return uniqueItems;
         }
 
-        // СБРОС ДУБЛИКАТОВ
         function resetSavedEquipmentDatabase() {
             savedEquipmentDatabase = getDefaultInitialDatabase();
             try {
@@ -1298,7 +1343,6 @@ Thank you!
 
             container.innerHTML = '';
 
-            // Прогоняем базу через функцию дедупликации
             const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
 
             const groupedByTopic = {};
@@ -1310,17 +1354,24 @@ Thank you!
                 groupedByTopic[topicName].push(item);
             });
 
+            // Управление видимостью колонки удаления
+            const adminColHeader = document.getElementById('admin-col-header');
+            if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
+
+            let globalItemIndex = 0;
+
             for (const [topic, items] of Object.entries(groupedByTopic)) {
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                    <td colspan="7" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                    <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
                         📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${rawCost.toFixed(2)})
                     </td>
                 `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
+                    const currentIndex = globalItemIndex++;
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
@@ -1331,6 +1382,12 @@ Thank you!
                     const unitCost = rawCost + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
+                    const adminDeleteCell = isAdminMode ? `
+                        <td style="text-align:center;">
+                            <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase(${currentIndex})" title="Удалить запись из базы">🗑️</button>
+                        </td>
+                    ` : '';
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td style="padding-left:20px;"><b>${line.name}</b></td>
@@ -1340,6 +1397,7 @@ Thank you!
                         <td>${line.staff} чел</td>
                         <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
                         <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                        ${adminDeleteCell}
                     `;
                     container.appendChild(tr);
                 });
