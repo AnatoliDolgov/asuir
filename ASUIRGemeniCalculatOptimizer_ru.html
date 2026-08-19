@@ -674,7 +674,7 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок с его параметрами в облачную базу Листинга Секции 5">
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу Листинга Секции 5">
                     💾 Зафиксировать этот станок в Базу Листинга
                 </button>
             </div>
@@ -705,7 +705,7 @@
             </div>
         </div>
 
-        <!-- ТАБ 3: ЖЕСТКО ПРОПИСАННАЯ В HTML И ДИНАМИЧЕСКАЯ СПЕЦИФИКАЦИЯ -->
+        <!-- ТАБ 3: ЗАПОЛНЕННЫЙ ПО УМОЛЧАНИЮ BOM КЛИЕНТА -->
         <div class="section" id="tab3">
             <h2 class="section-title">3. Сырьё и комплектующие (Спецификация BOM)</h2>
 
@@ -731,97 +731,6 @@
                         </tr>
                     </thead>
                     <tbody id="component-dynamic-rows">
-                        <!-- СТРОКИ КОМПЛЕКТУЮЩИХ ПО УМОЛЧАНИЮ (ДРОНЫ) -->
-                        <tr id="default-row-1">
-                            <td><input type="text" id="default-row-1-name" class="input-field input-sm" value="Карбоновая рама (5&quot;)" placeholder="Название детали..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-1-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Carbon+frame" placeholder="🔗 Ссылка...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-1-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-1')" title="Поиск на Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-1-price" value="5" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-1')" title="Расчет оптовой партии">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-1').remove(); calculateAll();" title="Удалить строку">✕</button></td>
-                        </tr>
-                        <tr id="default-row-2">
-                            <td><input type="text" id="default-row-2-name" class="input-field input-sm" value="Полетный контроллер" placeholder="Название детали..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-2-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Flight+controller" placeholder="🔗 Ссылка...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-2-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-2')" title="Поиск на Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-2-price" value="45" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-2')" title="Расчет оптовой партии">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-2').remove(); calculateAll();" title="Удалить строку">✕</button></td>
-                        </tr>
-                        <tr id="default-row-3">
-                            <td><input type="text" id="default-row-3-name" class="input-field input-sm" value="Бесколлекторные моторы (4 шт.)" placeholder="Название детали..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-3-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Brushless+motors" placeholder="🔗 Ссылка...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-3-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-3')" title="Поиск на Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-3-price" value="40" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-3')" title="Расчет оптовой партии">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-3').remove(); calculateAll();" title="Удалить строку">✕</button></td>
-                        </tr>
-                        <tr id="default-row-4">
-                            <td><input type="text" id="default-row-4-name" class="input-field input-sm" value="Видеосистема VTX и камера" placeholder="Название детали..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-4-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=VTX+camera" placeholder="🔗 Ссылка...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-4-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-4')" title="Поиск на Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-4-price" value="35" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-4')" title="Расчет оптовой партии">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-4').remove(); calculateAll();" title="Удалить строку">✕</button></td>
-                        </tr>
-                        <tr id="default-row-5">
-                            <td><input type="text" id="default-row-5-name" class="input-field input-sm" value="Аккумулятор LiPo 6S" placeholder="Название детали..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-5-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=LiPo+battery" placeholder="🔗 Ссылка...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-5-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-5')" title="Поиск на Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-5-price" value="25" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-5')" title="Расчет оптовой партии">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-5').remove(); calculateAll();" title="Удалить строку">✕</button></td>
-                        </tr>
                     </tbody>
                     <tfoot>
                         <tr style="background:#f0f5fa;">
@@ -910,7 +819,10 @@
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
                         📋 Откалибрированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
                     </h3>
-                    <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок в Базу</button>
+                    <div>
+                        <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Сбросить накопленные дубликаты">🧹 Очистить повторы</button>
+                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок в Базу</button>
+                    </div>
                 </div>
 
                 <table class="components-table" style="width:100%;">
@@ -1080,6 +992,7 @@ Thank you!
 
         function addComponentRow(name, qty, price, url = '') {
             const tbody = document.getElementById('component-dynamic-rows');
+            if (!tbody) return;
             const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
             const tr = document.createElement('tr');
             tr.id = rowId;
@@ -1111,16 +1024,11 @@ Thank you!
             calculateAll();
         }
 
-        // ОБЛАЧНАЯ И ЛОКАЛЬНАЯ СИНХРОНИЗАЦИЯ БАЗЫ ЛИСТИНГА
         const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
         let currentTopicTitle = "Дроны и Радиоэлектроника";
 
-        function getSavedEquipmentDatabase() {
-            try {
-                const stored = localStorage.getItem('asuir_saved_equip_db');
-                if (stored) return JSON.parse(stored);
-            } catch (e) { }
-
+        // ИСХОДНЫЕ ЧИСТЫЕ ШАБЛОНЫ
+        function getDefaultInitialDatabase() {
             return [
                 { topic_title: "Дроны и Радиоэлектроника", name: "Компактная линия сборки дронов (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
                 { topic_title: "Дроны и Радиоэлектроника", name: "Стандартная SMT линия сборки (Alibaba)", url: "https://www.alibaba.com/", cost: 120000, perf: 100, staff: 2 },
@@ -1130,51 +1038,121 @@ Thank you!
             ];
         }
 
+        function getSavedEquipmentDatabase() {
+            try {
+                const stored = localStorage.getItem('asuir_saved_equip_db');
+                if (stored) return getDeduplicatedDatabase(JSON.parse(stored));
+            } catch (e) { }
+
+            return getDefaultInitialDatabase();
+        }
+
         let savedEquipmentDatabase = getSavedEquipmentDatabase();
+
+        // НОРМАЛИЗАЦИЯ НАЗВАНИЙ ТЕМ
+        function normalizeTopicTitle(rawTitle) {
+            if (!rawTitle) return "Дроны и Радиоэлектроника";
+            const t = rawTitle.trim().toLowerCase();
+            if (t.includes('drone') || t.includes('дрон')) return "Дроны и Радиоэлектроника";
+            if (t.includes('tablet') || t.includes('планшет')) return "Планшеты и Мобильные ПК";
+            if (t.includes('tv') || t.includes('телевизор')) return "Телевизоры и Дисплеи";
+            if (t.includes('pc') || t.includes('компьютер')) return "Телеком и Компьютеры";
+            if (t.includes('bakery') || t.includes('хлеб')) return "Хлебопекарная Линия";
+            if (t.includes('jewelry') || t.includes('ювелир')) return "Ювелирные Изделия";
+            return rawTitle;
+        }
+
+        // ДЕДУПЛИКАЦИЯ СТРОК (БЕЗ ПОПВТОРОВ)
+        function getDeduplicatedDatabase(database) {
+            const uniqueItems = [];
+            const seenKeys = new Set();
+
+            database.forEach(item => {
+                const topic = normalizeTopicTitle(item.topic_title);
+                const name = (item.name || "Станок").trim();
+                const cost = item.cost || 0;
+                const perf = item.perf || 0;
+
+                const key = `${topic}_${name}_${cost}_${perf}`;
+
+                if (!seenKeys.has(key)) {
+                    seenKeys.add(key);
+                    uniqueItems.push({
+                        ...item,
+                        topic_title: topic
+                    });
+                }
+            });
+
+            return uniqueItems;
+        }
+
+        // СБРОС ДУБЛИКАТОВ
+        function resetSavedEquipmentDatabase() {
+            savedEquipmentDatabase = getDefaultInitialDatabase();
+            try {
+                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+            } catch (e) { }
+            calculateAll();
+            alert("🧹 Листинг успешно очищен от дубликатов!");
+        }
 
         async function loadCloudDatabaseIfAvailable() {
             try {
                 const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
                 if (res.ok) {
                     const cloudData = await res.json();
-                    if (cloudData) {
-                        const cloudArr = Object.keys(cloudData).map(k => cloudData[k]);
-                        savedEquipmentDatabase = cloudArr.concat(savedEquipmentDatabase);
+                    if (cloudData && typeof cloudData === 'object') {
+                        const cloudArr = Object.values(cloudData);
+                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudArr.concat(savedEquipmentDatabase));
                         calculateAll();
                     }
                 }
             } catch (e) { }
         }
 
-        async function saveCurrentEquipmentToDatabase() {
-            const query = document.getElementById('equip-search-query').value.trim() || "Линия с Alibaba";
-            const url = document.getElementById('equip-url').value.trim();
-            const cost = parseFloat(document.getElementById('val-equip').value) || 0;
-            const perf = parseFloat(document.getElementById('val-actual-perf').value) || 1;
-            const staff = parseFloat(document.getElementById('val-staff').value) || 1;
-
-            const newItem = {
-                topic_title: currentTopicTitle,
-                name: query,
-                url: url,
-                cost: cost,
-                perf: perf,
-                staff: staff
-            };
-
-            savedEquipmentDatabase.unshift(newItem);
-
+        function saveCurrentEquipmentToDatabase() {
             try {
-                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-                await fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newItem)
-                });
-            } catch (e) { }
+                const queryInput = document.getElementById('equip-search-query');
+                const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Линия с Alibaba";
 
-            calculateAll();
-            alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) зафиксирован в теме "${currentTopicTitle}" в Секции 5!`);
+                const urlInput = document.getElementById('equip-url');
+                const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+
+                const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
+                const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
+                const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+
+                const newItem = {
+                    topic_title: currentTopicTitle || "Дроны и Радиоэлектроника",
+                    name: query,
+                    url: url,
+                    cost: cost,
+                    perf: perf,
+                    staff: staff
+                };
+
+                savedEquipmentDatabase.unshift(newItem);
+                savedEquipmentDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
+
+                try {
+                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+                } catch (e) { }
+
+                calculateAll();
+                alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) зафиксирован в теме "${currentTopicTitle}" в Секции 5!`);
+
+                try {
+                    fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newItem)
+                    }).catch(err => console.log("Cloud sync skipped"));
+                } catch (e) { }
+
+            } catch (err) {
+                console.error("Error in saveCurrentEquipmentToDatabase:", err);
+            }
         }
 
         const catalogDB = {
@@ -1198,18 +1176,20 @@ Thank you!
             const data = catalogDB[key] || catalogDB['drone'];
             currentTopicTitle = data.title || "Общая тема";
 
-            document.getElementById('val-equip').value = data.eq;
-            document.getElementById('market-price-input').value = data.mkt;
-            document.getElementById('equip-search-query').value = data.q;
-            document.getElementById('val-actual-perf').value = data.perf || 100;
-            document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
+            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
+            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
+            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
+            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
 
             const tbody = document.getElementById('component-dynamic-rows');
-            tbody.innerHTML = '';
-            data.c.forEach(item => {
-                const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
-                addComponentRow(item[0], item[1], item[2], itemUrl);
-            });
+            if (tbody) {
+                tbody.innerHTML = '';
+                data.c.forEach(item => {
+                    const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
+                    addComponentRow(item[0], item[1], item[2], itemUrl);
+                });
+            }
             calculateAll();
         }
 
@@ -1228,17 +1208,18 @@ Thank you!
         }
 
         function calculateAll() {
-            const equip = parseFloat(document.getElementById('val-equip').value) || 0;
-            const staff = parseFloat(document.getElementById('val-staff').value) || 0;
-            const salary = parseFloat(document.getElementById('val-salary').value) || 0;
-            const rent = parseFloat(document.getElementById('val-rent').value) || 0;
-            const logistics = parseFloat(document.getElementById('val-logistics').value) || 0;
-            const other = parseFloat(document.getElementById('val-other').value) || 0;
-            const market = parseFloat(document.getElementById('market-price-input').value) || 0;
-            const actualPerf = parseFloat(document.getElementById('val-actual-perf').value) || 1;
+            const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 0;
+            const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
+            const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
+            const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
+            const other = parseFloat(document.getElementById('val-other')?.value) || 0;
+            const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
+            const actualPerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
 
             let rawCost = 0;
-            document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
+            const tbodyRows = document.querySelectorAll('#component-dynamic-rows tr');
+            tbodyRows.forEach(tr => {
                 const inputs = tr.querySelectorAll('input');
                 if (inputs.length >= 4) {
                     const qty = parseFloat(inputs[2]?.value) || 0;
@@ -1246,31 +1227,34 @@ Thank you!
                     rawCost += qty * price;
                 }
             });
-            document.getElementById('total-bom-cost').textContent = rawCost.toFixed(2);
+
+            const bomElem = document.getElementById('total-bom-cost');
+            if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
             const amort = equip / 5 / 365;
             const salaryPerDay = (salary * staff) / 30;
             const overhead = amort + salaryPerDay;
-            document.getElementById('base-overhead').textContent = Math.round(overhead);
-            document.getElementById('total-daily-cost').textContent = Math.round(overhead);
+
+            if (document.getElementById('base-overhead')) document.getElementById('base-overhead').textContent = Math.round(overhead);
+            if (document.getElementById('total-daily-cost')) document.getElementById('total-daily-cost').textContent = Math.round(overhead);
 
             const otherCosts = rent + logistics + other;
-            document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
+            if (document.getElementById('total-other-costs')) document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
 
             const totalDailyCost = overhead + otherCosts;
 
             const reqPerf = rawCost > 0 ? Math.ceil(totalDailyCost / (rawCost * 0.1)) : 0;
-            document.getElementById('perf-val').textContent = reqPerf;
-            document.getElementById('actual-perf-val').textContent = actualPerf;
+            if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
+            if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
             const machineShare = actualPerf > 0 ? totalDailyCost / actualPerf : 0;
             const otherShare = actualPerf > 0 ? otherCosts / actualPerf : 0;
             const totalCost = rawCost + machineShare + otherShare;
 
-            document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
-            document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
-            document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
-            document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
+            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
+            if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
+            if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
+            if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
             const dailyAmort = equip / 5 / 365;
             const dailyFixedNoSalary = dailyAmort + otherCosts;
@@ -1278,37 +1262,47 @@ Thank you!
             const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
-            document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
+            if (document.getElementById('fitted-salary-display')) {
+                document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
+            }
 
             const badge = document.getElementById('feasibility-status-badge');
-
-            if (actualPerf >= reqPerf) {
-                const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
-                badge.className = 'status-badge status-success';
-                badge.innerHTML = `✅ ТЕХНИЧЕСКИ ВЫПОЛНИМО! (Запас мощности: +${surplus}%)`;
-            } else {
-                const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
-                badge.className = 'status-badge status-warning';
-                badge.innerHTML = `⚠️ НЕДОСТАТОЧНО МОЩНОСТИ 1 СТАНКА! (Дефицит: -${deficit}%)`;
+            if (badge) {
+                if (actualPerf >= reqPerf) {
+                    const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
+                    badge.className = 'status-badge status-success';
+                    badge.innerHTML = `✅ ТЕХНИЧЕСКИ ВЫПОЛНИМО! (Запас мощности: +${surplus}%)`;
+                } else {
+                    const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
+                    badge.className = 'status-badge status-warning';
+                    badge.innerHTML = `⚠️ НЕДОСТАТОЧНО МОЩНОСТИ 1 СТАНКА! (Дефицит: -${deficit}%)`;
+                }
             }
 
             const profitPerDay = actualPerf * (market - totalCost);
             const monthProfit = Math.round(profitPerDay * 30);
             const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
-            document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
-            document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
+            if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
+            if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
 
             renderEquipmentListingGroupedByTopic(rawCost, market);
         }
 
         function renderEquipmentListingGroupedByTopic(rawCost, marketPrice) {
-            document.getElementById('client-bom-display').textContent = rawCost.toFixed(2);
             const container = document.getElementById('client-matched-equipment-rows');
+            if (!container) return;
+
+            const bomDispElem = document.getElementById('client-bom-display');
+            if (bomDispElem) bomDispElem.textContent = rawCost.toFixed(2);
+
             container.innerHTML = '';
 
+            // Прогоняем базу через функцию дедупликации
+            const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
+
             const groupedByTopic = {};
-            savedEquipmentDatabase.forEach(item => {
+            cleanDatabase.forEach(item => {
                 const topicName = item.topic_title || "Общая категория (Alibaba)";
                 if (!groupedByTopic[topicName]) {
                     groupedByTopic[topicName] = [];
@@ -1355,7 +1349,7 @@ Thank you!
         document.addEventListener('input', calculateAll);
 
         window.onload = function () {
-            calculateAll();
+            loadCatalogTemplate('drone');
             loadCloudDatabaseIfAvailable();
         };
     </script>

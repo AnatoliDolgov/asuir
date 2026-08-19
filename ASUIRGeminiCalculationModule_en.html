@@ -731,97 +731,6 @@
                         </tr>
                     </thead>
                     <tbody id="component-dynamic-rows">
-                        <!-- DEFAULT PRE-FILLED DRONE ROWS IN HTML -->
-                        <tr id="default-row-1">
-                            <td><input type="text" id="default-row-1-name" class="input-field input-sm" value="Carbon frame (5&quot;)" placeholder="Component name..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-1-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Carbon+frame" placeholder="🔗 Link...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-1-url')" title="Open link on Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-1')" title="Search on Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-1-price" value="5" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-1')" title="Bulk calculator">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-1').remove(); calculateAll();" title="Remove row">✕</button></td>
-                        </tr>
-                        <tr id="default-row-2">
-                            <td><input type="text" id="default-row-2-name" class="input-field input-sm" value="Flight controller" placeholder="Component name..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-2-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Flight+controller" placeholder="🔗 Link...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-2-url')" title="Open link on Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-2')" title="Search on Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-2-price" value="45" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-2')" title="Bulk calculator">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-2').remove(); calculateAll();" title="Remove row">✕</button></td>
-                        </tr>
-                        <tr id="default-row-3">
-                            <td><input type="text" id="default-row-3-name" class="input-field input-sm" value="Brushless motors (4 pcs)" placeholder="Component name..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-3-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=Brushless+motors" placeholder="🔗 Link...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-3-url')" title="Open link on Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-3')" title="Search on Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-3-price" value="40" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-3')" title="Bulk calculator">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-3').remove(); calculateAll();" title="Remove row">✕</button></td>
-                        </tr>
-                        <tr id="default-row-4">
-                            <td><input type="text" id="default-row-4-name" class="input-field input-sm" value="VTX Video system &amp; camera" placeholder="Component name..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-4-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=VTX+camera" placeholder="🔗 Link...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-4-url')" title="Open link on Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-4')" title="Search on Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-4-price" value="35" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-4')" title="Bulk calculator">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-4').remove(); calculateAll();" title="Remove row">✕</button></td>
-                        </tr>
-                        <tr id="default-row-5">
-                            <td><input type="text" id="default-row-5-name" class="input-field input-sm" value="LiPo Battery 6S" placeholder="Component name..."></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px;">
-                                    <input type="text" id="default-row-5-url" class="input-url input-url-sm" value="https://www.alibaba.com/trade/search?SearchText=LiPo+battery" placeholder="🔗 Link...">
-                                    <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('default-row-5-url')" title="Open link on Alibaba">🔗</button>
-                                </div>
-                            </td>
-                            <td class="row-search"><button class="btn-icon btn-icon-sm" onclick="searchAlibaba('default-row-5')" title="Search on Alibaba">🔍</button></td>
-                            <td><input type="number" step="0.1" class="input-field input-sm" value="1" style="width:80px;"></td>
-                            <td>
-                                <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                    <input type="number" step="0.0001" class="input-field input-sm" id="default-row-5-price" value="25" style="width:100px;">
-                                    <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('default-row-5')" title="Bulk calculator">🧮</button>
-                                </div>
-                            </td>
-                            <td class="row-delete"><button class="btn-delete-icon" onclick="document.getElementById('default-row-5').remove(); calculateAll();" title="Remove row">✕</button></td>
-                        </tr>
                     </tbody>
                     <tfoot>
                         <tr style="background:#f0f5fa;">
@@ -904,13 +813,16 @@
                 </table>
             </div>
 
-            <!-- COMPARATIVE EQUIPMENT LISTING GROUPED BY TOPIC (NICE CLASS) -->
+            <!-- COMPARATIVE EQUIPMENT LISTING GROUPED BY TOPIC (ON THE FLY TRANSLATION) -->
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
                         📋 Calibrated Alibaba Equipment Listing (Grouped by Topic / Nice Class)
                     </h3>
-                    <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
+                    <div>
+                        <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Reset duplicates">🧹 Reset Duplicates</button>
+                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
+                    </div>
                 </div>
 
                 <table class="components-table" style="width:100%;">
@@ -1080,6 +992,7 @@ Thank you!
 
         function addComponentRow(name, qty, price, url = '') {
             const tbody = document.getElementById('component-dynamic-rows');
+            if (!tbody) return;
             const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
             const tr = document.createElement('tr');
             tr.id = rowId;
@@ -1114,12 +1027,7 @@ Thank you!
         const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
         let currentTopicTitle = "Drones & Radioelectronics";
 
-        function getSavedEquipmentDatabase() {
-            try {
-                const stored = localStorage.getItem('asuir_saved_equip_db');
-                if (stored) return JSON.parse(stored);
-            } catch (e) { }
-
+        function getDefaultInitialDatabase() {
             return [
                 { topic_title: "Drones & Radioelectronics", name: "Compact Drone Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
                 { topic_title: "Drones & Radioelectronics", name: "Standard SMT Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 120000, perf: 100, staff: 2 },
@@ -1129,51 +1037,140 @@ Thank you!
             ];
         }
 
+        function getSavedEquipmentDatabase() {
+            try {
+                const stored = localStorage.getItem('asuir_saved_equip_db');
+                if (stored) return getDeduplicatedDatabase(JSON.parse(stored));
+            } catch (e) { }
+
+            return getDefaultInitialDatabase();
+        }
+
         let savedEquipmentDatabase = getSavedEquipmentDatabase();
+
+        // ПЕРЕВОД НА ЛЕТУ ВСЕХ ТЕКСТОВ И ТЕМ
+        function translateTextOnTheFly(text) {
+            if (!text) return "Equipment Line (Alibaba)";
+            let t = text.trim();
+
+            t = t.replace(/Компактная линия сборки дронов \(Alibaba\)/gi, "Compact Drone Assembly Line (Alibaba)");
+            t = t.replace(/Стандартная SMT линия сборки \(Alibaba\)/gi, "Standard SMT Assembly Line (Alibaba)");
+            t = t.replace(/Высокоскоростной пром-комплекс \(Alibaba\)/gi, "High-Speed Industrial Line (Alibaba)");
+            t = t.replace(/Линия вакуумной запрессовки планшетов \(Alibaba\)/gi, "Vacuum Lamination Tablet Line (Alibaba)");
+            t = t.replace(/Индукционный литейный комплекс \(Alibaba\)/gi, "Induction Jewelry Casting Machine (Alibaba)");
+            t = t.replace(/Линия с Alibaba/gi, "Line from Alibaba");
+
+            t = t.replace(/Дроны и Радиоэлектроника/gi, "Drones & Radioelectronics");
+            t = t.replace(/Планшеты и Мобильные ПК/gi, "Tablets & Mobile PCs");
+            t = t.replace(/Телевизоры и Дисплеи/gi, "TVs & Displays");
+            t = t.replace(/Телеком и Компьютеры/gi, "Telecom & Computers");
+            t = t.replace(/Хлебопекарная Линия/gi, "Commercial Bakery Line");
+            t = t.replace(/Ювелирные Изделия/gi, "Fine Jewelry");
+            t = t.replace(/Сборка Часов/gi, "Watch Assembly");
+            t = t.replace(/Производство Бижутерии/gi, "Costume Jewelry Press");
+            t = t.replace(/Пошив Одежды/gi, "Apparel Sewing");
+            t = t.replace(/Мебель и Деревообработка/gi, "Furniture Woodworking");
+            t = t.replace(/Измерительные Приборы/gi, "Precision Instruments");
+            t = t.replace(/Настольные ЧПУ Станки/gi, "Desktop CNC Machines");
+            t = t.replace(/Общая категория \(Alibaba\)/gi, "General Category (Alibaba)");
+
+            return t;
+        }
+
+        function normalizeTopicTitle(rawTitle) {
+            return translateTextOnTheFly(rawTitle);
+        }
+
+        function getDeduplicatedDatabase(database) {
+            const uniqueItems = [];
+            const seenKeys = new Set();
+
+            database.forEach(item => {
+                const topic = normalizeTopicTitle(item.topic_title);
+                const name = translateTextOnTheFly(item.name || "Machine");
+                const cost = item.cost || 0;
+                const perf = item.perf || 0;
+
+                const key = `${topic}_${name}_${cost}_${perf}`;
+
+                if (!seenKeys.has(key)) {
+                    seenKeys.add(key);
+                    uniqueItems.push({
+                        ...item,
+                        name: name,
+                        topic_title: topic
+                    });
+                }
+            });
+
+            return uniqueItems;
+        }
+
+        function resetSavedEquipmentDatabase() {
+            savedEquipmentDatabase = getDefaultInitialDatabase();
+            try {
+                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+            } catch (e) { }
+            calculateAll();
+            alert("🧹 Listing reset to clean defaults!");
+        }
 
         async function loadCloudDatabaseIfAvailable() {
             try {
                 const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
                 if (res.ok) {
                     const cloudData = await res.json();
-                    if (cloudData) {
-                        const cloudArr = Object.keys(cloudData).map(k => cloudData[k]);
-                        savedEquipmentDatabase = cloudArr.concat(savedEquipmentDatabase);
+                    if (cloudData && typeof cloudData === 'object') {
+                        const cloudArr = Object.values(cloudData);
+                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudArr.concat(savedEquipmentDatabase));
                         calculateAll();
                     }
                 }
             } catch (e) { }
         }
 
-        async function saveCurrentEquipmentToDatabase() {
-            const query = document.getElementById('equip-search-query').value.trim() || "Line from Alibaba";
-            const url = document.getElementById('equip-url').value.trim();
-            const cost = parseFloat(document.getElementById('val-equip').value) || 0;
-            const perf = parseFloat(document.getElementById('val-actual-perf').value) || 1;
-            const staff = parseFloat(document.getElementById('val-staff').value) || 1;
-
-            const newItem = {
-                topic_title: currentTopicTitle,
-                name: query,
-                url: url,
-                cost: cost,
-                perf: perf,
-                staff: staff
-            };
-
-            savedEquipmentDatabase.unshift(newItem);
-
+        function saveCurrentEquipmentToDatabase() {
             try {
-                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-                await fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newItem)
-                });
-            } catch (e) { }
+                const queryInput = document.getElementById('equip-search-query');
+                const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Line from Alibaba";
 
-            calculateAll();
-            alert(`✅ Equipment "${query}" ($${cost.toLocaleString()}) saved to Section 5 Listing under "${currentTopicTitle}"!`);
+                const urlInput = document.getElementById('equip-url');
+                const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+
+                const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
+                const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
+                const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+
+                const newItem = {
+                    topic_title: currentTopicTitle || "Drones & Radioelectronics",
+                    name: query,
+                    url: url,
+                    cost: cost,
+                    perf: perf,
+                    staff: staff
+                };
+
+                savedEquipmentDatabase.unshift(newItem);
+                savedEquipmentDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
+
+                try {
+                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
+                } catch (e) { }
+
+                calculateAll();
+                alert(`✅ Equipment "${query}" ($${cost.toLocaleString()}) saved to Section 5 Listing under "${currentTopicTitle}"!`);
+
+                try {
+                    fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newItem)
+                    }).catch(err => console.log("Cloud sync skipped"));
+                } catch (e) { }
+
+            } catch (err) {
+                console.error("Error in saveCurrentEquipmentToDatabase:", err);
+            }
         }
 
         const catalogDB = {
@@ -1197,18 +1194,20 @@ Thank you!
             const data = catalogDB[key] || catalogDB['drone'];
             currentTopicTitle = data.title || "General Topic";
 
-            document.getElementById('val-equip').value = data.eq;
-            document.getElementById('market-price-input').value = data.mkt;
-            document.getElementById('equip-search-query').value = data.q;
-            document.getElementById('val-actual-perf').value = data.perf || 100;
-            document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
+            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
+            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
+            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
+            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
 
             const tbody = document.getElementById('component-dynamic-rows');
-            tbody.innerHTML = '';
-            data.c.forEach(item => {
-                const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
-                addComponentRow(item[0], item[1], item[2], itemUrl);
-            });
+            if (tbody) {
+                tbody.innerHTML = '';
+                data.c.forEach(item => {
+                    const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
+                    addComponentRow(item[0], item[1], item[2], itemUrl);
+                });
+            }
             calculateAll();
         }
 
@@ -1227,17 +1226,18 @@ Thank you!
         }
 
         function calculateAll() {
-            const equip = parseFloat(document.getElementById('val-equip').value) || 0;
-            const staff = parseFloat(document.getElementById('val-staff').value) || 0;
-            const salary = parseFloat(document.getElementById('val-salary').value) || 0;
-            const rent = parseFloat(document.getElementById('val-rent').value) || 0;
-            const logistics = parseFloat(document.getElementById('val-logistics').value) || 0;
-            const other = parseFloat(document.getElementById('val-other').value) || 0;
-            const market = parseFloat(document.getElementById('market-price-input').value) || 0;
-            const actualPerf = parseFloat(document.getElementById('val-actual-perf').value) || 1;
+            const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 0;
+            const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
+            const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
+            const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
+            const other = parseFloat(document.getElementById('val-other')?.value) || 0;
+            const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
+            const actualPerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
 
             let rawCost = 0;
-            document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
+            const tbodyRows = document.querySelectorAll('#component-dynamic-rows tr');
+            tbodyRows.forEach(tr => {
                 const inputs = tr.querySelectorAll('input');
                 if (inputs.length >= 4) {
                     const qty = parseFloat(inputs[2]?.value) || 0;
@@ -1245,31 +1245,34 @@ Thank you!
                     rawCost += qty * price;
                 }
             });
-            document.getElementById('total-bom-cost').textContent = rawCost.toFixed(2);
+
+            const bomElem = document.getElementById('total-bom-cost');
+            if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
             const amort = equip / 5 / 365;
             const salaryPerDay = (salary * staff) / 30;
             const overhead = amort + salaryPerDay;
-            document.getElementById('base-overhead').textContent = Math.round(overhead);
-            document.getElementById('total-daily-cost').textContent = Math.round(overhead);
+
+            if (document.getElementById('base-overhead')) document.getElementById('base-overhead').textContent = Math.round(overhead);
+            if (document.getElementById('total-daily-cost')) document.getElementById('total-daily-cost').textContent = Math.round(overhead);
 
             const otherCosts = rent + logistics + other;
-            document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
+            if (document.getElementById('total-other-costs')) document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
 
             const totalDailyCost = overhead + otherCosts;
 
             const reqPerf = rawCost > 0 ? Math.ceil(totalDailyCost / (rawCost * 0.1)) : 0;
-            document.getElementById('perf-val').textContent = reqPerf;
-            document.getElementById('actual-perf-val').textContent = actualPerf;
+            if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
+            if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
             const machineShare = actualPerf > 0 ? totalDailyCost / actualPerf : 0;
             const otherShare = actualPerf > 0 ? otherCosts / actualPerf : 0;
             const totalCost = rawCost + machineShare + otherShare;
 
-            document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
-            document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
-            document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
-            document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
+            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
+            if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
+            if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
+            if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
             const dailyAmort = equip / 5 / 365;
             const dailyFixedNoSalary = dailyAmort + otherCosts;
@@ -1277,38 +1280,47 @@ Thank you!
             const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
-            document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('en-US')} / mo`;
+            if (document.getElementById('fitted-salary-display')) {
+                document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('en-US')} / mo`;
+            }
 
             const badge = document.getElementById('feasibility-status-badge');
-
-            if (actualPerf >= reqPerf) {
-                const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
-                badge.className = 'status-badge status-success';
-                badge.innerHTML = `✅ FEASIBLE! (Capacity reserve: +${surplus}%)`;
-            } else {
-                const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
-                badge.className = 'status-badge status-warning';
-                badge.innerHTML = `⚠️ CAPACITY DEFICIT! (Deficit: -${deficit}%)`;
+            if (badge) {
+                if (actualPerf >= reqPerf) {
+                    const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
+                    badge.className = 'status-badge status-success';
+                    badge.innerHTML = `✅ FEASIBLE! (Capacity reserve: +${surplus}%)`;
+                } else {
+                    const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
+                    badge.className = 'status-badge status-warning';
+                    badge.innerHTML = `⚠️ CAPACITY DEFICIT! (Deficit: -${deficit}%)`;
+                }
             }
 
             const profitPerDay = actualPerf * (market - totalCost);
             const monthProfit = Math.round(profitPerDay * 30);
             const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
-            document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
-            document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('en-US') : '0';
+            if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
+            if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('en-US') : '0';
 
             renderEquipmentListingGroupedByTopic(rawCost, market);
         }
 
         function renderEquipmentListingGroupedByTopic(rawCost, marketPrice) {
-            document.getElementById('client-bom-display').textContent = rawCost.toFixed(2);
             const container = document.getElementById('client-matched-equipment-rows');
+            if (!container) return;
+
+            const bomDispElem = document.getElementById('client-bom-display');
+            if (bomDispElem) bomDispElem.textContent = rawCost.toFixed(2);
+
             container.innerHTML = '';
 
+            const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
+
             const groupedByTopic = {};
-            savedEquipmentDatabase.forEach(item => {
-                const topicName = item.topic_title || "General Category (Alibaba)";
+            cleanDatabase.forEach(item => {
+                const topicName = normalizeTopicTitle(item.topic_title);
                 if (!groupedByTopic[topicName]) {
                     groupedByTopic[topicName] = [];
                 }
@@ -1316,16 +1328,19 @@ Thank you!
             });
 
             for (const [topic, items] of Object.entries(groupedByTopic)) {
+                const translatedTopic = translateTextOnTheFly(topic);
+
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
                     <td colspan="7" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                        📂 TOPIC: ${topic.toUpperCase()} (Client BOM Specification = $${rawCost.toFixed(2)})
+                        📂 TOPIC: ${translatedTopic.toUpperCase()} (Client BOM Specification = $${rawCost.toFixed(2)})
                     </td>
                 `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
+                    const translatedLineName = translateTextOnTheFly(line.name);
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
@@ -1338,7 +1353,7 @@ Thank you!
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td style="padding-left:20px;"><b>${line.name}</b></td>
+                        <td style="padding-left:20px;"><b>${translatedLineName}</b></td>
                         <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                         <td>$${line.cost.toLocaleString()}</td>
                         <td>${line.perf} pcs/day</td>
@@ -1354,7 +1369,7 @@ Thank you!
         document.addEventListener('input', calculateAll);
 
         window.onload = function () {
-            calculateAll();
+            loadCatalogTemplate('drone');
             loadCloudDatabaseIfAvailable();
         };
     </script>
