@@ -1594,7 +1594,18 @@ Thank you!
             loadCatalogTemplate('drone');
             loadCloudDatabaseIfAvailable();
         };
-    </script>
 
-</body>
+        // Регистрация кеша Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('ASUIR Cache Ready:', reg.scope))
+                    .catch(err => console.log('ASUIR Cache Error:', err));
+            });
+        }
+
+    </script>
+    
+
+    </body>
 </html>
