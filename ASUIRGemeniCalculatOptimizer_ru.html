@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Генератор эффективности — ASUIR Gemini</title>
     <style>
+        /* ================================================================
+           СТИЛИСТИКА INNOVATION MATRIX
+           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -543,6 +546,7 @@
         }
     </style>
 
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -630,6 +634,7 @@
                         </td>
                     </tr>
 
+                    <!-- ФАКТИЧЕСКАЯ ПАСПОРТНАЯ ПРОИЗВОДИТЕЛЬНОСТЬ С АЛИБАБЫ -->
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
                             <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность станка (с Alibaba)</span></span><br>
@@ -672,8 +677,8 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу">
-                    💾 Зафиксировать верифицированный станок в Базу
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу Листинга Секции 5">
+                    💾 Зафиксировать этот станок в Базу Листинга
                 </button>
             </div>
         </div>
@@ -768,7 +773,7 @@
 
         <!-- ТАБ 5 -->
         <div class="section" id="tab5">
-            <h2 class="section-title">5. Сводка финансовых результатов и Верифицированный Листинг</h2>
+            <h2 class="section-title">5. Сводка финансовых результатов и Тематический Листинг</h2>
             <div class="table-responsive">
                 <table class="section-results">
                     <tr>
@@ -792,7 +797,7 @@
                     <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
                         <td style="font-weight: 700; color: #007600;">
                             <span class="icon-text"><span class="ico">💵</span> Достигаемая Зарплата 1 рабочего под ЭТОТ станок:</span><br>
-                            <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш (Учитывается введенный персонал)</span>
+                            <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш ($1.10 x BOM)</span>
                         </td>
                         <td class="right">
                             <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">
@@ -1024,9 +1029,9 @@ Thank you!
         }
 
         // ================================================================
-        // СЕКРЕТНЫЙ РЕЖИМ АДМИНИСТРАТОРА (ANATOLID) И ЕДИНОЕ ОБЛАКО GITHUB
+        // ИСКЛЮЧИТЕЛЬНО РЕАЛЬНАЯ ВЕРИФИЦИРОВАННАЯ БАЗА ALIBABA (БЕЗ ФЕЙКОВ)
         // ================================================================
-        const GITHUB_MASTER_DB_URL = "https://anatolidolgov.github.io/asuir/asuir_db.json";
+        const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
@@ -1145,16 +1150,17 @@ Thank you!
                 localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
             } catch (e) { }
             calculateAll();
-            alert("🧹 Листинг успешно очищен от дубликатов!");
+            alert("🧹 Листинг успешно очищен и сброшен к верифицированным реальным станкам!");
         }
 
         async function loadCloudDatabaseIfAvailable() {
             try {
-                const res = await fetch(GITHUB_MASTER_DB_URL);
+                const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
                 if (res.ok) {
                     const cloudData = await res.json();
-                    if (cloudData && Array.isArray(cloudData)) {
-                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudData.concat(savedEquipmentDatabase));
+                    if (cloudData && typeof cloudData === 'object') {
+                        const cloudArr = Object.values(cloudData);
+                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudArr.concat(savedEquipmentDatabase));
                         calculateAll();
                     }
                 }
@@ -1252,10 +1258,11 @@ Thank you!
             calculateAll();
         }
 
+        // СТРОГИЙ МАТЕМАТИЧЕСКИЙ РАСЧЕТ И ПРАВИЛО 10% (1.10 x BOM)
         function calculateAll() {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
 
-            // СЧИТЫВАЕМ ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО ПЕРСОНАЛА (БЕЗ СБРОСА ДО 2)
+            // СЧИТЫВАЕМ ТОЧНОЕ ЧИСЛО ПЕРСОНАЛА (НАПРИМЕР 20 ЧЕЛОВЕК) БЕЗ СБРОСА
             const staffInput = document.getElementById('val-staff');
             const staff = (staffInput && parseFloat(staffInput.value) > 0) ? parseFloat(staffInput.value) : 1;
 
@@ -1296,15 +1303,6 @@ Thank you!
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
-            const machineShare = actualPerf > 0 ? totalDailyCost / actualPerf : 0;
-            const otherShare = actualPerf > 0 ? otherCosts / actualPerf : 0;
-            const totalCost = rawCost + machineShare + otherShare;
-
-            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
-            if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
-            if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
-            if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
-
             // ФОНД ЗАРПЛАТЫ И ЗАРПЛАТА 1 РАБОЧЕГО ПО ПРАВИЛУ 10%
             const dailyAmort = equip / 5 / 365;
             const dailyFixedNoSalary = dailyAmort + otherCosts;
@@ -1317,6 +1315,15 @@ Thank you!
             if (document.getElementById('fitted-salary-display')) {
                 document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
             }
+
+            // СЕБЕСТОИМОСТЬ ФИКСИРУЕТСЯ НА УРОВНЕ БАНГЛАДЕШ (1.10 x BOM)
+            const unitOverheadShare = maxAllowedDailyOverhead > 0 ? (maxAllowedDailyOverhead / actualPerf) : 0;
+            const totalCost = rawCost + unitOverheadShare;
+
+            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
+            if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = unitOverheadShare.toFixed(2);
+            if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = "0.00";
+            if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
             const badge = document.getElementById('feasibility-status-badge');
             if (badge) {
@@ -1397,8 +1404,7 @@ Thank you!
                     const lineStaff = line.staff || 1;
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / lineStaff));
 
-                    const totalDailyCost = dailyAmort + ((fittedSalary * lineStaff) / 30) + 100;
-                    const unitCost = rawCost + (totalDailyCost / line.perf);
+                    const unitCost = rawCost + (maxAllowedDailyOverhead / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
                     const adminDeleteCell = isAdminMode ? `
