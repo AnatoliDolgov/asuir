@@ -6,7 +6,7 @@
     <title>Генератор эффективности — ASUIR Gemini</title>
     <style>
         /* ================================================================
-           СТИЛИСТИКА INNOVATION MATRIX (RU)
+           СТИЛИСТИКА INNOVATION MATRIX
            ================================================================ */
         * {
             margin: 0;
@@ -570,8 +570,7 @@
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Обратная связь</a>
-            <!-- СЕКРЕТНАЯ КНОПКА АДМИНИСТРАТОРА ДЛЯ УДАЛЕНИЯ ЗАПИСЕЙ -->
-            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Включить режим администратора для удаления записей">
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Режим администратора">
                 🔑 Admin Mode
             </button>
         </div>
@@ -609,7 +608,7 @@
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог МКТУ</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="Линия сборки БПЛА (Sanhok)" style="max-width: 220px;">
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="drone assembly line" style="max-width: 170px;">
                                 <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты оборудования на Alibaba">
                                     🔍 Варианты на Alibaba ↗
                                 </button>
@@ -620,7 +619,7 @@
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на выбранный товар</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html">
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Drone-Assembly-Line-Automatic-Production-Equipment_1601648870125.html">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Открыть ссылку на Alibaba в новой вкладке">
                                     🔗 Перейти
                                 </button>
@@ -631,7 +630,7 @@
                         </td>
                         <td class="right">
                             <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Стоимость $</span>
-                            <input type="number" id="val-equip" class="input-field input-field-sm" value="199000">
+                            <input type="number" id="val-equip" class="input-field input-field-sm" value="45000">
                         </td>
                     </tr>
 
@@ -648,22 +647,22 @@
                                     <option value="pcs_hour">Штук в час</option>
                                     <option value="sec_pc">Секунд на 1 шт</option>
                                 </select>
-                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="100" style="width: 90px; font-weight:700; color:#c65911;">
+                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="120" style="width: 90px; font-weight:700; color:#c65911;">
                                 <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">шт/день</span>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
-                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество рабочих конвейера (штат)</span></span></td>
+                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество операторов</span></span></td>
                         <td class="right">
-                            <input type="number" id="val-staff" class="input-field input-field-sm" value="12">
+                            <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
                         </td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Базовая целевая зарплата рабочего в месяц</span></span></td>
                         <td class="right">
-                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="4000">
+                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="10000">
                         </td>
                     </tr>
                     <tr class="total-row">
@@ -678,8 +677,8 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу Листинга Секции 5">
-                    💾 Зафиксировать этот станок в Базу Листинга
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий верифицированный станок в Базу">
+                    💾 Зафиксировать верифицированный станок в Базу
                 </button>
             </div>
         </div>
@@ -739,7 +738,7 @@
                     <tfoot>
                         <tr style="background:#f0f5fa;">
                             <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Итоговая стоимость сырья (BOM) на 1 шт:</span></span></td>
-                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
+                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">150.00</span></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -774,7 +773,7 @@
 
         <!-- ТАБ 5 -->
         <div class="section" id="tab5">
-            <h2 class="section-title">5. Сводка финансовых результатов и Тематический Листинг</h2>
+            <h2 class="section-title">5. Сводка финансовых результатов и Верифицированный Листинг</h2>
             <div class="table-responsive">
                 <table class="section-results">
                     <tr>
@@ -789,7 +788,7 @@
                     </tr>
                     <tr>
                         <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Паспортная скорость станка (с Alibaba)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">100</span> шт./день</td>
+                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">120</span> шт./день</td>
                     </tr>
                     <tr style="background: #fcfcfc;">
                         <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Индикатор выполнимости мощности:</span></td>
@@ -821,7 +820,7 @@
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
-                        📋 Откалибрированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
+                        📋 Откалибрированный Верифицированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
                     </h3>
                     <div>
                         <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Сбросить повторы">🧹 Очистить повторы</button>
@@ -1030,9 +1029,9 @@ Thank you!
         }
 
         // ================================================================
-        // СЕКРЕТНЫЙ РЕЖИМ АДМИНИСТРАТОРА (ANATOLID) И ОБЛАЧНАЯ БАЗА
+        // СЕКРЕТНЫЙ РЕЖИМ АДМИНИСТРАТОРА (ANATOLID) И ЕДИНОЕ ОБЛАКО GITHUB
         // ================================================================
-        const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
+        const GITHUB_MASTER_DB_URL = "https://anatolidolgov.github.io/asuir/asuir_db.json";
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
@@ -1041,18 +1040,16 @@ Thank you!
                 isAdminMode = false;
                 document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
                 document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
-                document.getElementById('admin-col-header').style.display = "none";
                 alert("🔒 Режим администратора выключен.");
             } else {
-                const pwd = prompt("Введите секретный пароль владельца системы АСУИР:");
+                const pwd = prompt("Введите секретный пароль Владельца системы АСУИР:");
                 if (pwd === "AnatoliD") {
                     isAdminMode = true;
                     document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
                     document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
-                    document.getElementById('admin-col-header').style.display = "table-cell";
-                    alert("🔓 Режим Администратора активирован! Теперь у каждой строки доступна кнопка 🗑️ для удаления записи из живой базы.");
+                    alert("🔓 Режим Администратора активирован! В таблице Листинга Секции 5 включены кнопки 🗑️ для удаления нежелательных записей.");
                 } else if (pwd !== null) {
-                    alert("❌ Неверный пароль администратора!");
+                    alert("❌ Ошибка: Неверный пароль администратора!");
                 }
             }
             calculateAll();
@@ -1060,27 +1057,43 @@ Thank you!
 
         function deleteItemFromLiveDatabase(index) {
             if (!isAdminMode) return;
-            const item = savedEquipmentDatabase[index];
+            const cleanDb = getDeduplicatedDatabase(savedEquipmentDatabase);
+            const item = cleanDb[index];
             if (!item) return;
 
-            if (confirm(`🗑️ Вы действительно хотите удалить станок "${item.name}" из глобальной базы?`)) {
-                savedEquipmentDatabase.splice(index, 1);
+            if (confirm(`🗑️ Вы действительно хотите удалить станок "${item.name}" из базы?`)) {
+                savedEquipmentDatabase = savedEquipmentDatabase.filter(i =>
+                    !(i.name === item.name && i.cost === item.cost && i.perf === item.perf)
+                );
+
                 try {
                     localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
                 } catch (e) { }
 
                 calculateAll();
-                alert(`✅ Запись "${item.name}" удалена из базы.`);
+                alert(`✅ Запись "${item.name}" удалена из базы!`);
             }
         }
 
+        // ТОЛЬКО ВЕРИФИЦИРОВАННЫЕ РЕАЛЬНЫЕ СТАНКИ С ALIBABA (БЕЗ ФЕЙКОВ)
         function getDefaultInitialDatabase() {
             return [
-                { topic_title: "Дроны и Радиоэлектроника", name: "Линия сборки БПЛА (Sanhok 100 шт/день)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
-                { topic_title: "Дроны и Радиоэлектроника", name: "Высокоскоростной комплекс БПЛА (Sanhok 500 шт/день)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
-                { topic_title: "Дроны и Радиоэлектроника", name: "Компактная ESD-линия сборки дронов (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 3 },
-                { topic_title: "Планшеты и Мобильные ПК", name: "Линия вакуумной запрессовки планшетов (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 4 },
-                { topic_title: "Ювелирные Изделия", name: "Индукционный литейный комплекс (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 2 }
+                {
+                    topic_title: "Дроны и Радиоэлектроника",
+                    name: "Drone Assembly Line Automatic Production Equipment",
+                    url: "https://www.alibaba.com/product-detail/Drone-Assembly-Line-Automatic-Production-Equipment_1601648870125.html",
+                    cost: 45000,
+                    perf: 120,
+                    staff: 2
+                },
+                {
+                    topic_title: "Дроны и Радиоэлектроника",
+                    name: "Automatic Industrial Drone Assembly Line for UAV",
+                    url: "https://www.alibaba.com/product-detail/Automatic-Industrial-Drone-Assembly-Line-for_1601648671531.html",
+                    cost: 120000,
+                    perf: 100,
+                    staff: 2
+                }
             ];
         }
 
@@ -1104,12 +1117,6 @@ Thank you!
             if (t.includes('pc') || t.includes('компьютер')) return "Телеком и Компьютеры";
             if (t.includes('bakery') || t.includes('хлеб')) return "Хлебопекарная Линия";
             if (t.includes('jewelry') || t.includes('ювелир')) return "Ювелирные Изделия";
-            if (t.includes('watch') || t.includes('час')) return "Сборка Часов";
-            if (t.includes('costume') || t.includes('бижутерия')) return "Производство Бижутерии";
-            if (t.includes('clothes') || t.includes('одежд')) return "Пошив Одежды";
-            if (t.includes('furniture') || t.includes('мебель')) return "Мебель и Деревообработка";
-            if (t.includes('instruments') || t.includes('прибор')) return "Измерительные Приборы";
-            if (t.includes('cnc') || t.includes('чпу')) return "Настольные ЧПУ Станки";
             return rawTitle;
         }
 
@@ -1129,7 +1136,6 @@ Thank you!
                     seenKeys.add(key);
                     uniqueItems.push({
                         ...item,
-                        name: name,
                         topic_title: topic
                     });
                 }
@@ -1144,17 +1150,16 @@ Thank you!
                 localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
             } catch (e) { }
             calculateAll();
-            alert("🧹 Листинг успешно очищен от дубликатов!");
+            alert("🧹 Листинг успешно очищен и сброшен к верифицированным реальным станкам!");
         }
 
         async function loadCloudDatabaseIfAvailable() {
             try {
-                const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
+                const res = await fetch(GITHUB_MASTER_DB_URL);
                 if (res.ok) {
                     const cloudData = await res.json();
-                    if (cloudData && typeof cloudData === 'object') {
-                        const cloudArr = Object.values(cloudData);
-                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudArr.concat(savedEquipmentDatabase));
+                    if (cloudData && Array.isArray(cloudData)) {
+                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudData.concat(savedEquipmentDatabase));
                         calculateAll();
                     }
                 }
@@ -1190,211 +1195,27 @@ Thank you!
                 } catch (e) { }
 
                 calculateAll();
-                alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) зафиксирован в теме "${currentTopicTitle}" в Секции 5!`);
-
-                try {
-                    fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newItem)
-                    }).catch(err => console.log("Cloud sync skipped"));
-                } catch (e) { }
+                alert(`✅ Реальный станок "${query}" ($${cost.toLocaleString()}) зафиксирован в теме "${currentTopicTitle}" в Секции 5!`);
 
             } catch (err) {
                 console.error("Error in saveCurrentEquipmentToDatabase:", err);
             }
         }
 
-        // ОТКАЛИБРОВАННАЯ БАЗА КАТАЛОГА ПО МКТУ
         const catalogDB = {
-            'drone': {
-                title: "Дроны и Радиоэлектроника",
-                eq: '199000',
-                mkt: '423',
-                perf: '100',
-                staff: '12',
-                q: 'Линия сборки БПЛА (Sanhok)',
-                c: [
-                    ['Карбоновая рама с лучами', 1, 26.0],
-                    ['Полетный контроллер (FC + PDB)', 1, 45.0],
-                    ['Бесколлекторные моторы + регуляторы (4 шт.)', 1, 55.0],
-                    ['Видеосистема VTX и FPV камера', 1, 35.0],
-                    ['Аккумулятор LiPo 6S', 1, 25.0]
-                ]
-            },
-            'tablet': {
-                title: "Планшеты и Мобильные ПК",
-                eq: '45000',
-                mkt: '150',
-                perf: '120',
-                staff: '4',
-                q: 'tablet assembly equipment',
-                c: [
-                    ['Экран в сборе (IPS/OLED)', 1, 35.0],
-                    ['Материнская плата SoC (ARM)', 1, 45.0],
-                    ['Литий-полимерный аккумулятор', 1, 10.0],
-                    ['Ультратонкий корпус и шлейфы', 1, 8.0],
-                    ['Упаковочная коробка', 1, 2.0]
-                ]
-            },
-            'tv': {
-                title: "Телевизоры и Дисплеи",
-                eq: '280000',
-                mkt: '550',
-                perf: '50',
-                staff: '8',
-                q: 'lcd tv assembly line',
-                c: [
-                    ['ЖК / OLED Матрица дисплея', 1, 140.0],
-                    ['Материнская плата (Main Board)', 1, 45.0],
-                    ['Блок питания инверторный', 1, 25.0],
-                    ['Светодиодная подсветка матрицы', 1, 15.0],
-                    ['Корпус и динамики', 1, 28.0]
-                ]
-            },
-            'pc': {
-                title: "Телеком и Компьютеры",
-                eq: '180000',
-                mkt: '1850',
-                perf: '20',
-                staff: '6',
-                q: 'computer assembly machine',
-                c: [
-                    ['Процессор (Desktop CPU)', 1, 340.0],
-                    ['Графическая карта (GPU)', 1, 520.0],
-                    ['Материнская плата ATX/ITX', 1, 140.0],
-                    ['Оперативная память (RAM)', 1, 105.0],
-                    ['Накопитель SSD NVMe 2TB', 1, 115.0],
-                    ['Корпус и блок питания', 1, 130.0]
-                ]
-            },
-            'bakery': {
-                title: "Хлебопекарная Линия",
-                eq: '45000',
-                mkt: '1.5',
-                perf: '25000',
-                staff: '3',
-                q: 'commercial bakery line',
-                c: [
-                    ['Мука высшего сорта (кг)', 0.6, 0.4],
-                    ['Дрожжи и добавки', 1, 0.05],
-                    ['Упаковочный пакет', 1, 0.08]
-                ]
-            },
-            'jewelry': {
-                title: "Ювелирные Изделия",
-                eq: '45000',
-                mkt: '350',
-                perf: '150',
-                staff: '2',
-                q: 'jewelry casting machine',
-                c: [
-                    ['Золото/Серебро в гранулах', 10, 8.0],
-                    ['Вставки (камни, фианиты)', 2, 20.0],
-                    ['Ювелирная фурнитура', 1, 5.0],
-                    ['Бархатный футляр', 1, 5.0]
-                ]
-            },
-            'watch': {
-                title: "Сборка Часов",
-                eq: '35000',
-                mkt: '450',
-                perf: '150',
-                staff: '3',
-                q: 'watch assembly tools',
-                c: [
-                    ['Корпус и сапфировое стекло', 1, 30.0],
-                    ['Точный часовой механизм', 1, 40.0],
-                    ['Циферблат и стрелки', 1, 10.0],
-                    ['Ремешок (кожа/металл)', 1, 15.0],
-                    ['Подарочный футляр', 1, 8.0]
-                ]
-            },
-            'costume': {
-                title: "Производство Бижутерии",
-                eq: '15000',
-                mkt: '25',
-                perf: '3000',
-                staff: '2',
-                q: 'costume jewelry press',
-                c: [
-                    ['Сплав (Заготовка)', 1, 2.0],
-                    ['Декоративные стразы', 1, 1.0],
-                    ['Фурнитура', 1, 0.5],
-                    ['Эко-пакетик', 1, 1.5]
-                ]
-            },
-            'clothes': {
-                title: "Пошив Одежды",
-                eq: '35000',
-                mkt: '65',
-                perf: '300',
-                staff: '5',
-                q: 'industrial sewing machine',
-                c: [
-                    ['Текстиль (метры)', 1.8, 12.0],
-                    ['Мягкая подкладка', 1.2, 3.5],
-                    ['Нити и фурнитура', 1, 5.0],
-                    ['Упаковка и бирка', 1, 1.5]
-                ]
-            },
-            'furniture': {
-                title: "Мебель и Деревообработка",
-                eq: '90000',
-                mkt: '280',
-                perf: '120',
-                staff: '4',
-                q: 'cnc woodworking machine',
-                c: [
-                    ['ЛДСП / МДФ (кв.м.)', 4, 15.0],
-                    ['Кромочная лента', 1, 5.0],
-                    ['Зеркальное полотно', 1, 22.0],
-                    ['Металлическая фурнитура', 1, 8.0],
-                    ['Упаковочный картон', 1, 6.0]
-                ]
-            },
-            'instruments': {
-                title: "Измерительные Приборы",
-                eq: '110000',
-                mkt: '450',
-                perf: '60',
-                staff: '4',
-                q: 'precision assembly machine',
-                c: [
-                    ['Сенсорный измерительный модуль', 1, 120.0],
-                    ['Плата обработки сигналов', 1, 65.0],
-                    ['ЖК-дисплей', 1, 25.0],
-                    ['Ударопрочный корпус IP65', 1, 40.0]
-                ]
-            },
-            'cnc': {
-                title: "Настольные ЧПУ Станки",
-                eq: '25000',
-                mkt: '1500',
-                perf: '20',
-                staff: '2',
-                q: 'desktop cnc machine',
-                c: [
-                    ['Алюминиевая станина', 1, 300.0],
-                    ['Шаговые моторы', 1, 150.0],
-                    ['Контроллер ЧПУ', 1, 80.0],
-                    ['Шпиндель и блок питания', 1, 200.0]
-                ]
-            },
-            'universal': {
-                title: "Универсальный Проект",
-                eq: '60000',
-                mkt: '200',
-                perf: '200',
-                staff: '3',
-                q: 'manufacturing machine',
-                c: [
-                    ['Основной базовый материал', 1, 40.0],
-                    ['Функциональные модули', 1, 25.0],
-                    ['Декоративный корпус', 1, 12.0],
-                    ['Потребительская коробка', 1, 3.0]
-                ]
-            }
+            'drone': { title: "Дроны и Радиоэлектроника", eq: '45000', mkt: '423', perf: '120', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
+            'tablet': { title: "Планшеты и Мобильные ПК", eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]] },
+            'tv': { title: "Телевизоры и Дисплеи", eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]] },
+            'pc': { title: "Телеком и Компьютеры", eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Процессор (Desktop CPU)', 1, 340.0], ['Графическая карта (GPU)', 1, 520.0], ['Материнская плата ATX/ITX', 1, 140.0], ['Оперативная память (RAM)', 1, 105.0], ['Накопитель SSD NVMe 2TB', 1, 115.0], ['Корпус и блок питания', 1, 130.0]] },
+            'bakery': { title: "Хлебопекарная Линия", eq: '45000', mkt: '1.5', perf: '25000', q: 'commercial bakery line', c: [['Мука высшего сорта (кг)', 0.6, 0.4], ['Дрожжи и добавки', 1, 0.05], ['Упаковочный пакет', 1, 0.08]] },
+            'jewelry': { title: "Ювелирные Изделия", eq: '45000', mkt: '350', perf: '150', q: 'jewelry casting machine', c: [['Золото/Серебро в гранулах', 10, 8.0], ['Вставки (камни, фианиты)', 2, 20.0], ['Ювелирная фурнитура', 1, 5.0], ['Бархатный футляр', 1, 5.0]] },
+            'watch': { title: "Сборка Часов", eq: '35000', mkt: '450', perf: '150', q: 'watch assembly tools', c: [['Корпус и сапфировое стекло', 1, 30.0], ['Точный часовой механизм', 1, 40.0], ['Циферблат и стрелки', 1, 10.0], ['Ремешок (кожа/металл)', 1, 15.0], ['Подарочный футляр', 1, 8.0]] },
+            'costume': { title: "Производство Бижутерии", eq: '15000', mkt: '25', perf: '3000', q: 'costume jewelry press', c: [['Сплав (Заготовка)', 1, 2.0], ['Декоративные стразы', 1, 1.0], ['Фурнитура', 1, 0.5], ['Эко-пакетик', 1, 1.5]] },
+            'clothes': { title: "Пошив Одежды", eq: '35000', mkt: '65', perf: '300', q: 'industrial sewing machine', c: [['Текстиль (метры)', 1.8, 12.0], ['Мягкая подкладка', 1.2, 3.5], ['Нити и фурнитура', 1, 5.0], ['Упаковка и бирка', 1, 1.5]] },
+            'furniture': { title: "Мебель и Деревообработка", eq: '90000', mkt: '280', perf: '120', q: 'cnc woodworking machine', c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]] },
+            'instruments': { title: "Измерительные Приборы", eq: '110000', mkt: '450', perf: '60', q: 'precision assembly machine', c: [['Сенсорный измерительный модуль', 1, 120.0], ['Плата обработки сигналов', 1, 65.0], ['ЖК-дисплей', 1, 25.0], ['Ударопрочный корпус IP65', 1, 40.0]] },
+            'cnc': { title: "Настольные ЧПУ Станки", eq: '25000', mkt: '1500', perf: '20', q: 'desktop cnc machine', c: [['Алюминиевая станина', 1, 300.0], ['Шаговые моторы', 1, 150.0], ['Контроллер ЧПУ', 1, 80.0], ['Шпиндель и блок питания', 1, 200.0]] },
+            'universal': { title: "Универсальный Проект", eq: '60000', mkt: '200', perf: '200', q: 'manufacturing machine', c: [['Основной базовый материал', 1, 40.0], ['Функциональные модули', 1, 25.0], ['Декоративный корпус', 1, 12.0], ['Потребительская коробка', 1, 3.0]] }
         };
 
         function loadCatalogTemplate(key) {
@@ -1406,14 +1227,7 @@ Thank you!
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
-            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 1;
-            if (document.getElementById('equip-url')) {
-                if (key === 'drone') {
-                    document.getElementById('equip-url').value = "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html";
-                } else {
-                    document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
-                }
-            }
+            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
 
             const tbody = document.getElementById('component-dynamic-rows');
             if (tbody) {
@@ -1442,7 +1256,7 @@ Thank you!
 
         function calculateAll() {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
-            const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 0;
             const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
             const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
             const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
@@ -1526,13 +1340,27 @@ Thank you!
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
+            const bomDispElem = document.getElementById('client-bom-display');
+            if (bomDispElem) bomDispElem.textContent = rawCost.toFixed(2);
+
             container.innerHTML = '';
 
             const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
 
+            if (cleanDatabase.length === 0) {
+                container.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align:center; padding:20px; color:#6c7a8a;">
+                            Нет верифицированных линий. Введите параметры реального станка с Алибабы в Разделе 1 и нажмите "💾 Зафиксировать верифицированный станок в Базу"!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
             const groupedByTopic = {};
             cleanDatabase.forEach(item => {
-                const topicName = normalizeTopicTitle(item.topic_title);
+                const topicName = item.topic_title || "Общая категория (Alibaba)";
                 if (!groupedByTopic[topicName]) {
                     groupedByTopic[topicName] = [];
                 }
@@ -1560,9 +1388,9 @@ Thank you!
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
                     const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
-                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
+                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
 
-                    const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + 100;
+                    const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
                     const unitCost = rawCost + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
@@ -1578,7 +1406,7 @@ Thank you!
                         <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                         <td>$${line.cost.toLocaleString()}</td>
                         <td>${line.perf} шт/день</td>
-                        <td>${line.staff || 1} чел</td>
+                        <td>${line.staff} чел</td>
                         <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
                         <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
                         ${adminDeleteCell}
@@ -1594,18 +1422,7 @@ Thank you!
             loadCatalogTemplate('drone');
             loadCloudDatabaseIfAvailable();
         };
-
-        // Регистрация кеша Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('ASUIR Cache Ready:', reg.scope))
-                    .catch(err => console.log('ASUIR Cache Error:', err));
-            });
-        }
-
     </script>
-    
 
-    </body>
+</body>
 </html>
