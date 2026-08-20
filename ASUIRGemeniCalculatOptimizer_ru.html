@@ -570,7 +570,8 @@
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Обратная связь</a>
-            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Режим администратора">
+            <!-- СЕКРЕТНАЯ КНОПКА АДМИНИСТРАТОРА ДЛЯ УДАЛЕНИЯ ЗАПИСЕЙ -->
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Включить режим администратора для удаления записей">
                 🔑 Admin Mode
             </button>
         </div>
@@ -619,7 +620,7 @@
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на выбранный товар</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Drone-Assembly-Line-Automatic-Production-Equipment_1601648870125.html">
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Открыть ссылку на Alibaba в новой вкладке">
                                     🔗 Перейти
                                 </button>
@@ -630,7 +631,7 @@
                         </td>
                         <td class="right">
                             <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Стоимость $</span>
-                            <input type="number" id="val-equip" class="input-field input-field-sm" value="45000">
+                            <input type="number" id="val-equip" class="input-field input-field-sm" value="120000">
                         </td>
                     </tr>
 
@@ -647,7 +648,7 @@
                                     <option value="pcs_hour">Штук в час</option>
                                     <option value="sec_pc">Секунд на 1 шт</option>
                                 </select>
-                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="120" style="width: 90px; font-weight:700; color:#c65911;">
+                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="100" style="width: 90px; font-weight:700; color:#c65911;">
                                 <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">шт/день</span>
                             </div>
                         </td>
@@ -788,7 +789,7 @@
                     </tr>
                     <tr>
                         <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Паспортная скорость станка (с Alibaba)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">120</span> шт./день</td>
+                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">100</span> шт./день</td>
                     </tr>
                     <tr style="background: #fcfcfc;">
                         <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Индикатор выполнимости мощности:</span></td>
@@ -797,7 +798,7 @@
                     <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
                         <td style="font-weight: 700; color: #007600;">
                             <span class="icon-text"><span class="ico">💵</span> Достигаемая Зарплата 1 рабочего под ЭТОТ станок:</span><br>
-                            <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш ($1.10 x BOM)</span>
+                            <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш</span>
                         </td>
                         <td class="right">
                             <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">
@@ -820,11 +821,11 @@
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
-                        📋 Откалибрированный Верифицированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
+                        📋 Откалибрированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
                     </h3>
                     <div>
                         <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Сбросить повторы">🧹 Очистить повторы</button>
-                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать верифицированный станок в Базу</button>
+                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок в Базу</button>
                     </div>
                 </div>
 
@@ -1003,97 +1004,85 @@ Thank you!
             const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
 
             tr.innerHTML = `
-                <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
-                <td>
-                    <div style="display:flex; align-items:center; gap:4px;">
-                        <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
-                        <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                    </div>
-                </td>
-                <td class="row-search">
-                    <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
-                </td>
-                <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
-                <td>
-                    <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                        <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
-                        <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
-                    </div>
-                </td>
-                <td class="row-delete">
-                    <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
-                </td>
-            `;
+                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
+                            <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
+                        </div>
+                    </td>
+                    <td class="row-search">
+                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                    </td>
+                    <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                            <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
+                        </div>
+                    </td>
+                    <td class="row-delete">
+                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
+                    </td>
+                `;
             tbody.appendChild(tr);
             calculateAll();
         }
 
         // ================================================================
-        // ИСКЛЮЧИТЕЛЬНО РЕАЛЬНАЯ ВЕРИФИЦИРОВАННАЯ БАЗА ALIBABA (БЕЗ ФЕЙКОВ)
+        // СЕКРЕТНЫЙ РЕЖИМ АДМИНИСТРАТОРА (ANATOLID) И ОБЛАЧНАЯ БАЗА
         // ================================================================
         const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
+        // ВКТЮЧЕНИЕ РЕЖИМА АДМИНИСТРАТОРА ПО ПАРОЛЮ AnatoliD
         function toggleAdminMode() {
             if (isAdminMode) {
                 isAdminMode = false;
                 document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
                 document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
+                document.getElementById('admin-col-header').style.display = "none";
                 alert("🔒 Режим администратора выключен.");
             } else {
-                const pwd = prompt("Введите секретный пароль Владельца системы АСУИР:");
+                const pwd = prompt("Введите секретный пароль владельца системы АСУИР:");
                 if (pwd === "AnatoliD") {
                     isAdminMode = true;
                     document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
                     document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
-                    alert("🔓 Режим Администратора активирован! В таблице Листинга Секции 5 включены кнопки 🗑️ для удаления нежелательных записей.");
+                    document.getElementById('admin-col-header').style.display = "table-cell";
+                    alert("🔓 Режим Администратора активирован! Теперь у каждой строки доступна кнопка 🗑️ для удаления записи из живой базы.");
                 } else if (pwd !== null) {
-                    alert("❌ Ошибка: Неверный пароль администратора!");
+                    alert("❌ Неверный пароль администратора!");
                 }
             }
             calculateAll();
         }
 
+        // УДАЛЕНИЕ СТРОКИ ИЗ ЖИВОЙ БАЗЫ ВЛАДЕЛЬЦЕМ
         function deleteItemFromLiveDatabase(index) {
             if (!isAdminMode) return;
-            const cleanDb = getDeduplicatedDatabase(savedEquipmentDatabase);
-            const item = cleanDb[index];
+            const item = savedEquipmentDatabase[index];
             if (!item) return;
 
-            if (confirm(`🗑️ Вы действительно хотите удалить станок "${item.name}" из базы?`)) {
-                savedEquipmentDatabase = savedEquipmentDatabase.filter(i =>
-                    !(i.name === item.name && i.cost === item.cost && i.perf === item.perf)
-                );
-
+            if (confirm(`🗑️ Вы действительно хотите удалить станок "${item.name}" из глобальной базы?`)) {
+                savedEquipmentDatabase.splice(index, 1);
                 try {
                     localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
                 } catch (e) { }
 
                 calculateAll();
-                alert(`✅ Запись "${item.name}" удалена из базы!`);
+                alert(`✅ Запись "${item.name}" удалена из базы.`);
             }
         }
 
-        // ТОЛЬКО ВЕРИФИЦИРОВАННЫЕ РЕАЛЬНЫЕ СТАНКИ С ALIBABA
         function getDefaultInitialDatabase() {
             return [
-                {
-                    topic_title: "Дроны и Радиоэлектроника",
-                    name: "Drone Assembly Line Automatic Production Equipment",
-                    url: "https://www.alibaba.com/product-detail/Drone-Assembly-Line-Automatic-Production-Equipment_1601648870125.html",
-                    cost: 45000,
-                    perf: 120,
-                    staff: 2
-                },
-                {
-                    topic_title: "Дроны и Радиоэлектроника",
-                    name: "Automatic Industrial Drone Assembly Line for UAV",
-                    url: "https://www.alibaba.com/product-detail/Automatic-Industrial-Drone-Assembly-Line-for_1601648671531.html",
-                    cost: 120000,
-                    perf: 100,
-                    staff: 2
-                }
+                { topic_title: "Дроны и Радиоэлектроника", name: "Компактная линия сборки дронов (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
+                { topic_title: "Дроны и Радиоэлектроника", name: "Стандартная SMT линия сборки (Alibaba)", url: "https://www.alibaba.com/", cost: 120000, perf: 100, staff: 2 },
+                { topic_title: "Дроны и Радиоэлектроника", name: "Высокоскоростной пром-комплекс (Alibaba)", url: "https://www.alibaba.com/", cost: 280000, perf: 250, staff: 3 },
+                { topic_title: "Планшеты и Мобильные ПК", name: "Линия вакуумной запрессовки планшетов (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 2 },
+                { topic_title: "Ювелирные изделия", name: "Индукционный литейный комплекс (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 1 }
             ];
         }
 
@@ -1150,7 +1139,7 @@ Thank you!
                 localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
             } catch (e) { }
             calculateAll();
-            alert("🧹 Листинг успешно очищен и сброшен к верифицированным реальным станкам!");
+            alert("🧹 Листинг успешно очищен от дубликатов!");
         }
 
         async function loadCloudDatabaseIfAvailable() {
@@ -1177,10 +1166,7 @@ Thank you!
 
                 const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
                 const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
-
-                // ЖЕСТКОЕ СЧИТЫВАНИЕ ВВЕДЕННОГО ПОЛЬЗОВАТЕЛЕМ ЧИСЛА ОПЕРАТОРОВ (например 20)
-                const staffInputVal = parseFloat(document.getElementById('val-staff')?.value);
-                const staff = (!isNaN(staffInputVal) && staffInputVal > 0) ? staffInputVal : 2;
+                const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
                 const newItem = {
                     topic_title: currentTopicTitle || "Дроны и Радиоэлектроника",
@@ -1188,7 +1174,7 @@ Thank you!
                     url: url,
                     cost: cost,
                     perf: perf,
-                    staff: staff // СОХРАНЯЕТСЯ ТОЧНОЕ ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО!
+                    staff: staff
                 };
 
                 savedEquipmentDatabase.unshift(newItem);
@@ -1199,7 +1185,15 @@ Thank you!
                 } catch (e) { }
 
                 calculateAll();
-                alert(`✅ Реальный станок "${query}" ($${cost.toLocaleString()}) зафиксирован на ${staff} чел. в теме "${currentTopicTitle}"!`);
+                alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) зафиксирован в теме "${currentTopicTitle}" в Секции 5!`);
+
+                try {
+                    fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newItem)
+                    }).catch(err => console.log("Cloud sync skipped"));
+                } catch (e) { }
 
             } catch (err) {
                 console.error("Error in saveCurrentEquipmentToDatabase:", err);
@@ -1207,7 +1201,7 @@ Thank you!
         }
 
         const catalogDB = {
-            'drone': { title: "Дроны и Радиоэлектроника", eq: '45000', mkt: '423', perf: '120', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
+            'drone': { title: "Дроны и Радиоэлектроника", eq: '120000', mkt: '423', perf: '100', q: 'drone assembly line', c: [['Карбоновая рама (5")', 1, 5.0], ['Полетный контроллер', 1, 45.0], ['Бесколлекторные моторы (4 шт.)', 1, 40.0], ['Видеосистема VTX и камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]] },
             'tablet': { title: "Планшеты и Мобильные ПК", eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]] },
             'tv': { title: "Телевизоры и Дисплеи", eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]] },
             'pc': { title: "Телеком и Компьютеры", eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Процессор (Desktop CPU)', 1, 340.0], ['Графическая карта (GPU)', 1, 520.0], ['Материнская плата ATX/ITX', 1, 140.0], ['Оперативная память (RAM)', 1, 105.0], ['Накопитель SSD NVMe 2TB', 1, 115.0], ['Корпус и блок питания', 1, 130.0]] },
@@ -1230,7 +1224,7 @@ Thank you!
             if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
-            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 120;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
             if (document.getElementById('equip-url')) document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
 
             const tbody = document.getElementById('component-dynamic-rows');
@@ -1258,14 +1252,9 @@ Thank you!
             calculateAll();
         }
 
-        // СТРОГИЙ МАТЕМАТИЧЕСКИЙ РАСЧЕТ И ПРАВИЛО 10% (1.10 x BOM)
         function calculateAll() {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
-
-            // СЧИТЫВАЕМ ТОЧНОЕ ЧИСЛО ПЕРСОНАЛА (НАПРИМЕР 20 ЧЕЛОВЕК) БЕЗ СБРОСА
-            const staffInput = document.getElementById('val-staff');
-            const staff = (staffInput && parseFloat(staffInput.value) > 0) ? parseFloat(staffInput.value) : 1;
-
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 0;
             const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
             const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
             const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
@@ -1288,7 +1277,7 @@ Thank you!
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
             const amort = equip / 5 / 365;
-            const salaryPerDay = (salary * staff) / 30; // Берет ровно то число, которое ввел пользователь
+            const salaryPerDay = (salary * staff) / 30;
             const overhead = amort + salaryPerDay;
 
             if (document.getElementById('base-overhead')) document.getElementById('base-overhead').textContent = Math.round(overhead);
@@ -1303,27 +1292,24 @@ Thank you!
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
-            // ФОНД ЗАРПЛАТЫ И ЗАРПЛАТА 1 РАБОЧЕГО ПО ПРАВИЛУ 10%
+            const machineShare = actualPerf > 0 ? totalDailyCost / actualPerf : 0;
+            const otherShare = actualPerf > 0 ? otherCosts / actualPerf : 0;
+            const totalCost = rawCost + machineShare + otherShare;
+
+            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
+            if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
+            if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
+            if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
+
             const dailyAmort = equip / 5 / 365;
             const dailyFixedNoSalary = dailyAmort + otherCosts;
             const maxAllowedDailyOverhead = actualPerf * (rawCost * 0.10);
             const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
-
-            // ДЕЛИМ СТРОГО НА ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО ОПЕРАТОРОВ (staff)
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
             if (document.getElementById('fitted-salary-display')) {
                 document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
             }
-
-            // СЕБЕСТОИМОСТЬ ФИКСИРУЕТСЯ НА УРОВНЕ БАНГЛАДЕШ (1.10 x BOM)
-            const unitOverheadShare = maxAllowedDailyOverhead > 0 ? (maxAllowedDailyOverhead / actualPerf) : 0;
-            const totalCost = rawCost + unitOverheadShare;
-
-            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
-            if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = unitOverheadShare.toFixed(2);
-            if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = "0.00";
-            if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
             const badge = document.getElementById('feasibility-status-badge');
             if (badge) {
@@ -1359,17 +1345,6 @@ Thank you!
 
             const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
 
-            if (cleanDatabase.length === 0) {
-                container.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align:center; padding:20px; color:#6c7a8a;">
-                            Нет верифицированных линий. Введите параметры реального станка с Алибабы в Разделе 1 и нажмите "💾 Зафиксировать верифицированный станок в Базу"!
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
             const groupedByTopic = {};
             cleanDatabase.forEach(item => {
                 const topicName = item.topic_title || "Общая категория (Alibaba)";
@@ -1379,6 +1354,7 @@ Thank you!
                 groupedByTopic[topicName].push(item);
             });
 
+            // Управление видимостью колонки удаления
             const adminColHeader = document.getElementById('admin-col-header');
             if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
 
@@ -1388,10 +1364,10 @@ Thank you!
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                    <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                        📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${rawCost.toFixed(2)})
-                    </td>
-                `;
+                        <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                            📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${rawCost.toFixed(2)})
+                        </td>
+                    `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
@@ -1400,30 +1376,29 @@ Thank you!
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
                     const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
+                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
 
-                    const lineStaff = line.staff || 1;
-                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / lineStaff));
-
-                    const unitCost = rawCost + (maxAllowedDailyOverhead / line.perf);
+                    const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
+                    const unitCost = rawCost + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
                     const adminDeleteCell = isAdminMode ? `
-                        <td style="text-align:center;">
-                            <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase(${currentIndex})" title="Удалить запись из базы">🗑️</button>
-                        </td>
-                    ` : '';
+                            <td style="text-align:center;">
+                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase(${currentIndex})" title="Удалить запись из базы">🗑️</button>
+                            </td>
+                        ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td style="padding-left:20px;"><b>${line.name}</b></td>
-                        <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                        <td>$${line.cost.toLocaleString()}</td>
-                        <td>${line.perf} шт/день</td>
-                        <td>${lineStaff} чел</td>
-                        <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
-                        <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
-                        ${adminDeleteCell}
-                    `;
+                            <td style="padding-left:20px;"><b>${line.name}</b></td>
+                            <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                            <td>$${line.cost.toLocaleString()}</td>
+                            <td>${line.perf} шт/день</td>
+                            <td>${line.staff} чел</td>
+                            <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
+                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                            ${adminDeleteCell}
+                        `;
                     container.appendChild(tr);
                 });
             }
