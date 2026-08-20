@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Генератор эффективности — ASUIR Gemini</title>
     <style>
-        /* ================================================================
-           СТИЛИСТИКА INNOVATION MATRIX
-           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -546,7 +543,6 @@
         }
     </style>
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -634,7 +630,6 @@
                         </td>
                     </tr>
 
-                    <!-- ФАКТИЧЕСКАЯ ПАСПОРТНАЯ ПРОИЗВОДИТЕЛЬНОСТЬ С АЛИБАБЫ -->
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
                             <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность станка (с Alibaba)</span></span><br>
@@ -656,7 +651,6 @@
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество операторов</span></span></td>
                         <td class="right">
-                            <!-- ВАЖНО: ЗНАЧЕНИЕ НЕ СБРАСЫВАЕТСЯ ПРИ ВВОДЕ ПОЛЬЗОВАТЕЛЕМ -->
                             <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
                         </td>
                     </tr>
@@ -678,7 +672,7 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий верифицированный станок с его параметрами в Базу Листинга Секции 5">
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу">
                     💾 Зафиксировать верифицированный станок в Базу
                 </button>
             </div>
@@ -1076,6 +1070,7 @@ Thank you!
             }
         }
 
+        // ТОЛЬКО ВЕРИФИЦИРОВАННЫЕ РЕАЛЬНЫЕ СТАНКИ С ALIBABA
         function getDefaultInitialDatabase() {
             return [
                 {
@@ -1177,7 +1172,7 @@ Thank you!
                 const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
                 const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
 
-                // КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: ЖЕСТКОЕ СОХРАНЕНИЕ ВВЕДЕННОГО ЧИСЛА ПЕРСОНАЛА В БАЗУ
+                // ЖЕСТКОЕ СЧИТЫВАНИЕ ВВЕДЕННОГО ПОЛЬЗОВАТЕЛЕМ ЧИСЛА ОПЕРАТОРОВ (например 20)
                 const staffInputVal = parseFloat(document.getElementById('val-staff')?.value);
                 const staff = (!isNaN(staffInputVal) && staffInputVal > 0) ? staffInputVal : 2;
 
@@ -1187,7 +1182,7 @@ Thank you!
                     url: url,
                     cost: cost,
                     perf: perf,
-                    staff: staff // Сохраняем точное вложенное число операторов!
+                    staff: staff // СОХРАНЯЕТСЯ ТОЧНОЕ ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО!
                 };
 
                 savedEquipmentDatabase.unshift(newItem);
@@ -1257,11 +1252,10 @@ Thank you!
             calculateAll();
         }
 
-        // ВЫЧИСЛЕНИЕ ВСЕХ МЕТРИК С ТОЧНОЙ СОХРАННОСТЬЮ ПЕРСОНАЛА (БЕЗ СБРОСА ЧИСЛА 20)
         function calculateAll() {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
 
-            // СЧИТЫВАЕМ ЧИСЛО ПЕРСОНАЛА НАПРЯМУЮ, БЕЗ СБРОСА
+            // СЧИТЫВАЕМ ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО ПЕРСОНАЛА (БЕЗ СБРОСА ДО 2)
             const staffInput = document.getElementById('val-staff');
             const staff = (staffInput && parseFloat(staffInput.value) > 0) ? parseFloat(staffInput.value) : 1;
 
@@ -1287,7 +1281,7 @@ Thank you!
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
             const amort = equip / 5 / 365;
-            const salaryPerDay = (salary * staff) / 30; // Учитывает точное число рабочих (например 20)
+            const salaryPerDay = (salary * staff) / 30; // Берет ровно то число, которое ввел пользователь
             const overhead = amort + salaryPerDay;
 
             if (document.getElementById('base-overhead')) document.getElementById('base-overhead').textContent = Math.round(overhead);
@@ -1317,7 +1311,7 @@ Thank you!
             const maxAllowedDailyOverhead = actualPerf * (rawCost * 0.10);
             const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
 
-            // ДЕЛИМ СТРОГО НА ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО ОПЕРАТОРОВ (staff = 20)
+            // ДЕЛИМ СТРОГО НА ВВЕДЕННОЕ ПОЛЬЗОВАТЕЛЕМ ЧИСЛО ОПЕРАТОРОВ (staff)
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
             if (document.getElementById('fitted-salary-display')) {
@@ -1400,7 +1394,6 @@ Thank you!
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
                     const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
 
-                    // Используем сохраненное число операторов для каждой линии
                     const lineStaff = line.staff || 1;
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / lineStaff));
 
