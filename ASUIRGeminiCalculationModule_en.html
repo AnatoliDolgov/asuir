@@ -609,7 +609,7 @@
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Nice Class Catalog</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="drone assembly line" style="max-width: 170px;">
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Drone assembly line (Sanhok)" style="max-width: 220px;">
                                 <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Open Alibaba equipment options">
                                     🔍 Alibaba Options ↗
                                 </button>
@@ -620,7 +620,7 @@
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Selected Item Link</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line">
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Open Alibaba link in new tab">
                                     🔗 Open Link
                                 </button>
@@ -631,11 +631,10 @@
                         </td>
                         <td class="right">
                             <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Cost $</span>
-                            <input type="number" id="val-equip" class="input-field input-field-sm" value="120000">
+                            <input type="number" id="val-equip" class="input-field input-field-sm" value="199000">
                         </td>
                     </tr>
 
-                    <!-- ACTUAL PASSPORT PERFORMANCE FROM ALIBABA -->
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
                             <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Machine Capacity (from Alibaba)</span></span><br>
@@ -657,13 +656,13 @@
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Operators</span></span></td>
                         <td class="right">
-                            <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
+                            <input type="number" id="val-staff" class="input-field input-field-sm" value="12">
                         </td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Monthly Salary per Operator</span></span></td>
                         <td class="right">
-                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="10000">
+                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="4000">
                         </td>
                     </tr>
                     <tr class="total-row">
@@ -709,7 +708,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: CLIENT BOM SPECIFICATION PRE-FILLED BY DEFAULT -->
+        <!-- TAB 3 -->
         <div class="section" id="tab3">
             <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
 
@@ -739,7 +738,7 @@
                     <tfoot>
                         <tr style="background:#f0f5fa;">
                             <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
-                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">150.00</span></td>
+                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -821,10 +820,9 @@
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
-                        📋 Calibrated Alibaba Equipment Listing (Grouped by Topic / Nice Class)
+                        📋 Calibrated Alibaba Equipment Listing (Cloud Firebase)
                     </h3>
                     <div>
-                        <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Reset duplicates">🧹 Reset Duplicates</button>
                         <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
                     </div>
                 </div>
@@ -843,6 +841,7 @@
                         </tr>
                     </thead>
                     <tbody id="client-matched-equipment-rows">
+                        <tr><td colspan="7" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -889,7 +888,7 @@ We are evaluating your equipment line for production setup. Please specify:
 1. Exact Daily Production Capacity (Pcs/Day or Cycle Time per 1 unit).
 2. Minimum required operators/staff to run this line.
 Thank you!
-        </textarea>
+            </textarea>
             <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText(document.getElementById('inquiry-text-area').value); alert('Inquiry text copied!'); closeModal('inquiry-modal');">📋 Copy Inquiry Text</button>
         </div>
     </div>
@@ -926,7 +925,124 @@ Thank you!
         </div>
     </div>
 
-    <script>
+    <!-- FIREBASE REALTIME SDK SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        // YOUR FIREBASE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
+            authDomain: "asuir-gemini.firebaseapp.com",
+            projectId: "asuir-gemini",
+            storageBucket: "asuir-gemini.firebasestorage.app",
+            messagingSenderId: "53572749601",
+            appId: "1:53572749601:web:e3c33578afd4bdac309660",
+            databaseURL: "https://asuir-gemini-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const equipmentDbRef = ref(db, 'equipment_listing_en');
+
+        let savedEquipmentList = [];
+        let currentTopicTitle = "Drones & Radioelectronics";
+        let isAdminMode = false;
+
+        const defaultInitialMachines = [
+            { topic_title: "Drones & Radioelectronics", name: "Drone Assembly Line (Sanhok 100 pcs/day)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
+            { topic_title: "Drones & Radioelectronics", name: "High-Speed Industrial Drone Complex (500 pcs/day)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
+            { topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 3 },
+            { topic_title: "Tablets & Mobile PCs", name: "Vacuum Lamination Tablet Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 4 },
+            { topic_title: "Fine Jewelry", name: "Induction Jewelry Casting Machine (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 2 }
+        ];
+
+        // 1. REALTIME LISTENER FROM FIREBASE CLOUD
+        onValue(equipmentDbRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                savedEquipmentList = Object.entries(data).map(([id, val]) => ({
+                    id: id,
+                    ...val
+                }));
+            } else {
+                defaultInitialMachines.forEach(item => {
+                    push(equipmentDbRef, item);
+                });
+                savedEquipmentList = [];
+            }
+            calculateAll();
+        });
+
+        // 2. SAVE TO FIREBASE CLOUD
+        window.saveCurrentEquipmentToDatabase = function () {
+            const queryInput = document.getElementById('equip-search-query');
+            const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Line from Alibaba";
+
+            const urlInput = document.getElementById('equip-url');
+            const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+
+            const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
+            const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+
+            const newItem = {
+                topic_title: currentTopicTitle || "Drones & Radioelectronics",
+                name: query,
+                url: url,
+                cost: cost,
+                perf: perf,
+                staff: staff
+            };
+
+            push(equipmentDbRef, newItem)
+                .then(() => {
+                    alert(`✅ Equipment "${query}" ($${cost.toLocaleString('en-US')}) saved to Section 5 Cloud Listing!`);
+                })
+                .catch(err => {
+                    alert(`❌ Error saving to Firebase: ` + err.message);
+                });
+        };
+
+        // 3. REMOVE RECORD FROM FIREBASE CLOUD
+        window.deleteItemFromLiveDatabase = function (id, name) {
+            if (!isAdminMode) return;
+            if (confirm(`🗑️ Delete equipment "${name}" from cloud database permanently?`)) {
+                const itemRef = ref(db, `equipment_listing_en/${id}`);
+                remove(itemRef)
+                    .then(() => {
+                        alert(`✅ Record permanently deleted from cloud.`);
+                    })
+                    .catch(err => {
+                        alert(`❌ Error deleting from Firebase: ` + err.message);
+                    });
+            }
+        };
+
+        // Admin mode toggle
+        window.toggleAdminMode = function () {
+            if (isAdminMode) {
+                isAdminMode = false;
+                document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
+                document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
+                document.getElementById('admin-col-header').style.display = "none";
+                alert("🔒 Admin mode deactivated.");
+            } else {
+                const pwd = prompt("Enter secret Admin password:");
+                if (pwd === "AnatoliD") {
+                    isAdminMode = true;
+                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
+                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
+                    document.getElementById('admin-col-header').style.display = "table-cell";
+                    alert("🔓 Admin Mode activated! Deletion button 🗑️ is now active for permanent removal.");
+                } else if (pwd !== null) {
+                    alert("❌ Incorrect Admin Password!");
+                }
+            }
+            calculateAll();
+        };
+
+        // Tab Navigation
         document.querySelectorAll('#tabHeaders a').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -937,20 +1053,20 @@ Thank you!
             });
         });
 
-        function openModal(id) { document.getElementById(id).style.display = 'block'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function openAlibabaInquiryModal() { openModal('inquiry-modal'); }
-        window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; }
+        window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
+        window.closeModal = function (id) { document.getElementById(id).style.display = 'none'; };
+        window.openAlibabaInquiryModal = function () { openModal('inquiry-modal'); };
+        window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; };
 
-        function openExternalUrl(inputId) {
+        window.openExternalUrl = function (inputId) {
             const input = document.getElementById(inputId);
             let url = input ? input.value.trim() : '';
             if (!url) return alert("Please enter a product link from Alibaba.");
             if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
             window.open(url, '_blank');
-        }
+        };
 
-        function searchAlibaba(rowId) {
+        window.searchAlibaba = function (rowId) {
             if (rowId === 'equip') {
                 const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
                 window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
@@ -961,9 +1077,9 @@ Thank you!
                     window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
                 }
             }
-        }
+        };
 
-        function handleFormSubmit(event, lang) {
+        window.handleFormSubmit = function (event, lang) {
             event.preventDefault();
             const likedText = document.getElementById('fb-like').value.trim();
             const dislikedText = document.getElementById('fb-dislike').value.trim();
@@ -971,17 +1087,17 @@ Thank you!
             let emailBody = "FEEDBACK ASUIR GEMINI\n\n1. What liked:\n" + (likedText || "N/A") + "\n\n2. What to improve:\n" + dislikedText + "\n";
             window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
-        }
+        };
 
         let activeBulkRowId = null;
-        function openBulkCalc(rowId) {
+        window.openBulkCalc = function (rowId) {
             activeBulkRowId = rowId;
             document.getElementById('bulk-total-price').value = '';
             document.getElementById('bulk-total-qty').value = '';
             openModal('bulk-modal');
-        }
+        };
 
-        function applyBulkCalc() {
+        window.applyBulkCalc = function () {
             const totalPrice = parseFloat(document.getElementById('bulk-total-price').value) || 0;
             const totalQty = parseFloat(document.getElementById('bulk-total-qty').value) || 1;
             const unitPrice = totalQty > 0 ? totalPrice / totalQty : 0;
@@ -993,9 +1109,9 @@ Thank you!
                 }
             }
             closeModal('bulk-modal');
-        }
+        };
 
-        function addComponentRow(name, qty, price, url = '') {
+        window.addComponentRow = function (name, qty, price, url = '') {
             const tbody = document.getElementById('component-dynamic-rows');
             if (!tbody) return;
             const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
@@ -1027,213 +1143,64 @@ Thank you!
                 `;
             tbody.appendChild(tr);
             calculateAll();
-        }
-
-        // SECRET ADMIN MODE & CLOUD SYNC
-        const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
-        let currentTopicTitle = "Drones & Radioelectronics";
-        let isAdminMode = false;
-
-        function toggleAdminMode() {
-            if (isAdminMode) {
-                isAdminMode = false;
-                document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
-                document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
-                document.getElementById('admin-col-header').style.display = "none";
-                alert("🔒 Admin mode deactivated.");
-            } else {
-                const pwd = prompt("Enter secret Admin password:");
-                if (pwd === "AnatoliD") {
-                    isAdminMode = true;
-                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
-                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
-                    document.getElementById('admin-col-header').style.display = "table-cell";
-                    alert("🔓 Admin Mode activated! Deletion button 🗑️ is now visible next to every row in Section 5.");
-                } else if (pwd !== null) {
-                    alert("❌ Incorrect Admin Password!");
-                }
-            }
-            calculateAll();
-        }
-
-        function deleteItemFromLiveDatabase(index) {
-            if (!isAdminMode) return;
-            const item = savedEquipmentDatabase[index];
-            if (!item) return;
-
-            if (confirm(`🗑️ Delete equipment "${item.name}" from global database?`)) {
-                savedEquipmentDatabase.splice(index, 1);
-                try {
-                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-                } catch (e) { }
-
-                calculateAll();
-                alert(`✅ Item "${item.name}" removed from database.`);
-            }
-        }
-
-        function getDefaultInitialDatabase() {
-            return [
-                { topic_title: "Drones & Radioelectronics", name: "Compact Drone Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 1 },
-                { topic_title: "Drones & Radioelectronics", name: "Standard SMT Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 120000, perf: 100, staff: 2 },
-                { topic_title: "Drones & Radioelectronics", name: "High-Speed Industrial Line (Alibaba)", url: "https://www.alibaba.com/", cost: 280000, perf: 250, staff: 3 },
-                { topic_title: "Tablets & Mobile PCs", name: "Vacuum Lamination Tablet Line (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 2 },
-                { topic_title: "Fine Jewelry", name: "Induction Jewelry Casting Machine (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 1 }
-            ];
-        }
-
-        function getSavedEquipmentDatabase() {
-            try {
-                const stored = localStorage.getItem('asuir_saved_equip_db');
-                if (stored) return getDeduplicatedDatabase(JSON.parse(stored));
-            } catch (e) { }
-
-            return getDefaultInitialDatabase();
-        }
-
-        let savedEquipmentDatabase = getSavedEquipmentDatabase();
-
-        function translateTextOnTheFly(text) {
-            if (!text) return "Equipment Line (Alibaba)";
-            let t = text.trim();
-
-            t = t.replace(/Компактная линия сборки дронов \(Alibaba\)/gi, "Compact Drone Assembly Line (Alibaba)");
-            t = t.replace(/Стандартная SMT линия сборки \(Alibaba\)/gi, "Standard SMT Assembly Line (Alibaba)");
-            t = t.replace(/Высокоскоростной пром-комплекс \(Alibaba\)/gi, "High-Speed Industrial Line (Alibaba)");
-            t = t.replace(/Линия вакуумной запрессовки планшетов \(Alibaba\)/gi, "Vacuum Lamination Tablet Line (Alibaba)");
-            t = t.replace(/Индукционный литейный комплекс \(Alibaba\)/gi, "Induction Jewelry Casting Machine (Alibaba)");
-            t = t.replace(/Линия с Alibaba/gi, "Line from Alibaba");
-
-            t = t.replace(/Дроны и Радиоэлектроника/gi, "Drones & Radioelectronics");
-            t = t.replace(/Планшеты и Мобильные ПК/gi, "Tablets & Mobile PCs");
-            t = t.replace(/Телевизоры и Дисплеи/gi, "TVs & Displays");
-            t = t.replace(/Телеком и Компьютеры/gi, "Telecom & Computers");
-            t = t.replace(/Хлебопекарная Линия/gi, "Commercial Bakery Line");
-            t = t.replace(/Ювелирные Изделия/gi, "Fine Jewelry");
-            t = t.replace(/Сборка Часов/gi, "Watch Assembly");
-            t = t.replace(/Производство Бижутерии/gi, "Costume Jewelry Press");
-            t = t.replace(/Пошив Одежды/gi, "Apparel Sewing");
-            t = t.replace(/Мебель и Деревообработка/gi, "Furniture Woodworking");
-            t = t.replace(/Измерительные Приборы/gi, "Precision Instruments");
-            t = t.replace(/Настольные ЧПУ Станки/gi, "Desktop CNC Machines");
-            t = t.replace(/Общая категория \(Alibaba\)/gi, "General Category (Alibaba)");
-
-            return t;
-        }
-
-        function normalizeTopicTitle(rawTitle) {
-            return translateTextOnTheFly(rawTitle);
-        }
-
-        function getDeduplicatedDatabase(database) {
-            const uniqueItems = [];
-            const seenKeys = new Set();
-
-            database.forEach(item => {
-                const topic = normalizeTopicTitle(item.topic_title);
-                const name = translateTextOnTheFly(item.name || "Machine");
-                const cost = item.cost || 0;
-                const perf = item.perf || 0;
-
-                const key = `${topic}_${name}_${cost}_${perf}`;
-
-                if (!seenKeys.has(key)) {
-                    seenKeys.add(key);
-                    uniqueItems.push({
-                        ...item,
-                        name: name,
-                        topic_title: topic
-                    });
-                }
-            });
-
-            return uniqueItems;
-        }
-
-        function resetSavedEquipmentDatabase() {
-            savedEquipmentDatabase = getDefaultInitialDatabase();
-            try {
-                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-            } catch (e) { }
-            calculateAll();
-            alert("🧹 Listing reset to clean defaults!");
-        }
-
-        async function loadCloudDatabaseIfAvailable() {
-            try {
-                const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
-                if (res.ok) {
-                    const cloudData = await res.json();
-                    if (cloudData && typeof cloudData === 'object') {
-                        const cloudArr = Object.values(cloudData);
-                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudArr.concat(savedEquipmentDatabase));
-                        calculateAll();
-                    }
-                }
-            } catch (e) { }
-        }
-
-        function saveCurrentEquipmentToDatabase() {
-            try {
-                const queryInput = document.getElementById('equip-search-query');
-                const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Line from Alibaba";
-
-                const urlInput = document.getElementById('equip-url');
-                const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
-
-                const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
-                const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
-                const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
-
-                const newItem = {
-                    topic_title: currentTopicTitle || "Drones & Radioelectronics",
-                    name: query,
-                    url: url,
-                    cost: cost,
-                    perf: perf,
-                    staff: staff
-                };
-
-                savedEquipmentDatabase.unshift(newItem);
-                savedEquipmentDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
-
-                try {
-                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-                } catch (e) { }
-
-                calculateAll();
-                alert(`✅ Equipment "${query}" ($${cost.toLocaleString()}) saved to Section 5 Listing under "${currentTopicTitle}"!`);
-
-                try {
-                    fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newItem)
-                    }).catch(err => console.log("Cloud sync skipped"));
-                } catch (e) { }
-
-            } catch (err) {
-                console.error("Error in saveCurrentEquipmentToDatabase:", err);
-            }
-        }
-
-        const catalogDB = {
-            'drone': { title: "Drones & Radioelectronics", eq: '120000', mkt: '423', perf: '100', q: 'drone assembly line', c: [['Carbon frame (5")', 1, 5.0], ['Flight controller', 1, 45.0], ['Brushless motors (4 pcs)', 1, 40.0], ['VTX Video system & Camera', 1, 35.0], ['LiPo Battery 6S', 1, 25.0]] },
-            'tablet': { title: "Tablets & Mobile PCs", eq: '45000', mkt: '150', perf: '120', q: 'tablet assembly equipment', c: [['IPS/OLED Display assembly', 1, 35.0], ['SoC Motherboard (ARM)', 1, 45.0], ['Li-Po Battery', 1, 10.0], ['Ultra-thin chassis & cables', 1, 8.0], ['Packaging box', 1, 2.0]] },
-            'tv': { title: "TVs & Displays", eq: '280000', mkt: '550', perf: '50', q: 'lcd tv assembly line', c: [['LCD / OLED Display matrix', 1, 140.0], ['Main Board', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['LED Backlight strip', 1, 15.0], ['Housing & Speakers', 1, 28.0]] },
-            'pc': { title: "Telecom & Computers", eq: '180000', mkt: '1850', perf: '20', q: 'computer assembly machine', c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]] },
-            'bakery': { title: "Commercial Bakery Line", eq: '45000', mkt: '1.5', perf: '25000', q: 'commercial bakery line', c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Additives', 1, 0.05], ['Packaging bag', 1, 0.08]] },
-            'jewelry': { title: "Fine Jewelry", eq: '45000', mkt: '350', perf: '150', q: 'jewelry casting machine', c: [['Gold/Silver granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry fittings', 1, 5.0], ['Velvet gift box', 1, 5.0]] },
-            'watch': { title: "Watch Assembly", eq: '35000', mkt: '450', perf: '150', q: 'watch assembly tools', c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]] },
-            'costume': { title: "Costume Jewelry Press", eq: '15000', mkt: '25', perf: '3000', q: 'costume jewelry press', c: [['Alloy blank workpiece', 1, 2.0], ['Decorative rhinestones', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]] },
-            'clothes': { title: "Apparel Sewing", eq: '35000', mkt: '65', perf: '300', q: 'industrial sewing machine', c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]] },
-            'furniture': { title: "Furniture Woodworking", eq: '90000', mkt: '280', perf: '120', q: 'cnc woodworking machine', c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]] },
-            'instruments': { title: "Precision Instruments", eq: '110000', mkt: '450', perf: '60', q: 'precision assembly machine', c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]] },
-            'cnc': { title: "Desktop CNC Machines", eq: '25000', mkt: '1500', perf: '20', q: 'desktop cnc machine', c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors (set)', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]] },
-            'universal': { title: "Universal Template", eq: '60000', mkt: '200', perf: '200', q: 'manufacturing machine', c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]] }
         };
 
-        function loadCatalogTemplate(key) {
+        const catalogDB = {
+            'drone': {
+                title: "Drones & Radioelectronics", eq: '199000', mkt: '423', perf: '100', staff: '12', q: 'Drone assembly line (Sanhok)',
+                c: [['Carbon fiber frame kit', 1, 26.0], ['Flight Controller (FC + PDB)', 1, 45.0], ['Brushless motors + ESC set (4 pcs)', 1, 55.0], ['VTX Video system & FPV camera', 1, 35.0], ['LiPo Battery pack 6S', 1, 25.0]]
+            },
+            'tablet': {
+                title: "Tablets & Mobile Devices", eq: '45000', mkt: '150', perf: '120', staff: '4', q: 'tablet assembly equipment',
+                c: [['IPS/OLED Display assembly', 1, 35.0], ['SoC Motherboard (ARM)', 1, 45.0], ['Li-Po Battery', 1, 10.0], ['Ultra-thin chassis & cables', 1, 8.0], ['Retail packaging box', 1, 2.0]]
+            },
+            'tv': {
+                title: "TVs & Displays", eq: '280000', mkt: '550', perf: '50', staff: '8', q: 'lcd tv assembly line',
+                c: [['LCD / OLED Display matrix', 1, 140.0], ['Main Board', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['LED Backlight strip', 1, 15.0], ['Housing & Speakers', 1, 28.0]]
+            },
+            'pc': {
+                title: "Telecom & Computers", eq: '180000', mkt: '1850', perf: '20', staff: '6', q: 'computer assembly machine',
+                c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory modules', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]]
+            },
+            'bakery': {
+                title: "Commercial Bakery Line", eq: '45000', mkt: '1.5', perf: '25000', staff: '3', q: 'commercial bakery line',
+                c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Baking Additives', 1, 0.05], ['Packaging bag', 1, 0.08]]
+            },
+            'jewelry': {
+                title: "Fine Jewelry Casting", eq: '45000', mkt: '350', perf: '150', staff: '2', q: 'jewelry casting machine',
+                c: [['Gold/Silver casting granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry findings & clasps', 1, 5.0], ['Velvet presentation box', 1, 5.0]]
+            },
+            'watch': {
+                title: "Watch Assembly", eq: '35000', mkt: '450', perf: '150', staff: '3', q: 'watch assembly tools',
+                c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands set', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]]
+            },
+            'costume': {
+                title: "Costume Jewelry Press", eq: '15000', mkt: '25', perf: '3000', staff: '2', q: 'costume jewelry press',
+                c: [['Alloy blank workpiece', 1, 2.0], ['Decorative crystals', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]]
+            },
+            'clothes': {
+                title: "Apparel Sewing", eq: '35000', mkt: '65', perf: '300', staff: '5', q: 'industrial sewing machine',
+                c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware buttons', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]]
+            },
+            'furniture': {
+                title: "Furniture Woodworking", eq: '90000', mkt: '280', perf: '120', staff: '4', q: 'cnc woodworking machine',
+                c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]]
+            },
+            'instruments': {
+                title: "Precision Instruments", eq: '110000', mkt: '450', perf: '60', staff: '4', q: 'precision assembly machine',
+                c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]]
+            },
+            'cnc': {
+                title: "Desktop CNC Machines", eq: '25000', mkt: '1500', perf: '20', staff: '2', q: 'desktop cnc machine',
+                c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors set', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]]
+            },
+            'universal': {
+                title: "Universal Template", eq: '60000', mkt: '200', perf: '200', staff: '3', q: 'manufacturing machine',
+                c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]]
+            }
+        };
+
+        window.loadCatalogTemplate = function (key) {
             closeModal('catalog-modal');
             const data = catalogDB[key] || catalogDB['drone'];
             currentTopicTitle = data.title || "General Topic";
@@ -1242,7 +1209,14 @@ Thank you!
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
-            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
+            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 1;
+            if (document.getElementById('equip-url')) {
+                if (key === 'drone') {
+                    document.getElementById('equip-url').value = "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html";
+                } else {
+                    document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
+                }
+            }
 
             const tbody = document.getElementById('component-dynamic-rows');
             if (tbody) {
@@ -1253,9 +1227,9 @@ Thank you!
                 });
             }
             calculateAll();
-        }
+        };
 
-        function convertAlibabaSpecs() {
+        window.convertAlibabaSpecs = function () {
             const mode = document.getElementById('perf-input-mode').value;
             const valInput = document.getElementById('val-actual-perf');
             let val = parseFloat(valInput.value) || 0;
@@ -1267,11 +1241,11 @@ Thank you!
             }
             document.getElementById('perf-input-mode').value = 'pcs_day';
             calculateAll();
-        }
+        };
 
-        function calculateAll() {
+        window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
-            const staff = parseFloat(document.getElementById('val-staff')?.value) || 0;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
             const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
             const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
             const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
@@ -1349,22 +1323,22 @@ Thank you!
             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('en-US') : '0';
 
             renderEquipmentListingGroupedByTopic(rawCost, market);
-        }
+        };
 
         function renderEquipmentListingGroupedByTopic(rawCost, marketPrice) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
-            const bomDispElem = document.getElementById('client-bom-display');
-            if (bomDispElem) bomDispElem.textContent = rawCost.toFixed(2);
-
             container.innerHTML = '';
 
-            const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
+            if (savedEquipmentList.length === 0) {
+                container.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#6c7a8a; padding:20px;">No equipment entries found in cloud database.</td></tr>';
+                return;
+            }
 
             const groupedByTopic = {};
-            cleanDatabase.forEach(item => {
-                const topicName = normalizeTopicTitle(item.topic_title);
+            savedEquipmentList.forEach(item => {
+                const topicName = item.topic_title || "General Topic";
                 if (!groupedByTopic[topicName]) {
                     groupedByTopic[topicName] = [];
                 }
@@ -1374,46 +1348,41 @@ Thank you!
             const adminColHeader = document.getElementById('admin-col-header');
             if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
 
-            let globalItemIndex = 0;
-
             for (const [topic, items] of Object.entries(groupedByTopic)) {
-                const translatedTopic = translateTextOnTheFly(topic);
-
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
                         <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                            📂 TOPIC: ${translatedTopic.toUpperCase()} (Client BOM Specification = $${rawCost.toFixed(2)})
+                            📂 TOPIC: ${topic.toUpperCase()} (Client BOM Specification = $${rawCost.toFixed(2)})
                         </td>
                     `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
-                    const currentIndex = globalItemIndex++;
-                    const translatedLineName = translateTextOnTheFly(line.name);
+                    const staffCount = line.staff || 1;
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
                     const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
-                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / line.staff));
+                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / staffCount));
 
-                    const totalDailyCost = dailyAmort + ((fittedSalary * line.staff) / 30) + 100;
+                    const totalDailyCost = dailyAmort + ((fittedSalary * staffCount) / 30) + 100;
                     const unitCost = rawCost + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
                     const adminDeleteCell = isAdminMode ? `
                             <td style="text-align:center;">
-                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase(${currentIndex})" title="Delete entry from database">🗑️</button>
+                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Delete entry permanently from Firebase">🗑️</button>
                             </td>
                         ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                            <td style="padding-left:20px;"><b>${translatedLineName}</b></td>
+                            <td style="padding-left:20px;"><b>${line.name}</b></td>
                             <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                            <td>$${line.cost.toLocaleString()}</td>
+                            <td>$${Number(line.cost).toLocaleString('en-US')}</td>
                             <td>${line.perf} pcs/day</td>
-                            <td>${line.staff} staff</td>
+                            <td>${staffCount} staff</td>
                             <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
                             <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
                             ${adminDeleteCell}
@@ -1425,10 +1394,9 @@ Thank you!
 
         document.addEventListener('input', calculateAll);
 
-        window.onload = function () {
+        window.addEventListener('DOMContentLoaded', () => {
             loadCatalogTemplate('drone');
-            loadCloudDatabaseIfAvailable();
-        };
+        });
     </script>
 
 </body>
