@@ -635,7 +635,6 @@
                         </td>
                     </tr>
 
-                    <!-- ФАКТИЧЕСКАЯ ПАСПОРТНАЯ ПРОИЗВОДИТЕЛЬНОСТЬ С АЛИБАБЫ -->
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
                             <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность станка (с Alibaba)</span></span><br>
@@ -678,7 +677,7 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу Листинга Секции 5">
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Облачную Базу">
                     💾 Зафиксировать этот станок в Базу Листинга
                 </button>
             </div>
@@ -714,7 +713,7 @@
             <h2 class="section-title">3. Сырьё и комплектующие (Спецификация BOM)</h2>
 
             <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
-                <b>💡 Комплектация сформирована автоматически</b> под выбранный проект (Дроны и Радиоэлектроника).
+                <b>💡 Комплектация сформирована автоматически</b> под выбранный проект.
                 Вы можете изменять цены, количества деталей, нажимать <b>🔗</b> для перехода на Alibaba или добавлять новые строки кнопкой ниже.
             </div>
 
@@ -821,10 +820,9 @@
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                     <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
-                        📋 Откалибрированный Листинг Оборудования с Alibaba (Сгруппирован по Темам / МКТУ)
+                        📋 Откалибрированный Листинг Оборудования с Alibaba (Облако Firebase)
                     </h3>
                     <div>
-                        <button class="btn btn-sm" style="background:#64748b; color:#fff; margin-right:6px;" onclick="resetSavedEquipmentDatabase()" title="Сбросить повторы">🧹 Очистить повторы</button>
                         <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок в Базу</button>
                     </div>
                 </div>
@@ -843,6 +841,7 @@
                         </tr>
                     </thead>
                     <tbody id="client-matched-equipment-rows">
+                        <tr><td colspan="7" style="text-align:center; color:#6c7a8a; padding:20px;">Загрузка данных из облака Firebase...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -889,7 +888,7 @@ We are evaluating your equipment line for production setup. Please specify:
 1. Exact Daily Production Capacity (Pcs/Day or Cycle Time per 1 unit).
 2. Minimum required operators/staff to run this line.
 Thank you!
-        </textarea>
+            </textarea>
             <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText(document.getElementById('inquiry-text-area').value); alert('Текст запроса скопирован!'); closeModal('inquiry-modal');">📋 Скопировать текст запроса</button>
         </div>
     </div>
@@ -926,117 +925,104 @@ Thank you!
         </div>
     </div>
 
-    <script>
-        document.querySelectorAll('#tabHeaders a').forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                document.getElementById(this.dataset.tab).classList.add('active');
-            });
-        });
+    <!-- ПОДКЛЮЧЕНИЕ ЧИСТОГО FIREBASE REALTIME SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, push, onValue, remove, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        function openModal(id) { document.getElementById(id).style.display = 'block'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function openAlibabaInquiryModal() { openModal('inquiry-modal'); }
-        window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; }
+        // ВАША КОНФИГУРАЦИЯ FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
+            authDomain: "asuir-gemini.firebaseapp.com",
+            projectId: "asuir-gemini",
+            storageBucket: "asuir-gemini.firebasestorage.app",
+            messagingSenderId: "53572749601",
+            appId: "1:53572749601:web:e3c33578afd4bdac309660",
+            databaseURL: "https://asuir-gemini-default-rtdb.firebaseio.com"
+        };
 
-        function openExternalUrl(inputId) {
-            const input = document.getElementById(inputId);
-            let url = input ? input.value.trim() : '';
-            if (!url) return alert("Пожалуйста, вставьте ссылку на товар с сайта Alibaba.");
-            if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
-            window.open(url, '_blank');
-        }
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const equipmentDbRef = ref(db, 'equipment_listing');
 
-        function searchAlibaba(rowId) {
-            if (rowId === 'equip') {
-                const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
-                window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
-            } else {
-                const nameInput = document.getElementById(rowId + '-name');
-                if (nameInput) {
-                    const query = nameInput.value.trim() || 'Material';
-                    window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
-                }
-            }
-        }
-
-        function handleFormSubmit(event, lang) {
-            event.preventDefault();
-            const likedText = document.getElementById('fb-like').value.trim();
-            const dislikedText = document.getElementById('fb-dislike').value.trim();
-            let subject = "Feedback from ASUIR Gemini (RU)";
-            let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
-            window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-            setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
-        }
-
-        let activeBulkRowId = null;
-        function openBulkCalc(rowId) {
-            activeBulkRowId = rowId;
-            document.getElementById('bulk-total-price').value = '';
-            document.getElementById('bulk-total-qty').value = '';
-            openModal('bulk-modal');
-        }
-
-        function applyBulkCalc() {
-            const totalPrice = parseFloat(document.getElementById('bulk-total-price').value) || 0;
-            const totalQty = parseFloat(document.getElementById('bulk-total-qty').value) || 1;
-            const unitPrice = totalQty > 0 ? totalPrice / totalQty : 0;
-            if (activeBulkRowId) {
-                const priceInput = document.getElementById(activeBulkRowId + '-price');
-                if (priceInput) {
-                    priceInput.value = unitPrice.toFixed(4);
-                    calculateAll();
-                }
-            }
-            closeModal('bulk-modal');
-        }
-
-        function addComponentRow(name, qty, price, url = '') {
-            const tbody = document.getElementById('component-dynamic-rows');
-            if (!tbody) return;
-            const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
-            const tr = document.createElement('tr');
-            tr.id = rowId;
-            const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
-
-            tr.innerHTML = `
-                <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
-                <td>
-                    <div style="display:flex; align-items:center; gap:4px;">
-                        <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
-                        <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                    </div>
-                </td>
-                <td class="row-search">
-                    <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
-                </td>
-                <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
-                <td>
-                    <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                        <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
-                        <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
-                    </div>
-                </td>
-                <td class="row-delete">
-                    <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-            calculateAll();
-        }
-
-        // ================================================================
-        // СЕКРЕТНЫЙ РЕЖИМ АДМИНИСТРАТОРА (ANATOLID) И ОБЛАЧНАЯ БАЗА
-        // ================================================================
-        const ASUIR_CLOUD_EQUIPMENT_URL = "https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json";
+        let savedEquipmentList = [];
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
-        function toggleAdminMode() {
+        // Базовые 5 станков (загружаются в облако, если база пустая)
+        const defaultInitialMachines = [
+            { topic_title: "Дроны и Радиоэлектроника", name: "Линия сборки БПЛА (Sanhok 100 шт/день)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
+            { topic_title: "Дроны и Радиоэлектроника", name: "Высокоскоростной комплекс БПЛА (Sanhok 500 шт/день)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
+            { topic_title: "Дроны и Радиоэлектроника", name: "Компактная ESD-линия сборки дронов (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 3 },
+            { topic_title: "Планшеты и Мобильные ПК", name: "Линия вакуумной запрессовки планшетов (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 4 },
+            { topic_title: "Ювелирные Изделия", name: "Индукционный литейный комплекс (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 2 }
+        ];
+
+        // 1. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ (REALTIME)
+        onValue(equipmentDbRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                savedEquipmentList = Object.entries(data).map(([id, val]) => ({
+                    id: id,
+                    ...val
+                }));
+            } else {
+                // Если база пустая — создаем 5 стартовых записей в Firebase
+                defaultInitialMachines.forEach(item => {
+                    push(equipmentDbRef, item);
+                });
+                savedEquipmentList = [];
+            }
+            calculateAll();
+        });
+
+        // 2. СОХРАНЕНИЕ В ОБЛАКО
+        window.saveCurrentEquipmentToDatabase = function () {
+            const queryInput = document.getElementById('equip-search-query');
+            const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Линия с Alibaba";
+
+            const urlInput = document.getElementById('equip-url');
+            const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+
+            const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
+            const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+
+            const newItem = {
+                topic_title: currentTopicTitle || "Дроны и Радиоэлектроника",
+                name: query,
+                url: url,
+                cost: cost,
+                perf: perf,
+                staff: staff
+            };
+
+            push(equipmentDbRef, newItem)
+                .then(() => {
+                    alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) мгновенно сохранен в облако Firebase!`);
+                })
+                .catch(err => {
+                    alert(`❌ Ошибка сохранения в Firebase: ` + err.message);
+                });
+        };
+
+        // 3. ПОЛНОЦЕННОЕ УДАЛЕНИЕ ИЗ ОБЛАКА
+        window.deleteItemFromLiveDatabase = function (id, name) {
+            if (!isAdminMode) return;
+            if (confirm(`🗑️ Вы действительно хотите навсегда удалить станок "${name}" из базы Firebase?`)) {
+                const itemRef = ref(db, `equipment_listing/${id}`);
+                remove(itemRef)
+                    .then(() => {
+                        alert(`✅ Запись удалена из облака.`);
+                    })
+                    .catch(err => {
+                        alert(`❌ Ошибка удаления: ` + err.message);
+                    });
+            }
+        };
+
+        // Режим администратора
+        window.toggleAdminMode = function () {
             if (isAdminMode) {
                 isAdminMode = false;
                 document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
@@ -1050,50 +1036,116 @@ Thank you!
                     document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
                     document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
                     document.getElementById('admin-col-header').style.display = "table-cell";
-                    alert("🔓 Режим Администратора активирован! Теперь у каждой строки доступна кнопка 🗑️ для удаления записи из живой базы.");
+                    alert("🔓 Режим Администратора активирован! Кнопка 🗑️ теперь удаляет записи из облака навсегда.");
                 } else if (pwd !== null) {
                     alert("❌ Неверный пароль администратора!");
                 }
             }
             calculateAll();
-        }
+        };
 
-        function deleteItemFromLiveDatabase(index) {
-            if (!isAdminMode) return;
-            const item = savedEquipmentDatabase[index];
-            if (!item) return;
+        // Навигация
+        document.querySelectorAll('#tabHeaders a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
 
-            if (confirm(`🗑️ Вы действительно хотите удалить станок "${item.name}" из глобальной базы?`)) {
-                savedEquipmentDatabase.splice(index, 1);
-                try {
-                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-                } catch (e) { }
+        window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
+        window.closeModal = function (id) { document.getElementById(id).style.display = 'none'; };
+        window.openAlibabaInquiryModal = function () { openModal('inquiry-modal'); };
+        window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; };
 
-                calculateAll();
-                alert(`✅ Запись "${item.name}" удалена из базы.`);
+        window.openExternalUrl = function (inputId) {
+            const input = document.getElementById(inputId);
+            let url = input ? input.value.trim() : '';
+            if (!url) return alert("Пожалуйста, вставьте ссылку на товар с сайта Alibaba.");
+            if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
+            window.open(url, '_blank');
+        };
+
+        window.searchAlibaba = function (rowId) {
+            if (rowId === 'equip') {
+                const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
+                window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+            } else {
+                const nameInput = document.getElementById(rowId + '-name');
+                if (nameInput) {
+                    const query = nameInput.value.trim() || 'Material';
+                    window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+                }
             }
-        }
+        };
 
-        function getDefaultInitialDatabase() {
-            return [
-                { topic_title: "Дроны и Радиоэлектроника", name: "Линия сборки БПЛА (Sanhok 100 шт/день)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
-                { topic_title: "Дроны и Радиоэлектроника", name: "Высокоскоростной комплекс БПЛА (Sanhok 500 шт/день)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
-                { topic_title: "Дроны и Радиоэлектроника", name: "Компактная ESD-линия сборки дронов (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 3 },
-                { topic_title: "Планшеты и Мобильные ПК", name: "Линия вакуумной запрессовки планшетов (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 4 },
-                { topic_title: "Ювелирные Изделия", name: "Индукционный литейный комплекс (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 2 }
-            ];
-        }
+        window.handleFormSubmit = function (event, lang) {
+            event.preventDefault();
+            const likedText = document.getElementById('fb-like').value.trim();
+            const dislikedText = document.getElementById('fb-dislike').value.trim();
+            let subject = "Feedback from ASUIR Gemini (RU)";
+            let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
+            window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
+        };
 
-        function getSavedEquipmentDatabase() {
-            try {
-                const stored = localStorage.getItem('asuir_saved_equip_db');
-                if (stored) return getDeduplicatedDatabase(JSON.parse(stored));
-            } catch (e) { }
+        let activeBulkRowId = null;
+        window.openBulkCalc = function (rowId) {
+            activeBulkRowId = rowId;
+            document.getElementById('bulk-total-price').value = '';
+            document.getElementById('bulk-total-qty').value = '';
+            openModal('bulk-modal');
+        };
 
-            return getDefaultInitialDatabase();
-        }
+        window.applyBulkCalc = function () {
+            const totalPrice = parseFloat(document.getElementById('bulk-total-price').value) || 0;
+            const totalQty = parseFloat(document.getElementById('bulk-total-qty').value) || 1;
+            const unitPrice = totalQty > 0 ? totalPrice / totalQty : 0;
+            if (activeBulkRowId) {
+                const priceInput = document.getElementById(activeBulkRowId + '-price');
+                if (priceInput) {
+                    priceInput.value = unitPrice.toFixed(4);
+                    calculateAll();
+                }
+            }
+            closeModal('bulk-modal');
+        };
 
-        let savedEquipmentDatabase = getSavedEquipmentDatabase();
+        window.addComponentRow = function (name, qty, price, url = '') {
+            const tbody = document.getElementById('component-dynamic-rows');
+            if (!tbody) return;
+            const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 5);
+            const tr = document.createElement('tr');
+            tr.id = rowId;
+            const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
+
+            tr.innerHTML = `
+                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
+                            <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
+                        </div>
+                    </td>
+                    <td class="row-search">
+                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                    </td>
+                    <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                            <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
+                        </div>
+                    </td>
+                    <td class="row-delete">
+                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
+                    </td>
+                `;
+            tbody.appendChild(tr);
+            calculateAll();
+        };
 
         function normalizeTopicTitle(rawTitle) {
             if (!rawTitle) return "Дроны и Радиоэлектроника";
@@ -1113,291 +1165,62 @@ Thank you!
             return rawTitle;
         }
 
-        function getDeduplicatedDatabase(database) {
-            const uniqueItems = [];
-            const seenKeys = new Set();
-
-            database.forEach(item => {
-                const topic = normalizeTopicTitle(item.topic_title);
-                const name = (item.name || "Станок").trim();
-                const cost = item.cost || 0;
-                const perf = item.perf || 0;
-
-                const key = `${topic}_${name}_${cost}_${perf}`;
-
-                if (!seenKeys.has(key)) {
-                    seenKeys.add(key);
-                    uniqueItems.push({
-                        ...item,
-                        name: name,
-                        topic_title: topic
-                    });
-                }
-            });
-
-            return uniqueItems;
-        }
-
-        function resetSavedEquipmentDatabase() {
-            savedEquipmentDatabase = getDefaultInitialDatabase();
-            try {
-                localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-            } catch (e) { }
-            calculateAll();
-            alert("🧹 Листинг успешно очищен от дубликатов!");
-        }
-
-        async function loadCloudDatabaseIfAvailable() {
-            try {
-                const res = await fetch(ASUIR_CLOUD_EQUIPMENT_URL);
-                if (res.ok) {
-                    const cloudData = await res.json();
-                    if (cloudData && typeof cloudData === 'object') {
-                        const cloudArr = Object.values(cloudData);
-                        savedEquipmentDatabase = getDeduplicatedDatabase(cloudArr.concat(savedEquipmentDatabase));
-                        calculateAll();
-                    }
-                }
-            } catch (e) { }
-        }
-
-        function saveCurrentEquipmentToDatabase() {
-            try {
-                const queryInput = document.getElementById('equip-search-query');
-                const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Линия с Alibaba";
-
-                const urlInput = document.getElementById('equip-url');
-                const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
-
-                const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
-                const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
-                const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
-
-                const newItem = {
-                    topic_title: currentTopicTitle || "Дроны и Радиоэлектроника",
-                    name: query,
-                    url: url,
-                    cost: cost,
-                    perf: perf,
-                    staff: staff
-                };
-
-                savedEquipmentDatabase.unshift(newItem);
-                savedEquipmentDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
-
-                try {
-                    localStorage.setItem('asuir_saved_equip_db', JSON.stringify(savedEquipmentDatabase));
-                } catch (e) { }
-
-                calculateAll();
-                alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) зафиксирован в теме "${currentTopicTitle}" в Секции 5!`);
-
-                try {
-                    fetch(ASUIR_CLOUD_EQUIPMENT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(newItem)
-                    }).catch(err => console.log("Cloud sync skipped"));
-                } catch (e) { }
-
-            } catch (err) {
-                console.error("Error in saveCurrentEquipmentToDatabase:", err);
-            }
-        }
-
-        // ОТКАЛИБРОВАННАЯ БАЗА КАТАЛОГА ПО МКТУ
         const catalogDB = {
             'drone': {
-                title: "Дроны и Радиоэлектроника",
-                eq: '199000',
-                mkt: '423',
-                perf: '100',
-                staff: '12',
-                q: 'Линия сборки БПЛА (Sanhok)',
-                c: [
-                    ['Карбоновая рама с лучами', 1, 26.0],
-                    ['Полетный контроллер (FC + PDB)', 1, 45.0],
-                    ['Бесколлекторные моторы + регуляторы (4 шт.)', 1, 55.0],
-                    ['Видеосистема VTX и FPV камера', 1, 35.0],
-                    ['Аккумулятор LiPo 6S', 1, 25.0]
-                ]
+                title: "Дроны и Радиоэлектроника", eq: '199000', mkt: '423', perf: '100', staff: '12', q: 'Линия сборки БПЛА (Sanhok)',
+                c: [['Карбоновая рама с лучами', 1, 26.0], ['Полетный контроллер (FC + PDB)', 1, 45.0], ['Бесколлекторные моторы + регуляторы (4 шт.)', 1, 55.0], ['Видеосистема VTX и FPV камера', 1, 35.0], ['Аккумулятор LiPo 6S', 1, 25.0]]
             },
             'tablet': {
-                title: "Планшеты и Мобильные ПК",
-                eq: '45000',
-                mkt: '150',
-                perf: '120',
-                staff: '4',
-                q: 'tablet assembly equipment',
-                c: [
-                    ['Экран в сборе (IPS/OLED)', 1, 35.0],
-                    ['Материнская плата SoC (ARM)', 1, 45.0],
-                    ['Литий-полимерный аккумулятор', 1, 10.0],
-                    ['Ультратонкий корпус и шлейфы', 1, 8.0],
-                    ['Упаковочная коробка', 1, 2.0]
-                ]
+                title: "Планшеты и Мобильные ПК", eq: '45000', mkt: '150', perf: '120', staff: '4', q: 'tablet assembly equipment',
+                c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]]
             },
             'tv': {
-                title: "Телевизоры и Дисплеи",
-                eq: '280000',
-                mkt: '550',
-                perf: '50',
-                staff: '8',
-                q: 'lcd tv assembly line',
-                c: [
-                    ['ЖК / OLED Матрица дисплея', 1, 140.0],
-                    ['Материнская плата (Main Board)', 1, 45.0],
-                    ['Блок питания инверторный', 1, 25.0],
-                    ['Светодиодная подсветка матрицы', 1, 15.0],
-                    ['Корпус и динамики', 1, 28.0]
-                ]
+                title: "Телевизоры и Дисплеи", eq: '280000', mkt: '550', perf: '50', staff: '8', q: 'lcd tv assembly line',
+                c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]]
             },
             'pc': {
-                title: "Телеком и Компьютеры",
-                eq: '180000',
-                mkt: '1850',
-                perf: '20',
-                staff: '6',
-                q: 'computer assembly machine',
-                c: [
-                    ['Процессор (Desktop CPU)', 1, 340.0],
-                    ['Графическая карта (GPU)', 1, 520.0],
-                    ['Материнская плата ATX/ITX', 1, 140.0],
-                    ['Оперативная память (RAM)', 1, 105.0],
-                    ['Накопитель SSD NVMe 2TB', 1, 115.0],
-                    ['Корпус и блок питания', 1, 130.0]
-                ]
+                title: "Телеком и Компьютеры", eq: '180000', mkt: '1850', perf: '20', staff: '6', q: 'computer assembly machine',
+                c: [['Процессор (Desktop CPU)', 1, 340.0], ['Графическая карта (GPU)', 1, 520.0], ['Материнская плата ATX/ITX', 1, 140.0], ['Оперативная память (RAM)', 1, 105.0], ['Накопитель SSD NVMe 2TB', 1, 115.0], ['Корпус и блок питания', 1, 130.0]]
             },
             'bakery': {
-                title: "Хлебопекарная Линия",
-                eq: '45000',
-                mkt: '1.5',
-                perf: '25000',
-                staff: '3',
-                q: 'commercial bakery line',
-                c: [
-                    ['Мука высшего сорта (кг)', 0.6, 0.4],
-                    ['Дрожжи и добавки', 1, 0.05],
-                    ['Упаковочный пакет', 1, 0.08]
-                ]
+                title: "Хлебопекарная Линия", eq: '45000', mkt: '1.5', perf: '25000', staff: '3', q: 'commercial bakery line',
+                c: [['Мука высшего сорта (кг)', 0.6, 0.4], ['Дрожжи и добавки', 1, 0.05], ['Упаковочный пакет', 1, 0.08]]
             },
             'jewelry': {
-                title: "Ювелирные Изделия",
-                eq: '45000',
-                mkt: '350',
-                perf: '150',
-                staff: '2',
-                q: 'jewelry casting machine',
-                c: [
-                    ['Золото/Серебро в гранулах', 10, 8.0],
-                    ['Вставки (камни, фианиты)', 2, 20.0],
-                    ['Ювелирная фурнитура', 1, 5.0],
-                    ['Бархатный футляр', 1, 5.0]
-                ]
+                title: "Ювелирные Изделия", eq: '45000', mkt: '350', perf: '150', staff: '2', q: 'jewelry casting machine',
+                c: [['Золото/Серебро в гранулах', 10, 8.0], ['Вставки (камни, фианиты)', 2, 20.0], ['Ювелирная фурнитура', 1, 5.0], ['Бархатный футляр', 1, 5.0]]
             },
             'watch': {
-                title: "Сборка Часов",
-                eq: '35000',
-                mkt: '450',
-                perf: '150',
-                staff: '3',
-                q: 'watch assembly tools',
-                c: [
-                    ['Корпус и сапфировое стекло', 1, 30.0],
-                    ['Точный часовой механизм', 1, 40.0],
-                    ['Циферблат и стрелки', 1, 10.0],
-                    ['Ремешок (кожа/металл)', 1, 15.0],
-                    ['Подарочный футляр', 1, 8.0]
-                ]
+                title: "Сборка Часов", eq: '35000', mkt: '450', perf: '150', staff: '3', q: 'watch assembly tools',
+                c: [['Корпус и сапфировое стекло', 1, 30.0], ['Точный часовой механизм', 1, 40.0], ['Циферблат и стрелки', 1, 10.0], ['Ремешок (кожа/металл)', 1, 15.0], ['Подарочный футляр', 1, 8.0]]
             },
             'costume': {
-                title: "Производство Бижутерии",
-                eq: '15000',
-                mkt: '25',
-                perf: '3000',
-                staff: '2',
-                q: 'costume jewelry press',
-                c: [
-                    ['Сплав (Заготовка)', 1, 2.0],
-                    ['Декоративные стразы', 1, 1.0],
-                    ['Фурнитура', 1, 0.5],
-                    ['Эко-пакетик', 1, 1.5]
-                ]
+                title: "Производство Бижутерии", eq: '15000', mkt: '25', perf: '3000', staff: '2', q: 'costume jewelry press',
+                c: [['Сплав (Заготовка)', 1, 2.0], ['Декоративные стразы', 1, 1.0], ['Фурнитура', 1, 0.5], ['Эко-пакетик', 1, 1.5]]
             },
             'clothes': {
-                title: "Пошив Одежды",
-                eq: '35000',
-                mkt: '65',
-                perf: '300',
-                staff: '5',
-                q: 'industrial sewing machine',
-                c: [
-                    ['Текстиль (метры)', 1.8, 12.0],
-                    ['Мягкая подкладка', 1.2, 3.5],
-                    ['Нити и фурнитура', 1, 5.0],
-                    ['Упаковка и бирка', 1, 1.5]
-                ]
+                title: "Пошив Одежды", eq: '35000', mkt: '65', perf: '300', staff: '5', q: 'industrial sewing machine',
+                c: [['Текстиль (метры)', 1.8, 12.0], ['Мягкая подкладка', 1.2, 3.5], ['Нити и фурнитура', 1, 5.0], ['Упаковка и бирка', 1, 1.5]]
             },
             'furniture': {
-                title: "Мебель и Деревообработка",
-                eq: '90000',
-                mkt: '280',
-                perf: '120',
-                staff: '4',
-                q: 'cnc woodworking machine',
-                c: [
-                    ['ЛДСП / МДФ (кв.м.)', 4, 15.0],
-                    ['Кромочная лента', 1, 5.0],
-                    ['Зеркальное полотно', 1, 22.0],
-                    ['Металлическая фурнитура', 1, 8.0],
-                    ['Упаковочный картон', 1, 6.0]
-                ]
+                title: "Мебель и Деревообработка", eq: '90000', mkt: '280', perf: '120', staff: '4', q: 'cnc woodworking machine',
+                c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]]
             },
             'instruments': {
-                title: "Измерительные Приборы",
-                eq: '110000',
-                mkt: '450',
-                perf: '60',
-                staff: '4',
-                q: 'precision assembly machine',
-                c: [
-                    ['Сенсорный измерительный модуль', 1, 120.0],
-                    ['Плата обработки сигналов', 1, 65.0],
-                    ['ЖК-дисплей', 1, 25.0],
-                    ['Ударопрочный корпус IP65', 1, 40.0]
-                ]
+                title: "Измерительные Приборы", eq: '110000', mkt: '450', perf: '60', staff: '4', q: 'precision assembly machine',
+                c: [['Сенсорный измерительный модуль', 1, 120.0], ['Плата обработки сигналов', 1, 65.0], ['ЖК-дисплей', 1, 25.0], ['Ударопрочный корпус IP65', 1, 40.0]]
             },
             'cnc': {
-                title: "Настольные ЧПУ Станки",
-                eq: '25000',
-                mkt: '1500',
-                perf: '20',
-                staff: '2',
-                q: 'desktop cnc machine',
-                c: [
-                    ['Алюминиевая станина', 1, 300.0],
-                    ['Шаговые моторы', 1, 150.0],
-                    ['Контроллер ЧПУ', 1, 80.0],
-                    ['Шпиндель и блок питания', 1, 200.0]
-                ]
+                title: "Настольные ЧПУ Станки", eq: '25000', mkt: '1500', perf: '20', staff: '2', q: 'desktop cnc machine',
+                c: [['Алюминиевая станина', 1, 300.0], ['Шаговые моторы', 1, 150.0], ['Контроллер ЧПУ', 1, 80.0], ['Шпиндель и блок питания', 1, 200.0]]
             },
             'universal': {
-                title: "Универсальный Проект",
-                eq: '60000',
-                mkt: '200',
-                perf: '200',
-                staff: '3',
-                q: 'manufacturing machine',
-                c: [
-                    ['Основной базовый материал', 1, 40.0],
-                    ['Функциональные модули', 1, 25.0],
-                    ['Декоративный корпус', 1, 12.0],
-                    ['Потребительская коробка', 1, 3.0]
-                ]
+                title: "Универсальный Проект", eq: '60000', mkt: '200', perf: '200', staff: '3', q: 'manufacturing machine',
+                c: [['Основной базовый материал', 1, 40.0], ['Функциональные модули', 1, 25.0], ['Декоративный корпус', 1, 12.0], ['Потребительская коробка', 1, 3.0]]
             }
         };
 
-        function loadCatalogTemplate(key) {
+        window.loadCatalogTemplate = function (key) {
             closeModal('catalog-modal');
             const data = catalogDB[key] || catalogDB['drone'];
             currentTopicTitle = data.title || "Общая тема";
@@ -1424,9 +1247,9 @@ Thank you!
                 });
             }
             calculateAll();
-        }
+        };
 
-        function convertAlibabaSpecs() {
+        window.convertAlibabaSpecs = function () {
             const mode = document.getElementById('perf-input-mode').value;
             const valInput = document.getElementById('val-actual-perf');
             let val = parseFloat(valInput.value) || 0;
@@ -1438,9 +1261,9 @@ Thank you!
             }
             document.getElementById('perf-input-mode').value = 'pcs_day';
             calculateAll();
-        }
+        };
 
-        function calculateAll() {
+        window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
             const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
@@ -1520,7 +1343,7 @@ Thank you!
             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
 
             renderEquipmentListingGroupedByTopic(rawCost, market);
-        }
+        };
 
         function renderEquipmentListingGroupedByTopic(rawCost, marketPrice) {
             const container = document.getElementById('client-matched-equipment-rows');
@@ -1528,10 +1351,13 @@ Thank you!
 
             container.innerHTML = '';
 
-            const cleanDatabase = getDeduplicatedDatabase(savedEquipmentDatabase);
+            if (savedEquipmentList.length === 0) {
+                container.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет станков. Зафиксируйте первый станок кнопкой выше!</td></tr>';
+                return;
+            }
 
             const groupedByTopic = {};
-            cleanDatabase.forEach(item => {
+            savedEquipmentList.forEach(item => {
                 const topicName = normalizeTopicTitle(item.topic_title);
                 if (!groupedByTopic[topicName]) {
                     groupedByTopic[topicName] = [];
@@ -1542,20 +1368,17 @@ Thank you!
             const adminColHeader = document.getElementById('admin-col-header');
             if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
 
-            let globalItemIndex = 0;
-
             for (const [topic, items] of Object.entries(groupedByTopic)) {
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                    <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                        📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${rawCost.toFixed(2)})
-                    </td>
-                `;
+                        <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                            📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${rawCost.toFixed(2)})
+                        </td>
+                    `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
-                    const currentIndex = globalItemIndex++;
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + 100;
                     const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
@@ -1567,22 +1390,22 @@ Thank you!
                     const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
 
                     const adminDeleteCell = isAdminMode ? `
-                        <td style="text-align:center;">
-                            <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase(${currentIndex})" title="Удалить запись из базы">🗑️</button>
-                        </td>
-                    ` : '';
+                            <td style="text-align:center;">
+                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Удалить запись навсегда из Firebase">🗑️</button>
+                            </td>
+                        ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td style="padding-left:20px;"><b>${line.name}</b></td>
-                        <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                        <td>$${line.cost.toLocaleString()}</td>
-                        <td>${line.perf} шт/день</td>
-                        <td>${line.staff || 1} чел</td>
-                        <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
-                        <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
-                        ${adminDeleteCell}
-                    `;
+                            <td style="padding-left:20px;"><b>${line.name}</b></td>
+                            <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                            <td>$${Number(line.cost).toLocaleString()}</td>
+                            <td>${line.perf} шт/день</td>
+                            <td>${line.staff || 1} чел</td>
+                            <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
+                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                            ${adminDeleteCell}
+                        `;
                     container.appendChild(tr);
                 });
             }
@@ -1590,10 +1413,10 @@ Thank you!
 
         document.addEventListener('input', calculateAll);
 
-        window.onload = function () {
+        // Начальная загрузка
+        window.addEventListener('DOMContentLoaded', () => {
             loadCatalogTemplate('drone');
-            loadCloudDatabaseIfAvailable();
-        };
+        });
     </script>
 
 </body>
