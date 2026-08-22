@@ -835,13 +835,14 @@
                             <th>Цена линии</th>
                             <th>Скорость ($P_{fact}$)</th>
                             <th>Персонал</th>
+                            <th>Базовая ЗП (Секция 1)</th>
                             <th style="color:#007600;">Достигаемая Зарплата Рабочего</th>
                             <th>Доход Домохозяйки</th>
                             <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                         </tr>
                     </thead>
                     <tbody id="client-matched-equipment-rows">
-                        <tr><td colspan="7" style="text-align:center; color:#6c7a8a; padding:20px;">Загрузка данных из облака Firebase...</td></tr>
+                        <tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">Загрузка данных из облака Firebase...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -928,7 +929,7 @@ Thank you!
     <!-- ПОДКЛЮЧЕНИЕ ЧИСТОГО FIREBASE REALTIME SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, push, onValue, remove, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
         // ВАША КОНФИГУРАЦИЯ FIREBASE
         const firebaseConfig = {
@@ -949,7 +950,6 @@ Thank you!
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
-        // Базовые 5 станков (загружаются в облако, если база пустая)
         const defaultInitialMachines = [
             { topic_title: "Дроны и Радиоэлектроника", name: "Линия сборки БПЛА (Sanhok 100 шт/день)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
             { topic_title: "Дроны и Радиоэлектроника", name: "Высокоскоростной комплекс БПЛА (Sanhok 500 шт/день)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
@@ -967,7 +967,6 @@ Thank you!
                     ...val
                 }));
             } else {
-                // Если база пустая — создаем 5 стартовых записей в Firebase
                 defaultInitialMachines.forEach(item => {
                     push(equipmentDbRef, item);
                 });
@@ -999,14 +998,14 @@ Thank you!
 
             push(equipmentDbRef, newItem)
                 .then(() => {
-                    alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) мгновенно сохранен в облако Firebase!`);
+                    alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) сохранен в облако Firebase!`);
                 })
                 .catch(err => {
                     alert(`❌ Ошибка сохранения в Firebase: ` + err.message);
                 });
         };
 
-        // 3. ПОЛНОЦЕННОЕ УДАЛЕНИЕ ИЗ ОБЛАКА
+        // 3. УДАЛЕНИЕ ИЗ ОБЛАКА
         window.deleteItemFromLiveDatabase = function (id, name) {
             if (!isAdminMode) return;
             if (confirm(`🗑️ Вы действительно хотите навсегда удалить станок "${name}" из базы Firebase?`)) {
@@ -1021,7 +1020,6 @@ Thank you!
             }
         };
 
-        // Режим администратора
         window.toggleAdminMode = function () {
             if (isAdminMode) {
                 isAdminMode = false;
@@ -1044,7 +1042,6 @@ Thank you!
             calculateAll();
         };
 
-        // Навигация
         document.querySelectorAll('#tabHeaders a').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1122,27 +1119,27 @@ Thank you!
             const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
 
             tr.innerHTML = `
-                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:4px;">
-                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
-                            <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
-                        </div>
-                    </td>
-                    <td class="row-search">
-                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
-                    </td>
-                    <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
-                            <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
-                        </div>
-                    </td>
-                    <td class="row-delete">
-                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
-                    </td>
-                `;
+                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:4px;">
+                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
+                                <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
+                            </div>
+                        </td>
+                        <td class="row-search">
+                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                        </td>
+                        <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                                <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
+                            </div>
+                        </td>
+                        <td class="row-delete">
+                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
+                        </td>
+                    `;
             tbody.appendChild(tr);
             calculateAll();
         };
@@ -1219,6 +1216,32 @@ Thank you!
                 c: [['Основной базовый материал', 1, 40.0], ['Функциональные модули', 1, 25.0], ['Декоративный корпус', 1, 12.0], ['Потребительская коробка', 1, 3.0]]
             }
         };
+
+        // Вспомогательная функция: расчет стоимости BOM именно для конкретной темы
+        function getBomCostForTopic(topicTitle, currentDynamicRawCost) {
+            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) {
+                return currentDynamicRawCost;
+            }
+            for (let key in catalogDB) {
+                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
+                    return catalogDB[key].c.reduce((sum, item) => sum + (item[1] * item[2]), 0);
+                }
+            }
+            return currentDynamicRawCost || 50;
+        }
+
+        // Вспомогательная функция: рыночная цена для конкретной темы
+        function getMarketPriceForTopic(topicTitle, currentMarketPrice) {
+            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) {
+                return currentMarketPrice;
+            }
+            for (let key in catalogDB) {
+                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
+                    return parseFloat(catalogDB[key].mkt) || currentMarketPrice;
+                }
+            }
+            return currentMarketPrice;
+        }
 
         window.loadCatalogTemplate = function (key) {
             closeModal('catalog-modal');
@@ -1342,17 +1365,17 @@ Thank you!
             if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
 
-            renderEquipmentListingGroupedByTopic(rawCost, market);
+            renderEquipmentListingGroupedByTopic(rawCost, market, otherCosts, salary);
         };
 
-        function renderEquipmentListingGroupedByTopic(rawCost, marketPrice) {
+        function renderEquipmentListingGroupedByTopic(currentRawCost, currentMarketPrice, currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
             container.innerHTML = '';
 
             if (savedEquipmentList.length === 0) {
-                container.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет станков. Зафиксируйте первый станок кнопкой выше!</td></tr>';
+                container.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет станков. Зафиксируйте первый станок кнопкой выше!</td></tr>';
                 return;
             }
 
@@ -1369,43 +1392,48 @@ Thank you!
             if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
 
             for (const [topic, items] of Object.entries(groupedByTopic)) {
+                // Рассчитываем BOM и рыночную цену ИМЕННО под данную тему
+                const topicBom = getBomCostForTopic(topic, currentRawCost);
+                const topicMarketPrice = getMarketPriceForTopic(topic, currentMarketPrice);
+
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                        <td colspan="${isAdminMode ? 8 : 7}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                            📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${rawCost.toFixed(2)})
-                        </td>
-                    `;
+                            <td colspan="${isAdminMode ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                                📂 ТЕМА: ${topic.toUpperCase()} (Спецификация сырья BOM = $${topicBom.toFixed(2)})
+                            </td>
+                        `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
                     const dailyAmort = line.cost / 5 / 365;
-                    const dailyFixedNoSalary = dailyAmort + 100;
-                    const maxAllowedDailyOverhead = line.perf * (rawCost * 0.10);
+                    const dailyFixedNoSalary = dailyAmort + currentOtherCosts;
+                    const maxAllowedDailyOverhead = line.perf * (topicBom * 0.10);
                     const availableDailySalaryFund = Math.max(0, maxAllowedDailyOverhead - dailyFixedNoSalary);
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
 
-                    const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + 100;
-                    const unitCost = rawCost + (totalDailyCost / line.perf);
-                    const monthlyProfit = Math.round(line.perf * (marketPrice - unitCost) * 30);
+                    const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + currentOtherCosts;
+                    const unitCost = topicBom + (totalDailyCost / line.perf);
+                    const monthlyProfit = Math.round(line.perf * (topicMarketPrice - unitCost) * 30);
 
                     const adminDeleteCell = isAdminMode ? `
-                            <td style="text-align:center;">
-                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Удалить запись навсегда из Firebase">🗑️</button>
-                            </td>
-                        ` : '';
+                                <td style="text-align:center;">
+                                    <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Удалить запись навсегда из Firebase">🗑️</button>
+                                </td>
+                            ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                            <td style="padding-left:20px;"><b>${line.name}</b></td>
-                            <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                            <td>$${Number(line.cost).toLocaleString()}</td>
-                            <td>${line.perf} шт/день</td>
-                            <td>${line.staff || 1} чел</td>
-                            <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
-                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
-                            ${adminDeleteCell}
-                        `;
+                                <td style="padding-left:20px;"><b>${line.name}</b></td>
+                                <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                                <td>$${Number(line.cost).toLocaleString()}</td>
+                                <td>${line.perf} шт/день</td>
+                                <td>${line.staff || 1} чел</td>
+                                <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
+                                <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
+                                <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                                ${adminDeleteCell}
+                            `;
                     container.appendChild(tr);
                 });
             }
@@ -1413,7 +1441,6 @@ Thank you!
 
         document.addEventListener('input', calculateAll);
 
-        // Начальная загрузка
         window.addEventListener('DOMContentLoaded', () => {
             loadCatalogTemplate('drone');
         });
