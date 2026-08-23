@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Efficiency Generator — ASUIR Gemini</title>
     <style>
-        /* ================================================================
-           INNOVATION MATRIX STYLING (EN)
-           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -242,11 +239,6 @@
             height: 38px;
         }
 
-            .input-url:focus {
-                border-color: #1f4e78;
-                border-style: solid;
-            }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -306,19 +298,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: 0.15s;
         }
 
             .btn-icon:hover {
                 transform: scale(1.15);
                 color: #1f4e78;
             }
-
-        .btn-icon-sm {
-            height: 34px;
-            font-size: 16px;
-            padding: 0 4px;
-        }
 
         .btn-delete-icon {
             background: transparent;
@@ -327,8 +312,6 @@
             font-size: 18px;
             cursor: pointer;
             padding: 0 4px;
-            line-height: 1;
-            transition: 0.15s;
         }
 
             .btn-delete-icon:hover {
@@ -400,10 +383,6 @@
             color: #6c7a8a;
         }
 
-            .modal-close:hover {
-                color: #1a2632;
-            }
-
         .catalog-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -418,7 +397,6 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 500;
-            transition: 0.15s;
             font-size: 13px;
         }
 
@@ -447,38 +425,11 @@
             padding: 8px 12px;
             font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
         .components-table td {
             padding: 6px 10px;
             vertical-align: middle;
-        }
-
-        .components-table .row-name {
-            min-width: 160px;
-        }
-
-        .components-table .row-url {
-            min-width: 200px;
-        }
-
-        .components-table .row-search {
-            text-align: center;
-            width: 45px;
-        }
-
-        .components-table .row-qty {
-            width: 80px;
-        }
-
-        .components-table .row-price {
-            width: 130px;
-        }
-
-        .components-table .row-delete {
-            text-align: center;
-            width: 40px;
         }
 
         .components-table .input-sm {
@@ -509,68 +460,31 @@
             gap: 8px;
         }
 
-            .icon-text .ico {
-                font-size: 16px;
-                line-height: 1;
-            }
-
         @media (max-width: 768px) {
-            body {
-                padding: 16px 10px;
-            }
-
-            .container {
-                padding: 16px;
-            }
-
-            .nav-primary {
+            .nav-primary, .nav-tabs {
                 flex-direction: column;
-                align-items: stretch;
             }
-
-            .nav-tabs {
-                flex-direction: column;
-                align-items: stretch;
-                border-bottom: none;
-            }
-
-                .nav-tabs a {
-                    border-bottom: 2px solid #e0e4e8;
-                    margin-bottom: 2px;
-                    justify-content: center;
-                }
 
             .catalog-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-SCZYX0Z5VX');
-    </script>
 </head>
 <body>
 
     <div class="container">
-
         <h1 class="main-title">
             <span>Efficiency</span> Generator
             <small>ASUIR Gemini</small>
         </h1>
-        <div class="subtitle">Synthesis of models with maximum salaries and minimum unit costs</div>
+        <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
         <div class="nav-primary">
             <a href="index.html" class="nav-tab-btn">🏠 Main Dashboard</a>
             <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-tab-btn active">📊 ASUIR Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Feedback</a>
-            <!-- SECRET ADMIN MODE TOGGLE BUTTON -->
             <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Toggle Admin Mode for entry deletion">
                 🔑 Admin Mode
             </button>
@@ -579,26 +493,16 @@
         <div class="nav-divider"></div>
 
         <div class="nav-tabs" id="tabHeaders">
-            <a href="#" class="active" data-tab="tab1">
-                <span class="icon">💰</span><span class="label">1. Total Direct Costs</span>
-            </a>
-            <a href="#" data-tab="tab2">
-                <span class="icon">📦</span><span class="label">2. Secondary Overhead</span>
-            </a>
-            <a href="#" data-tab="tab3">
-                <span class="icon">⚙️</span><span class="label">3. Bill of Materials (BOM)</span>
-            </a>
-            <a href="#" data-tab="tab4">
-                <span class="icon">📊</span><span class="label">4. Cost Price</span>
-            </a>
-            <a href="#" data-tab="tab5">
-                <span class="icon">🎯</span><span class="label">5. Financial Results</span>
-            </a>
+            <a href="#" class="active" data-tab="tab1"><span class="icon">💰</span><span class="label">1. Total Direct Costs</span></a>
+            <a href="#" data-tab="tab2"><span class="icon">📦</span><span class="label">2. Secondary Overhead</span></a>
+            <a href="#" data-tab="tab3"><span class="icon">⚙️</span><span class="label">3. Bill of Materials (BOM)</span></a>
+            <a href="#" data-tab="tab4"><span class="icon">📊</span><span class="label">4. Cost Price</span></a>
+            <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Financial Results</span></a>
         </div>
 
-        <!-- TAB 1 -->
+        <!-- TAB 1: STARTER CELL DEFAULTS -->
         <div class="section active" id="tab1">
-            <h2 class="section-title">1. Determine Total Direct Costs</h2>
+            <h2 class="section-title">1. Determine Total Direct Costs (Starter Cell)</h2>
             <div class="table-responsive">
                 <table class="text-regular">
                     <tr>
@@ -609,10 +513,8 @@
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Nice Class Catalog</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Drone assembly line (Sanhok)" style="max-width: 220px;">
-                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Open Alibaba equipment options">
-                                    🔍 Alibaba Options ↗
-                                </button>
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Cell" style="max-width: 240px;">
+                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')">🔍 Alibaba Options ↗</button>
                             </div>
                         </td>
                     </tr>
@@ -620,25 +522,20 @@
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Selected Item Link</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html">
-                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Open Alibaba link in new tab">
-                                    🔗 Open Link
-                                </button>
-                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()" title="Inquire specs from supplier">
-                                    ✉️ Inquire
-                                </button>
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
+                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
+                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Inquire</button>
                             </div>
                         </td>
                         <td class="right">
                             <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Cost $</span>
-                            <input type="number" id="val-equip" class="input-field input-field-sm" value="199000">
+                            <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
                         </td>
                     </tr>
-
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
-                            <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Machine Capacity (from Alibaba)</span></span><br>
-                            <span style="font-size: 12px; color: #6c7a8a;">Take capacity value from Alibaba specification (Capacity / Output)</span>
+                            <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Cell Capacity (from Alibaba)</span></span><br>
+                            <span style="font-size: 12px; color: #6c7a8a;">Daily production capacity of the starter cell</span>
                         </td>
                         <td class="right">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
@@ -647,23 +544,18 @@
                                     <option value="pcs_hour">Pcs per hour</option>
                                     <option value="sec_pc">Seconds per 1 pc</option>
                                 </select>
-                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="100" style="width: 90px; font-weight:700; color:#c65911;">
+                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="20" style="width: 90px; font-weight:700; color:#c65911;">
                                 <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">pcs/day</span>
                             </div>
                         </td>
                     </tr>
-
                     <tr>
-                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Operators</span></span></td>
-                        <td class="right">
-                            <input type="number" id="val-staff" class="input-field input-field-sm" value="12">
-                        </td>
+                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
+                        <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2"></td>
                     </tr>
                     <tr>
-                        <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Monthly Salary per Operator</span></span></td>
-                        <td class="right">
-                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="4000">
-                        </td>
+                        <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Starting Monthly Salary per Operator</span></span></td>
+                        <td class="right">$ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500"></td>
                     </tr>
                     <tr class="total-row">
                         <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Total Daily Fixed Overhead</span></span></td>
@@ -675,30 +567,27 @@
                     </tr>
                 </table>
             </div>
-
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Save current machine parameters into Section 5 Cloud Listing">
-                    💾 Save Equipment to Database
-                </button>
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
             </div>
         </div>
 
-        <!-- TAB 2 -->
+        <!-- TAB 2: SECONDARY OVERHEAD ($55 / DAY) -->
         <div class="section" id="tab2">
-            <h2 class="section-title">2. Secondary Overhead Expenses</h2>
+            <h2 class="section-title">2. Secondary Fixed Overhead (Micro-Facility)</h2>
             <div class="table-responsive">
                 <table class="text-regular">
                     <tr>
-                        <td><span class="icon-text"><span class="ico">🏢</span> <span style="font-weight: 600;">Premises Rent (per day)</span></span></td>
-                        <td class="right">$ <input type="number" id="val-rent" class="input-field input-field-sm" value="50"></td>
+                        <td><span class="icon-text"><span class="ico">🏢</span> <span style="font-weight: 600;">Workshop Rent 40-60 sqm (per day)</span></span></td>
+                        <td class="right">$ <input type="number" id="val-rent" class="input-field input-field-sm" value="30"></td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">🚚</span> <span style="font-weight: 600;">Logistics & Delivery (per day)</span></span></td>
-                        <td class="right">$ <input type="number" id="val-logistics" class="input-field input-field-sm" value="30"></td>
+                        <td class="right">$ <input type="number" id="val-logistics" class="input-field input-field-sm" value="15"></td>
                     </tr>
                     <tr>
-                        <td><span class="icon-text"><span class="ico">🔧</span> <span style="font-weight: 600;">Other Expenses (per day)</span></span></td>
-                        <td class="right">$ <input type="number" id="val-other" class="input-field input-field-sm" value="20"></td>
+                        <td><span class="icon-text"><span class="ico">🔧</span> <span style="font-weight: 600;">Other Facility Expenses (per day)</span></span></td>
+                        <td class="right">$ <input type="number" id="val-other" class="input-field input-field-sm" value="10"></td>
                     </tr>
                     <tr class="total-row">
                         <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Secondary Overhead (per day)</span></span></td>
@@ -708,33 +597,28 @@
             </div>
         </div>
 
-        <!-- TAB 3 -->
+        <!-- TAB 3: BOM -->
         <div class="section" id="tab3">
             <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
-
             <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
-                <b>💡 Specification Pre-filled Automatically</b> for selected category.
-                You can modify prices, quantities, click <b>🔗</b> to view items on Alibaba, or add new rows below.
+                <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, or add new rows below.
             </div>
-
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
                 <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Add Component Row</button>
             </div>
-
             <div class="table-responsive">
                 <table class="components-table">
                     <thead>
                         <tr>
-                            <th class="row-name">📦 Component Name</th>
-                            <th class="row-url">🔗 Alibaba Link</th>
-                            <th class="row-search">🔍</th>
-                            <th class="row-qty">📐 Qty</th>
-                            <th class="row-price">💰 Unit Price ($)</th>
-                            <th class="row-delete"></th>
+                            <th>📦 Component Name</th>
+                            <th>🔗 Alibaba Link</th>
+                            <th>🔍</th>
+                            <th>📐 Qty</th>
+                            <th>💰 Unit Price ($)</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody id="component-dynamic-rows">
-                    </tbody>
+                    <tbody id="component-dynamic-rows"></tbody>
                     <tfoot>
                         <tr style="background:#f0f5fa;">
                             <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
@@ -746,7 +630,7 @@
             </div>
         </div>
 
-        <!-- TAB 4 -->
+        <!-- TAB 4: COST PRICE -->
         <div class="section" id="tab4">
             <h2 class="section-title">4. Total Unit Cost Price</h2>
             <div class="table-responsive">
@@ -771,24 +655,24 @@
             </div>
         </div>
 
-        <!-- TAB 5 -->
+        <!-- TAB 5: FINANCIAL RESULTS & CLOUD LISTING -->
         <div class="section" id="tab5">
             <h2 class="section-title">5. Financial Results Summary & Options Listing</h2>
             <div class="table-responsive">
                 <table class="section-results">
                     <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Market Sales Price (per 1 unit)</span></td>
+                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Minimum Competitive Sales Price (per 1 unit)</span></td>
                         <td class="right" style="font-weight: 400; font-size: 15px;">
                             $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
                         </td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Performance (10% Rule)</span></td>
+                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Breakeven Volume (10% Benchmark)</span></td>
                         <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Machine Capacity (from Alibaba)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">100</span> pcs/day</td>
+                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Cell Capacity (from Alibaba)</span></td>
+                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> pcs/day</td>
                     </tr>
                     <tr style="background: #fcfcfc;">
                         <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Feasibility Indicator:</span></td>
@@ -800,9 +684,7 @@
                             <span style="font-size:11px; font-weight:400; color:#555;">Sustaining Bangladesh Baseline Unit Costs</span>
                         </td>
                         <td class="right">
-                            <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">
-                                $0 / mo
-                            </span>
+                            <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$0 / mo</span>
                         </td>
                     </tr>
                     <tr>
@@ -810,7 +692,7 @@
                         <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> days</td>
                     </tr>
                     <tr class="result-row">
-                        <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Projected Monthly Net Profit (1 Line)</span></td>
+                        <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Projected Monthly Net Profit (1 Cell)</span></td>
                         <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
                     </tr>
                 </table>
@@ -865,12 +747,12 @@
                 <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📱 Tablets / Mobile Devices</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 TVs & Displays</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Telecom & Computers</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Commercial Bakery Line</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Commercial Mini-Bakery</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('jewelry')">💍 Fine Jewelry Casting</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('watch')">⌚ Watch Assembly</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('costume')">💎 Costume Jewelry Press</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('clothes')">👗 Apparel Sewing</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('furniture')">🛋️ Furniture Woodworking</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('clothes')">👗 Apparel Sewing (CNC)</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('furniture')">🛋️ Furniture (CNC Cell)</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('instruments')">🔬 Precision Instruments</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('cnc')">⚙️ Desktop CNC Machines</div>
                 <div class="catalog-card full-width" onclick="loadCatalogTemplate('universal')">📦 Other Product (Universal Template)</div>
@@ -885,9 +767,9 @@
             <p style="font-size:12px; color:#6c7a8a; margin-bottom:15px;">Copy this message and send to the Alibaba supplier in Trade Messenger:</p>
             <textarea id="inquiry-text-area" rows="6" class="input-field" style="height:auto; font-size:12px; margin-bottom:15px;" readonly>
 Dear Supplier,
-We are evaluating your equipment line for production setup. Please specify:
+We are evaluating your equipment for a compact production cell setup. Please specify:
 1. Exact Daily Production Capacity (Pcs/Day or Cycle Time per 1 unit).
-2. Minimum required operators/staff to run this line.
+2. Minimum required operators/staff to run this machine.
 Thank you!
             </textarea>
             <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText(document.getElementById('inquiry-text-area').value); alert('Inquiry text copied!'); closeModal('inquiry-modal');">📋 Copy Inquiry Text</button>
@@ -917,21 +799,18 @@ Thank you!
             <form id="feedback-form" onsubmit="handleFormSubmit(event, 'en')">
                 <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">What did you like about the system?</label>
                 <textarea id="fb-like" rows="3" class="input-field" style="height:auto; resize:vertical; margin-bottom: 15px;"></textarea>
-
                 <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">What should be improved or added?</label>
                 <textarea id="fb-dislike" rows="4" required class="input-field" style="height:auto; resize:vertical; margin-bottom: 20px;"></textarea>
-
                 <button type="submit" class="btn btn-primary btn-block">Send Email</button>
             </form>
         </div>
     </div>
 
-    <!-- FIREBASE REALTIME SDK SCRIPT -->
+    <!-- FIREBASE REALTIME SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-        // YOUR FIREBASE CONFIGURATION
         const firebaseConfig = {
             apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
             authDomain: "asuir-gemini.firebaseapp.com",
@@ -951,76 +830,50 @@ Thank you!
         let isAdminMode = false;
 
         const defaultInitialMachines = [
-            { topic_title: "Drones & Radioelectronics", name: "Drone Assembly Line (Sanhok 100 pcs/day)", url: "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html", cost: 199000, perf: 100, staff: 12 },
-            { topic_title: "Drones & Radioelectronics", name: "High-Speed Industrial Drone Complex (500 pcs/day)", url: "https://www.alibaba.com/product-detail/Free-3D-Modeling-Drone-Production-Line_1601467516106.html", cost: 280000, perf: 500, staff: 22 },
-            { topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 25000, perf: 35, staff: 3 },
-            { topic_title: "Tablets & Mobile Devices", name: "Vacuum Lamination Tablet Assembly Line (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 120, staff: 4 },
-            { topic_title: "Fine Jewelry Casting", name: "Induction Jewelry Casting Machine (Alibaba)", url: "https://www.alibaba.com/", cost: 45000, perf: 150, staff: 2 }
+            { topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Cell (20 pcs/day)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
+            { topic_title: "Tablets & Mobile Devices", name: "Desktop Tablet Assembly Station (35 pcs/day)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
+            { topic_title: "Furniture Woodworking", name: "Compact CNC Furniture Nesting Center (15 units/day)", url: "https://www.alibaba.com/", cost: 28000, perf: 15, staff: 2 },
+            { topic_title: "Fine Jewelry Casting", name: "Benchtop Jewelry Casting Complex (25 pcs/day)", url: "https://www.alibaba.com/", cost: 12000, perf: 25, staff: 2 },
+            { topic_title: "Desktop CNC Machines", name: "Desktop CNC Assembly Line (4 machines/day)", url: "https://www.alibaba.com/", cost: 15000, perf: 4, staff: 2 }
         ];
 
-        // 1. REALTIME LISTENER FROM FIREBASE CLOUD
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                savedEquipmentList = Object.entries(data).map(([id, val]) => ({
-                    id: id,
-                    ...val
-                }));
+                savedEquipmentList = Object.entries(data).map(([id, val]) => ({ id: id, ...val }));
             } else {
-                defaultInitialMachines.forEach(item => {
-                    push(equipmentDbRef, item);
-                });
+                defaultInitialMachines.forEach(item => push(equipmentDbRef, item));
                 savedEquipmentList = [];
             }
             calculateAll();
         });
 
-        // 2. SAVE TO FIREBASE CLOUD
         window.saveCurrentEquipmentToDatabase = function () {
             const queryInput = document.getElementById('equip-search-query');
-            const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Line from Alibaba";
-
+            const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Starter Cell Machine";
             const urlInput = document.getElementById('equip-url');
             const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
-
             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
-            const newItem = {
-                topic_title: currentTopicTitle || "Drones & Radioelectronics",
-                name: query,
-                url: url,
-                cost: cost,
-                perf: perf,
-                staff: staff
-            };
+            const newItem = { topic_title: currentTopicTitle || "Drones & Radioelectronics", name: query, url: url, cost: cost, perf: perf, staff: staff };
 
             push(equipmentDbRef, newItem)
-                .then(() => {
-                    alert(`✅ Equipment "${query}" ($${cost.toLocaleString('en-US')}) saved to Section 5 Cloud Listing!`);
-                })
-                .catch(err => {
-                    alert(`❌ Error saving to Firebase: ` + err.message);
-                });
+                .then(() => alert(`✅ Machine "${query}" ($${cost.toLocaleString('en-US')}) saved to Section 5 Cloud Listing!`))
+                .catch(err => alert(`❌ Error saving to Firebase: ` + err.message));
         };
 
-        // 3. REMOVE RECORD FROM FIREBASE CLOUD
         window.deleteItemFromLiveDatabase = function (id, name) {
             if (!isAdminMode) return;
-            if (confirm(`🗑️ Delete equipment "${name}" from cloud database permanently?`)) {
+            if (confirm(`🗑️ Delete machine "${name}" from cloud database permanently?`)) {
                 const itemRef = ref(db, `equipment_listing_en/${id}`);
                 remove(itemRef)
-                    .then(() => {
-                        alert(`✅ Record permanently deleted from cloud.`);
-                    })
-                    .catch(err => {
-                        alert(`❌ Error deleting from Firebase: ` + err.message);
-                    });
+                    .then(() => alert(`✅ Record permanently deleted from cloud.`))
+                    .catch(err => alert(`❌ Error deleting from Firebase: ` + err.message));
             }
         };
 
-        // Admin mode toggle
         window.toggleAdminMode = function () {
             if (isAdminMode) {
                 isAdminMode = false;
@@ -1043,7 +896,6 @@ Thank you!
             calculateAll();
         };
 
-        // Tab Navigation
         document.querySelectorAll('#tabHeaders a').forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1121,27 +973,27 @@ Thank you!
             const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
 
             tr.innerHTML = `
-                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Component name..."></td>
-                        <td>
-                            <div style="display:flex; align-items:center; gap:4px;">
-                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Paste link...">
-                                <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open link on Alibaba">🔗</button>
-                            </div>
-                        </td>
-                        <td class="row-search">
-                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
-                        </td>
-                        <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
-                        <td>
-                            <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
-                                <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Bulk calculator">🧮</button>
-                            </div>
-                        </td>
-                        <td class="row-delete">
-                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
-                        </td>
-                    `;
+                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Component name..."></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Paste link...">
+                            <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open link on Alibaba">🔗</button>
+                        </div>
+                    </td>
+                    <td class="row-search">
+                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
+                    </td>
+                    <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                            <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Bulk calculator">🧮</button>
+                        </div>
+                    </td>
+                    <td class="row-delete">
+                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
+                    </td>
+                `;
             tbody.appendChild(tr);
             calculateAll();
         };
@@ -1164,65 +1016,64 @@ Thank you!
             return rawTitle;
         }
 
+        // STARTER CELL CATALOG (2-3 OPERATORS)
         const catalogDB = {
             'drone': {
-                title: "Drones & Radioelectronics", eq: '199000', mkt: '423', perf: '100', staff: '12', q: 'Drone assembly line (Sanhok)',
+                title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
                 c: [['Carbon fiber frame kit', 1, 26.0], ['Flight Controller (FC + PDB)', 1, 45.0], ['Brushless motors + ESC set (4 pcs)', 1, 55.0], ['VTX Video system & FPV camera', 1, 35.0], ['LiPo Battery pack 6S', 1, 25.0]]
             },
             'tablet': {
-                title: "Tablets & Mobile Devices", eq: '45000', mkt: '150', perf: '120', staff: '4', q: 'tablet assembly equipment',
+                title: "Tablets & Mobile Devices", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Station',
                 c: [['IPS/OLED Display assembly', 1, 35.0], ['SoC Motherboard (ARM)', 1, 45.0], ['Li-Po Battery', 1, 10.0], ['Ultra-thin chassis & cables', 1, 8.0], ['Retail packaging box', 1, 2.0]]
             },
             'tv': {
-                title: "TVs & Displays", eq: '280000', mkt: '550', perf: '50', staff: '8', q: 'lcd tv assembly line',
+                title: "TVs & Displays", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Compact Clean TV Panel Assembly Station',
                 c: [['LCD / OLED Display matrix', 1, 140.0], ['Main Board', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['LED Backlight strip', 1, 15.0], ['Housing & Speakers', 1, 28.0]]
             },
             'pc': {
-                title: "Telecom & Computers", eq: '180000', mkt: '1850', perf: '20', staff: '6', q: 'computer assembly machine',
+                title: "Telecom & Computers", eq: '20000', mkt: '1850', perf: '10', staff: '2', q: 'PC Assembly & Testing Station',
                 c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory modules', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]]
             },
             'bakery': {
-                title: "Commercial Bakery Line", eq: '45000', mkt: '1.5', perf: '25000', staff: '3', q: 'commercial bakery line',
+                title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
                 c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Baking Additives', 1, 0.05], ['Packaging bag', 1, 0.08]]
             },
             'jewelry': {
-                title: "Fine Jewelry Casting", eq: '45000', mkt: '350', perf: '150', staff: '2', q: 'jewelry casting machine',
+                title: "Fine Jewelry Casting", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Benchtop Jewelry Casting Complex',
                 c: [['Gold/Silver casting granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry findings & clasps', 1, 5.0], ['Velvet presentation box', 1, 5.0]]
             },
             'watch': {
-                title: "Watch Assembly", eq: '35000', mkt: '450', perf: '150', staff: '3', q: 'watch assembly tools',
+                title: "Watch Assembly", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Watch Assembly Mini-Cell',
                 c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands set', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]]
             },
             'costume': {
-                title: "Costume Jewelry Press", eq: '15000', mkt: '25', perf: '3000', staff: '2', q: 'costume jewelry press',
+                title: "Costume Jewelry Press", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Mini Hydraulic Jewelry Press',
                 c: [['Alloy blank workpiece', 1, 2.0], ['Decorative crystals', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]]
             },
             'clothes': {
-                title: "Apparel Sewing", eq: '35000', mkt: '65', perf: '300', staff: '5', q: 'industrial sewing machine',
+                title: "Apparel Sewing", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'CNC Cutting & Sewing Mini-Shop',
                 c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware buttons', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]]
             },
             'furniture': {
-                title: "Furniture Woodworking", eq: '90000', mkt: '280', perf: '120', staff: '4', q: 'cnc woodworking machine',
+                title: "Furniture Woodworking", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Compact CNC Furniture Nesting Center',
                 c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]]
             },
             'instruments': {
-                title: "Precision Instruments", eq: '110000', mkt: '450', perf: '60', staff: '4', q: 'precision assembly machine',
+                title: "Precision Instruments", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Instrument Calibration & Assembly Station',
                 c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]]
             },
             'cnc': {
-                title: "Desktop CNC Machines", eq: '25000', mkt: '1500', perf: '20', staff: '2', q: 'desktop cnc machine',
+                title: "Desktop CNC Machines", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Desktop CNC Assembly Line',
                 c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors set', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]]
             },
             'universal': {
-                title: "Universal Template", eq: '60000', mkt: '200', perf: '200', staff: '3', q: 'manufacturing machine',
+                title: "Universal Template", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Universal Production Cell',
                 c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]]
             }
         };
 
         function getBomCostForTopic(topicTitle, currentDynamicRawCost) {
-            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) {
-                return currentDynamicRawCost;
-            }
+            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) return currentDynamicRawCost;
             for (let key in catalogDB) {
                 if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
                     return catalogDB[key].c.reduce((sum, item) => sum + (item[1] * item[2]), 0);
@@ -1232,9 +1083,7 @@ Thank you!
         }
 
         function getMarketPriceForTopic(topicTitle, currentMarketPrice) {
-            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) {
-                return currentMarketPrice;
-            }
+            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) return currentMarketPrice;
             for (let key in catalogDB) {
                 if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
                     return parseFloat(catalogDB[key].mkt) || currentMarketPrice;
@@ -1251,11 +1100,11 @@ Thank you!
             if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
-            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 100;
-            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 1;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
+            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
             if (document.getElementById('equip-url')) {
                 if (key === 'drone') {
-                    document.getElementById('equip-url').value = "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html";
+                    document.getElementById('equip-url').value = "https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html";
                 } else {
                     document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
                 }
@@ -1277,15 +1126,13 @@ Thank you!
             const valInput = document.getElementById('val-actual-perf');
             let val = parseFloat(valInput.value) || 0;
 
-            if (mode === 'pcs_hour') {
-                valInput.value = Math.round(val * 8);
-            } else if (mode === 'sec_pc') {
-                valInput.value = val > 0 ? Math.round(28800 / val) : 100;
-            }
+            if (mode === 'pcs_hour') valInput.value = Math.round(val * 8);
+            else if (mode === 'sec_pc') valInput.value = val > 0 ? Math.round(28800 / val) : 20;
             document.getElementById('perf-input-mode').value = 'pcs_day';
             calculateAll();
         };
 
+        // RIGOROUS CALCULATION USING AUTHENTIC BALANCE EQUATION FROM MARKET PRICE
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
@@ -1322,7 +1169,7 @@ Thank you!
 
             const totalDailyCost = overhead + otherCosts;
 
-            // 1. Required Performance according to 10% Benchmark on Market Price
+            // 1. Required Daily Breakeven Volume (10% Rule on Market Price)
             const reqPerf = market > 0 ? Math.ceil(totalDailyCost / (market * 0.10)) : 0;
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
@@ -1336,7 +1183,7 @@ Thank you!
             if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
-            // 2. YOUR EXACT SALARY CALCULATION FORMULA:
+            // 2. MAXIMUM SALARY CALCULATION ACCORDING TO AUTHENTIC ASUIR EQUATION:
             // Daily Production Expenses = Actual Capacity * 0.10 * Minimum Competitive Market Price
             const dailyProductionExpenses = actualPerf * 0.10 * market;
             const dailyFixedNoSalary = amort + otherCosts;
@@ -1388,9 +1235,7 @@ Thank you!
             const groupedByTopic = {};
             savedEquipmentList.forEach(item => {
                 const topicName = normalizeTopicTitle(item.topic_title);
-                if (!groupedByTopic[topicName]) {
-                    groupedByTopic[topicName] = [];
-                }
+                if (!groupedByTopic[topicName]) groupedByTopic[topicName] = [];
                 groupedByTopic[topicName].push(item);
             });
 
@@ -1404,17 +1249,17 @@ Thank you!
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                            <td colspan="${isAdminMode ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                📂 TOPIC: ${topic.toUpperCase()} (Competitive Price = $${topicMarketPrice.toFixed(2)}, BOM = $${topicBom.toFixed(2)})
-                            </td>
-                        `;
+                        <td colspan="${isAdminMode ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                            📂 TOPIC: ${topic.toUpperCase()} (Competitive Price = $${topicMarketPrice.toFixed(2)}, BOM = $${topicBom.toFixed(2)})
+                        </td>
+                    `;
                 container.appendChild(headerTr);
 
                 items.forEach(line => {
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + currentOtherCosts;
 
-                    // Salary calculation strictly from topic market price
+                    // Machine salary strictly from topic market price
                     const productionExpenses = line.perf * 0.10 * topicMarketPrice;
                     const availableDailySalaryFund = Math.max(0, productionExpenses - dailyFixedNoSalary);
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
@@ -1424,23 +1269,23 @@ Thank you!
                     const monthlyProfit = Math.round(line.perf * (topicMarketPrice - unitCost) * 30);
 
                     const adminDeleteCell = isAdminMode ? `
-                                <td style="text-align:center;">
-                                    <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Delete entry permanently from Firebase">🗑️</button>
-                                </td>
-                            ` : '';
+                            <td style="text-align:center;">
+                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Delete entry permanently from Firebase">🗑️</button>
+                            </td>
+                        ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                                <td style="padding-left:20px;"><b>${line.name}</b></td>
-                                <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                                <td>$${Number(line.cost).toLocaleString('en-US')}</td>
-                                <td>${line.perf} pcs/day</td>
-                                <td>${line.staff || 1} staff</td>
-                                <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
-                                <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
-                                <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
-                                ${adminDeleteCell}
-                            `;
+                            <td style="padding-left:20px;"><b>${line.name}</b></td>
+                            <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                            <td>$${Number(line.cost).toLocaleString('en-US')}</td>
+                            <td>${line.perf} pcs/day</td>
+                            <td>${line.staff || 1} staff</td>
+                            <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
+                            <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
+                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                            ${adminDeleteCell}
+                        `;
                     container.appendChild(tr);
                 });
             }
@@ -1452,6 +1297,5 @@ Thank you!
             loadCatalogTemplate('drone');
         });
     </script>
-
 </body>
 </html>
