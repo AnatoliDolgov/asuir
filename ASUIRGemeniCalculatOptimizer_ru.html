@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор эффективности — ASUIR Gemini</title>
+    <title>Генератор эффективности — ASUIR Gemini v2.1</title>
     <style>
         /* ================================================================
            СТИЛИСТИКА INNOVATION MATRIX (RU)
@@ -43,8 +43,8 @@
 
             .main-title small {
                 font-size: 14px;
-                font-weight: 300;
-                color: #6c7a8a;
+                font-weight: 400;
+                color: #007600;
                 margin-left: 12px;
             }
 
@@ -59,7 +59,8 @@
         .nav-primary {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
             background: #f7f9fa;
             padding: 6px 12px;
             border-radius: 6px;
@@ -70,7 +71,7 @@
             .nav-primary a {
                 color: #6c7a8a;
                 text-decoration: none;
-                padding: 8px 18px;
+                padding: 8px 16px;
                 font-size: 13px;
                 font-weight: 500;
                 border-radius: 4px;
@@ -87,6 +88,25 @@
                     background: rgba(31,78,120,0.08);
                     font-weight: 600;
                 }
+
+        .client-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #eef6ff;
+            border: 1px solid #b8daff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #1f4e78;
+            font-weight: 600;
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+            .client-badge:hover {
+                background: #dbeaff;
+            }
 
         .nav-divider {
             height: 1px;
@@ -242,11 +262,6 @@
             height: 38px;
         }
 
-            .input-url:focus {
-                border-color: #1f4e78;
-                border-style: solid;
-            }
-
         .btn {
             display: inline-flex;
             align-items: center;
@@ -306,19 +321,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: 0.15s;
         }
 
             .btn-icon:hover {
                 transform: scale(1.15);
                 color: #1f4e78;
             }
-
-        .btn-icon-sm {
-            height: 34px;
-            font-size: 16px;
-            padding: 0 4px;
-        }
 
         .btn-delete-icon {
             background: transparent;
@@ -327,7 +335,6 @@
             font-size: 18px;
             cursor: pointer;
             padding: 0 4px;
-            line-height: 1;
             transition: 0.15s;
         }
 
@@ -367,6 +374,27 @@
             border: 1px solid #f2b897;
         }
 
+        .owner-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .owner-mine {
+            background: #e2efda;
+            color: #007600;
+            border: 1px solid #bcd1a9;
+        }
+
+        .owner-others {
+            background: #f0f2f5;
+            color: #6c7a8a;
+            border: 1px solid #d0d7dd;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -400,10 +428,6 @@
             color: #6c7a8a;
         }
 
-            .modal-close:hover {
-                color: #1a2632;
-            }
-
         .catalog-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -418,7 +442,6 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 500;
-            transition: 0.15s;
             font-size: 13px;
         }
 
@@ -447,38 +470,11 @@
             padding: 8px 12px;
             font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
         .components-table td {
             padding: 6px 10px;
             vertical-align: middle;
-        }
-
-        .components-table .row-name {
-            min-width: 160px;
-        }
-
-        .components-table .row-url {
-            min-width: 200px;
-        }
-
-        .components-table .row-search {
-            text-align: center;
-            width: 45px;
-        }
-
-        .components-table .row-qty {
-            width: 80px;
-        }
-
-        .components-table .row-price {
-            width: 130px;
-        }
-
-        .components-table .row-delete {
-            text-align: center;
-            width: 40px;
         }
 
         .components-table .input-sm {
@@ -509,11 +505,6 @@
             gap: 8px;
         }
 
-            .icon-text .ico {
-                font-size: 16px;
-                line-height: 1;
-            }
-
         @media (max-width: 768px) {
             body {
                 padding: 16px 10px;
@@ -523,22 +514,16 @@
                 padding: 16px;
             }
 
-            .nav-primary {
+            .nav-primary, .nav-tabs {
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .nav-tabs {
-                flex-direction: column;
-                align-items: stretch;
-                border-bottom: none;
+            .client-badge {
+                margin-left: 0;
+                text-align: center;
+                justify-content: center;
             }
-
-                .nav-tabs a {
-                    border-bottom: 2px solid #e0e4e8;
-                    margin-bottom: 2px;
-                    justify-content: center;
-                }
 
             .catalog-grid {
                 grid-template-columns: 1fr;
@@ -561,17 +546,23 @@
 
         <h1 class="main-title">
             <span>Генератор</span> эффективности
-            <small>ASUIR Gemini</small>
+            <small>ASUIR Gemini v2.1 (Стартовая ячейка + Фильтрация)</small>
         </h1>
         <div class="subtitle">Синтез моделей стартовых ячеек с наивысшей зарплатой и наинизшей себестоимостью</div>
 
         <div class="nav-primary">
             <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
-            <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
+            <a href="Help_ru.html" class="nav-tab-btn">❓ Документация</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Обратная связь</a>
+
+            <!-- ИДЕНТИФИКАТОР КЛИЕНТА / ЦЕХА -->
+            <div class="client-badge" onclick="editClientIdentifier()" title="Нажмите, чтобы изменить имя проекта / цеха">
+                🆔 Мой ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
+            </div>
+
             <!-- СЕКРЕТНАЯ КНОПКА АДМИНИСТРАТОРА -->
-            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Включить режим администратора для удаления записей">
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff;" onclick="toggleAdminMode()" title="Включить режим администратора для удаления любых записей">
                 🔑 Admin Mode
             </button>
         </div>
@@ -579,24 +570,14 @@
         <div class="nav-divider"></div>
 
         <div class="nav-tabs" id="tabHeaders">
-            <a href="#" class="active" data-tab="tab1">
-                <span class="icon">💰</span><span class="label">1. Определяем общие затраты</span>
-            </a>
-            <a href="#" data-tab="tab2">
-                <span class="icon">📦</span><span class="label">2. Остальные издержки</span>
-            </a>
-            <a href="#" data-tab="tab3">
-                <span class="icon">⚙️</span><span class="label">3. Сырьё и комплектующие</span>
-            </a>
-            <a href="#" data-tab="tab4">
-                <span class="icon">📊</span><span class="label">4. Себестоимость</span>
-            </a>
-            <a href="#" data-tab="tab5">
-                <span class="icon">🎯</span><span class="label">5. Результаты и Листинг</span>
-            </a>
+            <a href="#" class="active" data-tab="tab1"><span class="icon">💰</span><span class="label">1. Определяем общие затраты</span></a>
+            <a href="#" data-tab="tab2"><span class="icon">📦</span><span class="label">2. Остальные издержки</span></a>
+            <a href="#" data-tab="tab3"><span class="icon">⚙️</span><span class="label">3. Сырьё и комплектующие</span></a>
+            <a href="#" data-tab="tab4"><span class="icon">📊</span><span class="label">4. Себестоимость</span></a>
+            <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Результаты и Листинг</span></a>
         </div>
 
-        <!-- ТАБ 1: СТАРТОВАЯ ЯЧЕЙКА (ДЕФОЛТ: 2 РАБОЧИХ, СТАНОК $25 000, ЗП $3 500) -->
+        <!-- ТАБ 1: СТАРТОВАЯ ЯЧЕЙКА (2 РАБОЧИХ, $25 000 СТАНОК, 20 ШТ/ДЕНЬ) -->
         <div class="section active" id="tab1">
             <h2 class="section-title">1. Определяем общие затраты (Стартовая ячейка)</h2>
             <div class="table-responsive">
@@ -638,7 +619,7 @@
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
                             <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность ячейки (с Alibaba)</span></span><br>
-                            <span style="font-size: 12px; color: #6c7a8a;">Паспортная скорость оборудования ячейки</span>
+                            <span style="font-size: 12px; color: #6c7a8a;">Паспортная суточная скорость связки оборудования</span>
                         </td>
                         <td class="right">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
@@ -677,13 +658,13 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Облачную Базу">
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок в Базу с вашим Client ID">
                     💾 Зафиксировать этот станок в Базу Листинга
                 </button>
             </div>
         </div>
 
-        <!-- ТАБ 2: ПОСТОЯННЫЕ ИЗДЕРЖКИ МИКРО-ЦЕХА ($55 / ДЕНЬ) -->
+        <!-- ТАБ 2: ПОСТОЯННЫЕ ИЗДЕРЖКИ ($55 / ДЕНЬ) -->
         <div class="section" id="tab2">
             <h2 class="section-title">2. Остальные постоянные издержки (Микро-помещение)</h2>
             <div class="table-responsive">
@@ -708,13 +689,12 @@
             </div>
         </div>
 
-        <!-- ТАБ 3 -->
+        <!-- ТАБ 3: СПЕЦИФИКАЦИЯ BOM -->
         <div class="section" id="tab3">
             <h2 class="section-title">3. Сырьё и комплектующие (Спецификация BOM)</h2>
-
             <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
                 <b>💡 Комплектация сформирована автоматически</b> под выбранный проект.
-                Вы можете изменять цены, количества деталей, нажимать <b>🔗</b> для перехода на Alibaba или добавлять новые строки кнопкой ниже.
+                Вы можете изменять цены, количества деталей, нажимать <b>🔗</b> для перехода на Alibaba или добавлять новые строки.
             </div>
 
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
@@ -733,8 +713,7 @@
                             <th class="row-delete"></th>
                         </tr>
                     </thead>
-                    <tbody id="component-dynamic-rows">
-                    </tbody>
+                    <tbody id="component-dynamic-rows"></tbody>
                     <tfoot>
                         <tr style="background:#f0f5fa;">
                             <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Итоговая стоимость сырья (BOM) на 1 шт:</span></span></td>
@@ -771,7 +750,7 @@
             </div>
         </div>
 
-        <!-- ТАБ 5: РАСЧЕТ ЗАРПЛАТЫ ПО АВТОРСКОЙ ФОРМУЛЕ ОТ КОНКУРЕНТНОЙ ЦЕНЫ -->
+        <!-- ТАБ 5: РАСЧЕТ ЗАРПЛАТЫ И ФИЛЬТР ЛИСТИНГА -->
         <div class="section" id="tab5">
             <h2 class="section-title">5. Сводка финансовых результатов и Тематический Листинг</h2>
             <div class="table-responsive">
@@ -816,12 +795,17 @@
                 </table>
             </div>
 
-            <!-- ЛИСТИНГ ОБОРУДОВАНИЯ СГРУППИРОВАННЫЙ ПО ТЕМАМ -->
+            <!-- БЛОК ЛИСТИНГА ОБОРУДОВАНИЯ С КОМБОБОКСОМ ФИЛЬТРАЦИИ -->
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-                    <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
-                        📋 Откалибрированный Листинг Оборудования с Alibaba (Облако Firebase)
-                    </h3>
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Фильтр базы оборудования:</label>
+                        <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="calculateAll()">
+                            <option value="my">👤 Только мои производственные линии</option>
+                            <option value="others">🔍 Чужие (Бенчмаркинг / Отбор)</option>
+                            <option value="all" selected>🌐 Все линии (Свои и чужие)</option>
+                        </select>
+                    </div>
                     <div>
                         <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок в Базу</button>
                     </div>
@@ -830,7 +814,7 @@
                 <table class="components-table" style="width:100%;">
                     <thead>
                         <tr>
-                            <th>Тип линии (Alibaba)</th>
+                            <th>Тип линии / станка</th>
                             <th>Ссылка</th>
                             <th>Цена линии</th>
                             <th>Скорость ($P_{fact}$)</th>
@@ -950,16 +934,34 @@ Thank you!
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
+        // 1. ИНИЦИАЛИЗАЦИЯ И ХРАНЕНИЕ УНИКАЛЬНОГО CLIENT ID
+        let myClientId = localStorage.getItem('asuir_client_id');
+        if (!myClientId) {
+            myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            localStorage.setItem('asuir_client_id', myClientId);
+        }
+        document.getElementById('client-id-display').textContent = myClientId;
+
+        window.editClientIdentifier = function () {
+            const newId = prompt("Введите имя вашего проекта или идентификатор цеха (Client ID):", myClientId);
+            if (newId && newId.trim() !== '') {
+                myClientId = newId.trim();
+                localStorage.setItem('asuir_client_id', myClientId);
+                document.getElementById('client-id-display').textContent = myClientId;
+                calculateAll();
+            }
+        };
+
         // Базовые стартовые ячейки в Firebase
         const defaultInitialMachines = [
-            { topic_title: "Дроны и Радиоэлектроника", name: "Компактная ESD-ячейка сборки БПЛА (20 шт/день)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
-            { topic_title: "Планшеты и Мобильные ПК", name: "Настольный комплекс сборки планшетов (35 шт/день)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
-            { topic_title: "Мебель и Деревообработка", name: "Компактный мебельный ЧПУ раскройный центр (15 ед/день)", url: "https://www.alibaba.com/", cost: 28000, perf: 15, staff: 2 },
-            { topic_title: "Ювелирные Изделия", name: "Настольный ювелирный литейный комплекс (25 шт/день)", url: "https://www.alibaba.com/", cost: 12000, perf: 25, staff: 2 },
-            { topic_title: "Настольные ЧПУ Станки", name: "Линия узловой сборки настольных ЧПУ (4 шт/день)", url: "https://www.alibaba.com/", cost: 15000, perf: 4, staff: 2 }
+            { client_id: "SYSTEM", topic_title: "Дроны и Радиоэлектроника", name: "Компактная ESD-ячейка сборки БПЛА (20 шт/день)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Планшеты и Мобильные ПК", name: "Настольный комплекс сборки планшетов (35 шт/день)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Мебель и Деревообработка", name: "Компактный мебельный ЧПУ раскройный центр (15 ед/день)", url: "https://www.alibaba.com/", cost: 28000, perf: 15, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Ювелирные Изделия", name: "Настольный ювелирный литейный комплекс (25 шт/день)", url: "https://www.alibaba.com/", cost: 12000, perf: 25, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Настольные ЧПУ Станки", name: "Линия узловой сборки настольных ЧПУ (4 шт/день)", url: "https://www.alibaba.com/", cost: 15000, perf: 4, staff: 2 }
         ];
 
-        // 1. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ
+        // 2. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ FIREBASE
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -976,7 +978,7 @@ Thank you!
             calculateAll();
         });
 
-        // 2. СОХРАНЕНИЕ В ОБЛАКО
+        // 3. СОХРАНЕНИЕ В ОБЛАКО С ПРИВЯЗКОЙ К CLIENT ID
         window.saveCurrentEquipmentToDatabase = function () {
             const queryInput = document.getElementById('equip-search-query');
             const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок стартовой ячейки";
@@ -989,31 +991,37 @@ Thank you!
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
             const newItem = {
+                client_id: myClientId, // Фиксация авторства за текущим клиентом
                 topic_title: currentTopicTitle || "Дроны и Радиоэлектроника",
                 name: query,
                 url: url,
                 cost: cost,
                 perf: perf,
-                staff: staff
+                staff: staff,
+                created_at: new Date().toISOString()
             };
 
             push(equipmentDbRef, newItem)
                 .then(() => {
-                    alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) сохранен в облако Firebase!`);
+                    alert(`✅ Станок "${query}" ($${cost.toLocaleString()}) зафиксирован в базе под вашим ID (${myClientId})!`);
                 })
                 .catch(err => {
                     alert(`❌ Ошибка сохранения в Firebase: ` + err.message);
                 });
         };
 
-        // 3. УДАЛЕНИЕ ИЗ ОБЛАКА
-        window.deleteItemFromLiveDatabase = function (id, name) {
-            if (!isAdminMode) return;
-            if (confirm(`🗑️ Вы действительно хотите навсегда удалить станок "${name}" из базы Firebase?`)) {
+        // 4. УДАЛЕНИЕ ИЗ ОБЛАКА (СВОИХ ЛИБО В ADMIN MODE)
+        window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
+            const isMine = (itemClientId === myClientId);
+            if (!isAdminMode && !isMine) {
+                alert("🔒 Вы можете удалять только свои собственные производственные линии!");
+                return;
+            }
+            if (confirm(`🗑️ Вы действительно хотите удалить станок "${name}" из базы?`)) {
                 const itemRef = ref(db, `equipment_listing/${id}`);
                 remove(itemRef)
                     .then(() => {
-                        alert(`✅ Запись удалена из облака.`);
+                        alert(`✅ Запись удалена из базы.`);
                     })
                     .catch(err => {
                         alert(`❌ Ошибка удаления: ` + err.message);
@@ -1035,7 +1043,7 @@ Thank you!
                     document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
                     document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
                     document.getElementById('admin-col-header').style.display = "table-cell";
-                    alert("🔓 Режим Администратора активирован! Кнопка 🗑️ теперь удаляет записи из облака навсегда.");
+                    alert("🔓 Режим Администратора активирован! Вы можете удалять любые записи.");
                 } else if (pwd !== null) {
                     alert("❌ Неверный пароль администратора!");
                 }
@@ -1084,7 +1092,7 @@ Thank you!
             const likedText = document.getElementById('fb-like').value.trim();
             const dislikedText = document.getElementById('fb-dislike').value.trim();
             let subject = "Feedback from ASUIR Gemini (RU)";
-            let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
+            let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\nClient ID: " + myClientId + "\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
             window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
         };
@@ -1375,19 +1383,34 @@ Thank you!
             renderEquipmentListingGroupedByTopic(rawCost, market, otherCosts, salary);
         };
 
+        // 5. РЕНДЕРИНГ ЛИСТИНГА С УЧЕТОМ ФИЛЬТРА «СВОИ / ЧУЖИЕ / ВСЕ»
         function renderEquipmentListingGroupedByTopic(currentRawCost, currentMarketPrice, currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
             container.innerHTML = '';
 
-            if (savedEquipmentList.length === 0) {
-                container.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет станков. Зафиксируйте первый станок кнопкой выше!</td></tr>';
+            const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
+
+            // Фильтрация данных по методу владения
+            const filteredList = savedEquipmentList.filter(item => {
+                const itemOwner = item.client_id || "SYSTEM";
+                const isMine = (itemOwner === myClientId);
+                if (filterMode === 'my') return isMine;
+                if (filterMode === 'others') return !isMine;
+                return true; // 'all'
+            });
+
+            if (filteredList.length === 0) {
+                let emptyMsg = "В базе пока нет записей.";
+                if (filterMode === 'my') emptyMsg = `У вас (${myClientId}) пока нет зафиксированных линий. Нажмите «💾 Зафиксировать станок в Базу» выше!`;
+                if (filterMode === 'others') emptyMsg = "В базе нет чужих линий для бенчмаркинга.";
+                container.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">${emptyMsg}</td></tr>`;
                 return;
             }
 
             const groupedByTopic = {};
-            savedEquipmentList.forEach(item => {
+            filteredList.forEach(item => {
                 const topicName = normalizeTopicTitle(item.topic_title);
                 if (!groupedByTopic[topicName]) {
                     groupedByTopic[topicName] = [];
@@ -1396,7 +1419,7 @@ Thank you!
             });
 
             const adminColHeader = document.getElementById('admin-col-header');
-            if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
+            if (adminColHeader) adminColHeader.style.display = (isAdminMode || filterMode === 'my') ? "table-cell" : "none";
 
             for (const [topic, items] of Object.entries(groupedByTopic)) {
                 const topicBom = getBomCostForTopic(topic, currentRawCost);
@@ -1405,7 +1428,7 @@ Thank you!
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                        <td colspan="${isAdminMode ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                        <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
                             📂 ТЕМА: ${topic.toUpperCase()} (Конкурентная цена = $${topicMarketPrice.toFixed(2)}, Сырье = $${topicBom.toFixed(2)})
                         </td>
                     `;
@@ -1424,15 +1447,24 @@ Thank you!
                     const unitCost = topicBom + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (topicMarketPrice - unitCost) * 30);
 
-                    const adminDeleteCell = isAdminMode ? `
+                    const itemOwner = line.client_id || "SYSTEM";
+                    const isMine = (itemOwner === myClientId);
+
+                    const ownerTag = (filterMode === 'all')
+                        ? (isMine ? `<span class="owner-badge owner-mine">Моё</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`)
+                        : '';
+
+                    // Кнопка удаления доступна для своих записей либо в Admin Mode
+                    const showDeleteBtn = isAdminMode || isMine;
+                    const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                             <td style="text-align:center;">
-                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Удалить запись навсегда из Firebase">🗑️</button>
+                                ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Удалить запись">🗑️</button>` : ''}
                             </td>
                         ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                            <td style="padding-left:20px;"><b>${line.name}</b></td>
+                            <td style="padding-left:20px;"><b>${line.name}</b> ${ownerTag}</td>
                             <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                             <td>$${Number(line.cost).toLocaleString()}</td>
                             <td>${line.perf} шт/день</td>
