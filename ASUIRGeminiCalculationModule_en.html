@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini</title>
+    <title>Efficiency Generator — ASUIR Gemini v2.0</title>
     <style>
         * {
             margin: 0;
@@ -40,8 +40,8 @@
 
             .main-title small {
                 font-size: 14px;
-                font-weight: 300;
-                color: #6c7a8a;
+                font-weight: 400;
+                color: #007600;
                 margin-left: 12px;
             }
 
@@ -476,7 +476,7 @@
     <div class="container">
         <h1 class="main-title">
             <span>Efficiency</span> Generator
-            <small>ASUIR Gemini</small>
+            <small>ASUIR Gemini v2.0 (Starter Cell: 20 pcs/day)</small>
         </h1>
         <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
@@ -500,7 +500,7 @@
             <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Financial Results</span></a>
         </div>
 
-        <!-- TAB 1: STARTER CELL DEFAULTS -->
+        <!-- TAB 1: STARTER CELL DEFAULTS (2 WORKERS, $25k, 20 PCS/DAY) -->
         <div class="section active" id="tab1">
             <h2 class="section-title">1. Determine Total Direct Costs (Starter Cell)</h2>
             <div class="table-responsive">
@@ -829,6 +829,7 @@ Thank you!
         let currentTopicTitle = "Drones & Radioelectronics";
         let isAdminMode = false;
 
+        // Default Starter Cells in Firebase (2 Operators, $12k-$28k equipment, 4-35 pcs/day)
         const defaultInitialMachines = [
             { topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Cell (20 pcs/day)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
             { topic_title: "Tablets & Mobile Devices", name: "Desktop Tablet Assembly Station (35 pcs/day)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
@@ -1016,7 +1017,7 @@ Thank you!
             return rawTitle;
         }
 
-        // STARTER CELL CATALOG (2-3 OPERATORS)
+        // STARTER CELL CATALOG (2-3 OPERATORS, 4-35 PCS/DAY)
         const catalogDB = {
             'drone': {
                 title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
