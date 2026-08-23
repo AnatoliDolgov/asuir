@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini v2.0</title>
+    <title>Efficiency Generator — ASUIR Gemini v2.1</title>
     <style>
+        /* ================================================================
+           INNOVATION MATRIX STYLING (EN)
+           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -56,7 +59,8 @@
         .nav-primary {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
             background: #f7f9fa;
             padding: 6px 12px;
             border-radius: 6px;
@@ -67,7 +71,7 @@
             .nav-primary a {
                 color: #6c7a8a;
                 text-decoration: none;
-                padding: 8px 18px;
+                padding: 8px 16px;
                 font-size: 13px;
                 font-weight: 500;
                 border-radius: 4px;
@@ -84,6 +88,25 @@
                     background: rgba(31,78,120,0.08);
                     font-weight: 600;
                 }
+
+        .client-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #eef6ff;
+            border: 1px solid #b8daff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #1f4e78;
+            font-weight: 600;
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+            .client-badge:hover {
+                background: #dbeaff;
+            }
 
         .nav-divider {
             height: 1px;
@@ -312,6 +335,7 @@
             font-size: 18px;
             cursor: pointer;
             padding: 0 4px;
+            transition: 0.15s;
         }
 
             .btn-delete-icon:hover {
@@ -348,6 +372,27 @@
             background: #fce4d6;
             color: #c65911;
             border: 1px solid #f2b897;
+        }
+
+        .owner-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .owner-mine {
+            background: #e2efda;
+            color: #007600;
+            border: 1px solid #bcd1a9;
+        }
+
+        .owner-others {
+            background: #f0f2f5;
+            color: #6c7a8a;
+            border: 1px solid #d0d7dd;
         }
 
         .modal {
@@ -461,8 +506,23 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                padding: 16px 10px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
             .nav-primary, .nav-tabs {
                 flex-direction: column;
+                align-items: stretch;
+            }
+
+            .client-badge {
+                margin-left: 0;
+                text-align: center;
+                justify-content: center;
             }
 
             .catalog-grid {
@@ -474,9 +534,10 @@
 <body>
 
     <div class="container">
+
         <h1 class="main-title">
             <span>Efficiency</span> Generator
-            <small>ASUIR Gemini v2.0 (Starter Cell: 20 pcs/day)</small>
+            <small>ASUIR Gemini v2.1 (Starter Cell + Filtering)</small>
         </h1>
         <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
@@ -485,7 +546,14 @@
             <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-tab-btn active">📊 ASUIR Gemini</a>
             <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Feedback</a>
-            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff; margin-left:auto;" onclick="toggleAdminMode()" title="Toggle Admin Mode for entry deletion">
+
+            <!-- CLIENT / WORKSPACE IDENTIFIER -->
+            <div class="client-badge" onclick="editClientIdentifier()" title="Click to customize your Project / Facility ID">
+                🆔 My Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
+            </div>
+
+            <!-- SECRET ADMIN MODE TOGGLE BUTTON -->
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff;" onclick="toggleAdminMode()" title="Toggle Admin Mode for full cloud deletion rights">
                 🔑 Admin Mode
             </button>
         </div>
@@ -500,7 +568,7 @@
             <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Financial Results</span></a>
         </div>
 
-        <!-- TAB 1: STARTER CELL DEFAULTS (2 WORKERS, $25k, 20 PCS/DAY) -->
+        <!-- TAB 1: STARTER CELL DEFAULTS (2 OPERATORS, $25k EQUIPMENT, $3,500 SALARY) -->
         <div class="section active" id="tab1">
             <h2 class="section-title">1. Determine Total Direct Costs (Starter Cell)</h2>
             <div class="table-responsive">
@@ -514,7 +582,9 @@
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Nice Class Catalog</button>
                                 <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Cell" style="max-width: 240px;">
-                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')">🔍 Alibaba Options ↗</button>
+                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Open Alibaba equipment options">
+                                    🔍 Alibaba Options ↗
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -532,10 +602,11 @@
                             <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
                         </td>
                     </tr>
+
                     <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                         <td>
                             <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Cell Capacity (from Alibaba)</span></span><br>
-                            <span style="font-size: 12px; color: #6c7a8a;">Daily production capacity of the starter cell</span>
+                            <span style="font-size: 12px; color: #6c7a8a;">Daily production capacity of the equipment cell</span>
                         </td>
                         <td class="right">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
@@ -549,6 +620,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
                         <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2"></td>
@@ -567,8 +639,11 @@
                     </tr>
                 </table>
             </div>
+
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Save current machine parameters under your Client ID">
+                    💾 Save Equipment to Database
+                </button>
             </div>
         </div>
 
@@ -601,11 +676,13 @@
         <div class="section" id="tab3">
             <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
             <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
-                <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, or add new rows below.
+                <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, click <b>🔗</b> to view items on Alibaba, or add new rows below.
             </div>
+
             <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
                 <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Add Component Row</button>
             </div>
+
             <div class="table-responsive">
                 <table class="components-table">
                     <thead>
@@ -655,7 +732,7 @@
             </div>
         </div>
 
-        <!-- TAB 5: FINANCIAL RESULTS & CLOUD LISTING -->
+        <!-- TAB 5: FINANCIAL RESULTS & CLOUD FILTER -->
         <div class="section" id="tab5">
             <h2 class="section-title">5. Financial Results Summary & Options Listing</h2>
             <div class="table-responsive">
@@ -698,12 +775,17 @@
                 </table>
             </div>
 
-            <!-- COMPARATIVE EQUIPMENT LISTING GROUPED BY TOPIC -->
+            <!-- EQUIPMENT LISTING WITH CLOUD FILTER COMBOBOX -->
             <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-                    <h3 style="font-size:15px; font-weight:700; color:#1f4e78;">
-                        📋 Calibrated Alibaba Equipment Listing (Cloud Firebase)
-                    </h3>
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Database Filter:</label>
+                        <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="calculateAll()">
+                            <option value="my">👤 My production lines only</option>
+                            <option value="others">🔍 Others (Benchmarking / Selection)</option>
+                            <option value="all" selected>🌐 All lines (Mine & others)</option>
+                        </select>
+                    </div>
                     <div>
                         <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
                     </div>
@@ -712,7 +794,7 @@
                 <table class="components-table" style="width:100%;">
                     <thead>
                         <tr>
-                            <th>Alibaba Line Type</th>
+                            <th>Alibaba Line / Machine Type</th>
                             <th>Link</th>
                             <th>Line Price</th>
                             <th>Capacity ($P_{fact}$)</th>
@@ -829,15 +911,34 @@ Thank you!
         let currentTopicTitle = "Drones & Radioelectronics";
         let isAdminMode = false;
 
-        // Default Starter Cells in Firebase (2 Operators, $12k-$28k equipment, 4-35 pcs/day)
+        // 1. CLIENT ID INITIALIZATION & LOCAL STORAGE
+        let myClientId = localStorage.getItem('asuir_client_id_en');
+        if (!myClientId) {
+            myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            localStorage.setItem('asuir_client_id_en', myClientId);
+        }
+        document.getElementById('client-id-display').textContent = myClientId;
+
+        window.editClientIdentifier = function () {
+            const newId = prompt("Enter your Project Name or Facility ID (Client ID):", myClientId);
+            if (newId && newId.trim() !== '') {
+                myClientId = newId.trim();
+                localStorage.setItem('asuir_client_id_en', myClientId);
+                document.getElementById('client-id-display').textContent = myClientId;
+                calculateAll();
+            }
+        };
+
+        // Default Starter Cells in Firebase
         const defaultInitialMachines = [
-            { topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Cell (20 pcs/day)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
-            { topic_title: "Tablets & Mobile Devices", name: "Desktop Tablet Assembly Station (35 pcs/day)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
-            { topic_title: "Furniture Woodworking", name: "Compact CNC Furniture Nesting Center (15 units/day)", url: "https://www.alibaba.com/", cost: 28000, perf: 15, staff: 2 },
-            { topic_title: "Fine Jewelry Casting", name: "Benchtop Jewelry Casting Complex (25 pcs/day)", url: "https://www.alibaba.com/", cost: 12000, perf: 25, staff: 2 },
-            { topic_title: "Desktop CNC Machines", name: "Desktop CNC Assembly Line (4 machines/day)", url: "https://www.alibaba.com/", cost: 15000, perf: 4, staff: 2 }
+            { client_id: "SYSTEM", topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Cell (20 pcs/day)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Tablets & Mobile Devices", name: "Desktop Tablet Assembly Station (35 pcs/day)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Furniture Woodworking", name: "Compact CNC Furniture Nesting Center (15 units/day)", url: "https://www.alibaba.com/", cost: 28000, perf: 15, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Fine Jewelry Casting", name: "Benchtop Jewelry Casting Complex (25 pcs/day)", url: "https://www.alibaba.com/", cost: 12000, perf: 25, staff: 2 },
+            { client_id: "SYSTEM", topic_title: "Desktop CNC Machines", name: "Desktop CNC Assembly Line (4 machines/day)", url: "https://www.alibaba.com/", cost: 15000, perf: 4, staff: 2 }
         ];
 
+        // 2. REALTIME LISTENER FROM FIREBASE CLOUD
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -849,6 +950,7 @@ Thank you!
             calculateAll();
         });
 
+        // 3. SAVE TO FIREBASE UNDER CLIENT ID
         window.saveCurrentEquipmentToDatabase = function () {
             const queryInput = document.getElementById('equip-search-query');
             const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Starter Cell Machine";
@@ -858,19 +960,33 @@ Thank you!
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
-            const newItem = { topic_title: currentTopicTitle || "Drones & Radioelectronics", name: query, url: url, cost: cost, perf: perf, staff: staff };
+            const newItem = {
+                client_id: myClientId,
+                topic_title: currentTopicTitle || "Drones & Radioelectronics",
+                name: query,
+                url: url,
+                cost: cost,
+                perf: perf,
+                staff: staff,
+                created_at: new Date().toISOString()
+            };
 
             push(equipmentDbRef, newItem)
-                .then(() => alert(`✅ Machine "${query}" ($${cost.toLocaleString('en-US')}) saved to Section 5 Cloud Listing!`))
+                .then(() => alert(`✅ Machine "${query}" ($${cost.toLocaleString('en-US')}) recorded under your ID (${myClientId})!`))
                 .catch(err => alert(`❌ Error saving to Firebase: ` + err.message));
         };
 
-        window.deleteItemFromLiveDatabase = function (id, name) {
-            if (!isAdminMode) return;
-            if (confirm(`🗑️ Delete machine "${name}" from cloud database permanently?`)) {
+        // 4. REMOVE RECORD (OWN RECORDS OR VIA ADMIN MODE)
+        window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
+            const isMine = (itemClientId === myClientId);
+            if (!isAdminMode && !isMine) {
+                alert("🔒 You can only delete your own production lines!");
+                return;
+            }
+            if (confirm(`🗑️ Delete machine "${name}" from database permanently?`)) {
                 const itemRef = ref(db, `equipment_listing_en/${id}`);
                 remove(itemRef)
-                    .then(() => alert(`✅ Record permanently deleted from cloud.`))
+                    .then(() => alert(`✅ Record deleted from database.`))
                     .catch(err => alert(`❌ Error deleting from Firebase: ` + err.message));
             }
         };
@@ -889,7 +1005,7 @@ Thank you!
                     document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
                     document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
                     document.getElementById('admin-col-header').style.display = "table-cell";
-                    alert("🔓 Admin Mode activated! Deletion button 🗑️ is now active for permanent removal.");
+                    alert("🔓 Admin Mode activated! You have full rights to delete any database entry.");
                 } else if (pwd !== null) {
                     alert("❌ Incorrect Admin Password!");
                 }
@@ -938,7 +1054,7 @@ Thank you!
             const likedText = document.getElementById('fb-like').value.trim();
             const dislikedText = document.getElementById('fb-dislike').value.trim();
             let subject = "Feedback from ASUIR Gemini (EN)";
-            let emailBody = "FEEDBACK ASUIR GEMINI\n\n1. What liked:\n" + (likedText || "N/A") + "\n\n2. What to improve:\n" + dislikedText + "\n";
+            let emailBody = "FEEDBACK ASUIR GEMINI\n\nClient ID: " + myClientId + "\n1. What liked:\n" + (likedText || "N/A") + "\n\n2. What to improve:\n" + dislikedText + "\n";
             window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
         };
@@ -1017,7 +1133,7 @@ Thank you!
             return rawTitle;
         }
 
-        // STARTER CELL CATALOG (2-3 OPERATORS, 4-35 PCS/DAY)
+        // STARTER CELL CATALOG (2-3 OPERATORS)
         const catalogDB = {
             'drone': {
                 title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
@@ -1133,7 +1249,7 @@ Thank you!
             calculateAll();
         };
 
-        // RIGOROUS CALCULATION USING AUTHENTIC BALANCE EQUATION FROM MARKET PRICE
+        // RIGOROUS CALCULATION USING AUTHENTIC ASUIR BALANCE EQUATION
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
@@ -1170,7 +1286,7 @@ Thank you!
 
             const totalDailyCost = overhead + otherCosts;
 
-            // 1. Required Daily Breakeven Volume (10% Rule on Market Price)
+            // 1. Required Daily Breakeven Volume (10% Benchmark on Market Price)
             const reqPerf = market > 0 ? Math.ceil(totalDailyCost / (market * 0.10)) : 0;
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
@@ -1184,7 +1300,7 @@ Thank you!
             if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
-            // 2. MAXIMUM SALARY CALCULATION ACCORDING TO AUTHENTIC ASUIR EQUATION:
+            // 2. MAXIMUM SALARY CALCULATION:
             // Daily Production Expenses = Actual Capacity * 0.10 * Minimum Competitive Market Price
             const dailyProductionExpenses = actualPerf * 0.10 * market;
             const dailyFixedNoSalary = amort + otherCosts;
@@ -1222,26 +1338,41 @@ Thank you!
             renderEquipmentListingGroupedByTopic(rawCost, market, otherCosts, salary);
         };
 
+        // 5. RENDER LISTING WITH FILTER ("MY / OTHERS / ALL")
         function renderEquipmentListingGroupedByTopic(currentRawCost, currentMarketPrice, currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
             container.innerHTML = '';
 
-            if (savedEquipmentList.length === 0) {
-                container.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">No equipment entries found in cloud database.</td></tr>';
+            const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
+
+            // Filter data by ownership
+            const filteredList = savedEquipmentList.filter(item => {
+                const itemOwner = item.client_id || "SYSTEM";
+                const isMine = (itemOwner === myClientId);
+                if (filterMode === 'my') return isMine;
+                if (filterMode === 'others') return !isMine;
+                return true; // 'all'
+            });
+
+            if (filteredList.length === 0) {
+                let emptyMsg = "No equipment entries found.";
+                if (filterMode === 'my') emptyMsg = `You (${myClientId}) have no saved lines yet. Click "💾 Save Equipment to Database" above!`;
+                if (filterMode === 'others') emptyMsg = "No peer lines found in cloud database for benchmarking.";
+                container.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">${emptyMsg}</td></tr>`;
                 return;
             }
 
             const groupedByTopic = {};
-            savedEquipmentList.forEach(item => {
+            filteredList.forEach(item => {
                 const topicName = normalizeTopicTitle(item.topic_title);
                 if (!groupedByTopic[topicName]) groupedByTopic[topicName] = [];
                 groupedByTopic[topicName].push(item);
             });
 
             const adminColHeader = document.getElementById('admin-col-header');
-            if (adminColHeader) adminColHeader.style.display = isAdminMode ? "table-cell" : "none";
+            if (adminColHeader) adminColHeader.style.display = (isAdminMode || filterMode === 'my') ? "table-cell" : "none";
 
             for (const [topic, items] of Object.entries(groupedByTopic)) {
                 const topicBom = getBomCostForTopic(topic, currentRawCost);
@@ -1250,7 +1381,7 @@ Thank you!
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                        <td colspan="${isAdminMode ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                        <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
                             📂 TOPIC: ${topic.toUpperCase()} (Competitive Price = $${topicMarketPrice.toFixed(2)}, BOM = $${topicBom.toFixed(2)})
                         </td>
                     `;
@@ -1269,15 +1400,23 @@ Thank you!
                     const unitCost = topicBom + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (topicMarketPrice - unitCost) * 30);
 
-                    const adminDeleteCell = isAdminMode ? `
+                    const itemOwner = line.client_id || "SYSTEM";
+                    const isMine = (itemOwner === myClientId);
+
+                    const ownerTag = (filterMode === 'all')
+                        ? (isMine ? `<span class="owner-badge owner-mine">Mine</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`)
+                        : '';
+
+                    const showDeleteBtn = isAdminMode || isMine;
+                    const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                             <td style="text-align:center;">
-                                <button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}')" title="Delete entry permanently from Firebase">🗑️</button>
+                                ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Delete entry">🗑️</button>` : ''}
                             </td>
                         ` : '';
 
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                            <td style="padding-left:20px;"><b>${line.name}</b></td>
+                            <td style="padding-left:20px;"><b>${line.name}</b> ${ownerTag}</td>
                             <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                             <td>$${Number(line.cost).toLocaleString('en-US')}</td>
                             <td>${line.perf} pcs/day</td>
