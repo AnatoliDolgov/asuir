@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini v2.1</title>
+    <title>Efficiency Generator — ASUIR Gemini v2.2</title>
     <style>
         /* ================================================================
            INNOVATION MATRIX STYLING (EN)
@@ -300,7 +300,7 @@
         .btn-sm {
             padding: 0 12px;
             font-size: 12px;
-            height: 38px;
+            height: 32px;
             min-width: 36px;
         }
 
@@ -341,6 +341,27 @@
             .btn-delete-icon:hover {
                 color: #a00000;
                 transform: scale(1.2);
+            }
+
+        .btn-bom-toggle {
+            background: #f0f5fa;
+            border: 1px solid #c9daf8;
+            color: #1f4e78;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: 0.15s;
+        }
+
+            .btn-bom-toggle:hover {
+                background: #dbeaff;
+                border-color: #4a90d9;
             }
 
         .info-hint {
@@ -394,6 +415,28 @@
             color: #6c7a8a;
             border: 1px solid #d0d7dd;
         }
+
+        .sub-bom-table {
+            width: 100%;
+            border: 1px solid #d0d7dd;
+            background: #ffffff;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+            .sub-bom-table th {
+                background: #edf2f7;
+                font-size: 11px;
+                padding: 6px 10px;
+                text-transform: uppercase;
+                color: #4a5568;
+            }
+
+            .sub-bom-table td {
+                padding: 6px 10px;
+                border-bottom: 1px solid #edf2f7;
+            }
 
         .modal {
             display: none;
@@ -530,6 +573,15 @@
             }
         }
     </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-SCZYX0Z5VX');
+    </script>
 </head>
 <body>
 
@@ -537,7 +589,7 @@
 
         <h1 class="main-title">
             <span>Efficiency</span> Generator
-            <small>ASUIR Gemini v2.1 (Starter Cell + Filtering)</small>
+            <small>ASUIR Gemini v2.2 (Interactive BOM Specification)</small>
         </h1>
         <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
@@ -593,8 +645,12 @@
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Selected Item Link</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
                                 <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
-                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
-                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Inquire</button>
+                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Open Alibaba link in new tab">
+                                    🔗 Open Link
+                                </button>
+                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()" title="Inquire specs from supplier">
+                                    ✉️ Inquire
+                                </button>
                             </div>
                         </td>
                         <td class="right">
@@ -623,11 +679,15 @@
 
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
-                        <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2"></td>
+                        <td class="right">
+                            <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
+                        </td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Starting Monthly Salary per Operator</span></span></td>
-                        <td class="right">$ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500"></td>
+                        <td class="right">
+                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500">
+                        </td>
                     </tr>
                     <tr class="total-row">
                         <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Total Daily Fixed Overhead</span></span></td>
@@ -641,8 +701,8 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Save current machine parameters under your Client ID">
-                    💾 Save Equipment to Database
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Save current machine parameters and full BOM into database">
+                    💾 Save Equipment & BOM to Database
                 </button>
             </div>
         </div>
@@ -687,12 +747,12 @@
                 <table class="components-table">
                     <thead>
                         <tr>
-                            <th>📦 Component Name</th>
-                            <th>🔗 Alibaba Link</th>
-                            <th>🔍</th>
-                            <th>📐 Qty</th>
-                            <th>💰 Unit Price ($)</th>
-                            <th></th>
+                            <th class="row-name">📦 Component Name</th>
+                            <th class="row-url">🔗 Alibaba Link</th>
+                            <th class="row-search">🔍</th>
+                            <th class="row-qty">📐 Qty</th>
+                            <th class="row-price">💰 Unit Price ($)</th>
+                            <th class="row-delete"></th>
                         </tr>
                     </thead>
                     <tbody id="component-dynamic-rows"></tbody>
@@ -787,19 +847,19 @@
                         </select>
                     </div>
                     <div>
-                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment to Database</button>
+                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment & BOM to Database</button>
                     </div>
                 </div>
 
                 <table class="components-table" style="width:100%;">
                     <thead>
                         <tr>
-                            <th>Alibaba Line / Machine Type</th>
+                            <th>Line / Machine Type & BOM Specification</th>
                             <th>Link</th>
                             <th>Line Price</th>
                             <th>Capacity ($P_{fact}$)</th>
                             <th>Staff</th>
-                            <th>Base Salary (Sec. 1)</th>
+                            <th>Base Salary</th>
                             <th style="color:#007600;">Achievable Worker Salary</th>
                             <th>Household Net Profit</th>
                             <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
@@ -931,11 +991,54 @@ Thank you!
 
         // Default Starter Cells in Firebase
         const defaultInitialMachines = [
-            { client_id: "SYSTEM", topic_title: "Drones & Radioelectronics", name: "Compact ESD Drone Assembly Cell (20 pcs/day)", url: "https://www.alibaba.com/", cost: 25000, perf: 20, staff: 2 },
-            { client_id: "SYSTEM", topic_title: "Tablets & Mobile Devices", name: "Desktop Tablet Assembly Station (35 pcs/day)", url: "https://www.alibaba.com/", cost: 18000, perf: 35, staff: 2 },
-            { client_id: "SYSTEM", topic_title: "Furniture Woodworking", name: "Compact CNC Furniture Nesting Center (15 units/day)", url: "https://www.alibaba.com/", cost: 28000, perf: 15, staff: 2 },
-            { client_id: "SYSTEM", topic_title: "Fine Jewelry Casting", name: "Benchtop Jewelry Casting Complex (25 pcs/day)", url: "https://www.alibaba.com/", cost: 12000, perf: 25, staff: 2 },
-            { client_id: "SYSTEM", topic_title: "Desktop CNC Machines", name: "Desktop CNC Assembly Line (4 machines/day)", url: "https://www.alibaba.com/", cost: 15000, perf: 4, staff: 2 }
+            {
+                client_id: "SYSTEM",
+                topic_title: "Drones & Radioelectronics",
+                name: "Compact ESD Drone Assembly Cell (20 pcs/day)",
+                url: "https://www.alibaba.com/",
+                cost: 25000,
+                perf: 20,
+                staff: 2,
+                components: [
+                    { name: 'Carbon fiber frame kit (10" T700)', qty: 1, price: 26.0, url: 'https://www.alibaba.com/' },
+                    { name: 'F7 Flight Controller + 60A ESC Stack', qty: 1, price: 45.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Brushless motors 2807 1300KV (4 pcs)', qty: 1, price: 55.0, url: 'https://www.alibaba.com/' },
+                    { name: '5.8GHz VTX Module + FPV Camera', qty: 1, price: 35.0, url: 'https://www.alibaba.com/' },
+                    { name: 'LiPo Battery Pack 6S 5000mAh', qty: 1, price: 25.0, url: 'https://www.alibaba.com/' }
+                ]
+            },
+            {
+                client_id: "SYSTEM",
+                topic_title: "Tablets & Mobile Devices",
+                name: "Desktop Tablet Assembly Station (35 pcs/day)",
+                url: "https://www.alibaba.com/",
+                cost: 18000,
+                perf: 35,
+                staff: 2,
+                components: [
+                    { name: '10.1" IPS/OLED Display assembly', qty: 1, price: 35.0, url: 'https://www.alibaba.com/' },
+                    { name: 'SoC Motherboard (ARM Octa-Core)', qty: 1, price: 45.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Li-Po Battery 6000mAh', qty: 1, price: 10.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Ultra-thin chassis & flex cables', qty: 1, price: 8.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Retail box + 20W charger', qty: 1, price: 2.0, url: 'https://www.alibaba.com/' }
+                ]
+            },
+            {
+                client_id: "SYSTEM",
+                topic_title: "Furniture Woodworking",
+                name: "Compact CNC Furniture Nesting Center (15 units/day)",
+                url: "https://www.alibaba.com/",
+                cost: 28000,
+                perf: 15,
+                staff: 2,
+                components: [
+                    { name: 'MDF/Laminated board 4 sqm', qty: 4, price: 15.0, url: 'https://www.alibaba.com/' },
+                    { name: 'PVC Edge banding tape 2mm', qty: 1, price: 5.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Cabinet hinges & hardware fittings', qty: 1, price: 8.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Mirror / Glass panel', qty: 1, price: 22.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Cardboard packaging', qty: 1, price: 6.0, url: 'https://www.alibaba.com/' }
+                ]
+            }
         ];
 
         // 2. REALTIME LISTENER FROM FIREBASE CLOUD
@@ -950,7 +1053,7 @@ Thank you!
             calculateAll();
         });
 
-        // 3. SAVE TO FIREBASE UNDER CLIENT ID
+        // 3. SAVE TO FIREBASE WITH FULL BOM SPECIFICATION
         window.saveCurrentEquipmentToDatabase = function () {
             const queryInput = document.getElementById('equip-search-query');
             const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Starter Cell Machine";
@@ -960,6 +1063,20 @@ Thank you!
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
+            // Collect current BOM items from Section 3
+            const currentComponents = [];
+            document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
+                const inputs = tr.querySelectorAll('input');
+                if (inputs.length >= 4) {
+                    currentComponents.push({
+                        name: inputs[0].value.trim(),
+                        url: inputs[1].value.trim(),
+                        qty: parseFloat(inputs[2].value) || 1,
+                        price: parseFloat(inputs[3].value) || 0
+                    });
+                }
+            });
+
             const newItem = {
                 client_id: myClientId,
                 topic_title: currentTopicTitle || "Drones & Radioelectronics",
@@ -968,15 +1085,80 @@ Thank you!
                 cost: cost,
                 perf: perf,
                 staff: staff,
+                components: currentComponents,
                 created_at: new Date().toISOString()
             };
 
             push(equipmentDbRef, newItem)
-                .then(() => alert(`✅ Machine "${query}" ($${cost.toLocaleString('en-US')}) recorded under your ID (${myClientId})!`))
+                .then(() => alert(`✅ Machine "${query}" and ${currentComponents.length} BOM parts saved under ID (${myClientId})!`))
                 .catch(err => alert(`❌ Error saving to Firebase: ` + err.message));
         };
 
-        // 4. REMOVE RECORD (OWN RECORDS OR VIA ADMIN MODE)
+        // 4. TOGGLE BOM SPECIFICATION ACCORDION
+        window.toggleBomDetails = function (rowId) {
+            const subRow = document.getElementById('subrow-' + rowId);
+            const btn = document.getElementById('btn-bom-' + rowId);
+            if (!subRow) return;
+
+            if (subRow.style.display === 'none' || subRow.style.display === '') {
+                subRow.style.display = 'table-row';
+                if (btn) btn.innerHTML = btn.innerHTML.replace('▶', '▼');
+            } else {
+                subRow.style.display = 'none';
+                if (btn) btn.innerHTML = btn.innerHTML.replace('▼', '▶');
+            }
+        };
+
+        // 5. LOAD LINE & BOM SPECIFICATION INTO CALCULATOR (SEC 1 & 3)
+        window.loadLineIntoWorkspace = function (itemId) {
+            const item = savedEquipmentList.find(x => x.id === itemId);
+            if (!item) return;
+
+            // 1. Load into Section 1
+            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
+            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = item.url || '';
+            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = item.cost;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
+            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
+            currentTopicTitle = item.topic_title || "Drones & Radioelectronics";
+
+            // 2. Load into Section 3 (BOM)
+            const compList = item.components && item.components.length > 0
+                ? item.components
+                : (catalogDB[item.topic_title]?.c || getFallbackComponentsForTopic(item.topic_title));
+
+            const tbody = document.getElementById('component-dynamic-rows');
+            if (tbody) {
+                tbody.innerHTML = '';
+                compList.forEach(c => {
+                    const name = c.name || c[0];
+                    const qty = c.qty || c[1];
+                    const price = c.price || c[2];
+                    const url = c.url || c[3] || '';
+                    addComponentRow(name, qty, price, url);
+                });
+            }
+
+            calculateAll();
+            alert(`✅ Setup "${item.name}" and its BOM specification loaded into Sections 1 & 3!`);
+
+            // Switch to BOM tab
+            document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelector('#tabHeaders a[data-tab="tab3"]').classList.add('active');
+            document.getElementById('tab3').classList.add('active');
+        };
+
+        function getFallbackComponentsForTopic(topicTitle) {
+            for (let key in catalogDB) {
+                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
+                    return catalogDB[key].c.map(item => ({ name: item[0], qty: item[1], price: item[2], url: item[3] || '' }));
+                }
+            }
+            return [];
+        }
+
+        // 6. REMOVE RECORD FROM FIREBASE
         window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
             const isMine = (itemClientId === myClientId);
             if (!isAdminMode && !isMine) {
@@ -1249,7 +1431,7 @@ Thank you!
             calculateAll();
         };
 
-        // RIGOROUS CALCULATION USING AUTHENTIC ASUIR BALANCE EQUATION
+        // RIGOROUS CALCULATION USING AUTHENTIC BALANCE EQUATION FROM MARKET PRICE
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
@@ -1286,7 +1468,7 @@ Thank you!
 
             const totalDailyCost = overhead + otherCosts;
 
-            // 1. Required Daily Breakeven Volume (10% Benchmark on Market Price)
+            // 1. Required Daily Breakeven Volume (10% Rule on Market Price)
             const reqPerf = market > 0 ? Math.ceil(totalDailyCost / (market * 0.10)) : 0;
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
@@ -1338,7 +1520,7 @@ Thank you!
             renderEquipmentListingGroupedByTopic(rawCost, market, otherCosts, salary);
         };
 
-        // 5. RENDER LISTING WITH FILTER ("MY / OTHERS / ALL")
+        // 7. RENDER LISTING WITH INTERACTIVE BOM ACCORDION
         function renderEquipmentListingGroupedByTopic(currentRawCost, currentMarketPrice, currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
@@ -1358,7 +1540,7 @@ Thank you!
 
             if (filteredList.length === 0) {
                 let emptyMsg = "No equipment entries found.";
-                if (filterMode === 'my') emptyMsg = `You (${myClientId}) have no saved lines yet. Click "💾 Save Equipment to Database" above!`;
+                if (filterMode === 'my') emptyMsg = `You (${myClientId}) have no saved lines yet. Click "💾 Save Equipment & BOM to Database" above!`;
                 if (filterMode === 'others') emptyMsg = "No peer lines found in cloud database for benchmarking.";
                 container.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">${emptyMsg}</td></tr>`;
                 return;
@@ -1396,8 +1578,12 @@ Thank you!
                     const availableDailySalaryFund = Math.max(0, productionExpenses - dailyFixedNoSalary);
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
 
+                    // Calculate BOM total for this specific setup
+                    const compList = (line.components && line.components.length > 0) ? line.components : getFallbackComponentsForTopic(line.topic_title);
+                    const lineBomTotal = compList.reduce((sum, c) => sum + ((c.qty || c[1] || 1) * (c.price || c[2] || 0)), 0) || topicBom;
+
                     const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + currentOtherCosts;
-                    const unitCost = topicBom + (totalDailyCost / line.perf);
+                    const unitCost = lineBomTotal + (totalDailyCost / line.perf);
                     const monthlyProfit = Math.round(line.perf * (topicMarketPrice - unitCost) * 30);
 
                     const itemOwner = line.client_id || "SYSTEM";
@@ -1414,9 +1600,15 @@ Thank you!
                             </td>
                         ` : '';
 
+                    // 1. Main Machine Row
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                            <td style="padding-left:20px;"><b>${line.name}</b> ${ownerTag}</td>
+                            <td style="padding-left:20px;">
+                                <b>${line.name}</b> ${ownerTag}<br>
+                                <button id="btn-bom-${line.id}" class="btn-bom-toggle" onclick="toggleBomDetails('${line.id}')">
+                                    ▶ 📦 Specification (${compList.length} items / $${lineBomTotal.toFixed(2)}) ▾
+                                </button>
+                            </td>
                             <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                             <td>$${Number(line.cost).toLocaleString('en-US')}</td>
                             <td>${line.perf} pcs/day</td>
@@ -1427,6 +1619,61 @@ Thank you!
                             ${adminDeleteCell}
                         `;
                     container.appendChild(tr);
+
+                    // 2. Expandable Accordion Sub-row with BOM Details
+                    let compRowsHtml = '';
+                    compList.forEach((c, idx) => {
+                        const name = c.name || c[0];
+                        const qty = c.qty || c[1] || 1;
+                        const price = c.price || c[2] || 0;
+                        const sum = (qty * price).toFixed(2);
+                        const url = c.url || c[3] || '#';
+                        compRowsHtml += `
+                                <tr>
+                                    <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>
+                                    <td><b>${name}</b></td>
+                                    <td style="text-align:center;">${qty}</td>
+                                    <td style="text-align:right;">$${Number(price).toFixed(2)}</td>
+                                    <td style="text-align:right; font-weight:600;">$${sum}</td>
+                                    <td style="text-align:center;">
+                                        <a href="${url}" target="_blank" style="color:#1f4e78; text-decoration:none; font-weight:600;">🔗 Alibaba ↗</a>
+                                    </td>
+                                </tr>
+                            `;
+                    });
+
+                    const subTr = document.createElement('tr');
+                    subTr.id = 'subrow-' + line.id;
+                    subTr.style.display = 'none';
+                    subTr.style.background = '#f9fbfe';
+                    subTr.innerHTML = `
+                            <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <span style="font-size:12px; font-weight:700; color:#1f4e78;">
+                                        📦 Product BOM Specification: ${compList.length} items (Total BOM = $${lineBomTotal.toFixed(2)})
+                                    </span>
+                                    <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Load this machine and BOM specification into Sections 1 & 3">
+                                        📥 Load this setup into Calculator
+                                    </button>
+                                </div>
+                                <table class="sub-bom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Part / Component Name</th>
+                                            <th style="text-align:center;">Qty</th>
+                                            <th style="text-align:right;">Unit Price ($)</th>
+                                            <th style="text-align:right;">Total ($)</th>
+                                            <th style="text-align:center;">Supplier Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${compRowsHtml}
+                                    </tbody>
+                                </table>
+                            </td>
+                        `;
+                    container.appendChild(subTr);
                 });
             }
         }
