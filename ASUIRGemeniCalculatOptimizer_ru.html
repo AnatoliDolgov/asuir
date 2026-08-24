@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор эффективности — ASUIR Gemini v2.3</title>
+    <title>Генератор эффективности — ASUIR Gemini v2.4</title>
     <style>
         /* ================================================================
            СТИЛИСТИКА INNOVATION MATRIX (RU)
@@ -573,15 +573,6 @@
             }
         }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-SCZYX0Z5VX');
-    </script>
 </head>
 <body>
 
@@ -589,7 +580,7 @@
 
         <h1 class="main-title">
             <span>Генератор</span> эффективности
-            <small>ASUIR Gemini v2.3 (Автодетектор тем МКТУ)</small>
+            <small>ASUIR Gemini v2.4</small>
         </h1>
         <div class="subtitle">Синтез моделей стартовых ячеек с наивысшей зарплатой и наинизшей себестоимостью</div>
 
@@ -605,7 +596,7 @@
             </div>
 
             <!-- СЕКРЕТНАЯ КНОПКА АДМИНИСТРАТОРА -->
-            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff;" onclick="toggleAdminMode()" title="Включить режим администратора для удаления любых записей">
+            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff;" onclick="toggleAdminMode()" title="Включить режим администратора">
                 🔑 Admin Mode
             </button>
         </div>
@@ -620,7 +611,7 @@
             <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Результаты и Листинг</span></a>
         </div>
 
-        <!-- ТАБ 1: СТАРТОВАЯ ЯЧЕЙКА С СЕЛЕКТОРОМ ТЕМЫ -->
+        <!-- ТАБ 1: СТАРТОВАЯ ЯЧЕЙКА -->
         <div class="section active" id="tab1">
             <h2 class="section-title">1. Определяем общие затраты (Стартовая ячейка)</h2>
             <div class="table-responsive">
@@ -628,11 +619,11 @@
                     <tr>
                         <td>
                             <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тема / Категория МКТУ</span></span><br>
-                            <span style="font-size: 13px; color: #6c7a8a;">Выберите тему из списка или откройте каталог</span>
+                            <span style="font-size: 13px; color: #6c7a8a;">Выберите тему из списка — скрипт загрузит её шаблон</span>
                         </td>
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
-                                <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 250px; font-weight:600; color:#1f4e78;" onchange="onTopicDropdownChange(this.value)">
+                                <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="onTopicDropdownChange(this.value)">
                                     <option value="drone">🚁 Дроны и Радиоэлектроника</option>
                                     <option value="tablet">📱 Планшеты / Мобильные ПК</option>
                                     <option value="tv">📺 Телевизоры и Дисплеи</option>
@@ -654,13 +645,12 @@
 
                     <tr>
                         <td>
-                            <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / комплекса</span></span><br>
-                            <span style="font-size: 12px; color: #6c7a8a;">Автоматически распознает тему по ключевым словам</span>
+                            <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / комплекса</span></span>
                         </td>
                         <td class="right">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 280px;" oninput="autoDetectTopicFromInputs()">
-                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты оборудования на Alibaba">
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 280px;">
+                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты на Alibaba">
                                     🔍 На Alibaba ↗
                                 </button>
                             </div>
@@ -671,13 +661,9 @@
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на выбранный товар</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html" oninput="autoDetectTopicFromInputs()">
-                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Открыть ссылку на Alibaba в новой вкладке">
-                                    🔗 Перейти
-                                </button>
-                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()" title="Запросить параметры у продавца">
-                                    ✉️ Запрос
-                                </button>
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
+                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Перейти</button>
+                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Запрос</button>
                             </div>
                         </td>
                         <td class="right">
@@ -706,15 +692,11 @@
 
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество рабочих ячейки (штат)</span></span></td>
-                        <td class="right">
-                            <input type="number" id="val-staff" class="input-field input-field-sm" value="2">
-                        </td>
+                        <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2"></td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Базовая стартовая зарплата рабочего в месяц</span></span></td>
-                        <td class="right">
-                            $ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500">
-                        </td>
+                        <td class="right">$ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500"></td>
                     </tr>
                     <tr class="total-row">
                         <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Общие постоянные расходы за день</span></span></td>
@@ -728,13 +710,11 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()" title="Записать текущий станок и всю его спецификацию BOM в базу">
-                    💾 Зафиксировать этот станок и BOM в Базу
-                </button>
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать этот станок и BOM в Базу</button>
             </div>
         </div>
 
-        <!-- ТАБ 2: ПОСТОЯННЫЕ ИЗДЕРЖКИ ($55 / ДЕНЬ) -->
+        <!-- ТАБ 2 -->
         <div class="section" id="tab2">
             <h2 class="section-title">2. Остальные постоянные издержки (Микро-помещение)</h2>
             <div class="table-responsive">
@@ -1042,105 +1022,27 @@ Thank you!
             },
             {
                 client_id: "SYSTEM",
-                topic_title: "Планшеты и Мобильные ПК",
-                name: "Настольный комплекс сборки планшетов (35 шт/день)",
+                topic_title: "Телевизоры и Дисплеи",
+                name: "Компактный стенд сборки ТВ панелей (20 шт/день)",
                 url: "https://www.alibaba.com/",
-                cost: 18000,
-                perf: 35,
-                staff: 2,
+                cost: 35000,
+                perf: 20,
+                staff: 3,
                 components: [
-                    { name: 'Экран в сборе (IPS/OLED 10.1")', qty: 1, price: 35.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Материнская плата SoC (ARM)', qty: 1, price: 45.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Литий-полимерный аккумулятор 6000mAh', qty: 1, price: 10.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Ультратонкий корпус и шлейфы', qty: 1, price: 8.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Упаковочная коробка + зарядное', qty: 1, price: 2.0, url: 'https://www.alibaba.com/' }
-                ]
-            },
-            {
-                client_id: "SYSTEM",
-                topic_title: "Мебель и Деревообработка",
-                name: "Компактный мебельный ЧПУ раскройный центр (15 ед/день)",
-                url: "https://www.alibaba.com/",
-                cost: 28000,
-                perf: 15,
-                staff: 2,
-                components: [
-                    { name: 'ЛДСП / МДФ влагостойкий (4 кв.м.)', qty: 4, price: 15.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Кромочная лента ПВХ 2мм', qty: 1, price: 5.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Мебельная фурнитура и петли', qty: 1, price: 8.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Зеркальное / фасадное полотно', qty: 1, price: 22.0, url: 'https://www.alibaba.com/' },
-                    { name: 'Упаковочный гофрокартон', qty: 1, price: 6.0, url: 'https://www.alibaba.com/' }
+                    { name: 'ЖК / OLED Матрица дисплея', qty: 1, price: 140.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Материнская плата (Main Board)', qty: 1, price: 45.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Блок питания инверторный', qty: 1, price: 25.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Светодиодная подсветка матрицы', qty: 1, price: 15.0, url: 'https://www.alibaba.com/' },
+                    { name: 'Корпус и динамики', qty: 1, price: 28.0, url: 'https://www.alibaba.com/' }
                 ]
             }
         ];
-
-        // 2. УМНОЕ АВТООПРЕДЕЛЕНИЕ ТЕМЫ МКТУ ПО ТЕКСТУ И ССЫЛКАМ
-        function detectTopicFromText(text, fallbackTopic) {
-            if (!text) return fallbackTopic || "Дроны и Радиоэлектроника";
-            const t = text.toLowerCase();
-
-            if (t.includes('тв') || t.includes('телевизор') || t.includes('tv') || t.includes('display') || t.includes('дисплей') || t.includes('screen') || t.includes('led') || t.includes('oled') || t.includes('lcd')) {
-                return "Телевизоры и Дисплеи";
-            }
-            if (t.includes('дрон') || t.includes('drone') || t.includes('бпла') || t.includes('uav') || t.includes('fpv') || t.includes('квадрокоптер')) {
-                return "Дроны и Радиоэлектроника";
-            }
-            if (t.includes('планшет') || t.includes('tablet') || t.includes('смартфон') || t.includes('phone') || t.includes('мобильн')) {
-                return "Планшеты и Мобильные ПК";
-            }
-            if (t.includes('компьютер') || t.includes('pc') || t.includes('сервер') || t.includes('server') || t.includes('телеком')) {
-                return "Телеком и Компьютеры";
-            }
-            if (t.includes('хлеб') || t.includes('пекарн') || t.includes('bakery') || t.includes('bread') || t.includes('тесто') || t.includes('булоч')) {
-                return "Хлебопекарная Линия";
-            }
-            if (t.includes('ювелир') || t.includes('jewelry') || t.includes('литье') || t.includes('casting') || t.includes('золот') || t.includes('серебр') || t.includes('опок')) {
-                return "Ювелирные Изделия";
-            }
-            if (t.includes('час') || t.includes('watch') || t.includes('часов') || t.includes('стрелк')) {
-                return "Сборка Часов";
-            }
-            if (t.includes('бижутерия') || t.includes('costume') || t.includes('страз') || t.includes('кулон')) {
-                return "Производство Бижутерии";
-            }
-            if (t.includes('одежд') || t.includes('швейн') || t.includes('textile') || t.includes('clothes') || t.includes('sewing') || t.includes('раскрой') || t.includes('ткань')) {
-                return "Пошив Одежды";
-            }
-            if (t.includes('мебель') || t.includes('furniture') || t.includes('дерево') || t.includes('wood') || t.includes('лдсп') || t.includes('мдф') || t.includes('шкаф') || t.includes('кромк')) {
-                return "Мебель и Деревообработка";
-            }
-            if (t.includes('прибор') || t.includes('instrument') || t.includes('датчик') || t.includes('измерительн') || t.includes('sensor')) {
-                return "Измерительные Приборы";
-            }
-            if (t.includes('чпу') || t.includes('cnc') || t.includes('фрезер') || t.includes('станок') || t.includes('шпиндель')) {
-                return "Настольные ЧПУ Станки";
-            }
-            return fallbackTopic || "Дроны и Радиоэлектроника";
-        }
-
-        window.autoDetectTopicFromInputs = function () {
-            const query = document.getElementById('equip-search-query')?.value || '';
-            const url = document.getElementById('equip-url')?.value || '';
-            const detected = detectTopicFromText(query + ' ' + url, currentTopicTitle);
-
-            // Синхронизируем селектор в шапке
-            const dropdown = document.getElementById('topic-selector-dropdown');
-            if (dropdown) {
-                for (let key in catalogDB) {
-                    if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(detected)) {
-                        dropdown.value = key;
-                        currentTopicTitle = catalogDB[key].title;
-                        break;
-                    }
-                }
-            }
-        };
 
         window.onTopicDropdownChange = function (key) {
             loadCatalogTemplate(key);
         };
 
-        // 3. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ FIREBASE
+        // 2. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ FIREBASE
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -1157,7 +1059,7 @@ Thank you!
             calculateAll();
         });
 
-        // 4. СОХРАНЕНИЕ СТАНКА С АВТООПРЕДЕЛЕНИЕМ ТЕМЫ МКТУ
+        // 3. СОХРАНЕНИЕ СТАНКА (ТЕМА СТРОГО ИЗ ВЫБРАННОЙ ТЕМЫ МКТУ)
         window.saveCurrentEquipmentToDatabase = function () {
             const queryInput = document.getElementById('equip-search-query');
             const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок стартовой ячейки";
@@ -1169,8 +1071,8 @@ Thank you!
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
-            // Точное определение темы МКТУ
-            const detectedTopic = detectTopicFromText(query + ' ' + url, currentTopicTitle);
+            // Тема берется строго из текущего селектора темы МКТУ
+            const currentTopic = currentTopicTitle || "Дроны и Радиоэлектроника";
 
             // Собираем текущие комплектующие из Секции 3
             const currentComponents = [];
@@ -1188,7 +1090,7 @@ Thank you!
 
             const newItem = {
                 client_id: myClientId,
-                topic_title: detectedTopic, // Записываем точную тему!
+                topic_title: currentTopic, // Строгая запись темы
                 name: query,
                 url: url,
                 cost: cost,
@@ -1200,14 +1102,14 @@ Thank you!
 
             push(equipmentDbRef, newItem)
                 .then(() => {
-                    alert(`✅ Станок "${query}" успешно сохранен в раздел: "${detectedTopic}"!`);
+                    alert(`✅ Станок "${query}" успешно сохранен в раздел: "${currentTopic}"!`);
                 })
                 .catch(err => {
                     alert(`❌ Ошибка сохранения в Firebase: ` + err.message);
                 });
         };
 
-        // 5. ПЕРЕКЛЮЧЕНИЕ АККОРДЕОНА СПЕЦИФИКАЦИИ BOM
+        // 4. ПЕРЕКЛЮЧЕНИЕ АККОРДЕОНА СПЕЦИФИКАЦИИ BOM
         window.toggleBomDetails = function (rowId) {
             const subRow = document.getElementById('subrow-' + rowId);
             const btn = document.getElementById('btn-bom-' + rowId);
@@ -1222,20 +1124,13 @@ Thank you!
             }
         };
 
-        // 6. СКВОЗНАЯ ЗАГРУЗКА ЛИНИИ И СПЕЦИФИКАЦИИ В КАЛЬКУЛЯТОР
+        // 5. СКВОЗНАЯ ЗАГРУЗКА ЛИНИИ И СПЕЦИФИКАЦИИ В КАЛЬКУЛЯТОР
         window.loadLineIntoWorkspace = function (itemId) {
             const item = savedEquipmentList.find(x => x.id === itemId);
             if (!item) return;
 
-            // 1. Загрузка в Секцию 1
-            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
-            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = item.url || '';
-            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = item.cost;
-            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
-            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
+            // 1. Установка темы
             currentTopicTitle = item.topic_title || "Дроны и Радиоэлектроника";
-
-            // Синхронизация селектора тем
             const dropdown = document.getElementById('topic-selector-dropdown');
             if (dropdown) {
                 for (let key in catalogDB) {
@@ -1246,7 +1141,18 @@ Thank you!
                 }
             }
 
-            // 2. Загрузка в Секцию 3 (BOM)
+            // 2. Загрузка параметров в Секцию 1
+            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
+            if (document.getElementById('equip-url')) document.getElementById('equip-url').value = item.url || '';
+            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = item.cost;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
+            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
+
+            // Установка конкурентной цены этой темы в Секции 5
+            const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle);
+            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
+
+            // 3. Загрузка в Секцию 3 (BOM)
             const compList = item.components && item.components.length > 0
                 ? item.components
                 : (catalogDB[item.topic_title]?.c || getFallbackComponentsForTopic(item.topic_title));
@@ -1264,7 +1170,7 @@ Thank you!
             }
 
             calculateAll();
-            alert(`✅ Линия "${item.name}" и ее спецификация BOM загружены в Секции 1 и 3!`);
+            alert(`✅ Линия "${item.name}" и ее спецификация BOM загружены в калькулятор!`);
 
             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1281,7 +1187,7 @@ Thank you!
             return [];
         }
 
-        // 7. УДАЛЕНИЕ ИЗ ОБЛАКА
+        // 6. УДАЛЕНИЕ ИЗ ОБЛАКА
         window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
             const isMine = (itemClientId === myClientId);
             if (!isAdminMode && !isMine) {
@@ -1438,7 +1344,7 @@ Thank you!
             return rawTitle;
         }
 
-        // КАТАЛОГ СТАРТОВЫХ ЯЧЕЕК (2-3 ЧЕЛОВЕКА)
+        // КАТАЛОГ МКТУ (СТАРТОВЫЕ ЯЧЕЙКИ)
         const catalogDB = {
             'drone': {
                 title: "Дроны и Радиоэлектроника", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Компактная ESD-линия сборки дронов',
@@ -1494,24 +1400,23 @@ Thank you!
             }
         };
 
-        function getBomCostForTopic(topicTitle, currentDynamicRawCost) {
-            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) return currentDynamicRawCost;
+        // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ: ПОЛУЧЕНИЕ ЭТАЛОННОЙ ЦЕНЫ И СЫРЬЯ ДЛЯ КОНКРЕТНОЙ ТЕМЫ
+        function getTopicBenchmarkPrice(topicTitle) {
+            for (let key in catalogDB) {
+                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
+                    return parseFloat(catalogDB[key].mkt) || 423;
+                }
+            }
+            return 423;
+        }
+
+        function getTopicBenchmarkBom(topicTitle) {
             for (let key in catalogDB) {
                 if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
                     return catalogDB[key].c.reduce((sum, item) => sum + (item[1] * item[2]), 0);
                 }
             }
-            return currentDynamicRawCost || 50;
-        }
-
-        function getMarketPriceForTopic(topicTitle, currentMarketPrice) {
-            if (normalizeTopicTitle(topicTitle) === normalizeTopicTitle(currentTopicTitle)) return currentMarketPrice;
-            for (let key in catalogDB) {
-                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
-                    return parseFloat(catalogDB[key].mkt) || currentMarketPrice;
-                }
-            }
-            return currentMarketPrice;
+            return 186;
         }
 
         window.loadCatalogTemplate = function (key) {
@@ -1610,14 +1515,9 @@ Thank you!
             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
             // 2. РАСЧЕТ МАКСИМАЛЬНОЙ ЗАРПЛАТЫ ПО АВТОРСКОЙ ФОРМУЛЕ:
-            // Суточные расходы на производство = Производительность * 0.10 * Минимальная конкурентная цена
             const dailyProductionExpenses = actualPerf * 0.10 * market;
             const dailyFixedNoSalary = amort + otherCosts;
-
-            // Фонд заработной платы в день = Расходы на производство - (Амортизация + Аренда + Прочие)
             const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - dailyFixedNoSalary);
-
-            // Максимальная месячная зарплата 1 рабочего = (ФЗП суточный * 30) / Персонал
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
             if (document.getElementById('fitted-salary-display')) {
@@ -1644,11 +1544,11 @@ Thank you!
             if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
 
-            renderEquipmentListingGroupedByTopic(rawCost, market, otherCosts, salary);
+            renderEquipmentListingGroupedByTopic(otherCosts, salary);
         };
 
-        // 8. РЕНДЕРИНГ ЛИСТИНГА С АККОРДЕОНОМ СПЕЦИФИКАЦИИ BOM
-        function renderEquipmentListingGroupedByTopic(currentRawCost, currentMarketPrice, currentOtherCosts, baseSalary) {
+        // 7. РЕНДЕРИНГ ЛИСТИНГА С ЧИСТОЙ ИЗОЛЯЦИЕЙ ТЕМ И ЦЕН
+        function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
 
@@ -1684,14 +1584,15 @@ Thank you!
             if (adminColHeader) adminColHeader.style.display = (isAdminMode || filterMode === 'my') ? "table-cell" : "none";
 
             for (const [topic, items] of Object.entries(groupedByTopic)) {
-                const topicBom = getBomCostForTopic(topic, currentRawCost);
-                const topicMarketPrice = getMarketPriceForTopic(topic, currentMarketPrice);
+                // Строгое получение эталонных цен и сырья для ЭТОЙ темы
+                const topicBenchmarkBom = getTopicBenchmarkBom(topic);
+                const topicBenchmarkPrice = getTopicBenchmarkPrice(topic);
 
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
                         <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                            📂 ТЕМА: ${topic.toUpperCase()} (Конкурентная цена = $${topicMarketPrice.toFixed(2)}, Сырье = $${topicBom.toFixed(2)})
+                            📂 ТЕМА: ${topic.toUpperCase()} (Конкурентная цена = $${topicBenchmarkPrice.toFixed(2)}, Сырье = $${topicBenchmarkBom.toFixed(2)})
                         </td>
                     `;
                 container.appendChild(headerTr);
@@ -1700,18 +1601,18 @@ Thank you!
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + currentOtherCosts;
 
-                    // Зарплата каждого станка строго от конкурентной цены рынка
-                    const productionExpenses = line.perf * 0.10 * topicMarketPrice;
+                    // Зарплата каждого станка строго от конкурентной цены этой конкретной темы
+                    const productionExpenses = line.perf * 0.10 * topicBenchmarkPrice;
                     const availableDailySalaryFund = Math.max(0, productionExpenses - dailyFixedNoSalary);
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
 
                     // Расчет стоимости BOM для этой конкретной связки
                     const compList = (line.components && line.components.length > 0) ? line.components : getFallbackComponentsForTopic(line.topic_title);
-                    const lineBomTotal = compList.reduce((sum, c) => sum + ((c.qty || c[1] || 1) * (c.price || c[2] || 0)), 0) || topicBom;
+                    const lineBomTotal = compList.reduce((sum, c) => sum + ((c.qty || c[1] || 1) * (c.price || c[2] || 0)), 0) || topicBenchmarkBom;
 
                     const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + currentOtherCosts;
                     const unitCost = lineBomTotal + (totalDailyCost / line.perf);
-                    const monthlyProfit = Math.round(line.perf * (topicMarketPrice - unitCost) * 30);
+                    const monthlyProfit = Math.round(line.perf * (topicBenchmarkPrice - unitCost) * 30);
 
                     const itemOwner = line.client_id || "SYSTEM";
                     const isMine = (itemOwner === myClientId);
