@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор эффективности — ASUIR Gemini v2.5</title>
+    <title>Генератор эффективности — ASUIR Gemini v2.6</title>
     <style>
         * {
             margin: 0;
@@ -577,7 +577,7 @@
 
         <h1 class="main-title">
             <span>Генератор</span> эффективности
-            <small>ASUIR Gemini v2.5 (Сквозная автонастройка по ссылке)</small>
+            <small>ASUIR Gemini v2.6 (Прямой парсинг ссылок)</small>
         </h1>
         <div class="subtitle">Синтез моделей стартовых ячеек с наивысшей зарплатой и наинизшей себестоимостью</div>
 
@@ -613,10 +613,10 @@
                 <table class="text-regular">
                     <tr>
                         <td>
-                            <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на выбранный товар (Alibaba)</span></span><br>
-                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Вставьте ссылку — система автоматически настроит тему, комплектующие и цены!</span>
+                            <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на товар с Alibaba</span></span><br>
+                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Вставьте ссылку сюда — скрипт сам переключит тему, переименует станок и загрузит детали!</span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html" oninput="handleUrlPaste(this.value)" onchange="handleUrlPaste(this.value)">
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Перейти</button>
                                 <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Запрос</button>
                             </div>
@@ -1007,7 +1007,7 @@ Thank you!
                 c: [['Экран в сборе (IPS/OLED)', 1, 35.0], ['Материнская плата SoC (ARM)', 1, 45.0], ['Литий-полимерный аккумулятор', 1, 10.0], ['Ультратонкий корпус и шлейфы', 1, 8.0], ['Упаковочная коробка', 1, 2.0]]
             },
             'tv': {
-                title: "Телевизоры и Дисплеи", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Компактный стенд сборки ТВ панелей',
+                title: "Телевизоры и Дисплеи", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Линия сборки ТВ панелей (Smart TV)',
                 c: [['ЖК / OLED Матрица дисплея', 1, 140.0], ['Материнская плата (Main Board)', 1, 45.0], ['Блок питания инверторный', 1, 25.0], ['Светодиодная подсветка матрицы', 1, 15.0], ['Корпус и динамики', 1, 28.0]]
             },
             'pc': {
@@ -1052,15 +1052,16 @@ Thank you!
             }
         };
 
-        // 2. АВТОМАТИЧЕСКАЯ ОБРАБОТКА ВСТАВКИ ССЫЛКИ
-        window.handleUrlPaste = function (url) {
+        // 2. БЕЗУПРЕЧНЫЙ ПАРСЕР ССЫЛКИ ALIBABA (ВЫЗЫВАЕТСЯ ПРИ ЛЮБОМ ВВОДЕ / ВСТАВКЕ)
+        function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
 
+            // Извлечение чистого названия
             let extractedTitle = "";
             const match = u.match(/product-detail\/([^\/_?]+)/i);
             if (match && match[1]) {
-                extractedTitle = match[1].replace(/[-_]+/g, ' ').trim();
+                extractedTitle = match[1].replace(/[-_]+/g, ' ').replace(/\d{8,}/g, '').trim();
             }
 
             let detectedKey = 'drone';
@@ -1092,20 +1093,35 @@ Thank you!
                 detectedKey = 'instruments';
             }
 
-            const data = catalogDB[detectedKey] || catalogDB['drone'];
+            const data = catalogDB[detectedKey];
             currentTopicTitle = data.title;
 
+            // 1. Принудительно ставим селектор темы
             const dropdown = document.getElementById('topic-selector-dropdown');
             if (dropdown) dropdown.value = detectedKey;
 
+            // 2. Принудительно заменяем название станка
             if (document.getElementById('equip-search-query')) {
                 document.getElementById('equip-search-query').value = extractedTitle || data.q;
             }
 
+            // 3. Принудительно ставим параметры станка под эту тему
+            if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) {
+                document.getElementById('val-equip').value = data.eq;
+            }
+            if (document.getElementById('val-actual-perf')) {
+                document.getElementById('val-actual-perf').value = data.perf || 20;
+            }
+            if (document.getElementById('val-staff')) {
+                document.getElementById('val-staff').value = data.staff || 2;
+            }
+
+            // 4. Принудительно ставим цену рынка в Секции 5
             if (document.getElementById('market-price-input')) {
                 document.getElementById('market-price-input').value = data.mkt;
             }
 
+            // 5. Принудительно загружаем спецификацию BOM в Секцию 3
             const tbody = document.getElementById('component-dynamic-rows');
             if (tbody) {
                 tbody.innerHTML = '';
@@ -1116,7 +1132,17 @@ Thank you!
             }
 
             calculateAll();
-        };
+        }
+
+        // НАВЕШИВАЕМ СЛУШАТЕЛИ ВСТАВКИ ПРЯМО НА INPUT
+        const urlInputElement = document.getElementById('equip-url');
+        if (urlInputElement) {
+            ['input', 'change', 'paste', 'keyup'].forEach(evtName => {
+                urlInputElement.addEventListener(evtName, function () {
+                    setTimeout(() => processAlibabaUrl(this.value), 20);
+                });
+            });
+        }
 
         function normalizeTopicTitle(rawTitle) {
             if (!rawTitle) return "Дроны и Радиоэлектроника";
@@ -1293,17 +1319,29 @@ Thank you!
             calculateAll();
         });
 
-        // СОХРАНЕНИЕ В ОБЛАКО
+        // СОХРАНЕНИЕ В ОБЛАКО (С ЖЕСТКОЙ ЗАЩИТОЙ ТЕМЫ)
         window.saveCurrentEquipmentToDatabase = function () {
-            const queryInput = document.getElementById('equip-search-query');
-            const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок стартовой ячейки";
-
             const urlInput = document.getElementById('equip-url');
             const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+
+            const queryInput = document.getElementById('equip-search-query');
+            let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок производства";
 
             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+
+            // ЖЕСТКИЙ АНАЛИЗАТОР ССЫЛКИ ПЕРЕД ЗАПИСЬЮ В FIREBASE
+            let finalTopic = currentTopicTitle || "Дроны и Радиоэлектроника";
+            const uLower = url.toLowerCase();
+            if (uLower.includes('tv') || uLower.includes('smart-tv') || uLower.includes('display')) {
+                finalTopic = "Телевизоры и Дисплеи";
+                if (query.toLowerCase().includes('дрон')) {
+                    query = "Линия сборки ТВ панелей (Smart TV)";
+                }
+            } else if (uLower.includes('drone') || uLower.includes('uav')) {
+                finalTopic = "Дроны и Радиоэлектроника";
+            }
 
             const currentComponents = [];
             document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
@@ -1320,7 +1358,7 @@ Thank you!
 
             const newItem = {
                 client_id: myClientId,
-                topic_title: currentTopicTitle,
+                topic_title: finalTopic, // Строгая запись темы
                 name: query,
                 url: url,
                 cost: cost,
@@ -1331,7 +1369,7 @@ Thank you!
             };
 
             push(equipmentDbRef, newItem)
-                .then(() => alert(`✅ Станок "${query}" успешно сохранен в тему "${currentTopicTitle}"!`))
+                .then(() => alert(`✅ Станок "${query}" успешно сохранен в тему "${finalTopic}"!`))
                 .catch(err => alert(`❌ Ошибка сохранения: ` + err.message));
         };
 
@@ -1598,6 +1636,7 @@ Thank you!
                             </td>
                         ` : '';
 
+                    // 1. Главная строка станка
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                             <td style="padding-left:20px;">
@@ -1617,6 +1656,7 @@ Thank you!
                         `;
                     container.appendChild(tr);
 
+                    // 2. Вложенная строка спецификации BOM
                     let compRowsHtml = '';
                     compList.forEach((c, idx) => {
                         const name = c.name || c[0];
