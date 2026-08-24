@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор эффективности — ASUIR Gemini v2.2</title>
+    <title>Генератор эффективности — ASUIR Gemini v2.3</title>
     <style>
         /* ================================================================
            СТИЛИСТИКА INNOVATION MATRIX (RU)
@@ -589,14 +589,14 @@
 
         <h1 class="main-title">
             <span>Генератор</span> эффективности
-            <small>ASUIR Gemini v2.2 (Интерактивная Спецификация BOM)</small>
+            <small>ASUIR Gemini v2.3 (Автодетектор тем МКТУ)</small>
         </h1>
         <div class="subtitle">Синтез моделей стартовых ячеек с наивысшей зарплатой и наинизшей себестоимостью</div>
 
         <div class="nav-primary">
             <a href="index_ru.html" class="nav-tab-btn">🏠 Главная панель</a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-tab-btn active">📊 АСУИР Gemini</a>
-            <a href="Help_en.html" class="nav-tab-btn">❓ Документация</a>
+            <a href="Help_ru.html" class="nav-tab-btn">❓ Документация</a>
             <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Обратная связь</a>
 
             <!-- ИДЕНТИФИКАТОР КЛИЕНТА -->
@@ -620,31 +620,58 @@
             <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Результаты и Листинг</span></a>
         </div>
 
-        <!-- ТАБ 1: СТАРТОВАЯ ЯЧЕЙКА (2 РАБОЧИХ, $25 000 СТАНОК, 20 ШТ/ДЕНЬ) -->
+        <!-- ТАБ 1: СТАРТОВАЯ ЯЧЕЙКА С СЕЛЕКТОРОМ ТЕМЫ -->
         <div class="section active" id="tab1">
             <h2 class="section-title">1. Определяем общие затраты (Стартовая ячейка)</h2>
             <div class="table-responsive">
                 <table class="text-regular">
                     <tr>
                         <td>
-                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тип оборудования и Проект</span></span><br>
-                            <span style="font-size: 13px; color: #6c7a8a;">Выберите тему из Каталога МКТУ или введите оборудование для поиска</span>
+                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тема / Категория МКТУ</span></span><br>
+                            <span style="font-size: 13px; color: #6c7a8a;">Выберите тему из списка или откройте каталог</span>
                         </td>
                         <td class="right" style="width: 50%;">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
-                                <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог МКТУ</button>
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 240px;">
+                                <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 250px; font-weight:600; color:#1f4e78;" onchange="onTopicDropdownChange(this.value)">
+                                    <option value="drone">🚁 Дроны и Радиоэлектроника</option>
+                                    <option value="tablet">📱 Планшеты / Мобильные ПК</option>
+                                    <option value="tv">📺 Телевизоры и Дисплеи</option>
+                                    <option value="pc">💻 Телеком и Компьютеры</option>
+                                    <option value="bakery">🍞 Хлебопекарная Линия</option>
+                                    <option value="jewelry">💍 Ювелирные Изделия</option>
+                                    <option value="watch">⌚ Сборка Часов</option>
+                                    <option value="costume">💎 Производство Бижутерии</option>
+                                    <option value="clothes">👗 Пошив Одежды</option>
+                                    <option value="furniture">🛋️ Мебель и Деревообработка</option>
+                                    <option value="instruments">🔬 Измерительные Приборы</option>
+                                    <option value="cnc">⚙️ Настольные ЧПУ Станки</option>
+                                    <option value="universal">📦 Универсальный Проект</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / комплекса</span></span><br>
+                            <span style="font-size: 12px; color: #6c7a8a;">Автоматически распознает тему по ключевым словам</span>
+                        </td>
+                        <td class="right">
+                            <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
+                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 280px;" oninput="autoDetectTopicFromInputs()">
                                 <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты оборудования на Alibaba">
-                                    🔍 Варианты на Alibaba ↗
+                                    🔍 На Alibaba ↗
                                 </button>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на выбранный товар</span></span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 4px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
+                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html" oninput="autoDetectTopicFromInputs()">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" title="Открыть ссылку на Alibaba в новой вкладке">
                                     🔗 Перейти
                                 </button>
@@ -1047,7 +1074,73 @@ Thank you!
             }
         ];
 
-        // 2. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ FIREBASE
+        // 2. УМНОЕ АВТООПРЕДЕЛЕНИЕ ТЕМЫ МКТУ ПО ТЕКСТУ И ССЫЛКАМ
+        function detectTopicFromText(text, fallbackTopic) {
+            if (!text) return fallbackTopic || "Дроны и Радиоэлектроника";
+            const t = text.toLowerCase();
+
+            if (t.includes('тв') || t.includes('телевизор') || t.includes('tv') || t.includes('display') || t.includes('дисплей') || t.includes('screen') || t.includes('led') || t.includes('oled') || t.includes('lcd')) {
+                return "Телевизоры и Дисплеи";
+            }
+            if (t.includes('дрон') || t.includes('drone') || t.includes('бпла') || t.includes('uav') || t.includes('fpv') || t.includes('квадрокоптер')) {
+                return "Дроны и Радиоэлектроника";
+            }
+            if (t.includes('планшет') || t.includes('tablet') || t.includes('смартфон') || t.includes('phone') || t.includes('мобильн')) {
+                return "Планшеты и Мобильные ПК";
+            }
+            if (t.includes('компьютер') || t.includes('pc') || t.includes('сервер') || t.includes('server') || t.includes('телеком')) {
+                return "Телеком и Компьютеры";
+            }
+            if (t.includes('хлеб') || t.includes('пекарн') || t.includes('bakery') || t.includes('bread') || t.includes('тесто') || t.includes('булоч')) {
+                return "Хлебопекарная Линия";
+            }
+            if (t.includes('ювелир') || t.includes('jewelry') || t.includes('литье') || t.includes('casting') || t.includes('золот') || t.includes('серебр') || t.includes('опок')) {
+                return "Ювелирные Изделия";
+            }
+            if (t.includes('час') || t.includes('watch') || t.includes('часов') || t.includes('стрелк')) {
+                return "Сборка Часов";
+            }
+            if (t.includes('бижутерия') || t.includes('costume') || t.includes('страз') || t.includes('кулон')) {
+                return "Производство Бижутерии";
+            }
+            if (t.includes('одежд') || t.includes('швейн') || t.includes('textile') || t.includes('clothes') || t.includes('sewing') || t.includes('раскрой') || t.includes('ткань')) {
+                return "Пошив Одежды";
+            }
+            if (t.includes('мебель') || t.includes('furniture') || t.includes('дерево') || t.includes('wood') || t.includes('лдсп') || t.includes('мдф') || t.includes('шкаф') || t.includes('кромк')) {
+                return "Мебель и Деревообработка";
+            }
+            if (t.includes('прибор') || t.includes('instrument') || t.includes('датчик') || t.includes('измерительн') || t.includes('sensor')) {
+                return "Измерительные Приборы";
+            }
+            if (t.includes('чпу') || t.includes('cnc') || t.includes('фрезер') || t.includes('станок') || t.includes('шпиндель')) {
+                return "Настольные ЧПУ Станки";
+            }
+            return fallbackTopic || "Дроны и Радиоэлектроника";
+        }
+
+        window.autoDetectTopicFromInputs = function () {
+            const query = document.getElementById('equip-search-query')?.value || '';
+            const url = document.getElementById('equip-url')?.value || '';
+            const detected = detectTopicFromText(query + ' ' + url, currentTopicTitle);
+
+            // Синхронизируем селектор в шапке
+            const dropdown = document.getElementById('topic-selector-dropdown');
+            if (dropdown) {
+                for (let key in catalogDB) {
+                    if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(detected)) {
+                        dropdown.value = key;
+                        currentTopicTitle = catalogDB[key].title;
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.onTopicDropdownChange = function (key) {
+            loadCatalogTemplate(key);
+        };
+
+        // 3. ЖИВАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ FIREBASE
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -1064,7 +1157,7 @@ Thank you!
             calculateAll();
         });
 
-        // 3. СОХРАНЕНИЕ СТАНКА ВМЕСТЕ СО ВСЕЙ СПЕЦИФИКАЦИЕЙ BOM
+        // 4. СОХРАНЕНИЕ СТАНКА С АВТООПРЕДЕЛЕНИЕМ ТЕМЫ МКТУ
         window.saveCurrentEquipmentToDatabase = function () {
             const queryInput = document.getElementById('equip-search-query');
             const query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок стартовой ячейки";
@@ -1075,6 +1168,9 @@ Thank you!
             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
+
+            // Точное определение темы МКТУ
+            const detectedTopic = detectTopicFromText(query + ' ' + url, currentTopicTitle);
 
             // Собираем текущие комплектующие из Секции 3
             const currentComponents = [];
@@ -1092,26 +1188,26 @@ Thank you!
 
             const newItem = {
                 client_id: myClientId,
-                topic_title: currentTopicTitle || "Дроны и Радиоэлектроника",
+                topic_title: detectedTopic, // Записываем точную тему!
                 name: query,
                 url: url,
                 cost: cost,
                 perf: perf,
                 staff: staff,
-                components: currentComponents, // Полный массив деталей
+                components: currentComponents,
                 created_at: new Date().toISOString()
             };
 
             push(equipmentDbRef, newItem)
                 .then(() => {
-                    alert(`✅ Станок "${query}" и ${currentComponents.length} позиций BOM сохранены под ID (${myClientId})!`);
+                    alert(`✅ Станок "${query}" успешно сохранен в раздел: "${detectedTopic}"!`);
                 })
                 .catch(err => {
                     alert(`❌ Ошибка сохранения в Firebase: ` + err.message);
                 });
         };
 
-        // 4. ПЕРЕКЛЮЧЕНИЕ АККОРДЕОНА СПЕЦИФИКАЦИИ BOM
+        // 5. ПЕРЕКЛЮЧЕНИЕ АККОРДЕОНА СПЕЦИФИКАЦИИ BOM
         window.toggleBomDetails = function (rowId) {
             const subRow = document.getElementById('subrow-' + rowId);
             const btn = document.getElementById('btn-bom-' + rowId);
@@ -1126,7 +1222,7 @@ Thank you!
             }
         };
 
-        // 5. СКВОЗНАЯ ЗАГРУЗКА ЛИНИИ И СПЕЦИФИКАЦИИ В КАЛЬКУЛЯТОР (СЕКЦИИ 1 И 3)
+        // 6. СКВОЗНАЯ ЗАГРУЗКА ЛИНИИ И СПЕЦИФИКАЦИИ В КАЛЬКУЛЯТОР
         window.loadLineIntoWorkspace = function (itemId) {
             const item = savedEquipmentList.find(x => x.id === itemId);
             if (!item) return;
@@ -1138,6 +1234,17 @@ Thank you!
             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
             currentTopicTitle = item.topic_title || "Дроны и Радиоэлектроника";
+
+            // Синхронизация селектора тем
+            const dropdown = document.getElementById('topic-selector-dropdown');
+            if (dropdown) {
+                for (let key in catalogDB) {
+                    if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(currentTopicTitle)) {
+                        dropdown.value = key;
+                        break;
+                    }
+                }
+            }
 
             // 2. Загрузка в Секцию 3 (BOM)
             const compList = item.components && item.components.length > 0
@@ -1159,7 +1266,6 @@ Thank you!
             calculateAll();
             alert(`✅ Линия "${item.name}" и ее спецификация BOM загружены в Секции 1 и 3!`);
 
-            // Переход на таб Спецификации
             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelector('#tabHeaders a[data-tab="tab3"]').classList.add('active');
@@ -1175,7 +1281,7 @@ Thank you!
             return [];
         }
 
-        // 6. УДАЛЕНИЕ ИЗ ОБЛАКА
+        // 7. УДАЛЕНИЕ ИЗ ОБЛАКА
         window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
             const isMine = (itemClientId === myClientId);
             if (!isAdminMode && !isMine) {
@@ -1372,7 +1478,7 @@ Thank you!
             },
             'furniture': {
                 title: "Мебель и Деревообработка", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Компактный мебельный ЧПУ раскройный центр',
-                c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]]
+                c: [['ЛДСП / МДФ (кв.м.)', 4, 15.0], ['Кромочная лента ПВХ 2мм', 1, 5.0], ['Зеркальное полотно', 1, 22.0], ['Металлическая фурнитура', 1, 8.0], ['Упаковочный картон', 1, 6.0]]
             },
             'instruments': {
                 title: "Измерительные Приборы", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Стенд калибровки и сборки приборов',
@@ -1412,6 +1518,10 @@ Thank you!
             closeModal('catalog-modal');
             const data = catalogDB[key] || catalogDB['drone'];
             currentTopicTitle = data.title || "Общая тема";
+
+            // Синхронизация селектора тем
+            const dropdown = document.getElementById('topic-selector-dropdown');
+            if (dropdown) dropdown.value = key;
 
             if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
@@ -1537,7 +1647,7 @@ Thank you!
             renderEquipmentListingGroupedByTopic(rawCost, market, otherCosts, salary);
         };
 
-        // 7. РЕНДЕРИНГ ЛИСТИНГА С АККОРДЕОНОМ СПЕЦИФИКАЦИИ BOM
+        // 8. РЕНДЕРИНГ ЛИСТИНГА С АККОРДЕОНОМ СПЕЦИФИКАЦИИ BOM
         function renderEquipmentListingGroupedByTopic(currentRawCost, currentMarketPrice, currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
