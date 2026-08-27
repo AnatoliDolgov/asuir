@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор эффективности — ASUIR Gemini v2.7</title>
+    <title>Генератор эффективности — ASUIR Gemini v2.8</title>
     <style>
-        /* ================================================================
-           СТИЛИСТИКА INNOVATION MATRIX (RU)
-           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -589,7 +586,7 @@
 
         <h1 class="main-title">
             <span>Генератор</span> эффективности
-            <small>ASUIR Gemini v2.7 (Спецоснастка и Таблица расходов)</small>
+            <small>ASUIR Gemini v2.8 (Реалистичные BOM ноутбуков)</small>
         </h1>
         <div class="subtitle">Синтез моделей стартовых ячеек с наивысшей зарплатой и наинизшей себестоимостью</div>
 
@@ -620,7 +617,7 @@
 
         <!-- ТАБ 1 -->
         <div class="section active" id="tab1">
-            <h2 class="section-title">1. Прямые затраты ячейки</h2>
+            <h2 class="section-title">1. Прямые затраты ячейки (Стартовая ячейка)</h2>
             <div class="table-responsive">
                 <table class="text-regular">
                     <tr>
@@ -663,7 +660,7 @@
                                     <option value="drone">🚁 Дроны и Радиоэлектроника</option>
                                     <option value="tablet">📱 Планшеты / Мобильные ПК</option>
                                     <option value="tv">📺 Телевизоры и Дисплеи</option>
-                                    <option value="pc">💻 Телеком и Компьютеры</option>
+                                    <option value="pc">💻 Телеком и Ноутбуки</option>
                                     <option value="bakery">🍞 Хлебопекарная Линия</option>
                                     <option value="jewelry">💍 Ювелирные Изделия</option>
                                     <option value="watch">⌚ Сборка Часов</option>
@@ -721,7 +718,7 @@
             </div>
         </div>
 
-        <!-- ТАБ 2: ДИНАМИЧЕСКАЯ ТАБЛИЦА ОСНАСТКИ И ЦЕХОВЫХ РАСХОДОВ С УМНОЖЕНИЕМ НА ШТАТ -->
+        <!-- ТАБ 2: ДИНАМИЧЕСКАЯ ТАБЛИЦА ОСНАСТКИ И РАСХОДОВ -->
         <div class="section" id="tab2">
             <h2 class="section-title">2. Спецоснастка, Инструмент и Цеховые расходы (Секция 2)</h2>
             <div class="info-hint" style="background:#f0f5fa; border-left:4px solid #1f4e78; color:#1a2632;">
@@ -913,9 +910,9 @@
             <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">Выберите категорию производства (МКТУ)</h3>
             <div class="catalog-grid">
                 <div class="catalog-card" onclick="loadCatalogTemplate('drone')">🚁 Дроны и Радиоэлектроника</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📱 Планшеты / Мобильные устройства</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📱 Планшеты / Мобильные ПК</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 Телевизоры и дисплеи</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Телеком и компьютеры</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Телеком и Ноутбуки</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Хлебопекарная мини-линия</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('jewelry')">💍 Ювелирные изделия</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('watch')">⌚ Сборка часов</div>
@@ -1018,7 +1015,7 @@ Thank you!
             }
         };
 
-        // КАТАЛОГ МКТУ С ТАБЛИЦЕЙ СЫРЬЯ (c) И ТАБЛИЦЕЙ ОСНАСТКИ / ЦЕХОВЫХ РАСХОДОВ (exp)
+        // КАТАЛОГ МКТУ С РЕАЛИСТИЧНЫМ SKD-НОУТБУКОМ (c) И СПЕЦОСНАСТКОЙ (exp)
         const catalogDB = {
             'drone': {
                 title: "Дроны и Радиоэлектроника", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Компактная ESD-линия сборки дронов',
@@ -1031,7 +1028,7 @@ Thank you!
                 ],
                 exp: [
                     ['Аренда рабочего бокса 50 кв.м (на ячейку)', 1, 30.0, ''],
-                    ['Паяльный комплекс и инструмент (амортизация на 1 рабочее место)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Паяльный комплекс и инструмент (на 1 рабочее место)', 2, 2.0, 'https://www.alibaba.com/'],
                     ['Технологические расходники: припой, флюс, биты (на 1 рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
                     ['Логистика и энергоснабжение ячейки', 1, 15.0, '']
                 ]
@@ -1069,20 +1066,20 @@ Thank you!
                 ]
             },
             'pc': {
-                title: "Телеком и Компьютеры", eq: '20000', mkt: '1850', perf: '10', staff: '2', q: 'Комплекс сборки и тестирования ПК',
+                title: "Телеком и Ноутбуки", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'Линия SKD-сборки ноутбуков',
                 c: [
-                    ['Процессор (Desktop CPU)', 1, 340.0, 'https://www.alibaba.com/'],
-                    ['Графическая карта (GPU)', 1, 520.0, 'https://www.alibaba.com/'],
-                    ['Материнская плата ATX/ITX', 1, 140.0, 'https://www.alibaba.com/'],
-                    ['Оперативная память (RAM)', 1, 105.0, 'https://www.alibaba.com/'],
-                    ['Накопитель SSD NVMe 2TB', 1, 115.0, 'https://www.alibaba.com/'],
-                    ['Корпус и блок питания', 1, 130.0, 'https://www.alibaba.com/']
+                    ['Шасси Barebone 15.6" (корпус, клавиатура, батарея 5000mAh)', 1, 85.0, 'https://www.alibaba.com/'],
+                    ['IPS Матрица дисплея 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/'],
+                    ['Плата с процессором Intel SoC + система охлаждения', 1, 68.0, 'https://www.alibaba.com/'],
+                    ['Оперативная память SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/'],
+                    ['Накопитель M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/'],
+                    ['Адаптер 65W Type-C + модуль Wi-Fi 6 + упаковка', 1, 10.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда сборочного участка 40 кв.м', 1, 25.0, ''],
-                    ['Стенды тестирования и инструмент (на рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
-                    ['Термопаста, стяжки, кабельный органайзер', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Логистика комплектующих', 1, 15.0, '']
+                    ['Аренда монтажного участка 40 кв.м', 1, 25.0, ''],
+                    ['Стенд прошивки BIOS и отверточная оснастка (на рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Термопаста, защитные пленки, очистители', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Логистика и доставка партий', 1, 15.0, '']
                 ]
             },
             'furniture': {
@@ -1258,7 +1255,6 @@ Thank you!
             calculateAll();
         };
 
-        // Обновление множителя штата в таблице расходов
         window.updateStaffInExpenseTable = function () {
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 2;
             const expRows = document.querySelectorAll('#expense-dynamic-rows tr');
@@ -1267,8 +1263,7 @@ Thank you!
                 const qtyInput = tr.querySelector('.exp-qty-input');
                 if (nameInput && qtyInput) {
                     const text = nameInput.value.toLowerCase();
-                    // Если строка относится к рабочему/инструменту/расходникам - обновляем ее множитель на штат
-                    if (text.includes('рабоч') || text.includes('инструмент') || text.includes('расходник') || text.includes('паяльн') || text.includes('фрез') || text.includes('оснастк')) {
+                    if (text.includes('рабоч') || text.includes('инструмент') || text.includes('расходник') || text.includes('паяльн') || text.includes('фрез') || text.includes('оснастк') || text.includes('мастер') || text.includes('инженер')) {
                         qtyInput.value = staff;
                     }
                 }
@@ -1294,9 +1289,11 @@ Thank you!
                 detectedKey = 'tv';
             } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter') || lower.includes('дрон')) {
                 detectedKey = 'drone';
+            } else if (lower.includes('notebook') || lower.includes('laptop') || lower.includes('ноутбук') || lower.includes('нетбук')) {
+                detectedKey = 'pc';
             } else if (lower.includes('tablet') || lower.includes('phone') || lower.includes('pad') || lower.includes('планшет')) {
                 detectedKey = 'tablet';
-            } else if (lower.includes('computer') || lower.includes('pc') || lower.includes('server') || lower.includes('компьютер')) {
+            } else if (lower.includes('computer') || lower.includes('server') || lower.includes('компьютер')) {
                 detectedKey = 'pc';
             } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven') || lower.includes('хлеб')) {
                 detectedKey = 'bakery';
@@ -1349,7 +1346,7 @@ Thank you!
                 });
             }
 
-            // Заполнение Секции 2 (Оснастка и Цеховые расходы)
+            // Заполнение Секции 2 (Оснастка и расходы)
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp && data.exp) {
                 tbodyExp.innerHTML = '';
@@ -1376,7 +1373,7 @@ Thank you!
             if (t.includes('drone') || t.includes('дрон')) return "Дроны и Радиоэлектроника";
             if (t.includes('tablet') || t.includes('планшет')) return "Планшеты и Мобильные ПК";
             if (t.includes('tv') || t.includes('телевизор')) return "Телевизоры и Дисплеи";
-            if (t.includes('pc') || t.includes('компьютер')) return "Телеком и Компьютеры";
+            if (t.includes('pc') || t.includes('компьютер') || t.includes('ноутбук')) return "Телеком и Ноутбуки";
             if (t.includes('bakery') || t.includes('хлеб')) return "Хлебопекарная Линия";
             if (t.includes('jewelry') || t.includes('ювелир')) return "Ювелирные Изделия";
             if (t.includes('watch') || t.includes('час')) return "Сборка Часов";
@@ -1438,7 +1435,7 @@ Thank you!
                 });
             }
 
-            // Заполнение Секции 2 (Оснастка и Цеховые расходы)
+            // Заполнение Секции 2 (Оснастка и расходы)
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp && data.exp) {
                 tbodyExp.innerHTML = '';
@@ -1483,7 +1480,7 @@ Thank you!
             const bomElem = document.getElementById('total-bom-cost');
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
-            // 2. Расчет оснастки и цеховых расходов с умножением на штат (Секция 2)
+            // 2. Расчет оснастки и расходов с умножением на штат (Секция 2)
             let totalOtherCosts = 0;
             const tbodyExpRows = document.querySelectorAll('#expense-dynamic-rows tr');
             tbodyExpRows.forEach(tr => {
@@ -1582,9 +1579,10 @@ Thank you!
             const uLower = url.toLowerCase();
             if (uLower.includes('tv') || uLower.includes('smart-tv') || uLower.includes('display')) {
                 finalTopic = "Телевизоры и Дисплеи";
-                if (query.toLowerCase().includes('дрон')) {
-                    query = "Линия сборки ТВ панелей (Smart TV)";
-                }
+                if (query.toLowerCase().includes('дрон')) query = "Линия сборки ТВ панелей (Smart TV)";
+            } else if (uLower.includes('notebook') || uLower.includes('laptop') || uLower.includes('ноутбук')) {
+                finalTopic = "Телеком и Ноутбуки";
+                if (query.toLowerCase().includes('дрон')) query = "Линия сборки ноутбуков (SKD)";
             } else if (uLower.includes('drone') || uLower.includes('uav')) {
                 finalTopic = "Дроны и Радиоэлектроника";
             }
@@ -1839,7 +1837,7 @@ Thank you!
             calculateAll();
         };
 
-        // ОТРИСОВКА ЛИСТИНГА
+        // ОТРИСОВКА ЛИСТИНГА С АККОРДЕОНОМ BOM
         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
@@ -1909,7 +1907,6 @@ Thank you!
                             </td>
                         ` : '';
 
-                    // 1. Главная строка станка
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                             <td style="padding-left:20px;">
@@ -1929,7 +1926,6 @@ Thank you!
                         `;
                     container.appendChild(tr);
 
-                    // 2. Вложенная строка спецификации BOM
                     let compRowsHtml = '';
                     compList.forEach((c, idx) => {
                         const name = c.name || c[0];
