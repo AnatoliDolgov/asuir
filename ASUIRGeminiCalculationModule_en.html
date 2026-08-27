@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini v2.7</title>
+    <title>Efficiency Generator — ASUIR Gemini v2.8</title>
     <style>
-        /* ================================================================
-           INNOVATION MATRIX STYLING (EN)
-           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -580,7 +577,7 @@
 
         <h1 class="main-title">
             <span>Efficiency</span> Generator
-            <small>ASUIR Gemini v2.7 (Tooling & Facility Table)</small>
+            <small>ASUIR Gemini v2.8 (Realistic Notebook BOMs)</small>
         </h1>
         <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
@@ -617,7 +614,7 @@
                     <tr>
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Product Link from Alibaba</span></span><br>
-                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste link here — script automatically configures category, tooling & BOM components!</span>
+                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste link here — script automatically sets category, tooling & BOM components!</span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
                                 <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
@@ -654,7 +651,7 @@
                                     <option value="drone">🚁 Drones & Radioelectronics</option>
                                     <option value="tablet">📱 Tablets / Mobile Devices</option>
                                     <option value="tv">📺 TVs & Displays</option>
-                                    <option value="pc">💻 Telecom & Computers</option>
+                                    <option value="pc">💻 Telecom & Laptops</option>
                                     <option value="bakery">🍞 Commercial Bakery Line</option>
                                     <option value="jewelry">💍 Fine Jewelry Casting</option>
                                     <option value="watch">⌚ Watch Assembly</option>
@@ -903,7 +900,7 @@
                 <div class="catalog-card" onclick="loadCatalogTemplate('drone')">🚁 Drones & Radioelectronics</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📱 Tablets / Mobile Devices</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 TVs & Displays</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Telecom & Computers</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Telecom & Laptops</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Commercial Mini-Bakery</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('jewelry')">💍 Fine Jewelry Casting</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('watch')">⌚ Watch Assembly</div>
@@ -1055,20 +1052,20 @@ Thank you!
                 ]
             },
             'pc': {
-                title: "Telecom & Computers", eq: '20000', mkt: '1850', perf: '10', staff: '2', q: 'PC Assembly & Testing Station',
+                title: "Telecom & Laptops", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'SKD Laptop Assembly Line',
                 c: [
-                    ['Desktop CPU', 1, 340.0, 'https://www.alibaba.com/'],
-                    ['Graphics Card (GPU)', 1, 520.0, 'https://www.alibaba.com/'],
-                    ['ATX/ITX Motherboard', 1, 140.0, 'https://www.alibaba.com/'],
-                    ['RAM Memory modules', 1, 105.0, 'https://www.alibaba.com/'],
-                    ['NVMe 2TB SSD', 1, 115.0, 'https://www.alibaba.com/'],
-                    ['Case & Power Supply', 1, 130.0, 'https://www.alibaba.com/']
+                    ['Barebone Chassis 15.6" (case, keyboard, 5000mAh battery)', 1, 85.0, 'https://www.alibaba.com/'],
+                    ['IPS Display Matrix 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/'],
+                    ['Intel SoC Motherboard + cooling system', 1, 68.0, 'https://www.alibaba.com/'],
+                    ['SO-DIMM RAM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/'],
+                    ['M.2 NVMe SSD 512GB Storage', 1, 18.0, 'https://www.alibaba.com/'],
+                    ['65W Type-C Adapter + Wi-Fi 6 Module + Box', 1, 10.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Assembly Area Rent 40 sqm', 1, 25.0, ''],
-                    ['Testing racks & diagnostic tools (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
-                    ['Thermal paste, zip ties, cable organizers', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Components Freight Logistics', 1, 15.0, '']
+                    ['Assembly Workshop Rent 40 sqm', 1, 25.0, ''],
+                    ['BIOS flashing bench & torque drivers (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Thermal paste, protective films, cleaners', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Batch Shipping & Freight Logistics', 1, 15.0, '']
                 ]
             },
             'furniture': {
@@ -1252,7 +1249,7 @@ Thank you!
                 const qtyInput = tr.querySelector('.exp-qty-input');
                 if (nameInput && qtyInput) {
                     const text = nameInput.value.toLowerCase();
-                    if (text.includes('worker') || text.includes('tool') || text.includes('consumable') || text.includes('station') || text.includes('blade') || text.includes('cutter')) {
+                    if (text.includes('worker') || text.includes('tool') || text.includes('consumable') || text.includes('station') || text.includes('blade') || text.includes('cutter') || text.includes('driver')) {
                         qtyInput.value = staff;
                     }
                 }
@@ -1260,7 +1257,7 @@ Thank you!
             calculateAll();
         };
 
-        // 3. LIVE ALIBABA URL PARSER (TRIGGERED ON INPUT / PASTE / CHANGE)
+        // 3. LIVE ALIBABA URL PARSER
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
@@ -1278,9 +1275,11 @@ Thank you!
                 detectedKey = 'tv';
             } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter')) {
                 detectedKey = 'drone';
+            } else if (lower.includes('notebook') || lower.includes('laptop')) {
+                detectedKey = 'pc';
             } else if (lower.includes('tablet') || lower.includes('phone') || lower.includes('pad')) {
                 detectedKey = 'tablet';
-            } else if (lower.includes('computer') || lower.includes('pc') || lower.includes('server')) {
+            } else if (lower.includes('computer') || lower.includes('server')) {
                 detectedKey = 'pc';
             } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven')) {
                 detectedKey = 'bakery';
@@ -1360,7 +1359,7 @@ Thank you!
             if (t.includes('drone') || t.includes('дрон')) return "Drones & Radioelectronics";
             if (t.includes('tablet') || t.includes('планшет')) return "Tablets & Mobile Devices";
             if (t.includes('tv') || t.includes('телевизор')) return "TVs & Displays";
-            if (t.includes('pc') || t.includes('компьютер') || t.includes('telecom')) return "Telecom & Computers";
+            if (t.includes('pc') || t.includes('компьютер') || t.includes('ноутбук') || t.includes('laptop')) return "Telecom & Laptops";
             if (t.includes('bakery') || t.includes('хлеб')) return "Commercial Bakery Line";
             if (t.includes('jewelry') || t.includes('ювелир')) return "Fine Jewelry Casting";
             if (t.includes('watch') || t.includes('час')) return "Watch Assembly";
@@ -1566,9 +1565,10 @@ Thank you!
             const uLower = url.toLowerCase();
             if (uLower.includes('tv') || uLower.includes('smart-tv') || uLower.includes('display')) {
                 finalTopic = "TVs & Displays";
-                if (query.toLowerCase().includes('drone')) {
-                    query = "Semi-Automatic Smart TV Production Line";
-                }
+                if (query.toLowerCase().includes('drone')) query = "Semi-Automatic Smart TV Production Line";
+            } else if (uLower.includes('notebook') || uLower.includes('laptop')) {
+                finalTopic = "Telecom & Laptops";
+                if (query.toLowerCase().includes('drone')) query = "SKD Laptop Assembly Line";
             } else if (uLower.includes('drone') || uLower.includes('uav')) {
                 finalTopic = "Drones & Radioelectronics";
             }
