@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini v2.8</title>
+    <title>Efficiency Generator — ASUIR Gemini v2.9.1</title>
     <style>
         * {
             margin: 0;
@@ -570,6 +570,15 @@
             }
         }
     </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-SCZYX0Z5VX');
+    </script>
 </head>
 <body>
 
@@ -577,7 +586,7 @@
 
         <h1 class="main-title">
             <span>Efficiency</span> Generator
-            <small>ASUIR Gemini v2.8 (Realistic Notebook BOMs)</small>
+            <small>ASUIR Gemini v2.9.1 (Smartphones, Laptops & Live Parser)</small>
         </h1>
         <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
@@ -649,7 +658,8 @@
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                 <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="loadCatalogTemplate(this.value)">
                                     <option value="drone">🚁 Drones & Radioelectronics</option>
-                                    <option value="tablet">📱 Tablets / Mobile Devices</option>
+                                    <option value="phone">📱 Smartphones & Mobile Phones</option>
+                                    <option value="tablet">📲 Tablets & Mobile PCs</option>
                                     <option value="tv">📺 TVs & Displays</option>
                                     <option value="pc">💻 Telecom & Laptops</option>
                                     <option value="bakery">🍞 Commercial Bakery Line</option>
@@ -709,7 +719,7 @@
             </div>
         </div>
 
-        <!-- TAB 2: DYNAMIC TOOLING & FACILITY EXPENSES TABLE -->
+        <!-- TAB 2: TOOLING & FACILITY EXPENSES -->
         <div class="section" id="tab2">
             <h2 class="section-title">2. Tooling, Consumables & Facility Expenses (Section 2)</h2>
             <div class="info-hint" style="background:#f0f5fa; border-left:4px solid #1f4e78; color:#1a2632;">
@@ -898,7 +908,8 @@
             <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">Select Production Category (Nice Class)</h3>
             <div class="catalog-grid">
                 <div class="catalog-card" onclick="loadCatalogTemplate('drone')">🚁 Drones & Radioelectronics</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📱 Tablets / Mobile Devices</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('phone')">📱 Smartphones & Mobile Phones</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📲 Tablets & Mobile PCs</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 TVs & Displays</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Telecom & Laptops</div>
                 <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Commercial Mini-Bakery</div>
@@ -1001,7 +1012,7 @@ Thank you!
             }
         };
 
-        // CATALOG DEFINITIONS WITH BOM (c) AND TOOLING/EXPENSES (exp)
+        // CATALOG DEFINITIONS
         const catalogDB = {
             'drone': {
                 title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
@@ -1019,8 +1030,26 @@ Thank you!
                     ['Cell Logistics & Power Supply', 1, 15.0, '']
                 ]
             },
+            'phone': {
+                title: "Smartphones & Mobile Phones", eq: '6000', mkt: '150', perf: '250', staff: '3', q: 'Smartphone Assembly Line',
+                c: [
+                    ['6.5" FHD+ IPS/OLED Touch Display module', 1, 18.0, 'https://www.alibaba.com/'],
+                    ['SoC Mainboard (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/'],
+                    ['Camera module set (Main 50MP + Front 8MP)', 1, 8.0, 'https://www.alibaba.com/'],
+                    ['Li-Polymer Battery 5000 mAh', 1, 6.0, 'https://www.alibaba.com/'],
+                    ['Middle chassis, back cover, buttons, SIM tray', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Speakers, vibration motor, Type-C sub-board', 1, 3.0, 'https://www.alibaba.com/'],
+                    ['18W Type-C Charger + cable + retail box', 1, 3.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Assembly Box Rent 40 sqm', 1, 25.0, ''],
+                    ['Pneumatic press & torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/'],
+                    ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/'],
+                    ['Components Freight & Logistics', 1, 15.0, '']
+                ]
+            },
             'tablet': {
-                title: "Tablets & Mobile Devices", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Station',
+                title: "Tablets & Mobile PCs", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Station',
                 c: [
                     ['IPS/OLED Display assembly 10.1"', 1, 35.0, 'https://www.alibaba.com/'],
                     ['SoC Motherboard (ARM Octa-Core)', 1, 45.0, 'https://www.alibaba.com/'],
@@ -1257,7 +1286,7 @@ Thank you!
             calculateAll();
         };
 
-        // 3. LIVE ALIBABA URL PARSER
+        // 3. ROBUST NON-DESTRUCTIVE ALIBABA URL PARSER
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
@@ -1268,19 +1297,21 @@ Thank you!
                 extractedTitle = match[1].replace(/[-_]+/g, ' ').replace(/\d{8,}/g, '').trim();
             }
 
-            let detectedKey = 'drone';
+            let detectedKey = null; // null if not explicitly matched, to prevent resetting to drones!
             const lower = (u + ' ' + extractedTitle).toLowerCase();
 
-            if (lower.includes('tv') || lower.includes('television') || lower.includes('display') || lower.includes('screen') || lower.includes('led') || lower.includes('oled') || lower.includes('smart-tv')) {
+            if (lower.includes('smartphone') || lower.includes('mobile-phone') || lower.includes('smart phone') || (lower.includes('phone') && !lower.includes('earphone') && !lower.includes('headphone'))) {
+                detectedKey = 'phone';
+            } else if (lower.includes('tv') || lower.includes('television') || lower.includes('display') || lower.includes('screen') || lower.includes('led') || lower.includes('oled') || lower.includes('smart-tv')) {
                 detectedKey = 'tv';
-            } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter')) {
-                detectedKey = 'drone';
             } else if (lower.includes('notebook') || lower.includes('laptop')) {
                 detectedKey = 'pc';
-            } else if (lower.includes('tablet') || lower.includes('phone') || lower.includes('pad')) {
+            } else if (lower.includes('tablet') || lower.includes('pad')) {
                 detectedKey = 'tablet';
             } else if (lower.includes('computer') || lower.includes('server')) {
                 detectedKey = 'pc';
+            } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter')) {
+                detectedKey = 'drone';
             } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven')) {
                 detectedKey = 'bakery';
             } else if (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver')) {
@@ -1299,46 +1330,53 @@ Thank you!
                 detectedKey = 'instruments';
             }
 
-            const data = catalogDB[detectedKey];
-            currentTopicTitle = data.title;
+            if (detectedKey) {
+                const data = catalogDB[detectedKey];
+                currentTopicTitle = data.title;
 
-            const dropdown = document.getElementById('topic-selector-dropdown');
-            if (dropdown) dropdown.value = detectedKey;
+                const dropdown = document.getElementById('topic-selector-dropdown');
+                if (dropdown) dropdown.value = detectedKey;
 
-            if (document.getElementById('equip-search-query')) {
-                document.getElementById('equip-search-query').value = extractedTitle || data.q;
-            }
+                if (document.getElementById('equip-search-query')) {
+                    document.getElementById('equip-search-query').value = extractedTitle || data.q;
+                }
 
-            if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) {
-                document.getElementById('val-equip').value = data.eq;
-            }
-            if (document.getElementById('val-actual-perf')) {
-                document.getElementById('val-actual-perf').value = data.perf || 20;
-            }
-            if (document.getElementById('val-staff')) {
-                document.getElementById('val-staff').value = data.staff || 2;
-            }
+                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) {
+                    document.getElementById('val-equip').value = data.eq;
+                }
+                if (document.getElementById('val-actual-perf')) {
+                    document.getElementById('val-actual-perf').value = data.perf || 20;
+                }
+                if (document.getElementById('val-staff')) {
+                    document.getElementById('val-staff').value = data.staff || 2;
+                }
 
-            if (document.getElementById('market-price-input')) {
-                document.getElementById('market-price-input').value = data.mkt;
-            }
+                if (document.getElementById('market-price-input')) {
+                    document.getElementById('market-price-input').value = data.mkt;
+                }
 
-            // Populate Section 3 (BOM)
-            const tbodyBom = document.getElementById('component-dynamic-rows');
-            if (tbodyBom) {
-                tbodyBom.innerHTML = '';
-                data.c.forEach(item => {
-                    addComponentRow(item[0], item[1], item[2], item[3]);
-                });
-            }
+                // Populate Section 3 (BOM)
+                const tbodyBom = document.getElementById('component-dynamic-rows');
+                if (tbodyBom) {
+                    tbodyBom.innerHTML = '';
+                    data.c.forEach(item => {
+                        addComponentRow(item[0], item[1], item[2], item[3]);
+                    });
+                }
 
-            // Populate Section 2 (Tooling & Expenses)
-            const tbodyExp = document.getElementById('expense-dynamic-rows');
-            if (tbodyExp && data.exp) {
-                tbodyExp.innerHTML = '';
-                data.exp.forEach(item => {
-                    addExpenseRow(item[0], item[1], item[2], item[3]);
-                });
+                // Populate Section 2 (Tooling & Expenses)
+                const tbodyExp = document.getElementById('expense-dynamic-rows');
+                if (tbodyExp && data.exp) {
+                    tbodyExp.innerHTML = '';
+                    data.exp.forEach(item => {
+                        addExpenseRow(item[0], item[1], item[2], item[3]);
+                    });
+                }
+            } else {
+                // GENERIC URL: PRESERVE SELECTED TOPIC & BOM!
+                if (extractedTitle && document.getElementById('equip-search-query')) {
+                    document.getElementById('equip-search-query').value = extractedTitle;
+                }
             }
 
             calculateAll();
@@ -1357,7 +1395,8 @@ Thank you!
             if (!rawTitle) return "Drones & Radioelectronics";
             const t = rawTitle.trim().toLowerCase();
             if (t.includes('drone') || t.includes('дрон')) return "Drones & Radioelectronics";
-            if (t.includes('tablet') || t.includes('планшет')) return "Tablets & Mobile Devices";
+            if (t.includes('smartphone') || t.includes('phone') || t.includes('смартфон')) return "Smartphones & Mobile Phones";
+            if (t.includes('tablet') || t.includes('планшет')) return "Tablets & Mobile PCs";
             if (t.includes('tv') || t.includes('телевизор')) return "TVs & Displays";
             if (t.includes('pc') || t.includes('компьютер') || t.includes('ноутбук') || t.includes('laptop')) return "Telecom & Laptops";
             if (t.includes('bakery') || t.includes('хлеб')) return "Commercial Bakery Line";
@@ -1566,6 +1605,9 @@ Thank you!
             if (uLower.includes('tv') || uLower.includes('smart-tv') || uLower.includes('display')) {
                 finalTopic = "TVs & Displays";
                 if (query.toLowerCase().includes('drone')) query = "Semi-Automatic Smart TV Production Line";
+            } else if (uLower.includes('smartphone') || uLower.includes('mobile-phone') || uLower.includes('phone')) {
+                finalTopic = "Smartphones & Mobile Phones";
+                if (query.toLowerCase().includes('drone')) query = "Smartphone Assembly Line";
             } else if (uLower.includes('notebook') || uLower.includes('laptop')) {
                 finalTopic = "Telecom & Laptops";
                 if (query.toLowerCase().includes('drone')) query = "SKD Laptop Assembly Line";
