@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini v2.6</title>
+    <title>Efficiency Generator — ASUIR Gemini v2.7</title>
     <style>
+        /* ================================================================
+           INNOVATION MATRIX STYLING (EN)
+           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -577,7 +580,7 @@
 
         <h1 class="main-title">
             <span>Efficiency</span> Generator
-            <small>ASUIR Gemini v2.6 (Live URL Parser)</small>
+            <small>ASUIR Gemini v2.7 (Tooling & Facility Table)</small>
         </h1>
         <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
 
@@ -599,8 +602,8 @@
         <div class="nav-divider"></div>
 
         <div class="nav-tabs" id="tabHeaders">
-            <a href="#" class="active" data-tab="tab1"><span class="icon">💰</span><span class="label">1. Total Direct Costs</span></a>
-            <a href="#" data-tab="tab2"><span class="icon">📦</span><span class="label">2. Secondary Overhead</span></a>
+            <a href="#" class="active" data-tab="tab1"><span class="icon">💰</span><span class="label">1. Direct Cell Costs</span></a>
+            <a href="#" data-tab="tab2"><span class="icon">📦</span><span class="label">2. Tooling & Facility Expenses</span></a>
             <a href="#" data-tab="tab3"><span class="icon">⚙️</span><span class="label">3. Bill of Materials (BOM)</span></a>
             <a href="#" data-tab="tab4"><span class="icon">📊</span><span class="label">4. Cost Price</span></a>
             <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Financial Results</span></a>
@@ -608,13 +611,13 @@
 
         <!-- TAB 1: DIRECT COSTS -->
         <div class="section active" id="tab1">
-            <h2 class="section-title">1. Determine Total Direct Costs (Starter Cell)</h2>
+            <h2 class="section-title">1. Direct Cell Costs (Starter Cell)</h2>
             <div class="table-responsive">
                 <table class="text-regular">
                     <tr>
                         <td>
                             <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Product Link from Alibaba</span></span><br>
-                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste Alibaba link here — script automatically sets topic, BOM, and market price!</span>
+                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste link here — script automatically configures category, tooling & BOM components!</span>
                             <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
                                 <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
                                 <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
@@ -622,7 +625,7 @@
                             </div>
                         </td>
                         <td class="right">
-                            <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Cost $</span>
+                            <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Equipment Cost $</span>
                             <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
                         </td>
                     </tr>
@@ -643,7 +646,7 @@
 
                     <tr>
                         <td>
-                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Current Topic / Nice Class Category</span></span>
+                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Current Category (Nice Class)</span></span>
                         </td>
                         <td class="right">
                             <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
@@ -687,7 +690,7 @@
 
                     <tr>
                         <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
-                        <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2"></td>
+                        <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
                     </tr>
                     <tr>
                         <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Starting Monthly Salary per Operator</span></span></td>
@@ -705,31 +708,41 @@
             </div>
 
             <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment & BOM to Database</button>
+                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
             </div>
         </div>
 
-        <!-- TAB 2: SECONDARY OVERHEAD -->
+        <!-- TAB 2: DYNAMIC TOOLING & FACILITY EXPENSES TABLE -->
         <div class="section" id="tab2">
-            <h2 class="section-title">2. Secondary Fixed Overhead (Micro-Facility)</h2>
+            <h2 class="section-title">2. Tooling, Consumables & Facility Expenses (Section 2)</h2>
+            <div class="info-hint" style="background:#f0f5fa; border-left:4px solid #1f4e78; color:#1a2632;">
+                <b>💡 Proportional Staff Scaling:</b> Toolkits, soldering gear, and consumables scale directly with the number of operators (staff), while common overhead (workshop rent, power) is counted once per cell.
+            </div>
+
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+                <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Add Facility / Tooling Expense Item</button>
+            </div>
+
             <div class="table-responsive">
-                <table class="text-regular">
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">🏢</span> <span style="font-weight: 600;">Workshop Rent 40-60 sqm (per day)</span></span></td>
-                        <td class="right">$ <input type="number" id="val-rent" class="input-field input-field-sm" value="30"></td>
-                    </tr>
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">🚚</span> <span style="font-weight: 600;">Logistics & Delivery (per day)</span></span></td>
-                        <td class="right">$ <input type="number" id="val-logistics" class="input-field input-field-sm" value="15"></td>
-                    </tr>
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">🔧</span> <span style="font-weight: 600;">Other Facility Expenses (per day)</span></span></td>
-                        <td class="right">$ <input type="number" id="val-other" class="input-field input-field-sm" value="10"></td>
-                    </tr>
-                    <tr class="total-row">
-                        <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Secondary Overhead (per day)</span></span></td>
-                        <td class="right">$ <span id="total-other-costs">0</span></td>
-                    </tr>
+                <table class="components-table">
+                    <thead>
+                        <tr>
+                            <th class="row-name">📦 Expense Item / Tooling / Consumable</th>
+                            <th class="row-url">🔗 Alibaba / Supplier Link</th>
+                            <th class="row-search">🔍</th>
+                            <th style="width:110px; text-align:center;">👷 Multiplier (Staff)</th>
+                            <th style="width:120px; text-align:right;">💰 Daily Cost ($/day)</th>
+                            <th class="row-delete"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-dynamic-rows"></tbody>
+                    <tfoot>
+                        <tr style="background:#f0f5fa;">
+                            <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Fixed Facility Expenses, Tooling & Consumables (per day):</span></span></td>
+                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-other-costs">54.00</span></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -749,12 +762,12 @@
                 <table class="components-table">
                     <thead>
                         <tr>
-                            <th>📦 Component Name</th>
-                            <th>🔗 Alibaba Link</th>
-                            <th>🔍</th>
-                            <th>📐 Qty</th>
-                            <th>💰 Unit Price ($)</th>
-                            <th></th>
+                            <th class="row-name">📦 Component Name</th>
+                            <th class="row-url">🔗 Alibaba Link</th>
+                            <th class="row-search">🔍</th>
+                            <th class="row-qty">📐 Qty</th>
+                            <th class="row-price">💰 Unit Price ($)</th>
+                            <th class="row-delete"></th>
                         </tr>
                     </thead>
                     <tbody id="component-dynamic-rows"></tbody>
@@ -783,7 +796,7 @@
                         <td class="right">$ <span id="cost-equip-share">0.00</span></td>
                     </tr>
                     <tr>
-                        <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Secondary Overhead Share (per 1 unit)</span></span></td>
+                        <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Tooling & Facility Overhead Share (per 1 unit)</span></span></td>
                         <td class="right">$ <span id="cost-other-share">0.00</span></td>
                     </tr>
                     <tr class="result-row">
@@ -849,7 +862,7 @@
                         </select>
                     </div>
                     <div>
-                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment & BOM to Database</button>
+                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
                     </div>
                 </div>
 
@@ -973,7 +986,7 @@ Thank you!
         let currentTopicTitle = "Drones & Radioelectronics";
         let isAdminMode = false;
 
-        // 1. CLIENT ID
+        // 1. CLIENT ID INITIALIZATION & LOCAL STORAGE
         let myClientId = localStorage.getItem('asuir_client_id_en');
         if (!myClientId) {
             myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -991,63 +1004,263 @@ Thank you!
             }
         };
 
-        // CATALOG DEFINITIONS
+        // CATALOG DEFINITIONS WITH BOM (c) AND TOOLING/EXPENSES (exp)
         const catalogDB = {
             'drone': {
                 title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
-                c: [['Carbon fiber frame kit (10" T700)', 1, 26.0], ['Flight Controller (F7 + 60A ESC)', 1, 45.0], ['Brushless motors 2807 set (4 pcs)', 1, 55.0], ['VTX 5.8GHz + FPV Camera', 1, 35.0], ['LiPo Battery Pack 6S 5000mAh', 1, 25.0]]
+                c: [
+                    ['Carbon fiber frame kit (10" T700)', 1, 26.0, 'https://www.alibaba.com/'],
+                    ['Flight Controller (F7 + 60A ESC)', 1, 45.0, 'https://www.alibaba.com/'],
+                    ['Brushless motors 2807 set (4 pcs)', 1, 55.0, 'https://www.alibaba.com/'],
+                    ['VTX 5.8GHz + FPV Camera', 1, 35.0, 'https://www.alibaba.com/'],
+                    ['LiPo Battery Pack 6S 5000mAh', 1, 25.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Workshop Box Rent 50 sqm (per cell)', 1, 30.0, ''],
+                    ['Soldering station & electric screwdrivers (amortization per worker)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Consumables: solder, flux, bits, Loctite (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Cell Logistics & Power Supply', 1, 15.0, '']
+                ]
             },
             'tablet': {
                 title: "Tablets & Mobile Devices", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Station',
-                c: [['IPS/OLED Display assembly 10.1"', 1, 35.0], ['SoC Motherboard (ARM Octa-Core)', 1, 45.0], ['Li-Po Battery 6000mAh', 1, 10.0], ['Ultra-thin chassis & flex cables', 1, 8.0], ['Retail box + 20W charger', 1, 2.0]]
+                c: [
+                    ['IPS/OLED Display assembly 10.1"', 1, 35.0, 'https://www.alibaba.com/'],
+                    ['SoC Motherboard (ARM Octa-Core)', 1, 45.0, 'https://www.alibaba.com/'],
+                    ['Li-Po Battery 6000mAh', 1, 10.0, 'https://www.alibaba.com/'],
+                    ['Ultra-thin chassis & flex cables', 1, 8.0, 'https://www.alibaba.com/'],
+                    ['Retail box + 20W charger', 1, 2.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Clean Area Rent 40 sqm', 1, 25.0, ''],
+                    ['Vacuum laminator tooling & screwdriver set (per worker)', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Consumables: thermal tape, cleaners, wipes', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Logistics & Batch Shipping', 1, 12.0, '']
+                ]
             },
             'tv': {
                 title: "TVs & Displays", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Semi-Automatic Smart TV Production Line',
-                c: [['LCD / OLED Display matrix 55"', 1, 140.0], ['Smart TV Mainboard', 1, 45.0], ['Inverter Power Supply', 1, 25.0], ['Direct LED Backlight strips', 1, 15.0], ['Housing & stereo speakers', 1, 28.0]]
+                c: [
+                    ['LCD / OLED Display matrix 55"', 1, 140.0, 'https://www.alibaba.com/'],
+                    ['Smart TV Mainboard', 1, 45.0, 'https://www.alibaba.com/'],
+                    ['Inverter Power Supply', 1, 25.0, 'https://www.alibaba.com/'],
+                    ['Direct LED Backlight strips', 1, 15.0, 'https://www.alibaba.com/'],
+                    ['Housing & stereo speakers', 1, 28.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Assembly Box Rent 60 sqm', 1, 35.0, ''],
+                    ['Tooling: vacuum suction lifters, power drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/'],
+                    ['Consumables: insulation tape, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/'],
+                    ['Large Display Freight Logistics', 1, 18.0, '']
+                ]
             },
             'pc': {
                 title: "Telecom & Computers", eq: '20000', mkt: '1850', perf: '10', staff: '2', q: 'PC Assembly & Testing Station',
-                c: [['Desktop CPU', 1, 340.0], ['Graphics Card (GPU)', 1, 520.0], ['ATX/ITX Motherboard', 1, 140.0], ['RAM Memory modules', 1, 105.0], ['NVMe 2TB SSD', 1, 115.0], ['Case & Power Supply', 1, 130.0]]
-            },
-            'bakery': {
-                title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
-                c: [['Premium Wheat Flour (kg)', 0.6, 0.4], ['Yeast & Baking Additives', 1, 0.05], ['Packaging bag', 1, 0.08]]
-            },
-            'jewelry': {
-                title: "Fine Jewelry Casting", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Benchtop Jewelry Casting Complex',
-                c: [['Gold/Silver casting granules (g)', 10, 8.0], ['Stone inserts (cubic zirconia)', 2, 20.0], ['Jewelry findings & clasps', 1, 5.0], ['Velvet presentation box', 1, 5.0]]
-            },
-            'watch': {
-                title: "Watch Assembly", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Watch Assembly Mini-Cell',
-                c: [['Case & Sapphire crystal', 1, 30.0], ['Precision watch movement', 1, 40.0], ['Dial & Hands set', 1, 10.0], ['Leather/Metal strap', 1, 15.0], ['Gift presentation box', 1, 8.0]]
-            },
-            'costume': {
-                title: "Costume Jewelry Press", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Mini Hydraulic Jewelry Press',
-                c: [['Alloy blank workpiece', 1, 2.0], ['Decorative crystals', 1, 1.0], ['Jewelry findings', 1, 0.5], ['Eco packaging pouch', 1, 1.5]]
-            },
-            'clothes': {
-                title: "Apparel Sewing", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'CNC Cutting & Sewing Mini-Shop',
-                c: [['Fabric textile (meters)', 1.8, 12.0], ['Soft inner lining', 1.2, 3.5], ['Threads & hardware buttons', 1, 5.0], ['Packaging & Brand tag', 1, 1.5]]
+                c: [
+                    ['Desktop CPU', 1, 340.0, 'https://www.alibaba.com/'],
+                    ['Graphics Card (GPU)', 1, 520.0, 'https://www.alibaba.com/'],
+                    ['ATX/ITX Motherboard', 1, 140.0, 'https://www.alibaba.com/'],
+                    ['RAM Memory modules', 1, 105.0, 'https://www.alibaba.com/'],
+                    ['NVMe 2TB SSD', 1, 115.0, 'https://www.alibaba.com/'],
+                    ['Case & Power Supply', 1, 130.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Assembly Area Rent 40 sqm', 1, 25.0, ''],
+                    ['Testing racks & diagnostic tools (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Thermal paste, zip ties, cable organizers', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Components Freight Logistics', 1, 15.0, '']
+                ]
             },
             'furniture': {
                 title: "Furniture Woodworking", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Compact CNC Furniture Nesting Center',
-                c: [['MDF/Laminated board (sqm)', 4, 15.0], ['Edge banding tape', 1, 5.0], ['Mirror sheet', 1, 22.0], ['Metal hardware fittings', 1, 8.0], ['Cardboard packaging', 1, 6.0]]
+                c: [
+                    ['MDF/Laminated board 4 sqm', 4, 15.0, 'https://www.alibaba.com/'],
+                    ['PVC Edge banding tape 2mm', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Cabinet hinges & hardware fittings', 1, 8.0, 'https://www.alibaba.com/'],
+                    ['Mirror / Glass panel', 1, 22.0, 'https://www.alibaba.com/'],
+                    ['Cardboard packaging', 1, 6.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Workshop Rent with dust extraction 80 sqm', 1, 35.0, ''],
+                    ['CNC carbide milling cutters & collets (per worker)', 2, 6.0, 'https://www.alibaba.com/'],
+                    ['Rail lubricants, vacuum bags, air filters', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['380V Power & sawdust disposal logistics', 1, 18.0, '']
+                ]
             },
-            'instruments': {
-                title: "Precision Instruments", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Instrument Calibration & Assembly Station',
-                c: [['Sensor measurement module', 1, 120.0], ['Signal processing board', 1, 65.0], ['LCD Display screen', 1, 25.0], ['IP65 Heavy-duty housing', 1, 40.0]]
+            'clothes': {
+                title: "Apparel Sewing", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'CNC Cutting & Sewing Mini-Shop',
+                c: [
+                    ['Fabric textile (meters)', 1.8, 12.0, 'https://www.alibaba.com/'],
+                    ['Soft inner lining', 1.2, 3.5, 'https://www.alibaba.com/'],
+                    ['Threads & hardware buttons', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Packaging & Brand tag', 1, 1.5, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Sewing Box Rent 50 sqm', 1, 30.0, ''],
+                    ['CNC vibrating blades & sharpening stones', 2, 3.0, 'https://www.alibaba.com/'],
+                    ['Machine needles, oil, teflon presser feet', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Textile delivery & scrap logistics', 1, 14.0, '']
+                ]
+            },
+            'jewelry': {
+                title: "Fine Jewelry Casting", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Benchtop Jewelry Casting Complex',
+                c: [
+                    ['Gold/Silver casting granules (g)', 10, 8.0, 'https://www.alibaba.com/'],
+                    ['Stone inserts (cubic zirconia)', 2, 20.0, 'https://www.alibaba.com/'],
+                    ['Jewelry findings & clasps', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Investment powder & consumables', 1, 20.0, 'https://www.alibaba.com/'],
+                    ['Velvet presentation box', 1, 5.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Workshop Rent with fume exhaust 30 sqm', 1, 25.0, ''],
+                    ['Graphite crucibles & ceramic flasks (per worker)', 2, 5.0, 'https://www.alibaba.com/'],
+                    ['Shielding Argon gas & polishing compounds', 2, 3.5, 'https://www.alibaba.com/'],
+                    ['Security & precious metals transport', 1, 10.0, '']
+                ]
             },
             'cnc': {
                 title: "Desktop CNC Machines", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Desktop CNC Assembly Line',
-                c: [['Aluminum frame chassis', 1, 300.0], ['Stepper motors set', 1, 150.0], ['CNC Controller board', 1, 80.0], ['Spindle & Power supply', 1, 200.0]]
+                c: [
+                    ['Aluminum frame chassis', 1, 300.0, 'https://www.alibaba.com/'],
+                    ['Stepper motors set', 1, 150.0, 'https://www.alibaba.com/'],
+                    ['CNC Controller board', 1, 80.0, 'https://www.alibaba.com/'],
+                    ['Spindle & Power supply', 1, 200.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Assembly Box Rent 40 sqm', 1, 25.0, ''],
+                    ['Alignment tools & torque keys (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Lubricants, M4/M5 hardware, threadlockers', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Heavy chassis freight logistics', 1, 15.0, '']
+                ]
+            },
+            'bakery': {
+                title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
+                c: [
+                    ['Premium Wheat Flour (kg)', 0.6, 0.4, 'https://www.alibaba.com/'],
+                    ['Yeast & Baking Additives', 1, 0.05, 'https://www.alibaba.com/'],
+                    ['Packaging bag', 1, 0.08, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Bakery Facility Rent 60 sqm', 1, 35.0, ''],
+                    ['Baking pans & trolleys (amortization)', 2, 3.0, 'https://www.alibaba.com/'],
+                    ['Cleaning supplies, gloves, parchment', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Oven electricity & bread delivery', 1, 20.0, '']
+                ]
+            },
+            'watch': {
+                title: "Watch Assembly", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Watch Assembly Mini-Cell',
+                c: [
+                    ['Case & Sapphire crystal', 1, 30.0, 'https://www.alibaba.com/'],
+                    ['Precision watch movement', 1, 40.0, 'https://www.alibaba.com/'],
+                    ['Dial & Hands set', 1, 10.0, 'https://www.alibaba.com/'],
+                    ['Leather/Metal strap', 1, 15.0, 'https://www.alibaba.com/'],
+                    ['Gift presentation box', 1, 8.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Clean Dust-free Room Rent 30 sqm', 1, 25.0, ''],
+                    ['Precision watchmaker toolkit (per master)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Watch oils (Moebius), dust removers', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Insurance & secure logistics', 1, 10.0, '']
+                ]
+            },
+            'costume': {
+                title: "Costume Jewelry Press", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Mini Hydraulic Jewelry Press',
+                c: [
+                    ['Alloy blank workpiece', 1, 2.0, 'https://www.alibaba.com/'],
+                    ['Decorative crystals', 1, 1.0, 'https://www.alibaba.com/'],
+                    ['Jewelry findings', 1, 0.5, 'https://www.alibaba.com/'],
+                    ['Eco packaging pouch', 1, 1.5, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Workshop Rent 30 sqm', 1, 20.0, ''],
+                    ['Molds & manual assembly tools (per worker)', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['UV-curing adhesives, clean wipes', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Dispatch freight & shipping', 1, 8.0, '']
+                ]
+            },
+            'instruments': {
+                title: "Precision Instruments", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Instrument Calibration & Assembly Station',
+                c: [
+                    ['Sensor measurement module', 1, 120.0, 'https://www.alibaba.com/'],
+                    ['Signal processing board', 1, 65.0, 'https://www.alibaba.com/'],
+                    ['LCD Display screen', 1, 25.0, 'https://www.alibaba.com/'],
+                    ['IP65 Heavy-duty housing', 1, 40.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Lab Room Rent 40 sqm', 1, 25.0, ''],
+                    ['Calibration standards & meters (per engineer)', 2, 3.5, 'https://www.alibaba.com/'],
+                    ['Cables, heat shrink, solder', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Certification & calibration logistics', 1, 12.0, '']
+                ]
             },
             'universal': {
                 title: "Universal Template", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Universal Production Cell',
-                c: [['Primary base material', 1, 40.0], ['Functional modules', 1, 25.0], ['Decorative housing', 1, 12.0], ['Retail consumer box', 1, 3.0]]
+                c: [
+                    ['Primary base material', 1, 40.0, 'https://www.alibaba.com/'],
+                    ['Functional modules', 1, 25.0, 'https://www.alibaba.com/'],
+                    ['Decorative housing', 1, 12.0, 'https://www.alibaba.com/'],
+                    ['Retail consumer box', 1, 3.0, 'https://www.alibaba.com/']
+                ],
+                exp: [
+                    ['Premises Rent 40 sqm', 1, 25.0, ''],
+                    ['General tooling & workbenches (per worker)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Workplace consumables & safety gear', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Logistics & Communications', 1, 10.0, '']
+                ]
             }
         };
 
-        // 2. LIVE ALIBABA URL PARSER (CALLED ON INPUT / PASTE / CHANGE)
+        // 2. DYNAMIC EXPENSES & TOOLING ROWS (SECTION 2)
+        window.addExpenseRow = function (name, qty, price, url = '') {
+            const tbody = document.getElementById('expense-dynamic-rows');
+            if (!tbody) return;
+            const rowId = 'exp-row-' + Date.now() + Math.random().toString(36).substr(2, 5);
+            const tr = document.createElement('tr');
+            tr.id = rowId;
+            const defaultUrl = url || '';
+
+            tr.innerHTML = `
+                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Expense Item / Tooling..."></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Alibaba / Supplier Link...">
+                            ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open">🔗</button>` : ''}
+                        </div>
+                    </td>
+                    <td class="row-search">
+                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
+                    </td>
+                    <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
+                    <td>
+                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                            <input type="number" step="0.1" class="input-field input-sm exp-price-input" id="${rowId}-price" value="${price}" style="width:100px;">
+                        </div>
+                    </td>
+                    <td class="row-delete">
+                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
+                    </td>
+                `;
+            tbody.appendChild(tr);
+            calculateAll();
+        };
+
+        window.updateStaffInExpenseTable = function () {
+            const staff = parseFloat(document.getElementById('val-staff')?.value) || 2;
+            const expRows = document.querySelectorAll('#expense-dynamic-rows tr');
+            expRows.forEach(tr => {
+                const nameInput = tr.querySelector('input[type="text"]');
+                const qtyInput = tr.querySelector('.exp-qty-input');
+                if (nameInput && qtyInput) {
+                    const text = nameInput.value.toLowerCase();
+                    if (text.includes('worker') || text.includes('tool') || text.includes('consumable') || text.includes('station') || text.includes('blade') || text.includes('cutter')) {
+                        qtyInput.value = staff;
+                    }
+                }
+            });
+            calculateAll();
+        };
+
+        // 3. LIVE ALIBABA URL PARSER (TRIGGERED ON INPUT / PASTE / CHANGE)
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
@@ -1111,12 +1324,21 @@ Thank you!
                 document.getElementById('market-price-input').value = data.mkt;
             }
 
-            const tbody = document.getElementById('component-dynamic-rows');
-            if (tbody) {
-                tbody.innerHTML = '';
+            // Populate Section 3 (BOM)
+            const tbodyBom = document.getElementById('component-dynamic-rows');
+            if (tbodyBom) {
+                tbodyBom.innerHTML = '';
                 data.c.forEach(item => {
-                    const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
-                    addComponentRow(item[0], item[1], item[2], itemUrl);
+                    addComponentRow(item[0], item[1], item[2], item[3]);
+                });
+            }
+
+            // Populate Section 2 (Tooling & Expenses)
+            const tbodyExp = document.getElementById('expense-dynamic-rows');
+            if (tbodyExp && data.exp) {
+                tbodyExp.innerHTML = '';
+                data.exp.forEach(item => {
+                    addExpenseRow(item[0], item[1], item[2], item[3]);
                 });
             }
 
@@ -1190,14 +1412,25 @@ Thank you!
                 }
             }
 
-            const tbody = document.getElementById('component-dynamic-rows');
-            if (tbody) {
-                tbody.innerHTML = '';
+            // Populate Section 3 (BOM)
+            const tbodyBom = document.getElementById('component-dynamic-rows');
+            if (tbodyBom) {
+                tbodyBom.innerHTML = '';
                 data.c.forEach(item => {
-                    const itemUrl = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
+                    const itemUrl = item[3] || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
                     addComponentRow(item[0], item[1], item[2], itemUrl);
                 });
             }
+
+            // Populate Section 2 (Tooling & Expenses)
+            const tbodyExp = document.getElementById('expense-dynamic-rows');
+            if (tbodyExp && data.exp) {
+                tbodyExp.innerHTML = '';
+                data.exp.forEach(item => {
+                    addExpenseRow(item[0], item[1], item[2], item[3]);
+                });
+            }
+
             calculateAll();
         };
 
@@ -1212,20 +1445,18 @@ Thank you!
             calculateAll();
         };
 
-        // RIGOROUS CALCULATION USING AUTHENTIC BALANCE EQUATION
+        // RIGOROUS CALCULATION USING AUTHENTIC ASUIR EQUATION
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
             const salary = parseFloat(document.getElementById('val-salary')?.value) || 0;
-            const rent = parseFloat(document.getElementById('val-rent')?.value) || 0;
-            const logistics = parseFloat(document.getElementById('val-logistics')?.value) || 0;
-            const other = parseFloat(document.getElementById('val-other')?.value) || 0;
             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
             const actualPerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
 
+            // 1. Raw Cost BOM (Section 3)
             let rawCost = 0;
-            const tbodyRows = document.querySelectorAll('#component-dynamic-rows tr');
-            tbodyRows.forEach(tr => {
+            const tbodyBomRows = document.querySelectorAll('#component-dynamic-rows tr');
+            tbodyBomRows.forEach(tr => {
                 const inputs = tr.querySelectorAll('input');
                 if (inputs.length >= 4) {
                     const qty = parseFloat(inputs[2]?.value) || 0;
@@ -1233,10 +1464,25 @@ Thank you!
                     rawCost += qty * price;
                 }
             });
-
             const bomElem = document.getElementById('total-bom-cost');
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
+            // 2. Tooling & Facility Expenses scaled by staff (Section 2)
+            let totalOtherCosts = 0;
+            const tbodyExpRows = document.querySelectorAll('#expense-dynamic-rows tr');
+            tbodyExpRows.forEach(tr => {
+                const qtyInput = tr.querySelector('.exp-qty-input');
+                const priceInput = tr.querySelector('.exp-price-input');
+                if (qtyInput && priceInput) {
+                    const qty = parseFloat(qtyInput.value) || 0;
+                    const price = parseFloat(priceInput.value) || 0;
+                    totalOtherCosts += qty * price;
+                }
+            });
+            const otherCostsElem = document.getElementById('total-other-costs');
+            if (otherCostsElem) otherCostsElem.textContent = totalOtherCosts.toFixed(2);
+
+            // 3. Fixed Daily Expenses
             const amort = equip / 5 / 365;
             const salaryPerDay = (salary * staff) / 30;
             const overhead = amort + salaryPerDay;
@@ -1244,18 +1490,15 @@ Thank you!
             if (document.getElementById('base-overhead')) document.getElementById('base-overhead').textContent = Math.round(overhead);
             if (document.getElementById('total-daily-cost')) document.getElementById('total-daily-cost').textContent = Math.round(overhead);
 
-            const otherCosts = rent + logistics + other;
-            if (document.getElementById('total-other-costs')) document.getElementById('total-other-costs').textContent = otherCosts.toFixed(2);
+            const totalDailyCost = overhead + totalOtherCosts;
 
-            const totalDailyCost = overhead + otherCosts;
-
-            // 1. Required Breakeven Volume (10% Benchmark on Market Price)
+            // 4. Required Breakeven Volume (10% Benchmark on Market Price)
             const reqPerf = market > 0 ? Math.ceil(totalDailyCost / (market * 0.10)) : 0;
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
             const machineShare = actualPerf > 0 ? totalDailyCost / actualPerf : 0;
-            const otherShare = actualPerf > 0 ? otherCosts / actualPerf : 0;
+            const otherShare = actualPerf > 0 ? totalOtherCosts / actualPerf : 0;
             const totalCost = rawCost + machineShare + otherShare;
 
             if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
@@ -1263,9 +1506,9 @@ Thank you!
             if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
-            // 2. Maximum Salary according to authentic formula
+            // 5. Maximum Monthly Salary according to authentic formula
             const dailyProductionExpenses = actualPerf * 0.10 * market;
-            const dailyFixedNoSalary = amort + otherCosts;
+            const dailyFixedNoSalary = amort + totalOtherCosts;
             const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - dailyFixedNoSalary);
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
@@ -1293,10 +1536,10 @@ Thank you!
             if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('en-US') : '0';
 
-            renderEquipmentListingGroupedByTopic(otherCosts, salary);
+            renderEquipmentListingGroupedByTopic(totalOtherCosts, salary);
         };
 
-        // SYNC WITH FIREBASE CLOUD
+        // SYNC WITH FIREBASE REALTIME DB
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -1307,7 +1550,7 @@ Thank you!
             calculateAll();
         });
 
-        // SAVE MACHINE & FULL BOM (WITH STRICT TOPIC PRESERVATION)
+        // SAVE MACHINE, TOOLING & BOM TO FIREBASE
         window.saveCurrentEquipmentToDatabase = function () {
             const urlInput = document.getElementById('equip-url');
             const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
@@ -1319,7 +1562,6 @@ Thank you!
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
-            // Strict URL analysis before saving
             let finalTopic = currentTopicTitle || "Drones & Radioelectronics";
             const uLower = url.toLowerCase();
             if (uLower.includes('tv') || uLower.includes('smart-tv') || uLower.includes('display')) {
@@ -1331,11 +1573,26 @@ Thank you!
                 finalTopic = "Drones & Radioelectronics";
             }
 
+            // Save Section 3 (BOM)
             const currentComponents = [];
             document.querySelectorAll('#component-dynamic-rows tr').forEach(tr => {
                 const inputs = tr.querySelectorAll('input');
                 if (inputs.length >= 4) {
                     currentComponents.push({
+                        name: inputs[0].value.trim(),
+                        url: inputs[1].value.trim(),
+                        qty: parseFloat(inputs[2].value) || 1,
+                        price: parseFloat(inputs[3].value) || 0
+                    });
+                }
+            });
+
+            // Save Section 2 (Expenses & Tooling)
+            const currentExpenses = [];
+            document.querySelectorAll('#expense-dynamic-rows tr').forEach(tr => {
+                const inputs = tr.querySelectorAll('input');
+                if (inputs.length >= 4) {
+                    currentExpenses.push({
                         name: inputs[0].value.trim(),
                         url: inputs[1].value.trim(),
                         qty: parseFloat(inputs[2].value) || 1,
@@ -1353,11 +1610,12 @@ Thank you!
                 perf: perf,
                 staff: staff,
                 components: currentComponents,
+                expenses: currentExpenses,
                 created_at: new Date().toISOString()
             };
 
             push(equipmentDbRef, newItem)
-                .then(() => alert(`✅ Machine "${query}" saved to topic "${finalTopic}"!`))
+                .then(() => alert(`✅ Machine "${query}", Tooling & BOM saved to topic "${finalTopic}"!`))
                 .catch(err => alert(`❌ Error saving: ` + err.message));
         };
 
@@ -1399,17 +1657,28 @@ Thank you!
             const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle);
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
+            // Load Section 3 (BOM)
             const compList = item.components && item.components.length > 0 ? item.components : [];
-            const tbody = document.getElementById('component-dynamic-rows');
-            if (tbody) {
-                tbody.innerHTML = '';
+            const tbodyBom = document.getElementById('component-dynamic-rows');
+            if (tbodyBom) {
+                tbodyBom.innerHTML = '';
                 compList.forEach(c => {
                     addComponentRow(c.name, c.qty, c.price, c.url);
                 });
             }
 
+            // Load Section 2 (Tooling & Expenses)
+            const expList = item.expenses && item.expenses.length > 0 ? item.expenses : (catalogDB[currentTopicTitle]?.exp || []);
+            const tbodyExp = document.getElementById('expense-dynamic-rows');
+            if (tbodyExp) {
+                tbodyExp.innerHTML = '';
+                expList.forEach(e => {
+                    addExpenseRow(e.name || e[0], e.qty || e[1], e.price || e[2], e.url || e[3] || '');
+                });
+            }
+
             calculateAll();
-            alert(`✅ Line "${item.name}" and BOM specification loaded into Calculator!`);
+            alert(`✅ Setup "${item.name}", Tooling & BOM specification loaded into Calculator!`);
 
             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -1554,7 +1823,7 @@ Thank you!
             calculateAll();
         };
 
-        // RENDER LISTING (WITH ACCORDION & TOPIC PRICE ISOLATION)
+        // RENDER LISTING
         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
