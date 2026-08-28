@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Efficiency Generator — ASUIR Gemini v2.9.1</title>
+    <title>TECHNOLOGY MATRIX — ASUIR Gemini</title>
     <style>
         * {
             margin: 0;
@@ -13,168 +13,188 @@
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f5f7fa;
-            color: #1a2632;
-            padding: 30px 20px;
+            background-color: #ffffff;
+            color: #222222;
+            padding: 20px 40px 60px;
         }
 
-        .container {
-            max-width: 1200px;
+        .main-wrapper {
+            max-width: 1240px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-            padding: 24px 24px 30px;
         }
 
-        .main-title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #1a2632;
-            margin-bottom: 2px;
-        }
-
-            .main-title span {
-                color: #1f4e78;
-            }
-
-            .main-title small {
-                font-size: 14px;
-                font-weight: 400;
-                color: #007600;
-                margin-left: 12px;
-            }
-
-        .subtitle {
-            font-size: 14px;
-            color: #6c7a8a;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e0e4e8;
-            padding-bottom: 12px;
-        }
-
-        .nav-primary {
+        /* TOP UTILITY BAR */
+        .top-utility-bar {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: flex-end;
             align-items: center;
-            gap: 6px;
-            background: #f7f9fa;
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid #e0e4e8;
-            margin-bottom: 8px;
+            gap: 16px;
+            font-size: 13px;
+            color: #333333;
+            margin-bottom: 10px;
         }
 
-            .nav-primary a {
-                color: #6c7a8a;
-                text-decoration: none;
-                padding: 8px 16px;
-                font-size: 13px;
-                font-weight: 500;
-                border-radius: 4px;
-                transition: 0.15s;
-            }
-
-                .nav-primary a:hover {
-                    color: #1a2632;
-                    background: rgba(0,0,0,0.04);
-                }
-
-                .nav-primary a.active {
-                    color: #1f4e78;
-                    background: rgba(31,78,120,0.08);
-                    font-weight: 600;
-                }
-
-        .client-badge {
+        .client-id-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #eef6ff;
-            border: 1px solid #b8daff;
-            padding: 4px 10px;
-            border-radius: 4px;
+            background: #f8f9fa;
+            border: 1px solid #dcdcdc;
+            padding: 3px 8px;
+            border-radius: 3px;
             font-size: 12px;
             color: #1f4e78;
             font-weight: 600;
-            margin-left: auto;
             cursor: pointer;
         }
 
-            .client-badge:hover {
-                background: #dbeaff;
+            .client-id-badge:hover {
+                background: #eef2f7;
             }
 
-        .nav-divider {
-            height: 1px;
-            background: #d0d7dd;
-            margin: 8px 0 12px 0;
-        }
-
-        .nav-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0;
+        .admin-toggle-btn {
             background: transparent;
-            padding: 0;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e0e4e8;
-            position: relative;
+            border: 1px solid #e91e63;
+            color: #e91e63;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
         }
 
-            .nav-tabs a {
-                color: #6c7a8a;
-                text-decoration: none;
-                padding: 10px 20px;
-                font-size: 13px;
-                font-weight: 500;
-                transition: 0.15s;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-                border-bottom: 3px solid transparent;
-                margin-bottom: -2px;
-                white-space: nowrap;
+            .admin-toggle-btn:hover {
+                background: #e91e63;
+                color: #ffffff;
             }
 
-                .nav-tabs a:hover {
-                    color: #1a2632;
-                    background: #f0f2f5;
-                }
+        /* BRAND HEADER (1:1 AS IN SCREENSHOT) */
+        .brand-title-block {
+            text-align: center;
+            margin: 20px 0 15px;
+        }
 
-                .nav-tabs a.active {
-                    color: #1a2632;
-                    border-bottom-color: #e68a00;
-                    font-weight: 600;
-                }
+        .brand-title-text {
+            font-family: 'Times New Roman', Times, 'Georgia', serif;
+            font-size: 52px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #555555;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* GLOBAL MENU 1ST LEVEL */
+        .nav-global-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            padding: 8px 0 12px 0;
+        }
+
+        .nav-global-link {
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            transition: 0.15s;
+        }
+
+            .nav-global-link .main-label {
+                display: block;
+                font-size: 13px;
+                font-weight: 700;
+                color: #222222;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .nav-global-link .sub-label {
+                display: block;
+                font-size: 12px;
+                color: #666666;
+                margin-top: 2px;
+                font-weight: 400;
+            }
+
+            .nav-global-link:hover .main-label,
+            .nav-global-link.active .main-label {
+                color: #1f4e78;
+            }
+
+        /* WORKSPACE CARD WITH TABS */
+        .matrix-card-box {
+            background: #ffffff;
+            border: 1px solid #d0d7dd;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .matrix-tab-bar {
+            display: flex;
+            background: #fbfbfb;
+            border-bottom: 1px solid #d0d7dd;
+            padding: 0 6px;
+            overflow-x: auto;
+        }
+
+        .matrix-tab-item {
+            padding: 13px 18px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+
+            .matrix-tab-item:hover {
+                color: #111111;
+                background: #f0f2f5;
+            }
+
+            .matrix-tab-item.active {
+                color: #111111;
+                font-weight: 700;
+                border-bottom: 3px solid #d53f8c;
+                background: #ffffff;
+            }
+
+        .matrix-content-body {
+            padding: 24px 24px 30px;
+        }
 
         .section {
             display: none;
-            animation: fadeIn 0.2s ease;
         }
 
             .section.active {
                 display: block;
+                animation: fadeIn 0.2s ease;
             }
 
         @keyframes fadeIn {
             from {
-                opacity: 0.3;
-                transform: translateY(4px);
+                opacity: 0.4;
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
             }
         }
 
         .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a2632;
+            font-size: 17px;
+            font-weight: 700;
+            color: #222222;
             margin-bottom: 16px;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
             border-bottom: 2px solid #1f4e78;
             display: inline-block;
         }
@@ -199,9 +219,9 @@
         }
 
         th {
-            background: #f7f9fa;
+            background: #f8f9fa;
             font-weight: 600;
-            color: #1a2632;
+            color: #222222;
         }
 
         td.right {
@@ -210,7 +230,7 @@
         }
 
         .total-row {
-            background: #f7f9fa;
+            background: #f8f9fa;
         }
 
         .result-row {
@@ -263,7 +283,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0 20px;
+            padding: 0 18px;
             border: none;
             border-radius: 4px;
             font-size: 13px;
@@ -353,7 +373,6 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            transition: 0.15s;
         }
 
             .btn-bom-toggle:hover {
@@ -547,21 +566,19 @@
 
         @media (max-width: 768px) {
             body {
-                padding: 16px 10px;
+                padding: 10px;
             }
 
-            .container {
-                padding: 16px;
-            }
-
-            .nav-primary, .nav-tabs {
+            .nav-global-menu {
                 flex-direction: column;
-                align-items: stretch;
+                gap: 12px;
             }
 
-            .client-badge {
-                margin-left: 0;
-                text-align: center;
+            .matrix-tab-bar {
+                flex-direction: column;
+            }
+
+            .top-utility-bar {
                 justify-content: center;
             }
 
@@ -582,318 +599,346 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="main-wrapper">
 
-        <h1 class="main-title">
-            <span>Efficiency</span> Generator
-            <small>ASUIR Gemini v2.9.1 (Smartphones, Laptops & Live Parser)</small>
-        </h1>
-        <div class="subtitle">Synthesis of starter cell models with maximum salaries and minimum unit costs</div>
-
-        <div class="nav-primary">
-            <a href="index.html" class="nav-tab-btn">🏠 Main Dashboard</a>
-            <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-tab-btn active">📊 ASUIR Gemini</a>
-            <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
-            <a href="#" onclick="openModal('feedback-modal')" class="nav-tab-btn">💡 Feedback</a>
-
-            <div class="client-badge" onclick="editClientIdentifier()" title="Click to customize your Project / Facility ID">
-                🆔 My Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
+        <!-- TOP UTILITY BAR: CLIENT ID + ADMIN + LANGUAGES -->
+        <div class="top-utility-bar">
+            <div class="client-id-badge" onclick="editClientIdentifier()" title="Click to customize Client ID">
+                🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
             </div>
-
-            <button class="btn btn-sm" id="admin-mode-toggle-btn" style="background:#e91e63; color:#fff;" onclick="toggleAdminMode()" title="Toggle Admin Mode for full cloud deletion rights">
-                🔑 Admin Mode
+            <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()">
+                Admin Mode
             </button>
-        </div>
-
-        <div class="nav-divider"></div>
-
-        <div class="nav-tabs" id="tabHeaders">
-            <a href="#" class="active" data-tab="tab1"><span class="icon">💰</span><span class="label">1. Direct Cell Costs</span></a>
-            <a href="#" data-tab="tab2"><span class="icon">📦</span><span class="label">2. Tooling & Facility Expenses</span></a>
-            <a href="#" data-tab="tab3"><span class="icon">⚙️</span><span class="label">3. Bill of Materials (BOM)</span></a>
-            <a href="#" data-tab="tab4"><span class="icon">📊</span><span class="label">4. Cost Price</span></a>
-            <a href="#" data-tab="tab5"><span class="icon">🎯</span><span class="label">5. Financial Results</span></a>
-        </div>
-
-        <!-- TAB 1: DIRECT COSTS -->
-        <div class="section active" id="tab1">
-            <h2 class="section-title">1. Direct Cell Costs (Starter Cell)</h2>
-            <div class="table-responsive">
-                <table class="text-regular">
-                    <tr>
-                        <td>
-                            <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Product Link from Alibaba</span></span><br>
-                            <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste link here — script automatically sets category, tooling & BOM components!</span>
-                            <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
-                                <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
-                                <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
-                                <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Inquire</button>
-                            </div>
-                        </td>
-                        <td class="right">
-                            <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Equipment Cost $</span>
-                            <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Machine / Production Line Name</span></span>
-                        </td>
-                        <td class="right">
-                            <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
-                                <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Cell" style="max-width: 280px;">
-                                <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Search options on Alibaba">
-                                    🔍 On Alibaba ↗
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Current Category (Nice Class)</span></span>
-                        </td>
-                        <td class="right">
-                            <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
-                                <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="loadCatalogTemplate(this.value)">
-                                    <option value="drone">🚁 Drones & Radioelectronics</option>
-                                    <option value="phone">📱 Smartphones & Mobile Phones</option>
-                                    <option value="tablet">📲 Tablets & Mobile PCs</option>
-                                    <option value="tv">📺 TVs & Displays</option>
-                                    <option value="pc">💻 Telecom & Laptops</option>
-                                    <option value="bakery">🍞 Commercial Bakery Line</option>
-                                    <option value="jewelry">💍 Fine Jewelry Casting</option>
-                                    <option value="watch">⌚ Watch Assembly</option>
-                                    <option value="costume">💎 Costume Jewelry Press</option>
-                                    <option value="clothes">👗 Apparel Sewing</option>
-                                    <option value="furniture">🛋️ Furniture Woodworking</option>
-                                    <option value="instruments">🔬 Precision Instruments</option>
-                                    <option value="cnc">⚙️ Desktop CNC Machines</option>
-                                    <option value="universal">📦 Universal Template</option>
-                                </select>
-                                <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Catalog</button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
-                        <td>
-                            <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Cell Capacity (from Alibaba)</span></span><br>
-                            <span style="font-size: 12px; color: #6c7a8a;">Daily production capacity of the equipment cell</span>
-                        </td>
-                        <td class="right">
-                            <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
-                                <select id="perf-input-mode" class="input-field input-sm" style="width: 130px; font-size: 11px;" onchange="convertAlibabaSpecs()">
-                                    <option value="pcs_day">Pcs per day</option>
-                                    <option value="pcs_hour">Pcs per hour</option>
-                                    <option value="sec_pc">Seconds per 1 pc</option>
-                                </select>
-                                <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="20" style="width: 90px; font-weight:700; color:#c65911;">
-                                <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">pcs/day</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
-                        <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
-                    </tr>
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Starting Monthly Salary per Operator</span></span></td>
-                        <td class="right">$ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500"></td>
-                    </tr>
-                    <tr class="total-row">
-                        <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Total Daily Fixed Overhead</span></span></td>
-                        <td class="right">$ <span id="base-overhead">0</span></td>
-                    </tr>
-                    <tr class="total-row" style="background: #f0f5fa; border-top: 2px solid #1f4e78;">
-                        <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Daily Equipment & Personnel Costs</span></span></td>
-                        <td class="right">$ <span id="total-daily-cost">0</span></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div style="margin-top:12px; text-align:right;">
-                <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
+            <div style="cursor:pointer; font-weight:600; margin-left:8px;" onclick="window.location.href='ASUIRGemeniCalculatOptimizer_ru.html'">
+                Languages ⌵
             </div>
         </div>
 
-        <!-- TAB 2: TOOLING & FACILITY EXPENSES -->
-        <div class="section" id="tab2">
-            <h2 class="section-title">2. Tooling, Consumables & Facility Expenses (Section 2)</h2>
-            <div class="info-hint" style="background:#f0f5fa; border-left:4px solid #1f4e78; color:#1a2632;">
-                <b>💡 Proportional Staff Scaling:</b> Toolkits, soldering gear, and consumables scale directly with the number of operators (staff), while common overhead (workshop rent, power) is counted once per cell.
-            </div>
-
-            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-                <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Add Facility / Tooling Expense Item</button>
-            </div>
-
-            <div class="table-responsive">
-                <table class="components-table">
-                    <thead>
-                        <tr>
-                            <th class="row-name">📦 Expense Item / Tooling / Consumable</th>
-                            <th class="row-url">🔗 Alibaba / Supplier Link</th>
-                            <th class="row-search">🔍</th>
-                            <th style="width:110px; text-align:center;">👷 Multiplier (Staff)</th>
-                            <th style="width:120px; text-align:right;">💰 Daily Cost ($/day)</th>
-                            <th class="row-delete"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="expense-dynamic-rows"></tbody>
-                    <tfoot>
-                        <tr style="background:#f0f5fa;">
-                            <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Fixed Facility Expenses, Tooling & Consumables (per day):</span></span></td>
-                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-other-costs">54.00</span></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+        <!-- BRAND TITLE (1:1 WITH HOMEPAGE) -->
+        <div class="brand-title-block">
+            <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
 
-        <!-- TAB 3: BOM -->
-        <div class="section" id="tab3">
-            <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
-            <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
-                <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, click <b>🔗</b> to view items on Alibaba, or add new rows below.
-            </div>
+        <!-- 1. THIN TOP DIVIDER -->
+        <div style="height: 1px; background-color: #d0d7dd; margin: 15px 0 10px 0; width: 100%;"></div>
 
-            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-                <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Add Component Row</button>
-            </div>
+        <!-- 2. GLOBAL MENU 1ST LEVEL (1:1 WITH HOMEPAGE) -->
+        <nav class="nav-global-menu">
+            <a href="index.html" class="nav-global-link">
+                <span class="main-label">ABOUT THE PROJECT</span>
+                <span class="sub-label">automated control system</span>
+            </a>
+            <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-global-link active">
+                <span class="main-label" style="color:#1f4e78;">ASUIR Gemini</span>
+                <span class="sub-label">efficiency generator</span>
+            </a>
+            <a href="Help_en.html" class="nav-global-link">
+                <span class="main-label">Help</span>
+                <span class="sub-label">documentation & formulas</span>
+            </a>
+        </nav>
 
-            <div class="table-responsive">
-                <table class="components-table">
-                    <thead>
-                        <tr>
-                            <th class="row-name">📦 Component Name</th>
-                            <th class="row-url">🔗 Alibaba Link</th>
-                            <th class="row-search">🔍</th>
-                            <th class="row-qty">📐 Qty</th>
-                            <th class="row-price">💰 Unit Price ($)</th>
-                            <th class="row-delete"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="component-dynamic-rows"></tbody>
-                    <tfoot>
-                        <tr style="background:#f0f5fa;">
-                            <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
-                            <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+        <!-- 3. SATURATED DOUBLE GRAY DIVIDER (1:1 WITH HOMEPAGE) -->
+        <div style="margin: 10px 0 25px 0; width: 100%;">
+            <div style="height: 1px; background-color: #d0d7dd; margin-bottom: 4px; width: 100%;"></div>
+            <div style="height: 4px; background-color: #a0a8b0; width: 100%;"></div>
         </div>
 
-        <!-- TAB 4: COST PRICE -->
-        <div class="section" id="tab4">
-            <h2 class="section-title">4. Total Unit Cost Price</h2>
-            <div class="table-responsive">
-                <table class="text-regular">
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">📦</span> <span style="font-weight: 400;">Raw Materials & Components (per 1 unit)</span></span></td>
-                        <td class="right">$ <span id="cost-raw">0.00</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 400;">Equipment & Personnel Share (per 1 unit)</span></span></td>
-                        <td class="right">$ <span id="cost-equip-share">0.00</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Tooling & Facility Overhead Share (per 1 unit)</span></span></td>
-                        <td class="right">$ <span id="cost-other-share">0.00</span></td>
-                    </tr>
-                    <tr class="result-row">
-                        <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 700;">Total Unit Cost Price (1 Unit)</span></span></td>
-                        <td class="right" style="font-size:20px; color:#1f4e78; font-weight:700;">$ <span id="total-product-cost">0.00</span></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <!-- 4. CALCULATOR WORKSPACE CARD WITH TABS -->
+        <div class="matrix-card-box">
 
-        <!-- TAB 5: FINANCIAL RESULTS -->
-        <div class="section" id="tab5">
-            <h2 class="section-title">5. Financial Results Summary & Options Listing</h2>
-            <div class="table-responsive">
-                <table class="section-results">
-                    <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Minimum Competitive Sales Price (per 1 unit)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px;">
-                            $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Breakeven Volume (10% Benchmark)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Cell Capacity (from Alibaba)</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> pcs/day</td>
-                    </tr>
-                    <tr style="background: #fcfcfc;">
-                        <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Feasibility Indicator:</span></td>
-                        <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">Evaluating...</span></td>
-                    </tr>
-                    <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
-                        <td style="font-weight: 700; color: #007600;">
-                            <span class="icon-text"><span class="ico">💵</span> Achievable Monthly Worker Salary for THIS Machine:</span><br>
-                            <span style="font-size:11px; font-weight:400; color:#555;">Sustaining Bangladesh Baseline Unit Costs</span>
-                        </td>
-                        <td class="right">
-                            <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$0 / mo</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Full Equipment Payback Period</span></td>
-                        <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> days</td>
-                    </tr>
-                    <tr class="result-row">
-                        <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Projected Monthly Net Profit (1 Cell)</span></td>
-                        <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
-                    </tr>
-                </table>
+            <!-- 2ND LEVEL: WORKFLOW TABS (WITH MAGENTA ACCENT UNDERLINE) -->
+            <div class="matrix-tab-bar" id="tabHeaders">
+                <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Direct Cell Costs</a>
+                <a href="#" class="matrix-tab-item" data-tab="tab2">📦 2. Tooling & Facility Expenses</a>
+                <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Bill of Materials (BOM)</a>
+                <a href="#" class="matrix-tab-item" data-tab="tab4">📊 4. Cost Price</a>
+                <a href="#" class="matrix-tab-item" data-tab="tab5">🎯 5. Financial Results</a>
             </div>
 
-            <!-- EQUIPMENT LISTING -->
-            <div style="background:#fff; border:1px solid #d0d7dd; border-radius:6px; padding:18px; margin-top:20px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                        <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Database Filter:</label>
-                        <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="calculateAll()">
-                            <option value="my">👤 My production lines only</option>
-                            <option value="others">🔍 Others (Benchmarking / Selection)</option>
-                            <option value="all" selected>🌐 All lines (Mine & others)</option>
-                        </select>
+            <div class="matrix-content-body">
+
+                <!-- TAB 1: DIRECT COSTS -->
+                <div class="section active" id="tab1">
+                    <h2 class="section-title">1. Direct Cell Costs (Starter Cell)</h2>
+                    <div class="table-responsive">
+                        <table class="text-regular">
+                            <tr>
+                                <td>
+                                    <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Product Link from Alibaba</span></span><br>
+                                    <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste link here — script automatically sets category, tooling & BOM components!</span>
+                                    <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
+                                        <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
+                                        <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
+                                        <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Inquire</button>
+                                    </div>
+                                </td>
+                                <td class="right">
+                                    <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Equipment Cost $</span>
+                                    <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Machine / Production Line Name</span></span>
+                                </td>
+                                <td class="right">
+                                    <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
+                                        <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Cell" style="max-width: 280px;">
+                                        <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Search options on Alibaba">
+                                            🔍 On Alibaba ↗
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Current Category (Nice Class)</span></span>
+                                </td>
+                                <td class="right">
+                                    <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
+                                        <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="loadCatalogTemplate(this.value)">
+                                            <option value="drone">🚁 Drones & Radioelectronics</option>
+                                            <option value="phone">📱 Smartphones & Mobile Phones</option>
+                                            <option value="tablet">📲 Tablets & Mobile PCs</option>
+                                            <option value="tv">📺 TVs & Displays</option>
+                                            <option value="pc">💻 Telecom & Laptops</option>
+                                            <option value="bakery">🍞 Commercial Bakery Line</option>
+                                            <option value="jewelry">💍 Fine Jewelry Casting</option>
+                                            <option value="watch">⌚ Watch Assembly</option>
+                                            <option value="costume">💎 Costume Jewelry Press</option>
+                                            <option value="clothes">👗 Apparel Sewing</option>
+                                            <option value="furniture">🛋️ Furniture Woodworking</option>
+                                            <option value="instruments">🔬 Precision Instruments</option>
+                                            <option value="cnc">⚙️ Desktop CNC Machines</option>
+                                            <option value="universal">📦 Universal Template</option>
+                                        </select>
+                                        <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Catalog</button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
+                                <td>
+                                    <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Cell Capacity (from Alibaba)</span></span><br>
+                                    <span style="font-size: 12px; color: #6c7a8a;">Daily production capacity of the equipment cell</span>
+                                </td>
+                                <td class="right">
+                                    <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
+                                        <select id="perf-input-mode" class="input-field input-sm" style="width: 130px; font-size: 11px;" onchange="convertAlibabaSpecs()">
+                                            <option value="pcs_day">Pcs per day</option>
+                                            <option value="pcs_hour">Pcs per hour</option>
+                                            <option value="sec_pc">Seconds per 1 pc</option>
+                                        </select>
+                                        <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="20" style="width: 90px; font-weight:700; color:#c65911;">
+                                        <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">pcs/day</span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
+                                <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
+                            </tr>
+                            <tr>
+                                <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Starting Monthly Salary per Operator</span></span></td>
+                                <td class="right">$ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500"></td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Total Daily Fixed Overhead</span></span></td>
+                                <td class="right">$ <span id="base-overhead">0</span></td>
+                            </tr>
+                            <tr class="total-row" style="background: #f0f5fa; border-top: 2px solid #1f4e78;">
+                                <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Daily Equipment & Personnel Costs</span></span></td>
+                                <td class="right">$ <span id="total-daily-cost">0</span></td>
+                            </tr>
+                        </table>
                     </div>
-                    <div>
-                        <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
+
+                    <div style="margin-top:12px; text-align:right;">
+                        <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
                     </div>
                 </div>
 
-                <table class="components-table" style="width:100%;">
-                    <thead>
-                        <tr>
-                            <th>Line / Machine Type & BOM Specification</th>
-                            <th>Link</th>
-                            <th>Line Price</th>
-                            <th>Capacity ($P_{fact}$)</th>
-                            <th>Staff</th>
-                            <th>Base Salary</th>
-                            <th style="color:#007600;">Achievable Worker Salary</th>
-                            <th>Household Net Profit</th>
-                            <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
-                        </tr>
-                    </thead>
-                    <tbody id="client-matched-equipment-rows">
-                        <tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
-                    </tbody>
-                </table>
-            </div>
+                <!-- TAB 2: TOOLING & FACILITY EXPENSES -->
+                <div class="section" id="tab2">
+                    <h2 class="section-title">2. Tooling, Consumables & Facility Expenses (Section 2)</h2>
+                    <div class="info-hint">
+                        <b>💡 Proportional Staff Scaling:</b> Toolkits, soldering gear, and consumables scale directly with the number of operators (staff), while common overhead (workshop rent, power) is counted once per cell.
+                    </div>
 
-            <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Print / Save PDF</button>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+                        <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Add Facility / Tooling Expense Item</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="components-table">
+                            <thead>
+                                <tr>
+                                    <th class="row-name">📦 Expense Item / Tooling / Consumable</th>
+                                    <th class="row-url">🔗 Alibaba / Supplier Link</th>
+                                    <th class="row-search">🔍</th>
+                                    <th style="width:110px; text-align:center;">👷 Multiplier (Staff)</th>
+                                    <th style="width:120px; text-align:right;">💰 Daily Cost ($/day)</th>
+                                    <th class="row-delete"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="expense-dynamic-rows"></tbody>
+                            <tfoot>
+                                <tr style="background:#f0f5fa;">
+                                    <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Fixed Facility Expenses, Tooling & Consumables (per day):</span></span></td>
+                                    <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-other-costs">54.00</span></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 3: BOM -->
+                <div class="section" id="tab3">
+                    <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
+                    <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
+                        <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, click <b>🔗</b> to view items on Alibaba, or add new rows below.
+                    </div>
+
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+                        <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Add Component Row</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="components-table">
+                            <thead>
+                                <tr>
+                                    <th class="row-name">📦 Component Name</th>
+                                    <th class="row-url">🔗 Alibaba Link</th>
+                                    <th class="row-search">🔍</th>
+                                    <th class="row-qty">📐 Qty</th>
+                                    <th class="row-price">💰 Unit Price ($)</th>
+                                    <th class="row-delete"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="component-dynamic-rows"></tbody>
+                            <tfoot>
+                                <tr style="background:#f0f5fa;">
+                                    <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
+                                    <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 4: COST PRICE -->
+                <div class="section" id="tab4">
+                    <h2 class="section-title">4. Total Unit Cost Price</h2>
+                    <div class="table-responsive">
+                        <table class="text-regular">
+                            <tr>
+                                <td><span class="icon-text"><span class="ico">📦</span> <span style="font-weight: 400;">Raw Materials & Components (per 1 unit)</span></span></td>
+                                <td class="right">$ <span id="cost-raw">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 400;">Equipment & Personnel Share (per 1 unit)</span></span></td>
+                                <td class="right">$ <span id="cost-equip-share">0.00</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Tooling & Facility Overhead Share (per 1 unit)</span></span></td>
+                                <td class="right">$ <span id="cost-other-share">0.00</span></td>
+                            </tr>
+                            <tr class="result-row">
+                                <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 700;">Total Unit Cost Price (1 Unit)</span></span></td>
+                                <td class="right" style="font-size:20px; color:#1f4e78; font-weight:700;">$ <span id="total-product-cost">0.00</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 5: FINANCIAL RESULTS -->
+                <div class="section" id="tab5">
+                    <h2 class="section-title">5. Financial Results Summary & Options Listing</h2>
+                    <div class="table-responsive">
+                        <table class="section-results">
+                            <tr>
+                                <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Minimum Competitive Sales Price (per 1 unit)</span></td>
+                                <td class="right" style="font-weight: 400; font-size: 15px;">
+                                    $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Breakeven Volume (10% Benchmark)</span></td>
+                                <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Cell Capacity (from Alibaba)</span></td>
+                                <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> pcs/day</td>
+                            </tr>
+                            <tr style="background: #fcfcfc;">
+                                <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Feasibility Indicator:</span></td>
+                                <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">Evaluating...</span></td>
+                            </tr>
+                            <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
+                                <td style="font-weight: 700; color: #007600;">
+                                    <span class="icon-text"><span class="ico">💵</span> Achievable Monthly Worker Salary for THIS Machine:</span><br>
+                                    <span style="font-size:11px; font-weight:400; color:#555;">Sustaining Bangladesh Baseline Unit Costs</span>
+                                </td>
+                                <td class="right">
+                                    <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$0 / mo</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Full Equipment Payback Period</span></td>
+                                <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> days</td>
+                            </tr>
+                            <tr class="result-row">
+                                <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Projected Monthly Net Profit (1 Cell)</span></td>
+                                <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- EQUIPMENT LISTING -->
+                    <div style="background:#fff; border:1px solid #d0d7dd; border-radius:4px; padding:18px; margin-top:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+                            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Database Filter:</label>
+                                <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="calculateAll()">
+                                    <option value="my">👤 My production lines only</option>
+                                    <option value="others">🔍 Others (Benchmarking / Selection)</option>
+                                    <option value="all" selected>🌐 All lines (Mine & others)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
+                            </div>
+                        </div>
+
+                        <table class="components-table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Line / Machine Type & BOM Specification</th>
+                                    <th>Link</th>
+                                    <th>Line Price</th>
+                                    <th>Capacity ($P_{fact}$)</th>
+                                    <th>Staff</th>
+                                    <th>Base Salary</th>
+                                    <th style="color:#007600;">Achievable Worker Salary</th>
+                                    <th>Household Net Profit</th>
+                                    <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
+                                </tr>
+                            </thead>
+                            <tbody id="client-matched-equipment-rows">
+                                <tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Print / Save PDF</button>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
@@ -929,7 +974,6 @@
         <div class="modal-content" style="max-width:450px;">
             <span class="modal-close" onclick="closeModal('inquiry-modal')">&times;</span>
             <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom:12px;">✉️ Inquire Supplier on Alibaba</h3>
-            <p style="font-size:12px; color:#6c7a8a; margin-bottom:15px;">Copy this message and send to the Alibaba supplier in Trade Messenger:</p>
             <textarea id="inquiry-text-area" rows="6" class="input-field" style="height:auto; font-size:12px; margin-bottom:15px;" readonly>
 Dear Supplier,
 We are evaluating your equipment for a compact production cell setup. Please specify:
@@ -994,7 +1038,7 @@ Thank you!
         let currentTopicTitle = "Drones & Radioelectronics";
         let isAdminMode = false;
 
-        // 1. CLIENT ID INITIALIZATION & LOCAL STORAGE
+        // 1. CLIENT ID
         let myClientId = localStorage.getItem('asuir_client_id_en');
         if (!myClientId) {
             myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -1012,7 +1056,7 @@ Thank you!
             }
         };
 
-        // CATALOG DEFINITIONS
+        // CATALOG DEFINITIONS WITH BOM (c) AND TOOLING/EXPENSES (exp)
         const catalogDB = {
             'drone': {
                 title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
@@ -1236,7 +1280,7 @@ Thank you!
             }
         };
 
-        // 2. DYNAMIC EXPENSES & TOOLING ROWS (SECTION 2)
+        // 2. DYNAMIC EXPENSES & TOOLING ROWS
         window.addExpenseRow = function (name, qty, price, url = '') {
             const tbody = document.getElementById('expense-dynamic-rows');
             if (!tbody) return;
@@ -1278,7 +1322,7 @@ Thank you!
                 const qtyInput = tr.querySelector('.exp-qty-input');
                 if (nameInput && qtyInput) {
                     const text = nameInput.value.toLowerCase();
-                    if (text.includes('worker') || text.includes('tool') || text.includes('consumable') || text.includes('station') || text.includes('blade') || text.includes('cutter') || text.includes('driver')) {
+                    if (text.includes('worker') || text.includes('tool') || text.includes('consumable') || text.includes('station') || text.includes('blade') || text.includes('driver')) {
                         qtyInput.value = staff;
                     }
                 }
@@ -1286,7 +1330,7 @@ Thank you!
             calculateAll();
         };
 
-        // 3. ROBUST NON-DESTRUCTIVE ALIBABA URL PARSER
+        // 3. LIVE ALIBABA URL PARSER (NON-DESTRUCTIVE)
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
@@ -1297,21 +1341,21 @@ Thank you!
                 extractedTitle = match[1].replace(/[-_]+/g, ' ').replace(/\d{8,}/g, '').trim();
             }
 
-            let detectedKey = null; // null if not explicitly matched, to prevent resetting to drones!
+            let detectedKey = null;
             const lower = (u + ' ' + extractedTitle).toLowerCase();
 
-            if (lower.includes('smartphone') || lower.includes('mobile-phone') || lower.includes('smart phone') || (lower.includes('phone') && !lower.includes('earphone') && !lower.includes('headphone'))) {
-                detectedKey = 'phone';
-            } else if (lower.includes('tv') || lower.includes('television') || lower.includes('display') || lower.includes('screen') || lower.includes('led') || lower.includes('oled') || lower.includes('smart-tv')) {
+            if (lower.includes('tv') || lower.includes('television') || lower.includes('display') || lower.includes('screen') || lower.includes('led') || lower.includes('oled') || lower.includes('smart-tv')) {
                 detectedKey = 'tv';
+            } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter')) {
+                detectedKey = 'drone';
+            } else if (lower.includes('smartphone') || lower.includes('mobile-phone') || (lower.includes('phone') && !lower.includes('earphone') && !lower.includes('headphone'))) {
+                detectedKey = 'phone';
             } else if (lower.includes('notebook') || lower.includes('laptop')) {
                 detectedKey = 'pc';
             } else if (lower.includes('tablet') || lower.includes('pad')) {
                 detectedKey = 'tablet';
             } else if (lower.includes('computer') || lower.includes('server')) {
                 detectedKey = 'pc';
-            } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter')) {
-                detectedKey = 'drone';
             } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven')) {
                 detectedKey = 'bakery';
             } else if (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver')) {
@@ -1337,48 +1381,27 @@ Thank you!
                 const dropdown = document.getElementById('topic-selector-dropdown');
                 if (dropdown) dropdown.value = detectedKey;
 
-                if (document.getElementById('equip-search-query')) {
-                    document.getElementById('equip-search-query').value = extractedTitle || data.q;
-                }
+                if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle || data.q;
+                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = data.eq;
+                if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
+                if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
+                if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
 
-                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) {
-                    document.getElementById('val-equip').value = data.eq;
-                }
-                if (document.getElementById('val-actual-perf')) {
-                    document.getElementById('val-actual-perf').value = data.perf || 20;
-                }
-                if (document.getElementById('val-staff')) {
-                    document.getElementById('val-staff').value = data.staff || 2;
-                }
-
-                if (document.getElementById('market-price-input')) {
-                    document.getElementById('market-price-input').value = data.mkt;
-                }
-
-                // Populate Section 3 (BOM)
                 const tbodyBom = document.getElementById('component-dynamic-rows');
                 if (tbodyBom) {
                     tbodyBom.innerHTML = '';
-                    data.c.forEach(item => {
-                        addComponentRow(item[0], item[1], item[2], item[3]);
-                    });
+                    data.c.forEach(item => addComponentRow(item[0], item[1], item[2], item[3]));
                 }
-
-                // Populate Section 2 (Tooling & Expenses)
                 const tbodyExp = document.getElementById('expense-dynamic-rows');
                 if (tbodyExp && data.exp) {
                     tbodyExp.innerHTML = '';
-                    data.exp.forEach(item => {
-                        addExpenseRow(item[0], item[1], item[2], item[3]);
-                    });
+                    data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                 }
             } else {
-                // GENERIC URL: PRESERVE SELECTED TOPIC & BOM!
                 if (extractedTitle && document.getElementById('equip-search-query')) {
                     document.getElementById('equip-search-query').value = extractedTitle;
                 }
             }
-
             calculateAll();
         }
 
@@ -1450,23 +1473,16 @@ Thank you!
                 }
             }
 
-            // Populate Section 3 (BOM)
             const tbodyBom = document.getElementById('component-dynamic-rows');
             if (tbodyBom) {
                 tbodyBom.innerHTML = '';
-                data.c.forEach(item => {
-                    const itemUrl = item[3] || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
-                    addComponentRow(item[0], item[1], item[2], itemUrl);
-                });
+                data.c.forEach(item => addComponentRow(item[0], item[1], item[2], item[3]));
             }
 
-            // Populate Section 2 (Tooling & Expenses)
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp && data.exp) {
                 tbodyExp.innerHTML = '';
-                data.exp.forEach(item => {
-                    addExpenseRow(item[0], item[1], item[2], item[3]);
-                });
+                data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
             }
 
             calculateAll();
@@ -1483,7 +1499,7 @@ Thank you!
             calculateAll();
         };
 
-        // RIGOROUS CALCULATION USING AUTHENTIC ASUIR EQUATION
+        // RIGOROUS CALCULATION USING AUTHENTIC FORMULA (0.10 * MARKET PRICE)
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
@@ -1608,7 +1624,7 @@ Thank you!
             } else if (uLower.includes('smartphone') || uLower.includes('mobile-phone') || uLower.includes('phone')) {
                 finalTopic = "Smartphones & Mobile Phones";
                 if (query.toLowerCase().includes('drone')) query = "Smartphone Assembly Line";
-            } else if (uLower.includes('notebook') || uLower.includes('laptop')) {
+            } else if (uLower.includes('notebook') || uLower.includes('laptop') || uLower.includes('ноутбук')) {
                 finalTopic = "Telecom & Laptops";
                 if (query.toLowerCase().includes('drone')) query = "SKD Laptop Assembly Line";
             } else if (uLower.includes('drone') || uLower.includes('uav')) {
@@ -1744,8 +1760,9 @@ Thank you!
         window.toggleAdminMode = function () {
             if (isAdminMode) {
                 isAdminMode = false;
-                document.getElementById('admin-mode-toggle-btn').innerText = "🔑 Admin Mode";
-                document.getElementById('admin-mode-toggle-btn').style.background = "#e91e63";
+                document.getElementById('admin-mode-toggle-btn').innerText = "Admin Mode";
+                document.getElementById('admin-mode-toggle-btn').style.background = "transparent";
+                document.getElementById('admin-mode-toggle-btn').style.color = "#e91e63";
                 document.getElementById('admin-col-header').style.display = "none";
                 alert("🔒 Admin mode deactivated.");
             } else {
@@ -1754,6 +1771,7 @@ Thank you!
                     isAdminMode = true;
                     document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
                     document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
+                    document.getElementById('admin-mode-toggle-btn').style.color = "#ffffff";
                     document.getElementById('admin-col-header').style.display = "table-cell";
                     alert("🔓 Admin Mode activated!");
                 } else if (pwd !== null) {
