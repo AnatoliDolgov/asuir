@@ -72,7 +72,7 @@
                 color: #ffffff;
             }
 
-        /* ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX (1:1 С ФОТО) */
+        /* ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX (1:1) */
         .brand-title-block {
             text-align: center;
             margin: 25px 0 20px;
@@ -88,22 +88,24 @@
             line-height: 1;
         }
 
-        /* РАЗДЕЛИТЕЛЬНЫЕ ЛИНИИ */
+        /* ОДИНАРНЫЙ ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ */
         .matrix-divider-single {
             border: none;
             border-top: 1px solid #dcdcdc;
             margin: 15px 0 10px 0;
         }
 
+        /* ДВОЙНАЯ СЕРАЯ РАЗДЕЛИТЕЛЬНАЯ ПОЛОСА (1:1 С ГЛАВНОЙ СТРАНИЦЕЙ) */
         .matrix-divider-double {
             border: none;
             border-top: 1px solid #dcdcdc;
             border-bottom: 1px solid #dcdcdc;
-            height: 5px;
+            height: 4px;
             margin: 10px 0 20px 0;
+            background: transparent;
         }
 
-        /* ГЛОБАЛЬНОЕ МЕНЮ (1:1 С ФОТО) */
+        /* ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ */
         .nav-global-menu {
             display: flex;
             justify-content: center;
@@ -141,7 +143,7 @@
                 color: #1f4e78;
             }
 
-        /* КАРТОЧКА КОНТЕНТА С АКЦЕНТНЫМИ ТАБАМИ */
+        /* КАРТОЧКА КОНТЕНТА С ТАБАМИ */
         .matrix-card-box {
             background: #ffffff;
             border: 1px solid #dcdcdc;
@@ -176,11 +178,11 @@
                 color: #000000;
             }
 
-            /* ФИРМЕННАЯ РОЗОВО-МАЛИНОВАЯ ПОЛОСА АКТИВНОГО ТАБА (1:1 КАК НА ФОТО) */
+            /* ФИРМЕННАЯ РОЗОВО-МАЛИНОВАЯ ПОЛОСА АКТИВНОГО ТАБА */
             .matrix-tab-item.active {
                 color: #111111;
                 font-weight: 700;
-                border-bottom: 3px solid #d53f8c; /* Розово-малиновый акцент */
+                border-bottom: 3px solid #d53f8c;
                 background: #ffffff;
             }
 
@@ -621,7 +623,7 @@
 
     <div class="main-wrapper">
 
-        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА (CLIENT ID + ADMIN) -->
+        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА (CLIENT ID + ADMIN + ЯЗЫКИ) -->
         <div class="top-utility-bar">
             <div class="client-id-badge" onclick="editClientIdentifier()" title="Нажмите для смены Client ID">
                 🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
@@ -642,7 +644,7 @@
         <!-- ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ -->
         <hr class="matrix-divider-single">
 
-        <!-- ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ (1:1 С ФОТО) -->
+        <!-- ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ (1:1) -->
         <nav class="nav-global-menu">
             <a href="index_ru.html" class="nav-global-link">
                 <span class="main-label">О ПРОЕКТЕ</span>
@@ -658,13 +660,13 @@
             </a>
         </nav>
 
-        <!-- ДВОЙНАЯ РАЗДЕЛИТЕЛЬНАЯ ПОЛОСА (1:1 С ФОТО) -->
+        <!-- ДВОЙНАЯ СЕРАЯ РАЗДЕЛИТЕЛЬНАЯ ПОЛОСА (1:1) -->
         <div class="matrix-divider-double"></div>
 
         <!-- ОСНОВНАЯ КАРТОЧКА С ТАБАМИ КАЛЬКУЛЯТОРА -->
         <div class="matrix-card-box">
 
-            <!-- ВТОРОЙ УРОВЕНЬ: ТАБЫ ШАГОВ (АКЦЕНТНЫЙ МАЛИНОВЫЙ ПОДЧЕРК) -->
+            <!-- ВТОРОЙ УРОВЕНЬ: ТАБЫ ШАГОВ С МАЛИНОВЫМ ПОДЧЕРКИВАНИЕМ -->
             <div class="matrix-tab-bar" id="tabHeaders">
                 <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Прямые затраты ячейки</a>
                 <a href="#" class="matrix-tab-item" data-tab="tab2">📦 2. Оснастка и Цеховые расходы</a>
@@ -1080,7 +1082,7 @@ Thank you!
             }
         };
 
-        // КАТАЛОГ МКТУ
+        // КАТАЛОГ МКТУ С РЕАЛИСТИЧНЫМИ BOM И СПЕЦОСНАСТКОЙ
         const catalogDB = {
             'drone': {
                 title: "Дроны и Радиоэлектроника", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Компактная ESD-линия сборки дронов',
@@ -1304,7 +1306,7 @@ Thank you!
             }
         };
 
-        // 2. ДИНАМИЧЕСКИЕ СТРОКИ СЕКЦИИ 2
+        // 2. ДИНАМИЧЕСКИЕ СТРОКИ СЕКЦИИ 2 (ОСНАСТКА И РАСХОДЫ)
         window.addExpenseRow = function (name, qty, price, url = '') {
             const tbody = document.getElementById('expense-dynamic-rows');
             if (!tbody) return;
@@ -1354,7 +1356,7 @@ Thank you!
             calculateAll();
         };
 
-        // 3. АВТОПАРСЕР ССЫЛОК ALIBABA
+        // 3. АВТОМАТИЧЕСКАЯ ОБРАБОТКА ВСТАВКИ ССЫЛКИ ALIBABA
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
@@ -1515,6 +1517,7 @@ Thank you!
                 }
             }
 
+            // Заполнение Секции 3 (BOM)
             const tbodyBom = document.getElementById('component-dynamic-rows');
             if (tbodyBom) {
                 tbodyBom.innerHTML = '';
@@ -1524,6 +1527,7 @@ Thank you!
                 });
             }
 
+            // Заполнение Секции 2 (Оснастка)
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp && data.exp) {
                 tbodyExp.innerHTML = '';
@@ -1760,6 +1764,7 @@ Thank you!
             const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle);
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
+            // Загрузка Секции 3 (BOM)
             const compList = item.components && item.components.length > 0 ? item.components : [];
             const tbodyBom = document.getElementById('component-dynamic-rows');
             if (tbodyBom) {
@@ -1769,6 +1774,7 @@ Thank you!
                 });
             }
 
+            // Загрузка Секции 2 (Оснастка)
             const expList = item.expenses && item.expenses.length > 0 ? item.expenses : (catalogDB[currentTopicTitle]?.exp || []);
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp) {
