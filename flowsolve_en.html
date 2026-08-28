@@ -3,155 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlowSolve — ASUIR Gemini Solution Synthesis</title>
+    <title>TECHNOLOGY MATRIX — FlowSolve</title>
     <style>
-        :root {
-            --primary-blue: #1f4e78;
-            --light-blue: #2b5b84;
-            --accent-blue: #31859c;
-            --orange-brown: #c65911;
-            --dark-green: #375623;
-            --light-green-bg: #e2efda;
-            --bg-light: #f5f6f8;
-            --border-color: #bfbfbf;
-            --accent-orange: #ed7d31;
-        }
-
+        /* ================================================================
+           TECHNOLOGY MATRIX DESIGN (EN)
+           ================================================================ */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--bg-light);
-            color: #333;
-            padding: 30px 15px;
+            background-color: #ffffff;
+            color: #222222;
+            padding: 20px 40px 60px;
         }
 
-        .container {
-            max-width: 950px;
+        .main-wrapper {
+            max-width: 1240px;
             margin: 0 auto;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            overflow: hidden;
-            padding-bottom: 20px;
         }
 
-        /* ASUIR HEADER AND NAVIGATION */
-        h1 {
-            background-color: var(--primary-blue);
-            color: #ffffff;
-            font-size: 18px;
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-            h1 span {
-                color: var(--accent-orange);
-            }
-
-        .nav-tabs {
+        /* TOP UTILITY BAR */
+        .top-utility-bar {
             display: flex;
-            background-color: #e9eef2;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-
-        .nav-tab-btn {
-            flex: 1;
-            text-align: center;
-            padding: 12px;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
             font-size: 13px;
-            font-weight: bold;
-            color: var(--primary-blue);
-            text-decoration: none;
-            border-right: 1px solid var(--border-color);
-            transition: background 0.2s;
-            min-width: 150px;
+            color: #333333;
+            margin-bottom: 10px;
         }
 
-            .nav-tab-btn:last-child {
-                border-right: none;
-            }
-
-            .nav-tab-btn:hover {
-                background-color: #dbe4eb;
-            }
-
-            .nav-tab-btn.active {
-                background-color: #ffffff;
-                color: var(--orange-brown);
-                border-bottom: 3px solid var(--orange-brown);
-                padding-bottom: 9px;
-                pointer-events: none;
-            }
-
-        /* FLOWSOLVE IDEA INPUT BLOCK */
-        .strategy-box {
-            background-color: #f9ebdf;
-            padding: 25px 20px;
-            border-bottom: 1px solid var(--border-color);
+        .client-id-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8f9fa;
+            border: 1px solid #dcdcdc;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            color: #1f4e78;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        .strategy-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: var(--orange-brown);
-            margin-bottom: 15px;
+            .client-id-badge:hover {
+                background: #eef2f7;
+            }
+
+        .admin-toggle-btn {
+            background: transparent;
+            border: 1px solid #e91e63;
+            color: #e91e63;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+            .admin-toggle-btn:hover {
+                background: #e91e63;
+                color: #ffffff;
+            }
+
+        /* BRAND HEADER (1:1) */
+        .brand-title-block {
+            text-align: center;
+            margin: 20px 0 15px;
+        }
+
+        .brand-title-text {
+            font-family: 'Times New Roman', Times, 'Georgia', serif;
+            font-size: 52px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #555555;
             text-transform: uppercase;
+            line-height: 1;
         }
 
-        .input-group {
+        /* 1. THIN TOP DIVIDER */
+        .matrix-divider-single {
+            height: 1px;
+            background-color: #d0d7dd;
+            margin: 15px 0 10px 0;
+            width: 100%;
+        }
+
+        /* 2. GLOBAL MENU 1ST LEVEL (1:1) */
+        .nav-global-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            padding: 8px 0 12px 0;
+        }
+
+        .nav-global-link {
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            transition: 0.15s;
+        }
+
+            .nav-global-link .main-label {
+                display: block;
+                font-size: 13px;
+                font-weight: 700;
+                color: #222222;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .nav-global-link .sub-label {
+                display: block;
+                font-size: 12px;
+                color: #666666;
+                margin-top: 2px;
+                font-weight: 400;
+            }
+
+            .nav-global-link:hover .main-label,
+            .nav-global-link.active .main-label {
+                color: #1f4e78;
+            }
+
+        /* 3. SATURATED DOUBLE GRAY DIVIDER (1:1) */
+        .matrix-divider-double-box {
+            margin: 10px 0 25px 0;
+            width: 100%;
+        }
+
+            .matrix-divider-double-box .thin-line {
+                height: 1px;
+                background-color: #d0d7dd;
+                margin-bottom: 4px;
+                width: 100%;
+            }
+
+            .matrix-divider-double-box .thick-line {
+                height: 4px;
+                background-color: #a0a8b0;
+                width: 100%;
+            }
+
+        /* 4. MAIN WORKSPACE CARD */
+        .matrix-card-box {
+            background: #ffffff;
+            border: 1px solid #d0d7dd;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+
+        /* STRATEGY INPUT CONTAINER */
+        .strategy-input-container {
+            background: #fafbfc;
+            border-bottom: 1px solid #d0d7dd;
+            padding: 24px 28px;
+        }
+
+        .strategy-title-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1f4e78;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-group-row {
             display: flex;
             gap: 10px;
             align-items: center;
         }
 
-        .input-product-name {
+        .input-flow-text {
             flex: 1;
-            padding: 12px 15px;
-            font-size: 15px;
-            border: 2px solid var(--accent-blue);
-            border-radius: 6px;
-            color: var(--primary-blue);
-            background: white;
+            padding: 10px 14px;
+            font-size: 14px;
+            border: 1px solid #b8daff;
+            border-radius: 4px;
+            color: #1a2632;
+            background: #ffffff;
             outline: none;
-            transition: 0.3s;
+            transition: 0.15s;
+            height: 42px;
         }
 
-            .input-product-name:focus {
-                border-color: var(--orange-brown);
-                box-shadow: 0 0 5px rgba(198,89,17,0.3);
+            .input-flow-text:focus {
+                border-color: #1f4e78;
+                box-shadow: 0 0 0 3px rgba(31,78,120,0.1);
             }
 
-        .btn-start {
-            background-color: var(--orange-brown);
-            color: white;
+        .btn-start-flow {
+            background-color: #1f4e78;
+            color: #ffffff;
             border: none;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 6px;
+            padding: 0 24px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
             text-transform: uppercase;
             white-space: nowrap;
-            transition: 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.15s;
         }
 
-            .btn-start:hover {
-                background-color: #9e460d;
-                transform: translateY(-1px);
+            .btn-start-flow:hover {
+                background-color: #163755;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             }
 
-        /* LOADING SIMULATION (AI WORK) */
+        /* RESULTS SUBTABS WITH MAGENTA UNDERLINE */
+        .matrix-tab-bar {
+            display: flex;
+            background: #fbfbfb;
+            border-bottom: 1px solid #d0d7dd;
+            padding: 0 6px;
+            overflow-x: auto;
+        }
+
+        .matrix-tab-item {
+            padding: 13px 20px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+            .matrix-tab-item:hover {
+                color: #111111;
+                background: #f0f2f5;
+            }
+
+            .matrix-tab-item.active {
+                color: #111111;
+                font-weight: 700;
+                border-bottom: 3px solid #d53f8c;
+                background: #ffffff;
+            }
+
+        .matrix-content-body {
+            padding: 24px 28px;
+        }
+
+        /* LOADING SIMULATION / SPINNER */
         #loading-view {
             display: none;
             text-align: center;
@@ -159,13 +278,13 @@
         }
 
         .spinner {
-            border: 4px solid rgba(0,0,0,0.1);
-            border-left-color: var(--orange-brown);
+            border: 3px solid #e0e4e8;
+            border-left-color: #1f4e78;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            width: 38px;
+            height: 38px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
         }
 
         @keyframes spin {
@@ -180,73 +299,35 @@
 
         #loading-text {
             font-size: 14px;
-            font-weight: bold;
-            color: var(--primary-blue);
+            font-weight: 700;
+            color: #1f4e78;
         }
 
         .loading-subtext {
             font-size: 12px;
-            color: #666;
-            margin-top: 8px;
+            color: #718096;
+            margin-top: 6px;
         }
 
-        /* FLOWSOLVE RESULTS */
-        #results-view {
-            display: none;
-        }
-
-        /* FLOWSOLVE LOCAL TABS */
-        .fs-subtabs {
-            display: flex;
-            background: #f0f4f8;
-            border-bottom: 2px solid var(--border-color);
-            padding: 0 20px;
-            margin-top: 20px;
-        }
-
-        .fs-tab {
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #555;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
+        /* ACCORDION SOLUTIONS */
+        .solution-item {
+            background: #ffffff;
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
             transition: 0.2s;
         }
 
-            .fs-tab:hover {
-                color: var(--primary-blue);
-            }
-
-            .fs-tab.active {
-                color: var(--primary-blue);
-                border-bottom-color: var(--primary-blue);
-            }
-
-        /* VERTICAL SOLUTIONS ACCORDION */
-        #view-list {
-            padding: 20px;
-        }
-
-        .solution-item {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-            transition: 0.3s;
-        }
-
         .solution-header {
-            padding: 16px 20px;
+            padding: 14px 18px;
             background: #f8fafc;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid transparent;
-            transition: 0.2s;
+            transition: 0.15s;
         }
 
             .solution-header:hover {
@@ -254,43 +335,44 @@
             }
 
         .solution-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: var(--primary-blue);
+            font-size: 15px;
+            font-weight: 700;
+            color: #1f4e78;
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .solution-score {
-            background: var(--light-green-bg);
-            color: var(--dark-green);
-            padding: 4px 10px;
-            font-size: 12px;
+            background: #e2efda;
+            color: #007600;
+            padding: 3px 8px;
+            font-size: 11px;
             border-radius: 12px;
-            font-weight: bold;
+            font-weight: 700;
             border: 1px solid #bcd1a9;
         }
 
         .solution-toggle {
-            font-size: 18px;
-            color: #888;
-            transition: transform 0.3s;
+            font-size: 12px;
+            color: #6c7a8a;
+            transition: transform 0.2s;
         }
 
         .solution-item.expanded .solution-header {
-            border-bottom-color: var(--border-color);
+            border-bottom: 1px solid #e2e8f0;
             background: #ffffff;
         }
 
         .solution-item.expanded .solution-toggle {
             transform: rotate(180deg);
-            color: var(--orange-brown);
+            color: #d53f8c;
         }
 
         .solution-body {
             display: none;
-            padding: 20px;
+            padding: 18px 20px;
             background: #ffffff;
         }
 
@@ -299,354 +381,456 @@
         }
 
         .s-block {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
         .s-block-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--orange-brown);
-            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #c65911;
+            margin-bottom: 6px;
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            letter-spacing: 0.4px;
         }
 
         .s-text {
             font-size: 14px;
             line-height: 1.6;
-            color: #444;
+            color: #333333;
         }
 
         .btn-select-solution {
-            display: block;
-            width: 100%;
-            background: var(--dark-green);
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #007600;
+            color: #ffffff;
             border: none;
-            padding: 12px;
-            font-size: 14px;
-            font-weight: bold;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
             border-radius: 4px;
             cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 20px;
-            transition: 0.2s;
-            text-align: center;
+            margin-top: 10px;
+            transition: 0.15s;
             text-decoration: none;
         }
 
             .btn-select-solution:hover {
-                background: #274017;
+                background: #005a00;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             }
 
-        /* COMPARISON MATRIX */
-        #view-compare {
-            display: none;
-            padding: 20px;
-            overflow-x: auto;
-        }
-
+        /* COMPARISON MATRIX TABLE */
         .compare-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 700px;
+            font-size: 13px;
         }
 
             .compare-table th, .compare-table td {
-                border: 1px solid var(--border-color);
-                padding: 12px 15px;
+                border: 1px solid #d0d7dd;
+                padding: 10px 14px;
                 text-align: left;
-                font-size: 14px;
+                vertical-align: middle;
             }
 
             .compare-table th {
-                background: var(--light-blue);
-                color: white;
-                font-weight: bold;
-                position: sticky;
-                top: 0;
+                background: #1f4e78;
+                color: #ffffff;
+                font-weight: 600;
             }
 
             .compare-table tr:nth-child(even) {
-                background-color: #f9f9f9;
+                background-color: #fcfcfc;
             }
 
             .compare-table td:first-child {
-                font-weight: bold;
-                color: #555;
-                background: #f0f4f8;
+                font-weight: 700;
+                color: #1f4e78;
+                background: #f8fafc;
                 width: 25%;
             }
 
         .best-val {
-            background: var(--light-green-bg);
-            color: var(--dark-green);
-            font-weight: bold;
+            background: #e2efda;
+            color: #007600;
+            font-weight: 700;
             border-radius: 3px;
             padding: 2px 6px;
+            border: 1px solid #bcd1a9;
+            display: inline-block;
+        }
+
+        .footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e8ecf0;
+            font-size: 12px;
+            color: #6c7a8a;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
-            .input-group {
-                flex-direction: column;
-                align-items: stretch;
+            body {
+                padding: 10px;
             }
 
-            .btn-start {
+            .nav-global-menu {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .top-utility-bar {
+                justify-content: center;
+            }
+
+            .input-group-row {
+                flex-direction: column;
+            }
+
+            .btn-start-flow {
                 width: 100%;
-                text-align: center;
-            }
-
-            .solution-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .solution-toggle {
-                display: none;
             }
         }
     </style>
 
     <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFQ8P31GG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-KWFQ8P31GG');
     </script>
-
 </head>
 <body>
 
-<div class="container">
-    <h1>ASUIR <span>Gemini</span></h1>
-    
-    <div class="nav-tabs">
-        <a href="index.html" class="nav-tab-btn">🏠 Main Dashboard</a>
-        <a href="ASUIRGeminiCalculationModule_en.html" class="nav-tab-btn">📊 ASUIR Gemini</a>
-        <a href="flowsolve_en.html" class="nav-tab-btn active">🧠 FlowSolve (Analysis)</a>
-        <a href="Help_en.html" class="nav-tab-btn">❓ Documentation</a>
-        <a href="#" class="nav-tab-btn feedback-btn">💡 Feedback</a>
-    </div>
+    <div class="main-wrapper">
 
-    <!-- IDEA INPUT -->
-    <div class="strategy-box">
-        <div class="strategy-title">Global Problem or Product Idea</div>
-        <div class="input-group">
-            <input type="text" id="flow-input" class="input-product-name" 
-                   value="How to eliminate collisions at intersections?" placeholder="Describe a technical, business, or social challenge...">
-            <button class="btn-start" onclick="startFlowSolve()">🧠 Synthesize Solutions</button>
-        </div>
-    </div>
-
-    <!-- SEARCH LOADING SCREEN -->
-    <div id="loading-view">
-        <div class="spinner"></div>
-        <div id="loading-text">Initializing FlowSolve Recursive Intelligence...</div>
-        <div class="loading-subtext" id="loading-subtext">Analyzing ASUIR database of 84 strategies</div>
-    </div>
-
-    <!-- RESULTS SCREEN -->
-    <div id="results-view">
-        <div class="fs-subtabs">
-            <div class="fs-tab active" onclick="switchView('list')">📋 Vertical Solutions List</div>
-            <div class="fs-tab" onclick="switchView('compare')">⚖️ Comparison Matrix</div>
-        </div>
-
-        <!-- SOLUTIONS LIST (ACCORDION) -->
-        <div id="view-list">
-            <!-- Solution 1 -->
-            <div class="solution-item expanded" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">1. Radar Network + V2X Communication <span class="solution-score">ASUIR Top Pick</span></div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-block">
-                        <div class="s-block-title">🛠 Implementation Description (How it works):</div>
-                        <div class="s-text">
-                            Creation of compact computing modules for installation on traffic light poles. "Smart intersection" principle: an intelligent system with microwave radars tracks vehicle motion vectors. Atomic manufacturing elements: radar sensors, V2X controllers, shock-resistant housings.
-                        </div>
-                    </div>
-                    <div class="s-block">
-                        <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
-                        <div class="s-text">
-                            • Integration with municipal infrastructure required (bureaucracy).<br>
-                            • Need to purchase microwave chips in batches (will require working capital).<br>
-                            • Expensive initial software development for trajectory prediction.
-                        </div>
-                    </div>
-                    <a href="calculator.html" class="btn-select-solution">Send modules to "Efficiency Generator" →</a>
-                </div>
+        <!-- TOP UTILITY BAR: CLIENT ID + ADMIN + LANGUAGES -->
+        <div class="top-utility-bar">
+            <div class="client-id-badge" onclick="editClientIdentifier()" title="Click to customize Client ID">
+                🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
             </div>
-
-            <!-- Solution 2 -->
-            <div class="solution-item" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">2. Driver Fatigue Neuro-Cameras</div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-block">
-                        <div class="s-block-title">🛠 Implementation Description (How it works):</div>
-                        <div class="s-text">
-                            Individual portable device for the car dashboard. AI camera tracks the driver's pupil direction. When distracted at an intersection, a sharp audio and visual alert is triggered. Atomic elements: CMOS matrix, computer vision processor, buzzer, plastic casing.
-                        </div>
-                    </div>
-                    <div class="s-block">
-                        <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
-                        <div class="s-text">
-                            • High competition in the automotive gadgets market (B2C sector).<br>
-                            • Drivers may turn off the device due to irritating sound.<br>
-                            • Margin reduction due to the need for huge marketing expenses.
-                        </div>
-                    </div>
-                    <a href="calculator.html" class="btn-select-solution">Send modules to "Efficiency Generator" →</a>
-                </div>
-            </div>
-
-            <!-- Solution 3 -->
-            <div class="solution-item" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">3. Hardware GPS Speed Limiter</div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-block">
-                        <div class="s-block-title">🛠 Implementation Description (How it works):</div>
-                        <div class="s-text">
-                            Module integrates into the car's on-board network (CAN bus). The device forcibly limits fuel/electricity supply, preventing the car from exceeding the speed limit in the intersection zone. Atomic elements: telematics chip, GPS receiver, blocking relay.
-                        </div>
-                    </div>
-                    <div class="s-block">
-                        <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
-                        <div class="s-text">
-                            • Safety issue: accidental throttle blockage can lead to an accident.<br>
-                            • Inability to implement widely without state-level legislation.<br>
-                            • Car warranty issues when tampering with the CAN bus.
-                        </div>
-                    </div>
-                    <a href="calculator.html" class="btn-select-solution">Send modules to "Efficiency Generator" →</a>
-                </div>
+            <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()" title="Toggle Admin Mode">
+                Admin Mode
+            </button>
+            <div style="cursor:pointer; font-weight:600; margin-left:8px;" onclick="window.location.href='flowsolve.html'">
+                Languages ⌵
             </div>
         </div>
 
-        <!-- COMPARISON MATRIX -->
-        <div id="view-compare">
-            <table class="compare-table">
-                <thead>
-                    <tr>
-                        <th>Parameter / Criterion</th>
-                        <th>1. V2X Radar Network</th>
-                        <th>2. Neuro-Cameras</th>
-                        <th>3. GPS Limiter</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Implementation Complexity</td>
-                        <td>High (Public Sector)</td>
-                        <td><span class="best-val">Low (For Mass Market)</span></td>
-                        <td>Extremely High</td>
-                    </tr>
-                    <tr>
-                        <td>Solution Efficiency (ROI/COP)</td>
-                        <td><span class="best-val">~98% (System Approach)</span></td>
-                        <td>~40% (Depends on Human)</td>
-                        <td>~80% (Physical Restriction)</td>
-                    </tr>
-                    <tr>
-                        <td>Startup Capital (Equipment)</td>
-                        <td>~$150,000 (SMT Machines)</td>
-                        <td>~$80,000 (Simple Assembly)</td>
-                        <td><span class="best-val">~$45,000</span></td>
-                    </tr>
-                    <tr>
-                        <td>"ASUIR 10% Rule" Rating</td>
-                        <td><span class="best-val">Highest (Expensive Unit Sale)</span></td>
-                        <td>Medium (High Parts Price)</td>
-                        <td>Low (Small Margin)</td>
-                    </tr>
-                    <tr>
-                        <td>Aristotle's Recommendation (AI)</td>
-                        <td><b>Strategic Superiority</b></td>
-                        <td>Quick Payback</td>
-                        <td>Unprofitable (Dead End)</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- BRAND HEADER (1:1) -->
+        <div class="brand-title-block">
+            <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
 
+        <!-- 1. THIN TOP DIVIDER -->
+        <div class="matrix-divider-single"></div>
+
+        <!-- 2. GLOBAL MENU 1ST LEVEL -->
+        <nav class="nav-global-menu">
+            <a href="index.html" class="nav-global-link">
+                <span class="main-label">ABOUT THE PROJECT</span>
+                <span class="sub-label">automated control system</span>
+            </a>
+            <a href="flowsolve_en.html" class="nav-global-link active">
+                <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
+                <span class="sub-label">solution synthesis & analysis</span>
+            </a>
+            <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-global-link">
+                <span class="main-label">ASUIR Gemini</span>
+                <span class="sub-label">efficiency generator</span>
+            </a>
+            <a href="Help_en.html" class="nav-global-link">
+                <span class="main-label">Help</span>
+                <span class="sub-label">documentation & formulas</span>
+            </a>
+        </nav>
+
+        <!-- 3. SATURATED DOUBLE GRAY DIVIDER (1:1) -->
+        <div class="matrix-divider-double-box">
+            <div class="thin-line"></div>
+            <div class="thick-line"></div>
+        </div>
+
+        <!-- 4. MAIN WORKSPACE CARD -->
+        <div class="matrix-card-box">
+
+            <!-- STRATEGY INPUT CONTAINER -->
+            <div class="strategy-input-container">
+                <div class="strategy-title-label">🧠 Global Problem, Technological Challenge or Product Idea</div>
+                <div class="input-group-row">
+                    <input type="text" id="flow-input" class="input-flow-text"
+                           value="How to set up batch drone assembly with non-engineer personnel?"
+                           placeholder="Describe a technical, manufacturing, or social challenge...">
+                    <button class="btn-start-flow" onclick="startFlowSolve()">🧠 Synthesize Solutions</button>
+                </div>
+            </div>
+
+            <!-- LOADING SIMULATION / SPINNER -->
+            <div id="loading-view">
+                <div class="spinner"></div>
+                <div id="loading-text">Initializing FlowSolve Recursive Intelligence...</div>
+                <div class="loading-subtext" id="loading-subtext">Analyzing ASUIR database of 84 strategies</div>
+            </div>
+
+            <!-- RESULTS VIEW -->
+            <div id="results-view" style="display:none;">
+
+                <!-- SUBTABS WITH MAGENTA ACCENT UNDERLINE -->
+                <div class="matrix-tab-bar">
+                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Vertical Solutions List</a>
+                    <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ Comparison Matrix</a>
+                </div>
+
+                <div class="matrix-content-body">
+                    <!-- DYNAMIC SOLUTIONS LIST -->
+                    <div id="view-list"></div>
+
+                    <!-- DYNAMIC COMPARISON MATRIX -->
+                    <div id="view-compare" style="display:none; overflow-x:auto;"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            © Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
+        </div>
     </div>
-</div>
 
-<script>
-    // Accordion toggle
-    function toggleAccordion(element) {
-        element.classList.toggle('expanded');
-    }
-
-    // Switch List/Comparison tabs
-    function switchView(view) {
-        document.querySelectorAll('.fs-tab').forEach(tab => tab.classList.remove('active'));
-        document.getElementById('view-list').style.display = 'none';
-        document.getElementById('view-compare').style.display = 'none';
-        
-        if (view === 'list') {
-            document.querySelectorAll('.fs-tab')[0].classList.add('active');
-            document.getElementById('view-list').style.display = 'block';
-        } else {
-            document.querySelectorAll('.fs-tab')[1].classList.add('active');
-            document.getElementById('view-compare').style.display = 'block';
+    <script>
+        // CLIENT ID INITIALIZATION & LOCAL STORAGE
+        let myClientId = localStorage.getItem('asuir_client_id_en');
+        if (!myClientId) {
+            myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            localStorage.setItem('asuir_client_id_en', myClientId);
         }
-    }
+        document.getElementById('client-id-display').textContent = myClientId;
 
-    // Simulate "mighty AI work" and recursive calculation
-    function startFlowSolve() {
-        const input = document.getElementById('flow-input').value.trim();
-        if(!input) return alert("Please enter a problem or idea.");
-
-        // Hide results, show loading
-        document.getElementById('results-view').style.display = 'none';
-        document.getElementById('loading-view').style.display = 'block';
-        document.getElementById('view-list').style.display = 'block';
-        document.getElementById('view-compare').style.display = 'none';
-        document.querySelectorAll('.fs-tab')[0].classList.add('active');
-        document.querySelectorAll('.fs-tab')[1].classList.remove('active');
-
-        // Texts for AI presence effect
-        const texts = [
-            "Decomposing problem into atomic steps...",
-            "Checking 84 strategies of the 'Aristotle' block...",
-            "Filtering out unprofitable paths via the 10% Rule...",
-            "Generating final Triples..."
-        ];
-
-        let i = 0;
-        document.getElementById('loading-text').innerText = "Initializing FlowSolve Recursive Intelligence...";
-        document.getElementById('loading-subtext').innerText = texts[0];
-
-        const interval = setInterval(() => {
-            i++;
-            if (i < texts.length) {
-                document.getElementById('loading-subtext').innerText = texts[i];
-            } else {
-                clearInterval(interval);
-                document.getElementById('loading-view').style.display = 'none';
-                document.getElementById('results-view').style.display = 'block';
+        function editClientIdentifier() {
+            const newId = prompt("Enter your Project Name or Facility ID (Client ID):", myClientId);
+            if (newId && newId.trim() !== '') {
+                myClientId = newId.trim();
+                localStorage.setItem('asuir_client_id_en', myClientId);
+                document.getElementById('client-id-display').textContent = myClientId;
             }
-        }, 800); // 800 milliseconds per phrase (total loading ~3 sec)
-    }
-</script>
+        }
 
+        let isAdminMode = false;
+        function toggleAdminMode() {
+            if (isAdminMode) {
+                isAdminMode = false;
+                document.getElementById('admin-mode-toggle-btn').innerText = "Admin Mode";
+                document.getElementById('admin-mode-toggle-btn').style.background = "transparent";
+                document.getElementById('admin-mode-toggle-btn').style.color = "#e91e63";
+            } else {
+                const pwd = prompt("Enter Admin password:");
+                if (pwd === "AnatoliD") {
+                    isAdminMode = true;
+                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active";
+                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
+                    document.getElementById('admin-mode-toggle-btn').style.color = "#ffffff";
+                }
+            }
+        }
+
+        function toggleAccordion(element) {
+            element.classList.toggle('expanded');
+        }
+
+        function switchView(view) {
+            document.getElementById('tab-btn-list').classList.remove('active');
+            document.getElementById('tab-btn-compare').classList.remove('active');
+            document.getElementById('view-list').style.display = 'none';
+            document.getElementById('view-compare').style.display = 'none';
+
+            if (view === 'list') {
+                document.getElementById('tab-btn-list').classList.add('active');
+                document.getElementById('view-list').style.display = 'block';
+            } else {
+                document.getElementById('tab-btn-compare').classList.add('active');
+                document.getElementById('view-compare').style.display = 'block';
+            }
+        }
+
+        // DYNAMIC SOLUTION SYNTHESIZER
+        function generateSolutionsForQuery(query) {
+            const q = query.toLowerCase();
+
+            if (q.includes('drone') || q.includes('uav') || q.includes('fpv') || q.includes('aircraft')) {
+                return [
+                    {
+                        title: "1. Compact ESD 5-7\" Drone Assembly Cell on Pre-soldered PnP Modules",
+                        score: "ASUIR Top Pick",
+                        description: "Procurement of pre-soldered flight stacks (F405/F7 + 45A ESC) with quick-disconnect connectors. Non-engineer personnel perform only modular sub-assembly on an ESD conveyor workbench and 8-screw frame fastening with calibrated torque screwdrivers.",
+                        risks: "• Procurement of high-precision torque-controlled tools required.<br>• Incoming quality control of flight controllers via Smoke Stopper required.",
+                        matrix_key: "drone",
+                        cost: "$25,000",
+                        efficiency: "~98% (Human error minimized)",
+                        rule10: "Highest (BOM $120 / Output 20 pcs/day)"
+                    },
+                    {
+                        title: "2. Modular Semi-Automated Cell with Pneumatic Press & Auto-Flashing",
+                        score: "Maximum Speed",
+                        description: "Use of a 4-meter Detall assembly workbench with an automated 10-port firmware flashing dock. Each worker executes a simplified 45-second operation.",
+                        risks: "• Initial setup of the network flashing dock required.<br>• Dependence on steady carbon frame deliveries.",
+                        matrix_key: "drone",
+                        cost: "$15,000",
+                        efficiency: "~92% (High batch throughput)",
+                        rule10: "Compliant (Salary $5,500 – $10,000 / mo)"
+                    }
+                ];
+            }
+
+            if (q.includes('phone') || q.includes('smartphone') || q.includes('mobile')) {
+                return [
+                    {
+                        title: "1. Modular SKD Smartphone Assembly Cell on Detall Workbenches",
+                        score: "ASUIR Top Pick",
+                        description: "Sub-assembly of 6.5\" FHD+ smartphone from ready modular components (display, SoC board, cameras, battery) across 3 workstations. Line takt time — 50 seconds per finished phone.",
+                        risks: "• Pneumatic press required for uniform back-cover adhesion.<br>• ESD static control monitoring at workstations.",
+                        matrix_key: "phone",
+                        cost: "$6,000",
+                        efficiency: "~99% (Screwdriver SKD assembly)",
+                        rule10: "Highest (BOM $78 / Price $150)"
+                    }
+                ];
+            }
+
+            if (q.includes('laptop') || q.includes('notebook') || q.includes('computer') || q.includes('pc')) {
+                return [
+                    {
+                        title: "1. SKD 15.6\" Laptop Assembly Line for 2–3 Operators",
+                        score: "ASUIR Top Pick",
+                        description: "Assembly of notebook from Barebone chassis (case, screen, keyboard, battery) with installation of processor board, SO-DIMM 16GB RAM and M.2 SSD 512GB storage. Total assembly cycle time is 16 minutes per unit.",
+                        risks: "• Careful handling of the delicate eDP display ribbon cable.<br>• Setup of PXE automated OS network deployment server.",
+                        matrix_key: "pc",
+                        cost: "$20,000",
+                        efficiency: "~95% (Safe cleanroom benchwork)",
+                        rule10: "Highest (BOM $235 / Price $380)"
+                    }
+                ];
+            }
+
+            return [
+                {
+                    title: `1. Automated Starter Production Cell for "${query}"`,
+                    score: "ASUIR Top Pick",
+                    description: `Application of standardized modular equipment cell for 2–3 operators. All complex operations are standardized through tooling fixtures, personnel perform only component assembly.`,
+                    risks: "• Initial calibration of tooling fixtures and part suppliers.<br>• Procurement of the basic modular assembly bench.",
+                    matrix_key: query,
+                    cost: "$20,000",
+                    efficiency: "~95% (Modular cycle)",
+                    rule10: "Compliant (Overhead deviation < 10%)"
+                }
+            ];
+        }
+
+        // START SYNTHESIS
+        function startFlowSolve() {
+            const input = document.getElementById('flow-input').value.trim();
+            if (!input) return alert("Please enter a problem, idea, or challenge.");
+
+            document.getElementById('results-view').style.display = 'none';
+            document.getElementById('loading-view').style.display = 'block';
+
+            const texts = [
+                "Decomposing challenge into modular production steps...",
+                "Checking 84 strategies of the 'Aristotle' block...",
+                "Filtering out unprofitable paths via ASUIR 10% Rule...",
+                "Synthesizing tooling and calibrating salary funds..."
+            ];
+
+            let i = 0;
+            document.getElementById('loading-text').innerText = "Initializing FlowSolve Recursive Intelligence...";
+            document.getElementById('loading-subtext').innerText = texts[0];
+
+            const interval = setInterval(() => {
+                i++;
+                if (i < texts.length) {
+                    document.getElementById('loading-subtext').innerText = texts[i];
+                } else {
+                    clearInterval(interval);
+                    renderResults(input);
+                    document.getElementById('loading-view').style.display = 'none';
+                    document.getElementById('results-view').style.display = 'block';
+                }
+            }, 500);
+        }
+
+        // RENDER RESULTS
+        function renderResults(query) {
+            const solutions = generateSolutionsForQuery(query);
+            const listContainer = document.getElementById('view-list');
+            const compareContainer = document.getElementById('view-compare');
+
+            // 1. Solutions list (Accordion)
+            let listHtml = '';
+            solutions.forEach((s, idx) => {
+                const isExpanded = idx === 0 ? 'expanded' : '';
+                listHtml += `
+                        <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
+                            <div class="solution-header">
+                                <div class="solution-title">${s.title} <span class="solution-score">${s.score}</span></div>
+                                <div class="solution-toggle">▼</div>
+                            </div>
+                            <div class="solution-body" onclick="event.stopPropagation()">
+                                <div class="s-block">
+                                    <div class="s-block-title">🛠 Implementation Description (How it works):</div>
+                                    <div class="s-text">${s.description}</div>
+                                </div>
+                                <div class="s-block">
+                                    <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
+                                    <div class="s-text">${s.risks}</div>
+                                </div>
+                                <a href="ASUIRGemeniCalculatOptimizer_en.html" class="btn-select-solution">
+                                    Forward to "Efficiency Generator" and simulation model →
+                                </a>
+                            </div>
+                        </div>
+                    `;
+            });
+            listContainer.innerHTML = listHtml;
+
+            // 2. Comparison Matrix table
+            let compareHtml = `
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter / Criterion</th>
+                                ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Efficiency (ROI / Yield)</td>
+                                ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Cell Equipment Capital (CapEx)</td>
+                                ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>ASUIR 10% Rule Rating</td>
+                                ${solutions.map(s => `<td>${s.rule10}</td>`).join('')}
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+            compareContainer.innerHTML = compareHtml;
+        }
+
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const q = urlParams.get('query');
+            if (q) {
+                document.getElementById('flow-input').value = q;
+                startFlowSolve();
+            }
+        };
+    </script>
 </body>
 </html>
-
-```
