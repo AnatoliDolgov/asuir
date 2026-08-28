@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TECHNOLOGY MATRIX — ASUIR Gemini</title>
     <style>
-        /* ================================================================
-           ДИЗАЙН 1:1 С ГЛАВНОЙ СТРАНИЦЫ TECHNOLOGY MATRIX
-           ================================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +14,7 @@
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #ffffff;
-            color: #222222;
+            color: #222;
             padding: 20px 40px 60px;
         }
 
@@ -26,14 +23,12 @@
             margin: 0 auto;
         }
 
-        /* ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА (CLIENT ID + ADMIN + LANGUAGES) */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
             align-items: center;
             gap: 16px;
             font-size: 13px;
-            color: #333333;
             margin-bottom: 10px;
         }
 
@@ -64,15 +59,13 @@
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.15s;
         }
 
             .admin-toggle-btn:hover {
                 background: #e91e63;
-                color: #ffffff;
+                color: #fff;
             }
 
-        /* ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX */
         .brand-title-block {
             text-align: center;
             margin: 20px 0 15px;
@@ -83,19 +76,11 @@
             font-size: 52px;
             font-weight: 400;
             letter-spacing: 2px;
-            color: #555555;
+            color: #555;
             text-transform: uppercase;
             line-height: 1;
         }
 
-        /* 1. ОДИНАРНЫЙ ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ */
-        .matrix-divider-single {
-            border: none;
-            border-top: 1px solid #b0b0b0;
-            margin: 15px 0 10px 0;
-        }
-
-        /* 2. ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ (НАВИГАЦИЯ САЙТА) */
         .nav-global-menu {
             display: flex;
             justify-content: center;
@@ -108,14 +93,13 @@
             text-decoration: none;
             text-align: center;
             display: inline-block;
-            transition: 0.15s;
         }
 
             .nav-global-link .main-label {
                 display: block;
                 font-size: 13px;
                 font-weight: 700;
-                color: #222222;
+                color: #222;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
             }
@@ -123,36 +107,40 @@
             .nav-global-link .sub-label {
                 display: block;
                 font-size: 12px;
-                color: #666666;
+                color: #666;
                 margin-top: 2px;
-                font-weight: 400;
             }
 
-            .nav-global-link:hover .main-label,
-            .nav-global-link.active .main-label {
+            .nav-global-link:hover .main-label, .nav-global-link.active .main-label {
                 color: #1f4e78;
             }
 
-        /* 3. ЧЕТКАЯ КОНТРАСТНАЯ ДВОЙНАЯ ЛИНИЯ-РАЗДЕЛИТЕЛЬ */
-        .matrix-divider-double {
-            border: none;
-            border-top: 1px solid #a0a0a0;
-            border-bottom: 1px solid #a0a0a0;
-            height: 5px;
-            margin: 0 0 25px 0;
-            background: #ffffff;
-            clear: both;
+        /* ДВОЙНАЯ СЕРАЯ ПОЛОСА 1:1 СО СКРИНШОТА */
+        .matrix-divider-double-box {
+            margin: 10px 0 25px 0;
+            width: 100%;
         }
 
-        /* 4. ВНУТРЕННЯЯ КАРТОЧКА КАЛЬКУЛЯТОРА */
+            .matrix-divider-double-box .thin-line {
+                height: 1px;
+                background-color: #d0d7dd;
+                margin-bottom: 4px;
+                width: 100%;
+            }
+
+            .matrix-divider-double-box .thick-line {
+                height: 4px;
+                background-color: #a0a8b0;
+                width: 100%;
+            }
+
         .matrix-card-box {
-            background: #ffffff;
+            background: #fff;
             border: 1px solid #d0d7dd;
             border-radius: 3px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
-        /* ТАБЫ ШАГОВ КАЛЬКУЛЯТОРА (ВНУТРЕННЕЕ МЕНЮ) */
         .matrix-tab-bar {
             display: flex;
             background: #fbfbfb;
@@ -172,51 +160,37 @@
             gap: 6px;
             border-bottom: 3px solid transparent;
             margin-bottom: -1px;
-            transition: all 0.15s ease;
             white-space: nowrap;
         }
 
             .matrix-tab-item:hover {
-                color: #111111;
+                color: #111;
                 background: #f0f2f5;
             }
 
-            /* ФИРМЕННАЯ МАЛИНОВАЯ ПОЛОСА АКТИВНОГО ТАБА */
             .matrix-tab-item.active {
-                color: #111111;
+                color: #111;
                 font-weight: 700;
                 border-bottom: 3px solid #d53f8c;
-                background: #ffffff;
+                background: #fff;
             }
 
         .matrix-content-body {
             padding: 24px 24px 30px;
         }
 
-        /* СТИЛИ СЕКЦИЙ И ТАБЛИЦ */
         .section {
             display: none;
         }
 
             .section.active {
                 display: block;
-                animation: fadeIn 0.2s ease;
             }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0.4;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
 
         .section-title {
             font-size: 17px;
             font-weight: 700;
-            color: #222222;
+            color: #222;
             margin-bottom: 16px;
             padding-bottom: 6px;
             border-bottom: 2px solid #1f4e78;
@@ -245,7 +219,7 @@
         th {
             background: #f8f9fa;
             font-weight: 600;
-            color: #222222;
+            color: #222;
         }
 
         td.right {
@@ -275,7 +249,6 @@
             background: #fcfcfc;
             color: #1a2632;
             outline: none;
-            transition: 0.15s;
             width: 100%;
             height: 38px;
         }
@@ -313,30 +286,20 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            transition: 0.15s;
             height: 38px;
             white-space: nowrap;
-            line-height: 1;
             min-width: 80px;
         }
 
         .btn-primary {
             background: #4a90d9;
-            color: #ffffff;
+            color: #fff;
         }
-
-            .btn-primary:hover {
-                background: #357abd;
-            }
 
         .btn-green {
             background: #007600;
             color: #fff;
         }
-
-            .btn-green:hover {
-                background: #005a00;
-            }
 
         .btn-sm {
             padding: 0 12px;
@@ -358,16 +321,7 @@
             cursor: pointer;
             padding: 0 6px;
             color: #6c7a8a;
-            height: 38px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
         }
-
-            .btn-icon:hover {
-                transform: scale(1.15);
-                color: #1f4e78;
-            }
 
         .btn-delete-icon {
             background: transparent;
@@ -376,13 +330,7 @@
             font-size: 18px;
             cursor: pointer;
             padding: 0 4px;
-            transition: 0.15s;
         }
-
-            .btn-delete-icon:hover {
-                color: #a00000;
-                transform: scale(1.2);
-            }
 
         .btn-bom-toggle {
             background: #f0f5fa;
@@ -397,13 +345,7 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            transition: 0.15s;
         }
-
-            .btn-bom-toggle:hover {
-                background: #dbeaff;
-                border-color: #4a90d9;
-            }
 
         .info-hint {
             background: #f0f5fa;
@@ -460,7 +402,7 @@
         .sub-bom-table {
             width: 100%;
             border: 1px solid #d0d7dd;
-            background: #ffffff;
+            background: #fff;
             margin: 8px 0;
             border-radius: 4px;
             font-size: 12px;
@@ -612,46 +554,32 @@
             }
         }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-SCZYX0Z5VX');
-    </script>
 </head>
 <body>
 
     <div class="main-wrapper">
-
-        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА: CLIENT ID + ADMIN + ЯЗЫКИ -->
+        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА -->
         <div class="top-utility-bar">
-            <div class="client-id-badge" onclick="editClientIdentifier()" title="Нажмите для смены Client ID">
+            <div class="client-id-badge" onclick="editClientIdentifier()" title="Сменить Client ID">
                 🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
             </div>
-            <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()" title="Включить режим администратора">
-                Admin Mode
-            </button>
-            <div style="cursor:pointer; font-weight:600; margin-left:8px;" onclick="window.location.href='ASUIRGemeniCalculatOptimizer_en.html'">
-                Languages ⌵
-            </div>
+            <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()">Admin Mode</button>
+            <div style="cursor:pointer; font-weight:600; margin-left:8px;" onclick="window.location.href='ASUIRGemeniCalculatOptimizer_en.html'">Languages ⌵</div>
         </div>
 
-        <!-- ГЛАВНЫЙ ЗАГОЛОВОК ПОРТАЛА (В СТИЛЕ TECHNOLOGY MATRIX) -->
+        <!-- ГЛАВНЫЙ ЗАГОЛОВОК -->
         <div class="brand-title-block">
             <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
 
-        <!-- 1. ОДИНАРНЫЙ ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ -->
-        <hr class="matrix-divider-single">
+        <!-- ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ -->
+        <div style="height: 1px; background-color: #d0d7dd; margin: 15px 0 10px 0; width: 100%;"></div>
 
-        <!-- 2. ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ (НАВИГАЦИЯ САЙТА) -->
+        <!-- ГЛОБАЛЬНОЕ МЕНЮ САЙТА (1:1 СО СКРИНШОТА) -->
         <nav class="nav-global-menu">
             <a href="index_ru.html" class="nav-global-link">
                 <span class="main-label">О ПРОЕКТЕ</span>
-                <span class="sub-label">автоматизированная система</span>
+                <span class="sub-label">автоматизированная система управления</span>
             </a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link active">
                 <span class="main-label" style="color:#1f4e78;">АСУИР Gemini</span>
@@ -663,13 +591,15 @@
             </a>
         </nav>
 
-        <!-- 3. ЧЕТКАЯ КОНТРАСТНАЯ ДВОЙНАЯ ЛИНИЯ-РАЗДЕЛИТЕЛЬ -->
-        <div class="matrix-divider-double"></div>
+        <!-- ТОЧНАЯ НАСЫЩЕННАЯ ДВОЙНАЯ СЕРАЯ ПОЛОСА (1:1 СО СКРИНШОТА) -->
+        <div class="matrix-divider-double-box">
+            <div class="thin-line"></div>
+            <div class="thick-line"></div>
+        </div>
 
-        <!-- 4. КАРТОЧКА КАЛЬКУЛЯТОРА С ВНУТРЕННИМИ ТАБАМИ -->
+        <!-- КАРТОЧКА КАЛЬКУЛЯТОРА -->
         <div class="matrix-card-box">
-
-            <!-- ВТОРОЙ УРОВЕНЬ: ТАБЫ ШАГОВ КАЛЬКУЛЯТОРА -->
+            <!-- ТАБЫ ШАГОВ КАЛЬКУЛЯТОРА С МАЛИНОВЫМ ПОДЧЕРКИВАНИЕМ -->
             <div class="matrix-tab-bar" id="tabHeaders">
                 <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Прямые затраты ячейки</a>
                 <a href="#" class="matrix-tab-item" data-tab="tab2">📦 2. Оснастка и Цеховые расходы</a>
@@ -679,7 +609,6 @@
             </div>
 
             <div class="matrix-content-body">
-
                 <!-- ТАБ 1 -->
                 <div class="section active" id="tab1">
                     <h2 class="section-title">1. Прямые затраты ячейки (Стартовая ячейка)</h2>
@@ -688,7 +617,7 @@
                             <tr>
                                 <td>
                                     <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Ссылка на товар с Alibaba</span></span><br>
-                                    <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Вставьте ссылку — скрипт сам переключит тему, оснастку и спецификацию деталей!</span>
+                                    <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Вставьте ссылку — скрипт сам определит тему, оснастку и спецификацию деталей!</span>
                                     <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
                                         <input type="text" id="equip-url" class="input-url" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
                                         <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Перейти</button>
@@ -700,25 +629,17 @@
                                     <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
                                 </td>
                             </tr>
-
                             <tr>
-                                <td>
-                                    <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / комплекса</span></span>
-                                </td>
+                                <td><span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / комплекса</span></span></td>
                                 <td class="right">
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                         <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 280px;">
-                                        <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты на Alibaba">
-                                            🔍 На Alibaba ↗
-                                        </button>
+                                        <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты на Alibaba">🔍 На Alibaba ↗</button>
                                     </div>
                                 </td>
                             </tr>
-
                             <tr>
-                                <td>
-                                    <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Текущая тема / Категория МКТУ</span></span>
-                                </td>
+                                <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Текущая тема / Категория МКТУ</span></span></td>
                                 <td class="right">
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
                                         <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="loadCatalogTemplate(this.value)">
@@ -741,7 +662,6 @@
                                     </div>
                                 </td>
                             </tr>
-
                             <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                                 <td>
                                     <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность ячейки (с Alibaba)</span></span><br>
@@ -759,7 +679,6 @@
                                     </div>
                                 </td>
                             </tr>
-
                             <tr>
                                 <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество рабочих ячейки (штат)</span></span></td>
                                 <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
@@ -778,7 +697,6 @@
                             </tr>
                         </table>
                     </div>
-
                     <div style="margin-top:12px; text-align:right;">
                         <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок, оснастку и BOM в Базу</button>
                     </div>
@@ -790,11 +708,9 @@
                     <div class="info-hint">
                         <b>💡 Пропорциональный расчет на персонал:</b> статьи специнструмента и расходников автоматически перемножаются на количество рабочих мест (штат), а общие расходы (аренда помещения, вытяжка) считаются 1 раз на ячейку.
                     </div>
-
                     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
                         <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Добавить статью цеховых расходов / оснастки</button>
                     </div>
-
                     <div class="table-responsive">
                         <table class="components-table">
                             <thead>
@@ -823,14 +739,11 @@
                 <div class="section" id="tab3">
                     <h2 class="section-title">3. Сырьё и комплектующие (Спецификация BOM)</h2>
                     <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
-                        <b>💡 Комплектация сформирована автоматически</b> под выбранный проект.
-                        Вы можете изменять цены, количества деталей, нажимать <b>🔗</b> для перехода на Alibaba или добавлять новые строки.
+                        <b>💡 Комплектация сформирована автоматически</b> под выбранный проект. Вы можете изменять цены, количества деталей или добавлять новые строки.
                     </div>
-
                     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
                         <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Добавить деталь в спецификацию</button>
                     </div>
-
                     <div class="table-responsive">
                         <table class="components-table">
                             <thead>
@@ -909,9 +822,7 @@
                                     <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш</span>
                                 </td>
                                 <td class="right">
-                                    <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">
-                                        $0 / мес
-                                    </span>
+                                    <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$0 / мес</span>
                                 </td>
                             </tr>
                             <tr>
@@ -963,7 +874,6 @@
 
                     <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button>
                 </div>
-
             </div>
         </div>
 
@@ -1000,7 +910,6 @@
         <div class="modal-content" style="max-width:450px;">
             <span class="modal-close" onclick="closeModal('inquiry-modal')">&times;</span>
             <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom:12px;">✉️ Запрос продавцу на Alibaba</h3>
-            <p style="font-size:12px; color:#6c7a8a; margin-bottom:15px;">Скопируйте данный текст и отправьте продавцу в Alibaba Trade Messenger:</p>
             <textarea id="inquiry-text-area" rows="6" class="input-field" style="height:auto; font-size:12px; margin-bottom:15px;" readonly>
 Dear Supplier,
 We are evaluating your equipment for a compact production cell setup. Please specify:
@@ -1035,10 +944,8 @@ Thank you!
             <form id="feedback-form" onsubmit="handleFormSubmit(event, 'ru')">
                 <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что вам понравилось в системе?</label>
                 <textarea id="fb-like" rows="3" class="input-field" style="height:auto; resize:vertical; margin-bottom: 15px;"></textarea>
-
                 <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что стоит улучшить или добавить?</label>
                 <textarea id="fb-dislike" rows="4" required class="input-field" style="height:auto; resize:vertical; margin-bottom: 20px;"></textarea>
-
                 <button type="submit" class="btn btn-primary btn-block">Отправить письмо</button>
             </form>
         </div>
@@ -1067,7 +974,6 @@ Thank you!
         let currentTopicTitle = "Дроны и Радиоэлектроника";
         let isAdminMode = false;
 
-        // 1. CLIENT ID
         let myClientId = localStorage.getItem('asuir_client_id');
         if (!myClientId) {
             myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
@@ -1085,7 +991,6 @@ Thank you!
             }
         };
 
-        // КАТАЛОГ МКТУ С РЕАЛИСТИЧНЫМИ BOM И СПЕЦОСНАСТКОЙ
         const catalogDB = {
             'drone': {
                 title: "Дроны и Радиоэлектроника", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Компактная ESD-линия сборки дронов',
@@ -1309,7 +1214,6 @@ Thank you!
             }
         };
 
-        // 2. ДИНАМИЧЕСКИЕ СТРОКИ СЕКЦИИ 2
         window.addExpenseRow = function (name, qty, price, url = '') {
             const tbody = document.getElementById('expense-dynamic-rows');
             if (!tbody) return;
@@ -1359,11 +1263,9 @@ Thank you!
             calculateAll();
         };
 
-        // 3. АВТОМАТИЧЕСКАЯ ОБРАБОТКА ВСТАВКИ ССЫЛКИ ALIBABA
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
-
             let extractedTitle = "";
             const match = u.match(/product-detail\/([^\/_?]+)/i);
             if (match && match[1]) {
@@ -1406,49 +1308,27 @@ Thank you!
             if (detectedKey) {
                 const data = catalogDB[detectedKey];
                 currentTopicTitle = data.title;
-
                 const dropdown = document.getElementById('topic-selector-dropdown');
                 if (dropdown) dropdown.value = detectedKey;
+                if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle || data.q;
+                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = data.eq;
+                if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
+                if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
+                if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
 
-                if (document.getElementById('equip-search-query')) {
-                    document.getElementById('equip-search-query').value = extractedTitle || data.q;
-                }
-                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) {
-                    document.getElementById('val-equip').value = data.eq;
-                }
-                if (document.getElementById('val-actual-perf')) {
-                    document.getElementById('val-actual-perf').value = data.perf || 20;
-                }
-                if (document.getElementById('val-staff')) {
-                    document.getElementById('val-staff').value = data.staff || 2;
-                }
-                if (document.getElementById('market-price-input')) {
-                    document.getElementById('market-price-input').value = data.mkt;
-                }
-
-                // Заполнение Секции 3 (BOM)
                 const tbodyBom = document.getElementById('component-dynamic-rows');
                 if (tbodyBom) {
                     tbodyBom.innerHTML = '';
-                    data.c.forEach(item => {
-                        addComponentRow(item[0], item[1], item[2], item[3]);
-                    });
+                    data.c.forEach(item => addComponentRow(item[0], item[1], item[2], item[3]));
                 }
-
-                // Заполнение Секции 2 (Оснастка)
                 const tbodyExp = document.getElementById('expense-dynamic-rows');
                 if (tbodyExp && data.exp) {
                     tbodyExp.innerHTML = '';
-                    data.exp.forEach(item => {
-                        addExpenseRow(item[0], item[1], item[2], item[3]);
-                    });
+                    data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                 }
             } else {
-                if (extractedTitle && document.getElementById('equip-search-query')) {
-                    document.getElementById('equip-search-query').value = extractedTitle;
-                }
+                if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
             }
-
             calculateAll();
         }
 
@@ -1520,23 +1400,16 @@ Thank you!
                 }
             }
 
-            // Заполнение Секции 3 (BOM)
             const tbodyBom = document.getElementById('component-dynamic-rows');
             if (tbodyBom) {
                 tbodyBom.innerHTML = '';
-                data.c.forEach(item => {
-                    const itemUrl = item[3] || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(item[0])}`;
-                    addComponentRow(item[0], item[1], item[2], itemUrl);
-                });
+                data.c.forEach(item => addComponentRow(item[0], item[1], item[2], item[3]));
             }
 
-            // Заполнение Секции 2 (Оснастка и расходы)
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp && data.exp) {
                 tbodyExp.innerHTML = '';
-                data.exp.forEach(item => {
-                    addExpenseRow(item[0], item[1], item[2], item[3]);
-                });
+                data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
             }
 
             calculateAll();
@@ -1553,7 +1426,6 @@ Thank you!
             calculateAll();
         };
 
-        // ВЫВЕРЕННЫЙ РАСЧЕТ ПО АВТОРСКОЙ ФОРМУЛЕ
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
@@ -1561,7 +1433,6 @@ Thank you!
             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
             const actualPerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
 
-            // 1. Расчет сырья BOM (Секция 3)
             let rawCost = 0;
             const tbodyBomRows = document.querySelectorAll('#component-dynamic-rows tr');
             tbodyBomRows.forEach(tr => {
@@ -1575,7 +1446,6 @@ Thank you!
             const bomElem = document.getElementById('total-bom-cost');
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
-            // 2. Расчет оснастки и расходов с умножением на штат (Секция 2)
             let totalOtherCosts = 0;
             const tbodyExpRows = document.querySelectorAll('#expense-dynamic-rows tr');
             tbodyExpRows.forEach(tr => {
@@ -1590,7 +1460,6 @@ Thank you!
             const otherCostsElem = document.getElementById('total-other-costs');
             if (otherCostsElem) otherCostsElem.textContent = totalOtherCosts.toFixed(2);
 
-            // 3. Постоянные суточные расходы
             const amort = equip / 5 / 365;
             const salaryPerDay = (salary * staff) / 30;
             const overhead = amort + salaryPerDay;
@@ -1599,8 +1468,6 @@ Thank you!
             if (document.getElementById('total-daily-cost')) document.getElementById('total-daily-cost').textContent = Math.round(overhead);
 
             const totalDailyCost = overhead + totalOtherCosts;
-
-            // 4. Требуемый сбыт (Норматив 10% от конкурентной цены)
             const reqPerf = market > 0 ? Math.ceil(totalDailyCost / (market * 0.10)) : 0;
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
@@ -1614,7 +1481,6 @@ Thank you!
             if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
-            // 5. Расчет максимальной зарплаты по авторской формуле
             const dailyProductionExpenses = actualPerf * 0.10 * market;
             const dailyFixedNoSalary = amort + totalOtherCosts;
             const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - dailyFixedNoSalary);
@@ -1647,7 +1513,6 @@ Thank you!
             renderEquipmentListingGroupedByTopic(totalOtherCosts, salary);
         };
 
-        // СИНХРОНИЗАЦИЯ С ОБЛАКОМ FIREBASE
         onValue(equipmentDbRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -1658,14 +1523,11 @@ Thank you!
             calculateAll();
         });
 
-        // СОХРАНЕНИЕ В ОБЛАКО
         window.saveCurrentEquipmentToDatabase = function () {
             const urlInput = document.getElementById('equip-url');
             const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
-
             const queryInput = document.getElementById('equip-search-query');
             let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок производства";
-
             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
@@ -1725,7 +1587,7 @@ Thank you!
             };
 
             push(equipmentDbRef, newItem)
-                .then(() => alert(`✅ Станок "${query}", оснастка и BOM успешно сохранены в тему "${finalTopic}"!`))
+                .then(() => alert(`✅ Станок "${query}", оснастка и BOM сохранены в тему "${finalTopic}"!`))
                 .catch(err => alert(`❌ Ошибка сохранения: ` + err.message));
         };
 
@@ -1767,24 +1629,18 @@ Thank you!
             const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle);
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
-            // Загрузка Секции 3 (BOM)
             const compList = item.components && item.components.length > 0 ? item.components : [];
             const tbodyBom = document.getElementById('component-dynamic-rows');
             if (tbodyBom) {
                 tbodyBom.innerHTML = '';
-                compList.forEach(c => {
-                    addComponentRow(c.name, c.qty, c.price, c.url);
-                });
+                compList.forEach(c => addComponentRow(c.name, c.qty, c.price, c.url));
             }
 
-            // Загрузка Секции 2 (Оснастка)
             const expList = item.expenses && item.expenses.length > 0 ? item.expenses : (catalogDB[currentTopicTitle]?.exp || []);
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp) {
                 tbodyExp.innerHTML = '';
-                expList.forEach(e => {
-                    addExpenseRow(e.name || e[0], e.qty || e[1], e.price || e[2], e.url || e[3] || '');
-                });
+                expList.forEach(e => addExpenseRow(e.name || e[0], e.qty || e[1], e.price || e[2], e.url || e[3] || ''));
             }
 
             calculateAll();
@@ -1935,7 +1791,6 @@ Thank you!
             calculateAll();
         };
 
-        // ОТРИСОВКА ЛИСТИНГА С АККОРДЕОНОМ BOM
         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
@@ -2005,7 +1860,6 @@ Thank you!
                             </td>
                         ` : '';
 
-                    // 1. Главная строка станка
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                             <td style="padding-left:20px;">
@@ -2025,7 +1879,6 @@ Thank you!
                         `;
                     container.appendChild(tr);
 
-                    // 2. Вложенная строка спецификации BOM
                     let compRowsHtml = '';
                     compList.forEach((c, idx) => {
                         const name = c.name || c[0];
