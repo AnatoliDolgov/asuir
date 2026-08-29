@@ -72,42 +72,61 @@
         }
 
         /* 2. GLOBAL MENU 1ST LEVEL */
-        <nav class="nav-global-menu" >
-        <a href="index.html" class="nav-global-link" >
-        <span class="main-label" > ABOUT THE PROJECT</span >
-        <span class="sub-label" > automated control system</span >
-        </a >
-        <a href="flowsolve_en.html" class="nav-global-link active" >
-        <span class="main-label" style="color:#1f4e78;" > FlowSolve</span >
-        <span class="sub-label" > solution synthesis & analysis</span >
-        </a >
-        <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-global-link" >
-        <span class="main-label" > ASUIR Gemini</span >
-        <span class="sub-label" > efficiency generator</span >
-        </a >
-        <a href="Help_en.html" class="nav-global-link" >
-        <span class="main-label" > Help</span >
-        <span class="sub-label" > documentation & formulas</span >
-        </a >
-        </nav >
+        .nav-global-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            padding: 8px 0 12px 0;
+        }
+
+        .nav-global-link {
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            transition: 0.15s;
+        }
+
+            .nav-global-link .main-label {
+                display: block;
+                font-size: 13px;
+                font-weight: 700;
+                color: #222222;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .nav-global-link .sub-label {
+                display: block;
+                font-size: 12px;
+                color: #666666;
+                margin-top: 2px;
+                font-weight: 400;
+            }
+
+            .nav-global-link:hover .main-label,
+            .nav-global-link.active .main-label {
+                color: #1f4e78;
+            }
+
         /* 3. SATURATED DOUBLE GRAY DIVIDER (1:1) */
         .matrix-divider-double-box {
             margin: 10px 0 25px 0;
             width: 100%;
         }
 
-        .matrix-divider-double-box .thin-line {
-            height: 1px;
-            background-color: #d0d7dd;
-            margin-bottom: 4px;
-            width: 100%;
-        }
+            .matrix-divider-double-box .thin-line {
+                height: 1px;
+                background-color: #d0d7dd;
+                margin-bottom: 4px;
+                width: 100%;
+            }
 
-        .matrix-divider-double-box .thick-line {
-            height: 4px;
-            background-color: #a0a8b0;
-            width: 100%;
-        }
+            .matrix-divider-double-box .thick-line {
+                height: 4px;
+                background-color: #a0a8b0;
+                width: 100%;
+            }
 
         /* 4. MAIN WORKSPACE CARD */
         .matrix-card-box {
@@ -680,48 +699,48 @@
             solutions.forEach((s, idx) => {
                 const isExpanded = idx === 0 ? 'expanded' : '';
                 listHtml += `
-                        <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
-                            <div class="solution-header">
-                                <div class="solution-title">${s.title} <span class="solution-score">${s.score}</span></div>
-                                <div class="solution-toggle">▼</div>
-                            </div>
-                            <div class="solution-body" onclick="event.stopPropagation()">
-                                <div class="s-block">
-                                    <div class="s-block-title">🛠 Implementation Description (How it works):</div>
-                                    <div class="s-text">${s.description}</div>
+                            <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
+                                <div class="solution-header">
+                                    <div class="solution-title">${s.title} <span class="solution-score">${s.score}</span></div>
+                                    <div class="solution-toggle">▼</div>
                                 </div>
-                                <div class="s-block">
-                                    <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
-                                    <div class="s-text">${s.risks}</div>
-                                </div>
+                                <div class="solution-body" onclick="event.stopPropagation()">
+                                    <div class="s-block">
+                                        <div class="s-block-title">🛠 Implementation Description (How it works):</div>
+                                        <div class="s-text">${s.description}</div>
+                                    </div>
+                                    <div class="s-block">
+                                        <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
+                                        <div class="s-text">${s.risks}</div>
+                                    </div>
 
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
             });
             listContainer.innerHTML = listHtml;
 
             // 2. CLEAN COMPARISON MATRIX (NO REDUNDANT ROWS)
             let compareHtml = `
-                    <table class="compare-table">
-                        <thead>
-                            <tr>
-                                <th>Parameter / Criterion</th>
-                                ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Implementation Efficiency</td>
-                                ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>Equipment Cost</td>
-                                ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
-                            </tr>
-                        </tbody>
-                    </table>
-                `;
+                        <table class="compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter / Criterion</th>
+                                    ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Implementation Efficiency</td>
+                                    ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
+                                </tr>
+                                <tr>
+                                    <td>Equipment Cost</td>
+                                    ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
             compareContainer.innerHTML = compareHtml;
         }
 
