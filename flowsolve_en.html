@@ -26,50 +26,25 @@
             margin: 0 auto;
         }
 
-        /* TOP UTILITY BAR */
+        /* TOP UTILITY BAR (LANGUAGES ONLY) */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 16px;
             font-size: 13px;
             color: #333333;
             margin-bottom: 10px;
         }
 
-        .client-id-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f8f9fa;
-            border: 1px solid #dcdcdc;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            color: #1f4e78;
-            font-weight: 600;
+        .lang-switch {
             cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            color: #333333;
         }
 
-            .client-id-badge:hover {
-                background: #eef2f7;
-            }
-
-        .admin-toggle-btn {
-            background: transparent;
-            border: 1px solid #e91e63;
-            color: #e91e63;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-
-            .admin-toggle-btn:hover {
-                background: #e91e63;
-                color: #ffffff;
+            .lang-switch:hover {
+                color: #1f4e78;
             }
 
         /* BRAND HEADER (1:1) */
@@ -96,62 +71,43 @@
             width: 100%;
         }
 
-        /* 2. GLOBAL MENU 1ST LEVEL (1:1) */
-        .nav-global-menu {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            padding: 8px 0 12px 0;
-        }
-
-        .nav-global-link {
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            transition: 0.15s;
-        }
-
-            .nav-global-link .main-label {
-                display: block;
-                font-size: 13px;
-                font-weight: 700;
-                color: #222222;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .nav-global-link .sub-label {
-                display: block;
-                font-size: 12px;
-                color: #666666;
-                margin-top: 2px;
-                font-weight: 400;
-            }
-
-            .nav-global-link:hover .main-label,
-            .nav-global-link.active .main-label {
-                color: #1f4e78;
-            }
-
+        /* 2. GLOBAL MENU 1ST LEVEL */
+        <nav class="nav-global-menu" >
+        <a href="index.html" class="nav-global-link" >
+        <span class="main-label" > ABOUT THE PROJECT</span >
+        <span class="sub-label" > automated control system</span >
+        </a >
+        <a href="flowsolve_en.html" class="nav-global-link active" >
+        <span class="main-label" style="color:#1f4e78;" > FlowSolve</span >
+        <span class="sub-label" > solution synthesis & analysis</span >
+        </a >
+        <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-global-link" >
+        <span class="main-label" > ASUIR Gemini</span >
+        <span class="sub-label" > efficiency generator</span >
+        </a >
+        <a href="Help_en.html" class="nav-global-link" >
+        <span class="main-label" > Help</span >
+        <span class="sub-label" > documentation & formulas</span >
+        </a >
+        </nav >
         /* 3. SATURATED DOUBLE GRAY DIVIDER (1:1) */
         .matrix-divider-double-box {
             margin: 10px 0 25px 0;
             width: 100%;
         }
 
-            .matrix-divider-double-box .thin-line {
-                height: 1px;
-                background-color: #d0d7dd;
-                margin-bottom: 4px;
-                width: 100%;
-            }
+        .matrix-divider-double-box .thin-line {
+            height: 1px;
+            background-color: #d0d7dd;
+            margin-bottom: 4px;
+            width: 100%;
+        }
 
-            .matrix-divider-double-box .thick-line {
-                height: 4px;
-                background-color: #a0a8b0;
-                width: 100%;
-            }
+        .matrix-divider-double-box .thick-line {
+            height: 4px;
+            background-color: #a0a8b0;
+            width: 100%;
+        }
 
         /* 4. MAIN WORKSPACE CARD */
         .matrix-card-box {
@@ -270,7 +226,7 @@
             padding: 24px 28px;
         }
 
-        /* LOADING SIMULATION / SPINNER */
+        /* LOADING SIMULATION */
         #loading-view {
             display: none;
             text-align: center;
@@ -508,20 +464,12 @@
 
     <div class="main-wrapper">
 
-        <!-- TOP UTILITY BAR: CLIENT ID + ADMIN + LANGUAGES -->
+        <!-- TOP UTILITY BAR (LANGUAGES ONLY) -->
         <div class="top-utility-bar">
-            <div class="client-id-badge" onclick="editClientIdentifier()" title="Click to customize Client ID">
-                🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
-            </div>
-            <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()" title="Toggle Admin Mode">
-                Admin Mode
-            </button>
-            <div style="cursor:pointer; font-weight:600; margin-left:8px;" onclick="window.location.href='flowsolve.html'">
-                Languages ⌵
-            </div>
+            <a href="flowsolve.html" class="lang-switch">Languages ⌵</a>
         </div>
 
-        <!-- BRAND HEADER (1:1) -->
+        <!-- BRAND TITLE (1:1) -->
         <div class="brand-title-block">
             <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
@@ -539,7 +487,7 @@
                 <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
                 <span class="sub-label">solution synthesis & analysis</span>
             </a>
-            <a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link">
+            <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-global-link">
                 <span class="main-label">ASUIR Gemini</span>
                 <span class="sub-label">efficiency generator</span>
             </a>
@@ -602,41 +550,6 @@
     </div>
 
     <script>
-        // CLIENT ID INITIALIZATION & LOCAL STORAGE
-        let myClientId = localStorage.getItem('asuir_client_id_en');
-        if (!myClientId) {
-            myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            localStorage.setItem('asuir_client_id_en', myClientId);
-        }
-        document.getElementById('client-id-display').textContent = myClientId;
-
-        function editClientIdentifier() {
-            const newId = prompt("Enter your Project Name or Facility ID (Client ID):", myClientId);
-            if (newId && newId.trim() !== '') {
-                myClientId = newId.trim();
-                localStorage.setItem('asuir_client_id_en', myClientId);
-                document.getElementById('client-id-display').textContent = myClientId;
-            }
-        }
-
-        let isAdminMode = false;
-        function toggleAdminMode() {
-            if (isAdminMode) {
-                isAdminMode = false;
-                document.getElementById('admin-mode-toggle-btn').innerText = "Admin Mode";
-                document.getElementById('admin-mode-toggle-btn').style.background = "transparent";
-                document.getElementById('admin-mode-toggle-btn').style.color = "#e91e63";
-            } else {
-                const pwd = prompt("Enter Admin password:");
-                if (pwd === "AnatoliD") {
-                    isAdminMode = true;
-                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active";
-                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
-                    document.getElementById('admin-mode-toggle-btn').style.color = "#ffffff";
-                }
-            }
-        }
-
         function toggleAccordion(element) {
             element.classList.toggle('expanded');
         }
@@ -669,8 +582,7 @@
                         risks: "• Procurement of high-precision torque-controlled tools required.<br>• Incoming quality control of flight controllers via Smoke Stopper required.",
                         matrix_key: "drone",
                         cost: "$25,000",
-                        efficiency: "~98% (Human error minimized)",
-                        rule10: "Highest (BOM $120 / Output 20 pcs/day)"
+                        efficiency: "~98% (Human error minimized)"
                     },
                     {
                         title: "2. Modular Semi-Automated Cell with Pneumatic Press & Auto-Flashing",
@@ -679,8 +591,7 @@
                         risks: "• Initial setup of the network flashing dock required.<br>• Dependence on steady carbon frame deliveries.",
                         matrix_key: "drone",
                         cost: "$15,000",
-                        efficiency: "~92% (High batch throughput)",
-                        rule10: "Compliant (Salary $5,500 – $10,000 / mo)"
+                        efficiency: "~92% (High batch throughput)"
                     }
                 ];
             }
@@ -694,8 +605,7 @@
                         risks: "• Pneumatic press required for uniform back-cover adhesion.<br>• ESD static control monitoring at workstations.",
                         matrix_key: "phone",
                         cost: "$6,000",
-                        efficiency: "~99% (Screwdriver SKD assembly)",
-                        rule10: "Highest (BOM $78 / Price $150)"
+                        efficiency: "~99% (Screwdriver SKD assembly)"
                     }
                 ];
             }
@@ -709,8 +619,7 @@
                         risks: "• Careful handling of the delicate eDP display ribbon cable.<br>• Setup of PXE automated OS network deployment server.",
                         matrix_key: "pc",
                         cost: "$20,000",
-                        efficiency: "~95% (Safe cleanroom benchwork)",
-                        rule10: "Highest (BOM $235 / Price $380)"
+                        efficiency: "~95% (Safe cleanroom benchwork)"
                     }
                 ];
             }
@@ -723,8 +632,7 @@
                     risks: "• Initial calibration of tooling fixtures and part suppliers.<br>• Procurement of the basic modular assembly bench.",
                     matrix_key: query,
                     cost: "$20,000",
-                    efficiency: "~95% (Modular cycle)",
-                    rule10: "Compliant (Overhead deviation < 10%)"
+                    efficiency: "~95% (Modular cycle)"
                 }
             ];
         }
@@ -740,8 +648,8 @@
             const texts = [
                 "Decomposing challenge into modular production steps...",
                 "Checking 84 strategies of the 'Aristotle' block...",
-                "Filtering out unprofitable paths via ASUIR 10% Rule...",
-                "Synthesizing tooling and calibrating salary funds..."
+                "Synthesizing tooling options...",
+                "Generating comparative analysis matrix..."
             ];
 
             let i = 0;
@@ -795,7 +703,7 @@
             });
             listContainer.innerHTML = listHtml;
 
-            // 2. Comparison Matrix table
+            // 2. CLEAN COMPARISON MATRIX (NO REDUNDANT ROWS)
             let compareHtml = `
                     <table class="compare-table">
                         <thead>
@@ -806,16 +714,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Efficiency (ROI / Yield)</td>
+                                <td>Implementation Efficiency</td>
                                 ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
                             </tr>
                             <tr>
-                                <td>Cell Equipment Capital (CapEx)</td>
+                                <td>Equipment Cost</td>
                                 ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>ASUIR 10% Rule Rating</td>
-                                ${solutions.map(s => `<td>${s.rule10}</td>`).join('')}
                             </tr>
                         </tbody>
                     </table>

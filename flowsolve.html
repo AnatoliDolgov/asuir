@@ -26,50 +26,25 @@
             margin: 0 auto;
         }
 
-        /* ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА */
+        /* ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА: ТОЛЬКО ЯЗЫКИ */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 16px;
             font-size: 13px;
             color: #333333;
             margin-bottom: 10px;
         }
 
-        .client-id-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f8f9fa;
-            border: 1px solid #dcdcdc;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            color: #1f4e78;
-            font-weight: 600;
+        .lang-switch {
             cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            color: #333333;
         }
 
-            .client-id-badge:hover {
-                background: #eef2f7;
-            }
-
-        .admin-toggle-btn {
-            background: transparent;
-            border: 1px solid #e91e63;
-            color: #e91e63;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.15s;
-        }
-
-            .admin-toggle-btn:hover {
-                background: #e91e63;
-                color: #ffffff;
+            .lang-switch:hover {
+                color: #1f4e78;
             }
 
         /* ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX */
@@ -134,7 +109,7 @@
                 color: #1f4e78;
             }
 
-        /* 3. ЧЕТКАЯ НАСЫЩЕННАЯ ДВОЙНАЯ СЕРАЯ ПОЛОСА 1:1 СО СКРИНШОТА */
+        /* 3. ТОЧНАЯ НАСЫЩЕННАЯ ДВОЙНАЯ СЕРАЯ ПОЛОСА (1:1) */
         .matrix-divider-double-box {
             margin: 10px 0 25px 0;
             width: 100%;
@@ -508,17 +483,9 @@
 
     <div class="main-wrapper">
 
-        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА: CLIENT ID + ADMIN + LANGUAGES -->
+        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА (ТОЛЬКО ЯЗЫКИ) -->
         <div class="top-utility-bar">
-            <div class="client-id-badge" onclick="editClientIdentifier()" title="Нажмите для смены Client ID">
-                🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
-            </div>
-            <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()" title="Включить режим администратора">
-                Admin Mode
-            </button>
-            <div style="cursor:pointer; font-weight:600; margin-left:8px;" onclick="window.location.href='flowsolve_en.html'">
-                Languages ⌵
-            </div>
+            <a href="flowsolve_en.html" class="lang-switch">Languages ⌵</a>
         </div>
 
         <!-- ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX (1:1) -->
@@ -543,7 +510,7 @@
                 <span class="main-label">АСУИР Gemini</span>
                 <span class="sub-label">генератор эффективности</span>
             </a>
-            <a href="Help_en.html" class="nav-global-link">
+            <a href="Help_ru.html" class="nav-global-link">
                 <span class="main-label">Help</span>
                 <span class="sub-label">справка и формулы</span>
             </a>
@@ -602,41 +569,6 @@
     </div>
 
     <script>
-        // CLIENT ID
-        let myClientId = localStorage.getItem('asuir_client_id');
-        if (!myClientId) {
-            myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            localStorage.setItem('asuir_client_id', myClientId);
-        }
-        document.getElementById('client-id-display').textContent = myClientId;
-
-        function editClientIdentifier() {
-            const newId = prompt("Введите имя вашего проекта или идентификатор цеха (Client ID):", myClientId);
-            if (newId && newId.trim() !== '') {
-                myClientId = newId.trim();
-                localStorage.setItem('asuir_client_id', myClientId);
-                document.getElementById('client-id-display').textContent = myClientId;
-            }
-        }
-
-        let isAdminMode = false;
-        function toggleAdminMode() {
-            if (isAdminMode) {
-                isAdminMode = false;
-                document.getElementById('admin-mode-toggle-btn').innerText = "Admin Mode";
-                document.getElementById('admin-mode-toggle-btn').style.background = "transparent";
-                document.getElementById('admin-mode-toggle-btn').style.color = "#e91e63";
-            } else {
-                const pwd = prompt("Введите пароль администратора:");
-                if (pwd === "AnatoliD") {
-                    isAdminMode = true;
-                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active";
-                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
-                    document.getElementById('admin-mode-toggle-btn').style.color = "#ffffff";
-                }
-            }
-        }
-
         function toggleAccordion(element) {
             element.classList.toggle('expanded');
         }
@@ -669,8 +601,7 @@
                         risks: "• Закупка качественного инструмента с контролем момента затяжки.<br>• Требуется входной контроль полетных контроллеров через Smoke Stopper.",
                         matrix_key: "drone",
                         cost: "$25,000",
-                        efficiency: "~98% (Исключен человеческий фактор)",
-                        rule10: "Высшая (Сырье $120 / Выпуск 20 шт/день)"
+                        efficiency: "~98% (Исключен человеческий фактор)"
                     },
                     {
                         title: "2. Модульная полуавтоматическая ячейка с пневмопрессом и авто-прошивкой",
@@ -679,8 +610,7 @@
                         risks: "• Необходимость базовой пусконаладки сетевого стенда прошивки.<br>• Зависимость от ритмичности поставок карбоновых рам.",
                         matrix_key: "drone",
                         cost: "$15,000",
-                        efficiency: "~92% (Высокая серийность)",
-                        rule10: "Соблюдено (Зарплата $5 500 – $10 000 / мес)"
+                        efficiency: "~92% (Высокая серийность)"
                     }
                 ];
             }
@@ -694,8 +624,7 @@
                         risks: "• Необходимость пневмопресса для равномерной проклейки задней крышки.<br>• Контроль антистатики рабочего места.",
                         matrix_key: "phone",
                         cost: "$6,000",
-                        efficiency: "~99% (Отверточный SKD-монтаж)",
-                        rule10: "Высшая (Сырье $78 / Цена $150)"
+                        efficiency: "~99% (Отверточный SKD-монтаж)"
                     }
                 ];
             }
@@ -709,8 +638,7 @@
                         risks: "• Аккуратность подключения шлейфа матрицы eDP.<br>• Настройка сервера автоматической заливки образа ОС по сети (PXE).",
                         matrix_key: "pc",
                         cost: "$20,000",
-                        efficiency: "~95% (Безопасный чистый монтаж)",
-                        rule10: "Высшая (Сырье $235 / Цена $380)"
+                        efficiency: "~95% (Безопасный чистый монтаж)"
                     }
                 ];
             }
@@ -723,8 +651,7 @@
                     risks: "• Первичная калибровка оснастки и поставщиков деталей.<br>• Закупка базового сборочного верстака.",
                     matrix_key: query,
                     cost: "$20,000",
-                    efficiency: "~95% (Поузловой цикл)",
-                    rule10: "Соблюдено (Отклонение накладных < 10%)"
+                    efficiency: "~95% (Поузловой цикл)"
                 }
             ];
         }
@@ -738,10 +665,10 @@
             document.getElementById('loading-view').style.display = 'block';
 
             const texts = [
-                "Декомпозиция проблемы на технологические шаги ячейки...",
+                "Декомпозиция проблемы на технологические шаги...",
                 "Проверка 84 стратегий блока «Аристотель»...",
-                "Фильтрация путей по Правилу 10% АСУИР...",
-                "Синтез оснастки и калибровка фондов зарплат..."
+                "Синтез оснастки и балансировка вариантов...",
+                "Формирование матрицы сравнительного анализа..."
             ];
 
             let i = 0;
@@ -795,7 +722,7 @@
             });
             listContainer.innerHTML = listHtml;
 
-            // 2. Таблица сравнения
+            // 2. ЧИСТАЯ ТАБЛИЦА СРАВНЕНИЯ (БЕЗ ЛИШНИХ СТРОК)
             let compareHtml = `
                     <table class="compare-table">
                         <thead>
@@ -806,16 +733,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Эффективность (КПД)</td>
+                                <td>Эффективность</td>
                                 ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
                             </tr>
                             <tr>
-                                <td>Капитал на оборудование ячейки</td>
+                                <td>Стоимость оборудования</td>
                                 ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>Оценка по Правилу 10% АСУИР</td>
-                                ${solutions.map(s => `<td>${s.rule10}</td>`).join('')}
                             </tr>
                         </tbody>
                     </table>
