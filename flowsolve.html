@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNOLOGY MATRIX — FlowSolve</title>
+    <title>TECHNOLOGY MATRIX — FlowSolve (4-D Socrates Engine)</title>
     <style>
         /* ================================================================
            ДИЗАЙН 1:1 С ПОРТАЛА TECHNOLOGY MATRIX
@@ -329,6 +329,16 @@
             border: 1px solid #bcd1a9;
         }
 
+        .solution-maneuver-tag {
+            font-size: 11px;
+            background: #edf2f7;
+            color: #1f4e78;
+            padding: 2px 8px;
+            border-radius: 3px;
+            border: 1px solid #cbd5e0;
+            font-weight: 600;
+        }
+
         .solution-toggle {
             font-size: 12px;
             color: #6c7a8a;
@@ -357,7 +367,13 @@
 
         .s-block {
             margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #edf2f7;
         }
+
+            .s-block:last-of-type {
+                border-bottom: none;
+            }
 
         .s-block-title {
             font-size: 12px;
@@ -366,10 +382,13 @@
             margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .s-text {
-            font-size: 14px;
+            font-size: 13.5px;
             line-height: 1.6;
             color: #333333;
         }
@@ -393,7 +412,7 @@
 
             .btn-select-solution:hover {
                 background: #005a00;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.15);
             }
 
         /* МАТРИЦА СРАВНЕНИЯ */
@@ -483,12 +502,12 @@
 
     <div class="main-wrapper">
 
-        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА (ТОЛЬКО ЯЗЫКИ) -->
+        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА: ТОЛЬКО ЯЗЫКИ -->
         <div class="top-utility-bar">
             <a href="flowsolve_en.html" class="lang-switch">Languages ⌵</a>
         </div>
 
-        <!-- ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX (1:1) -->
+        <!-- ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX -->
         <div class="brand-title-block">
             <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
@@ -504,7 +523,7 @@
             </a>
             <a href="flowsolve.html" class="nav-global-link active">
                 <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
-                <span class="sub-label">синтез решений и анализ</span>
+                <span class="sub-label">4-D синтез решений Сократа</span>
             </a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link">
                 <span class="main-label">АСУИР Gemini</span>
@@ -527,7 +546,7 @@
 
             <!-- ВВОД ИДЕИ ИЛИ ПРОБЛЕМЫ -->
             <div class="strategy-input-container">
-                <div class="strategy-title-label">🧠 Глобальная проблема, технологический барьер или идея продукта</div>
+                <div class="strategy-title-label">🧠 4-D Поиск решений: Проблема, технологический барьер или идея продукта</div>
                 <div class="input-group-row">
                     <input type="text" id="flow-input" class="input-flow-text"
                            value="как организовать серийную сборку дронов без инженерного образования персонала?"
@@ -540,7 +559,7 @@
             <div id="loading-view">
                 <div class="spinner"></div>
                 <div id="loading-text">Инициализация рекурсивного интеллекта FlowSolve...</div>
-                <div class="loading-subtext" id="loading-subtext">Анализ базы данных 84 стратегий АСУИР</div>
+                <div class="loading-subtext" id="loading-subtext">Сканирование 4-D пространства технологий (S, C, F, T)...</div>
             </div>
 
             <!-- ЭКРАН РЕЗУЛЬТАТОВ -->
@@ -548,8 +567,8 @@
 
                 <!-- ТАБЫ ВЫВОДА С МАЛИНОВЫМ ПОДЧЕРКИВАНИЕМ -->
                 <div class="matrix-tab-bar">
-                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Вертикальный список решений</a>
-                    <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ Матрица сравнения</a>
+                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Ортогональные решения (до 4-х путей Сократа)</a>
+                    <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ 4-D Матрица сравнения</a>
                 </div>
 
                 <div class="matrix-content-body">
@@ -569,6 +588,166 @@
     </div>
 
     <script>
+        /* ==========================================================================
+           БАЗА ЗНАНИЙ 4-D TECHSPACE (СТРУКТУРА, ВОЗМОЖНОСТИ, ПОТОКИ, ВРЕМЯ)
+           ========================================================================== */
+        const TECHSPACE_DATABASE = [
+            {
+                domain: "drones_and_robotics",
+                keywords: ["дрон", "беспилот", "бпла", "fpv", "drone", "квадрокоптер", "робот", "манипулятор"],
+                maneuvers: [
+                    {
+                        type: "Flank_Flow (Симбиоз по потоку)",
+                        score: "Топ-симбиоз АСУИР",
+                        title: "1. Модульный PnP-конвейер на предсобранных узлах (Отказ от пайки)",
+                        s_structure: "Замена ручной пайки и монтажа на бессварочную фиксацию PnP-стеков (F405/F7 + ESC) с быстроразъемными виброзащищенными шлейфами и винтами с контролем момента.",
+                        c_capability: "Производительность: такт сборки 6 минут на готовый БПЛА силами персонала 2-го разряда без профильного образования. Брак < 0.2%.",
+                        f_flow: "Симбиотический трансфер: закупка готовых SMD-плат у контрактных заводов автоэлектроники / ОПК. Исключение собственного радиомонтажного участка.",
+                        t_time: "Срок запуска ячейки: 7–10 дней (TRL 9 — коммерчески готовые модули).",
+                        cost: "$12,000 - $18,000",
+                        efficiency: "~98% (Исключен человеческий фактор)",
+                        capex_score: "Минимальный"
+                    },
+                    {
+                        type: "Tech_Isolation (Узкий клин / Авто-оснастка)",
+                        score: "Максимальная скорость",
+                        title: "2. Полуавтоматическая ячейка с кондуктором и авто-прошивкой",
+                        s_structure: "Локализация инновации в одной точке: быстрозажимная кондукторная оснастка + автоматический 10-портовый стенд параллельной прошивки и Smoke-контроля.",
+                        c_capability: "Исключение ошибок сборки каркаса и полярности питания. Скорость прошивки и калибровки: 45 секунд на партию.",
+                        f_flow: "Симбиоз с аддитивными центрами (3D-печать оснастки из угленаполненного полиамида) + открытый стек ПО Betaflight/ArduPilot.",
+                        t_time: "Срок внедрения: 14 дней (TRL 8).",
+                        cost: "$15,000",
+                        efficiency: "~94% (Высокий серийный темп)",
+                        capex_score: "Низкий"
+                    },
+                    {
+                        type: "Tech_Envelopment (Охват фронтов: Цена + Надежность)",
+                        score: "Сжатие себестоимости",
+                        title: "3. Сквозная SKD-линия на верстаках Detall с Pick-to-Light",
+                        s_structure: "Разделение сборки на 4 элементарных поста (рама -> моторы -> стек -> обвес) со световой индикацией правильной последовательности взятия деталей.",
+                        c_capability: "Нулевые требования к квалификации рабочих. 100% защита от ошибок сборки, пропускная способность до 120 дронов в смену на 3 человека.",
+                        f_flow: "Кооперация с поставщиками промышленной ESD-мебели и систем технического зрения.",
+                        t_time: "Срок поставки и наладки: 21 день (TRL 9).",
+                        cost: "$22,000",
+                        efficiency: "~96% (Конвейерный ритм)",
+                        capex_score: "Средний"
+                    },
+                    {
+                        type: "Tech_Mobility (Смена технологического поля)",
+                        score: "Безлюдная сборка",
+                        title: "4. Роботизированная ячейка автоматического завинчивания (SCARA)",
+                        s_structure: "Перенос механических операций закручивания винтов и дозирования фиксатора резьбы на настольного 4-осевого робота-манипулятора.",
+                        c_capability: "Круглосуточный цикл 24/7 без утомляемости. Рабочий выполняет только укладку деталей в кассеты.",
+                        f_flow: "Использование стандартных серийных промышленных манипуляторов с интеграцией в контур АСУИР.",
+                        t_time: "Срок запуска: 30–45 дней (TRL 8).",
+                        cost: "$32,000",
+                        efficiency: "~99.5% (Автомат)",
+                        capex_score: "Высокий"
+                    }
+                ]
+            },
+            {
+                domain: "electronics_devices",
+                keywords: ["телефон", "смартфон", "ноутбук", "компьютер", "планшет", "электроника", "phone", "pc", "laptop"],
+                maneuvers: [
+                    {
+                        type: "Flank_Flow (Симбиоз по потоку)",
+                        score: "Топ-выбор АСУИР",
+                        title: "1. Модульная SKD-ячейка сборки из Barebone-комплектов",
+                        s_structure: "Поузловой монтаж устройств из готовых оттестированных узлов (SoC-плата, дисплейный модуль, батарейный блок, корпус) без пайки.",
+                        c_capability: "Такт выхода готового изделия: 50–90 секунд на пост. Надежность сборки 99.8%.",
+                        f_flow: "Симбиоз: прямые поставки OEM-модулей с контрактных заводов ЮВА без затрат на собственное производство плат.",
+                        t_time: "Срок развертывания линии: 10–14 дней (TRL 9).",
+                        cost: "$8,000 - $15,000",
+                        efficiency: "~99% (Отверточный SKD-монтаж)",
+                        capex_score: "Минимальный"
+                    },
+                    {
+                        type: "Tech_Isolation (Точечный клин)",
+                        score: "Снижение брака",
+                        title: "2. Полуавтоматический пост пневмопрессования и склейки",
+                        s_structure: "Вынос критической операции герметизации корпуса на специализированный пневмопресс с нагревом и контролем усилия.",
+                        c_capability: "Равномерная проклейка защитного стекла с влагозащитой IP68 персоналом без опыта.",
+                        f_flow: "Стандартная серийная оснастка для сервисных центров промышленного масштаба.",
+                        t_time: "Срок запуска: 5 дней (TRL 9).",
+                        cost: "$6,000",
+                        efficiency: "~97%",
+                        capex_score: "Минимальный"
+                    },
+                    {
+                        type: "Tech_Envelopment (Охват по скорости)",
+                        score: "Максимальный такт",
+                        title: "3. Конвейер с автоматизированным PXE-сервером заливки ПО",
+                        s_structure: "Одновременная прошивка и стресс-тестирование до 24 устройств по единой гигабитной сети в процессе межоперационного перемещения.",
+                        c_capability: "Сокращение времени предпродажной подготовки с 25 минут до 2 минут на партию.",
+                        f_flow: "Использование открытых серверных протоколов заливки образов ОС.",
+                        t_time: "Срок наладки: 7 дней (TRL 9).",
+                        cost: "$12,000",
+                        efficiency: "~98%",
+                        capex_score: "Низкий"
+                    }
+                ]
+            },
+            {
+                domain: "universal_engineering",
+                keywords: ["default"],
+                maneuvers: [
+                    {
+                        type: "Flank_Structure (Фланг по физической структуре)",
+                        score: "Топ-выбор FlowSolve",
+                        title: "1. Модульная декомпозиция с заменой заказных узлов на промышленный стандарт",
+                        s_structure: "Смена физического принципа: отказ от уникальных деталей в пользу унифицированных серийных узлов смежных отраслей.",
+                        c_capability: "Достижение 100% проектных характеристик без проведения многолетнего НИОКР.",
+                        f_flow: "Симбиоз: интеграция готовых компонентов со свободного B2B-рынка и каталогов производителей.",
+                        t_time: "Готовность к запуску: немедленно (TRL 9).",
+                        cost: "$10,000 - $25,000",
+                        efficiency: "~95%",
+                        capex_score: "Низкий"
+                    },
+                    {
+                        type: "Tech_Isolation (Точечный клин)",
+                        score: "Быстрый старт",
+                        title: "2. Быстроразвертываемая стартовая ячейка на 2-3 оператора",
+                        s_structure: "Изоляция сложной технологии внутри покупного OEM-модуля. Рабочие выполняют только финальную сборку и упаковку.",
+                        c_capability: "Минимизация капитальных затрат при сохранении базового функционала продукта.",
+                        f_flow: "Аутсорсинг заготовительных операций на заводы-партнеры через координацию в АСУИР.",
+                        t_time: "Срок развертывания: 2–3 недели.",
+                        cost: "$15,000",
+                        efficiency: "~90%",
+                        capex_score: "Минимальный"
+                    },
+                    {
+                        type: "Tech_Envelopment (Охват фронтов)",
+                        score: "Экономический оптимум",
+                        title: "3. Платформенная сборка с унифицированными интерфейсами (LEGO-стандарт)",
+                        s_structure: "Сжатие себестоимости за счет использования универсального несущего конструктива и быстросъемных фиксаторов.",
+                        c_capability: "Возможность выпуска до 5 модификаций продукта на одном рабочем месте без длительной переналадки.",
+                        f_flow: "Кооперация с поставщиками стандартных профильных систем и типовой фурнитуры.",
+                        t_time: "Срок внедрения: 3–4 недели (TRL 8).",
+                        cost: "$20,000",
+                        efficiency: "~97%",
+                        capex_score: "Средний"
+                    },
+                    {
+                        type: "Flank_Flow (Симбиотический трансфер)",
+                        score: "Нулевой CAPEX",
+                        title: "4. Распределенная мануфактура в контуре АСУИР",
+                        s_structure: "Полный отказ от закупки тяжелых станков — распределение операций по свободным мощностям 3-х существующих заводов.",
+                        c_capability: "Нулевые инвестиции в основные средства, оплата только сдельной работы за партии деталей.",
+                        f_flow: "Использование сети контрактных производств и институтов региона.",
+                        t_time: "Срок построения цепочки: 10–14 дней.",
+                        cost: "$5,000",
+                        efficiency: "~93%",
+                        capex_score: "Нулевой"
+                    }
+                ]
+            }
+        ];
+
+        /* ==========================================================================
+           ЛОГИКА ВЗАИМОДЕЙСТВИЯ И UI
+           ========================================================================== */
+
         function toggleAccordion(element) {
             element.classList.toggle('expanded');
         }
@@ -588,75 +767,22 @@
             }
         }
 
-        // ДИНАМИЧЕСКИЙ СИНТЕЗАТОР РЕШЕНИЙ
+        // Поиск совпадений в базе 4-D онтологии
         function generateSolutionsForQuery(query) {
             const q = query.toLowerCase();
 
-            if (q.includes('дрон') || q.includes('беспилот') || q.includes('fpv') || q.includes('drone')) {
-                return [
-                    {
-                        title: "1. Компактная ESD-ячейка сборки 5-7\" БПЛА на готовых PnP-модулях",
-                        score: "Топ-выбор АСУИР",
-                        description: "Закупка готовых пропаянных полетных стеков (F405/F7 + 45A ESC) с быстросъемными разъемами. Персонал без инженерного образования выполняет только поузловой монтаж на конвейерном ESD-верстаке и закручивание 8 винтов рамы калиброванной электроотверткой с контролем момента.",
-                        risks: "• Закупка качественного инструмента с контролем момента затяжки.<br>• Требуется входной контроль полетных контроллеров через Smoke Stopper.",
-                        matrix_key: "drone",
-                        cost: "$25,000",
-                        efficiency: "~98% (Исключен человеческий фактор)"
-                    },
-                    {
-                        title: "2. Модульная полуавтоматическая ячейка с пневмопрессом и авто-прошивкой",
-                        score: "Максимальная скорость",
-                        description: "Использование 4-метрового сборочного верстака Detall с автоматическим 10-портовым стендом заливки ПО. Каждый рабочий выполняет элементарную операцию по 45 секунд.",
-                        risks: "• Необходимость базовой пусконаладки сетевого стенда прошивки.<br>• Зависимость от ритмичности поставок карбоновых рам.",
-                        matrix_key: "drone",
-                        cost: "$15,000",
-                        efficiency: "~92% (Высокая серийность)"
-                    }
-                ];
+            let matched = TECHSPACE_DATABASE.find(item =>
+                item.keywords.some(k => q.includes(k))
+            );
+
+            if (!matched) {
+                matched = TECHSPACE_DATABASE.find(item => item.domain === "universal_engineering");
             }
 
-            if (q.includes('телефон') || q.includes('смартфон') || q.includes('phone')) {
-                return [
-                    {
-                        title: "1. Модульная SKD-ячейка сборки смартфонов на верстаках Detall",
-                        score: "Топ-выбор АСУИР",
-                        description: "Поузловой монтаж смартфона 6.5\" FHD+ из готовых компонентов (дисплей, SoC-плата, камеры, батарея) на 3 постах. Такт выхода — 50 секунд на готовый телефон.",
-                        risks: "• Необходимость пневмопресса для равномерной проклейки задней крышки.<br>• Контроль антистатики рабочего места.",
-                        matrix_key: "phone",
-                        cost: "$6,000",
-                        efficiency: "~99% (Отверточный SKD-монтаж)"
-                    }
-                ];
-            }
-
-            if (q.includes('ноутбук') || q.includes('laptop') || q.includes('компьютер')) {
-                return [
-                    {
-                        title: "1. Линия SKD-сборки ноутбуков 15.6\" на 2–3 человека",
-                        score: "Топ-выбор АСУИР",
-                        description: "Сборка ноутбука из Barebone-шасси (корпус, экран, клавиатура) с установкой процессора, памяти SO-DIMM 16GB и накопителя M.2 SSD 512GB. Время сборки 16 минут на аппарат.",
-                        risks: "• Аккуратность подключения шлейфа матрицы eDP.<br>• Настройка сервера автоматической заливки образа ОС по сети (PXE).",
-                        matrix_key: "pc",
-                        cost: "$20,000",
-                        efficiency: "~95% (Безопасный чистый монтаж)"
-                    }
-                ];
-            }
-
-            return [
-                {
-                    title: `1. Автоматизированная стартовая ячейка для "${query}"`,
-                    score: "Топ-выбор АСУИР",
-                    description: `Применение стандартизированного модульного оборудования ячейки на 2–3 человека. Все сложные операции стандартизированы через оснастку, персонал выполняет только поузловую сборку.`,
-                    risks: "• Первичная калибровка оснастки и поставщиков деталей.<br>• Закупка базового сборочного верстака.",
-                    matrix_key: query,
-                    cost: "$20,000",
-                    efficiency: "~95% (Поузловой цикл)"
-                }
-            ];
+            return matched.maneuvers;
         }
 
-        // СТАРТ ПОИСКА
+        // Старт синтеза решений с симуляцией 4-D навигации Сократа
         function startFlowSolve() {
             const input = document.getElementById('flow-input').value.trim();
             if (!input) return alert("Пожалуйста, введите проблему или идею.");
@@ -664,54 +790,72 @@
             document.getElementById('results-view').style.display = 'none';
             document.getElementById('loading-view').style.display = 'block';
 
-            const texts = [
-                "Декомпозиция проблемы на технологические шаги...",
-                "Проверка 84 стратегий блока «Аристотель»...",
-                "Синтез оснастки и балансировка вариантов...",
-                "Формирование матрицы сравнительного анализа..."
+            const stages = [
+                "Декомпозиция проблемы на 4-D координаты (Structure, Capability, Flow, Time)...",
+                "Сканирование барьеров лобового пути и запуск маневров Сократа...",
+                "Симбиотический поиск готовых узлов в базах институтов и заводов...",
+                "Синтез до 4-х ортогональных технологических путей и матрицы сравнения..."
             ];
 
-            let i = 0;
+            let stageIdx = 0;
             document.getElementById('loading-text').innerText = "Инициализация рекурсивного интеллекта FlowSolve...";
-            document.getElementById('loading-subtext').innerText = texts[0];
+            document.getElementById('loading-subtext').innerText = stages[0];
 
             const interval = setInterval(() => {
-                i++;
-                if (i < texts.length) {
-                    document.getElementById('loading-subtext').innerText = texts[i];
+                stageIdx++;
+                if (stageIdx < stages.length) {
+                    document.getElementById('loading-subtext').innerText = stages[stageIdx];
                 } else {
                     clearInterval(interval);
                     renderResults(input);
                     document.getElementById('loading-view').style.display = 'none';
                     document.getElementById('results-view').style.display = 'block';
                 }
-            }, 500);
+            }, 450);
         }
 
-        // РЕНДЕР РЕЗУЛЬТАТОВ
+        // Отрисовка результатов (Аккордеон решений + 4-D Матрица)
         function renderResults(query) {
             const solutions = generateSolutionsForQuery(query);
             const listContainer = document.getElementById('view-list');
             const compareContainer = document.getElementById('view-compare');
 
-            // 1. Список решений
+            const encodedQuery = encodeURIComponent(query);
+
+            // 1. Формирование списка решений с 4-D паспортами
             let listHtml = '';
             solutions.forEach((s, idx) => {
                 const isExpanded = idx === 0 ? 'expanded' : '';
+                const encodedTitle = encodeURIComponent(s.title);
+
                 listHtml += `
                         <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
                             <div class="solution-header">
-                                <div class="solution-title">${s.title} <span class="solution-score">${s.score}</span></div>
+                                <div class="solution-title">
+                                    ${s.title}
+                                    <span class="solution-score">${s.score}</span>
+                                    <span class="solution-maneuver-tag">🎯 Маневр: ${s.type}</span>
+                                </div>
                                 <div class="solution-toggle">▼</div>
                             </div>
                             <div class="solution-body" onclick="event.stopPropagation()">
+
                                 <div class="s-block">
-                                    <div class="s-block-title">🛠 Описание реализации (Как это работает):</div>
-                                    <div class="s-text">${s.description}</div>
+                                    <div class="s-block-title">🔬 4-D Измерения: Структура и Возможности (Structure & Capability)</div>
+                                    <div class="s-text"><b>Физическая структура (S):</b> ${s.s_structure}</div>
+                                    <div class="s-text" style="margin-top:6px;"><b>Технологические возможности (C):</b> ${s.c_capability}</div>
                                 </div>
+
                                 <div class="s-block">
-                                    <div class="s-block-title">⚠️ Сложности и барьеры (Risks):</div>
-                                    <div class="s-text">${s.risks}</div>
+                                    <div class="s-block-title">🏭 4-D Измерения: Симбиотический поток и Время (Flow & Time)</div>
+                                    <div class="s-text"><b>Источники в потоке (Flow / Заводы и Институты):</b> ${s.f_flow}</div>
+                                    <div class="s-text" style="margin-top:6px;"><b>Готовность и время запуска (Time / TRL):</b> ${s.t_time}</div>
+                                </div>
+
+                                <div style="margin-top:16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                                    <a href="ASUIRGemeniCalculatOptimizer_ru.html?solution=${encodedTitle}&query=${encodedQuery}&cost=${encodeURIComponent(s.cost)}&eff=${encodeURIComponent(s.efficiency)}" class="btn-select-solution">
+                                        ⚡ Передать в Генератор эффективности (АСУИР) ➔
+                                    </a>
                                 </div>
 
                             </div>
@@ -720,23 +864,35 @@
             });
             listContainer.innerHTML = listHtml;
 
-            // 2. ЧИСТАЯ ТАБЛИЦА СРАВНЕНИЯ (БЕЗ ЛИШНИХ СТРОК)
+            // 2. Формирование расширенной матрицы сравнения 4-D
             let compareHtml = `
                     <table class="compare-table">
                         <thead>
                             <tr>
-                                <th>Критерий / Параметр</th>
+                                <th>Критерий / 4-D Измерение</th>
                                 ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Эффективность</td>
+                                <td>Маневр системы «Сократ»</td>
+                                ${solutions.map(s => `<td><span style="color:#1f4e78; font-weight:700;">${s.type}</span></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Эффективность сборки</td>
                                 ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
                             </tr>
                             <tr>
-                                <td>Стоимость оборудования</td>
+                                <td>Оценка оборудования (CAPEX)</td>
                                 ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Срок внедрения (Time/TRL)</td>
+                                ${solutions.map(s => `<td>${s.t_time}</td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Уровень капиталоемкости</td>
+                                ${solutions.map(s => `<td>${s.capex_score}</td>`).join('')}
                             </tr>
                         </tbody>
                     </table>
@@ -744,6 +900,7 @@
             compareContainer.innerHTML = compareHtml;
         }
 
+        // Автостарт при передаче параметров в URL
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const q = urlParams.get('query');
