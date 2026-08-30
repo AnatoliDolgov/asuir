@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNOLOGY MATRIX — FlowSolve</title>
+    <title>TECHNOLOGY MATRIX — FlowSolve (4-D Socrates Engine)</title>
     <style>
         /* ================================================================
-           TECHNOLOGY MATRIX DESIGN (EN)
+           TECHNOLOGY MATRIX DESIGN (1:1 AUTHENTIC PORTAL STYLE)
            ================================================================ */
         * {
             margin: 0;
@@ -26,7 +26,7 @@
             margin: 0 auto;
         }
 
-        /* TOP UTILITY BAR (LANGUAGES ONLY) */
+        /* TOP UTILITY BAR: LANGUAGES ONLY */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
@@ -47,7 +47,7 @@
                 color: #1f4e78;
             }
 
-        /* BRAND HEADER (1:1) */
+        /* BRAND HEADER */
         .brand-title-block {
             text-align: center;
             margin: 20px 0 15px;
@@ -109,7 +109,7 @@
                 color: #1f4e78;
             }
 
-        /* 3. SATURATED DOUBLE GRAY DIVIDER (1:1) */
+        /* 3. SATURATED DOUBLE GRAY DIVIDER */
         .matrix-divider-double-box {
             margin: 10px 0 25px 0;
             width: 100%;
@@ -204,7 +204,7 @@
                 box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             }
 
-        /* RESULTS SUBTABS WITH MAGENTA UNDERLINE */
+        /* RESULTS SUBTABS WITH MAGENTA ACCENT UNDERLINE */
         .matrix-tab-bar {
             display: flex;
             background: #fbfbfb;
@@ -245,7 +245,7 @@
             padding: 24px 28px;
         }
 
-        /* LOADING SIMULATION */
+        /* LOADING SIMULATION / SPINNER */
         #loading-view {
             display: none;
             text-align: center;
@@ -329,6 +329,16 @@
             border: 1px solid #bcd1a9;
         }
 
+        .solution-maneuver-tag {
+            font-size: 11px;
+            background: #edf2f7;
+            color: #1f4e78;
+            padding: 2px 8px;
+            border-radius: 3px;
+            border: 1px solid #cbd5e0;
+            font-weight: 600;
+        }
+
         .solution-toggle {
             font-size: 12px;
             color: #6c7a8a;
@@ -357,7 +367,13 @@
 
         .s-block {
             margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #edf2f7;
         }
+
+            .s-block:last-of-type {
+                border-bottom: none;
+            }
 
         .s-block-title {
             font-size: 12px;
@@ -366,10 +382,13 @@
             margin-bottom: 6px;
             text-transform: uppercase;
             letter-spacing: 0.4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .s-text {
-            font-size: 14px;
+            font-size: 13.5px;
             line-height: 1.6;
             color: #333333;
         }
@@ -393,7 +412,7 @@
 
             .btn-select-solution:hover {
                 background: #005a00;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.15);
             }
 
         /* COMPARISON MATRIX TABLE */
@@ -488,7 +507,7 @@
             <a href="flowsolve.html" class="lang-switch">Languages ⌵</a>
         </div>
 
-        <!-- BRAND TITLE (1:1) -->
+        <!-- BRAND TITLE BLOCK -->
         <div class="brand-title-block">
             <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
@@ -504,7 +523,7 @@
             </a>
             <a href="flowsolve_en.html" class="nav-global-link active">
                 <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
-                <span class="sub-label">solution synthesis & analysis</span>
+                <span class="sub-label">4-D Socrates Solution Synthesis</span>
             </a>
             <a href="ASUIRGemeniCalculatOptimizer_en.html" class="nav-global-link">
                 <span class="main-label">ASUIR Gemini</span>
@@ -516,7 +535,7 @@
             </a>
         </nav>
 
-        <!-- 3. SATURATED DOUBLE GRAY DIVIDER (1:1) -->
+        <!-- 3. SATURATED DOUBLE GRAY DIVIDER -->
         <div class="matrix-divider-double-box">
             <div class="thin-line"></div>
             <div class="thick-line"></div>
@@ -527,11 +546,11 @@
 
             <!-- STRATEGY INPUT CONTAINER -->
             <div class="strategy-input-container">
-                <div class="strategy-title-label">🧠 Global Problem, Technological Challenge or Product Idea</div>
+                <div class="strategy-title-label">🧠 4-D Solution Search: Problem, Technological Barrier, or Product Idea</div>
                 <div class="input-group-row">
                     <input type="text" id="flow-input" class="input-flow-text"
                            value="How to set up batch drone assembly with non-engineer personnel?"
-                           placeholder="Describe a technical, manufacturing, or social challenge...">
+                           placeholder="Describe a technical barrier, manufacturing challenge, or product idea...">
                     <button class="btn-start-flow" onclick="startFlowSolve()">🧠 Synthesize Solutions</button>
                 </div>
             </div>
@@ -540,7 +559,7 @@
             <div id="loading-view">
                 <div class="spinner"></div>
                 <div id="loading-text">Initializing FlowSolve Recursive Intelligence...</div>
-                <div class="loading-subtext" id="loading-subtext">Analyzing ASUIR database of 84 strategies</div>
+                <div class="loading-subtext" id="loading-subtext">Scanning 4-D Technology Space (Structure, Capability, Flow, Time)...</div>
             </div>
 
             <!-- RESULTS VIEW -->
@@ -548,8 +567,8 @@
 
                 <!-- SUBTABS WITH MAGENTA ACCENT UNDERLINE -->
                 <div class="matrix-tab-bar">
-                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Vertical Solutions List</a>
-                    <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ Comparison Matrix</a>
+                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Orthogonal Solutions (Up to 4 Socrates Pathways)</a>
+                    <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ 4-D Comparison Matrix</a>
                 </div>
 
                 <div class="matrix-content-body">
@@ -569,6 +588,166 @@
     </div>
 
     <script>
+        /* ==========================================================================
+           4-D TECHSPACE KNOWLEDGE BASE (STRUCTURE, CAPABILITY, FLOW, TIME)
+           ========================================================================== */
+        const TECHSPACE_DATABASE = [
+            {
+                domain: "drones_and_robotics",
+                keywords: ["drone", "uav", "fpv", "aircraft", "assembly", "personnel", "quadcopter", "robot"],
+                maneuvers: [
+                    {
+                        type: "Flank_Flow (Flow Symbiosis)",
+                        score: "ASUIR Top Symbiosis",
+                        title: "1. Modular PnP Flowline on Pre-Soldered Stacks (Zero-Soldering)",
+                        s_structure: "Elimination of manual wire soldering: snap-in mounting of pre-soldered PnP flight stacks (F405/F7 + 45A ESC) with quick-disconnect vibration-damped ribbon cables and calibrated torque screws.",
+                        c_capability: "Throughput: 6-minute takt time per finished UAV by Grade-2 workers without engineering degree. Defect rate < 0.2%.",
+                        f_flow: "Symbiotic transfer: procurement of SMT-assembled PCBA stacks from specialized automotive/defense contract manufacturers, bypassing in-house soldering facilities.",
+                        t_time: "Line ramp-up time: 7–10 days (TRL 9 — commercially off-the-shelf modules).",
+                        cost: "$12,000 - $18,000",
+                        efficiency: "~98% (Human Error Minimized)",
+                        capex_score: "Minimal"
+                    },
+                    {
+                        type: "Tech_Isolation (Narrow Wedge / Dedicated Tooling)",
+                        score: "Maximum Speed",
+                        title: "2. Semi-Automated Cell with Guide Fixture & Auto-Flashing Dock",
+                        s_structure: "Innovation localized in a single point: quick-clamp ergonomic guide fixture + 10-port parallel firmware flashing dock with integrated Smoke-Stopper protection.",
+                        c_capability: "Zero assembly error rate for airframe polarity. Firmware flashing, parameter injection, and gyro calibration completed in 45 seconds per batch.",
+                        f_flow: "Symbiosis with additive manufacturing hubs (3D printing of carbon-filled polyamide fixtures) + open-source Betaflight/ArduPilot stack.",
+                        t_time: "Deployment timeline: 14 days (TRL 8).",
+                        cost: "$15,000",
+                        efficiency: "~94% (High Batch Takt)",
+                        capex_score: "Low"
+                    },
+                    {
+                        type: "Tech_Envelopment (Dual-Front Squeeze: Cost + Reliability)",
+                        score: "Cost Compression",
+                        title: "3. End-to-End SKD Line on Detall Workbenches with Pick-to-Light",
+                        s_structure: "Deconstruction of assembly into 4 elementary 45-second operations (Frame -> Motors -> Stack -> Payload) guided by Pick-to-Light LED bin sensors.",
+                        c_capability: "Zero operator training requirements. 100% assembly sequence compliance, line output up to 120 UAVs per shift with 3 operators.",
+                        f_flow: "Cooperation with standard industrial ESD furniture vendors and machine vision inspection systems.",
+                        t_time: "Lead time for procurement and setup: 21 days (TRL 9).",
+                        cost: "$22,000",
+                        efficiency: "~96% (Conveyor Rhythm)",
+                        capex_score: "Medium"
+                    },
+                    {
+                        type: "Tech_Mobility (Field Shift / Automated Cell)",
+                        score: "Lights-Out Assembly",
+                        title: "4. Robotic Desktop Fastening & Potting Cell (SCARA)",
+                        s_structure: "Transfer of mechanical screw driving and conformal compound dispensing to a 4-axis desktop SCARA robotic manipulator.",
+                        c_capability: "24/7 continuous operation without operator fatigue. Human operator only loads component trays.",
+                        f_flow: "Off-the-shelf industrial SCARA robots integrated into the ASUIR automated dispatching framework.",
+                        t_time: "Deployment timeline: 30–45 days (TRL 8).",
+                        cost: "$32,000",
+                        efficiency: "~99.5% (Full Automation)",
+                        capex_score: "High"
+                    }
+                ]
+            },
+            {
+                domain: "electronics_devices",
+                keywords: ["phone", "smartphone", "laptop", "notebook", "computer", "pc", "tablet", "electronics"],
+                maneuvers: [
+                    {
+                        type: "Flank_Flow (Flow Symbiosis)",
+                        score: "ASUIR Top Pick",
+                        title: "1. Modular SKD Assembly Cell on Barebone Kits",
+                        s_structure: "Sub-assembly of consumer electronics from pre-tested modules (SoC mainboard, display module, battery pack, chassis) with zero soldering.",
+                        c_capability: "Takt time: 50–90 seconds per finished unit. Production line first-pass yield 99.8%.",
+                        f_flow: "Symbiosis: direct OEM module procurement from Tier-1 contract manufacturers without Capex for in-house surface mounting lines.",
+                        t_time: "Line deployment time: 10–14 days (TRL 9).",
+                        cost: "$8,000 - $15,000",
+                        efficiency: "~99% (Screwdriver SKD Assembly)",
+                        capex_score: "Minimal"
+                    },
+                    {
+                        type: "Tech_Isolation (Narrow Wedge)",
+                        score: "Defect Elimination",
+                        title: "2. Semi-Automated Pneumatic Bonding & Press Station",
+                        s_structure: "Critical enclosure sealing operation isolated inside a specialized heated pneumatic press with precise pressure profiling.",
+                        c_capability: "Uniform IP68 waterproof glass/back-cover adhesion performed safely by entry-level operators.",
+                        f_flow: "Off-the-shelf industrial repair and assembly fixtures.",
+                        t_time: "Setup timeline: 5 days (TRL 9).",
+                        cost: "$6,000",
+                        efficiency: "~97%",
+                        capex_score: "Minimal"
+                    },
+                    {
+                        type: "Tech_Envelopment (Speed & Batch Squeeze)",
+                        score: "Maximum Takt",
+                        title: "3. Flowline with Automated Network PXE Flashing Server",
+                        s_structure: "Simultaneous OS image deployment and stress-testing for up to 24 units across Gigabit LAN during inter-stage conveyor transfer.",
+                        c_capability: "Reduction of pre-delivery staging time from 25 minutes to 2 minutes per batch.",
+                        f_flow: "Utilization of open-source network deployment protocols and standard enterprise servers.",
+                        t_time: "Commissioning timeline: 7 days (TRL 9).",
+                        cost: "$12,000",
+                        efficiency: "~98%",
+                        capex_score: "Low"
+                    }
+                ]
+            },
+            {
+                domain: "universal_engineering",
+                keywords: ["default"],
+                maneuvers: [
+                    {
+                        type: "Flank_Structure (Physical Structure Shift)",
+                        score: "FlowSolve Top Pick",
+                        title: "1. Modular Decomposition with Industrial Standard Substitution",
+                        s_structure: "Physical principle shift: replacement of custom unproven components with standardized industrial modules from adjacent industries.",
+                        c_capability: "Attainment of 100% target functional envelope with zero long-term R&D Capex expenditure.",
+                        f_flow: "Symbiosis: direct integration of COTS (Commercial Off-The-Shelf) components from open B2B marketplaces.",
+                        t_time: "Readiness for immediate launch (TRL 9).",
+                        cost: "$10,000 - $25,000",
+                        efficiency: "~95%",
+                        capex_score: "Low"
+                    },
+                    {
+                        type: "Tech_Isolation (Narrow Wedge)",
+                        score: "Fast Launch",
+                        title: "2. Rapid Deployment Starter Assembly Cell for 2–3 Operators",
+                        s_structure: "Complex technology encapsulated inside an outsourced OEM subsystem. In-house personnel execute only mechanical docking and packaging.",
+                        c_capability: "Minimization of upfront capital expenditure while preserving core product specifications.",
+                        f_flow: "Outsourcing of base machining operations to partner manufacturing facilities coordinated via ASUIR.",
+                        t_time: "Deployment timeline: 2–3 weeks.",
+                        cost: "$15,000",
+                        efficiency: "~90%",
+                        capex_score: "Minimal"
+                    },
+                    {
+                        type: "Tech_Envelopment (Multi-Front Squeeze)",
+                        score: "Economic Optimum",
+                        title: "3. Platform Assembly with Standardized Interfaces (LEGO Standard)",
+                        s_structure: "Unit cost compression via universal structural extrusion profiles and quick-locking mechanical fasteners.",
+                        c_capability: "Ability to assemble up to 5 product variants on a single workbench without line retooling.",
+                        f_flow: "Cooperation with standard structural profile and industrial fastener vendors.",
+                        t_time: "Implementation timeline: 3–4 weeks (TRL 8).",
+                        cost: "$20,000",
+                        efficiency: "~97%",
+                        capex_score: "Medium"
+                    },
+                    {
+                        type: "Flank_Flow (Symbiotic Transfer)",
+                        score: "Zero Capex",
+                        title: "4. Distributed Manufacturing Network Coordinated via ASUIR",
+                        s_structure: "Complete rejection of heavy machinery acquisition: distributing production steps across idle capacities of 3 existing factories.",
+                        c_capability: "Zero fixed-asset investment, pay-per-part manufacturing as orders arrive.",
+                        f_flow: "Contract manufacturing ecosystem and research institute infrastructure.",
+                        t_time: "Network assembly lead time: 10–14 days.",
+                        cost: "$5,000",
+                        efficiency: "~93%",
+                        capex_score: "Zero"
+                    }
+                ]
+            }
+        ];
+
+        /* ==========================================================================
+           INTERACTION & UI LOGIC
+           ========================================================================== */
+
         function toggleAccordion(element) {
             element.classList.toggle('expanded');
         }
@@ -588,162 +767,140 @@
             }
         }
 
-        // DYNAMIC SOLUTION SYNTHESIZER
+        // Domain matching in 4-D ontology
         function generateSolutionsForQuery(query) {
             const q = query.toLowerCase();
 
-            if (q.includes('drone') || q.includes('uav') || q.includes('fpv') || q.includes('aircraft')) {
-                return [
-                    {
-                        title: "1. Compact ESD 5-7\" Drone Assembly Cell on Pre-soldered PnP Modules",
-                        score: "ASUIR Top Pick",
-                        description: "Procurement of pre-soldered flight stacks (F405/F7 + 45A ESC) with quick-disconnect connectors. Non-engineer personnel perform only modular sub-assembly on an ESD conveyor workbench and 8-screw frame fastening with calibrated torque screwdrivers.",
-                        risks: "• Procurement of high-precision torque-controlled tools required.<br>• Incoming quality control of flight controllers via Smoke Stopper required.",
-                        matrix_key: "drone",
-                        cost: "$25,000",
-                        efficiency: "~98% (Human error minimized)"
-                    },
-                    {
-                        title: "2. Modular Semi-Automated Cell with Pneumatic Press & Auto-Flashing",
-                        score: "Maximum Speed",
-                        description: "Use of a 4-meter Detall assembly workbench with an automated 10-port firmware flashing dock. Each worker executes a simplified 45-second operation.",
-                        risks: "• Initial setup of the network flashing dock required.<br>• Dependence on steady carbon frame deliveries.",
-                        matrix_key: "drone",
-                        cost: "$15,000",
-                        efficiency: "~92% (High batch throughput)"
-                    }
-                ];
+            let matched = TECHSPACE_DATABASE.find(item =>
+                item.keywords.some(k => q.includes(k))
+            );
+
+            if (!matched) {
+                matched = TECHSPACE_DATABASE.find(item => item.domain === "universal_engineering");
             }
 
-            if (q.includes('phone') || q.includes('smartphone') || q.includes('mobile')) {
-                return [
-                    {
-                        title: "1. Modular SKD Smartphone Assembly Cell on Detall Workbenches",
-                        score: "ASUIR Top Pick",
-                        description: "Sub-assembly of 6.5\" FHD+ smartphone from ready modular components (display, SoC board, cameras, battery) across 3 workstations. Line takt time — 50 seconds per finished phone.",
-                        risks: "• Pneumatic press required for uniform back-cover adhesion.<br>• ESD static control monitoring at workstations.",
-                        matrix_key: "phone",
-                        cost: "$6,000",
-                        efficiency: "~99% (Screwdriver SKD assembly)"
-                    }
-                ];
-            }
-
-            if (q.includes('laptop') || q.includes('notebook') || q.includes('computer') || q.includes('pc')) {
-                return [
-                    {
-                        title: "1. SKD 15.6\" Laptop Assembly Line for 2–3 Operators",
-                        score: "ASUIR Top Pick",
-                        description: "Assembly of notebook from Barebone chassis (case, screen, keyboard, battery) with installation of processor board, SO-DIMM 16GB RAM and M.2 SSD 512GB storage. Total assembly cycle time is 16 minutes per unit.",
-                        risks: "• Careful handling of the delicate eDP display ribbon cable.<br>• Setup of PXE automated OS network deployment server.",
-                        matrix_key: "pc",
-                        cost: "$20,000",
-                        efficiency: "~95% (Safe cleanroom benchwork)"
-                    }
-                ];
-            }
-
-            return [
-                {
-                    title: `1. Automated Starter Production Cell for "${query}"`,
-                    score: "ASUIR Top Pick",
-                    description: `Application of standardized modular equipment cell for 2–3 operators. All complex operations are standardized through tooling fixtures, personnel perform only component assembly.`,
-                    risks: "• Initial calibration of tooling fixtures and part suppliers.<br>• Procurement of the basic modular assembly bench.",
-                    matrix_key: query,
-                    cost: "$20,000",
-                    efficiency: "~95% (Modular cycle)"
-                }
-            ];
+            return matched.maneuvers;
         }
 
-        // START SYNTHESIS
+        // Start synthesis with simulated 4-D Socrates navigation
         function startFlowSolve() {
             const input = document.getElementById('flow-input').value.trim();
-            if (!input) return alert("Please enter a problem, idea, or challenge.");
+            if (!input) return alert("Please enter a technical barrier, problem, or product idea.");
 
             document.getElementById('results-view').style.display = 'none';
             document.getElementById('loading-view').style.display = 'block';
 
-            const texts = [
-                "Decomposing challenge into modular production steps...",
-                "Checking 84 strategies of the 'Aristotle' block...",
-                "Synthesizing tooling options...",
-                "Generating comparative analysis matrix..."
+            const stages = [
+                "Decomposing challenge into 4-D coordinates (Structure, Capability, Flow, Time)...",
+                "Scanning frontal path barriers and launching Socrates maneuvers...",
+                "Executing symbiotic search across industrial supplier graphs and institutes...",
+                "Synthesizing up to 4 orthogonal technological pathways and comparison matrix..."
             ];
 
-            let i = 0;
+            let stageIdx = 0;
             document.getElementById('loading-text').innerText = "Initializing FlowSolve Recursive Intelligence...";
-            document.getElementById('loading-subtext').innerText = texts[0];
+            document.getElementById('loading-subtext').innerText = stages[0];
 
             const interval = setInterval(() => {
-                i++;
-                if (i < texts.length) {
-                    document.getElementById('loading-subtext').innerText = texts[i];
+                stageIdx++;
+                if (stageIdx < stages.length) {
+                    document.getElementById('loading-subtext').innerText = stages[stageIdx];
                 } else {
                     clearInterval(interval);
                     renderResults(input);
                     document.getElementById('loading-view').style.display = 'none';
                     document.getElementById('results-view').style.display = 'block';
                 }
-            }, 500);
+            }, 450);
         }
 
-        // RENDER RESULTS
+        // Render synthesized results (Accordion + 4-D Comparison Matrix)
         function renderResults(query) {
             const solutions = generateSolutionsForQuery(query);
             const listContainer = document.getElementById('view-list');
             const compareContainer = document.getElementById('view-compare');
 
-            // 1. Solutions list (Accordion)
+            const encodedQuery = encodeURIComponent(query);
+
+            // 1. Accordion list with 4-D passports
             let listHtml = '';
             solutions.forEach((s, idx) => {
                 const isExpanded = idx === 0 ? 'expanded' : '';
-                listHtml += `
-                            <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
-                                <div class="solution-header">
-                                    <div class="solution-title">${s.title} <span class="solution-score">${s.score}</span></div>
-                                    <div class="solution-toggle">▼</div>
-                                </div>
-                                <div class="solution-body" onclick="event.stopPropagation()">
-                                    <div class="s-block">
-                                        <div class="s-block-title">🛠 Implementation Description (How it works):</div>
-                                        <div class="s-text">${s.description}</div>
-                                    </div>
-                                    <div class="s-block">
-                                        <div class="s-block-title">⚠️ Complexities and Barriers (Risks):</div>
-                                        <div class="s-text">${s.risks}</div>
-                                    </div>
+                const encodedTitle = encodeURIComponent(s.title);
 
+                listHtml += `
+                        <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
+                            <div class="solution-header">
+                                <div class="solution-title">
+                                    ${s.title}
+                                    <span class="solution-score">${s.score}</span>
+                                    <span class="solution-maneuver-tag">🎯 Maneuver: ${s.type}</span>
                                 </div>
+                                <div class="solution-toggle">▼</div>
                             </div>
-                        `;
+                            <div class="solution-body" onclick="event.stopPropagation()">
+
+                                <div class="s-block">
+                                    <div class="s-block-title">🔬 4-D Dimensions: Structure & Capability</div>
+                                    <div class="s-text"><b>Physical Structure (S):</b> ${s.s_structure}</div>
+                                    <div class="s-text" style="margin-top:6px;"><b>Functional Capabilities (C):</b> ${s.c_capability}</div>
+                                </div>
+
+                                <div class="s-block">
+                                    <div class="s-block-title">🏭 4-D Dimensions: Symbiotic Flow & Time</div>
+                                    <div class="s-text"><b>Flow Sourcing (Flow / Factories & Institutes):</b> ${s.f_flow}</div>
+                                    <div class="s-text" style="margin-top:6px;"><b>Deployment Horizon (Time / TRL):</b> ${s.t_time}</div>
+                                </div>
+
+                                <div style="margin-top:16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                                    <a href="ASUIRGemeniCalculatOptimizer_en.html?solution=${encodedTitle}&query=${encodedQuery}&cost=${encodeURIComponent(s.cost)}&eff=${encodeURIComponent(s.efficiency)}" class="btn-select-solution">
+                                        ⚡ Send to Efficiency Generator (ASUIR) ➔
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    `;
             });
             listContainer.innerHTML = listHtml;
 
-            // 2. CLEAN COMPARISON MATRIX (NO REDUNDANT ROWS)
+            // 2. 4-D Comparison Matrix
             let compareHtml = `
-                        <table class="compare-table">
-                            <thead>
-                                <tr>
-                                    <th>Parameter / Criterion</th>
-                                    ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Implementation Efficiency</td>
-                                    ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
-                                </tr>
-                                <tr>
-                                    <td>Equipment Cost</td>
-                                    ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
-                                </tr>
-                            </tbody>
-                        </table>
-                    `;
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter / 4-D Dimension</th>
+                                ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Socrates Maneuver Strategy</td>
+                                ${solutions.map(s => `<td><span style="color:#1f4e78; font-weight:700;">${s.type}</span></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Assembly & Process Efficiency</td>
+                                ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Estimated Capex / Tooling Cost</td>
+                                ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Deployment Lead Time (Time/TRL)</td>
+                                ${solutions.map(s => `<td>${s.t_time}</td>`).join('')}
+                            </tr>
+                            <tr>
+                                <td>Capital Intensity Level</td>
+                                ${solutions.map(s => `<td>${s.capex_score}</td>`).join('')}
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
             compareContainer.innerHTML = compareHtml;
         }
 
+        // Auto-run on URL query parameter
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const q = urlParams.get('query');
