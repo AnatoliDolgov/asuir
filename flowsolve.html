@@ -523,7 +523,7 @@
             </a>
             <a href="flowsolve.html" class="nav-global-link active">
                 <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
-                <span class="sub-label">4-D синтез решений Сократа</span>
+                <span class="sub-label">анализ и оптимизации процессов</span>
             </a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link">
                 <span class="main-label">АСУИР Gemini</span>
@@ -567,7 +567,7 @@
 
                 <!-- ТАБЫ ВЫВОДА С МАЛИНОВЫМ ПОДЧЕРКИВАНИЕМ -->
                 <div class="matrix-tab-bar">
-                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Ортогональные решения (до 4-х путей Сократа)</a>
+                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Ортогональные решения</a>
                     <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ 4-D Матрица сравнения</a>
                 </div>
 
@@ -850,12 +850,6 @@
                                     <div class="s-block-title">🏭 4-D Измерения: Симбиотический поток и Время (Flow & Time)</div>
                                     <div class="s-text"><b>Источники в потоке (Flow / Заводы и Институты):</b> ${s.f_flow}</div>
                                     <div class="s-text" style="margin-top:6px;"><b>Готовность и время запуска (Time / TRL):</b> ${s.t_time}</div>
-                                </div>
-
-                                <div style="margin-top:16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-                                    <a href="ASUIRGemeniCalculatOptimizer_ru.html?solution=${encodedTitle}&query=${encodedQuery}&cost=${encodeURIComponent(s.cost)}&eff=${encodeURIComponent(s.efficiency)}" class="btn-select-solution">
-                                        ⚡ Передать в Генератор эффективности (АСУИР) ➔
-                                    </a>
                                 </div>
 
                             </div>

@@ -654,9 +654,9 @@
 
             <!-- 2ND LEVEL: WORKFLOW TABS (WITH MAGENTA ACCENT UNDERLINE) -->
             <div class="matrix-tab-bar" id="tabHeaders">
-                <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Direct Cell Costs</a>
+                <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Direct business costs</a>
                 <a href="#" class="matrix-tab-item" data-tab="tab2">📦 2. Tooling & Facility Expenses</a>
-                <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Bill of Materials (BOM)</a>
+                <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Bill of Materials</a>
                 <a href="#" class="matrix-tab-item" data-tab="tab4">📊 4. Cost Price</a>
                 <a href="#" class="matrix-tab-item" data-tab="tab5">🎯 5. Financial Results</a>
             </div>
@@ -665,7 +665,7 @@
 
                 <!-- TAB 1: DIRECT COSTS -->
                 <div class="section active" id="tab1">
-                    <h2 class="section-title">1. Direct Cell Costs (Starter Cell)</h2>
+                    <h2 class="section-title">1. Direct business costs</h2>
                     <div class="table-responsive">
                         <table class="text-regular">
                             <tr>
@@ -763,7 +763,7 @@
                     </div>
 
                     <div style="margin-top:12px; text-align:right;">
-                        <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
+                        <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & Components to Database</button>
                     </div>
                 </div>
 
@@ -804,7 +804,7 @@
 
                 <!-- TAB 3: BOM -->
                 <div class="section" id="tab3">
-                    <h2 class="section-title">3. Raw Materials & Components (Client BOM)</h2>
+                    <h2 class="section-title">3. Raw Materials & Components</h2>
                     <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
                         <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, click <b>🔗</b> to view items on Alibaba, or add new rows below.
                     </div>
@@ -829,7 +829,7 @@
                             <tfoot>
                                 <tr style="background:#f0f5fa;">
                                     <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
-                                    <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
+                                    <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-cost">186.00</span></td>
                                     <td></td>
                                 </tr>
                             </tfoot>
@@ -864,7 +864,7 @@
 
                 <!-- TAB 5: FINANCIAL RESULTS -->
                 <div class="section" id="tab5">
-                    <h2 class="section-title">5. Financial Results Summary & Options Listing</h2>
+                    <h2 class="section-title">5. Financial Results Summary</h2>
                     <div class="table-responsive">
                         <table class="section-results">
                             <tr>
@@ -878,7 +878,7 @@
                                 <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
                             </tr>
                             <tr>
-                                <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Cell Capacity (from Alibaba)</span></td>
+                                <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Equipment Capacity (from Alibaba)</span></td>
                                 <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> pcs/day</td>
                             </tr>
                             <tr style="background: #fcfcfc;">
@@ -917,17 +917,17 @@
                                 </select>
                             </div>
                             <div>
-                                <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & BOM to Database</button>
+                                <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & Components to Database</button>
                             </div>
                         </div>
 
                         <table class="components-table" style="width:100%;">
                             <thead>
                                 <tr>
-                                    <th>Line / Machine Type & BOM Specification</th>
+                                    <th>Line</th>
                                     <th>Link</th>
                                     <th>Line Price</th>
-                                    <th>Capacity ($P_{fact}$)</th>
+                                    <th>Capacity</th>
                                     <th>Staff</th>
                                     <th>Base Salary</th>
                                     <th style="color:#007600;">Achievable Worker Salary</th>
