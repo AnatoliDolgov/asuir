@@ -564,6 +564,40 @@
             gap: 8px;
         }
 
+        /* PAGINATION STYLES */
+        .page-btn {
+            background: #f0f5fa;
+            border: 1px solid #c9daf8;
+            color: #1f4e78;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            min-width: 32px;
+            text-align: center;
+            transition: 0.15s;
+        }
+
+            .page-btn:hover {
+                background: #1f4e78;
+                color: #ffffff;
+                border-color: #1f4e78;
+            }
+
+            .page-btn.active {
+                background: #1f4e78;
+                color: #ffffff;
+                border-color: #1f4e78;
+            }
+
+            .page-btn:disabled {
+                background: #edf2f7;
+                color: #a0aec0;
+                border-color: #e2e8f0;
+                cursor: not-allowed;
+            }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -905,12 +939,12 @@
                         </table>
                     </div>
 
-                    <!-- EQUIPMENT LISTING -->
+                    <!-- EQUIPMENT LISTING WITH PAGINATION -->
                     <div style="background:#fff; border:1px solid #d0d7dd; border-radius:4px; padding:18px; margin-top:20px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                             <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                                 <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Database Filter:</label>
-                                <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="calculateAll()">
+                                <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
                                     <option value="my">👤 My production lines only</option>
                                     <option value="others">🔍 Others (Benchmarking / Selection)</option>
                                     <option value="all" selected>🌐 All lines (Mine & others)</option>
@@ -924,6 +958,7 @@
                         <table class="components-table" style="width:100%;">
                             <thead>
                                 <tr>
+                                    <th style="width:45px; text-align:center;">#</th>
                                     <th>Line</th>
                                     <th>Link</th>
                                     <th>Line Price</th>
@@ -936,9 +971,24 @@
                                 </tr>
                             </thead>
                             <tbody id="client-matched-equipment-rows">
-                                <tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
+                                <tr><td colspan="10" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
                             </tbody>
                         </table>
+
+                        <!-- PAGINATION CONTROLS BAR -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px solid #edf2f7; flex-wrap:wrap; gap:10px;">
+                            <div style="font-size:13px; color:#4a5568;">
+                                Showing: <b id="page-range-display" style="color:#1f4e78;">0–0</b> of <b id="page-total-display">0</b> lines
+                                <span style="margin-left:14px;">Per page:</span>
+                                <select id="page-size-selector" class="input-field input-sm" style="width:75px; display:inline-block; height:30px; padding:2px 6px; font-weight:600;" onchange="changePageSize(this.value)">
+                                    <option value="20" selected>20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                            <div id="pagination-controls" style="display:flex; gap:4px; align-items:center; flex-wrap:wrap;"></div>
+                        </div>
                     </div>
 
                     <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Print / Save PDF</button>
@@ -1042,6 +1092,21 @@ Thank you!
         let savedEquipmentList = [];
         let currentTopicTitle = "Drones & Radioelectronics";
         let isAdminMode = false;
+
+        // PAGINATION STATE VARIABLES
+        window.currentListingPage = 1;
+        window.currentListingPageSize = 20;
+
+        window.changePageSize = function (size) {
+            window.currentListingPageSize = parseInt(size, 10) || 20;
+            window.currentListingPage = 1;
+            calculateAll();
+        };
+
+        window.goToListingPage = function (page) {
+            window.currentListingPage = page;
+            calculateAll();
+        };
 
         // 1. CLIENT ID
         let myClientId = localStorage.getItem('asuir_client_id_en');
@@ -1295,26 +1360,26 @@ Thank you!
             const defaultUrl = url || '';
 
             tr.innerHTML = `
-                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Expense Item / Tooling..."></td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:4px;">
-                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Alibaba / Supplier Link...">
-                            ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open">🔗</button>` : ''}
-                        </div>
-                    </td>
-                    <td class="row-search">
-                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
-                    </td>
-                    <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                            <input type="number" step="0.1" class="input-field input-sm exp-price-input" id="${rowId}-price" value="${price}" style="width:100px;">
-                        </div>
-                    </td>
-                    <td class="row-delete">
-                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
-                    </td>
-                `;
+                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Expense Item / Tooling..."></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:4px;">
+                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Alibaba / Supplier Link...">
+                                ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open">🔗</button>` : ''}
+                            </div>
+                        </td>
+                        <td class="row-search">
+                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
+                        </td>
+                        <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                <input type="number" step="0.1" class="input-field input-sm exp-price-input" id="${rowId}-price" value="${price}" style="width:100px;">
+                            </div>
+                        </td>
+                        <td class="row-delete">
+                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
+                        </td>
+                    `;
             tbody.appendChild(tr);
             calculateAll();
         };
@@ -1523,7 +1588,7 @@ Thank you!
                     rawCost += qty * price;
                 }
             });
-            const bomElem = document.getElementById('total-bom-cost');
+            const bomElem = document.getElementById('total-cost');
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
             // 2. Tooling & Facility Expenses scaled by staff (Section 2)
@@ -1863,32 +1928,74 @@ Thank you!
             const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
 
             tr.innerHTML = `
-                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Component name..."></td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:4px;">
-                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Paste link...">
-                            <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open link on Alibaba">🔗</button>
-                        </div>
-                    </td>
-                    <td class="row-search">
-                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
-                    </td>
-                    <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
-                    <td>
-                        <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
-                            <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Bulk calculator">🧮</button>
-                        </div>
-                    </td>
-                    <td class="row-delete">
-                        <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
-                    </td>
-                `;
+                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Component name..."></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:4px;">
+                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Paste link...">
+                                <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open link on Alibaba">🔗</button>
+                            </div>
+                        </td>
+                        <td class="row-search">
+                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
+                        </td>
+                        <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
+                                <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                                <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Bulk calculator">🧮</button>
+                            </div>
+                        </td>
+                        <td class="row-delete">
+                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
+                        </td>
+                    `;
             tbody.appendChild(tr);
             calculateAll();
         };
 
-        // RENDER LISTING
+        // RENDER PAGINATION BUTTONS
+        function renderPaginationButtons(totalPages, currentPage) {
+            const paginationContainer = document.getElementById('pagination-controls');
+            if (!paginationContainer) return;
+            paginationContainer.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Prev Button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerHTML = '◀ Prev';
+            prevBtn.disabled = (currentPage === 1);
+            prevBtn.onclick = () => window.goToListingPage(currentPage - 1);
+            paginationContainer.appendChild(prevBtn);
+
+            // Page Number Buttons with smart ellipsis
+            for (let p = 1; p <= totalPages; p++) {
+                if (p === 1 || p === totalPages || (p >= currentPage - 2 && p <= currentPage + 2)) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = 'page-btn' + (p === currentPage ? ' active' : '');
+                    pageBtn.innerText = p;
+                    pageBtn.onclick = () => window.goToListingPage(p);
+                    paginationContainer.appendChild(pageBtn);
+                } else if (p === currentPage - 3 || p === currentPage + 3) {
+                    const dots = document.createElement('span');
+                    dots.innerText = '...';
+                    dots.style.padding = '0 4px';
+                    dots.style.color = '#718096';
+                    paginationContainer.appendChild(dots);
+                }
+            }
+
+            // Next Button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerHTML = 'Next ▶';
+            nextBtn.disabled = (currentPage === totalPages);
+            nextBtn.onclick = () => window.goToListingPage(currentPage + 1);
+            paginationContainer.appendChild(nextBtn);
+        }
+
+        // RENDER LISTING GROUPED BY TOPIC WITH PAGINATION
         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
@@ -1904,16 +2011,39 @@ Thank you!
                 return true;
             });
 
-            if (filteredList.length === 0) {
-                container.innerHTML = `<tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">No equipment entries found for this filter.</td></tr>`;
+            const totalItems = filteredList.length;
+            const pageSize = window.currentListingPageSize || 20;
+            const totalPages = Math.ceil(totalItems / pageSize) || 1;
+
+            if (window.currentListingPage > totalPages) window.currentListingPage = totalPages;
+            if (window.currentListingPage < 1) window.currentListingPage = 1;
+
+            const startIndex = (window.currentListingPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, totalItems);
+
+            const rangeDisplay = document.getElementById('page-range-display');
+            const totalDisplay = document.getElementById('page-total-display');
+            if (rangeDisplay) rangeDisplay.textContent = totalItems > 0 ? `${startIndex + 1}–${endIndex}` : `0–0`;
+            if (totalDisplay) totalDisplay.textContent = totalItems;
+
+            renderPaginationButtons(totalPages, window.currentListingPage);
+
+            if (totalItems === 0) {
+                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">No equipment entries found for this filter.</td></tr>`;
                 return;
             }
 
+            // Slice current page items
+            const pageItemsWithIndex = filteredList.slice(startIndex, endIndex).map((item, localIdx) => ({
+                item: item,
+                globalIndex: startIndex + localIdx + 1
+            }));
+
             const groupedByTopic = {};
-            filteredList.forEach(item => {
+            pageItemsWithIndex.forEach(({ item, globalIndex }) => {
                 const topicName = normalizeTopicTitle(item.topic_title);
                 if (!groupedByTopic[topicName]) groupedByTopic[topicName] = [];
-                groupedByTopic[topicName].push(item);
+                groupedByTopic[topicName].push({ line: item, lineIndexNumber: globalIndex });
             });
 
             const adminColHeader = document.getElementById('admin-col-header');
@@ -1926,18 +2056,18 @@ Thank you!
                 const headerTr = document.createElement('tr');
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
-                        <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                            📂 TOPIC: ${topic.toUpperCase()} (Competitive Price = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
-                        </td>
-                    `;
+                            <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                                📂 TOPIC: ${topic.toUpperCase()} (Competitive Price = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
+                            </td>
+                        `;
                 container.appendChild(headerTr);
 
-                items.forEach(line => {
+                items.forEach(({ line, lineIndexNumber }) => {
                     const dailyAmort = line.cost / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + currentOtherCosts;
 
                     const productionExpenses = line.perf * 0.10 * topicBenchmarkPrice;
-                    const availableDailySalaryFund = Math.max(0, productionExpenses - dailyFixedNoSalary);
+                    const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - dailyFixedNoSalary);
                     const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
 
                     const compList = (line.components && line.components.length > 0) ? line.components : [];
@@ -1953,29 +2083,30 @@ Thank you!
                     const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Mine</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
                     const showDeleteBtn = isAdminMode || isMine;
                     const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
-                            <td style="text-align:center;">
-                                ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Delete entry">🗑️</button>` : ''}
-                            </td>
-                        ` : '';
+                                <td style="text-align:center;">
+                                    ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Delete entry">🗑️</button>` : ''}
+                                </td>
+                            ` : '';
 
                     // 1. Main Row
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                            <td style="padding-left:20px;">
-                                <b>${line.name}</b> ${ownerTag}<br>
-                                <button id="btn-bom-${line.id}" class="btn-bom-toggle" onclick="toggleBomDetails('${line.id}')">
-                                    ▶ 📦 Specification (${compList.length} items / $${lineBomTotal.toFixed(2)}) ▾
-                                </button>
-                            </td>
-                            <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                            <td>$${Number(line.cost).toLocaleString('en-US')}</td>
-                            <td>${line.perf} pcs/day</td>
-                            <td>${line.staff || 1} staff</td>
-                            <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
-                            <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
-                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
-                            ${adminDeleteCell}
-                        `;
+                                <td style="text-align:center; font-weight:700; color:#1f4e78;">${lineIndexNumber}</td>
+                                <td style="padding-left:12px;">
+                                    <b>${line.name}</b> ${ownerTag}<br>
+                                    <button id="btn-bom-${line.id}" class="btn-bom-toggle" onclick="toggleBomDetails('${line.id}')">
+                                        ▶ 📦 Specification (${compList.length} items / $${lineBomTotal.toFixed(2)}) ▾
+                                    </button>
+                                </td>
+                                <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                                <td>$${Number(line.cost).toLocaleString('en-US')}</td>
+                                <td>${line.perf} pcs/day</td>
+                                <td>${line.staff || 1} staff</td>
+                                <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
+                                <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
+                                <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                                ${adminDeleteCell}
+                            `;
                     container.appendChild(tr);
 
                     // 2. Sub-row Accordion
@@ -1987,17 +2118,17 @@ Thank you!
                         const sum = (qty * price).toFixed(2);
                         const url = c.url || c[3] || '#';
                         compRowsHtml += `
-                                <tr>
-                                    <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>
-                                    <td><b>${name}</b></td>
-                                    <td style="text-align:center;">${qty}</td>
-                                    <td style="text-align:right;">$${Number(price).toFixed(2)}</td>
-                                    <td style="text-align:right; font-weight:600;">$${sum}</td>
-                                    <td style="text-align:center;">
-                                        <a href="${url}" target="_blank" style="color:#1f4e78; text-decoration:none; font-weight:600;">🔗 Alibaba ↗</a>
-                                    </td>
-                                </tr>
-                            `;
+                                    <tr>
+                                        <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>
+                                        <td><b>${name}</b></td>
+                                        <td style="text-align:center;">${qty}</td>
+                                        <td style="text-align:right;">$${Number(price).toFixed(2)}</td>
+                                        <td style="text-align:right; font-weight:600;">$${sum}</td>
+                                        <td style="text-align:center;">
+                                            <a href="${url}" target="_blank" style="color:#1f4e78; text-decoration:none; font-weight:600;">🔗 Alibaba ↗</a>
+                                        </td>
+                                    </tr>
+                                `;
                     });
 
                     const subTr = document.createElement('tr');
@@ -2005,32 +2136,32 @@ Thank you!
                     subTr.style.display = 'none';
                     subTr.style.background = '#f9fbfe';
                     subTr.innerHTML = `
-                            <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
-                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                                    <span style="font-size:12px; font-weight:700; color:#1f4e78;">
-                                        📦 Product BOM Specification: ${compList.length} items (Total BOM = $${lineBomTotal.toFixed(2)})
-                                    </span>
-                                    <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Load setup into calculator">
-                                        📥 Load this setup into Calculator
-                                    </button>
-                                </div>
-                                <table class="sub-bom-table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Part / Component Name</th>
-                                            <th style="text-align:center;">Qty</th>
-                                            <th style="text-align:right;">Unit Price ($)</th>
-                                            <th style="text-align:right;">Total ($)</th>
-                                            <th style="text-align:center;">Supplier Link</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${compRowsHtml}
-                                    </tbody>
-                                </table>
-                            </td>
-                        `;
+                                <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                        <span style="font-size:12px; font-weight:700; color:#1f4e78;">
+                                            📦 Product BOM Specification: ${compList.length} items (Total BOM = $${lineBomTotal.toFixed(2)})
+                                        </span>
+                                        <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Load setup into calculator">
+                                            📥 Load this setup into Calculator
+                                        </button>
+                                    </div>
+                                    <table class="sub-bom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Part / Component Name</th>
+                                                <th style="text-align:center;">Qty</th>
+                                                <th style="text-align:right;">Unit Price ($)</th>
+                                                <th style="text-align:right;">Total ($)</th>
+                                                <th style="text-align:center;">Supplier Link</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${compRowsHtml}
+                                        </tbody>
+                                    </table>
+                                </td>
+                            `;
                     container.appendChild(subTr);
                 });
             }
