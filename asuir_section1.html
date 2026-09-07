@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АСУИР / GEMENU — Листинг производств</title>
+    <title>АСУИР / GEMENU — Производственный каталог МКТУ</title>
     <style>
         :root {
             --bg: #f4f6f9;
             --surface: #ffffff;
             --border: #e2e8f0;
             --primary: #1d4ed8;
+            --primary-hover: #1e40af;
             --text-dark: #1e293b;
             --text-muted: #64748b;
             --theme-header-bg: #e0f2fe;
@@ -40,7 +41,6 @@
             margin: 0 auto;
         }
 
-        /* ВЕРХНИЕ ТАБЫ И АДМИН-МОД */
         .header-bar {
             display: flex;
             justify-content: space-between;
@@ -54,21 +54,21 @@
 
         .tabs-header {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .tab-btn {
             background: none;
             border: none;
-            padding: 12px 20px;
-            font-size: 15px;
+            padding: 12px 18px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
             border-bottom: 3px solid transparent;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
             .tab-btn.active {
@@ -78,7 +78,6 @@
                 border-radius: 6px 6px 0 0;
             }
 
-        /* Кнопка Админ Моде */
         .admin-toggle-btn {
             background: #f1f5f9;
             border: 1px solid #cbd5e1;
@@ -88,9 +87,6 @@
             font-weight: 700;
             cursor: pointer;
             color: #475569;
-            display: flex;
-            align-items: center;
-            gap: 6px;
             margin-bottom: 8px;
         }
 
@@ -100,7 +96,6 @@
                 color: #b91c1c;
             }
 
-        /* ТУЛБАР */
         .toolbar {
             display: flex;
             justify-content: space-between;
@@ -110,6 +105,7 @@
             border-radius: 8px 8px 0 0;
             border: 1px solid var(--border);
             border-bottom: none;
+            gap: 12px;
         }
 
         .filter-group {
@@ -125,9 +121,9 @@
             border-radius: 6px;
             font-size: 14px;
             background: #fff;
+            max-width: 420px;
         }
 
-        /* ТАБЛИЦА */
         .table-card {
             background: #fff;
             border: 1px solid var(--border);
@@ -161,7 +157,6 @@
             background-color: #fafbfc;
         }
 
-        /* Заголовки тем МКТУ */
         .theme-row td {
             background: var(--theme-header-bg);
             color: var(--theme-header-text);
@@ -172,7 +167,6 @@
             border-bottom: 1px solid #bae6fd;
         }
 
-        /* Столбец ID (по умолчанию скрыт через display: none) */
         .id-col {
             display: none;
         }
@@ -184,24 +178,12 @@
         .mktu-tag {
             display: inline-block;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             color: #0369a1;
             background: #e0f2fe;
-            padding: 1px 6px;
+            padding: 2px 7px;
             border-radius: 4px;
             margin-bottom: 3px;
-        }
-
-        .btn-spec {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #334155;
-            cursor: pointer;
-            margin-top: 4px;
         }
 
         .link-alibaba {
@@ -216,10 +198,6 @@
             border-radius: 4px;
             border: 1px solid #bfdbfe;
         }
-
-            .link-alibaba:hover {
-                background: #dbeafe;
-            }
 
         .salary-badge {
             background: var(--green-badge-bg);
@@ -237,7 +215,6 @@
             white-space: nowrap;
         }
 
-        /* ПАГИНАЦИЯ */
         .pagination-bar {
             display: flex;
             justify-content: space-between;
@@ -264,9 +241,8 @@
                 color: #fff;
             }
 
-        /* ТАБ 2: ДОБАВЛЕНИЕ */
-        .create-container {
-            max-width: 1000px;
+        .panel-container {
+            max-width: 1150px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -278,6 +254,14 @@
             border-radius: 8px;
             padding: 20px;
         }
+
+            .section-box h3 {
+                font-size: 15px;
+                font-weight: 700;
+                margin-bottom: 12px;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 8px;
+            }
 
         .form-grid-3 {
             display: grid;
@@ -310,20 +294,74 @@
             font-size: 14px;
             outline: none;
         }
+
+            .form-control:focus {
+                border-color: var(--primary);
+            }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            .spec-table th {
+                background: #f8fafc;
+                padding: 10px;
+                font-size: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .spec-table td {
+                padding: 8px 10px;
+                border-bottom: 1px solid var(--border);
+            }
+
+        .btn-del-spec {
+            color: #ef4444;
+            border: none;
+            background: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-add-row {
+            background: #f1f5f9;
+            border: 1px dashed #94a3b8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-action-primary {
+            background-color: var(--btn-green);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
 
-        <!-- ВЕРХНЯЯ ШАПКА: ТАБЫ + АДМИН МОДЕ -->
+        <!-- ВЕРХНЯЯ ШАПКА: 3 ТАБА + АДМИН МОДЕ -->
         <div class="header-bar">
             <div class="tabs-header">
                 <button id="tabBtn1" class="tab-btn active" onclick="switchTab('listing')">
-                    📋 Листинг производств
+                    📋 1. Листинг производств
                 </button>
                 <button id="tabBtn2" class="tab-btn" onclick="switchTab('create')">
-                    ➕ Добавление в базу
+                    ⚙️ 2. Параметры оборудования
+                </button>
+                <button id="tabBtn3" class="tab-btn" onclick="switchTab('specs')">
+                    📦 3. Комплектующие и материалы
                 </button>
             </div>
 
@@ -339,19 +377,24 @@
 
             <div class="toolbar">
                 <div class="filter-group">
-                    <span>👁 Фильтр базы:</span>
+                    <span>👁 Классификатор МКТУ:</span>
                     <select id="themeFilter" class="select-filter" onchange="onFilterChange()">
-                        <option value="all">🌐 Все категории МКТУ</option>
-                        <option value="drones">Класс 9 МКТУ: Дроны и радиоэлектроника</option>
-                        <option value="tablets">Класс 9 МКТУ: Планшеты и ПК</option>
-                        <option value="tv">Класс 9 МКТУ: Телевизоры и дисплеи</option>
+                        <option value="all">🌐 Все классы МКТУ (Полный реестр)</option>
+                        <option value="mktu_07">МКТУ 07: Станки, ЧПУ и робототехника</option>
+                        <option value="mktu_09">МКТУ 09: Электроника, БПЛА и вычислительная техника</option>
+                        <option value="mktu_10">МКТУ 10: Медицинское оборудование и приборы</option>
+                        <option value="mktu_11">МКТУ 11: Климатическая техника и LED-системы</option>
+                        <option value="mktu_12">МКТУ 12: Электротранспорт и автокомпоненты</option>
+                        <option value="mktu_17">МКТУ 17: Полимеры, композиты и термопларавтоматы</option>
+                        <option value="mktu_06">МКТУ 06: Металлоконструкции и прокат</option>
+                        <option value="mktu_25">МКТУ 25: Швейные комплексы и текстиль</option>
                     </select>
                 </div>
                 <div style="font-size: 13px; color: #64748b;">
                     Строк на странице:
                     <select id="pageSizeSelect" class="select-filter" onchange="onPageSizeChange()">
-                        <option value="5" selected>5 строк</option>
-                        <option value="10">10 строк</option>
+                        <option value="6" selected>6 строк</option>
+                        <option value="12">12 строк</option>
                         <option value="100">Все</option>
                     </select>
                 </div>
@@ -362,7 +405,7 @@
                     <thead>
                         <tr>
                             <th class="id-col" style="width: 40px;"># ID</th>
-                            <th>ТЕКУЩАЯ ТЕМА / КАТЕГОРИЯ МКТУ И НАИМЕНОВАНИЕ</th>
+                            <th>КАТЕГОРИЯ МКТУ И НАИМЕНОВАНИЕ ОБОРУДОВАНИЯ</th>
                             <th>ССЫЛКА НА ALIBABA</th>
                             <th>СТОИМОСТЬ ОБОРУДОВАНИЯ</th>
                             <th>ПРОИЗВОДИТЕЛЬНОСТЬ ОБОРУДОВАНИЯ</th>
@@ -372,7 +415,7 @@
                         </tr>
                     </thead>
                     <tbody id="listingBody">
-                        <!-- Заполняется JavaScript -->
+                        <!-- Заполняется JS -->
                     </tbody>
                 </table>
             </div>
@@ -385,64 +428,75 @@
         </div>
 
         <!-- ========================================================
-             ТАБ 2: ДОБАВЛЕНИЕ В БАЗУ (БЕЗ ПОЛЯ БАЗОВОЙ ЗП)
+             ТАБ 2: ПАРАМЕТРЫ ОБОРУДОВАНИЯ
         ======================================================== -->
         <div id="viewCreate" style="display: none;">
 
-            <div class="create-container">
+            <div class="panel-container">
 
                 <div class="section-box">
-                    <h3 style="margin-bottom:14px; font-size:15px;">Занесение оборудования и параметров линии</h3>
+                    <h3>Выбор класса МКТУ и параметры линии</h3>
 
                     <div class="form-grid-3">
                         <div class="form-group">
-                            <label>Текущая тема / Категория МКТУ *</label>
-                            <select id="newTheme" class="form-control" onchange="updateThemeDefaults()">
-                                <option value="drones">Класс 9 МКТУ: Дроны и радиоэлектроника</option>
-                                <option value="tablets">Класс 9 МКТУ: Планшеты и ПК</option>
-                                <option value="tv">Класс 9 МКТУ: Телевизоры и дисплеи</option>
+                            <label>Официальный класс МКТУ *</label>
+                            <select id="newTheme" class="form-control" onchange="onMktuSelectChange()">
+                                <option value="mktu_09">Класс 09 МКТУ: Электроника, БПЛА и микросхемы</option>
+                                <option value="mktu_07">Класс 07 МКТУ: Станки, ЧПУ и робототехника</option>
+                                <option value="mktu_10">Класс 10 МКТУ: Медицинское оборудование</option>
+                                <option value="mktu_11">Класс 11 МКТУ: Климатическая техника и LED</option>
+                                <option value="mktu_12">Класс 12 МКТУ: Электротранспорт и компоненты</option>
+                                <option value="mktu_17">Класс 17 МКТУ: Полимеры и термопларавтоматы</option>
+                                <option value="mktu_06">Класс 06 МКТУ: Металлообработка и профиль</option>
+                                <option value="mktu_25">Класс 25 МКТУ: Швейное производство</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Конкурентная цена изделия ($)</label>
-                            <input type="number" id="newMarketPrice" class="form-control" value="423" oninput="recalcNew()">
+                            <input type="number" id="newMarketPrice" class="form-control" value="423" oninput="recalcLine()">
                         </div>
                         <div class="form-group">
-                            <label>Стоимость сырья на 1 шт ($)</label>
-                            <input type="number" id="newRawPrice" class="form-control" value="186" oninput="recalcNew()">
+                            <label>Себестоимость сырья ($) [из Таба 3]</label>
+                            <input type="number" id="newRawPrice" class="form-control" value="186" readonly style="background:#f8fafc; font-weight:700; color:#0369a1;">
                         </div>
                     </div>
 
                     <div class="form-grid-2" style="margin-top: 14px;">
                         <div class="form-group">
-                            <label>Наименование оборудования *</label>
-                            <input type="text" id="newName" class="form-control" placeholder="Например: Линия автоматической пайки">
+                            <label>Наименование оборудования / комплекса *</label>
+                            <input type="text" id="newName" class="form-control" value="Автоматизированная линия пайки БПЛА">
                         </div>
+
                         <div class="form-group">
-                            <label>Ссылка на Alibaba</label>
-                            <input type="text" id="newLink" class="form-control" value="https://alibaba.com/">
+                            <label>Автоматическая ссылка Alibaba (под МКТУ) *</label>
+                            <div style="display:flex; gap:8px;">
+                                <input type="text" id="newAlibabaLink" class="form-control" style="flex:1;" value="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic">
+                                <a id="testAlibabaBtn" href="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic" target="_blank" class="link-alibaba" style="white-space:nowrap; padding: 8px 12px;">
+                                    Проверить ↗
+                                </a>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-grid-3" style="margin-top: 14px;">
                         <div class="form-group">
                             <label>Стоимость оборудования ($) *</label>
-                            <input type="number" id="newLineCost" class="form-control" value="199000" oninput="recalcNew()">
+                            <input type="number" id="newLineCost" class="form-control" value="199000" oninput="recalcLine()">
                         </div>
                         <div class="form-group">
                             <label>Производительность оборудования (шт/день) *</label>
-                            <input type="number" id="newSpeed" class="form-control" value="100" oninput="recalcNew()">
+                            <input type="number" id="newSpeed" class="form-control" value="100" oninput="recalcLine()">
                         </div>
                         <div class="form-group">
                             <label>Количество рабочих (чел) *</label>
-                            <input type="number" id="newStaff" class="form-control" value="12" oninput="recalcNew()">
+                            <input type="number" id="newStaff" class="form-control" value="12" oninput="recalcLine()">
                         </div>
                     </div>
                 </div>
 
-                <!-- РАСЧЕТ (Базовая ЗП = 10 000 вшита в алгоритм) -->
+                <!-- РАСЧЕТ ВЫГОДЫ (Базовая ставка 10 000) -->
                 <div class="section-box">
-                    <h3 style="margin-bottom:12px; font-size:14px;">Расчет отдачи (Базовая ставка $10 000 включена в алгоритм):</h3>
+                    <h3>Расчет отдачи (Базовая ЗП = $10 000 вшита в алгоритм):</h3>
                     <div style="display:flex; gap:20px; background:#f8fafc; padding:14px; border-radius:6px; border:1px solid #e2e8f0;">
                         <div style="flex:1;">
                             <div style="font-size:12px; color:#64748b;">ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</div>
@@ -455,10 +509,63 @@
                     </div>
                 </div>
 
-                <div style="display:flex; justify-content:flex-end;">
-                    <button class="btn-save-database" style="background:#047857; color:#fff; border:none; padding:12px 24px; border-radius:6px; font-weight:700; cursor:pointer;" onclick="saveLineToDatabase()">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <button type="button" class="tab-btn" style="background:#e0f2fe; color:#0369a1; border-radius:6px;" onclick="switchTab('specs')">
+                        👉 Настроить комплектующие под данный класс МКТУ
+                    </button>
+
+                    <button class="btn-action-primary" onclick="saveLineToDatabase()">
                         💾 Зафиксировать станок и комплектующие в Базу
                     </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================================================
+             ТАБ 3: КОМПЛЕКТУЮЩИЕ И МАТЕРИАЛЫ
+        ======================================================== -->
+        <div id="viewSpecs" style="display: none;">
+
+            <div class="panel-container">
+
+                <div class="section-box">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
+                        <h3 style="margin:0; border:none; padding:0;">Спецификация сырья и компонентов по выбранному классу МКТУ</h3>
+                        <span style="font-size:13px; color:#64748b;">
+                            Текущий класс: <strong id="specCurrentThemeLabel" style="color:#0369a1;">Класс 09 МКТУ: Электроника и БПЛА</strong>
+                        </span>
+                    </div>
+
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th style="width:40px;">#</th>
+                                <th>Наименование компонента / материала</th>
+                                <th style="width:120px;">Кол-во на 1 шт</th>
+                                <th style="width:140px;">Цена за ед. ($)</th>
+                                <th style="width:140px;">Итого ($)</th>
+                                <th style="width:40px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="specTableBody"></tbody>
+                    </table>
+
+                    <button class="btn-add-row" onclick="addSpecRow()">
+                        ＋ Добавить компонент сырья
+                    </button>
+
+                    <div style="margin-top:20px; padding:16px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:13px; color:#1e40af; font-weight:600;">ИТОГОВАЯ СЕБЕСТОИМОСТЬ СЫРЬЯ НА 1 ИЗДЕЛИЕ:</div>
+                            <div style="font-size:26px; font-weight:800; color:#1d4ed8;" id="specTotalSum">$186.00</div>
+                        </div>
+                        <button class="btn-action-primary" onclick="applySpecsToCalculation()">
+                            ✔ Применить к параметрам оборудования
+                        </button>
+                    </div>
+
                 </div>
 
             </div>
@@ -468,78 +575,156 @@
     </div>
 
     <script>
-        // БАЗА ДАННЫХ
+        // РАСШИРЕННЫЙ СПРАВОЧНИК КЛАССОВ МКТУ, ALIBABA-ССЫЛОК И БАЗОВЫХ КОМПЛЕКТУЮЩИХ
+        const mktuCatalog = {
+            mktu_09: {
+                title: 'Класс 09 МКТУ: Электроника, БПЛА и вычислительная техника',
+                marketPrice: 423,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic',
+                specs: [
+                    { name: 'Карбоновая рама FPV 7"', qty: 1, price: 45.00 },
+                    { name: 'Полетный контроллер F4/F7', qty: 1, price: 80.00 },
+                    { name: 'Бесколлекторные моторы 2207 (комплект)', qty: 1, price: 61.00 }
+                ]
+            },
+            mktu_07: {
+                title: 'Класс 07 МКТУ: Станки, ЧПУ и робототехника',
+                marketPrice: 1250,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=cnc+milling+machine+assembly+line',
+                specs: [
+                    { name: 'Высокоточный шпиндель 3.2 кВт', qty: 1, price: 280.00 },
+                    { name: 'Комплект сервоприводов и ШВП', qty: 1, price: 340.00 },
+                    { name: 'Станина чугунная фрезерованная', qty: 1, price: 180.00 }
+                ]
+            },
+            mktu_10: {
+                title: 'Класс 10 МКТУ: Медицинское оборудование и приборы',
+                marketPrice: 890,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=medical+device+cleanroom+assembly+line',
+                specs: [
+                    { name: 'Биосовместимый сенсорный модуль', qty: 1, price: 190.00 },
+                    { name: 'Медицинский процессорный блок', qty: 1, price: 145.00 },
+                    { name: 'Корпус антибактериальный IP68', qty: 1, price: 65.00 }
+                ]
+            },
+            mktu_11: {
+                title: 'Класс 11 МКТУ: Климатическая техника и LED-системы',
+                marketPrice: 320,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=hvac+air+conditioner+production+line',
+                specs: [
+                    { name: 'Инверторный компрессор хладагента', qty: 1, price: 95.00 },
+                    { name: 'Теплообменник медный с оребрением', qty: 1, price: 48.00 },
+                    { name: 'Плата инверторного управления', qty: 1, price: 27.00 }
+                ]
+            },
+            mktu_12: {
+                title: 'Класс 12 МКТУ: Электротранспорт и автокомпоненты',
+                marketPrice: 680,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=electric+scooter+assembly+line',
+                specs: [
+                    { name: 'Мотор-колесо 500W бесщеточное', qty: 2, price: 65.00 },
+                    { name: 'Тяговая Li-Ion батарея 48V 15Ah', qty: 1, price: 140.00 },
+                    { name: 'Алюминиевая складная рама', qty: 1, price: 55.00 }
+                ]
+            },
+            mktu_17: {
+                title: 'Класс 17 МКТУ: Полимеры и термопластавтоматы',
+                marketPrice: 180,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=injection+molding+production+line',
+                specs: [
+                    { name: 'Гранулят полиамида PA6-GF30 (25 кг)', qty: 1, price: 52.00 },
+                    { name: 'Пресс-форма высокоресурсная (амортизация)', qty: 1, price: 20.00 },
+                    { name: 'Краситель концентрат Masterbatch', qty: 1, price: 8.00 }
+                ]
+            },
+            mktu_06: {
+                title: 'Класс 06 МКТУ: Металлообработка и легкие металлоконструкции',
+                marketPrice: 450,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=roll+forming+machine+metal+profile',
+                specs: [
+                    { name: 'Рулонная оцинкованная сталь 1.2мм (100 кг)', qty: 1, price: 110.00 },
+                    { name: 'Антикоррозийное полимерное покрытие', qty: 1, price: 25.00 },
+                    { name: 'Комплект метизов и соединителей', qty: 1, price: 15.00 }
+                ]
+            },
+            mktu_25: {
+                title: 'Класс 25 МКТУ: Швейные комплексы и текстиль',
+                marketPrice: 95,
+                alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=automatic+garment+sewing+production+line',
+                specs: [
+                    { name: 'Ткань мембранная влагостойкая (3 пог. м)', qty: 1, price: 24.00 },
+                    { name: 'Фурнитура влагозащитная и молнии YKK', qty: 1, price: 8.50 },
+                    { name: 'Нити армированные высокопрочные', qty: 1, price: 2.50 }
+                ]
+            }
+        };
+
+        // БАЗА ДАННЫХ ДЛЯ ЛИСТИНГА ПО КЛАССАМ МКТУ
         const database = [
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (МКТУ Класс 9) | Рынок = $423, Сырье = $186',
-                id: 1, name: 'Линия сборки БПЛА (Sanhok 100 шт/день)', mktu: 'МКТУ 09 (БПЛА)',
+                theme: 'mktu_09', themeName: 'МКТУ 09: Электроника, БПЛА и микросхемы (Рынок = $423, Сырье = $186)',
+                id: 1, name: 'Линия пайки и сборки БПЛА Sanhok', mktu: 'МКТУ 09',
+                linkUrl: 'https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic',
                 cost: '$199 000', speed: '100 шт/день', staff: '12 чел',
-                calcSalary: '$16 667 / мес', householdIncome: '$584 105 / мес', specCount: 0, specCost: '$186.00'
+                calcSalary: '$16 667 / мес', householdIncome: '$584 105 / мес'
             },
 
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (МКТУ Класс 9) | Рынок = $423, Сырье = $186',
-                id: 2, name: 'Линия сборки БПЛА (Sanhok)', mktu: 'МКТУ 09 (БПЛА)',
-                cost: '$199 000', speed: '500 шт/день', staff: '20 чел',
-                calcSalary: '$37 980 / мес', householdIncome: '$2 920 509 / мес', specCount: 0, specCost: '$186.00'
+                theme: 'mktu_07', themeName: 'МКТУ 07: Станки, ЧПУ и робототехника (Рынок = $1 250, Сырье = $800)',
+                id: 2, name: 'Роботизированный 5-осевой комплекс ЧПУ', mktu: 'МКТУ 07',
+                linkUrl: 'https://www.alibaba.com/trade/search?SearchText=cnc+milling+machine+assembly+line',
+                cost: '$320 000', speed: '20 шт/день', staff: '6 чел',
+                calcSalary: '$29 800 / мес', householdIncome: '$420 750 / мес'
             },
 
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (МКТУ Класс 9) | Рынок = $423, Сырье = $186',
-                id: 9, name: 'Custom Automatic Drone Production Line High', mktu: 'МКТУ 09 (БПЛА)',
-                cost: '$4 200', speed: '10 шт/день', staff: '2 чел',
-                calcSalary: '$12 000 / мес', householdIncome: '$58 411 / мес', specCount: 5, specCost: '$186.00'
+                theme: 'mktu_12', themeName: 'МКТУ 12: Электротранспорт и автокомпоненты (Рынок = $680, Сырье = $320)',
+                id: 3, name: 'Конвейер крупноузловой сборки электросамокатов', mktu: 'МКТУ 12',
+                linkUrl: 'https://www.alibaba.com/trade/search?SearchText=electric+scooter+assembly+line',
+                cost: '$85 000', speed: '80 шт/день', staff: '10 чел',
+                calcSalary: '$24 256 / мес', householdIncome: '$950 400 / мес'
             },
 
             {
-                theme: 'tablets', themeName: 'ТЕМА: ПЛАНШЕТЫ И МОБИЛЬНЫЕ ПК (МКТУ Класс 9) | Рынок = $150, Сырье = $100',
-                id: 3, name: 'tablet assembly equipment', mktu: 'МКТУ 09 (Компьютеры)',
-                cost: '$19 000', speed: '50 шт/день', staff: '5 чел',
-                calcSalary: '$10 614 / мес', householdIncome: '$52 498 / мес', specCount: 0, specCost: '$100.00'
+                theme: 'mktu_10', themeName: 'МКТУ 10: Медицинское оборудование (Рынок = $890, Сырье = $400)',
+                id: 4, name: 'Чистая комната сборки медицинских мониторов', mktu: 'МКТУ 10',
+                linkUrl: 'https://www.alibaba.com/trade/search?SearchText=medical+device+cleanroom+assembly+line',
+                cost: '$240 000', speed: '30 шт/день', staff: '8 чел',
+                calcSalary: '$22 375 / мес', householdIncome: '$458 150 / мес'
             },
 
             {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (МКТУ Класс 9) | Рынок = $550, Сырье = $253',
-                id: 4, name: 'Компактный стенд сборки ТВ панелей', mktu: 'МКТУ 09 (Дисплеи)',
-                cost: '$4 450', speed: '500 шт/день', staff: '14 чел',
-                calcSalary: '$65 308 / мес', householdIncome: '$3 629 995 / мес', specCount: 5, specCost: '$253.00'
-            },
-
-            {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (МКТУ Класс 9) | Рынок = $550, Сырье = $253',
-                id: 5, name: 'Semi Automatic Smart TV Production Line', mktu: 'МКТУ 09 (Дисплеи)',
-                cost: '$25 000', speed: '50 шт/день', staff: '18 чел',
-                calcSalary: '$10 971 / мес', householdIncome: '$362 991 / мес', specCount: 5, specCost: '$253.00'
-            },
-
-            {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (МКТУ Класс 9) | Рынок = $550, Сырье = $253',
-                id: 6, name: 'Up and Down TV Assembly Line', mktu: 'МКТУ 09 (Дисплеи)',
-                cost: '$199 999', speed: '100 шт/день', staff: '10 чел',
-                calcSalary: '$22 509 / мес', householdIncome: '$726 002 / мес', specCount: 5, specCost: '$253.00'
+                theme: 'mktu_17', themeName: 'МКТУ 17: Полимеры и термопларавтоматы (Рынок = $180, Сырье = $80)',
+                id: 5, name: 'Автоматическая ТПА-ячейка литья корпусов', mktu: 'МКТУ 17',
+                linkUrl: 'https://www.alibaba.com/trade/search?SearchText=injection+molding+production+line',
+                cost: '$65 000', speed: '400 шт/день', staff: '4 чел',
+                calcSalary: '$43 000 / мес', householdIncome: '$1 870 000 / мес'
             }
         ];
 
         let currentPage = 1;
-        let pageSize = 5;
+        let pageSize = 6;
         let isAdminMode = false;
+        let currentSpecs = JSON.parse(JSON.stringify(mktuCatalog.mktu_09.specs));
 
-        // ПЕРЕКЛЮЧАТЕЛЬ АДМИН МОДЕ
+        function switchTab(t) {
+            document.getElementById('viewListing').style.display = t === 'listing' ? 'block' : 'none';
+            document.getElementById('viewCreate').style.display = t === 'create' ? 'block' : 'none';
+            document.getElementById('viewSpecs').style.display = t === 'specs' ? 'block' : 'none';
+
+            document.getElementById('tabBtn1').classList.toggle('active', t === 'listing');
+            document.getElementById('tabBtn2').classList.toggle('active', t === 'create');
+            document.getElementById('tabBtn3').classList.toggle('active', t === 'specs');
+        }
+
         function toggleAdminMode() {
             isAdminMode = !isAdminMode;
             document.body.classList.toggle('admin-mode-on', isAdminMode);
-
             const btn = document.getElementById('adminBtn');
-            if (isAdminMode) {
-                btn.classList.add('active');
-                btn.innerHTML = '🔓 Админ Моде: ВКЛ (ID показаны)';
-            } else {
-                btn.classList.remove('active');
-                btn.innerHTML = '🔒 Админ Моде: ВЫКЛ';
-            }
+            btn.classList.toggle('active', isAdminMode);
+            btn.innerHTML = isAdminMode ? '🔓 Админ Моде: ВКЛ' : '🔒 Админ Моде: ВЫКЛ';
         }
 
-        // РЕНДЕР ЛИСТИНГА
         function renderListing() {
             const filter = document.getElementById('themeFilter').value;
             const tbody = document.getElementById('listingBody');
@@ -547,7 +732,6 @@
 
             const filtered = filter === 'all' ? database : database.filter(d => d.theme === filter);
             const totalItems = filtered.length;
-
             const totalPages = Math.ceil(totalItems / pageSize) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
 
@@ -561,7 +745,6 @@
                     currentTheme = row.themeName;
                     const trTheme = document.createElement('tr');
                     trTheme.className = 'theme-row';
-                    // Colspan 8 (или 7 в зависимости от админ-мода)
                     trTheme.innerHTML = `<td colspan="8">📁 ${currentTheme}</td>`;
                     tbody.appendChild(trTheme);
                 }
@@ -572,17 +755,14 @@
                     <td>
                         <span class="mktu-tag">${row.mktu}</span>
                         <div style="font-weight:700; color:#0f172a;">${row.name}</div>
-                        <button class="btn-spec">▶ 📦 Спецификация (${row.specCount} поз. / ${row.specCost}) ▾</button>
                     </td>
                     <td>
-                        <a href="https://alibaba.com" target="_blank" class="link-alibaba">на Alibaba (Перейти ↗)</a>
+                        <a href="${row.linkUrl}" target="_blank" class="link-alibaba">на Alibaba (Перейти ↗)</a>
                     </td>
                     <td style="font-weight:600;">${row.cost}</td>
                     <td style="font-weight:600; color:#0369a1;">${row.speed}</td>
                     <td>${row.staff}</td>
-                    <td>
-                        <span class="salary-badge">${row.calcSalary}</span>
-                    </td>
+                    <td><span class="salary-badge">${row.calcSalary}</span></td>
                     <td class="income-text">${row.householdIncome}</td>
                 `;
                 tbody.appendChild(tr);
@@ -613,23 +793,71 @@
             renderListing();
         }
 
-        function switchTab(t) {
-            document.getElementById('viewListing').style.display = t === 'listing' ? 'block' : 'none';
-            document.getElementById('viewCreate').style.display = t === 'create' ? 'block' : 'none';
-            document.getElementById('tabBtn1').classList.toggle('active', t === 'listing');
-            document.getElementById('tabBtn2').classList.toggle('active', t === 'create');
+        // ВЫБОР МКТУ И АВТО-ОБНОВЛЕНИЕ ВСЕХ ПАРАМЕТРОВ
+        function onMktuSelectChange() {
+            const key = document.getElementById('newTheme').value;
+            const catalogItem = mktuCatalog[key];
+
+            // 1. Автоматическая ссылка Alibaba под МКТУ
+            document.getElementById('newAlibabaLink').value = catalogItem.alibabaUrl;
+            document.getElementById('testAlibabaBtn').href = catalogItem.alibabaUrl;
+
+            // 2. Рыночная цена
+            document.getElementById('newMarketPrice').value = catalogItem.marketPrice;
+
+            // 3. Загрузка спецификаций под этот класс МКТУ
+            currentSpecs = JSON.parse(JSON.stringify(catalogItem.specs));
+            document.getElementById('specCurrentThemeLabel').innerText = catalogItem.title;
+            renderSpecsTable();
+            recalcLine();
         }
 
-        function updateThemeDefaults() {
-            const t = document.getElementById('newTheme').value;
-            if (t === 'drones') { document.getElementById('newMarketPrice').value = 423; document.getElementById('newRawPrice').value = 186; }
-            if (t === 'tablets') { document.getElementById('newMarketPrice').value = 150; document.getElementById('newRawPrice').value = 100; }
-            if (t === 'tv') { document.getElementById('newMarketPrice').value = 550; document.getElementById('newRawPrice').value = 253; }
-            recalcNew();
+        function renderSpecsTable() {
+            const tbody = document.getElementById('specTableBody');
+            tbody.innerHTML = '';
+            let total = 0;
+
+            currentSpecs.forEach((item, index) => {
+                const rowTotal = item.qty * item.price;
+                total += rowTotal;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="color:#64748b; font-weight:600;">${index + 1}</td>
+                    <td>
+                        <input type="text" class="form-control" style="padding:5px 8px; font-size:13px;" value="${item.name}" oninput="updateSpecName(${index}, this.value)">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" style="padding:5px 8px; font-size:13px;" value="${item.qty}" min="1" oninput="updateSpecQty(${index}, this.value)">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" style="padding:5px 8px; font-size:13px;" value="${item.price}" step="0.5" oninput="updateSpecPrice(${index}, this.value)">
+                    </td>
+                    <td style="font-weight:700; color:#0f172a;">$${rowTotal.toFixed(2)}</td>
+                    <td>
+                        <button class="btn-del-spec" title="Удалить" onclick="deleteSpecRow(${index})">✕</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('specTotalSum').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('newRawPrice').value = Math.round(total);
+            recalcLine();
         }
 
-        // АЛГОРИТМ: БАЗОВАЯ ЗП = 10 000
-        function recalcNew() {
+        function updateSpecName(idx, val) { currentSpecs[idx].name = val; }
+        function updateSpecQty(idx, val) { currentSpecs[idx].qty = parseFloat(val) || 1; renderSpecsTable(); }
+        function updateSpecPrice(idx, val) { currentSpecs[idx].price = parseFloat(val) || 0; renderSpecsTable(); }
+        function deleteSpecRow(idx) { currentSpecs.splice(idx, 1); renderSpecsTable(); }
+        function addSpecRow() {
+            currentSpecs.push({ name: 'Новый компонент', qty: 1, price: 10.00 });
+            renderSpecsTable();
+        }
+
+        function applySpecsToCalculation() { switchTab('create'); }
+
+        function recalcLine() {
             const BASE_SALARY = 10000;
             const speed = parseFloat(document.getElementById('newSpeed').value) || 1;
             const staff = parseFloat(document.getElementById('newStaff').value) || 1;
@@ -651,23 +879,22 @@
             const cost = parseFloat(document.getElementById('newLineCost').value) || 0;
             const speed = parseFloat(document.getElementById('newSpeed').value) || 0;
             const staff = parseFloat(document.getElementById('newStaff').value) || 0;
-            const theme = document.getElementById('newTheme').value;
-            const themeText = document.getElementById('newTheme').options[document.getElementById('newTheme').selectedIndex].text;
-            const raw = document.getElementById('newRawPrice').value;
+            const key = document.getElementById('newTheme').value;
+            const catalogItem = mktuCatalog[key];
+            const alibabaLink = document.getElementById('newAlibabaLink').value;
 
             const newEntry = {
-                theme: theme,
-                themeName: `ТЕМА: ${themeText.toUpperCase()}`,
+                theme: key,
+                themeName: catalogItem.title,
                 id: database.length + 1,
                 name: name,
-                mktu: 'МКТУ 09',
+                mktu: key.replace('mktu_', 'МКТУ '),
+                linkUrl: alibabaLink,
                 cost: '$' + cost.toLocaleString(),
                 speed: speed + ' шт/день',
                 staff: staff + ' чел',
                 calcSalary: document.getElementById('previewSalary').innerText,
-                householdIncome: document.getElementById('previewIncome').innerText,
-                specCount: 3,
-                specCost: '$' + raw + '.00'
+                householdIncome: document.getElementById('previewIncome').innerText
             };
 
             database.unshift(newEntry);
@@ -677,6 +904,7 @@
         }
 
         renderListing();
+        renderSpecsTable();
     </script>
 
 </body>
