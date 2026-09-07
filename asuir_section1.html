@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АСУИР / GEMENU — Производственный каталог МКТУ</title>
+    <title>АСУИР / GEMENU — Листинг производств</title>
     <style>
         :root {
             --bg: #f4f6f9;
@@ -37,10 +37,11 @@
         }
 
         .container {
-            max-width: 1540px;
+            max-width: 1560px;
             margin: 0 auto;
         }
 
+        /* ВЕРХНЯЯ ШАПКА */
         .header-bar {
             display: flex;
             justify-content: space-between;
@@ -78,6 +79,15 @@
                 border-radius: 6px 6px 0 0;
             }
 
+        /* Таб автора скрыт по умолчанию для обычных пользователей */
+        .author-tab-btn {
+            display: none;
+        }
+
+        body.admin-mode-on .author-tab-btn {
+            display: flex;
+        }
+
         .admin-toggle-btn {
             background: #f1f5f9;
             border: 1px solid #cbd5e1;
@@ -96,6 +106,7 @@
                 color: #b91c1c;
             }
 
+        /* ТАБЛИЦА ЛИСТИНГА */
         .toolbar {
             display: flex;
             justify-content: space-between;
@@ -106,13 +117,6 @@
             border: 1px solid var(--border);
             border-bottom: none;
             gap: 12px;
-        }
-
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
         }
 
         .select-filter {
@@ -197,7 +201,12 @@
             padding: 4px 8px;
             border-radius: 4px;
             border: 1px solid #bfdbfe;
+            font-size: 12px;
         }
+
+            .link-alibaba:hover {
+                background: #dbeafe;
+            }
 
         .salary-badge {
             background: var(--green-badge-bg);
@@ -241,11 +250,13 @@
                 color: #fff;
             }
 
+        /* ЕДИНЫЙ РАЗДЕЛ ВВОДА НОВОЙ ЛИНИИ (ДЛЯ АВТОРА) */
         .panel-container {
-            max-width: 1150px;
+            max-width: 1250px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
+            margin-bottom: 40px;
         }
 
         .section-box {
@@ -261,6 +272,7 @@
                 margin-bottom: 12px;
                 border-bottom: 1px solid #f1f5f9;
                 padding-bottom: 8px;
+                color: #0f172a;
             }
 
         .form-grid-3 {
@@ -295,10 +307,6 @@
             outline: none;
         }
 
-            .form-control:focus {
-                border-color: var(--primary);
-            }
-
         .spec-table {
             width: 100%;
             border-collapse: collapse;
@@ -308,8 +316,10 @@
             .spec-table th {
                 background: #f8fafc;
                 padding: 10px;
-                font-size: 12px;
+                font-size: 11px;
                 border-bottom: 1px solid var(--border);
+                text-transform: uppercase;
+                color: #475569;
             }
 
             .spec-table td {
@@ -323,6 +333,7 @@
             background: none;
             font-size: 16px;
             cursor: pointer;
+            font-weight: 700;
         }
 
         .btn-add-row {
@@ -339,11 +350,12 @@
             background-color: var(--btn-green);
             color: #fff;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border-radius: 6px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -351,33 +363,31 @@
 
     <div class="container">
 
-        <!-- ВЕРХНЯЯ ШАПКА: 3 ТАБА + АДМИН МОДЕ -->
+        <!-- ВЕРХНЯЯ НАВИГАЦИЯ -->
         <div class="header-bar">
             <div class="tabs-header">
                 <button id="tabBtn1" class="tab-btn active" onclick="switchTab('listing')">
-                    📋 1. Листинг производств
+                    📋 Листинг производств
                 </button>
-                <button id="tabBtn2" class="tab-btn" onclick="switchTab('create')">
-                    ⚙️ 2. Параметры оборудования
-                </button>
-                <button id="tabBtn3" class="tab-btn" onclick="switchTab('specs')">
-                    📦 3. Комплектующие и материалы
+                <!-- Доступно только автору при включении Админ Моде -->
+                <button id="tabBtnAuthor" class="tab-btn author-tab-btn" onclick="switchTab('create')">
+                    ➕ Ввод новой линии
                 </button>
             </div>
 
             <button id="adminBtn" class="admin-toggle-btn" onclick="toggleAdminMode()">
-                🔒 Админ Моде: ВЫКЛ
+                🔒 Режим автора (Админ Моде): ВЫКЛ
             </button>
         </div>
 
         <!-- ========================================================
-             ТАБ 1: ЛИСТИНГ ПРОИЗВОДСТВ
+             РАЗДЕЛ 1: ЛИСТИНГ ПРОИЗВОДСТВ (ЕДИНСТВЕННЫЙ ЭКРАН ДЛЯ 98% ПОЛЬЗОВАТЕЛЕЙ)
         ======================================================== -->
         <div id="viewListing">
 
             <div class="toolbar">
                 <div class="filter-group">
-                    <span>👁 Классификатор МКТУ:</span>
+                    <span style="font-weight:600;">👁 Классификатор МКТУ:</span>
                     <select id="themeFilter" class="select-filter" onchange="onFilterChange()">
                         <option value="all">🌐 Все классы МКТУ (Полный реестр)</option>
                         <option value="mktu_07">МКТУ 07: Станки, ЧПУ и робототехника</option>
@@ -385,7 +395,7 @@
                         <option value="mktu_10">МКТУ 10: Медицинское оборудование и приборы</option>
                         <option value="mktu_11">МКТУ 11: Климатическая техника и LED-системы</option>
                         <option value="mktu_12">МКТУ 12: Электротранспорт и автокомпоненты</option>
-                        <option value="mktu_17">МКТУ 17: Полимеры, композиты и термопларавтоматы</option>
+                        <option value="mktu_17">МКТУ 17: Полимеры и термопластавтоматы</option>
                         <option value="mktu_06">МКТУ 06: Металлоконструкции и прокат</option>
                         <option value="mktu_25">МКТУ 25: Швейные комплексы и текстиль</option>
                     </select>
@@ -414,9 +424,7 @@
                             <th>ДОХОД ДОМОХОЗЯЙСТВА</th>
                         </tr>
                     </thead>
-                    <tbody id="listingBody">
-                        <!-- Заполняется JS -->
-                    </tbody>
+                    <tbody id="listingBody"></tbody>
                 </table>
             </div>
 
@@ -428,14 +436,16 @@
         </div>
 
         <!-- ========================================================
-             ТАБ 2: ПАРАМЕТРЫ ОБОРУДОВАНИЯ
+             РАЗДЕЛ 2: ВВОД НОВОЙ ЛИНИИ (ТОЛЬКО ДЛЯ АВТОРА / АДМИНИСТРАТОРА)
+             Здесь объединены и параметры станка, и комплектующие, и аудит цен
         ======================================================== -->
         <div id="viewCreate" style="display: none;">
 
             <div class="panel-container">
 
+                <!-- 1. ПАРАМЕТРЫ ОБОРУДОВАНИЯ -->
                 <div class="section-box">
-                    <h3>Выбор класса МКТУ и параметры линии</h3>
+                    <h3>1. Параметры оборудования и привязка к МКТУ</h3>
 
                     <div class="form-grid-3">
                         <div class="form-group">
@@ -456,23 +466,22 @@
                             <input type="number" id="newMarketPrice" class="form-control" value="423" oninput="recalcLine()">
                         </div>
                         <div class="form-group">
-                            <label>Себестоимость сырья ($) [из Таба 3]</label>
-                            <input type="number" id="newRawPrice" class="form-control" value="186" readonly style="background:#f8fafc; font-weight:700; color:#0369a1;">
+                            <label>Себестоимость сырья ($) [из блока ниже]</label>
+                            <input type="number" id="newRawPrice" class="form-control" value="186" readonly style="background:#eff6ff; font-weight:700; color:#1d4ed8;">
                         </div>
                     </div>
 
                     <div class="form-grid-2" style="margin-top: 14px;">
                         <div class="form-group">
                             <label>Наименование оборудования / комплекса *</label>
-                            <input type="text" id="newName" class="form-control" value="Автоматизированная линия пайки БПЛА">
+                            <input type="text" id="newName" class="form-control" value="Автоматизированная линия сборки БПЛА">
                         </div>
-
                         <div class="form-group">
-                            <label>Автоматическая ссылка Alibaba (под МКТУ) *</label>
+                            <label>Ссылка на станок на Alibaba (автоматическая) *</label>
                             <div style="display:flex; gap:8px;">
                                 <input type="text" id="newAlibabaLink" class="form-control" style="flex:1;" value="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic">
                                 <a id="testAlibabaBtn" href="https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic" target="_blank" class="link-alibaba" style="white-space:nowrap; padding: 8px 12px;">
-                                    Проверить ↗
+                                    Проверить станок ↗
                                 </a>
                             </div>
                         </div>
@@ -494,78 +503,62 @@
                     </div>
                 </div>
 
-                <!-- РАСЧЕТ ВЫГОДЫ (Базовая ставка 10 000) -->
+                <!-- 2. СПЕЦИФИКАЦИЯ КОМПЛЕКТУЮЩИХ С АУДИТОМ ALIBABA -->
                 <div class="section-box">
-                    <h3>Расчет отдачи (Базовая ЗП = $10 000 вшита в алгоритм):</h3>
-                    <div style="display:flex; gap:20px; background:#f8fafc; padding:14px; border-radius:6px; border:1px solid #e2e8f0;">
-                        <div style="flex:1;">
-                            <div style="font-size:12px; color:#64748b;">ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</div>
-                            <div style="font-size:20px; font-weight:700; color:#15803d; margin-top:4px;" id="previewSalary">$16 667 / мес</div>
-                        </div>
-                        <div style="flex:1;">
-                            <div style="font-size:12px; color:#64748b;">ДОХОД ДОМОХОЗЯЙСТВА</div>
-                            <div style="font-size:20px; font-weight:700; color:#1d4ed8; margin-top:4px;" id="previewIncome">$584 105 / мес</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <button type="button" class="tab-btn" style="background:#e0f2fe; color:#0369a1; border-radius:6px;" onclick="switchTab('specs')">
-                        👉 Настроить комплектующие под данный класс МКТУ
-                    </button>
-
-                    <button class="btn-action-primary" onclick="saveLineToDatabase()">
-                        💾 Зафиксировать станок и комплектующие в Базу
-                    </button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- ========================================================
-             ТАБ 3: КОМПЛЕКТУЮЩИЕ И МАТЕРИАЛЫ
-        ======================================================== -->
-        <div id="viewSpecs" style="display: none;">
-
-            <div class="panel-container">
-
-                <div class="section-box">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
-                        <h3 style="margin:0; border:none; padding:0;">Спецификация сырья и компонентов по выбранному классу МКТУ</h3>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <h3>2. Комплектующие, сырье и аудит цен на Alibaba</h3>
                         <span style="font-size:13px; color:#64748b;">
-                            Текущий класс: <strong id="specCurrentThemeLabel" style="color:#0369a1;">Класс 09 МКТУ: Электроника и БПЛА</strong>
+                            Тема: <strong id="specCurrentThemeLabel" style="color:#0369a1;">Класс 09 МКТУ: Электроника и БПЛА</strong>
                         </span>
                     </div>
+
+                    <p style="font-size:12px; color:#64748b; margin-bottom:10px;">
+                        Нажмите <em>«Проверить на Alibaba»</em> напротив детали, чтобы убедиться в актуальной оптовой цене у китайских фабрик.
+                    </p>
 
                     <table class="spec-table">
                         <thead>
                             <tr>
-                                <th style="width:40px;">#</th>
+                                <th style="width:30px;">#</th>
                                 <th>Наименование компонента / материала</th>
-                                <th style="width:120px;">Кол-во на 1 шт</th>
-                                <th style="width:140px;">Цена за ед. ($)</th>
-                                <th style="width:140px;">Итого ($)</th>
-                                <th style="width:40px;"></th>
+                                <th style="width:200px;">Проверка на Alibaba</th>
+                                <th style="width:100px;">Кол-во</th>
+                                <th style="width:120px;">Цена ($)</th>
+                                <th style="width:120px;">Итого ($)</th>
+                                <th style="width:30px;"></th>
                             </tr>
                         </thead>
                         <tbody id="specTableBody"></tbody>
                     </table>
 
                     <button class="btn-add-row" onclick="addSpecRow()">
-                        ＋ Добавить компонент сырья
+                        ＋ Добавить новый компонент сырья
                     </button>
+                </div>
 
-                    <div style="margin-top:20px; padding:16px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <div style="font-size:13px; color:#1e40af; font-weight:600;">ИТОГОВАЯ СЕБЕСТОИМОСТЬ СЫРЬЯ НА 1 ИЗДЕЛИЕ:</div>
-                            <div style="font-size:26px; font-weight:800; color:#1d4ed8;" id="specTotalSum">$186.00</div>
+                <!-- 3. ИТОГОВЫЙ РАСЧЕТ И ФИКСАЦИЯ В БАЗУ -->
+                <div class="section-box">
+                    <h3>3. Расчет эффективности производства (Базовая ЗП $10 000):</h3>
+                    <div style="display:flex; gap:20px; background:#f8fafc; padding:16px; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:18px;">
+                        <div style="flex:1;">
+                            <div style="font-size:12px; color:#64748b;">ИТОГО СЫРЬЕ НА 1 ИЗДЕЛИЕ</div>
+                            <div style="font-size:22px; font-weight:800; color:#1d4ed8; margin-top:4px;" id="specTotalSum">$186.00</div>
                         </div>
-                        <button class="btn-action-primary" onclick="applySpecsToCalculation()">
-                            ✔ Применить к параметрам оборудования
-                        </button>
+                        <div style="flex:1;">
+                            <div style="font-size:12px; color:#64748b;">ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</div>
+                            <div style="font-size:22px; font-weight:800; color:#15803d; margin-top:4px;" id="previewSalary">$16 667 / мес</div>
+                        </div>
+                        <div style="flex:1;">
+                            <div style="font-size:12px; color:#64748b;">ДОХОД ДОМОХОЗЯЙСТВА</div>
+                            <div style="font-size:22px; font-weight:800; color:#1d4ed8; margin-top:4px;" id="previewIncome">$584 105 / мес</div>
+                        </div>
                     </div>
 
+                    <div style="display:flex; justify-content:flex-end;">
+                        <button class="btn-action-primary" onclick="saveLineToDatabase()">
+                            💾 Зафиксировать станок и комплектующие в Базу
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -575,16 +568,16 @@
     </div>
 
     <script>
-        // РАСШИРЕННЫЙ СПРАВОЧНИК КЛАССОВ МКТУ, ALIBABA-ССЫЛОК И БАЗОВЫХ КОМПЛЕКТУЮЩИХ
+        // СПРАВОЧНИК МКТУ С АНГЛИЙСКИМИ ПОИСКОВЫМИ КЛЮЧАМИ
         const mktuCatalog = {
             mktu_09: {
                 title: 'Класс 09 МКТУ: Электроника, БПЛА и вычислительная техника',
                 marketPrice: 423,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=drone+assembly+line+automatic',
                 specs: [
-                    { name: 'Карбоновая рама FPV 7"', qty: 1, price: 45.00 },
-                    { name: 'Полетный контроллер F4/F7', qty: 1, price: 80.00 },
-                    { name: 'Бесколлекторные моторы 2207 (комплект)', qty: 1, price: 61.00 }
+                    { name: 'Карбоновая рама FPV 7 дюймов', alibabaQuery: 'FPV+carbon+frame+7+inch', qty: 1, price: 45.00 },
+                    { name: 'Полетный контроллер F4/F7 Stack', alibabaQuery: 'flight+controller+F4+F7+stack', qty: 1, price: 80.00 },
+                    { name: 'Бесколлекторные моторы 2207 (комплект 4 шт)', alibabaQuery: 'brushless+motor+2207+set', qty: 1, price: 61.00 }
                 ]
             },
             mktu_07: {
@@ -592,9 +585,9 @@
                 marketPrice: 1250,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=cnc+milling+machine+assembly+line',
                 specs: [
-                    { name: 'Высокоточный шпиндель 3.2 кВт', qty: 1, price: 280.00 },
-                    { name: 'Комплект сервоприводов и ШВП', qty: 1, price: 340.00 },
-                    { name: 'Станина чугунная фрезерованная', qty: 1, price: 180.00 }
+                    { name: 'Высокоточный шпиндель 3.2 кВт водяной', alibabaQuery: 'water+cooled+spindle+3.2kw+cnc', qty: 1, price: 280.00 },
+                    { name: 'Комплект сервоприводов и ШВП 1605', alibabaQuery: 'ball+screw+1605+servo+motor+kit', qty: 1, price: 340.00 },
+                    { name: 'Станина чугунная фрезерованная', alibabaQuery: 'cast+iron+cnc+frame+bed', qty: 1, price: 180.00 }
                 ]
             },
             mktu_10: {
@@ -602,9 +595,9 @@
                 marketPrice: 890,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=medical+device+cleanroom+assembly+line',
                 specs: [
-                    { name: 'Биосовместимый сенсорный модуль', qty: 1, price: 190.00 },
-                    { name: 'Медицинский процессорный блок', qty: 1, price: 145.00 },
-                    { name: 'Корпус антибактериальный IP68', qty: 1, price: 65.00 }
+                    { name: 'Биосовместимый сенсорный SpO2 модуль', alibabaQuery: 'SpO2+sensor+module+medical+grade', qty: 1, price: 190.00 },
+                    { name: 'Медицинский процессорный блок', alibabaQuery: 'medical+display+mainboard+processor', qty: 1, price: 145.00 },
+                    { name: 'Корпус антибактериальный IP68', alibabaQuery: 'medical+grade+plastic+enclosure+IP68', qty: 1, price: 65.00 }
                 ]
             },
             mktu_11: {
@@ -612,9 +605,9 @@
                 marketPrice: 320,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=hvac+air+conditioner+production+line',
                 specs: [
-                    { name: 'Инверторный компрессор хладагента', qty: 1, price: 95.00 },
-                    { name: 'Теплообменник медный с оребрением', qty: 1, price: 48.00 },
-                    { name: 'Плата инверторного управления', qty: 1, price: 27.00 }
+                    { name: 'Инверторный компрессор R32/R410A', alibabaQuery: 'rotary+inverter+compressor+air+conditioner', qty: 1, price: 95.00 },
+                    { name: 'Теплообменник медный с гидрофильным оребрением', alibabaQuery: 'copper+tube+aluminum+fin+heat+exchanger', qty: 1, price: 48.00 },
+                    { name: 'Плата инверторного управления DC', alibabaQuery: 'inverter+air+conditioner+PCB+control+board', qty: 1, price: 27.00 }
                 ]
             },
             mktu_12: {
@@ -622,9 +615,9 @@
                 marketPrice: 680,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=electric+scooter+assembly+line',
                 specs: [
-                    { name: 'Мотор-колесо 500W бесщеточное', qty: 2, price: 65.00 },
-                    { name: 'Тяговая Li-Ion батарея 48V 15Ah', qty: 1, price: 140.00 },
-                    { name: 'Алюминиевая складная рама', qty: 1, price: 55.00 }
+                    { name: 'Мотор-колесо 500W 10 дюймов', alibabaQuery: 'hub+motor+500w+10+inch+electric+scooter', qty: 2, price: 65.00 },
+                    { name: 'Тяговая Li-Ion батарея 48V 15Ah с BMS', alibabaQuery: '48v+15ah+lithium+battery+pack+scooter', qty: 1, price: 140.00 },
+                    { name: 'Алюминиевая складная рама авиасплав', alibabaQuery: 'aluminum+alloy+electric+scooter+frame', qty: 1, price: 55.00 }
                 ]
             },
             mktu_17: {
@@ -632,19 +625,19 @@
                 marketPrice: 180,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=injection+molding+production+line',
                 specs: [
-                    { name: 'Гранулят полиамида PA6-GF30 (25 кг)', qty: 1, price: 52.00 },
-                    { name: 'Пресс-форма высокоресурсная (амортизация)', qty: 1, price: 20.00 },
-                    { name: 'Краситель концентрат Masterbatch', qty: 1, price: 8.00 }
+                    { name: 'Гранулят полиамида PA6-GF30 (25 кг мешок)', alibabaQuery: 'PA6+GF30+raw+plastic+granules', qty: 1, price: 52.00 },
+                    { name: 'Пресс-форма высокоресурсная (амортизация)', alibabaQuery: 'injection+mold+custom+plastic+parts', qty: 1, price: 20.00 },
+                    { name: 'Краситель концентрат Masterbatch (1 кг)', alibabaQuery: 'color+masterbatch+plastic+granules', qty: 1, price: 8.00 }
                 ]
             },
             mktu_06: {
-                title: 'Класс 06 МКТУ: Металлообработка и легкие металлоконструкции',
+                title: 'Класс 06 МКТУ: Металлообработка и металлоконструкции',
                 marketPrice: 450,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=roll+forming+machine+metal+profile',
                 specs: [
-                    { name: 'Рулонная оцинкованная сталь 1.2мм (100 кг)', qty: 1, price: 110.00 },
-                    { name: 'Антикоррозийное полимерное покрытие', qty: 1, price: 25.00 },
-                    { name: 'Комплект метизов и соединителей', qty: 1, price: 15.00 }
+                    { name: 'Рулонная оцинкованная сталь DX51D (100 кг)', alibabaQuery: 'galvanized+steel+coil+DX51D', qty: 1, price: 110.00 },
+                    { name: 'Антикоррозийное полимерное покрытие', alibabaQuery: 'anti+corrosion+metal+coating+primer', qty: 1, price: 25.00 },
+                    { name: 'Комплект соединителей и метизов ГОСТ', alibabaQuery: 'galvanized+screws+bolts+fasteners+bulk', qty: 1, price: 15.00 }
                 ]
             },
             mktu_25: {
@@ -652,14 +645,13 @@
                 marketPrice: 95,
                 alibabaUrl: 'https://www.alibaba.com/trade/search?SearchText=automatic+garment+sewing+production+line',
                 specs: [
-                    { name: 'Ткань мембранная влагостойкая (3 пог. м)', qty: 1, price: 24.00 },
-                    { name: 'Фурнитура влагозащитная и молнии YKK', qty: 1, price: 8.50 },
-                    { name: 'Нити армированные высокопрочные', qty: 1, price: 2.50 }
+                    { name: 'Ткань мембранная 3-Layer Softshell (3 м)', alibabaQuery: '3+layer+waterproof+softshell+membrane+fabric', qty: 1, price: 24.00 },
+                    { name: 'Фурнитура водонепроницаемая и молнии', alibabaQuery: 'waterproof+zipper+tape+pullers+bulk', qty: 1, price: 8.50 },
+                    { name: 'Нити армированные высокопрочные лавсан', alibabaQuery: 'bonded+nylon+sewing+thread+spool', qty: 1, price: 2.50 }
                 ]
             }
         };
 
-        // БАЗА ДАННЫХ ДЛЯ ЛИСТИНГА ПО КЛАССАМ МКТУ
         const database = [
             {
                 theme: 'mktu_09', themeName: 'МКТУ 09: Электроника, БПЛА и микросхемы (Рынок = $423, Сырье = $186)',
@@ -710,11 +702,9 @@
         function switchTab(t) {
             document.getElementById('viewListing').style.display = t === 'listing' ? 'block' : 'none';
             document.getElementById('viewCreate').style.display = t === 'create' ? 'block' : 'none';
-            document.getElementById('viewSpecs').style.display = t === 'specs' ? 'block' : 'none';
 
             document.getElementById('tabBtn1').classList.toggle('active', t === 'listing');
-            document.getElementById('tabBtn2').classList.toggle('active', t === 'create');
-            document.getElementById('tabBtn3').classList.toggle('active', t === 'specs');
+            document.getElementById('tabBtnAuthor').classList.toggle('active', t === 'create');
         }
 
         function toggleAdminMode() {
@@ -722,7 +712,12 @@
             document.body.classList.toggle('admin-mode-on', isAdminMode);
             const btn = document.getElementById('adminBtn');
             btn.classList.toggle('active', isAdminMode);
-            btn.innerHTML = isAdminMode ? '🔓 Админ Моде: ВКЛ' : '🔒 Админ Моде: ВЫКЛ';
+            btn.innerHTML = isAdminMode ? '🔓 Режим автора: ВКЛ' : '🔒 Режим автора (Админ Моде): ВЫКЛ';
+
+            // Если админ мод выключили, находясь во вкладке автора — возвращаем в листинг
+            if (!isAdminMode) {
+                switchTab('listing');
+            }
         }
 
         function renderListing() {
@@ -793,19 +788,14 @@
             renderListing();
         }
 
-        // ВЫБОР МКТУ И АВТО-ОБНОВЛЕНИЕ ВСЕХ ПАРАМЕТРОВ
         function onMktuSelectChange() {
             const key = document.getElementById('newTheme').value;
             const catalogItem = mktuCatalog[key];
 
-            // 1. Автоматическая ссылка Alibaba под МКТУ
             document.getElementById('newAlibabaLink').value = catalogItem.alibabaUrl;
             document.getElementById('testAlibabaBtn').href = catalogItem.alibabaUrl;
-
-            // 2. Рыночная цена
             document.getElementById('newMarketPrice').value = catalogItem.marketPrice;
 
-            // 3. Загрузка спецификаций под этот класс МКТУ
             currentSpecs = JSON.parse(JSON.stringify(catalogItem.specs));
             document.getElementById('specCurrentThemeLabel').innerText = catalogItem.title;
             renderSpecsTable();
@@ -821,17 +811,25 @@
                 const rowTotal = item.qty * item.price;
                 total += rowTotal;
 
+                const query = encodeURIComponent(item.alibabaQuery || item.name);
+                const verifyAlibabaUrl = `https://www.alibaba.com/trade/search?SearchText=${query}`;
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="color:#64748b; font-weight:600;">${index + 1}</td>
                     <td>
-                        <input type="text" class="form-control" style="padding:5px 8px; font-size:13px;" value="${item.name}" oninput="updateSpecName(${index}, this.value)">
+                        <input type="text" class="form-control" style="padding:6px 8px; font-size:13px;" value="${item.name}" oninput="updateSpecName(${index}, this.value)">
                     </td>
                     <td>
-                        <input type="number" class="form-control" style="padding:5px 8px; font-size:13px;" value="${item.qty}" min="1" oninput="updateSpecQty(${index}, this.value)">
+                        <a id="specLink_${index}" href="${verifyAlibabaUrl}" target="_blank" class="link-alibaba" style="font-size:11px;" title="Проверить оптовую цену поставщиков">
+                            🔍 Проверить на Alibaba ↗
+                        </a>
                     </td>
                     <td>
-                        <input type="number" class="form-control" style="padding:5px 8px; font-size:13px;" value="${item.price}" step="0.5" oninput="updateSpecPrice(${index}, this.value)">
+                        <input type="number" class="form-control" style="padding:6px 8px; font-size:13px;" value="${item.qty}" min="1" oninput="updateSpecQty(${index}, this.value)">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" style="padding:6px 8px; font-size:13px; font-weight:600; color:#1e40af;" value="${item.price}" step="0.5" oninput="updateSpecPrice(${index}, this.value)">
                     </td>
                     <td style="font-weight:700; color:#0f172a;">$${rowTotal.toFixed(2)}</td>
                     <td>
@@ -846,16 +844,22 @@
             recalcLine();
         }
 
-        function updateSpecName(idx, val) { currentSpecs[idx].name = val; }
+        function updateSpecName(idx, val) {
+            currentSpecs[idx].name = val;
+            currentSpecs[idx].alibabaQuery = val;
+            const linkEl = document.getElementById(`specLink_${idx}`);
+            if (linkEl) {
+                linkEl.href = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(val)}`;
+            }
+        }
+
         function updateSpecQty(idx, val) { currentSpecs[idx].qty = parseFloat(val) || 1; renderSpecsTable(); }
         function updateSpecPrice(idx, val) { currentSpecs[idx].price = parseFloat(val) || 0; renderSpecsTable(); }
         function deleteSpecRow(idx) { currentSpecs.splice(idx, 1); renderSpecsTable(); }
         function addSpecRow() {
-            currentSpecs.push({ name: 'Новый компонент', qty: 1, price: 10.00 });
+            currentSpecs.push({ name: 'Новый компонент', alibabaQuery: 'industrial+parts+raw+material', qty: 1, price: 10.00 });
             renderSpecsTable();
         }
-
-        function applySpecsToCalculation() { switchTab('create'); }
 
         function recalcLine() {
             const BASE_SALARY = 10000;
