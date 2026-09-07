@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АСУИР — Секция 1: Прямые затраты</title>
+    <title>АСУИР / GEMENU — Производственные линии</title>
     <style>
         :root {
-            --bg-main: #f4f6f9;
+            --bg: #f4f6f9;
             --surface: #ffffff;
-            --primary: #1e40af;
-            --primary-hover: #1d4ed8;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border: #e5e7eb;
-            --success-bg: #def7ec;
-            --success-text: #03543f;
-            --warning-bg: #fef08a;
-            --warning-text: #713f12;
+            --border: #e2e8f0;
+            --primary: #1d4ed8;
+            --primary-hover: #1e40af;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --theme-header-bg: #e0f2fe;
+            --theme-header-text: #0369a1;
+            --green-badge-bg: #dcfce7;
+            --green-badge-text: #15803d;
+            --blue-income-text: #1d4ed8;
+            --btn-green: #047857;
+            --btn-green-hover: #065f46;
         }
 
         * {
@@ -27,290 +30,260 @@
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text-dark);
             padding: 24px;
+            font-size: 14px;
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1540px;
             margin: 0 auto;
         }
 
-        /* Верхняя панель */
-        .header {
+        /* ВЕРХНЕЕ МЕНЮ ТАБОВ */
+        .tabs-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border);
             margin-bottom: 20px;
+            background: #fff;
+            padding: 10px 16px 0;
+            border-radius: 8px 8px 0 0;
         }
 
-        .title h1 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #111827;
-        }
-
-        .title p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .role-switch {
-            background: #e5e7eb;
-            padding: 4px;
-            border-radius: 8px;
-            display: flex;
-            gap: 4px;
-            font-size: 13px;
-        }
-
-        .role-btn {
+        .tab-btn {
+            background: none;
             border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            background: transparent;
+            padding: 12px 22px;
+            font-size: 15px;
+            font-weight: 700;
             color: var(--text-muted);
-            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.15s;
         }
 
-            .role-btn.active {
-                background: #fff;
-                color: var(--text-main);
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            .tab-btn:hover {
+                color: var(--primary);
             }
 
-        /* Сводные карточки KPI */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+            .tab-btn.active {
+                color: var(--primary);
+                border-bottom-color: var(--primary);
+                background: #eff6ff;
+                border-radius: 6px 6px 0 0;
+            }
 
-        .kpi-card {
-            background: var(--surface);
-            padding: 18px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-
-        .kpi-title {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .kpi-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin-top: 6px;
-            color: #111827;
-        }
-
-        .kpi-sub {
-            font-size: 12px;
-            color: #059669;
-            margin-top: 4px;
-        }
-
-        /* Основная панель таблицы */
-        .card {
-            background: var(--surface);
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-
-        .table-toolbar {
-            padding: 16px 20px;
+        /* ТАБ 1: ЛИСТИНГ ПРОИЗВОДСТВ */
+        .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border);
-            gap: 12px;
-            flex-wrap: wrap;
+            background: #fff;
+            padding: 12px 18px;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid var(--border);
+            border-bottom: none;
         }
 
-        .search-group {
+        .filter-group {
             display: flex;
-            gap: 10px;
-            flex: 1;
-            max-width: 500px;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: #334155;
         }
 
-        .input-search {
-            width: 100%;
-            padding: 8px 12px;
+        .select-filter {
+            padding: 6px 12px;
             border: 1px solid var(--border);
             border-radius: 6px;
             font-size: 14px;
+            background: #fff;
             outline: none;
         }
 
-            .input-search:focus {
-                border-color: var(--primary);
-            }
-
-        .btn-add {
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .table-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 0 0 8px 8px;
+            overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
-            .btn-add:hover {
-                background: var(--primary-hover);
-            }
-
-        /* Таблица */
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            font-size: 14px;
         }
 
         th {
-            background: #f9fafb;
-            padding: 12px 20px;
-            font-weight: 600;
-            color: var(--text-muted);
-            font-size: 12px;
+            background: #f1f5f9;
+            padding: 12px 16px;
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
-            border-bottom: 1px solid var(--border);
+            color: #475569;
+            border-bottom: 2px solid var(--border);
+            white-space: nowrap;
         }
 
         td {
-            padding: 14px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid var(--border);
             vertical-align: middle;
         }
 
         tr:hover {
-            background-color: #f8fafc;
+            background-color: #fafbfc;
         }
 
-        .badge {
-            display: inline-block;
+        /* Заголовки тем (Папки) */
+        .theme-row td {
+            background: var(--theme-header-bg);
+            color: var(--theme-header-text);
+            font-weight: 700;
+            font-size: 13px;
+            padding: 10px 16px;
+            border-top: 2px solid #bae6fd;
+            border-bottom: 1px solid #bae6fd;
+        }
+
+        /* Бейджи и кнопки внутри таблицы */
+        .badge-system {
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .badge-my {
+            background: #dcfce7;
+            color: #166534;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .badge-code {
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 10px;
+            border: 1px solid #cbd5e1;
+            padding: 1px 5px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        .btn-spec {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .badge-success {
-            background: var(--success-bg);
-            color: var(--success-text);
-        }
-
-        .badge-warning {
-            background: var(--warning-bg);
-            color: var(--warning-text);
-        }
-
-        /* Боковая шторка (Drawer) */
-        .drawer-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            display: none;
-            justify-content: flex-end;
-            z-index: 100;
-        }
-
-            .drawer-overlay.open {
-                display: flex;
-            }
-
-        .drawer {
-            width: 100%;
-            max-width: 480px;
-            background: #fff;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -4px 0 16px rgba(0,0,0,0.15);
-            animation: slideIn 0.25s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        .drawer-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-            .drawer-header h3 {
-                font-size: 18px;
-                font-weight: 600;
-            }
-
-        .btn-close {
-            background: none;
-            border: none;
-            font-size: 20px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #334155;
             cursor: pointer;
-            color: var(--text-muted);
+            margin-top: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .drawer-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex: 1;
+            .btn-spec:hover {
+                background: #f1f5f9;
+            }
+
+        .link-alibaba {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+            .link-alibaba:hover {
+                text-decoration: underline;
+            }
+
+        .salary-badge {
+            background: var(--green-badge-bg);
+            color: var(--green-badge-text);
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .income-text {
+            font-weight: 700;
+            color: var(--blue-income-text);
+            white-space: nowrap;
+        }
+
+        /* ТАБ 2: ДОБАВЛЕНИЕ В БАЗУ */
+        .create-container {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
+            max-width: 1100px;
         }
 
-        .drawer-footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            background: #f9fafb;
+        .section-box {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
-        /* Элементы формы */
+            .section-box h3 {
+                font-size: 15px;
+                font-weight: 700;
+                color: #0f172a;
+                margin-bottom: 14px;
+                border-bottom: 1px solid #f1f5f9;
+                padding-bottom: 8px;
+            }
+
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
             .form-group label {
-                font-size: 13px;
+                font-size: 12px;
                 font-weight: 600;
-                color: #374151;
+                color: #475569;
             }
 
         .form-control {
-            padding: 10px;
+            padding: 9px 12px;
             border: 1px solid var(--border);
             border-radius: 6px;
             font-size: 14px;
@@ -321,314 +294,382 @@
                 border-color: var(--primary);
             }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        /* Динамические и свернутые блоки */
-        .dynamic-block {
-            display: none;
-            background: #f9fafb;
-            padding: 14px;
+        .calc-preview {
+            display: flex;
+            gap: 20px;
+            background: #f8fafc;
+            padding: 16px;
             border-radius: 8px;
-            border: 1px dashed var(--border);
-            margin-top: 4px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            border: 1px solid #e2e8f0;
         }
 
-        .accordion-btn {
-            background: none;
-            border: 1px solid var(--border);
-            padding: 8px 12px;
-            border-radius: 6px;
-            text-align: left;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
+        .calc-card {
+            flex: 1;
+        }
+
+        .calc-card-title {
+            font-size: 12px;
+            font-weight: 600;
             color: var(--text-muted);
-            display: flex;
-            justify-content: space-between;
         }
 
-        .accordion-content {
-            display: none;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-top: none;
-            border-radius: 0 0 6px 6px;
+        .calc-card-val {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 4px;
         }
+
+        .btn-save-database {
+            background-color: var(--btn-green);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+            .btn-save-database:hover {
+                background-color: var(--btn-green-hover);
+            }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Шапка -->
-        <div class="header">
-            <div class="title">
-                <h1>АСУИР / GEMENU — Секция 1: Прямые затраты</h1>
-                <p>Учет производственных расходов, сырья и сдельных выплат</p>
-            </div>
-            <div class="role-switch">
-                <button class="role-btn" onclick="setRole('user')">Роль: Пользователь (50)</button>
-                <button class="role-btn active" onclick="setRole('author')">Роль: Автор (1)</button>
-            </div>
+
+        <!-- ВЕРХНИЕ ТАБЫ СИСТЕМЫ -->
+        <div class="tabs-header">
+            <button id="tabBtn1" class="tab-btn active" onclick="switchTab('listing')">
+                📋 Листинг производств
+            </button>
+            <button id="tabBtn2" class="tab-btn" onclick="switchTab('create')">
+                ➕ Добавление в базу
+            </button>
         </div>
 
-        <!-- Сводные карточки -->
-        <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-title">СУММА ПРЯМЫХ ЗАТРАТ</div>
-                <div class="kpi-value" id="kpi-total">660 000 ₽</div>
-                <div class="kpi-sub">В пределах бюджета месяца</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-title">НА ПРОВЕРКЕ</div>
-                <div class="kpi-value" id="kpi-pending">1 запись</div>
-                <div class="kpi-sub" style="color:#d97706">Требует внимания автора</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-title">ОСНОВНАЯ СТАТЬЯ РАСХОДОВ</div>
-                <div class="kpi-value">Сырье и материалы</div>
-                <div class="kpi-sub">68% от общей суммы</div>
-            </div>
-        </div>
+        <!-- ========================================================
+             ТАБ 1: ЛИСТИНГ ПРОИЗВОДСТВ (ПО УМОЛЧАНИЮ)
+        ======================================================== -->
+        <div id="viewListing">
 
-        <!-- Листинг (Центральное рабочее место) -->
-        <div class="card">
-            <div class="table-toolbar">
-                <div class="search-group">
-                    <input type="text" id="searchInput" class="input-search" placeholder="🔍 Быстрый поиск по названию или контрагенту..." oninput="filterTable()">
-                </div>
-                <button id="addBtn" class="btn-add" onclick="openDrawer()">
-                    <span>＋</span> Занести новую затрату
-                </button>
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Дата</th>
-                        <th>Категория</th>
-                        <th>Наименование / Назначение</th>
-                        <th>Сумма</th>
-                        <th>Контрагент</th>
-                        <th>Статус</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Строки формируются скриптом -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Выезжающая шторка добавления (По мере заполнения) -->
-    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
-        <div class="drawer" onclick="event.stopPropagation()">
-            <div class="drawer-header">
-                <h3>Занесение прямой затраты</h3>
-                <button class="btn-close" onclick="closeDrawer()">✕</button>
-            </div>
-            <div class="drawer-body">
-
-                <!-- Шаг 1: Базовый -->
-                <div class="form-group">
-                    <label>1. Выберите категорию затраты *</label>
-                    <select id="formCategory" class="form-control" onchange="onCategoryChange()">
-                        <option value="" selected disabled>-- Выберите категорию --</option>
-                        <option value="raw">Сырье и материалы</option>
-                        <option value="labor">Сдельная оплата труда / ФОТ</option>
-                        <option value="logistics">Транспорт и логистика</option>
+            <div class="toolbar">
+                <div class="filter-group">
+                    <span>👁 Фильтр базы оборудования:</span>
+                    <select id="themeFilter" class="select-filter" onchange="filterListing()">
+                        <option value="all">🌐 Все линии (Свои и чужие)</option>
+                        <option value="drones">Дроны и радиоэлектроника</option>
+                        <option value="tablets">Планшеты и мобильные ПК</option>
+                        <option value="tv">Телевизоры и дисплеи</option>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label>2. Дата операции *</label>
-                    <input type="date" id="formDate" class="form-control" value="2026-05-19">
+                <div style="font-size: 13px; color: #64748b;">
+                    Всего линий в реестре: <strong id="totalLinesCount">7</strong>
                 </div>
-
-                <!-- Шаг 2: Динамический блок (появляется только после выбора категории) -->
-                <div id="dynamicFields" class="dynamic-block" style="display:none;">
-
-                    <div class="form-group">
-                        <label>Наименование позиции / назначение *</label>
-                        <input type="text" id="formName" class="form-control" placeholder="Например: Листовой металл 2мм">
-                    </div>
-
-                    <div id="calcFields" class="form-row">
-                        <div class="form-group">
-                            <label>Кол-во / Объем</label>
-                            <input type="number" id="formQty" class="form-control" placeholder="10" oninput="calcTotal()">
-                        </div>
-                        <div class="form-group">
-                            <label>Цена за ед. (₽)</label>
-                            <input type="number" id="formPrice" class="form-control" placeholder="5000" oninput="calcTotal()">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Итоговая сумма (₽) *</label>
-                        <input type="number" id="formAmount" class="form-control" style="font-weight:bold; background:#eef2ff;" placeholder="0">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Контрагент / Исполнитель *</label>
-                        <input type="text" id="formContractor" class="form-control" placeholder="ООО Поставщик">
-                    </div>
-                </div>
-
-                <!-- Шаг 3: Вторичные блоки (свернуты по умолчанию) -->
-                <div style="margin-top: 10px;">
-                    <button type="button" class="accordion-btn" onclick="toggleAccordion('accDocs')">
-                        <span>📎 Закрывающие документы и акты</span>
-                        <span>▾</span>
-                    </button>
-                    <div id="accDocs" class="accordion-content">
-                        <input type="file" class="form-control" style="font-size:12px;">
-                    </div>
-                </div>
-
             </div>
-            <div class="drawer-footer">
-                <button class="role-btn" onclick="closeDrawer()">Отмена</button>
-                <button class="btn-add" onclick="saveRecord()">Сохранить в реестр</button>
+
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">#</th>
+                            <th>ТИП ЛИНИИ</th>
+                            <th>ССЫЛКА</th>
+                            <th>ЦЕНА ЛИНИИ</th>
+                            <th>СКОРОСТЬ</th>
+                            <th>ПЕРСОНАЛ</th>
+                            <th>БАЗОВАЯ ЗП</th>
+                            <th>ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</th>
+                            <th>ДОХОД ДОМОХОЗЯЙСТВА</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listingBody">
+                        <!-- Заполняется скриптом -->
+                    </tbody>
+                </table>
             </div>
+
         </div>
+
+        <!-- ========================================================
+             ТАБ 2: ДОБАВЛЕНИЕ В БАЗУ (ДЛЯ АВТОРА)
+        ======================================================== -->
+        <div id="viewCreate" style="display: none;">
+
+            <div class="create-container">
+
+                <!-- БЛОК 1: ТЕМА И ПАРАМЕТРЫ СТАНКА -->
+                <div class="section-box">
+                    <h3>1. Выбор темы и параметры производственной линии</h3>
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label>Тематика производства *</label>
+                            <select id="newTheme" class="form-control" onchange="updateThemeDefaults()">
+                                <option value="drones">Дроны и радиоэлектроника</option>
+                                <option value="tablets">Планшеты и мобильные ПК</option>
+                                <option value="tv">Телевизоры и дисплеи</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Конкурентная цена изделия ($)</label>
+                            <input type="number" id="newMarketPrice" class="form-control" value="423" oninput="recalcNew()">
+                        </div>
+                        <div class="form-group">
+                            <label>Стоимость сырья на 1 шт ($)</label>
+                            <input type="number" id="newRawPrice" class="form-control" value="186" oninput="recalcNew()">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2" style="margin-top: 14px;">
+                        <div class="form-group">
+                            <label>Название линии / оборудования *</label>
+                            <input type="text" id="newName" class="form-control" placeholder="Например: Линия автоматической пайки">
+                        </div>
+                        <div class="form-group">
+                            <label>Ссылка на поставщика (Alibaba / др.)</label>
+                            <input type="text" id="newLink" class="form-control" value="https://alibaba.com/">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-3" style="margin-top: 14px;">
+                        <div class="form-group">
+                            <label>Цена линии ($) *</label>
+                            <input type="number" id="newLineCost" class="form-control" value="199000" oninput="recalcNew()">
+                        </div>
+                        <div class="form-group">
+                            <label>Скорость выработки (шт / день) *</label>
+                            <input type="number" id="newSpeed" class="form-control" value="100" oninput="recalcNew()">
+                        </div>
+                        <div class="form-group">
+                            <label>Персонал (чел) *</label>
+                            <input type="number" id="newStaff" class="form-control" value="12" oninput="recalcNew()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- БЛОК 2: ПРЕДВАРИТЕЛЬНЫЙ РАСЧЕТ ВЫГОДЫ -->
+                <div class="section-box">
+                    <h3>2. Предварительный расчет отдачи</h3>
+                    <div class="calc-preview">
+                        <div class="calc-card">
+                            <div class="calc-card-title">ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</div>
+                            <div class="calc-card-val" style="color:#15803d;" id="previewSalary">$10 167 / мес</div>
+                        </div>
+                        <div class="calc-card">
+                            <div class="calc-card-title">ДОХОД ДОМОХОЗЯЙСТВА</div>
+                            <div class="calc-card-val" style="color:#1d4ed8;" id="previewIncome">$584 105 / мес</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ЕДИНСТВЕННАЯ КНОПКА ФИКСАЦИИ В САМОМ НИЗУ -->
+                <div style="display:flex; justify-content:flex-end;">
+                    <button class="btn-save-database" onclick="saveLineToDatabase()">
+                        💾 Зафиксировать станок и комплектующие в Базу
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
     <script>
-    // Данные листинга
-    let records = [
-        { id: 103, date: '18.05.2026', cat: 'Сырье и материалы', name: 'Профильная труба 40х20', amount: 420000, contractor: 'ООО «МеталлТорг»', status: 'Проведено' },
-        { id: 102, date: '16.05.2026', cat: 'Транспорт и логистика', name: 'Доставка партии №4', amount: 45000, contractor: 'ИП Логистик', status: 'Проведено' },
-        { id: 101, date: '15.05.2026', cat: 'Сдельная оплата труда', name: 'Монтажная смена цеха №2', amount: 195000, contractor: 'Бригада №3', status: 'На проверке' }
-    ];
+        // Исходная база линий (точно по вашему скриншоту)
+        const database = [
+            // ТЕМА 1
+            {
+                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
+                id: 1, name: 'Линия сборки БПЛА (Sanhok 100 шт/день)', badge: 'SYSTEM', badgeClass: 'badge-system',
+                linkText: 'Alibaba', cost: '$199 000', speed: '100 шт/день', staff: '12 чел', baseSalary: '$3 500',
+                calcSalary: '$10 167 / мес', householdIncome: '$584 105 / мес', specCount: 0, specCost: '$186.00'
+            },
 
-    function renderTable(data = records) {
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = '';
-        data.forEach(r => {
-            const tr = document.createElement('tr');
-            const statusClass = r.status === 'Проведено' ? 'badge-success' : 'badge-warning';
-            tr.innerHTML = `
-                <td style="font-weight:600; color:#6b7280;">#${r.id}</td>
-                <td>${r.date}</td>
-                <td>${r.cat}</td>
-                <td style="font-weight:500;">${r.name}</td>
-                <td style="font-weight:600;">${r.amount.toLocaleString()} ₽</td>
-                <td>${r.contractor}</td>
-                <td><span class="badge ${statusClass}">${r.status}</span></td>
-            `;
-            tbody.appendChild(tr);
-        });
-        updateKPI();
-    }
+            {
+                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
+                id: 2, name: 'Линия сборки БПЛА (Sanhok)', badge: 'SYSTEM', badgeClass: 'badge-system',
+                linkText: 'Alibaba', cost: '$199 000', speed: '500 шт/день', staff: '20 чел', baseSalary: '$3 500',
+                calcSalary: '$31 480 / мес', householdIncome: '$2 920 509 / мес', specCount: 0, specCost: '$186.00'
+            },
 
-    function updateKPI() {
-        const total = records.reduce((sum, r) => sum + r.amount, 0);
-        const pending = records.filter(r => r.status === 'На проверке').length;
-        document.getElementById('kpi-total').innerText = total.toLocaleString() + ' ₽';
-        document.getElementById('kpi-pending').innerText = pending + ' ' + (pending === 1 ? 'запись' : 'записей');
-    }
+            {
+                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
+                id: 9, name: 'Custom Automatic Drone Production Line High', badge: 'CL-OD30EF', badgeClass: 'badge-code',
+                linkText: 'Alibaba', cost: '$4 200', speed: '10 шт/день', staff: '2 чел', baseSalary: '$3 500',
+                calcSalary: '$5 500 / мес', householdIncome: '$58 411 / мес', specCount: 5, specCost: '$186.00'
+            },
 
-    function filterTable() {
-        const q = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = records.filter(r =>
-            r.name.toLowerCase().includes(q) ||
-            r.contractor.toLowerCase().includes(q) ||
-            r.cat.toLowerCase().includes(q)
-        );
-        renderTable(filtered);
-    }
+            // ТЕМА 2
+            {
+                theme: 'tablets', themeName: 'ТЕМА: ПЛАНШЕТЫ И МОБИЛЬНЫЕ ПК (Конкурентная цена = $150.00, Сырье = $100.00)',
+                id: 3, name: 'tablet assembly equipment', badge: 'SYSTEM', badgeClass: 'badge-system',
+                linkText: 'Alibaba', cost: '$19 000', speed: '50 шт/день', staff: '5 чел', baseSalary: '$3 500',
+                calcSalary: '$4 114 / мес', householdIncome: '$52 498 / мес', specCount: 0, specCost: '$100.00'
+            },
 
-    // Логика шторки и пошагового заполнения
-    function openDrawer() { document.getElementById('drawerOverlay').classList.add('open'); }
-    function closeDrawer(e) {
-        if(!e || e.target === document.getElementById('drawerOverlay') || e.target.classList.contains('btn-close') || e.target.innerText === 'Отмена') {
-            document.getElementById('drawerOverlay').classList.remove('open');
-            resetForm();
+            // ТЕМА 3
+            {
+                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
+                id: 4, name: 'Компактный стенд сборки ТВ панелей', badge: 'Моё', badgeClass: 'badge-my',
+                linkText: 'Alibaba', cost: '$4 450', speed: '500 шт/день', staff: '14 чел', baseSalary: '$3 500',
+                calcSalary: '$58 808 / мес', householdIncome: '$3 629 995 / мес', specCount: 5, specCost: '$253.00'
+            },
+
+            {
+                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
+                id: 5, name: 'Semi Automatic Smart TV Production Line', badge: 'Моё', badgeClass: 'badge-my',
+                linkText: 'Alibaba', cost: '$25 000', speed: '50 шт/день', staff: '18 чел', baseSalary: '$3 500',
+                calcSalary: '$4 471 / мес', householdIncome: '$362 991 / мес', specCount: 5, specCost: '$253.00'
+            },
+
+            {
+                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
+                id: 6, name: 'Up and Down TV Assembly Line', badge: 'CL-OD30EF', badgeClass: 'badge-code',
+                linkText: 'Alibaba', cost: '$199 999', speed: '100 шт/день', staff: '10 чел', baseSalary: '$3 500',
+                calcSalary: '$16 009 / мес', householdIncome: '$726 002 / мес', specCount: 5, specCost: '$253.00'
+            }
+        ];
+
+        // Рендер листинга производств (Таб 1)
+        function renderListing(themeFilter = 'all') {
+            const tbody = document.getElementById('listingBody');
+            tbody.innerHTML = '';
+
+            const filtered = themeFilter === 'all' ? database : database.filter(d => d.theme === themeFilter);
+            document.getElementById('totalLinesCount').innerText = filtered.length;
+
+            // Группировка по темам
+            let currentTheme = '';
+            filtered.forEach(row => {
+                if (row.themeName !== currentTheme) {
+                    currentTheme = row.themeName;
+                    const trTheme = document.createElement('tr');
+                    trTheme.className = 'theme-row';
+                    trTheme.innerHTML = `<td colspan="9">📁 ${currentTheme}</td>`;
+                    tbody.appendChild(trTheme);
+                }
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:700; color:#1e293b;">${row.id}</td>
+                    <td>
+                        <div style="font-weight:700; color:#0f172a;">
+                            ${row.name} <span class="${row.badgeClass}">${row.badge}</span>
+                        </div>
+                        <button class="btn-spec">▶ 📦 Спецификация (${row.specCount} поз. / ${row.specCost}) ▾</button>
+                    </td>
+                    <td>
+                        <a href="https://alibaba.com" target="_blank" class="link-alibaba">🔗 ${row.linkText} ↗</a>
+                    </td>
+                    <td style="font-weight:500;">${row.cost}</td>
+                    <td>${row.speed}</td>
+                    <td>${row.staff}</td>
+                    <td style="color:#64748b;">${row.baseSalary}</td>
+                    <td>
+                        <span class="salary-badge">${row.calcSalary}</span>
+                    </td>
+                    <td class="income-text">${row.householdIncome}</td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
-    }
 
-    function onCategoryChange() {
-        const cat = document.getElementById('formCategory').value;
-        const dynamicBlock = document.getElementById('dynamicFields');
-        if(cat) {
-            dynamicBlock.style.display = 'flex';
-        }
-    }
-
-    function calcTotal() {
-        const qty = parseFloat(document.getElementById('formQty').value) || 0;
-        const price = parseFloat(document.getElementById('formPrice').value) || 0;
-        if(qty && price) {
-            document.getElementById('formAmount').value = qty * price;
-        }
-    }
-
-    function toggleAccordion(id) {
-        const el = document.getElementById(id);
-        el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function saveRecord() {
-        const catSelect = document.getElementById('formCategory');
-        const catText = catSelect.options[catSelect.selectedIndex].text;
-        const name = document.getElementById('formName').value;
-        const amount = parseFloat(document.getElementById('formAmount').value);
-        const contractor = document.getElementById('formContractor').value;
-        const dateInput = document.getElementById('formDate').value;
-
-        if(!catSelect.value || !name || !amount) {
-            alert('Пожалуйста, заполните категорию, наименование и сумму.');
-            return;
+        function filterListing() {
+            const val = document.getElementById('themeFilter').value;
+            renderListing(val);
         }
 
-        const newRec = {
-            id: records.length ? Math.max(...records.map(r => r.id)) + 1 : 101,
-            date: dateInput.split('-').reverse().join('.'),
-            cat: catText,
-            name: name,
-            amount: amount,
-            contractor: contractor || 'Не указан',
-            status: 'На проверке'
-        };
+        // Переключение между 2 главными табами
+        function switchTab(target) {
+            document.getElementById('viewListing').style.display = target === 'listing' ? 'block' : 'none';
+            document.getElementById('viewCreate').style.display = target === 'create' ? 'block' : 'none';
 
-        records.unshift(newRec);
-        renderTable();
-        closeDrawer();
-    }
-
-    function resetForm() {
-        document.getElementById('formCategory').value = '';
-        document.getElementById('formName').value = '';
-        document.getElementById('formQty').value = '';
-        document.getElementById('formPrice').value = '';
-        document.getElementById('formAmount').value = '';
-        document.getElementById('formContractor').value = '';
-        document.getElementById('dynamicFields').style.display = 'none';
-        document.getElementById('accDocs').style.display = 'none';
-    }
-
-    // Переключение ролей (50 к 1)
-    function setRole(role) {
-        document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-        if(role === 'author') {
-            event.target.classList.add('active');
-            document.getElementById('addBtn').style.display = 'flex';
-        } else {
-            event.target.classList.add('active');
-            document.getElementById('addBtn').style.display = 'none'; // Прячем кнопку для 50 обычных пользователей
+            document.getElementById('tabBtn1').classList.toggle('active', target === 'listing');
+            document.getElementById('tabBtn2').classList.toggle('active', target === 'create');
         }
-    }
 
-    // Инициализация
-    renderTable();
+        // Авто-подстановка темы во вкладке 2
+        function updateThemeDefaults() {
+            const t = document.getElementById('newTheme').value;
+            if (t === 'drones') {
+                document.getElementById('newMarketPrice').value = 423;
+                document.getElementById('newRawPrice').value = 186;
+            } else if (t === 'tablets') {
+                document.getElementById('newMarketPrice').value = 150;
+                document.getElementById('newRawPrice').value = 100;
+            } else if (t === 'tv') {
+                document.getElementById('newMarketPrice').value = 550;
+                document.getElementById('newRawPrice').value = 253;
+            }
+            recalcNew();
+        }
+
+        // Расчет в реальном времени при вводе
+        function recalcNew() {
+            const speed = parseFloat(document.getElementById('newSpeed').value) || 1;
+            const staff = parseFloat(document.getElementById('newStaff').value) || 1;
+            const market = parseFloat(document.getElementById('newMarketPrice').value) || 0;
+            const raw = parseFloat(document.getElementById('newRawPrice').value) || 0;
+            const marginPerUnit = market - raw;
+
+            const monthlyUnits = speed * 22; // 22 рабочих дня
+            const grossMargin = monthlyUnits * marginPerUnit;
+
+            // Пример живого расчета
+            const calculatedSalary = Math.round(3500 + (grossMargin * 0.15 / staff));
+            const householdIncome = Math.round(grossMargin * 0.85);
+
+            document.getElementById('previewSalary').innerText = '$' + calculatedSalary.toLocaleString() + ' / мес';
+            document.getElementById('previewIncome').innerText = '$' + householdIncome.toLocaleString() + ' / мес';
+        }
+
+        // Сохранение новой линии в базу (переход обратно в листинг)
+        function saveLineToDatabase() {
+            const name = document.getElementById('newName').value || 'Новая производственная линия';
+            const cost = parseFloat(document.getElementById('newLineCost').value) || 0;
+            const speed = parseFloat(document.getElementById('newSpeed').value) || 0;
+            const staff = parseFloat(document.getElementById('newStaff').value) || 0;
+            const theme = document.getElementById('newTheme').value;
+            const themeText = document.getElementById('newTheme').options[document.getElementById('newTheme').selectedIndex].text;
+            const raw = document.getElementById('newRawPrice').value;
+            const market = document.getElementById('newMarketPrice').value;
+
+            const newEntry = {
+                theme: theme,
+                themeName: `ТЕМА: ${themeText.toUpperCase()} (Конкурентная цена = $${market}.00, Сырье = $${raw}.00)`,
+                id: database.length + 1,
+                name: name,
+                badge: 'Моё',
+                badgeClass: 'badge-my',
+                linkText: 'Alibaba',
+                cost: '$' + cost.toLocaleString(),
+                speed: speed + ' шт/день',
+                staff: staff + ' чел',
+                baseSalary: '$3 500',
+                calcSalary: document.getElementById('previewSalary').innerText,
+                householdIncome: document.getElementById('previewIncome').innerText,
+                specCount: 3,
+                specCost: '$' + raw + '.00'
+            };
+
+            // Добавляем в начало базы
+            database.unshift(newEntry);
+
+            // Рендерим листинг и переключаем на Таб 1
+            renderListing('all');
+            document.getElementById('themeFilter').value = 'all';
+            switchTab('listing');
+
+            // Очистка формы
+            document.getElementById('newName').value = '';
+        }
+
+        // Запуск при старте
+        renderListing();
     </script>
+
 </body>
 </html>
