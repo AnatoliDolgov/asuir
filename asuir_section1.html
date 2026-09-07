@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АСУИР — Секция 1: Прямые затраты</title>
+    <style>
+        :root {
+            --bg-main: #f4f6f9;
+            --surface: #ffffff;
+            --primary: #1e40af;
+            --primary-hover: #1d4ed8;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --success-bg: #def7ec;
+            --success-text: #03543f;
+            --warning-bg: #fef08a;
+            --warning-text: #713f12;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* Верхняя панель */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .title h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .title p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .role-switch {
+            background: #e5e7eb;
+            padding: 4px;
+            border-radius: 8px;
+            display: flex;
+            gap: 4px;
+            font-size: 13px;
+        }
+
+        .role-btn {
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+            .role-btn.active {
+                background: #fff;
+                color: var(--text-main);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+        /* Сводные карточки KPI */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            padding: 18px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .kpi-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .kpi-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 6px;
+            color: #111827;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            color: #059669;
+            margin-top: 4px;
+        }
+
+        /* Основная панель таблицы */
+        .card {
+            background: var(--surface);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .table-toolbar {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-group {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .input-search {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+            .input-search:focus {
+                border-color: var(--primary);
+            }
+
+        .btn-add {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .btn-add:hover {
+                background: var(--primary-hover);
+            }
+
+        /* Таблица */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background: #f9fafb;
+            padding: 12px 20px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .badge-warning {
+            background: var(--warning-bg);
+            color: var(--warning-text);
+        }
+
+        /* Боковая шторка (Drawer) */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            justify-content: flex-end;
+            z-index: 100;
+        }
+
+            .drawer-overlay.open {
+                display: flex;
+            }
+
+        .drawer {
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -4px 0 16px rgba(0,0,0,0.15);
+            animation: slideIn 0.25s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .drawer-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .drawer-header h3 {
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .drawer-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .drawer-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #f9fafb;
+        }
+
+        /* Элементы формы */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+            .form-group label {
+                font-size: 13px;
+                font-weight: 600;
+                color: #374151;
+            }
+
+        .form-control {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+            .form-control:focus {
+                border-color: var(--primary);
+            }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Динамические и свернутые блоки */
+        .dynamic-block {
+            display: none;
+            background: #f9fafb;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            margin-top: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .accordion-btn {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="title">
+                <h1>АСУИР / GEMENU — Секция 1: Прямые затраты</h1>
+                <p>Учет производственных расходов, сырья и сдельных выплат</p>
+            </div>
+            <div class="role-switch">
+                <button class="role-btn" onclick="setRole('user')">Роль: Пользователь (50)</button>
+                <button class="role-btn active" onclick="setRole('author')">Роль: Автор (1)</button>
+            </div>
+        </div>
+
+        <!-- Сводные карточки -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">СУММА ПРЯМЫХ ЗАТРАТ</div>
+                <div class="kpi-value" id="kpi-total">660 000 ₽</div>
+                <div class="kpi-sub">В пределах бюджета месяца</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">НА ПРОВЕРКЕ</div>
+                <div class="kpi-value" id="kpi-pending">1 запись</div>
+                <div class="kpi-sub" style="color:#d97706">Требует внимания автора</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">ОСНОВНАЯ СТАТЬЯ РАСХОДОВ</div>
+                <div class="kpi-value">Сырье и материалы</div>
+                <div class="kpi-sub">68% от общей суммы</div>
+            </div>
+        </div>
+
+        <!-- Листинг (Центральное рабочее место) -->
+        <div class="card">
+            <div class="table-toolbar">
+                <div class="search-group">
+                    <input type="text" id="searchInput" class="input-search" placeholder="🔍 Быстрый поиск по названию или контрагенту..." oninput="filterTable()">
+                </div>
+                <button id="addBtn" class="btn-add" onclick="openDrawer()">
+                    <span>＋</span> Занести новую затрату
+                </button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Дата</th>
+                        <th>Категория</th>
+                        <th>Наименование / Назначение</th>
+                        <th>Сумма</th>
+                        <th>Контрагент</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Строки формируются скриптом -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Выезжающая шторка добавления (По мере заполнения) -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
+        <div class="drawer" onclick="event.stopPropagation()">
+            <div class="drawer-header">
+                <h3>Занесение прямой затраты</h3>
+                <button class="btn-close" onclick="closeDrawer()">✕</button>
+            </div>
+            <div class="drawer-body">
+
+                <!-- Шаг 1: Базовый -->
+                <div class="form-group">
+                    <label>1. Выберите категорию затраты *</label>
+                    <select id="formCategory" class="form-control" onchange="onCategoryChange()">
+                        <option value="" selected disabled>-- Выберите категорию --</option>
+                        <option value="raw">Сырье и материалы</option>
+                        <option value="labor">Сдельная оплата труда / ФОТ</option>
+                        <option value="logistics">Транспорт и логистика</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>2. Дата операции *</label>
+                    <input type="date" id="formDate" class="form-control" value="2026-05-19">
+                </div>
+
+                <!-- Шаг 2: Динамический блок (появляется только после выбора категории) -->
+                <div id="dynamicFields" class="dynamic-block" style="display:none;">
+
+                    <div class="form-group">
+                        <label>Наименование позиции / назначение *</label>
+                        <input type="text" id="formName" class="form-control" placeholder="Например: Листовой металл 2мм">
+                    </div>
+
+                    <div id="calcFields" class="form-row">
+                        <div class="form-group">
+                            <label>Кол-во / Объем</label>
+                            <input type="number" id="formQty" class="form-control" placeholder="10" oninput="calcTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label>Цена за ед. (₽)</label>
+                            <input type="number" id="formPrice" class="form-control" placeholder="5000" oninput="calcTotal()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Итоговая сумма (₽) *</label>
+                        <input type="number" id="formAmount" class="form-control" style="font-weight:bold; background:#eef2ff;" placeholder="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Контрагент / Исполнитель *</label>
+                        <input type="text" id="formContractor" class="form-control" placeholder="ООО Поставщик">
+                    </div>
+                </div>
+
+                <!-- Шаг 3: Вторичные блоки (свернуты по умолчанию) -->
+                <div style="margin-top: 10px;">
+                    <button type="button" class="accordion-btn" onclick="toggleAccordion('accDocs')">
+                        <span>📎 Закрывающие документы и акты</span>
+                        <span>▾</span>
+                    </button>
+                    <div id="accDocs" class="accordion-content">
+                        <input type="file" class="form-control" style="font-size:12px;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="drawer-footer">
+                <button class="role-btn" onclick="closeDrawer()">Отмена</button>
+                <button class="btn-add" onclick="saveRecord()">Сохранить в реестр</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Данные листинга
+    let records = [
+        { id: 103, date: '18.05.2026', cat: 'Сырье и материалы', name: 'Профильная труба 40х20', amount: 420000, contractor: 'ООО «МеталлТорг»', status: 'Проведено' },
+        { id: 102, date: '16.05.2026', cat: 'Транспорт и логистика', name: 'Доставка партии №4', amount: 45000, contractor: 'ИП Логистик', status: 'Проведено' },
+        { id: 101, date: '15.05.2026', cat: 'Сдельная оплата труда', name: 'Монтажная смена цеха №2', amount: 195000, contractor: 'Бригада №3', status: 'На проверке' }
+    ];
+
+    function renderTable(data = records) {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+        data.forEach(r => {
+            const tr = document.createElement('tr');
+            const statusClass = r.status === 'Проведено' ? 'badge-success' : 'badge-warning';
+            tr.innerHTML = `
+                <td style="font-weight:600; color:#6b7280;">#${r.id}</td>
+                <td>${r.date}</td>
+                <td>${r.cat}</td>
+                <td style="font-weight:500;">${r.name}</td>
+                <td style="font-weight:600;">${r.amount.toLocaleString()} ₽</td>
+                <td>${r.contractor}</td>
+                <td><span class="badge ${statusClass}">${r.status}</span></td>
+            `;
+            tbody.appendChild(tr);
+        });
+        updateKPI();
+    }
+
+    function updateKPI() {
+        const total = records.reduce((sum, r) => sum + r.amount, 0);
+        const pending = records.filter(r => r.status === 'На проверке').length;
+        document.getElementById('kpi-total').innerText = total.toLocaleString() + ' ₽';
+        document.getElementById('kpi-pending').innerText = pending + ' ' + (pending === 1 ? 'запись' : 'записей');
+    }
+
+    function filterTable() {
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = records.filter(r =>
+            r.name.toLowerCase().includes(q) ||
+            r.contractor.toLowerCase().includes(q) ||
+            r.cat.toLowerCase().includes(q)
+        );
+        renderTable(filtered);
+    }
+
+    // Логика шторки и пошагового заполнения
+    function openDrawer() { document.getElementById('drawerOverlay').classList.add('open'); }
+    function closeDrawer(e) {
+        if(!e || e.target === document.getElementById('drawerOverlay') || e.target.classList.contains('btn-close') || e.target.innerText === 'Отмена') {
+            document.getElementById('drawerOverlay').classList.remove('open');
+            resetForm();
+        }
+    }
+
+    function onCategoryChange() {
+        const cat = document.getElementById('formCategory').value;
+        const dynamicBlock = document.getElementById('dynamicFields');
+        if(cat) {
+            dynamicBlock.style.display = 'flex';
+        }
+    }
+
+    function calcTotal() {
+        const qty = parseFloat(document.getElementById('formQty').value) || 0;
+        const price = parseFloat(document.getElementById('formPrice').value) || 0;
+        if(qty && price) {
+            document.getElementById('formAmount').value = qty * price;
+        }
+    }
+
+    function toggleAccordion(id) {
+        const el = document.getElementById(id);
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function saveRecord() {
+        const catSelect = document.getElementById('formCategory');
+        const catText = catSelect.options[catSelect.selectedIndex].text;
+        const name = document.getElementById('formName').value;
+        const amount = parseFloat(document.getElementById('formAmount').value);
+        const contractor = document.getElementById('formContractor').value;
+        const dateInput = document.getElementById('formDate').value;
+
+        if(!catSelect.value || !name || !amount) {
+            alert('Пожалуйста, заполните категорию, наименование и сумму.');
+            return;
+        }
+
+        const newRec = {
+            id: records.length ? Math.max(...records.map(r => r.id)) + 1 : 101,
+            date: dateInput.split('-').reverse().join('.'),
+            cat: catText,
+            name: name,
+            amount: amount,
+            contractor: contractor || 'Не указан',
+            status: 'На проверке'
+        };
+
+        records.unshift(newRec);
+        renderTable();
+        closeDrawer();
+    }
+
+    function resetForm() {
+        document.getElementById('formCategory').value = '';
+        document.getElementById('formName').value = '';
+        document.getElementById('formQty').value = '';
+        document.getElementById('formPrice').value = '';
+        document.getElementById('formAmount').value = '';
+        document.getElementById('formContractor').value = '';
+        document.getElementById('dynamicFields').style.display = 'none';
+        document.getElementById('accDocs').style.display = 'none';
+    }
+
+    // Переключение ролей (50 к 1)
+    function setRole(role) {
+        document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+        if(role === 'author') {
+            event.target.classList.add('active');
+            document.getElementById('addBtn').style.display = 'flex';
+        } else {
+            event.target.classList.add('active');
+            document.getElementById('addBtn').style.display = 'none'; // Прячем кнопку для 50 обычных пользователей
+        }
+    }
+
+    // Инициализация
+    renderTable();
+    </script>
+</body>
+</html>
