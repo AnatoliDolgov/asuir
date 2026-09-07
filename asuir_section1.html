@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АСУИР / GEMENU — Производственные линии (с пагинацией)</title>
+    <title>АСУИР / GEMENU — Листинг производств</title>
     <style>
         :root {
             --bg: #f4f6f9;
             --surface: #ffffff;
             --border: #e2e8f0;
             --primary: #1d4ed8;
-            --primary-hover: #1e40af;
             --text-dark: #1e293b;
             --text-muted: #64748b;
             --theme-header-bg: #e0f2fe;
@@ -41,22 +40,27 @@
             margin: 0 auto;
         }
 
-        /* ВЕРХНИЕ ТАБЫ */
-        .tabs-header {
+        /* ВЕРХНИЕ ТАБЫ И АДМИН-МОД */
+        .header-bar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            background: #fff;
+            padding: 8px 16px 0;
+            border-radius: 8px 8px 0 0;
             border-bottom: 2px solid var(--border);
             margin-bottom: 20px;
-            background: #fff;
-            padding: 10px 16px 0;
-            border-radius: 8px 8px 0 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 10px;
         }
 
         .tab-btn {
             background: none;
             border: none;
-            padding: 12px 22px;
+            padding: 12px 20px;
             font-size: 15px;
             font-weight: 700;
             color: var(--text-muted);
@@ -65,12 +69,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: 0.15s;
         }
-
-            .tab-btn:hover {
-                color: var(--primary);
-            }
 
             .tab-btn.active {
                 color: var(--primary);
@@ -79,7 +78,29 @@
                 border-radius: 6px 6px 0 0;
             }
 
-        /* ТАБ 1: ТУЛБАР И ТАБЛИЦА */
+        /* Кнопка Админ Моде */
+        .admin-toggle-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+            .admin-toggle-btn.active {
+                background: #fef2f2;
+                border-color: #ef4444;
+                color: #b91c1c;
+            }
+
+        /* ТУЛБАР */
         .toolbar {
             display: flex;
             justify-content: space-between;
@@ -89,8 +110,6 @@
             border-radius: 8px 8px 0 0;
             border: 1px solid var(--border);
             border-bottom: none;
-            flex-wrap: wrap;
-            gap: 12px;
         }
 
         .filter-group {
@@ -98,7 +117,6 @@
             align-items: center;
             gap: 8px;
             font-weight: 600;
-            color: #334155;
         }
 
         .select-filter {
@@ -107,15 +125,13 @@
             border-radius: 6px;
             font-size: 14px;
             background: #fff;
-            outline: none;
         }
 
+        /* ТАБЛИЦА */
         .table-card {
             background: #fff;
             border: 1px solid var(--border);
-            border-radius: 0;
             overflow-x: auto;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
         table {
@@ -125,7 +141,7 @@
         }
 
         th {
-            background: #f1f5f9;
+            background: #f8fafc;
             padding: 12px 16px;
             font-size: 11px;
             font-weight: 700;
@@ -145,7 +161,7 @@
             background-color: #fafbfc;
         }
 
-        /* Заголовки тем (Папки) */
+        /* Заголовки тем МКТУ */
         .theme-row td {
             background: var(--theme-header-bg);
             color: var(--theme-header-text);
@@ -156,35 +172,24 @@
             border-bottom: 1px solid #bae6fd;
         }
 
-        /* Бейджи */
-        .badge-system {
-            background: #e2e8f0;
-            color: #475569;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
+        /* Столбец ID (по умолчанию скрыт через display: none) */
+        .id-col {
+            display: none;
         }
 
-        .badge-my {
-            background: #dcfce7;
-            color: #166534;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
+        body.admin-mode-on .id-col {
+            display: table-cell;
         }
 
-        .badge-code {
-            background: #f1f5f9;
-            color: #334155;
-            font-size: 10px;
-            border: 1px solid #cbd5e1;
-            padding: 1px 5px;
+        .mktu-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #0369a1;
+            background: #e0f2fe;
+            padding: 1px 6px;
             border-radius: 4px;
-            margin-left: 6px;
+            margin-bottom: 3px;
         }
 
         .btn-spec {
@@ -197,14 +202,7 @@
             color: #334155;
             cursor: pointer;
             margin-top: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
         }
-
-            .btn-spec:hover {
-                background: #f1f5f9;
-            }
 
         .link-alibaba {
             color: #2563eb;
@@ -213,10 +211,14 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
+            background: #eff6ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #bfdbfe;
         }
 
             .link-alibaba:hover {
-                text-decoration: underline;
+                background: #dbeafe;
             }
 
         .salary-badge {
@@ -235,7 +237,7 @@
             white-space: nowrap;
         }
 
-        /* ПАНЕЛЬ ПАГИНАЦИИ (ПОД ТАБЛИЦЕЙ) */
+        /* ПАГИНАЦИЯ */
         .pagination-bar {
             display: flex;
             justify-content: space-between;
@@ -245,66 +247,29 @@
             border: 1px solid var(--border);
             border-top: none;
             border-radius: 0 0 8px 8px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .pagination-info {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .pagination-controls {
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .page-btn {
             border: 1px solid var(--border);
             background: #fff;
-            color: var(--text-dark);
             padding: 6px 12px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.15s;
         }
-
-            .page-btn:hover:not(:disabled) {
-                background: #f1f5f9;
-                border-color: #cbd5e1;
-            }
 
             .page-btn.active {
                 background: var(--primary);
                 color: #fff;
-                border-color: var(--primary);
             }
 
-            .page-btn:disabled {
-                opacity: 0.4;
-                cursor: not-allowed;
-            }
-
-        .page-size-select {
-            padding: 4px 8px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-size: 13px;
-            background: #fff;
-            margin-left: 10px;
-            outline: none;
-        }
-
-        /* ТАБ 2: ДОБАВЛЕНИЕ В БАЗУ */
+        /* ТАБ 2: ДОБАВЛЕНИЕ */
         .create-container {
+            max-width: 1000px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            max-width: 1100px;
+            gap: 16px;
         }
 
         .section-box {
@@ -312,17 +277,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
-
-            .section-box h3 {
-                font-size: 15px;
-                font-weight: 700;
-                color: #0f172a;
-                margin-bottom: 14px;
-                border-bottom: 1px solid #f1f5f9;
-                padding-bottom: 8px;
-            }
 
         .form-grid-3 {
             display: grid;
@@ -355,146 +310,97 @@
             font-size: 14px;
             outline: none;
         }
-
-            .form-control:focus {
-                border-color: var(--primary);
-            }
-
-        .calc-preview {
-            display: flex;
-            gap: 20px;
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .calc-card {
-            flex: 1;
-        }
-
-        .calc-card-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .calc-card-val {
-            font-size: 20px;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .btn-save-database {
-            background-color: var(--btn-green);
-            color: #fff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-            .btn-save-database:hover {
-                background-color: var(--btn-green-hover);
-            }
     </style>
 </head>
 <body>
 
     <div class="container">
 
-        <!-- ВЕРХНИЕ ТАБЫ СИСТЕМЫ -->
-        <div class="tabs-header">
-            <button id="tabBtn1" class="tab-btn active" onclick="switchTab('listing')">
-                📋 Листинг производств
-            </button>
-            <button id="tabBtn2" class="tab-btn" onclick="switchTab('create')">
-                ➕ Добавление в базу
+        <!-- ВЕРХНЯЯ ШАПКА: ТАБЫ + АДМИН МОДЕ -->
+        <div class="header-bar">
+            <div class="tabs-header">
+                <button id="tabBtn1" class="tab-btn active" onclick="switchTab('listing')">
+                    📋 Листинг производств
+                </button>
+                <button id="tabBtn2" class="tab-btn" onclick="switchTab('create')">
+                    ➕ Добавление в базу
+                </button>
+            </div>
+
+            <button id="adminBtn" class="admin-toggle-btn" onclick="toggleAdminMode()">
+                🔒 Админ Моде: ВЫКЛ
             </button>
         </div>
 
         <!-- ========================================================
-             ТАБ 1: ЛИСТИНГ ПРОИЗВОДСТВ (С ПАГИНАЦИЕЙ)
+             ТАБ 1: ЛИСТИНГ ПРОИЗВОДСТВ
         ======================================================== -->
         <div id="viewListing">
 
-            <!-- Тулбар с фильтром -->
             <div class="toolbar">
                 <div class="filter-group">
-                    <span>👁 Фильтр базы оборудования:</span>
+                    <span>👁 Фильтр базы:</span>
                     <select id="themeFilter" class="select-filter" onchange="onFilterChange()">
-                        <option value="all">🌐 Все линии (Свои и чужие)</option>
-                        <option value="drones">Дроны и радиоэлектроника</option>
-                        <option value="tablets">Планшеты и мобильные ПК</option>
-                        <option value="tv">Телевизоры и дисплеи</option>
+                        <option value="all">🌐 Все категории МКТУ</option>
+                        <option value="drones">Класс 9 МКТУ: Дроны и радиоэлектроника</option>
+                        <option value="tablets">Класс 9 МКТУ: Планшеты и ПК</option>
+                        <option value="tv">Класс 9 МКТУ: Телевизоры и дисплеи</option>
                     </select>
                 </div>
-
                 <div style="font-size: 13px; color: #64748b;">
                     Строк на странице:
-                    <select id="pageSizeSelect" class="page-size-select" onchange="onPageSizeChange()">
-                        <option value="4">4 линии</option>
-                        <option value="6" selected>6 линий</option>
-                        <option value="10">10 линий</option>
+                    <select id="pageSizeSelect" class="select-filter" onchange="onPageSizeChange()">
+                        <option value="5" selected>5 строк</option>
+                        <option value="10">10 строк</option>
                         <option value="100">Все</option>
                     </select>
                 </div>
             </div>
 
-            <!-- Таблица -->
             <div class="table-card">
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 40px;">#</th>
-                            <th>ТИП ЛИНИИ</th>
-                            <th>ССЫЛКА</th>
-                            <th>ЦЕНА ЛИНИИ</th>
-                            <th>СКОРОСТЬ</th>
-                            <th>ПЕРСОНАЛ</th>
-                            <th>БАЗОВАЯ ЗП</th>
+                            <th class="id-col" style="width: 40px;"># ID</th>
+                            <th>ТЕКУЩАЯ ТЕМА / КАТЕГОРИЯ МКТУ И НАИМЕНОВАНИЕ</th>
+                            <th>ССЫЛКА НА ALIBABA</th>
+                            <th>СТОИМОСТЬ ОБОРУДОВАНИЯ</th>
+                            <th>ПРОИЗВОДИТЕЛЬНОСТЬ ОБОРУДОВАНИЯ</th>
+                            <th>КОЛИЧЕСТВО РАБОЧИХ</th>
                             <th>ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</th>
                             <th>ДОХОД ДОМОХОЗЯЙСТВА</th>
                         </tr>
                     </thead>
                     <tbody id="listingBody">
-                        <!-- Строки генерируются функцией с учетом пагинации -->
+                        <!-- Заполняется JavaScript -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Панель пагинации -->
             <div class="pagination-bar">
-                <div class="pagination-info" id="paginationInfo">
-                    Показано 1–6 из 12 записей
-                </div>
-                <div class="pagination-controls" id="paginationControls">
-                    <!-- Кнопки страниц (1, 2, 3...) -->
-                </div>
+                <div id="paginationInfo" style="font-size: 13px; color: #64748b; font-weight: 500;"></div>
+                <div id="paginationControls" style="display:flex; gap:6px;"></div>
             </div>
 
         </div>
 
         <!-- ========================================================
-             ТАБ 2: ДОБАВЛЕНИЕ В БАЗУ
+             ТАБ 2: ДОБАВЛЕНИЕ В БАЗУ (БЕЗ ПОЛЯ БАЗОВОЙ ЗП)
         ======================================================== -->
         <div id="viewCreate" style="display: none;">
 
             <div class="create-container">
 
-                <!-- БЛОК 1: ПАРАМЕТРЫ СТАНКА -->
                 <div class="section-box">
-                    <h3>1. Выбор темы и параметры производственной линии</h3>
+                    <h3 style="margin-bottom:14px; font-size:15px;">Занесение оборудования и параметров линии</h3>
+
                     <div class="form-grid-3">
                         <div class="form-group">
-                            <label>Тематика производства *</label>
+                            <label>Текущая тема / Категория МКТУ *</label>
                             <select id="newTheme" class="form-control" onchange="updateThemeDefaults()">
-                                <option value="drones">Дроны и радиоэлектроника</option>
-                                <option value="tablets">Планшеты и мобильные ПК</option>
-                                <option value="tv">Телевизоры и дисплеи</option>
+                                <option value="drones">Класс 9 МКТУ: Дроны и радиоэлектроника</option>
+                                <option value="tablets">Класс 9 МКТУ: Планшеты и ПК</option>
+                                <option value="tv">Класс 9 МКТУ: Телевизоры и дисплеи</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -509,49 +415,48 @@
 
                     <div class="form-grid-2" style="margin-top: 14px;">
                         <div class="form-group">
-                            <label>Название линии / оборудования *</label>
+                            <label>Наименование оборудования *</label>
                             <input type="text" id="newName" class="form-control" placeholder="Например: Линия автоматической пайки">
                         </div>
                         <div class="form-group">
-                            <label>Ссылка на поставщика (Alibaba / др.)</label>
+                            <label>Ссылка на Alibaba</label>
                             <input type="text" id="newLink" class="form-control" value="https://alibaba.com/">
                         </div>
                     </div>
 
                     <div class="form-grid-3" style="margin-top: 14px;">
                         <div class="form-group">
-                            <label>Цена линии ($) *</label>
+                            <label>Стоимость оборудования ($) *</label>
                             <input type="number" id="newLineCost" class="form-control" value="199000" oninput="recalcNew()">
                         </div>
                         <div class="form-group">
-                            <label>Скорость выработки (шт / день) *</label>
+                            <label>Производительность оборудования (шт/день) *</label>
                             <input type="number" id="newSpeed" class="form-control" value="100" oninput="recalcNew()">
                         </div>
                         <div class="form-group">
-                            <label>Персонал (чел) *</label>
+                            <label>Количество рабочих (чел) *</label>
                             <input type="number" id="newStaff" class="form-control" value="12" oninput="recalcNew()">
                         </div>
                     </div>
                 </div>
 
-                <!-- БЛОК 2: РАСЧЕТ ВЫГОДЫ -->
+                <!-- РАСЧЕТ (Базовая ЗП = 10 000 вшита в алгоритм) -->
                 <div class="section-box">
-                    <h3>2. Предварительный расчет отдачи</h3>
-                    <div class="calc-preview">
-                        <div class="calc-card">
-                            <div class="calc-card-title">ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</div>
-                            <div class="calc-card-val" style="color:#15803d;" id="previewSalary">$10 167 / мес</div>
+                    <h3 style="margin-bottom:12px; font-size:14px;">Расчет отдачи (Базовая ставка $10 000 включена в алгоритм):</h3>
+                    <div style="display:flex; gap:20px; background:#f8fafc; padding:14px; border-radius:6px; border:1px solid #e2e8f0;">
+                        <div style="flex:1;">
+                            <div style="font-size:12px; color:#64748b;">ДОСТИГАЕМАЯ ЗАРПЛАТА РАБОЧЕГО</div>
+                            <div style="font-size:20px; font-weight:700; color:#15803d; margin-top:4px;" id="previewSalary">$16 667 / мес</div>
                         </div>
-                        <div class="calc-card">
-                            <div class="calc-card-title">ДОХОД ДОМОХОЗЯЙСТВА</div>
-                            <div class="calc-card-val" style="color:#1d4ed8;" id="previewIncome">$584 105 / мес</div>
+                        <div style="flex:1;">
+                            <div style="font-size:12px; color:#64748b;">ДОХОД ДОМОХОЗЯЙСТВА</div>
+                            <div style="font-size:20px; font-weight:700; color:#1d4ed8; margin-top:4px;" id="previewIncome">$584 105 / мес</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- КНОПКА ФИКСАЦИИ В САМОМ НИЗУ -->
                 <div style="display:flex; justify-content:flex-end;">
-                    <button class="btn-save-database" onclick="saveLineToDatabase()">
+                    <button class="btn-save-database" style="background:#047857; color:#fff; border:none; padding:12px 24px; border-radius:6px; font-weight:700; cursor:pointer;" onclick="saveLineToDatabase()">
                         💾 Зафиксировать станок и комплектующие в Базу
                     </button>
                 </div>
@@ -563,145 +468,118 @@
     </div>
 
     <script>
-        // Полная тестовая база данных на 12 позиций (для проверки пагинации 1, 2, 3...)
+        // БАЗА ДАННЫХ
         const database = [
-            // ТЕМА 1: ДРОНЫ
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
-                id: 1, name: 'Линия сборки БПЛА (Sanhok 100 шт/день)', badge: 'SYSTEM', badgeClass: 'badge-system',
-                linkText: 'Alibaba', cost: '$199 000', speed: '100 шт/день', staff: '12 чел', baseSalary: '$3 500',
-                calcSalary: '$10 167 / мес', householdIncome: '$584 105 / мес', specCount: 0, specCost: '$186.00'
+                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (МКТУ Класс 9) | Рынок = $423, Сырье = $186',
+                id: 1, name: 'Линия сборки БПЛА (Sanhok 100 шт/день)', mktu: 'МКТУ 09 (БПЛА)',
+                cost: '$199 000', speed: '100 шт/день', staff: '12 чел',
+                calcSalary: '$16 667 / мес', householdIncome: '$584 105 / мес', specCount: 0, specCost: '$186.00'
             },
 
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
-                id: 2, name: 'Линия сборки БПЛА (Sanhok)', badge: 'SYSTEM', badgeClass: 'badge-system',
-                linkText: 'Alibaba', cost: '$199 000', speed: '500 шт/день', staff: '20 чел', baseSalary: '$3 500',
-                calcSalary: '$31 480 / мес', householdIncome: '$2 920 509 / мес', specCount: 0, specCost: '$186.00'
+                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (МКТУ Класс 9) | Рынок = $423, Сырье = $186',
+                id: 2, name: 'Линия сборки БПЛА (Sanhok)', mktu: 'МКТУ 09 (БПЛА)',
+                cost: '$199 000', speed: '500 шт/день', staff: '20 чел',
+                calcSalary: '$37 980 / мес', householdIncome: '$2 920 509 / мес', specCount: 0, specCost: '$186.00'
             },
 
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
-                id: 9, name: 'Custom Automatic Drone Production Line High', badge: 'CL-OD30EF', badgeClass: 'badge-code',
-                linkText: 'Alibaba', cost: '$4 200', speed: '10 шт/день', staff: '2 чел', baseSalary: '$3 500',
-                calcSalary: '$5 500 / мес', householdIncome: '$58 411 / мес', specCount: 5, specCost: '$186.00'
+                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (МКТУ Класс 9) | Рынок = $423, Сырье = $186',
+                id: 9, name: 'Custom Automatic Drone Production Line High', mktu: 'МКТУ 09 (БПЛА)',
+                cost: '$4 200', speed: '10 шт/день', staff: '2 чел',
+                calcSalary: '$12 000 / мес', householdIncome: '$58 411 / мес', specCount: 5, specCost: '$186.00'
             },
 
             {
-                theme: 'drones', themeName: 'ТЕМА: ДРОНЫ И РАДИОЭЛЕКТРОНИКА (Конкурентная цена = $423.00, Сырье = $186.00)',
-                id: 10, name: 'FPV Drone Frame Laser CNC Milling Cell', badge: 'Моё', badgeClass: 'badge-my',
-                linkText: 'Alibaba', cost: '$18 500', speed: '80 шт/день', staff: '3 чел', baseSalary: '$3 500',
-                calcSalary: '$9 420 / мес', householdIncome: '$210 300 / мес', specCount: 4, specCost: '$186.00'
-            },
-
-            // ТЕМА 2: ПЛАНШЕТЫ
-            {
-                theme: 'tablets', themeName: 'ТЕМА: ПЛАНШЕТЫ И МОБИЛЬНЫЕ ПК (Конкурентная цена = $150.00, Сырье = $100.00)',
-                id: 3, name: 'tablet assembly equipment', badge: 'SYSTEM', badgeClass: 'badge-system',
-                linkText: 'Alibaba', cost: '$19 000', speed: '50 шт/день', staff: '5 чел', baseSalary: '$3 500',
-                calcSalary: '$4 114 / мес', householdIncome: '$52 498 / мес', specCount: 0, specCost: '$100.00'
+                theme: 'tablets', themeName: 'ТЕМА: ПЛАНШЕТЫ И МОБИЛЬНЫЕ ПК (МКТУ Класс 9) | Рынок = $150, Сырье = $100',
+                id: 3, name: 'tablet assembly equipment', mktu: 'МКТУ 09 (Компьютеры)',
+                cost: '$19 000', speed: '50 шт/день', staff: '5 чел',
+                calcSalary: '$10 614 / мес', householdIncome: '$52 498 / мес', specCount: 0, specCost: '$100.00'
             },
 
             {
-                theme: 'tablets', themeName: 'ТЕМА: ПЛАНШЕТЫ И МОБИЛЬНЫЕ ПК (Конкурентная цена = $150.00, Сырье = $100.00)',
-                id: 11, name: 'Industrial Tablet SMT Line High-Speed', badge: 'CL-OD30EF', badgeClass: 'badge-code',
-                linkText: 'Alibaba', cost: '$85 000', speed: '200 шт/день', staff: '8 чел', baseSalary: '$3 500',
-                calcSalary: '$12 300 / мес', householdIncome: '$345 000 / мес', specCount: 6, specCost: '$100.00'
-            },
-
-            // ТЕМА 3: ТЕЛЕВИЗОРЫ
-            {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
-                id: 4, name: 'Компактный стенд сборки ТВ панелей', badge: 'Моё', badgeClass: 'badge-my',
-                linkText: 'Alibaba', cost: '$4 450', speed: '500 шт/день', staff: '14 чел', baseSalary: '$3 500',
-                calcSalary: '$58 808 / мес', householdIncome: '$3 629 995 / мес', specCount: 5, specCost: '$253.00'
+                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (МКТУ Класс 9) | Рынок = $550, Сырье = $253',
+                id: 4, name: 'Компактный стенд сборки ТВ панелей', mktu: 'МКТУ 09 (Дисплеи)',
+                cost: '$4 450', speed: '500 шт/день', staff: '14 чел',
+                calcSalary: '$65 308 / мес', householdIncome: '$3 629 995 / мес', specCount: 5, specCost: '$253.00'
             },
 
             {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
-                id: 5, name: 'Semi Automatic Smart TV Production Line', badge: 'Моё', badgeClass: 'badge-my',
-                linkText: 'Alibaba', cost: '$25 000', speed: '50 шт/день', staff: '18 чел', baseSalary: '$3 500',
-                calcSalary: '$4 471 / мес', householdIncome: '$362 991 / мес', specCount: 5, specCost: '$253.00'
+                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (МКТУ Класс 9) | Рынок = $550, Сырье = $253',
+                id: 5, name: 'Semi Automatic Smart TV Production Line', mktu: 'МКТУ 09 (Дисплеи)',
+                cost: '$25 000', speed: '50 шт/день', staff: '18 чел',
+                calcSalary: '$10 971 / мес', householdIncome: '$362 991 / мес', specCount: 5, specCost: '$253.00'
             },
 
             {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
-                id: 6, name: 'Up and Down TV Assembly Line', badge: 'CL-OD30EF', badgeClass: 'badge-code',
-                linkText: 'Alibaba', cost: '$199 999', speed: '100 шт/день', staff: '10 чел', baseSalary: '$3 500',
-                calcSalary: '$16 009 / мес', householdIncome: '$726 002 / мес', specCount: 5, specCost: '$253.00'
-            },
-
-            {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
-                id: 7, name: 'Automatic up and Down TV Assembly', badge: 'CL-OD30EF', badgeClass: 'badge-code',
-                linkText: 'Alibaba', cost: '$29 000', speed: '50 шт/день', staff: '10 чел', baseSalary: '$3 500',
-                calcSalary: '$8 040 / мес', householdIncome: '$363 003 / мес', specCount: 5, specCost: '$253.00'
-            },
-
-            {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
-                id: 8, name: 'OLED Display Matrix Cleanroom Station', badge: 'SYSTEM', badgeClass: 'badge-system',
-                linkText: 'Alibaba', cost: '$310 000', speed: '120 шт/день', staff: '6 чел', baseSalary: '$3 500',
-                calcSalary: '$24 150 / мес', householdIncome: '$1 120 400 / мес', specCount: 8, specCost: '$253.00'
-            },
-
-            {
-                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (Конкурентная цена = $550.00, Сырье = $253.00)',
-                id: 12, name: 'Commercial Display Aging & Testing Bench', badge: 'SYSTEM', badgeClass: 'badge-system',
-                linkText: 'Alibaba', cost: '$14 200', speed: '300 шт/день', staff: '4 чел', baseSalary: '$3 500',
-                calcSalary: '$19 800 / мес', householdIncome: '$890 000 / мес', specCount: 2, specCost: '$253.00'
+                theme: 'tv', themeName: 'ТЕМА: ТЕЛЕВИЗОРЫ И ДИСПЛЕИ (МКТУ Класс 9) | Рынок = $550, Сырье = $253',
+                id: 6, name: 'Up and Down TV Assembly Line', mktu: 'МКТУ 09 (Дисплеи)',
+                cost: '$199 999', speed: '100 шт/день', staff: '10 чел',
+                calcSalary: '$22 509 / мес', householdIncome: '$726 002 / мес', specCount: 5, specCost: '$253.00'
             }
         ];
 
-        // Состояние пагинации
         let currentPage = 1;
-        let pageSize = 6;
+        let pageSize = 5;
+        let isAdminMode = false;
 
-        // Рендер листинга с учетом фильтра и пагинации
+        // ПЕРЕКЛЮЧАТЕЛЬ АДМИН МОДЕ
+        function toggleAdminMode() {
+            isAdminMode = !isAdminMode;
+            document.body.classList.toggle('admin-mode-on', isAdminMode);
+
+            const btn = document.getElementById('adminBtn');
+            if (isAdminMode) {
+                btn.classList.add('active');
+                btn.innerHTML = '🔓 Админ Моде: ВКЛ (ID показаны)';
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '🔒 Админ Моде: ВЫКЛ';
+            }
+        }
+
+        // РЕНДЕР ЛИСТИНГА
         function renderListing() {
-            const themeFilter = document.getElementById('themeFilter').value;
+            const filter = document.getElementById('themeFilter').value;
             const tbody = document.getElementById('listingBody');
             tbody.innerHTML = '';
 
-            // 1. Фильтрация
-            const filtered = themeFilter === 'all' ? database : database.filter(d => d.theme === themeFilter);
+            const filtered = filter === 'all' ? database : database.filter(d => d.theme === filter);
             const totalItems = filtered.length;
 
-            // 2. Срез по текущей странице (Пагинация)
             const totalPages = Math.ceil(totalItems / pageSize) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
 
-            const startIndex = (currentPage - 1) * pageSize;
-            const endIndex = Math.min(startIndex + pageSize, totalItems);
-            const pageItems = filtered.slice(startIndex, endIndex);
+            const start = (currentPage - 1) * pageSize;
+            const end = Math.min(start + pageSize, totalItems);
+            const pageItems = filtered.slice(start, end);
 
-            // 3. Вывод строк с сохранением заголовков папок (тем)
             let currentTheme = '';
             pageItems.forEach(row => {
                 if (row.themeName !== currentTheme) {
                     currentTheme = row.themeName;
                     const trTheme = document.createElement('tr');
                     trTheme.className = 'theme-row';
-                    trTheme.innerHTML = `<td colspan="9">📁 ${currentTheme}</td>`;
+                    // Colspan 8 (или 7 в зависимости от админ-мода)
+                    trTheme.innerHTML = `<td colspan="8">📁 ${currentTheme}</td>`;
                     tbody.appendChild(trTheme);
                 }
 
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td style="font-weight:700; color:#1e293b;">${row.id}</td>
+                    <td class="id-col" style="font-weight:700; color:#64748b;">#${row.id}</td>
                     <td>
-                        <div style="font-weight:700; color:#0f172a;">
-                            ${row.name} <span class="${row.badgeClass}">${row.badge}</span>
-                        </div>
+                        <span class="mktu-tag">${row.mktu}</span>
+                        <div style="font-weight:700; color:#0f172a;">${row.name}</div>
                         <button class="btn-spec">▶ 📦 Спецификация (${row.specCount} поз. / ${row.specCost}) ▾</button>
                     </td>
                     <td>
-                        <a href="${row.linkText === 'Alibaba' ? 'https://alibaba.com' : '#'}" target="_blank" class="link-alibaba">🔗 ${row.linkText} ↗</a>
+                        <a href="https://alibaba.com" target="_blank" class="link-alibaba">на Alibaba (Перейти ↗)</a>
                     </td>
-                    <td style="font-weight:500;">${row.cost}</td>
-                    <td>${row.speed}</td>
+                    <td style="font-weight:600;">${row.cost}</td>
+                    <td style="font-weight:600; color:#0369a1;">${row.speed}</td>
                     <td>${row.staff}</td>
-                    <td style="color:#64748b;">${row.baseSalary}</td>
                     <td>
                         <span class="salary-badge">${row.calcSalary}</span>
                     </td>
@@ -710,147 +588,94 @@
                 tbody.appendChild(tr);
             });
 
-            // 4. Обновление информационной строки
-            const infoEl = document.getElementById('paginationInfo');
-            if (totalItems === 0) {
-                infoEl.innerText = 'Ничего не найдено';
-            } else {
-                infoEl.innerText = `Показано ${startIndex + 1}–${endIndex} из ${totalItems} производств`;
-            }
-
-            // 5. Рендер кнопок пагинатора
+            document.getElementById('paginationInfo').innerText = totalItems ? `Показано ${start + 1}–${end} из ${totalItems} производств` : 'Нет данных';
             renderPaginationButtons(totalPages);
         }
 
         function renderPaginationButtons(totalPages) {
             const controls = document.getElementById('paginationControls');
             controls.innerHTML = '';
-
             if (totalPages <= 1) return;
 
-            // Кнопка «Назад»
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'page-btn';
-            prevBtn.innerHTML = '← Назад';
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.onclick = () => { currentPage--; renderListing(); };
-            controls.appendChild(prevBtn);
-
-            // Кнопки с номерами страниц 1, 2, 3...
             for (let i = 1; i <= totalPages; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-                pageBtn.innerText = i;
-                pageBtn.onclick = () => { currentPage = i; renderListing(); };
-                controls.appendChild(pageBtn);
+                const btn = document.createElement('button');
+                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                btn.innerText = i;
+                btn.onclick = () => { currentPage = i; renderListing(); };
+                controls.appendChild(btn);
             }
-
-            // Кнопка «Вперед»
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'page-btn';
-            nextBtn.innerHTML = 'Вперед →';
-            nextBtn.disabled = currentPage === totalPages;
-            nextBtn.onclick = () => { currentPage++; renderListing(); };
-            controls.appendChild(nextBtn);
         }
 
-        function onFilterChange() {
-            currentPage = 1; // сброс на 1 страницу при смене фильтра
-            renderListing();
-        }
-
+        function onFilterChange() { currentPage = 1; renderListing(); }
         function onPageSizeChange() {
             pageSize = parseInt(document.getElementById('pageSizeSelect').value);
             currentPage = 1;
             renderListing();
         }
 
-        // Переключение между Табом 1 и Табом 2
-        function switchTab(target) {
-            document.getElementById('viewListing').style.display = target === 'listing' ? 'block' : 'none';
-            document.getElementById('viewCreate').style.display = target === 'create' ? 'block' : 'none';
-
-            document.getElementById('tabBtn1').classList.toggle('active', target === 'listing');
-            document.getElementById('tabBtn2').classList.toggle('active', target === 'create');
+        function switchTab(t) {
+            document.getElementById('viewListing').style.display = t === 'listing' ? 'block' : 'none';
+            document.getElementById('viewCreate').style.display = t === 'create' ? 'block' : 'none';
+            document.getElementById('tabBtn1').classList.toggle('active', t === 'listing');
+            document.getElementById('tabBtn2').classList.toggle('active', t === 'create');
         }
 
-        // Авто-подстановка параметров темы в Табе 2
         function updateThemeDefaults() {
             const t = document.getElementById('newTheme').value;
-            if (t === 'drones') {
-                document.getElementById('newMarketPrice').value = 423;
-                document.getElementById('newRawPrice').value = 186;
-            } else if (t === 'tablets') {
-                document.getElementById('newMarketPrice').value = 150;
-                document.getElementById('newRawPrice').value = 100;
-            } else if (t === 'tv') {
-                document.getElementById('newMarketPrice').value = 550;
-                document.getElementById('newRawPrice').value = 253;
-            }
+            if (t === 'drones') { document.getElementById('newMarketPrice').value = 423; document.getElementById('newRawPrice').value = 186; }
+            if (t === 'tablets') { document.getElementById('newMarketPrice').value = 150; document.getElementById('newRawPrice').value = 100; }
+            if (t === 'tv') { document.getElementById('newMarketPrice').value = 550; document.getElementById('newRawPrice').value = 253; }
             recalcNew();
         }
 
-        // Живой пересчет зарплат и дохода в Табе 2
+        // АЛГОРИТМ: БАЗОВАЯ ЗП = 10 000
         function recalcNew() {
+            const BASE_SALARY = 10000;
             const speed = parseFloat(document.getElementById('newSpeed').value) || 1;
             const staff = parseFloat(document.getElementById('newStaff').value) || 1;
             const market = parseFloat(document.getElementById('newMarketPrice').value) || 0;
             const raw = parseFloat(document.getElementById('newRawPrice').value) || 0;
+
             const marginPerUnit = market - raw;
+            const grossMargin = (speed * 22) * marginPerUnit;
 
-            const monthlyUnits = speed * 22;
-            const grossMargin = monthlyUnits * marginPerUnit;
-
-            const calculatedSalary = Math.round(3500 + (grossMargin * 0.15 / staff));
+            const calculatedSalary = Math.round(BASE_SALARY + (grossMargin * 0.15 / staff));
             const householdIncome = Math.round(grossMargin * 0.85);
 
             document.getElementById('previewSalary').innerText = '$' + calculatedSalary.toLocaleString() + ' / мес';
             document.getElementById('previewIncome').innerText = '$' + householdIncome.toLocaleString() + ' / мес';
         }
 
-        // Сохранение новой линии из Таба 2 в Таб 1
         function saveLineToDatabase() {
-            const name = document.getElementById('newName').value || 'Новая производственная линия';
+            const name = document.getElementById('newName').value || 'Новая линия';
             const cost = parseFloat(document.getElementById('newLineCost').value) || 0;
             const speed = parseFloat(document.getElementById('newSpeed').value) || 0;
             const staff = parseFloat(document.getElementById('newStaff').value) || 0;
             const theme = document.getElementById('newTheme').value;
             const themeText = document.getElementById('newTheme').options[document.getElementById('newTheme').selectedIndex].text;
             const raw = document.getElementById('newRawPrice').value;
-            const market = document.getElementById('newMarketPrice').value;
 
             const newEntry = {
                 theme: theme,
-                themeName: `ТЕМА: ${themeText.toUpperCase()} (Конкурентная цена = $${market}.00, Сырье = $${raw}.00)`,
+                themeName: `ТЕМА: ${themeText.toUpperCase()}`,
                 id: database.length + 1,
                 name: name,
-                badge: 'Моё',
-                badgeClass: 'badge-my',
-                linkText: 'Alibaba',
+                mktu: 'МКТУ 09',
                 cost: '$' + cost.toLocaleString(),
                 speed: speed + ' шт/день',
                 staff: staff + ' чел',
-                baseSalary: '$3 500',
                 calcSalary: document.getElementById('previewSalary').innerText,
                 householdIncome: document.getElementById('previewIncome').innerText,
                 specCount: 3,
                 specCost: '$' + raw + '.00'
             };
 
-            // Добавляем в начало базы
             database.unshift(newEntry);
-
-            // Сбрасываем фильтр, переходим на 1 страницу и переключаемся в Листинг
-            document.getElementById('themeFilter').value = 'all';
             currentPage = 1;
             renderListing();
             switchTab('listing');
-
-            // Очищаем форму
-            document.getElementById('newName').value = '';
         }
 
-        // Первый запуск
         renderListing();
     </script>
 
