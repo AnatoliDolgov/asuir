@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background-color: #ffffff;
-            color: #222;
+            color: #222222;
             padding: 20px 40px 60px;
         }
 
@@ -23,12 +23,14 @@
             margin: 0 auto;
         }
 
+        /* TOP UTILITY BAR */
         .top-utility-bar {
             display: flex;
             justify-content: flex-end;
             align-items: flex-start;
             gap: 16px;
             font-size: 13px;
+            color: #333333;
             margin-bottom: 10px;
         }
 
@@ -36,7 +38,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 5px;
+            gap: 4px;
         }
 
         .client-id-badge {
@@ -66,13 +68,15 @@
             font-size: 11px;
             font-weight: 600;
             cursor: pointer;
+            transition: 0.15s;
         }
 
             .admin-toggle-btn:hover {
                 background: #e91e63;
-                color: #fff;
+                color: #ffffff;
             }
 
+        /* BRAND HEADER */
         .brand-title-block {
             text-align: center;
             margin: 20px 0 15px;
@@ -83,11 +87,12 @@
             font-size: 52px;
             font-weight: 400;
             letter-spacing: 2px;
-            color: #555;
+            color: #555555;
             text-transform: uppercase;
             line-height: 1;
         }
 
+        /* GLOBAL MENU 1ST LEVEL */
         .nav-global-menu {
             display: flex;
             justify-content: center;
@@ -100,13 +105,14 @@
             text-decoration: none;
             text-align: center;
             display: inline-block;
+            transition: 0.15s;
         }
 
             .nav-global-link .main-label {
                 display: block;
                 font-size: 13px;
                 font-weight: 700;
-                color: #222;
+                color: #222222;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
             }
@@ -114,15 +120,17 @@
             .nav-global-link .sub-label {
                 display: block;
                 font-size: 12px;
-                color: #666;
+                color: #666666;
                 margin-top: 2px;
+                font-weight: 400;
             }
 
-            .nav-global-link:hover .main-label, .nav-global-link.active .main-label {
+            .nav-global-link:hover .main-label,
+            .nav-global-link.active .main-label {
                 color: #1f4e78;
             }
 
-        /* ДВОЙНАЯ СЕРАЯ ПОЛОСА */
+        /* DOUBLE GRAY DIVIDER */
         .matrix-divider-double-box {
             margin: 10px 0 25px 0;
             width: 100%;
@@ -141,7 +149,7 @@
                 width: 100%;
             }
 
-        /* 2 ГЛАВНЫЕ ВКЛАДКИ */
+        /* 2 MAIN TOP-LEVEL TABS */
         .main-two-tabs-nav {
             display: flex;
             gap: 10px;
@@ -183,8 +191,9 @@
                 display: block;
             }
 
+        /* WORKSPACE CARD */
         .matrix-card-box {
-            background: #fff;
+            background: #ffffff;
             border: 1px solid #d0d7dd;
             border-radius: 3px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.03);
@@ -209,19 +218,20 @@
             gap: 6px;
             border-bottom: 3px solid transparent;
             margin-bottom: -1px;
+            transition: all 0.15s ease;
             white-space: nowrap;
         }
 
             .matrix-tab-item:hover {
-                color: #111;
+                color: #111111;
                 background: #f0f2f5;
             }
 
             .matrix-tab-item.active {
-                color: #111;
+                color: #111111;
                 font-weight: 700;
                 border-bottom: 3px solid #d53f8c;
-                background: #fff;
+                background: #ffffff;
             }
 
         .matrix-content-body {
@@ -234,7 +244,18 @@
 
             .section.active {
                 display: block;
+                animation: fadeIn 0.2s ease;
             }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0.4;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
 
         .table-responsive {
             width: 100%;
@@ -258,7 +279,7 @@
         th {
             background: #f8f9fa;
             font-weight: 600;
-            color: #222;
+            color: #222222;
         }
 
         td.right {
@@ -288,6 +309,7 @@
             background: #fcfcfc;
             color: #1a2632;
             outline: none;
+            transition: 0.15s;
             width: 100%;
             height: 38px;
         }
@@ -325,20 +347,30 @@
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
+            transition: 0.15s;
             height: 38px;
             white-space: nowrap;
+            line-height: 1;
             min-width: 80px;
         }
 
         .btn-primary {
             background: #4a90d9;
-            color: #fff;
+            color: #ffffff;
         }
+
+            .btn-primary:hover {
+                background: #357abd;
+            }
 
         .btn-green {
             background: #007600;
             color: #fff;
         }
+
+            .btn-green:hover {
+                background: #005a00;
+            }
 
         .btn-sm {
             padding: 0 12px;
@@ -360,7 +392,16 @@
             cursor: pointer;
             padding: 0 6px;
             color: #6c7a8a;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
+
+            .btn-icon:hover {
+                transform: scale(1.15);
+                color: #1f4e78;
+            }
 
         .btn-delete-icon {
             background: transparent;
@@ -369,7 +410,13 @@
             font-size: 18px;
             cursor: pointer;
             padding: 0 4px;
+            transition: 0.15s;
         }
+
+            .btn-delete-icon:hover {
+                color: #a00000;
+                transform: scale(1.2);
+            }
 
         .btn-bom-toggle {
             background: #f0f5fa;
@@ -385,6 +432,11 @@
             align-items: center;
             gap: 4px;
         }
+
+            .btn-bom-toggle:hover {
+                background: #dbeaff;
+                border-color: #4a90d9;
+            }
 
         .info-hint {
             background: #f0f5fa;
@@ -441,7 +493,7 @@
         .sub-bom-table {
             width: 100%;
             border: 1px solid #d0d7dd;
-            background: #fff;
+            background: #ffffff;
             margin: 8px 0;
             border-radius: 4px;
             font-size: 12px;
@@ -579,6 +631,7 @@
             gap: 8px;
         }
 
+        /* PAGINATION STYLES */
         .page-btn {
             background: #f0f5fa;
             border: 1px solid #c9daf8;
@@ -635,86 +688,98 @@
             }
         }
     </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-SCZYX0Z5VX');
+    </script>
 </head>
 <body>
 
     <div class="main-wrapper">
-        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА -->
+
+        <!-- TOP UTILITY BAR -->
         <div class="top-utility-bar">
-            <!-- БЛОК АДМИНИСТРАТОРА С ПОДЧИНЕННЫМ CLIENT ID -->
             <div class="admin-controls-container">
-                <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()">Admin Mode</button>
+                <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()">
+                    Admin Mode
+                </button>
                 <div id="admin-client-box" style="display: none;">
-                    <div class="client-id-badge" onclick="editClientIdentifier()" title="Сменить Client ID">
+                    <div class="client-id-badge" onclick="editClientIdentifier()" title="Click to customize Client ID">
                         🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
                     </div>
                 </div>
             </div>
-            <div style="cursor:pointer; font-weight:600; margin-left:8px; line-height:24px;" onclick="window.location.href='ASUIRGemeniCalculatOptimizer_en.html'">Languages ⌵</div>
+            <div style="cursor:pointer; font-weight:600; margin-left:8px; line-height:24px;" onclick="window.location.href='ASUIRGemeniCalculatOptimizer_ru.html'">
+                Languages ⌵
+            </div>
         </div>
 
-        <!-- ГЛАВНЫЙ ЗАГОЛОВОК -->
+        <!-- BRAND TITLE -->
         <div class="brand-title-block">
             <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
         </div>
 
-        <!-- ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ -->
+        <!-- 1. THIN TOP DIVIDER -->
         <div style="height: 1px; background-color: #d0d7dd; margin: 15px 0 10px 0; width: 100%;"></div>
 
-        <!-- ГЛОБАЛЬНОЕ МЕНЮ САЙТА -->
+        <!-- 2. GLOBAL MENU 1ST LEVEL -->
         <nav class="nav-global-menu">
-            <a href="index_ru.html" class="nav-global-link">
-                <span class="main-label">О ПРОЕКТЕ</span>
-                <span class="sub-label">автоматизированная система управления</span>
+            <a href="index.html" class="nav-global-link">
+                <span class="main-label">ABOUT THE PROJECT</span>
+                <span class="sub-label">automated control system</span>
             </a>
-            <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link active">
-                <span class="main-label" style="color:#1f4e78;">АСУИР Gemini</span>
-                <span class="sub-label">генератор эффективности</span>
+            <a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link active">
+                <span class="main-label" style="color:#1f4e78;">ASUIR Gemini</span>
+                <span class="sub-label">efficiency generator</span>
             </a>
-            <a href="flowsolve.html" class="nav-global-link active">
+            <a href="flowsolve_en.html" class="nav-global-link active">
                 <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
-                <span class="sub-label">анализ и оптимизация процессов</span>
+                <span class="sub-label">process analysis and optimization</span>
             </a>
             <a href="Help_en.html" class="nav-global-link">
                 <span class="main-label">Help</span>
-                <span class="sub-label">справка и формулы</span>
+                <span class="sub-label">documentation & formulas</span>
             </a>
         </nav>
 
-        <!-- ДВОЙНАЯ СЕРАЯ ПОЛОСА -->
+        <!-- 3. SATURATED DOUBLE GRAY DIVIDER -->
         <div class="matrix-divider-double-box">
             <div class="thin-line"></div>
             <div class="thick-line"></div>
         </div>
 
-        <!-- 2 ГЛАВНЫЕ ВКЛАДКИ ВЕРХНЕГО УРОВНЯ -->
+        <!-- 2 MAIN TOP-LEVEL TABS -->
         <div class="main-two-tabs-nav">
             <button class="main-two-tab-btn active" id="btn-main-listing" onclick="switchMainTab('main-tab-1')">
-                📋 Листинг производственных линий
+                📋 Production Lines Listing
             </button>
             <button class="main-two-tab-btn" id="btn-main-upload" onclick="switchMainTab('main-tab-2')">
-                ⚙️ Загрузка новой производственной линии
+                ⚙️ Upload New Production Line
             </button>
         </div>
 
         <!-- ========================================================
-             ГЛАВНАЯ ВКЛАДКА 1: ЛИСТИНГ ПРОИЗВОДСТВЕННЫХ ЛИНИЙ
+             MAIN TAB 1: PRODUCTION LINES LISTING
         ======================================================== -->
         <div class="main-tab-content-panel active" id="main-tab-1">
             <div class="matrix-card-box" style="padding: 24px;">
-
                 <div style="background:#fff; border:1px solid #d0d7dd; border-radius:4px; padding:18px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
                         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                            <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Фильтр базы оборудования:</label>
+                            <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Database Filter:</label>
                             <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
-                                <option value="my">👤 Только мои производственные линии</option>
-                                <option value="others">🔍 Чужие (Бенчмаркинг / Отбор)</option>
-                                <option value="all" selected>🌐 Все линии (Свои и чужие)</option>
+                                <option value="my">👤 My production lines only</option>
+                                <option value="others">🔍 Others (Benchmarking / Selection)</option>
+                                <option value="all" selected>🌐 All lines (Mine & others)</option>
                             </select>
                         </div>
                         <div>
-                            <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок и комплектующие в Базу</button>
+                            <button class="btn btn-green btn-sm" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & Components to Database</button>
                         </div>
                     </div>
 
@@ -723,27 +788,28 @@
                             <thead>
                                 <tr>
                                     <th style="width:45px; text-align:center;">#</th>
-                                    <th>Тип линии</th>
-                                    <th>Ссылка</th>
-                                    <th>Цена линии</th>
-                                    <th>Скорость</th>
-                                    <th>Персонал</th>
-                                    <th>Базовая ЗП</th>
-                                    <th style="color:#007600;">Достигаемая Зарплата Рабочего</th>
-                                    <th>Доход Домохозяйки</th>
+                                    <th>Line</th>
+                                    <th>Link</th>
+                                    <th>Line Price</th>
+                                    <th>Capacity</th>
+                                    <th>Staff</th>
+                                    <th>Base Salary</th>
+                                    <th style="color:#007600;">Achievable Worker Salary</th>
+                                    <th>Household Net Profit</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
                             </thead>
                             <tbody id="client-matched-equipment-rows">
-                                <tr><td colspan="10" style="text-align:center; color:#6c7a8a; padding:20px;">Загрузка данных из облака Firebase...</td></tr>
+                                <tr><td colspan="10" style="text-align:center; color:#1f4e78; padding:25px; font-weight:600;">⏳ Loading cloud database from Firebase...</td></tr>
                             </tbody>
                         </table>
                     </div>
 
+                    <!-- PAGINATION CONTROLS BAR -->
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:12px; border-top:1px solid #edf2f7; flex-wrap:wrap; gap:10px;">
                         <div style="font-size:13px; color:#4a5568;">
-                            Показано: <b id="page-range-display" style="color:#1f4e78;">0–0</b> из <b id="page-total-display">0</b> линий
-                            <span style="margin-left:14px;">На странице:</span>
+                            Showing: <b id="page-range-display" style="color:#1f4e78;">0–0</b> of <b id="page-total-display">0</b> lines
+                            <span style="margin-left:14px;">Per page:</span>
                             <select id="page-size-selector" class="input-field input-sm" style="width:75px; display:inline-block; height:30px; padding:2px 6px; font-weight:600;" onchange="changePageSize(this.value)">
                                 <option value="20" selected>20</option>
                                 <option value="30">30</option>
@@ -755,143 +821,165 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button>
+                <button class="btn btn-primary btn-block" style="max-width:300px; margin:16px auto 0;" onclick="window.print()">🖨️ Print / Save PDF</button>
             </div>
         </div>
 
         <!-- ========================================================
-             ГЛАВНАЯ ВКЛАДКА 2: ЗАГРУЗКА НОВОЙ ПРОИЗВОДСТВЕННОЙ ЛИНИИ
+             MAIN TAB 2: UPLOAD NEW PRODUCTION LINE
         ======================================================== -->
         <div class="main-tab-content-panel" id="main-tab-2">
-            <!-- ЭКРАН-ЗАГЛУШКА ДЛЯ НЕАВТОРИЗОВАННЫХ ПОЛЬЗОВАТЕЛЕЙ (ВАРИАНТ 2) -->
+            <!-- STUB BANNER (OPTION 2) -->
             <div id="upload-admin-locked" class="admin-lock-banner">
                 <div style="font-size: 46px; margin-bottom: 12px;">🔒</div>
-                <h3 style="color: #1f4e78; font-size: 19px; margin-bottom: 10px;">Ввод новой линии ограничен</h3>
+                <h3 style="color: #1f4e78; font-size: 19px; margin-bottom: 10px;">Production Line Input Restricted</h3>
                 <p style="color: #4a5568; font-size: 14px; max-width: 520px; margin: 0 auto 20px; line-height: 1.6;">
-                    Для разблокирования возможности ввода новой производственной линии активируйте кнопку <b>«Admin Mode»</b>.
+                    To unlock the ability to enter a new production line, activate the <b>«Admin Mode»</b> button.
                 </p>
-                <button class="btn btn-primary" onclick="toggleAdminMode()">🔑 Активировать режим Админа</button>
+                <button class="btn btn-primary" onclick="toggleAdminMode()">🔑 Activate Admin Mode</button>
             </div>
 
-            <!-- РАБОЧИЙ КАЛЬКУЛЯТОР (ВИДЕН ТОЛЬКО В РЕЖИМЕ АДМИНИСТРАТОРА) -->
+            <!-- CALCULATOR WORKSPACE -->
             <div id="upload-admin-content" class="matrix-card-box" style="display: none;">
-                <!-- ТАБЫ ШАГОВ КАЛЬКУЛЯТОРА -->
+                <!-- WORKFLOW STEP TABS -->
                 <div class="matrix-tab-bar" id="tabHeaders">
-                    <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Прямые затраты бизнеса</a>
-                    <a href="#" class="matrix-tab-item" data-tab="tab2">📦 2. Оснастка и Цеховые расходы</a>
-                    <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Сырьё и комплектующие</a>
-                    <a href="#" class="matrix-tab-item" data-tab="tab4">📊 4. Себестоимость продукции</a>
-                    <a href="#" class="matrix-tab-item" data-tab="tab5">🎯 5. Результаты</a>
+                    <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Direct business costs</a>
+                    <a href="#" class="matrix-tab-item" data-tab="tab2">📦 2. Tooling & Facility Expenses</a>
+                    <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Bill of Materials</a>
+                    <a href="#" class="matrix-tab-item" data-tab="tab4">📊 4. Cost Price</a>
+                    <a href="#" class="matrix-tab-item" data-tab="tab5">🎯 5. Financial Results</a>
                 </div>
 
                 <div class="matrix-content-body">
-                    <!-- ТАБ 1: ПРЯМЫЕ ЗАТРАТЫ БИЗНЕСА -->
+                    <!-- TAB 1: DIRECT COSTS -->
                     <div class="section active" id="tab1">
                         <div class="table-responsive">
                             <table class="text-regular">
                                 <tr>
                                     <td>
-                                        <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Тематика производства / Категория</span></span>
+                                        <span class="icon-text"><span class="ico">🔗</span> <span style="font-weight: 600;">Product Link from Alibaba</span></span><br>
+                                        <span style="font-size: 12px; color: #007600; font-weight:600;">💡 Paste link here — script automatically sets category, tooling & BOM components!</span>
                                         <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px;">
-                                            <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="loadCatalogTemplate(this.value)">
-                                                <option value="drone">🚁 Дроны и Радиоэлектроника</option>
-                                                <option value="phone">📱 Смартфоны и Телефоны</option>
-                                                <option value="tablet">📲 Планшеты и Мобильные ПК</option>
-                                                <option value="tv">📺 Телевизоры и Дисплеи</option>
-                                                <option value="pc">💻 Телеком и Ноутбуки</option>
-                                                <option value="bakery">🍞 Хлебопекарная Линия</option>
-                                                <option value="jewelry">💍 Ювелирные Изделия</option>
-                                                <option value="watch">⌚ Сборка Часов</option>
-                                                <option value="costume">💎 Производство Бижутерии</option>
-                                                <option value="clothes">👗 Пошив Одежды</option>
-                                                <option value="furniture">🛋️ Мебель и Деревообработка</option>
-                                                <option value="instruments">🔬 Измерительные Приборы</option>
-                                                <option value="cnc">⚙️ Настольные ЧПУ Станки</option>
-                                                <option value="universal">📦 Универсальный Проект</option>
-                                            </select>
-                                            <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог</button>
+                                            <input type="text" id="equip-url" class="input-url" placeholder="🔗 Paste Alibaba equipment link..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html">
+                                            <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Open Link</button>
+                                            <button class="btn btn-sm" style="background:#e68a00; color:#fff;" onclick="openAlibabaInquiryModal()">✉️ Inquire</button>
                                         </div>
                                     </td>
                                     <td class="right">
-                                        <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Стоимость оборудования $</span>
+                                        <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Equipment Cost $</span>
                                         <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / оборудования и ссылка</span></span>
-                                        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap;">
-                                            <input type="text" id="equip-search-query" class="input-field input-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 280px;">
-                                            <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты на Alibaba">🔍 Найти на Alibaba ↗</button>
-                                        </div>
+                                        <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Machine / Production Line Name</span></span>
                                     </td>
                                     <td class="right">
-                                        <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
-                                            <input type="text" id="equip-url" class="input-url input-url-sm" placeholder="🔗 Вставьте ссылку на оборудование (Alibaba)..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html" style="max-width: 320px;">
-                                            <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')">🔗 Перейти</button>
+                                        <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
+                                            <input type="text" id="equip-search-query" class="input-field input-field-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Cell" style="max-width: 280px;">
+                                            <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Search options on Alibaba">
+                                                🔍 On Alibaba ↗
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 600;">Current Category (Nice Class)</span></span>
+                                    </td>
+                                    <td class="right">
+                                        <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap;">
+                                            <select id="topic-selector-dropdown" class="input-field input-sm" style="width: 260px; font-weight:600; color:#1f4e78;" onchange="loadCatalogTemplate(this.value)">
+                                                <option value="drone">🚁 Drones & Radioelectronics</option>
+                                                <option value="phone">📱 Smartphones & Mobile Phones</option>
+                                                <option value="tablet">📲 Tablets & Mobile PCs</option>
+                                                <option value="tv">📺 TVs & Displays</option>
+                                                <option value="pc">💻 Telecom & Laptops</option>
+                                                <option value="bakery">🍞 Commercial Bakery Line</option>
+                                                <option value="jewelry">💍 Fine Jewelry Casting</option>
+                                                <option value="watch">⌚ Watch Assembly</option>
+                                                <option value="costume">💎 Costume Jewelry Press</option>
+                                                <option value="clothes">👗 Apparel Sewing</option>
+                                                <option value="furniture">🛋️ Furniture Woodworking</option>
+                                                <option value="instruments">🔬 Precision Instruments</option>
+                                                <option value="cnc">⚙️ Desktop CNC Machines</option>
+                                                <option value="universal">📦 Universal Template</option>
+                                            </select>
+                                            <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Catalog</button>
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                                     <td>
-                                        <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Фактическая производительность оборудования (с Alibaba)</span></span><br>
-                                        <span style="font-size: 12px; color: #6c7a8a;">Паспортная суточная скорость связки оборудования</span>
+                                        <span class="icon-text"><span class="ico">⚡</span> <span style="font-weight: 600; color: #c65911;">Actual Cell Capacity (from Alibaba)</span></span><br>
+                                        <span style="font-size: 12px; color: #6c7a8a;">Daily production capacity of the equipment cell</span>
                                     </td>
                                     <td class="right">
                                         <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
                                             <select id="perf-input-mode" class="input-field input-sm" style="width: 130px; font-size: 11px;" onchange="convertAlibabaSpecs()">
-                                                <option value="pcs_day">Штук в день</option>
-                                                <option value="pcs_hour">Штук в час</option>
-                                                <option value="sec_pc">Секунд на 1 шт</option>
+                                                <option value="pcs_day">Pcs per day</option>
+                                                <option value="pcs_hour">Pcs per hour</option>
+                                                <option value="sec_pc">Seconds per 1 pc</option>
                                             </select>
                                             <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="20" style="width: 90px; font-weight:700; color:#c65911;">
-                                            <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">шт/день</span>
+                                            <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">pcs/day</span>
                                         </div>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Количество рабочих, обслуживающих оборудование</span></span></td>
+                                    <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Cell Operators</span></span></td>
                                     <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
                                 </tr>
-
+                                <tr>
+                                    <td><span class="icon-text"><span class="ico">💵</span> <span style="font-weight: 600;">Base Starting Monthly Salary per Operator</span></span></td>
+                                    <td class="right">$ <input type="number" id="val-salary" class="input-field input-field-sm" value="3500"></td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 600;">Total Daily Fixed Overhead</span></span></td>
+                                    <td class="right">$ <span id="base-overhead">0</span></td>
+                                </tr>
                                 <tr class="total-row" style="background: #f0f5fa; border-top: 2px solid #1f4e78;">
-                                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Общие затраты на оборудование и персонал (за день)</span></span></td>
+                                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Daily Equipment & Personnel Costs</span></span></td>
                                     <td class="right">$ <span id="total-daily-cost">0</span></td>
                                 </tr>
                             </table>
                         </div>
+
                         <div style="margin-top:12px; text-align:right;">
-                            <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Зафиксировать станок, оснастку и комплектующие в Базу</button>
+                            <button class="btn btn-green" onclick="saveCurrentEquipmentToDatabase()">💾 Save Equipment, Tooling & Components to Database</button>
                         </div>
                     </div>
 
-                    <!-- ТАБ 2: ОСНАСТКА И ЦЕХОВЫЕ РАСХОДЫ -->
+                    <!-- TAB 2: TOOLING & FACILITY EXPENSES -->
                     <div class="section" id="tab2">
                         <div class="info-hint">
-                            <b>💡 Пропорциональный расчет на персонал:</b> статьи специнструмента и расходников автоматически перемножаются на количество рабочих мест (штат), а общие расходы (аренда помещения, вытяжка) считаются 1 раз на всё производство.
+                            <b>💡 Proportional Staff Scaling:</b> Toolkits, soldering gear, and consumables scale directly with the number of operators (staff), while common overhead (workshop rent, power) is counted once per cell.
                         </div>
+
                         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-                            <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Добавить статью цеховых расходов / оснастки</button>
+                            <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Add Facility / Tooling Expense Item</button>
                         </div>
+
                         <div class="table-responsive">
                             <table class="components-table">
                                 <thead>
                                     <tr>
-                                        <th class="row-name">📦 Статья расходов / Оснастка / Инструмент</th>
-                                        <th class="row-url">🔗 Ссылка на Alibaba / Поставщика</th>
+                                        <th class="row-name">📦 Expense Item / Tooling / Consumable</th>
+                                        <th class="row-url">🔗 Alibaba / Supplier Link</th>
                                         <th class="row-search">🔍</th>
-                                        <th style="width:110px; text-align:center;">👷 Множитель (Штат)</th>
-                                        <th style="width:120px; text-align:right;">💰 Расход ($ / день)</th>
+                                        <th style="width:110px; text-align:center;">👷 Multiplier (Staff)</th>
+                                        <th style="width:120px; text-align:right;">💰 Daily Cost ($/day)</th>
                                         <th class="row-delete"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="expense-dynamic-rows"></tbody>
                                 <tfoot>
                                     <tr style="background:#f0f5fa;">
-                                        <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Итого постоянные цеховые расходы, оснастка и инструмент (за день):</span></span></td>
+                                        <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Fixed Facility Expenses, Tooling & Consumables (per day):</span></span></td>
                                         <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-other-costs">54.00</span></td>
                                         <td></td>
                                     </tr>
@@ -900,31 +988,33 @@
                         </div>
                     </div>
 
-                    <!-- ТАБ 3: СЫРЬЕ И КОМПЛЕКТУЮЩИЕ -->
+                    <!-- TAB 3: BOM -->
                     <div class="section" id="tab3">
                         <div class="info-hint" style="background:#e2efda; border-left:4px solid #007600; color:#274017;">
-                            <b>💡 Комплектация сформирована автоматически</b> под выбранный проект. Вы можете изменять цены, количества деталей или добавлять новые строки.
+                            <b>💡 Specification Pre-filled Automatically</b> for selected category. You can modify prices, quantities, click <b>🔗</b> to view items on Alibaba, or add new rows below.
                         </div>
+
                         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-                            <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Добавить деталь в спецификацию</button>
+                            <button class="btn btn-green btn-sm" onclick="addComponentRow('', 1, 0, '')">＋ Add Component Row</button>
                         </div>
+
                         <div class="table-responsive">
                             <table class="components-table">
                                 <thead>
                                     <tr>
-                                        <th class="row-name">📦 Название детали / узла</th>
-                                        <th class="row-url">🔗 Ссылка на Alibaba</th>
+                                        <th class="row-name">📦 Component Name</th>
+                                        <th class="row-url">🔗 Alibaba Link</th>
                                         <th class="row-search">🔍</th>
-                                        <th class="row-qty">📐 Кол-во</th>
-                                        <th class="row-price">💰 Цена 1 шт. ($)</th>
+                                        <th class="row-qty">📐 Qty</th>
+                                        <th class="row-price">💰 Unit Price ($)</th>
                                         <th class="row-delete"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="component-dynamic-rows"></tbody>
                                 <tfoot>
                                     <tr style="background:#f0f5fa;">
-                                        <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Итоговая стоимость сырья на 1 шт:</span></span></td>
-                                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
+                                        <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
+                                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-cost">186.00</span></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
@@ -932,102 +1022,101 @@
                         </div>
                     </div>
 
-                    <!-- ТАБ 4: ПОЛНАЯ СЕБЕСТОИМОСТЬ -->
+                    <!-- TAB 4: COST PRICE -->
                     <div class="section" id="tab4">
                         <div class="table-responsive">
                             <table class="text-regular">
                                 <tr>
-                                    <td><span class="icon-text"><span class="ico">📦</span> <span style="font-weight: 400;">Сырьё и комплектующие (на 1 шт.)</span></span></td>
+                                    <td><span class="icon-text"><span class="ico">📦</span> <span style="font-weight: 400;">Raw Materials & Components (per 1 unit)</span></span></td>
                                     <td class="right">$ <span id="cost-raw">0.00</span></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 400;">Доля оборудования и персонала (на 1 шт.)</span></span></td>
+                                    <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 400;">Equipment & Personnel Share (per 1 unit)</span></span></td>
                                     <td class="right">$ <span id="cost-equip-share">0.00</span></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Доля оснастки и цеховых расходов (на 1 шт.)</span></span></td>
+                                    <td><span class="icon-text"><span class="ico">📋</span> <span style="font-weight: 400;">Tooling & Facility Overhead Share (per 1 unit)</span></span></td>
                                     <td class="right">$ <span id="cost-other-share">0.00</span></td>
                                 </tr>
                                 <tr class="result-row">
-                                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 700;">Итоговая себестоимость 1 единицы продукции</span></span></td>
+                                    <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 700;">Total Unit Cost Price (1 Unit)</span></span></td>
                                     <td class="right" style="font-size:20px; color:#1f4e78; font-weight:700;">$ <span id="total-product-cost">0.00</span></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                    <!-- ТАБ 5: РЕЗУЛЬТАТЫ -->
+                    <!-- TAB 5: FINANCIAL RESULTS -->
                     <div class="section" id="tab5">
                         <div class="table-responsive">
                             <table class="section-results">
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Минимальная конкурентная цена продажи (за 1 шт.)</span></td>
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Minimum Competitive Sales Price (per 1 unit)</span></td>
                                     <td class="right" style="font-weight: 400; font-size: 15px;">
                                         $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Необходимый суточный сбыт для окупаемости</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> шт./день</td>
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Breakeven Volume (10% Benchmark)</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Паспортная скорость оборудования (с Alibaba)</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> шт./день</td>
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Passport Equipment Capacity (from Alibaba)</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> pcs/day</td>
                                 </tr>
                                 <tr style="background: #fcfcfc;">
-                                    <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Индикатор выполнимости мощности:</span></td>
-                                    <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">Проверка...</span></td>
+                                    <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Feasibility Indicator:</span></td>
+                                    <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">Evaluating...</span></td>
                                 </tr>
                                 <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
                                     <td style="font-weight: 700; color: #007600;">
-                                        <span class="icon-text"><span class="ico">💵</span> Достигаемая Зарплата 1 рабочего под ЭТОТ станок:</span><br>
-                                        <span style="font-size:11px; font-weight:400; color:#555;">При удержании себестоимости на уровне Бангладеш</span>
+                                        <span class="icon-text"><span class="ico">💵</span> Achievable Monthly Worker Salary for THIS Machine:</span><br>
+                                        <span style="font-size:11px; font-weight:400; color:#555;">Sustaining Bangladesh Baseline Unit Costs</span>
                                     </td>
                                     <td class="right">
-                                        <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$0 / мес</span>
+                                        <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$0 / mo</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Срок полной окупаемости оборудования</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> дней</td>
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Full Equipment Payback Period</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> days</td>
                                 </tr>
                                 <tr class="result-row">
-                                    <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Прогнозируемая чистая прибыль за 1 мес.</span></td>
+                                    <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Projected Monthly Net Profit (1 Cell)</span></td>
                                     <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            © Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.
+            © Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
         </div>
     </div>
 
-    <!-- МОДАЛКА КАТАЛОГА МКТУ -->
+    <!-- MODALS -->
     <div id="catalog-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('catalog-modal')">&times;</span>
-            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">Выберите категорию производства (МКТУ)</h3>
+            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">Select Production Category (Nice Class)</h3>
             <div class="catalog-grid">
-                <div class="catalog-card" onclick="loadCatalogTemplate('drone')">🚁 Дроны и Радиоэлектроника</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('phone')">📱 Смартфоны и Телефоны</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📲 Планшеты и Мобильные ПК</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 Телевизоры и дисплеи</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Телеком и Ноутбуки</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Хлебопекарная мини-линия</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('jewelry')">💍 Ювелирные изделия</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('watch')">⌚ Сборка часов</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('costume')">💎 Производство бижутерии</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('clothes')">👗 Пошив одежды (ЧПУ)</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('furniture')">🛋️ Мебель (ЧПУ участок)</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('instruments')">🔬 Измерительные приборы</div>
-                <div class="catalog-card" onclick="loadCatalogTemplate('cnc')">⚙️ Настольные ЧПУ станки</div>
-                <div class="catalog-card full-width" onclick="loadCatalogTemplate('universal')">📦 Другой товар (Универсальный шаблон)</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('drone')">🚁 Drones & Radioelectronics</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('phone')">📱 Smartphones & Mobile Phones</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('tablet')">📲 Tablets & Mobile PCs</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('tv')">📺 TVs & Displays</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('pc')">💻 Telecom & Laptops</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('bakery')">🍞 Commercial Mini-Bakery</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('jewelry')">💍 Fine Jewelry Casting</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('watch')">⌚ Watch Assembly</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('costume')">💎 Costume Jewelry Press</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('clothes')">👗 Apparel Sewing (CNC)</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('furniture')">🛋️ Furniture (CNC Cell)</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('instruments')">🔬 Precision Instruments</div>
+                <div class="catalog-card" onclick="loadCatalogTemplate('cnc')">⚙️ Desktop CNC Machines</div>
+                <div class="catalog-card full-width" onclick="loadCatalogTemplate('universal')">📦 Other Product (Universal Template)</div>
             </div>
         </div>
     </div>
@@ -1035,49 +1124,49 @@
     <div id="inquiry-modal" class="modal">
         <div class="modal-content" style="max-width:450px;">
             <span class="modal-close" onclick="closeModal('inquiry-modal')">&times;</span>
-            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom:12px;">✉️ Запрос продавцу на Alibaba</h3>
+            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom:12px;">✉️ Inquire Supplier on Alibaba</h3>
             <textarea id="inquiry-text-area" rows="6" class="input-field" style="height:auto; font-size:12px; margin-bottom:15px;" readonly>
 Dear Supplier,
-We are evaluating your equipment for a compact production line setup. Please specify:
+We are evaluating your equipment for a compact production cell setup. Please specify:
 1. Exact Daily Production Capacity (Pcs/Day or Cycle Time per 1 unit).
 2. Minimum required operators/staff to run this machine.
 Thank you!
             </textarea>
-            <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText(document.getElementById('inquiry-text-area').value); alert('Текст запроса скопирован!'); closeModal('inquiry-modal');">📋 Скопировать текст запроса</button>
+            <button class="btn btn-primary btn-block" onclick="navigator.clipboard.writeText(document.getElementById('inquiry-text-area').value); alert('Inquiry text copied!'); closeModal('inquiry-modal');">📋 Copy Inquiry Text</button>
         </div>
     </div>
 
     <div id="bulk-modal" class="modal">
         <div class="modal-content" style="max-width:400px;">
             <span class="modal-close" onclick="closeModal('bulk-modal')">&times;</span>
-            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">🧮 Калькулятор оптовой партии</h3>
+            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px;">🧮 Bulk Wholesale Calculator</h3>
             <div style="margin-bottom: 10px;">
-                <label style="font-size: 13px; font-weight: 600;">💰 Стоимость всей партии ($):</label>
-                <input type="number" id="bulk-total-price" class="input-field" placeholder="Например: 50" style="margin-top:4px;">
+                <label style="font-size: 13px; font-weight: 600;">💰 Total Batch Price ($):</label>
+                <input type="number" id="bulk-total-price" class="input-field" placeholder="Example: 50" style="margin-top:4px;">
             </div>
             <div style="margin-bottom: 15px;">
-                <label style="font-size: 13px; font-weight: 600;">📐 Количество штук в партии:</label>
-                <input type="number" id="bulk-total-qty" class="input-field" placeholder="Например: 1000" style="margin-top:4px;">
+                <label style="font-size: 13px; font-weight: 600;">📐 Total Units in Batch:</label>
+                <input type="number" id="bulk-total-qty" class="input-field" placeholder="Example: 1000" style="margin-top:4px;">
             </div>
-            <button onclick="applyBulkCalc()" class="btn btn-primary btn-block">🧮 Рассчитать и применить</button>
+            <button onclick="applyBulkCalc()" class="btn btn-primary btn-block">🧮 Calculate & Apply</button>
         </div>
     </div>
 
     <div id="feedback-modal" class="modal">
         <div class="modal-content" style="max-width:500px;">
             <span class="modal-close" onclick="closeModal('feedback-modal')">&times;</span>
-            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom: 15px;">💡 Обратная связь</h3>
-            <form id="feedback-form" onsubmit="handleFormSubmit(event, 'ru')">
-                <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что вам понравилось в системе?</label>
+            <h3 style="border-bottom:2px solid #1f4e78; padding-bottom:8px; margin-bottom: 15px;">💡 Feedback</h3>
+            <form id="feedback-form" onsubmit="handleFormSubmit(event, 'en')">
+                <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">What did you like about the system?</label>
                 <textarea id="fb-like" rows="3" class="input-field" style="height:auto; resize:vertical; margin-bottom: 15px;"></textarea>
-                <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что стоит улучшить или добавить?</label>
+                <label style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">What should be improved or added?</label>
                 <textarea id="fb-dislike" rows="4" required class="input-field" style="height:auto; resize:vertical; margin-bottom: 20px;"></textarea>
-                <button type="submit" class="btn btn-primary btn-block">Отправить письмо</button>
+                <button type="submit" class="btn btn-primary btn-block">Send Email</button>
             </form>
         </div>
     </div>
 
-    <!-- ПОДКЛЮЧЕНИЕ FIREBASE SDK -->
+    <!-- FIREBASE REALTIME SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -1094,13 +1183,12 @@ Thank you!
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const equipmentDbRef = ref(db, 'equipment_listing');
 
         let savedEquipmentList = [];
-        let currentTopicTitle = "Дроны и Радиоэлектроника";
+        let currentTopicTitle = "Drones & Radioelectronics";
         let isAdminMode = false;
 
-        // ПЕРЕМЕННЫЕ ПАГИНАЦИИ
+        // ПАГИНАЦИЯ
         window.currentListingPage = 1;
         window.currentListingPageSize = 20;
 
@@ -1115,7 +1203,7 @@ Thank you!
             calculateAll();
         };
 
-        // ПЕРЕКЛЮЧЕНИЕ ГЛАВНЫХ ДВУХ ВКЛАДОК ВЕРХНЕГО УРОВНЯ
+        // ПЕРЕКЛЮЧЕНИЕ ГЛАВНЫХ ВКЛАДОК
         window.switchMainTab = function (tabId) {
             document.querySelectorAll('.main-tab-content-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.main-two-tab-btn').forEach(b => b.classList.remove('active'));
@@ -1124,13 +1212,15 @@ Thank you!
             if (targetPanel) targetPanel.classList.add('active');
 
             if (tabId === 'main-tab-1') {
-                document.getElementById('btn-main-listing').classList.add('active');
+                const btn1 = document.getElementById('btn-main-listing');
+                if (btn1) btn1.classList.add('active');
             } else {
-                document.getElementById('btn-main-upload').classList.add('active');
+                const btn2 = document.getElementById('btn-main-upload');
+                if (btn2) btn2.classList.add('active');
             }
         };
 
-        // УПРАВЛЕНИЕ ВИДИМОСТЬЮ КАЛЬКУЛЯТОРА ДЛЯ АДМИНА
+        // БЛОКИРОВКА АДМИНКИ ПО ВАРИАНТУ 2
         function updateAdminLockUI() {
             const lockBanner = document.getElementById('upload-admin-locked');
             const contentCard = document.getElementById('upload-admin-content');
@@ -1145,242 +1235,244 @@ Thank you!
             }
         }
 
-        let myClientId = localStorage.getItem('asuir_client_id');
+        // 1. CLIENT ID
+        let myClientId = localStorage.getItem('asuir_client_id_en') || localStorage.getItem('asuir_client_id');
         if (!myClientId) {
             myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            localStorage.setItem('asuir_client_id', myClientId);
+            localStorage.setItem('asuir_client_id_en', myClientId);
         }
         document.getElementById('client-id-display').textContent = myClientId;
 
         window.editClientIdentifier = function () {
-            const newId = prompt("Введите имя вашего проекта или идентификатор цеха (Client ID):", myClientId);
+            const newId = prompt("Enter your Project Name or Facility ID (Client ID):", myClientId);
             if (newId && newId.trim() !== '') {
                 myClientId = newId.trim();
-                localStorage.setItem('asuir_client_id', myClientId);
+                localStorage.setItem('asuir_client_id_en', myClientId);
                 document.getElementById('client-id-display').textContent = myClientId;
                 calculateAll();
             }
         };
 
+        // CATALOG DEFINITIONS
         const catalogDB = {
             'drone': {
-                title: "Дроны и Радиоэлектроника", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Компактная ESD-линия сборки дронов',
+                title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Cell',
                 c: [
-                    ['Карбоновая рама 10" (T700 Carbon Kit)', 1, 26.0, 'https://www.alibaba.com/'],
-                    ['Стек: Полетный контроллер F7 + ESC 60A', 1, 45.0, 'https://www.alibaba.com/'],
-                    ['Моторы бесколлекторные 2807 1300KV (4 шт.)', 1, 55.0, 'https://www.alibaba.com/'],
-                    ['Видеопередатчик VTX 5.8GHz + Камера FPV', 1, 35.0, 'https://www.alibaba.com/'],
-                    ['Аккумулятор LiPo 6S 5000mAh 100C', 1, 25.0, 'https://www.alibaba.com/']
+                    ['Carbon fiber frame kit (10" T700)', 1, 26.0, 'https://www.alibaba.com/'],
+                    ['Flight Controller (F7 + 60A ESC)', 1, 45.0, 'https://www.alibaba.com/'],
+                    ['Brushless motors 2807 set (4 pcs)', 1, 55.0, 'https://www.alibaba.com/'],
+                    ['VTX 5.8GHz + FPV Camera', 1, 35.0, 'https://www.alibaba.com/'],
+                    ['LiPo Battery Pack 6S 5000mAh', 1, 25.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда рабочего бокса 50 кв.м', 1, 30.0, ''],
-                    ['Паяльный комплекс и инструмент (на 1 рабочее место)', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Технологические расходники: припой, флюс, биты (на 1 рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
-                    ['Логистика и энергоснабжение производства', 1, 15.0, '']
+                    ['Workshop Box Rent 50 sqm (per cell)', 1, 30.0, ''],
+                    ['Soldering station & electric screwdrivers (amortization per worker)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Consumables: solder, flux, bits, Loctite (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Cell Logistics & Power Supply', 1, 15.0, '']
                 ]
             },
             'phone': {
-                title: "Смартфоны и Телефоны", eq: '6000', mkt: '150', perf: '250', staff: '3', q: 'Линия сборки смартфонов',
+                title: "Smartphones & Mobile Phones", eq: '6000', mkt: '150', perf: '250', staff: '3', q: 'Smartphone Assembly Line',
                 c: [
-                    ['Дисплейный модуль 6.5" FHD+ с тачскрином', 1, 18.0, 'https://www.alibaba.com/'],
-                    ['Материнская плата SoC (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/'],
-                    ['Блок камер (Основная 50MP + Фронтальная 8MP)', 1, 8.0, 'https://www.alibaba.com/'],
-                    ['Аккумулятор Li-Polymer 5000 mAh', 1, 6.0, 'https://www.alibaba.com/'],
-                    ['Средняя рамка, задняя панель, кнопки, SIM-лоток', 1, 5.0, 'https://www.alibaba.com/'],
-                    ['Динамики, вибромотор, субплата Type-C, антенны', 1, 3.0, 'https://www.alibaba.com/'],
-                    ['Зарядное 18W Type-C + кабель + коробка', 1, 3.0, 'https://www.alibaba.com/']
+                    ['6.5" FHD+ IPS/OLED Touch Display module', 1, 18.0, 'https://www.alibaba.com/'],
+                    ['SoC Mainboard (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/'],
+                    ['Camera module set (Main 50MP + Front 8MP)', 1, 8.0, 'https://www.alibaba.com/'],
+                    ['Li-Polymer Battery 5000 mAh', 1, 6.0, 'https://www.alibaba.com/'],
+                    ['Middle chassis, back cover, buttons, SIM tray', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Speakers, vibration motor, Type-C sub-board', 1, 3.0, 'https://www.alibaba.com/'],
+                    ['18W Type-C Charger + cable + retail box', 1, 3.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда сборочного бокса 40 кв.м', 1, 25.0, ''],
-                    ['Пневмопресс и электроотвертки (на рабочего)', 3, 2.0, 'https://www.alibaba.com/'],
-                    ['Расходники: термоскотч, проклейка, салфетки', 3, 1.5, 'https://www.alibaba.com/'],
-                    ['Логистика и доставка комплектующих', 1, 15.0, '']
+                    ['Assembly Box Rent 40 sqm', 1, 25.0, ''],
+                    ['Pneumatic press & torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/'],
+                    ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/'],
+                    ['Components Freight & Logistics', 1, 15.0, '']
                 ]
             },
             'tablet': {
-                title: "Планшеты и Мобильные ПК", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Настольный комплекс сборки планшетов',
+                title: "Tablets & Mobile PCs", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Station',
                 c: [
-                    ['Экран в сборе (IPS/OLED 10.1")', 1, 35.0, 'https://www.alibaba.com/'],
-                    ['Материнская плата SoC (ARM)', 1, 45.0, 'https://www.alibaba.com/'],
-                    ['Литий-полимерный аккумулятор 6000mAh', 1, 10.0, 'https://www.alibaba.com/'],
-                    ['Ультратонкий корпус и шлейфы', 1, 8.0, 'https://www.alibaba.com/'],
-                    ['Упаковочная коробка + зарядное', 1, 2.0, 'https://www.alibaba.com/']
+                    ['IPS/OLED Display assembly 10.1"', 1, 35.0, 'https://www.alibaba.com/'],
+                    ['SoC Motherboard (ARM Octa-Core)', 1, 45.0, 'https://www.alibaba.com/'],
+                    ['Li-Po Battery 6000mAh', 1, 10.0, 'https://www.alibaba.com/'],
+                    ['Ultra-thin chassis & flex cables', 1, 8.0, 'https://www.alibaba.com/'],
+                    ['Retail box + 20W charger', 1, 2.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда чистой зоны 40 кв.м', 1, 25.0, ''],
-                    ['Вакуумная оснастка и отверточный инструмент (на рабочего)', 2, 1.5, 'https://www.alibaba.com/'],
-                    ['Расходники: термоскотч, очистители, салфетки', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Логистика и доставка партий', 1, 12.0, '']
+                    ['Clean Area Rent 40 sqm', 1, 25.0, ''],
+                    ['Vacuum laminator tooling & screwdriver set (per worker)', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Consumables: thermal tape, cleaners, wipes', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Logistics & Batch Shipping', 1, 12.0, '']
                 ]
             },
             'tv': {
-                title: "Телевизоры и Дисплеи", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Линия сборки ТВ панелей (Smart TV)',
+                title: "TVs & Displays", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Semi-Automatic Smart TV Production Line',
                 c: [
-                    ['ЖК / OLED Матрица дисплея 55"', 1, 140.0, 'https://www.alibaba.com/'],
-                    ['Smart TV Материнская плата', 1, 45.0, 'https://www.alibaba.com/'],
-                    ['Блок питания инверторный', 1, 25.0, 'https://www.alibaba.com/'],
-                    ['Светодиодная подсветка матрицы', 1, 15.0, 'https://www.alibaba.com/'],
-                    ['Корпус и стереодинамики', 1, 28.0, 'https://www.alibaba.com/']
+                    ['LCD / OLED Display matrix 55"', 1, 140.0, 'https://www.alibaba.com/'],
+                    ['Smart TV Mainboard', 1, 45.0, 'https://www.alibaba.com/'],
+                    ['Inverter Power Supply', 1, 25.0, 'https://www.alibaba.com/'],
+                    ['Direct LED Backlight strips', 1, 15.0, 'https://www.alibaba.com/'],
+                    ['Housing & stereo speakers', 1, 28.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда монтажного бокса 60 кв.м', 1, 35.0, ''],
-                    ['Оснастка: вакуумные присоски, автовинтоверты (на рабочего)', 3, 2.0, 'https://www.alibaba.com/'],
-                    ['Расходники: изоляция, крепеж, стикеры', 3, 1.5, 'https://www.alibaba.com/'],
-                    ['Логистика крупногабаритных дисплеев', 1, 18.0, '']
+                    ['Assembly Box Rent 60 sqm', 1, 35.0, ''],
+                    ['Tooling: vacuum suction lifters, power drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/'],
+                    ['Consumables: insulation tape, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/'],
+                    ['Large Display Freight Logistics', 1, 18.0, '']
                 ]
             },
             'pc': {
-                title: "Телеком и Ноутбуки", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'Линия SKD-сборки ноутбуков',
+                title: "Telecom & Laptops", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'SKD Laptop Assembly Line',
                 c: [
-                    ['Шасси Barebone 15.6" (корпус, клавиатура, батарея 5000mAh)', 1, 85.0, 'https://www.alibaba.com/'],
-                    ['IPS Матрица дисплея 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/'],
-                    ['Плата с процессором Intel SoC + система охлаждения', 1, 68.0, 'https://www.alibaba.com/'],
-                    ['Оперативная память SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/'],
-                    ['Накопитель M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/'],
-                    ['Адаптер 65W Type-C + модуль Wi-Fi 6 + упаковка', 1, 10.0, 'https://www.alibaba.com/']
+                    ['Barebone Chassis 15.6" (case, keyboard, 5000mAh battery)', 1, 85.0, 'https://www.alibaba.com/'],
+                    ['IPS Display Matrix 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/'],
+                    ['Intel SoC Motherboard + cooling system', 1, 68.0, 'https://www.alibaba.com/'],
+                    ['SO-DIMM RAM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/'],
+                    ['M.2 NVMe SSD 512GB Storage', 1, 18.0, 'https://www.alibaba.com/'],
+                    ['65W Type-C Adapter + Wi-Fi 6 Module + Box', 1, 10.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда монтажного участка 40 кв.м', 1, 25.0, ''],
-                    ['Стенд прошивки BIOS и отверточная оснастка (на рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
-                    ['Термопаста, защитные пленки, очистители', 2, 1.5, 'https://www.alibaba.com/'],
-                    ['Логистика и доставка партий', 1, 15.0, '']
+                    ['Assembly Workshop Rent 40 sqm', 1, 25.0, ''],
+                    ['BIOS flashing bench & torque drivers (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Thermal paste, protective films, cleaners', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Batch Shipping & Freight Logistics', 1, 15.0, '']
                 ]
             },
             'furniture': {
-                title: "Мебель и Деревообработка", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Компактный мебельный ЧПУ раскройный центр',
+                title: "Furniture Woodworking", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Compact CNC Furniture Nesting Center',
                 c: [
-                    ['ЛДСП / МДФ влагостойкий (4 кв.м.)', 4, 15.0, 'https://www.alibaba.com/'],
-                    ['Кромочная лента ПВХ 2мм', 1, 5.0, 'https://www.alibaba.com/'],
-                    ['Мебельная фурнитура и петли', 1, 8.0, 'https://www.alibaba.com/'],
-                    ['Зеркальное / фасадное полотно', 1, 22.0, 'https://www.alibaba.com/'],
-                    ['Упаковочный гофрокартон', 1, 6.0, 'https://www.alibaba.com/']
+                    ['MDF/Laminated board 4 sqm', 4, 15.0, 'https://www.alibaba.com/'],
+                    ['PVC Edge banding tape 2mm', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Cabinet hinges & hardware fittings', 1, 8.0, 'https://www.alibaba.com/'],
+                    ['Mirror / Glass panel', 1, 22.0, 'https://www.alibaba.com/'],
+                    ['Cardboard packaging', 1, 6.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда цеха с аспирацией 80 кв.м', 1, 35.0, ''],
-                    ['Сменные концевые фрезы и цанги ISO30 (на рабочего)', 2, 6.0, 'https://www.alibaba.com/'],
-                    ['Смазка рельс, мешки аспирации, фильтры', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Электроэнергия 380В и вывоз стружки', 1, 18.0, '']
+                    ['Workshop Rent with dust extraction 80 sqm', 1, 35.0, ''],
+                    ['CNC carbide milling cutters & collets (per worker)', 2, 6.0, 'https://www.alibaba.com/'],
+                    ['Rail lubricants, vacuum bags, air filters', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['380V Power & sawdust disposal logistics', 1, 18.0, '']
                 ]
             },
             'clothes': {
-                title: "Пошив Одежды", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'Мини-цех ЧПУ раскроя и пошива',
+                title: "Apparel Sewing", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'CNC Cutting & Sewing Mini-Shop',
                 c: [
-                    ['Текстиль / футер 3-нитка (1.8 м)', 1.8, 12.0, 'https://www.alibaba.com/'],
-                    ['Мягкая подкладка / кашкорсе', 1.2, 3.5, 'https://www.alibaba.com/'],
-                    ['Нити и фурнитура (молнии, шнуры)', 1, 5.0, 'https://www.alibaba.com/'],
-                    ['Упаковка и брендовая бирка', 1, 1.5, 'https://www.alibaba.com/']
+                    ['Fabric textile (meters)', 1.8, 12.0, 'https://www.alibaba.com/'],
+                    ['Soft inner lining', 1.2, 3.5, 'https://www.alibaba.com/'],
+                    ['Threads & hardware buttons', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Packaging & Brand tag', 1, 1.5, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда швейного бокса 50 кв.м', 1, 30.0, ''],
-                    ['Сменные ножи раскройного плоттера и заточка', 2, 3.0, 'https://www.alibaba.com/'],
-                    ['Иглы автоматов, машинное масло, лапки', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Логистика тканей и вывоз обрезков', 1, 14.0, '']
+                    ['Sewing Box Rent 50 sqm', 1, 30.0, ''],
+                    ['CNC vibrating blades & sharpening stones', 2, 3.0, 'https://www.alibaba.com/'],
+                    ['Machine needles, oil, teflon presser feet', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Textile delivery & scrap logistics', 1, 14.0, '']
                 ]
             },
             'jewelry': {
-                title: "Ювелирные Изделия", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Настольный ювелирный литейный комплекс',
+                title: "Fine Jewelry Casting", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Benchtop Jewelry Casting Complex',
                 c: [
-                    ['Золото/Серебро в гранулах (10г)', 10, 8.0, 'https://www.alibaba.com/'],
-                    ['Вставки (камни, фианиты)', 2, 20.0, 'https://www.alibaba.com/'],
-                    ['Ювелирная фурнитура', 1, 5.0, 'https://www.alibaba.com/'],
-                    ['Формомасса и расходники', 1, 20.0, 'https://www.alibaba.com/'],
-                    ['Бархатный футляр', 1, 5.0, 'https://www.alibaba.com/']
+                    ['Gold/Silver casting granules (g)', 10, 8.0, 'https://www.alibaba.com/'],
+                    ['Stone inserts (cubic zirconia)', 2, 20.0, 'https://www.alibaba.com/'],
+                    ['Jewelry findings & clasps', 1, 5.0, 'https://www.alibaba.com/'],
+                    ['Investment powder & consumables', 1, 20.0, 'https://www.alibaba.com/'],
+                    ['Velvet presentation box', 1, 5.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда мастерской с вытяжкой 30 кв.м', 1, 25.0, ''],
-                    ['Графитовые тигли и керамические стаканы (на рабочего)', 2, 5.0, 'https://www.alibaba.com/'],
-                    ['Защитный газ (Аргон) и полировальные пасты', 2, 3.5, 'https://www.alibaba.com/'],
-                    ['Охрана и логистика драгметаллов', 1, 10.0, '']
+                    ['Workshop Rent with fume exhaust 30 sqm', 1, 25.0, ''],
+                    ['Graphite crucibles & ceramic flasks (per worker)', 2, 5.0, 'https://www.alibaba.com/'],
+                    ['Shielding Argon gas & polishing compounds', 2, 3.5, 'https://www.alibaba.com/'],
+                    ['Security & precious metals transport', 1, 10.0, '']
                 ]
             },
             'cnc': {
-                title: "Настольные ЧПУ Станки", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Линия узловой сборки настольных ЧПУ',
+                title: "Desktop CNC Machines", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Desktop CNC Assembly Line',
                 c: [
-                    ['Алюминиевая станина', 1, 300.0, 'https://www.alibaba.com/'],
-                    ['Шаговые моторы', 1, 150.0, 'https://www.alibaba.com/'],
-                    ['Контроллер ЧПУ', 1, 80.0, 'https://www.alibaba.com/'],
-                    ['Шпиндель и блок питания', 1, 200.0, 'https://www.alibaba.com/']
+                    ['Aluminum frame chassis', 1, 300.0, 'https://www.alibaba.com/'],
+                    ['Stepper motors set', 1, 150.0, 'https://www.alibaba.com/'],
+                    ['CNC Controller board', 1, 80.0, 'https://www.alibaba.com/'],
+                    ['Spindle & Power supply', 1, 200.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда сборочного бокса 40 кв.м', 1, 25.0, ''],
-                    ['Юстировочный инструмент и ключи (на рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
-                    ['Смазки, крепеж М4/М5, фиксаторы', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Логистика тяжелых станин', 1, 15.0, '']
+                    ['Assembly Box Rent 40 sqm', 1, 25.0, ''],
+                    ['Alignment tools & torque keys (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Lubricants, M4/M5 hardware, threadlockers', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Heavy chassis freight logistics', 1, 15.0, '']
                 ]
             },
             'bakery': {
-                title: "Хлебопекарная Линия", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Компактная ротационная мини-пекарня',
+                title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
                 c: [
-                    ['Мука высшего сорта (кг)', 0.6, 0.4, 'https://www.alibaba.com/'],
-                    ['Дрожжи и добавки', 1, 0.05, 'https://www.alibaba.com/'],
-                    ['Упаковочный пакет', 1, 0.08, 'https://www.alibaba.com/']
+                    ['Premium Wheat Flour (kg)', 0.6, 0.4, 'https://www.alibaba.com/'],
+                    ['Yeast & Baking Additives', 1, 0.05, 'https://www.alibaba.com/'],
+                    ['Packaging bag', 1, 0.08, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда пекарни 60 кв.м', 1, 35.0, ''],
-                    ['Формы выпечки и противни (амортизация)', 2, 3.0, 'https://www.alibaba.com/'],
-                    ['Моющие средства, перчатки, пергамент', 2, 2.5, 'https://www.alibaba.com/'],
-                    ['Электроэнергия печей и доставка', 1, 20.0, '']
+                    ['Bakery Facility Rent 60 sqm', 1, 35.0, ''],
+                    ['Baking pans & trolleys (amortization)', 2, 3.0, 'https://www.alibaba.com/'],
+                    ['Cleaning supplies, gloves, parchment', 2, 2.5, 'https://www.alibaba.com/'],
+                    ['Oven electricity & bread delivery', 1, 20.0, '']
                 ]
             },
             'watch': {
-                title: "Сборка Часов", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Часовая сборочная мини-линия',
+                title: "Watch Assembly", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Watch Assembly Mini-Cell',
                 c: [
-                    ['Корпус и сапфировое стекло', 1, 30.0, 'https://www.alibaba.com/'],
-                    ['Точный часовой механизм', 1, 40.0, 'https://www.alibaba.com/'],
-                    ['Циферблат и стрелки', 1, 10.0, 'https://www.alibaba.com/'],
-                    ['Ремешок (кожа/металл)', 1, 15.0, 'https://www.alibaba.com/'],
-                    ['Подарочный футляр', 1, 8.0, 'https://www.alibaba.com/']
+                    ['Case & Sapphire crystal', 1, 30.0, 'https://www.alibaba.com/'],
+                    ['Precision watch movement', 1, 40.0, 'https://www.alibaba.com/'],
+                    ['Dial & Hands set', 1, 10.0, 'https://www.alibaba.com/'],
+                    ['Leather/Metal strap', 1, 15.0, 'https://www.alibaba.com/'],
+                    ['Gift presentation box', 1, 8.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда беспылевой зоны 30 кв.м', 1, 25.0, ''],
-                    ['Часовой прецизионный инструмент (на мастера)', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Часовые масла (Moebius), пылеудалители', 2, 1.5, 'https://www.alibaba.com/'],
-                    ['Страховка и логистика', 1, 10.0, '']
+                    ['Clean Dust-free Room Rent 30 sqm', 1, 25.0, ''],
+                    ['Precision watchmaker toolkit (per master)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Watch oils (Moebius), dust removers', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Insurance & secure logistics', 1, 10.0, '']
                 ]
             },
             'costume': {
-                title: "Производство Бижутерии", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Мини-пресс для бижутерии',
+                title: "Costume Jewelry Press", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Mini Hydraulic Jewelry Press',
                 c: [
-                    ['Сплав (Заготовка)', 1, 2.0, 'https://www.alibaba.com/'],
-                    ['Декоративные стразы', 1, 1.0, 'https://www.alibaba.com/'],
-                    ['Фурнитура', 1, 0.5, 'https://www.alibaba.com/'],
-                    ['Эко-пакетик', 1, 1.5, 'https://www.alibaba.com/']
+                    ['Alloy blank workpiece', 1, 2.0, 'https://www.alibaba.com/'],
+                    ['Decorative crystals', 1, 1.0, 'https://www.alibaba.com/'],
+                    ['Jewelry findings', 1, 0.5, 'https://www.alibaba.com/'],
+                    ['Eco packaging pouch', 1, 1.5, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда мастерской 30 кв.м', 1, 20.0, ''],
-                    ['Пресс-формы и ручной инструмент (на рабочего)', 2, 1.5, 'https://www.alibaba.com/'],
-                    ['Клеи УФ-отверждения, салфетки', 2, 1.5, 'https://www.alibaba.com/'],
-                    ['Логистика и доставка', 1, 8.0, '']
+                    ['Workshop Rent 30 sqm', 1, 20.0, ''],
+                    ['Molds & manual assembly tools (per worker)', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['UV-curing adhesives, clean wipes', 2, 1.5, 'https://www.alibaba.com/'],
+                    ['Dispatch freight & shipping', 1, 8.0, '']
                 ]
             },
             'instruments': {
-                title: "Измерительные Приборы", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Стенд калибровки и сборки приборов',
+                title: "Precision Instruments", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Instrument Calibration & Assembly Station',
                 c: [
-                    ['Сенсорный измерительный модуль', 1, 120.0, 'https://www.alibaba.com/'],
-                    ['Плата обработки сигналов', 1, 65.0, 'https://www.alibaba.com/'],
-                    ['ЖК-дисплей', 1, 25.0, 'https://www.alibaba.com/'],
-                    ['Ударопрочный корпус IP65', 1, 40.0, 'https://www.alibaba.com/']
+                    ['Sensor measurement module', 1, 120.0, 'https://www.alibaba.com/'],
+                    ['Signal processing board', 1, 65.0, 'https://www.alibaba.com/'],
+                    ['LCD Display screen', 1, 25.0, 'https://www.alibaba.com/'],
+                    ['IP65 Heavy-duty housing', 1, 40.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда лаборатории 40 кв.м', 1, 25.0, ''],
-                    ['Калибровочные эталоны и приборы (на инженера)', 2, 3.5, 'https://www.alibaba.com/'],
-                    ['Кабели, термоусадка, припой', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Логистика и поверка', 1, 12.0, '']
+                    ['Lab Room Rent 40 sqm', 1, 25.0, ''],
+                    ['Calibration standards & meters (per engineer)', 2, 3.5, 'https://www.alibaba.com/'],
+                    ['Cables, heat shrink, solder', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Certification & calibration logistics', 1, 12.0, '']
                 ]
             },
             'universal': {
-                title: "Универсальный Проект", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Универсальная производственная линия',
+                title: "Universal Template", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Universal Production Cell',
                 c: [
-                    ['Основной базовый материал', 1, 40.0, 'https://www.alibaba.com/'],
-                    ['Функциональные модули', 1, 25.0, 'https://www.alibaba.com/'],
-                    ['Декоративный корпус', 1, 12.0, 'https://www.alibaba.com/'],
-                    ['Потребительская коробка', 1, 3.0, 'https://www.alibaba.com/']
+                    ['Primary base material', 1, 40.0, 'https://www.alibaba.com/'],
+                    ['Functional modules', 1, 25.0, 'https://www.alibaba.com/'],
+                    ['Decorative housing', 1, 12.0, 'https://www.alibaba.com/'],
+                    ['Retail consumer box', 1, 3.0, 'https://www.alibaba.com/']
                 ],
                 exp: [
-                    ['Аренда помещения 40 кв.м', 1, 25.0, ''],
-                    ['Оснастка и специнструмент (на рабочего)', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Расходные материалы рабочего места', 2, 2.0, 'https://www.alibaba.com/'],
-                    ['Логистика и связь', 1, 10.0, '']
+                    ['Premises Rent 40 sqm', 1, 25.0, ''],
+                    ['General tooling & workbenches (per worker)', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Workplace consumables & safety gear', 2, 2.0, 'https://www.alibaba.com/'],
+                    ['Logistics & Communications', 1, 10.0, '']
                 ]
             }
         };
@@ -1394,15 +1486,15 @@ Thank you!
             const defaultUrl = url || '';
 
             tr.innerHTML = `
-                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Статья расходов / Оснастка..."></td>
+                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Expense Item / Tooling..."></td>
                         <td>
                             <div style="display:flex; align-items:center; gap:4px;">
-                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Ссылка Alibaba / Договор...">
-                                ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти">🔗</button>` : ''}
+                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Alibaba / Supplier Link...">
+                                ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open">🔗</button>` : ''}
                             </div>
                         </td>
                         <td class="row-search">
-                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
                         </td>
                         <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
                         <td>
@@ -1411,7 +1503,7 @@ Thank you!
                             </div>
                         </td>
                         <td class="row-delete">
-                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
+                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
                         </td>
                     `;
             tbody.appendChild(tr);
@@ -1426,7 +1518,7 @@ Thank you!
                 const qtyInput = tr.querySelector('.exp-qty-input');
                 if (nameInput && qtyInput) {
                     const text = nameInput.value.toLowerCase();
-                    if (text.includes('рабоч') || text.includes('инструмент') || text.includes('расходник') || text.includes('паяльн') || text.includes('фрез') || text.includes('оснастк') || text.includes('мастер') || text.includes('инженер')) {
+                    if (text.includes('worker') || text.includes('tool') || text.includes('consumable') || text.includes('station') || text.includes('blade') || text.includes('driver')) {
                         qtyInput.value = staff;
                     }
                 }
@@ -1437,6 +1529,7 @@ Thank you!
         function processAlibabaUrl(url) {
             if (!url || !url.trim()) return;
             const u = url.trim();
+
             let extractedTitle = "";
             const match = u.match(/product-detail\/([^\/_?]+)/i);
             if (match && match[1]) {
@@ -1448,39 +1541,41 @@ Thank you!
 
             if (lower.includes('tv') || lower.includes('television') || lower.includes('display') || lower.includes('screen') || lower.includes('led') || lower.includes('oled') || lower.includes('smart-tv')) {
                 detectedKey = 'tv';
-            } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter') || lower.includes('дрон')) {
+            } else if (lower.includes('drone') || lower.includes('uav') || lower.includes('aircraft') || lower.includes('fpv') || lower.includes('quadcopter')) {
                 detectedKey = 'drone';
-            } else if (lower.includes('smartphone') || lower.includes('mobile-phone') || lower.includes('смартфон') || (lower.includes('phone') && !lower.includes('earphone') && !lower.includes('headphone'))) {
+            } else if (lower.includes('smartphone') || lower.includes('mobile-phone') || (lower.includes('phone') && !lower.includes('earphone') && !lower.includes('headphone'))) {
                 detectedKey = 'phone';
-            } else if (lower.includes('notebook') || lower.includes('laptop') || lower.includes('ноутбук') || lower.includes('нетбук')) {
+            } else if (lower.includes('notebook') || lower.includes('laptop')) {
                 detectedKey = 'pc';
-            } else if (lower.includes('tablet') || lower.includes('pad') || lower.includes('планшет')) {
+            } else if (lower.includes('tablet') || lower.includes('pad')) {
                 detectedKey = 'tablet';
-            } else if (lower.includes('computer') || lower.includes('server') || lower.includes('компьютер')) {
+            } else if (lower.includes('computer') || lower.includes('server')) {
                 detectedKey = 'pc';
-            } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven') || lower.includes('хлеб')) {
+            } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven')) {
                 detectedKey = 'bakery';
-            } else if (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver') || lower.includes('ювелир')) {
+            } else if (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver')) {
                 detectedKey = 'jewelry';
-            } else if (lower.includes('watch') || lower.includes('clock') || lower.includes('час')) {
+            } else if (lower.includes('watch') || lower.includes('clock')) {
                 detectedKey = 'watch';
-            } else if (lower.includes('costume') || lower.includes('бижутерия')) {
+            } else if (lower.includes('costume')) {
                 detectedKey = 'costume';
-            } else if (lower.includes('clothes') || lower.includes('garment') || lower.includes('sewing') || lower.includes('textile') || lower.includes('одежд')) {
+            } else if (lower.includes('clothes') || lower.includes('garment') || lower.includes('sewing') || lower.includes('textile')) {
                 detectedKey = 'clothes';
-            } else if (lower.includes('furniture') || lower.includes('wood') || lower.includes('cabinet') || lower.includes('nesting') || lower.includes('мебель')) {
+            } else if (lower.includes('furniture') || lower.includes('wood') || lower.includes('cabinet') || lower.includes('nesting')) {
                 detectedKey = 'furniture';
-            } else if (lower.includes('cnc') || lower.includes('router') || lower.includes('чпу')) {
+            } else if (lower.includes('cnc') || lower.includes('router')) {
                 detectedKey = 'cnc';
-            } else if (lower.includes('instrument') || lower.includes('sensor') || lower.includes('meter') || lower.includes('прибор')) {
+            } else if (lower.includes('instrument') || lower.includes('sensor') || lower.includes('meter')) {
                 detectedKey = 'instruments';
             }
 
             if (detectedKey) {
                 const data = catalogDB[detectedKey];
                 currentTopicTitle = data.title;
+
                 const dropdown = document.getElementById('topic-selector-dropdown');
                 if (dropdown) dropdown.value = detectedKey;
+
                 if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle || data.q;
                 if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = data.eq;
                 if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
@@ -1498,7 +1593,9 @@ Thank you!
                     data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                 }
             } else {
-                if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
+                if (extractedTitle && document.getElementById('equip-search-query')) {
+                    document.getElementById('equip-search-query').value = extractedTitle;
+                }
             }
             calculateAll();
         }
@@ -1513,27 +1610,29 @@ Thank you!
         }
 
         function normalizeTopicTitle(rawTitle) {
-            if (!rawTitle) return "Дроны и Радиоэлектроника";
+            if (!rawTitle) return "Drones & Radioelectronics";
             const t = rawTitle.trim().toLowerCase();
-            if (t.includes('drone') || t.includes('дрон')) return "Дроны и Радиоэлектроника";
-            if (t.includes('phone') || t.includes('смартфон') || t.includes('телефон')) return "Смартфоны и Телефоны";
-            if (t.includes('tablet') || t.includes('планшет')) return "Планшеты и Мобильные ПК";
-            if (t.includes('tv') || t.includes('телевизор')) return "Телевизоры и Дисплеи";
-            if (t.includes('pc') || t.includes('компьютер') || t.includes('ноутбук')) return "Телеком и Ноутбуки";
-            if (t.includes('bakery') || t.includes('хлеб')) return "Хлебопекарная Линия";
-            if (t.includes('jewelry') || t.includes('ювелир')) return "Ювелирные Изделия";
-            if (t.includes('watch') || t.includes('час')) return "Сборка Часов";
-            if (t.includes('costume') || t.includes('бижутерия')) return "Производство Бижутерии";
-            if (t.includes('clothes') || t.includes('одежд')) return "Пошив Одежды";
-            if (t.includes('furniture') || t.includes('мебель')) return "Мебель и Деревообработка";
-            if (t.includes('instruments') || t.includes('прибор')) return "Измерительные Приборы";
-            if (t.includes('cnc') || t.includes('чпу')) return "Настольные ЧПУ Станки";
+            if (t.includes('drone') || t.includes('дрон')) return "Drones & Radioelectronics";
+            if (t.includes('smartphone') || t.includes('phone') || t.includes('смартфон') || t.includes('телефон')) return "Smartphones & Mobile Phones";
+            if (t.includes('tablet') || t.includes('планшет')) return "Tablets & Mobile PCs";
+            if (t.includes('tv') || t.includes('телевизор')) return "TVs & Displays";
+            if (t.includes('pc') || t.includes('компьютер') || t.includes('ноутбук') || t.includes('laptop')) return "Telecom & Laptops";
+            if (t.includes('bakery') || t.includes('хлеб')) return "Commercial Bakery Line";
+            if (t.includes('jewelry') || t.includes('ювелир')) return "Fine Jewelry Casting";
+            if (t.includes('watch') || t.includes('час')) return "Watch Assembly";
+            if (t.includes('costume') || t.includes('бижутерия')) return "Costume Jewelry Press";
+            if (t.includes('clothes') || t.includes('apparel') || t.includes('sewing') || t.includes('одежд')) return "Apparel Sewing";
+            if (t.includes('furniture') || t.includes('мебель')) return "Furniture Woodworking";
+            if (t.includes('instruments') || t.includes('прибор')) return "Precision Instruments";
+            if (t.includes('cnc') || t.includes('чпу')) return "Desktop CNC Machines";
+            if (t.includes('universal') || t.includes('универсальн')) return "Universal Template";
             return rawTitle;
         }
 
         function getTopicBenchmarkPrice(topicTitle) {
+            const norm = normalizeTopicTitle(topicTitle);
             for (let key in catalogDB) {
-                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
+                if (normalizeTopicTitle(catalogDB[key].title) === norm) {
                     return parseFloat(catalogDB[key].mkt) || 423;
                 }
             }
@@ -1541,8 +1640,9 @@ Thank you!
         }
 
         function getTopicBenchmarkBom(topicTitle) {
+            const norm = normalizeTopicTitle(topicTitle);
             for (let key in catalogDB) {
-                if (normalizeTopicTitle(catalogDB[key].title) === normalizeTopicTitle(topicTitle)) {
+                if (normalizeTopicTitle(catalogDB[key].title) === norm) {
                     return catalogDB[key].c.reduce((sum, item) => sum + (item[1] * item[2]), 0);
                 }
             }
@@ -1600,11 +1700,11 @@ Thank you!
         window.calculateAll = function () {
             const equip = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
-            const salary = 10000;
-
+            const salary = parseFloat(document.getElementById('val-salary')?.value) || 3500;
             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
             const actualPerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
 
+            // 1. Raw Cost BOM
             let rawCost = 0;
             const tbodyBomRows = document.querySelectorAll('#component-dynamic-rows tr');
             tbodyBomRows.forEach(tr => {
@@ -1615,9 +1715,10 @@ Thank you!
                     rawCost += qty * price;
                 }
             });
-            const bomElem = document.getElementById('total-bom-cost');
+            const bomElem = document.getElementById('total-cost') || document.getElementById('total-bom-cost');
             if (bomElem) bomElem.textContent = rawCost.toFixed(2);
 
+            // 2. Tooling & Facility Expenses
             let totalOtherCosts = 0;
             const tbodyExpRows = document.querySelectorAll('#expense-dynamic-rows tr');
             tbodyExpRows.forEach(tr => {
@@ -1632,13 +1733,17 @@ Thank you!
             const otherCostsElem = document.getElementById('total-other-costs');
             if (otherCostsElem) otherCostsElem.textContent = totalOtherCosts.toFixed(2);
 
+            // 3. Fixed Daily Expenses
             const amort = equip / 5 / 365;
             const salaryPerDay = (salary * staff) / 30;
             const overhead = amort + salaryPerDay;
 
+            if (document.getElementById('base-overhead')) document.getElementById('base-overhead').textContent = Math.round(overhead);
             if (document.getElementById('total-daily-cost')) document.getElementById('total-daily-cost').textContent = Math.round(overhead);
 
             const totalDailyCost = overhead + totalOtherCosts;
+
+            // 4. Required Breakeven Volume
             const reqPerf = market > 0 ? Math.ceil(totalDailyCost / (market * 0.10)) : 0;
             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = reqPerf;
             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
@@ -1652,13 +1757,14 @@ Thank you!
             if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
+            // 5. Maximum Monthly Salary
             const dailyProductionExpenses = actualPerf * 0.10 * market;
             const dailyFixedNoSalary = amort + totalOtherCosts;
             const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - dailyFixedNoSalary);
             const fittedMonthlySalary = staff > 0 ? Math.round(((availableDailySalaryFund * 30) / staff)) : 0;
 
             if (document.getElementById('fitted-salary-display')) {
-                document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
+                document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('en-US')} / mo`;
             }
 
             const badge = document.getElementById('feasibility-status-badge');
@@ -1666,11 +1772,11 @@ Thank you!
                 if (actualPerf >= reqPerf) {
                     const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
                     badge.className = 'status-badge status-success';
-                    badge.innerHTML = `✅ ТЕХНИЧЕСКИ ВЫПОЛНИМО! (Запас мощности: +${surplus}%)`;
+                    badge.innerHTML = `✅ FEASIBLE! (Capacity reserve: +${surplus}%)`;
                 } else {
                     const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
                     badge.className = 'status-badge status-warning';
-                    badge.innerHTML = `⚠️ НЕДОСТАТОЧНО МОЩНОСТИ 1 СТАНКА! (Дефицит: -${deficit}%)`;
+                    badge.innerHTML = `⚠️ CAPACITY DEFICIT! (Deficit: -${deficit}%)`;
                 }
             }
 
@@ -1679,43 +1785,67 @@ Thank you!
             const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
             if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
-            if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('ru-RU') : '0';
+            if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit > 0 ? monthProfit.toLocaleString('en-US') : '0';
 
             renderEquipmentListingGroupedByTopic(totalOtherCosts, salary);
         };
 
-        onValue(equipmentDbRef, (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                savedEquipmentList = Object.entries(data).map(([id, val]) => ({ id: id, ...val }));
-            } else {
-                savedEquipmentList = [];
-            }
+        // НАДЁЖНАЯ СИНХРОНИЗАЦИЯ С ОБЕИМИ ВЕТКАМИ БАЗЫ ДАННЫХ
+        let rawListEn = [];
+        let rawListRu = [];
+
+        function updateCombinedList() {
+            const map = new Map();
+            rawListEn.forEach(item => map.set(item.id, item));
+            rawListRu.forEach(item => map.set(item.id, item));
+            savedEquipmentList = Array.from(map.values());
             calculateAll();
-        });
+        }
+
+        try {
+            onValue(ref(db, 'equipment_listing_en'), (snapshot) => {
+                const data = snapshot.val();
+                rawListEn = data ? Object.entries(data).map(([id, val]) => ({ id: id, ...val })) : [];
+                updateCombinedList();
+            }, (err) => console.warn("en db error:", err));
+        } catch (e) {
+            console.warn(e);
+        }
+
+        try {
+            onValue(ref(db, 'equipment_listing'), (snapshot) => {
+                const data = snapshot.val();
+                rawListRu = data ? Object.entries(data).map(([id, val]) => ({ id: id, ...val })) : [];
+                updateCombinedList();
+            }, (err) => console.warn("main db error:", err));
+        } catch (e) {
+            console.warn(e);
+        }
 
         window.saveCurrentEquipmentToDatabase = function () {
             const urlInput = document.getElementById('equip-url');
             const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+
             const queryInput = document.getElementById('equip-search-query');
-            let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок производства";
+            let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Production Line";
+
             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
-            let finalTopic = currentTopicTitle || "Дроны и Радиоэлектроника";
+            let finalTopic = currentTopicTitle || "Drones & Radioelectronics";
             const uLower = url.toLowerCase();
             if (uLower.includes('tv') || uLower.includes('smart-tv') || uLower.includes('display')) {
-                finalTopic = "Телевизоры и Дисплеи";
-                if (query.toLowerCase().includes('дрон')) query = "Линия сборки ТВ панелей (Smart TV)";
+                finalTopic = "TVs & Displays";
+                if (query.toLowerCase().includes('drone')) query = "Semi-Automatic Smart TV Production Line";
             } else if (uLower.includes('smartphone') || uLower.includes('mobile-phone') || uLower.includes('phone')) {
-                finalTopic = "Смартфоны и Телефоны";
-                if (query.toLowerCase().includes('дрон')) query = "Линия сборки смартфонов";
-            } else if (uLower.includes('notebook') || uLower.includes('laptop') || uLower.includes('ноутбук')) {
-                finalTopic = "Телеком и Ноутбуки";
-                if (query.toLowerCase().includes('дрон')) query = "Линия сборки ноутбуков (SKD)";
+                finalTopic = "Smartphones & Mobile Phones";
+                if (query.toLowerCase().includes('drone')) query = "Smartphone Assembly Line";
+            } else if (uLower.includes('notebook') || uLower.includes('laptop')) {
+                finalTopic = "Telecom & Laptops";
+                if (query.toLowerCase().includes('drone')) query = "SKD Laptop Assembly Line";
             } else if (uLower.includes('drone') || uLower.includes('uav')) {
-                finalTopic = "Дроны и Радиоэлектроника";
+                finalTopic = "Drones & Radioelectronics";
             }
 
             const currentComponents = [];
@@ -1757,9 +1887,9 @@ Thank you!
                 created_at: new Date().toISOString()
             };
 
-            push(equipmentDbRef, newItem)
-                .then(() => alert(`✅ Станок "${query}", оснастка и BOM сохранены в тему "${finalTopic}"!`))
-                .catch(err => alert(`❌ Ошибка сохранения: ` + err.message));
+            push(ref(db, 'equipment_listing_en'), newItem)
+                .then(() => alert(`✅ Machine "${query}", Tooling & BOM saved to topic "${finalTopic}"!`))
+                .catch(err => alert(`❌ Error saving: ` + err.message));
         };
 
         window.toggleBomDetails = function (rowId) {
@@ -1780,7 +1910,7 @@ Thank you!
             const item = savedEquipmentList.find(x => x.id === itemId);
             if (!item) return;
 
-            currentTopicTitle = item.topic_title || "Дроны и Радиоэлектроника";
+            currentTopicTitle = item.topic_title || "Drones & Radioelectronics";
             const dropdown = document.getElementById('topic-selector-dropdown');
             if (dropdown) {
                 for (let key in catalogDB) {
@@ -1791,75 +1921,99 @@ Thank you!
                 }
             }
 
-            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
+            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name || '';
             if (document.getElementById('equip-url')) document.getElementById('equip-url').value = item.url || '';
-            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = item.cost;
-            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
+            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = item.cost || 0;
+            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf || 20;
             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
             const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle);
             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
-            const compList = item.components && item.components.length > 0 ? item.components : [];
+            const rawComponents = Array.isArray(item.components)
+                ? item.components
+                : (item.components && typeof item.components === 'object' ? Object.values(item.components) : []);
             const tbodyBom = document.getElementById('component-dynamic-rows');
             if (tbodyBom) {
                 tbodyBom.innerHTML = '';
-                compList.forEach(c => addComponentRow(c.name, c.qty, c.price, c.url));
+                rawComponents.forEach(c => {
+                    addComponentRow(c.name || c[0] || '', c.qty || c[1] || 1, c.price || c[2] || 0, c.url || c[3] || '');
+                });
             }
 
-            const expList = item.expenses && item.expenses.length > 0 ? item.expenses : (catalogDB[currentTopicTitle]?.exp || []);
+            const rawExpenses = Array.isArray(item.expenses)
+                ? item.expenses
+                : (item.expenses && typeof item.expenses === 'object' ? Object.values(item.expenses) : (catalogDB[currentTopicTitle]?.exp || []));
             const tbodyExp = document.getElementById('expense-dynamic-rows');
             if (tbodyExp) {
                 tbodyExp.innerHTML = '';
-                expList.forEach(e => addExpenseRow(e.name || e[0], e.qty || e[1], e.price || e[2], e.url || e[3] || ''));
+                rawExpenses.forEach(e => {
+                    addExpenseRow(e.name || e[0] || '', e.qty || e[1] || 1, e.price || e[2] || 0, e.url || e[3] || '');
+                });
             }
 
             calculateAll();
-            alert(`✅ Линия "${item.name}", оснастка и BOM загружены в калькулятор!`);
+            alert(`✅ Setup "${item.name || 'Line'}", Tooling & BOM specification loaded into Calculator!`);
 
             switchMainTab('main-tab-2');
             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelector('#tabHeaders a[data-tab="tab3"]').classList.add('active');
-            document.getElementById('tab3').classList.add('active');
+            const tab3Header = document.querySelector('#tabHeaders a[data-tab="tab3"]');
+            if (tab3Header) tab3Header.classList.add('active');
+            const tab3Sec = document.getElementById('tab3');
+            if (tab3Sec) tab3Sec.classList.add('active');
         };
 
-        window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
+        // БЕЗОПАСНОЕ УДАЛЕНИЕ БЕЗ СБОЯ КАВЫЧЕК
+        window.deleteItemFromLiveDatabase = function (id) {
+            const item = savedEquipmentList.find(x => x.id === id);
+            const lineName = item ? (item.name || 'this line') : 'this line';
+            const itemClientId = item ? item.client_id : '';
             const isMine = (itemClientId === myClientId);
+
             if (!isAdminMode && !isMine) {
-                alert("🔒 Вы можете удалять только свои собственные линии!");
+                alert("🔒 You can only delete your own production lines!");
                 return;
             }
-            if (confirm(`🗑️ Удалить станок "${name}" из базы?`)) {
-                remove(ref(db, `equipment_listing/${id}`))
-                    .then(() => alert(`✅ Запись удалена из базы.`))
-                    .catch(err => alert(`❌ Ошибка: ` + err.message));
+            if (confirm(`🗑️ Delete machine "${lineName}" from database permanently?`)) {
+                Promise.all([
+                    remove(ref(db, `equipment_listing_en/${id}`)),
+                    remove(ref(db, `equipment_listing/${id}`))
+                ])
+                    .then(() => alert(`✅ Record deleted.`))
+                    .catch(err => alert(`❌ Error: ` + err.message));
             }
         };
 
         window.toggleAdminMode = function () {
             if (isAdminMode) {
                 isAdminMode = false;
-                document.getElementById('admin-mode-toggle-btn').innerText = "Admin Mode";
-                document.getElementById('admin-mode-toggle-btn').style.background = "transparent";
-                document.getElementById('admin-mode-toggle-btn').style.color = "#e91e63";
-                document.getElementById('admin-col-header').style.display = "none";
-                document.getElementById('admin-client-box').style.display = "none";
+                const btn = document.getElementById('admin-mode-toggle-btn');
+                if (btn) {
+                    btn.innerText = "Admin Mode";
+                    btn.style.background = "transparent";
+                    btn.style.color = "#e91e63";
+                }
+                if (document.getElementById('admin-col-header')) document.getElementById('admin-col-header').style.display = "none";
+                if (document.getElementById('admin-client-box')) document.getElementById('admin-client-box').style.display = "none";
                 updateAdminLockUI();
-                alert("🔒 Режим администратора выключен.");
+                alert("🔒 Admin mode deactivated.");
             } else {
-                const pwd = prompt("Введите пароль администратора:");
+                const pwd = prompt("Enter Admin password:");
                 if (pwd === "AnatoliD") {
                     isAdminMode = true;
-                    document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active (AnatoliD)";
-                    document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
-                    document.getElementById('admin-mode-toggle-btn').style.color = "#ffffff";
-                    document.getElementById('admin-col-header').style.display = "table-cell";
-                    document.getElementById('admin-client-box').style.display = "block";
+                    const btn = document.getElementById('admin-mode-toggle-btn');
+                    if (btn) {
+                        btn.innerText = "✅ Admin Active (AnatoliD)";
+                        btn.style.background = "#007600";
+                        btn.style.color = "#ffffff";
+                    }
+                    if (document.getElementById('admin-col-header')) document.getElementById('admin-col-header').style.display = "table-cell";
+                    if (document.getElementById('admin-client-box')) document.getElementById('admin-client-box').style.display = "block";
                     updateAdminLockUI();
-                    alert("🔓 Режим Администратора активирован!");
+                    alert("🔓 Admin Mode activated!");
                 } else if (pwd !== null) {
-                    alert("❌ Неверный пароль!");
+                    alert("❌ Incorrect password!");
                 }
             }
             calculateAll();
@@ -1876,15 +2030,17 @@ Thank you!
             });
         });
 
-        window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
-        window.closeModal = function (id) { document.getElementById(id).style.display = 'none'; };
+        function openModal(id) { const el = document.getElementById(id); if (el) el.style.display = 'block'; }
+        function closeModal(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
+        window.openModal = openModal;
+        window.closeModal = closeModal;
         window.openAlibabaInquiryModal = function () { openModal('inquiry-modal'); };
         window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; };
 
         window.openExternalUrl = function (inputId) {
             const input = document.getElementById(inputId);
             let url = input ? input.value.trim() : '';
-            if (!url) return alert("Пожалуйста, вставьте ссылку на товар с сайта Alibaba.");
+            if (!url) return alert("Please enter a product link from Alibaba.");
             if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
             window.open(url, '_blank');
         };
@@ -1906,8 +2062,8 @@ Thank you!
             event.preventDefault();
             const likedText = document.getElementById('fb-like').value.trim();
             const dislikedText = document.getElementById('fb-dislike').value.trim();
-            let subject = "Feedback from ASUIR Gemini (RU)";
-            let emailBody = "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\nClient ID: " + myClientId + "\n1. Что понравилось:\n" + (likedText || "Не указано") + "\n\n2. Что добавить или улучшить:\n" + dislikedText + "\n";
+            let subject = "Feedback from ASUIR Gemini (EN)";
+            let emailBody = "FEEDBACK ASUIR GEMINI\n\nClient ID: " + myClientId + "\n1. What liked:\n" + (likedText || "N/A") + "\n\n2. What to improve:\n" + dislikedText + "\n";
             window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
         };
@@ -1943,25 +2099,25 @@ Thank you!
             const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(name || 'material')}`;
 
             tr.innerHTML = `
-                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
+                        <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Component name..."></td>
                         <td>
                             <div style="display:flex; align-items:center; gap:4px;">
-                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
-                                <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
+                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Paste link...">
+                                <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open link on Alibaba">🔗</button>
                             </div>
                         </td>
                         <td class="row-search">
-                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
                         </td>
                         <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
                         <td>
                             <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
                                 <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
-                                <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
+                                <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Bulk calculator">🧮</button>
                             </div>
                         </td>
                         <td class="row-delete">
-                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Удалить строку">✕</button>
+                            <button class="btn-delete-icon" onclick="document.getElementById('${rowId}').remove(); calculateAll();" title="Remove row">✕</button>
                         </td>
                     `;
             tbody.appendChild(tr);
@@ -1977,7 +2133,7 @@ Thank you!
 
             const prevBtn = document.createElement('button');
             prevBtn.className = 'page-btn';
-            prevBtn.innerHTML = '◀ Назад';
+            prevBtn.innerHTML = '◀ Prev';
             prevBtn.disabled = (currentPage === 1);
             prevBtn.onclick = () => window.goToListingPage(currentPage - 1);
             paginationContainer.appendChild(prevBtn);
@@ -2000,16 +2156,16 @@ Thank you!
 
             const nextBtn = document.createElement('button');
             nextBtn.className = 'page-btn';
-            nextBtn.innerHTML = 'Вперед ▶';
+            nextBtn.innerHTML = 'Next ▶';
             nextBtn.disabled = (currentPage === totalPages);
             nextBtn.onclick = () => window.goToListingPage(currentPage + 1);
             paginationContainer.appendChild(nextBtn);
         }
 
+        // БЕЗОПАСНЫЙ РЕНДЕР ТАБЛИЦЫ ЛИСТИНГА
         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
-            container.innerHTML = '';
 
             const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
 
@@ -2038,8 +2194,10 @@ Thank you!
 
             renderPaginationButtons(totalPages, window.currentListingPage);
 
+            container.innerHTML = '';
+
             if (totalItems === 0) {
-                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет записей для этого фильтра.</td></tr>`;
+                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">No equipment entries found for this filter.</td></tr>`;
                 return;
             }
 
@@ -2066,34 +2224,47 @@ Thank you!
                 headerTr.style.background = "#eef6ff";
                 headerTr.innerHTML = `
                             <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                📂 ТЕМА: ${topic.toUpperCase()} (Конкурентная цена = $${topicBenchmarkPrice.toFixed(2)}, Сырье = $${topicBenchmarkBom.toFixed(2)})
+                                📂 TOPIC: ${topic.toUpperCase()} (Competitive Price = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
                             </td>
                         `;
                 container.appendChild(headerTr);
 
                 items.forEach(({ line, lineIndexNumber }) => {
-                    const dailyAmort = line.cost / 5 / 365;
+                    const costNum = parseFloat(line.cost) || 0;
+                    const perfNum = parseFloat(line.perf) || 1;
+                    const staffNum = parseFloat(line.staff) || 1;
+
+                    const dailyAmort = costNum / 5 / 365;
                     const dailyFixedNoSalary = dailyAmort + currentOtherCosts;
 
-                    const productionExpenses = line.perf * 0.10 * topicBenchmarkPrice;
-                    const availableDailySalaryFund = Math.max(0, productionExpenses - dailyFixedNoSalary);
-                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
+                    const productionExpenses = perfNum * 0.10 * topicBenchmarkPrice;
+                    const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - dailyFixedNoSalary);
+                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / staffNum));
 
-                    const compList = (line.components && line.components.length > 0) ? line.components : [];
-                    const lineBomTotal = compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom;
+                    const compList = Array.isArray(line.components)
+                        ? line.components
+                        : (line.components && typeof line.components === 'object' ? Object.values(line.components) : []);
 
-                    const totalDailyCost = dailyAmort + ((fittedSalary * (line.staff || 1)) / 30) + currentOtherCosts;
-                    const unitCost = lineBomTotal + (totalDailyCost / line.perf);
-                    const monthlyProfit = Math.round(line.perf * (topicBenchmarkPrice - unitCost) * 30);
+                    const lineBomTotal = compList.reduce((sum, c) => {
+                        const q = parseFloat(c.qty !== undefined ? c.qty : c[1]) || 1;
+                        const p = parseFloat(c.price !== undefined ? c.price : c[2]) || 0;
+                        return sum + (q * p);
+                    }, 0) || topicBenchmarkBom;
+
+                    const totalDailyCost = dailyAmort + ((fittedSalary * staffNum) / 30) + currentOtherCosts;
+                    const unitCost = lineBomTotal + (totalDailyCost / perfNum);
+                    const monthlyProfit = Math.round(perfNum * (topicBenchmarkPrice - unitCost) * 30);
 
                     const itemOwner = line.client_id || "SYSTEM";
                     const isMine = (itemOwner === myClientId);
 
-                    const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Моё</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
+                    const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Mine</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
                     const showDeleteBtn = isAdminMode || isMine;
+                    const displayName = line.name || 'Production Line';
+
                     const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                                 <td style="text-align:center;">
-                                    ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Удалить запись">🗑️</button>` : ''}
+                                    ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}')" title="Delete entry">🗑️</button>` : ''}
                                 </td>
                             ` : '';
 
@@ -2101,27 +2272,27 @@ Thank you!
                     tr.innerHTML = `
                                 <td style="text-align:center; font-weight:700; color:#1f4e78;">${lineIndexNumber}</td>
                                 <td style="padding-left:12px;">
-                                    <b>${line.name}</b> ${ownerTag}<br>
+                                    <b>${displayName}</b> ${ownerTag}<br>
                                     <button id="btn-bom-${line.id}" class="btn-bom-toggle" onclick="toggleBomDetails('${line.id}')">
-                                        ▶ 📦 Спецификация (${compList.length} поз. / $${lineBomTotal.toFixed(2)}) ▾
+                                        ▶ 📦 Specification (${compList.length} items / $${lineBomTotal.toFixed(2)}) ▾
                                     </button>
                                 </td>
                                 <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                                <td>$${Number(line.cost).toLocaleString()}</td>
-                                <td>${line.perf} шт/день</td>
-                                <td>${line.staff || 1} чел</td>
-                                <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
-                                <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('ru-RU')} / мес</span></td>
-                                <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                                <td>$${costNum.toLocaleString('en-US')}</td>
+                                <td>${perfNum} pcs/day</td>
+                                <td>${staffNum} staff</td>
+                                <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
+                                <td><span style="background:#e2efda; color:#007600; font-weight:700; padding:4px 8px; border-radius:4px;">$${fittedSalary.toLocaleString('en-US')} / mo</span></td>
+                                <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
                                 ${adminDeleteCell}
                             `;
                     container.appendChild(tr);
 
                     let compRowsHtml = '';
                     compList.forEach((c, idx) => {
-                        const name = c.name || c[0];
-                        const qty = c.qty || c[1] || 1;
-                        const price = c.price || c[2] || 0;
+                        const name = c.name || c[0] || 'Part';
+                        const qty = parseFloat(c.qty !== undefined ? c.qty : c[1]) || 1;
+                        const price = parseFloat(c.price !== undefined ? c.price : c[2]) || 0;
                         const sum = (qty * price).toFixed(2);
                         const url = c.url || c[3] || '#';
                         compRowsHtml += `
@@ -2129,7 +2300,7 @@ Thank you!
                                         <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>
                                         <td><b>${name}</b></td>
                                         <td style="text-align:center;">${qty}</td>
-                                        <td style="text-align:right;">$${Number(price).toFixed(2)}</td>
+                                        <td style="text-align:right;">$${price.toFixed(2)}</td>
                                         <td style="text-align:right; font-weight:600;">$${sum}</td>
                                         <td style="text-align:center;">
                                             <a href="${url}" target="_blank" style="color:#1f4e78; text-decoration:none; font-weight:600;">🔗 Alibaba ↗</a>
@@ -2146,21 +2317,21 @@ Thank you!
                                 <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
                                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                                         <span style="font-size:12px; font-weight:700; color:#1f4e78;">
-                                            📦 Состав спецификации BOM: ${compList.length} узлов (Итого BOM = $${lineBomTotal.toFixed(2)})
+                                            📦 Product BOM Specification: ${compList.length} items (Total BOM = $${lineBomTotal.toFixed(2)})
                                         </span>
-                                        <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Загрузить связку в калькулятор">
-                                            📥 Загрузить эту связку в калькулятор
+                                        <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Load setup into calculator">
+                                            📥 Load this setup into Calculator
                                         </button>
                                     </div>
                                     <table class="sub-bom-table">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Узел / Комплектующее</th>
-                                                <th style="text-align:center;">Кол-во</th>
-                                                <th style="text-align:right;">Цена за 1 шт.</th>
-                                                <th style="text-align:right;">Сумма</th>
-                                                <th style="text-align:center;">Ссылка поставщика</th>
+                                                <th>Part / Component Name</th>
+                                                <th style="text-align:center;">Qty</th>
+                                                <th style="text-align:right;">Unit Price ($)</th>
+                                                <th style="text-align:right;">Total ($)</th>
+                                                <th style="text-align:center;">Supplier Link</th>
                                             </tr>
                                         </thead>
                                         <tbody>
