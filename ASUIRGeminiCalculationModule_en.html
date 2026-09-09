@@ -1236,22 +1236,23 @@ Thank you!
         }
 
         // 1. CLIENT ID
-        let myClientId = localStorage.getItem('asuir_client_id_en') || localStorage.getItem('asuir_client_id');
+        let myClientId = localStorage.getItem('asuir_client_id');
         if (!myClientId) {
             myClientId = 'CL-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-            localStorage.setItem('asuir_client_id_en', myClientId);
+            localStorage.setItem('asuir_client_id', myClientId);
         }
         document.getElementById('client-id-display').textContent = myClientId;
 
         window.editClientIdentifier = function () {
-            const newId = prompt("Enter your Project Name or Facility ID (Client ID):", myClientId);
+            const newId = prompt("Введите имя вашего проекта или идентификатор цеха (Client ID):", myClientId);
             if (newId && newId.trim() !== '') {
                 myClientId = newId.trim();
-                localStorage.setItem('asuir_client_id_en', myClientId);
+                localStorage.setItem('asuir_client_id', myClientId);
                 document.getElementById('client-id-display').textContent = myClientId;
                 calculateAll();
             }
         };
+
 
         // CATALOG DEFINITIONS
         const catalogDB = {
