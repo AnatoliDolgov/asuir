@@ -1988,6 +1988,7 @@ Thank you!
             paginationContainer.appendChild(nextBtn);
         }
 
+        // РЕНДЕР ЛИСТИНГА
         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
             const container = document.getElementById('client-matched-equipment-rows');
             if (!container) return;
@@ -2086,7 +2087,7 @@ Thank you!
                             <td style="padding-left:12px;">
                                 <b>${line.name}</b> ${ownerTag}<br>
                                 <button id="btn-bom-${line.id}" class="btn-bom-toggle" onclick="toggleBomDetails('${line.id}')">
-                                    ▶ 📦 Спецификация ▾
+                                    ▶ Спецификация
                                 </button>
                             </td>
                             <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
@@ -2127,7 +2128,7 @@ Thank you!
                     subTr.style.background = '#f9fbfe';
                     subTr.innerHTML = `
                             <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
-                                <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:6px;">
+                                <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:8px;">
                                     <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Загрузить производственную линию в калькулятор">
                                         📥 Загрузить производственную линию в калькулятор
                                     </button>
