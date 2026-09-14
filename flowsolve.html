@@ -546,26 +546,22 @@
 
             <!-- ВВОД ИДЕИ ИЛИ ПРОБЛЕМЫ -->
             <div class="strategy-input-container">
-                <div class="strategy-title-label">🧠 4-D Поиск решений: Проблема, технологический барьер или идея продукта</div>
+                <div class="strategy-title-label">🧠 Проблема → ИКР → Поиск путей достижения (рекурсивно)</div>
                 <div class="input-group-row">
                     <input type="text" id="flow-input" class="input-flow-text"
-                           value="как организовать серийную сборку дронов без инженерного образования персонала?"
+                           value="как добиться исключения несчастных случаев при пересечении пешеходного перехода"
                            placeholder="Опишите проблему, идею или целевой продукт...">
                     <button class="btn-start-flow" onclick="startFlowSolve()">🧠 Синтезировать решения</button>
                 </div>
             </div>
 
-            <!-- ЭКРАН ЗАГРУЗКИ / СПИННЕР -->
-            <div id="loading-view">
-                <div class="spinner"></div>
-                <div id="loading-text">Инициализация FlowSolve...</div>
-                <div class="loading-subtext" id="loading-subtext">Формулирование Идеального Конечного Результата (ИКР)...</div>
-            </div>
+            <div id="loading-view" style="display:none;"></div>
 
             <!-- ЭКРАН РЕЗУЛЬТАТОВ: РЕКУРСИВНОЕ ДЕРЕВО Проблема → ИКР → Приёмы → Подзадача -->
             <div id="results-view" style="display:none;">
                 <div class="matrix-content-body">
                     <div id="tree-root"></div>
+                    <div id="compare-panel" style="display:none; margin-top:22px; padding-top:18px; border-top:1px solid #d0d7dd;"></div>
                 </div>
             </div>
 
@@ -578,120 +574,125 @@
 
     <script>
         /* ==========================================================================
-           FLOWSOLVE ENGINE — РЕКУРСИВНЫЙ ПОИСК РЕШЕНИЙ ПО СХЕМЕ
-           Проблема → Идеальный Конечный Результат (ИКР) → Поиск путей достижения
-           (классический ТРИЗ / АСУИР алгоритм, применяется рекурсивно к подзадачам)
+           FLOWSOLVE — РЕАЛЬНЫЙ РЕКУРСИВНЫЙ ПОИСК ЧЕРЕЗ ИКР (вызов ИИ на каждом шаге)
+           Схема: Проблема → Идеальный Конечный Результат (ИКР) → либо готовое
+           решение, либо разбиение на конкретные подзадачи → та же схема для каждой.
+           Никакого фиксированного каталога приёмов — на каждом шаге модель ищет
+           идеальное решение заново, для конкретной формулировки.
            ========================================================================== */
 
-        /* 40 приёмов ТРИЗ (стандартный перечень Г.С. Альтшуллера), сгруппированные
-           по типу ресурса, который они задействуют — группа определяет, какой
-           именно открытый вопрос (и, следовательно, какая подзадача) порождается
-           при выборе приёма. */
-        const PRINCIPLES = [
-            { id: 1, name: "Сегментация (дробление)", group: "structure", kw: ["раздел", "модул", "часте", "дроб", "участк", "этап"] },
-            { id: 3, name: "Местное качество", group: "structure", kw: ["однородн", "везде одинаков", "разные услов", "зонирован"] },
-            { id: 4, name: "Асимметрия", group: "structure", kw: ["симметр", "равномерн", "одинаков нагрузк"] },
-            { id: 7, name: "Матрёшка (вложение)", group: "structure", kw: ["вложен", "компакт", "занимает место", "габарит"] },
-            { id: 17, name: "Переход в другое измерение", group: "structure", kw: ["плоск", "одномерн", "линейн", "не помещается"] },
-            { id: 33, name: "Однородность", group: "structure", kw: ["совместим", "разные материал", "стык"] },
-            { id: 40, name: "Композиционные материалы", group: "structure", kw: ["хрупк", "прочност", "материал не подходит"] },
-            { id: 31, name: "Пористые материалы", group: "structure", kw: ["плотн", "тяжел", "вентиляц", "фильтр"] },
-            { id: 30, name: "Гибкие оболочки и тонкие плёнки", group: "structure", kw: ["жёстк", "оболочк", "герметичн"] },
+        const SYSTEM_PROMPT = `Ты — эксперт по решению задач методом ИКР (Идеальный Конечный Результат), классическая схема ТРИЗ/АСУИР: Проблема → ИКР → Поиск путей достижения, применяется рекурсивно к каждой возникающей подзадаче.
 
-            { id: 9, name: "Предварительное антидействие", group: "timing", kw: ["предотврат", "заранее компенс", "профилактик"] },
-            { id: 10, name: "Предварительное действие", group: "timing", kw: ["заранее", "подготов", "до того как", "запас"] },
-            { id: 11, name: "Заранее подложенная подушка", group: "timing", kw: ["риск отказа", "авари", "резерв", "страхов", "ломает", "выходит из строя", "отказ"] },
-            { id: 16, name: "Частичное или избыточное действие", group: "timing", kw: ["точно рассчита", "сложно измерить", "избыт", "недостат"] },
-            { id: 19, name: "Периодическое действие", group: "timing", kw: ["постоянн", "непрерывн", "круглосуточ", "изнаш"] },
-            { id: 20, name: "Непрерывность полезного действия", group: "timing", kw: ["простой", "простаива", "холостой ход"] },
-            { id: 21, name: "Проскок", group: "timing", kw: ["медленн", "долго", "затягива"] },
-            { id: 34, name: "Отброс и регенерация", group: "timing", kw: ["отход", "мусор", "изнош", "одноразов"] },
-            { id: 36, name: "Фазовый переход", group: "timing", kw: ["меняются услов", "сезон", "температур меняется"] },
-            { id: 37, name: "Термическое расширение", group: "timing", kw: ["нагрев", "охлажд", "температур"] },
+Тебе дана формулировка задачи (это может быть исходная проблема или подзадача, порождённая на предыдущем шаге). Выполни три действия:
 
-            { id: 2, name: "Вынесение", group: "resource", kw: ["мешает", "лишн", "убрать", "вынести", "не хватает", "нехватк", "дефицит", "недостаточно"] },
-            { id: 6, name: "Универсальность", group: "resource", kw: ["многофункц", "универсальн", "несколько устройств", "специалист", "образован"] },
-            { id: 8, name: "Антивес", group: "resource", kw: ["перегруз", "баланс", "компенсир"] },
-            { id: 12, name: "Эквипотенциальность", group: "resource", kw: ["подъём", "перемещать вверх", "лишние усилия"] },
-            { id: 24, name: "Посредник", group: "resource", kw: ["напрямую нельзя", "посредник", "через третье"] },
-            { id: 25, name: "Самообслуживание", group: "resource", kw: ["автоматизац", "саморегул", "без персонала", "нет специалист", "вручную", "ручной труд"] },
-            { id: 26, name: "Копирование", group: "resource", kw: ["дорого", "опасно проверить", "модель", "симуляц"] },
-            { id: 27, name: "Дешёвые недолговечные объекты", group: "resource", kw: ["дорогосто", "дорого", "разовое использ"] },
-            { id: 28, name: "Замена механической системы", group: "resource", kw: ["механич", "трение", "износ деталей"] },
-            { id: 29, name: "Пневмо- и гидроконструкции", group: "resource", kw: ["давлен", "жёсткая констр", "жидкост", "газ"] },
-            { id: 32, name: "Изменение окраски", group: "resource", kw: ["не видно", "контрол визуальн", "распознат"] },
-            { id: 38, name: "Сильные окислители", group: "resource", kw: ["медленная реакц", "окисл", "горен"] },
-            { id: 39, name: "Инертная среда", group: "resource", kw: ["взрывоопасн", "окислен", "порч продукт"] },
+1. Сформулируй ИКР для ЭТОЙ КОНКРЕТНОЙ задачи: как выглядела бы ситуация, если бы система САМА, без введения нового устройства и без дополнительных затрат, устраняла проблему и выполняла нужную функцию, сохраняя все полезные свойства и не создавая вредных эффектов. Если в задаче есть параметр, который можно мысленно довести до предельного значения (нуля или бесконечности — масштаб, объём производства, скорость, время и т.п.), сначала посмотри, что происходит именно на этом пределе: часто идеал виден там сразу, за один шаг, без дробления на подзадачи, а дальнейшая работа сводится не к поиску новых путей, а к нахождению практически достижимой точки между крайностями.
 
-            { id: 13, name: "Обратить вред в пользу", group: "feedback", kw: ["вредн", "побочн эффект", "мешающий фактор"] },
-            { id: 22, name: "Наоборот (инверсия)", group: "feedback", kw: ["обычно делают наоборот", "стандартн подход не работ", "нельзя", "невозможно"] },
-            { id: 23, name: "Обратная связь", group: "feedback", kw: ["не известно состояние", "контрол", "мониторинг", "снизить", "уменьшить"] },
-            { id: 35, name: "Изменение параметров (свойств)", group: "feedback", kw: ["свойств", "агрегатн состоян", "вязкост", "твёрдост"] },
+2. Проверь два случая, при которых задача уже практически решена:
+       а) формулировка ИКР сама по себе является точным, проверяемым условием или принципом действия, который снимает проблему напрямую — например: «пешеход не двигается, пока существует вероятность столкновения транспорта с пешеходом» уже И ЕСТЬ решение: реализовать его можно разными техническими способами, но суть задачи найдена именно в этой формулировке, а не в конкретном устройстве;
+       б) формулировка ИКР указывает на конкретный, реально существующий физический, технический или организационный механизм, которым эту задачу можно решить.
+       Если верно хотя бы одно из двух — это и есть решение: сформулируй его конкретно (как точное условие/принцип в случае (а), или как название механизма в случае (б)), а не абстрактно.
 
-            { id: 5, name: "Объединение", group: "dynamics", kw: ["разрозненн", "несколько операций", "объединит"] },
-            { id: 14, name: "Сфероидальность", group: "dynamics", kw: ["угл", "прямолиней", "вращен"] },
-            { id: 15, name: "Динамичность", group: "dynamics", kw: ["жёстк фиксирован", "статичн", "не подстраива", "не адаптир"] },
-            { id: 18, name: "Механические колебания", group: "dynamics", kw: ["вибрац", "застря", "залипа"] }
-        ];
+3. Если однозначного готового решения нет — раздели путь к ИКР на 2–4 конкретные, более узкие подзадачи. Каждая подзадача должна быть такой, чтобы к ней саму можно было применить эту же схему (сформулировать свой ИКР и т.д.). Подзадачи должны быть содержательно РАЗНЫМИ путями к цели, а не переформулировкой одного и того же.
 
-        const GROUP_QUESTION = {
-            structure: (p, problem) =>
-                `Приём «${p}» предполагает разбить систему («${problem}») на части, зоны или уровни и настроить каждую под свои условия. Открытый вопрос: из каких реальных частей состоит система, и можно ли выделить хотя бы одну для отдельной настройки?`,
-            timing: (p, problem) =>
-                `Приём «${p}» предполагает перенести действие во времени — сделать его заранее, периодическим или ограничить только нужным моментом. Открытый вопрос: в какой момент(ы) времени системе («${problem}») это действие реально нужно, и есть ли запас времени до или между операциями?`,
-            resource: (p, problem) =>
-                `Приём «${p}» предполагает использовать уже существующий (бесплатный или дешёвый) ресурс вместо создания нового. Открытый вопрос: какой ресурс в надсистеме или по соседству уже способен выполнить нужную функцию для задачи «${problem}»?`,
-            feedback: (p, problem) =>
-                `Приём «${p}» предполагает наладить обратную связь о состоянии системы или превратить вредный фактор в полезный. Открытый вопрос: как система («${problem}») сегодня узнаёт о своём состоянии, и что сейчас происходит с мешающим фактором?`,
-            dynamics: (p, problem) =>
-                `Приём «${p}» предполагает заменить жёсткий/статичный элемент на гибкий, адаптивный или подвижный. Открытый вопрос: какой параметр системы («${problem}») сегодня зафиксирован, хотя мог бы подстраиваться под условия?`
-        };
+4. Если решение найдено (resolved=true) — дополнительно оцени: формулировка этого решения ТОЧНО и полностью совпадает по сути с сформулированным ИКР (то есть это предельно достигнутый идеал, дальше уточнять нечего), или это лишь приближение к идеалу — реальное, работающее решение, но само может быть переформулировано как новая задача и уточнено ещё точнее. Верни это как булево поле "idealMatch".
 
-        /* ИКР — формулируется по классической схеме ТРИЗ: система сама выполняет
-           нужную функцию, без введения новых устройств и затрат, сохраняя все
-           полезные свойства и не создавая вредных. */
-        function formulateIKR(problem) {
-            return `ИКР (Идеальный Конечный Результат): САМА система «${problem}» устраняет барьер и выполняет нужную функцию — без введения нового устройства, без дополнительных затрат, сохраняя все полезные свойства и не создавая вредных эффектов. Идеального устройства как физического объекта нет, а функция выполняется.`;
+ВАЖНО: не применяй заранее готовые приёмы, шаблоны или классификации (например, список из 40 приёмов ТРИЗ) — таких готовых правил не существует. Каждый раз рассуждай заново, исходя из физической, технической или практической сути именно ЭТОЙ формулировки задачи, а не из абстрактной методики.
+
+Отвечай СТРОГО в виде JSON без каких-либо пояснений вне JSON, в следующем формате:
+{"ikr": "формулировка ИКР для этой задачи", "resolved": true или false, "solution": "конкретное решение, если resolved=true, иначе null", "idealMatch": true или false (только имеет смысл при resolved=true; иначе false), "subProblems": ["подзадача 1", "подзадача 2"] (пустой массив, если resolved=true)}`;
+
+        const MAX_DEPTH = 6;
+
+        /* Прокси на бесплатном Cloudflare Worker, вызывающий Gemini с ключом
+           владельца сайта на стороне сервера. Посетителю не нужен собственный
+           ключ — ключ никогда не покидает сервер. Замените на реальный адрес
+           после развёртывания воркера (см. worker.js и инструкцию в чате). */
+        const PROXY_URL = "https://REPLACE-WITH-YOUR-WORKER-URL.workers.dev/";
+
+        /* Один вызов модели на один узел дерева. */
+        async function callAI(problemText) {
+            const body = {
+                contents: [{ parts: [{ text: `${SYSTEM_PROMPT}\n\nЗадача: ${problemText}` }] }],
+                generationConfig: { responseMimeType: "application/json", temperature: 0.4 }
+            };
+            const res = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const errText = await res.text().catch(() => '');
+                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
+            }
+            const data = await res.json();
+            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) throw new Error('EMPTY_RESPONSE');
+            let parsed;
+            try {
+                parsed = JSON.parse(text);
+            } catch (e) {
+                throw new Error('BAD_JSON: ' + text.slice(0, 300));
+            }
+            if (typeof parsed.ikr !== 'string' || typeof parsed.resolved !== 'boolean') {
+                throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
+            }
+            return {
+                problem: problemText,
+                ikr: parsed.ikr,
+                resolved: !!parsed.resolved,
+                solution: parsed.solution || null,
+                idealMatch: !!parsed.resolved && !!parsed.idealMatch,
+                subProblems: Array.isArray(parsed.subProblems) ? parsed.subProblems.slice(0, 4) : []
+            };
         }
 
-        /* Подбор приёмов: релевантность = число совпавших ключевых слов в тексте
-           задачи. Если ни один приём не набрал очков — используется явно помеченный
-           как «универсальный, требует ресурсного анализа» стартовый набор, а не
-           тихо подставляется случайный шаблон. */
-        function rankPrinciples(problem) {
-            const q = problem.toLowerCase();
-            const scored = PRINCIPLES.map(p => ({
-                ...p,
-                score: p.kw.reduce((s, k) => s + (q.includes(k) ? 1 : 0), 0)
-            }));
-            scored.sort((a, b) => b.score - a.score || a.id - b.id);
+        /* Когда в разных ветвях дерева найдено несколько решений, последний шаг —
+           сравнить их и определить, какое ближе всего к идеальному конечному
+           результату исходной задачи. Отдельный вызов ИИ, отдельный (более простой)
+           контракт ответа. */
+        const COMPARE_PROMPT = `Ниже перечислены несколько решений, найденных для связанных подзадач одной и той же исходной проблемы методом ИКР. У каждого решения есть своя формулировка ИКР и указано, было ли оно отмечено как точно совпадающее с идеалом.
 
-            const top = scored.slice(0, 4);
-            const isFallback = top.every(p => p.score === 0);
-            return { list: top, isFallback };
-        }
+Сравни все решения и определи, какое из них ближе всего к идеальному конечному результату исходной задачи в целом — то есть наиболее эффективное, наименее затратное, требующее меньше всего компромиссов и полнее всего решающее исходную проблему.
 
-        /* Рекурсивный узел анализа: строится заново для любого текста —
-           корневой проблемы или подпроблемы, порождённой на предыдущем уровне. */
-        function analyze(problem) {
-            const ikr = formulateIKR(problem);
-            const { list, isFallback } = rankPrinciples(problem);
-            const principles = list.map(p => ({
-                id: p.id,
-                name: p.name,
-                score: p.score,
-                question: GROUP_QUESTION[p.group](p.name, problem)
-            }));
-            return { problem, ikr, principles, isFallback };
+Отвечай СТРОГО в виде JSON без пояснений вне JSON:
+{"bestIndex": <номер наилучшего решения, начиная с 0>, "reasoning": "краткое обоснование выбора: почему это решение лучше остальных"}`;
+
+        async function callCompareAI(solutions) {
+            const list = solutions.map((s, i) =>
+                `${i}. Задача: ${s.problem}\n   ИКР: ${s.ikr}\n   Решение: ${s.solution}\n   Точное совпадение с ИКР: ${s.idealMatch ? 'да' : 'нет (приближение)'}`
+            ).join('\n\n');
+            const body = {
+                contents: [{ parts: [{ text: `${COMPARE_PROMPT}\n\n${list}` }] }],
+                generationConfig: { responseMimeType: "application/json", temperature: 0.3 }
+            };
+            const res = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const errText = await res.text().catch(() => '');
+                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
+            }
+            const data = await res.json();
+            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) throw new Error('EMPTY_RESPONSE');
+            let parsed;
+            try {
+                parsed = JSON.parse(text);
+            } catch (e) {
+                throw new Error('BAD_JSON: ' + text.slice(0, 300));
+            }
+            if (typeof parsed.bestIndex !== 'number') throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
+            return { bestIndex: parsed.bestIndex, reasoning: parsed.reasoning || '' };
         }
 
         /* ==========================================================================
-           UI / ВЗАИМОДЕЙСТВИЕ — построение рекурсивного дерева
-           Проблема → ИКР → приёмы → подзадача → (снова) ИКР → ...
+           UI: рекурсивное дерево на реальных вызовах ИИ
            ========================================================================== */
 
         let __nodeCounter = 0;
-        const MAX_DEPTH = 4;
+        let __foundSolutions = [];
 
         function escapeHtml(s) {
             return String(s).replace(/[&<>"']/g, c => ({
@@ -699,95 +700,179 @@
             }[c]));
         }
 
-        function renderNode(problem, depth) {
-            const data = analyze(problem);
+        function renderError(err) {
+            if (String(err.message).includes('ORIGIN_NOT_ALLOWED')) {
+                return `⚠️ Сервер отклонил запрос с этого адреса. Обратитесь к владельцу сайта — нужно добавить этот домен в список разрешённых у прокси.`;
+            }
+            if (String(err.message).includes('SERVER_NOT_CONFIGURED')) {
+                return `⚠️ Сервис временно не настроен (не задан ключ на сервере). Попробуйте позже.`;
+            }
+            if (String(err.message).startsWith('API_ERROR_')) {
+                return `⚠️ Ошибка обращения к серверу FlowSolve: ${escapeHtml(err.message)}. Попробуйте ещё раз чуть позже.`;
+            }
+            return `⚠️ Не удалось разобрать ответ модели: ${escapeHtml(err.message)}`;
+        }
+
+        async function renderNode(problem, depth, container, chainDepth) {
+            if (chainDepth === undefined) chainDepth = 0;
             const nodeId = 'n' + (++__nodeCounter);
+            container.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Ищу Идеальный Конечный Результат для: «${escapeHtml(problem)}»...</div>`;
+
+            let data;
+            try {
+                data = await callAI(problem);
+            } catch (err) {
+                container.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
+                return;
+            }
 
             let html = `<div class="s-block">
             <div class="s-block-title">🎯 ИКР — уровень ${depth + 1}</div>
             <div class="s-text">${escapeHtml(data.ikr)}</div>
         </div>`;
 
-            if (data.isFallback) {
-                html += `<div class="s-text" style="color:#c65911; font-size:12.5px; margin-bottom:10px;">
-                ⚠️ Ни один приём не привязался к тексту задачи по ключевым словам — показан универсальный стартовый набор.
-                Уточните формулировку задачи ниже или сразу переходите к ресурсному вопросу каждого приёма.
-            </div>`;
+            const atMaxDepth = depth + 1 >= MAX_DEPTH;
+
+            if (data.resolved) {
+                // Решение найдено — но ни один узел не терминален: само решение
+                // можно, по вашей практике, превратить в новую задачу и пойти дальше.
+                // По наблюдению из практики: при целенаправленном поиске точное
+                // решение, полностью совпадающее с ИКР, обычно находится не более
+                // чем за 3 таких шага (превращений решения в задачу подряд).
+                __foundSolutions.push({ problem, ikr: data.ikr, solution: data.solution, idealMatch: data.idealMatch });
+                updateComparePanel();
+                const pid = nodeId + '_sol';
+                if (data.idealMatch) {
+                    html += `<div class="solution-item expanded" style="border-color:#4caf7d;">
+                    <div class="solution-header" style="background:#eaf7f0;">
+                        <div class="solution-title">🎯 Точное решение — полностью соответствует ИКР</div>
+                    </div>
+                    <div class="solution-body" style="display:block;">
+                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
+                } else {
+                    html += `<div class="solution-item expanded">
+                    <div class="solution-header">
+                        <div class="solution-title">✅ Найдено решение (приближение к идеалу, шаг уточнения ${chainDepth + 1})</div>
+                    </div>
+                    <div class="solution-body" style="display:block;">
+                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
+                }
+                if (!atMaxDepth) {
+                    html += `<div style="margin-top:12px;">
+                        <button class="btn-start-flow" onclick="deepenFromSolution('${pid}', ${escapeHtml(JSON.stringify(data.solution))}, ${depth + 1}, ${chainDepth + 1})">🔁 Превратить это решение в новую задачу</button>
+                        <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
+                    </div>`;
+                    if (!data.idealMatch && chainDepth + 1 >= 3) {
+                        html += `<div class="s-text" style="color:#c65911; font-size:12px; margin-top:8px;">
+                        ⚠️ Целенаправленный поиск, как правило, даёт точное решение, совпадающее с ИКР, не более чем за 3 таких шага. Если система не находит его на этой глубине — значит, что-то в формулировке задачи сделано не так: вернитесь и переформулируйте исходную задачу заново, а не продолжайте углубляться в этом же направлении.
+                    </div>`;
+                    }
+                }
+                html += `</div></div>`;
+                container.innerHTML = html;
+                return;
             }
 
-            data.principles.forEach((p, idx) => {
-                const pid = nodeId + '_p' + idx;
-                const matchTag = p.score > 0
-                    ? `<span class="solution-score">🔑 совпадение по тексту</span>`
-                    : `<span class="solution-maneuver-tag">универсальный приём</span>`;
+            if (atMaxDepth) {
+                html += `<div class="s-text" style="color:#6c7a8a; font-size:12px;">
+                Достигнута практическая глубина рекурсии (${MAX_DEPTH} уровней) без явного схождения к решению.
+                Сформулируйте следующий шаг как новую задачу в поле ввода вверху, чтобы продолжить вручную.
+            </div>`;
+                container.innerHTML = html;
+                return;
+            }
 
+            data.subProblems.forEach((sp, idx) => {
+                const pid = nodeId + '_p' + idx;
                 html += `<div class="solution-item" onclick="toggleAccordion(this)">
                 <div class="solution-header">
-                    <div class="solution-title">${p.id}. ${escapeHtml(p.name)} ${matchTag}</div>
+                    <div class="solution-title">${String.fromCharCode(97 + idx)}) ${escapeHtml(sp)}</div>
                     <div class="solution-toggle">▼</div>
                 </div>
                 <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-text">${escapeHtml(p.question)}</div>`;
-
-                if (depth + 1 < MAX_DEPTH) {
-                    html += `<div style="margin-top:12px;">
-                    <div class="s-block-title" style="margin-bottom:6px;">➡️ Подзадача следующего уровня (можно отредактировать)</div>
-                    <div class="input-group-row">
-                        <input type="text" class="input-flow-text" id="${pid}_input" value="${escapeHtml(p.question)}">
-                        <button class="btn-start-flow" onclick="deepen('${pid}', ${depth + 1})">🔎 Углубить</button>
-                    </div>
-                    <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
-                </div>`;
-                } else {
-                    html += `<div class="s-text" style="color:#6c7a8a; font-size:12px; margin-top:10px;">
-                    Достигнута практическая глубина рекурсии (${MAX_DEPTH} уровня). Сформулируйте следующий шаг как новую задачу
-                    в поле ввода вверху страницы, чтобы продолжить анализ.
-                </div>`;
-                }
-
-                html += `</div></div>`;
+                    <div id="${pid}_child"></div>
+                </div>
+            </div>`;
             });
 
-            return html;
+            container.innerHTML = html;
+
+            // Рекурсивно (и параллельно) анализируем каждую подзадачу следующего уровня,
+            // как только соответствующий блок отрисован в DOM.
+            data.subProblems.forEach((sp, idx) => {
+                const pid = nodeId + '_p' + idx;
+                const childContainer = document.getElementById(pid + '_child');
+                if (childContainer) renderNode(sp, depth + 1, childContainer, 0);
+            });
         }
 
-        function deepen(pid, depth) {
-            const input = document.getElementById(pid + '_input');
+        /* Решение осознанно превращается в новую проблему — по вашей практике: у
+           найденного решения нет статуса "финал", оно может стать следующим шагом.
+           chainDepth считает именно такие последовательные превращения решения в
+           задачу (а не глубину ветвления вообще) — по практике их обычно не больше
+           трёх до точного совпадения с ИКР. */
+        function deepenFromSolution(pid, solutionText, depth, chainDepth) {
             const childContainer = document.getElementById(pid + '_child');
-            const subProblem = input.value.trim();
-            if (!subProblem) return;
-            childContainer.innerHTML = renderNode(subProblem, depth);
+            if (!childContainer) return;
+            renderNode(solutionText, depth, childContainer, chainDepth || 0);
         }
 
         function startFlowSolve() {
             const input = document.getElementById('flow-input').value.trim();
             if (!input) return alert("Пожалуйста, введите проблему, технологический барьер или идею.");
 
-            document.getElementById('results-view').style.display = 'none';
-            document.getElementById('loading-view').style.display = 'block';
+            document.getElementById('results-view').style.display = 'block';
+            document.getElementById('loading-view').style.display = 'none';
+            __nodeCounter = 0;
+            __foundSolutions = [];
+            const panel = document.getElementById('compare-panel');
+            if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
+            renderNode(input, 0, document.getElementById('tree-root'));
+        }
 
-            const stages = [
-                "Формулирование Идеального Конечного Результата (ИКР)...",
-                "Подбор приёмов ТРИЗ по ключевым словам задачи...",
-                "Построение открытых вопросов ресурсного анализа...",
-                "Готово — раскройте любой приём, чтобы углубиться рекурсивно."
-            ];
+        /* Когда найдено хотя бы два решения (в разных ветвях дерева), становится
+           осмысленным последний шаг вашей практики: сравнить их и выбрать самое
+           удачное. Панель сравнения появляется автоматически, как только решений
+           становится достаточно, и обновляется по мере появления новых. */
+        function updateComparePanel() {
+            const panel = document.getElementById('compare-panel');
+            if (!panel) return;
+            if (__foundSolutions.length < 2) {
+                panel.style.display = 'none';
+                return;
+            }
+            panel.style.display = 'block';
+            panel.innerHTML = `<button class="btn-start-flow" onclick="compareSolutions()">🏆 Сравнить найденные решения (${__foundSolutions.length}) и выбрать самое удачное</button>
+            <div id="compare-result" style="margin-top:14px;"></div>`;
+        }
 
-            let stageIdx = 0;
-            document.getElementById('loading-text').innerText = "Инициализация FlowSolve...";
-            document.getElementById('loading-subtext').innerText = stages[0];
-
-            const interval = setInterval(() => {
-                stageIdx++;
-                if (stageIdx < stages.length) {
-                    document.getElementById('loading-subtext').innerText = stages[stageIdx];
-                } else {
-                    clearInterval(interval);
-                    document.getElementById('tree-root').innerHTML = renderNode(input, 0);
-                    document.getElementById('loading-view').style.display = 'none';
-                    document.getElementById('results-view').style.display = 'block';
-                }
-            }, 350);
+        async function compareSolutions() {
+            const resultBox = document.getElementById('compare-result');
+            const solutions = __foundSolutions.slice();
+            resultBox.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Сравниваю ${solutions.length} найденных решения(й)...</div>`;
+            let cmp;
+            try {
+                cmp = await callCompareAI(solutions);
+            } catch (err) {
+                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
+                return;
+            }
+            const best = solutions[cmp.bestIndex];
+            if (!best) {
+                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">⚠️ Не удалось определить номер решения в ответе модели.</div>`;
+                return;
+            }
+            resultBox.innerHTML = `<div class="solution-item expanded" style="border-color:#d53f8c;">
+            <div class="solution-header" style="background:#fdf1f7;">
+                <div class="solution-title">🏆 Самое удачное решение</div>
+            </div>
+            <div class="solution-body" style="display:block;">
+                <div class="s-text" style="margin-bottom:8px;"><b>Задача:</b> ${escapeHtml(best.problem)}</div>
+                <div class="s-text" style="margin-bottom:8px;"><b>ИКР:</b> ${escapeHtml(best.ikr)}</div>
+                <div class="s-text" style="margin-bottom:8px;"><b>Решение:</b> ${escapeHtml(best.solution)}</div>
+                <div class="s-text" style="color:#6c7a8a;"><b>Почему:</b> ${escapeHtml(cmp.reasoning)}</div>
+            </div>
+        </div>`;
         }
 
         function toggleAccordion(element) {

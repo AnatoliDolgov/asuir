@@ -544,9 +544,10 @@
         <!-- 4. MAIN WORKSPACE CARD -->
         <div class="matrix-card-box">
 
+
             <!-- STRATEGY INPUT CONTAINER -->
             <div class="strategy-input-container">
-                <div class="strategy-title-label">🧠 4-D Solution Search: Problem, Technological Barrier, or Product Idea</div>
+                <div class="strategy-title-label">🧠 Problem → IFR → Search for paths to achieve it (recursively)</div>
                 <div class="input-group-row">
                     <input type="text" id="flow-input" class="input-flow-text"
                            value="How to set up batch drone assembly with non-engineer personnel?"
@@ -555,17 +556,13 @@
                 </div>
             </div>
 
-            <!-- LOADING SIMULATION / SPINNER -->
-            <div id="loading-view">
-                <div class="spinner"></div>
-                <div id="loading-text">Initializing FlowSolve...</div>
-                <div class="loading-subtext" id="loading-subtext">Formulating the Ideal Final Result (IFR)...</div>
-            </div>
+            <div id="loading-view" style="display:none;"></div>
 
             <!-- RESULTS VIEW: RECURSIVE TREE Problem → IFR → Principles → Sub-problem -->
             <div id="results-view" style="display:none;">
                 <div class="matrix-content-body">
                     <div id="tree-root"></div>
+                    <div id="compare-panel" style="display:none; margin-top:22px; padding-top:18px; border-top:1px solid #d0d7dd;"></div>
                 </div>
             </div>
 
@@ -578,119 +575,126 @@
 
     <script>
         /* ==========================================================================
-           FLOWSOLVE ENGINE — RECURSIVE SOLUTION SEARCH FOLLOWING
-           Problem → Ideal Final Result (IFR) → Search for paths to achieve it
-           (classical TRIZ / ASUIR algorithm, applied recursively to sub-problems)
+           FLOWSOLVE — REAL RECURSIVE SEARCH THROUGH THE IDEAL FINAL RESULT (IFR)
+           (an AI call on every single step)
+           Scheme: Problem → Ideal Final Result (IFR) → either a concrete solution,
+           or a split into concrete sub-problems → the same scheme applied to each.
+           No fixed catalog of techniques anywhere — at every step the model
+           searches for the ideal solution again, fresh, for that specific wording.
            ========================================================================== */
 
-        /* The 40 TRIZ inventive principles (standard Altshuller list), grouped by
-           the type of resource they draw on — the group decides which open
-           question (and therefore which sub-problem) a chosen principle produces. */
-        const PRINCIPLES = [
-            { id: 1, name: "Segmentation", group: "structure", kw: ["divide", "modul", "segment", "split into", "stage"] },
-            { id: 3, name: "Local quality", group: "structure", kw: ["uniform", "same everywhere", "different conditions", "zone"] },
-            { id: 4, name: "Asymmetry", group: "structure", kw: ["symmetr", "even load", "balanced"] },
-            { id: 7, name: "Nested doll", group: "structure", kw: ["nested", "compact", "takes up space", "footprint"] },
-            { id: 17, name: "Another dimension", group: "structure", kw: ["flat", "one-dimensional", "linear", "doesn't fit"] },
-            { id: 33, name: "Homogeneity", group: "structure", kw: ["compatib", "different materials", "interface mismatch"] },
-            { id: 40, name: "Composite materials", group: "structure", kw: ["brittle", "strength", "wrong material"] },
-            { id: 31, name: "Porous materials", group: "structure", kw: ["dense", "heavy", "ventilat", "filter"] },
-            { id: 30, name: "Flexible shells and thin films", group: "structure", kw: ["rigid", "shell", "seal", "enclosure"] },
+        const SYSTEM_PROMPT = `You are an expert problem-solver using the IFR method (Ideal Final Result), the classical TRIZ/ASUIR scheme: Problem → IFR → Search for paths to achieve it, applied recursively to every sub-problem that arises.
 
-            { id: 9, name: "Preliminary anti-action", group: "timing", kw: ["prevent", "pre-compensat", "prophylact"] },
-            { id: 10, name: "Preliminary action", group: "timing", kw: ["in advance", "prepare", "before it happens", "reserve"] },
-            { id: 11, name: "Beforehand cushioning", group: "timing", kw: ["risk of failure", "accident", "backup", "insurance"] },
-            { id: 16, name: "Partial or excessive action", group: "timing", kw: ["hard to measure exactly", "too much", "too little"] },
-            { id: 19, name: "Periodic action", group: "timing", kw: ["constant", "continuous", "round the clock", "wear"] },
-            { id: 20, name: "Continuity of useful action", group: "timing", kw: ["idle time", "downtime", "standing idle"] },
-            { id: 21, name: "Rushing through", group: "timing", kw: ["slow", "takes too long", "drags on"] },
-            { id: 34, name: "Discarding and recovering", group: "timing", kw: ["waste", "scrap", "worn out", "disposable"] },
-            { id: 36, name: "Phase transition", group: "timing", kw: ["conditions change", "seasonal", "temperature changes"] },
-            { id: 37, name: "Thermal expansion", group: "timing", kw: ["heating", "cooling", "temperature"] },
+You are given a problem statement (this may be the original problem, or a sub-problem produced at a previous step). Do three things:
 
-            { id: 2, name: "Taking out (extraction)", group: "resource", kw: ["gets in the way", "unnecessary", "remove", "not enough", "shortage", "scarcity", "lack of"] },
-            { id: 6, name: "Universality", group: "resource", kw: ["multi-function", "universal", "several devices", "specialist", "trained personnel"] },
-            { id: 8, name: "Anti-weight (counterweight)", group: "resource", kw: ["overload", "balance", "offset"] },
-            { id: 12, name: "Equipotentiality", group: "resource", kw: ["lifting", "moving upward", "extra effort"] },
-            { id: 24, name: "Mediator", group: "resource", kw: ["can't do it directly", "intermediary", "go-between"] },
-            { id: 25, name: "Self-service", group: "resource", kw: ["automat", "self-regulat", "no staff", "no specialist", "by hand", "manual labor"] },
-            { id: 26, name: "Copying", group: "resource", kw: ["expensive", "risky to test", "model", "simulation"] },
-            { id: 27, name: "Cheap short-living objects", group: "resource", kw: ["costly", "expensive", "one-time use"] },
-            { id: 28, name: "Replacement of mechanical system", group: "resource", kw: ["mechanical", "friction", "part wear"] },
-            { id: 29, name: "Pneumatics and hydraulics", group: "resource", kw: ["pressure", "rigid structure", "fluid", "gas"] },
-            { id: 32, name: "Color changes", group: "resource", kw: ["hard to see", "visual control", "recognize"] },
-            { id: 38, name: "Strong oxidants", group: "resource", kw: ["slow reaction", "oxidation", "combustion"] },
-            { id: 39, name: "Inert atmosphere", group: "resource", kw: ["explosive", "spoilage", "oxidized"] },
+1. Formulate the IFR for THIS SPECIFIC problem: what would the situation look like if the system ITSELF, with no new device introduced and no added cost, eliminated the problem and performed the needed function, while keeping all useful properties and creating no harmful effects. If the problem involves a parameter that can be mentally pushed to a limiting value (zero or infinity — scale, production volume, speed, time, etc.), look first at what happens at that limit: the ideal is often visible there directly, in a single step, with no need to split into sub-problems, and the remaining work becomes finding a practically achievable point between the extremes rather than searching for new paths.
 
-            { id: 13, name: "The other way round", group: "feedback", kw: ["usually done the opposite way", "standard approach fails"] },
-            { id: 22, name: "Blessing in disguise", group: "feedback", kw: ["harmful", "side effect", "interfering factor", "can't", "impossible"] },
-            { id: 23, name: "Feedback", group: "feedback", kw: ["state is unknown", "monitor", "control", "reduce", "lower"] },
-            { id: 35, name: "Parameter changes", group: "feedback", kw: ["properties", "state of matter", "viscosity", "hardness"] },
+2. Check for two cases where the problem is already practically solved:
+       a) the IFR statement is itself a precise, testable condition or operating principle that removes the problem directly — for example: "the pedestrian does not move while there is a probability of a vehicle colliding with them" is already A solution: it can be implemented by different technical means, but the essence of the problem has been found in this statement itself, not in a specific device;
+       b) the IFR statement points to a concrete, real, existing physical, technical, or organizational mechanism that can solve the problem.
+       If either is true — that is the solution: state it concretely (as the precise condition/principle in case (a), or the name of the mechanism in case (b)), never abstractly.
 
-            { id: 5, name: "Merging", group: "dynamics", kw: ["scattered", "several operations", "combine"] },
-            { id: 14, name: "Spheroidality", group: "dynamics", kw: ["angle", "straight-line", "rotation"] },
-            { id: 15, name: "Dynamicity", group: "dynamics", kw: ["rigidly fixed", "static", "doesn't adapt"] },
-            { id: 18, name: "Mechanical vibration", group: "dynamics", kw: ["vibration", "stuck", "jammed"] }
-        ];
+3. If there is no unambiguous ready solution — split the path to the IFR into 2-4 concrete, narrower sub-problems. Each sub-problem must be such that this same scheme can be applied to it in turn (formulate its own IFR, etc). The sub-problems must be substantively DIFFERENT paths toward the goal, not a rewording of the same one.
 
-        const GROUP_QUESTION = {
-            structure: (p, problem) =>
-                `Principle "${p}" suggests splitting the system ("${problem}") into parts, zones or levels and tuning each to its own conditions. Open question: what parts does the system actually consist of, and can at least one be isolated for separate tuning?`,
-            timing: (p, problem) =>
-                `Principle "${p}" suggests shifting the action in time — doing it in advance, periodically, or only for the moment it's actually needed. Open question: at what point(s) in time does the system ("${problem}") really need this action, and is there spare time before or between operations?`,
-            resource: (p, problem) =>
-                `Principle "${p}" suggests using an already-existing (free or cheap) resource instead of creating a new one. Open question: what resource in the super-system or nearby already performs a similar function for "${problem}"?`,
-            feedback: (p, problem) =>
-                `Principle "${p}" suggests building in feedback about the system's state, or turning a harmful factor into a useful one. Open question: how does the system ("${problem}") currently learn its own state, and what happens to the interfering factor right now?`,
-            dynamics: (p, problem) =>
-                `Principle "${p}" suggests replacing a rigid/static element with a flexible, adaptive or movable one. Open question: which parameter of the system ("${problem}") is fixed today even though it could adapt to conditions?`
-        };
+4. If a solution was found (resolved=true) — additionally judge whether this solution's wording EXACTLY and fully coincides in substance with the stated IFR (i.e. this is the ideal fully achieved, nothing further to refine), or whether it is only an approximation to the ideal — a real, working solution, but one that can itself be reformulated as a new problem and refined further. Return this as a boolean field "idealMatch".
 
-        /* IFR — formulated per the classical TRIZ pattern: the system performs the
-           needed function itself, with no new device and no added cost, keeping all
-           useful properties and creating no harmful ones. */
-        function formulateIKR(problem) {
-            return `Ideal Final Result: the system "${problem}" ITSELF removes the barrier and performs the needed function — no new device, no added cost, all useful properties kept and no harmful effects introduced. There is no ideal device as a physical object, yet the function is performed.`;
+IMPORTANT: do not apply any pre-made techniques, templates, or classifications (for example, the list of 40 TRIZ principles) — no such ready-made rule set exists. Reason fresh every time, from the physical, technical, or practical essence of THIS SPECIFIC problem statement, not from an abstract methodology.
+
+Respond STRICTLY as JSON with no explanation outside the JSON, in exactly this format:
+{"ikr": "the IFR statement for this problem", "resolved": true or false, "solution": "the concrete solution if resolved=true, otherwise null", "idealMatch": true or false (only meaningful when resolved=true; otherwise false), "subProblems": ["sub-problem 1", "sub-problem 2"] (empty array if resolved=true)}`;
+
+        const MAX_DEPTH = 6;
+
+        /* Proxy on a free Cloudflare Worker, which calls Gemini with the site
+           owner's key server-side. No visitor needs their own key — it never
+           leaves the server. Replace with the real address after deploying the
+           worker (see worker.js and the deployment notes). */
+        const PROXY_URL = "https://REPLACE-WITH-YOUR-WORKER-URL.workers.dev/";
+
+        /* One model call per tree node. */
+        async function callAI(problemText) {
+            const body = {
+                contents: [{ parts: [{ text: `${SYSTEM_PROMPT}\n\nProblem: ${problemText}` }] }],
+                generationConfig: { responseMimeType: "application/json", temperature: 0.4 }
+            };
+            const res = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const errText = await res.text().catch(() => '');
+                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
+            }
+            const data = await res.json();
+            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) throw new Error('EMPTY_RESPONSE');
+            let parsed;
+            try {
+                parsed = JSON.parse(text);
+            } catch (e) {
+                throw new Error('BAD_JSON: ' + text.slice(0, 300));
+            }
+            if (typeof parsed.ikr !== 'string' || typeof parsed.resolved !== 'boolean') {
+                throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
+            }
+            return {
+                problem: problemText,
+                ikr: parsed.ikr,
+                resolved: !!parsed.resolved,
+                solution: parsed.solution || null,
+                idealMatch: !!parsed.resolved && !!parsed.idealMatch,
+                subProblems: Array.isArray(parsed.subProblems) ? parsed.subProblems.slice(0, 4) : []
+            };
         }
 
-        /* Principle ranking: relevance = number of matched keywords in the problem
-           text. If nothing matches, an explicitly-labeled "universal, needs
-           resource analysis" starter set is used instead of silently returning an
-           unrelated template. */
-        function rankPrinciples(problem) {
-            const q = problem.toLowerCase();
-            const scored = PRINCIPLES.map(p => ({
-                ...p,
-                score: p.kw.reduce((s, k) => s + (q.includes(k) ? 1 : 0), 0)
-            }));
-            scored.sort((a, b) => b.score - a.score || a.id - b.id);
+        /* Once several branches of the tree have each produced a solution, the last
+           step is to compare them and decide which one is closest to the ideal
+           final result of the original problem. A separate AI call, a separate
+           (simpler) response contract. */
+        const COMPARE_PROMPT = `Below are several solutions found for related sub-problems of the same original problem, using the IFR method. Each has its own IFR statement and is marked as to whether it was flagged as an exact match to the ideal.
 
-            const top = scored.slice(0, 4);
-            const isFallback = top.every(p => p.score === 0);
-            return { list: top, isFallback };
-        }
+Compare all the solutions and decide which one is closest to the ideal final result of the original problem overall — i.e. the most effective, least costly, requiring the fewest compromises, and most fully solving the original problem.
 
-        /* Recursive analysis node: built fresh for any text — the root problem or a
-           sub-problem produced at the previous level. */
-        function analyze(problem) {
-            const ikr = formulateIKR(problem);
-            const { list, isFallback } = rankPrinciples(problem);
-            const principles = list.map(p => ({
-                id: p.id,
-                name: p.name,
-                score: p.score,
-                question: GROUP_QUESTION[p.group](p.name, problem)
-            }));
-            return { problem, ikr, principles, isFallback };
+Respond STRICTLY as JSON with no explanation outside the JSON:
+{"bestIndex": <index of the best solution, starting from 0>, "reasoning": "a brief justification: why this solution beats the others"}`;
+
+        async function callCompareAI(solutions) {
+            const list = solutions.map((s, i) =>
+                `${i}. Problem: ${s.problem}\n   IFR: ${s.ikr}\n   Solution: ${s.solution}\n   Exact match to IFR: ${s.idealMatch ? 'yes' : 'no (approximation)'}`
+            ).join('\n\n');
+            const body = {
+                contents: [{ parts: [{ text: `${COMPARE_PROMPT}\n\n${list}` }] }],
+                generationConfig: { responseMimeType: "application/json", temperature: 0.3 }
+            };
+            const res = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (!res.ok) {
+                const errText = await res.text().catch(() => '');
+                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
+            }
+            const data = await res.json();
+            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (!text) throw new Error('EMPTY_RESPONSE');
+            let parsed;
+            try {
+                parsed = JSON.parse(text);
+            } catch (e) {
+                throw new Error('BAD_JSON: ' + text.slice(0, 300));
+            }
+            if (typeof parsed.bestIndex !== 'number') throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
+            return { bestIndex: parsed.bestIndex, reasoning: parsed.reasoning || '' };
         }
 
         /* ==========================================================================
-           UI / INTERACTION — building the recursive tree
-           Problem → IFR → principles → sub-problem → (again) IFR → ...
+           UI: recursive tree driven by real AI calls
            ========================================================================== */
 
         let __nodeCounter = 0;
-        const MAX_DEPTH = 4;
+        let __foundSolutions = [];
 
         function escapeHtml(s) {
             return String(s).replace(/[&<>"']/g, c => ({
@@ -698,95 +702,180 @@
             }[c]));
         }
 
-        function renderNode(problem, depth) {
-            const data = analyze(problem);
+        function renderError(err) {
+            if (String(err.message).includes('ORIGIN_NOT_ALLOWED')) {
+                return `⚠️ The server rejected this request's origin. Contact the site owner — this domain needs to be added to the proxy's allow-list.`;
+            }
+            if (String(err.message).includes('SERVER_NOT_CONFIGURED')) {
+                return `⚠️ The service isn't configured yet (no server-side key set). Please try again later.`;
+            }
+            if (String(err.message).startsWith('API_ERROR_')) {
+                return `⚠️ Error calling the FlowSolve server: ${escapeHtml(err.message)}. Please try again shortly.`;
+            }
+            return `⚠️ Could not parse the model's response: ${escapeHtml(err.message)}`;
+        }
+
+        async function renderNode(problem, depth, container, chainDepth) {
+            if (chainDepth === undefined) chainDepth = 0;
             const nodeId = 'n' + (++__nodeCounter);
+            container.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Searching for the Ideal Final Result for: "${escapeHtml(problem)}"...</div>`;
+
+            let data;
+            try {
+                data = await callAI(problem);
+            } catch (err) {
+                container.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
+                return;
+            }
 
             let html = `<div class="s-block">
             <div class="s-block-title">🎯 IFR — level ${depth + 1}</div>
             <div class="s-text">${escapeHtml(data.ikr)}</div>
         </div>`;
 
-            if (data.isFallback) {
-                html += `<div class="s-text" style="color:#c65911; font-size:12.5px; margin-bottom:10px;">
-                ⚠️ No principle matched the problem text by keyword — a universal starter set is shown instead.
-                Refine the problem statement below, or go straight to each principle's resource question.
-            </div>`;
+            const atMaxDepth = depth + 1 >= MAX_DEPTH;
+
+            if (data.resolved) {
+                // A solution was found — but no node is ever a dead end: per your
+                // own practice, the solution itself can be turned into a new
+                // problem and carried one step further. In practice, a
+                // goal-directed search like this usually converges on a solution
+                // that exactly matches the IFR within about 3 such steps.
+                __foundSolutions.push({ problem, ikr: data.ikr, solution: data.solution, idealMatch: data.idealMatch });
+                updateComparePanel();
+                const pid = nodeId + '_sol';
+                if (data.idealMatch) {
+                    html += `<div class="solution-item expanded" style="border-color:#4caf7d;">
+                    <div class="solution-header" style="background:#eaf7f0;">
+                        <div class="solution-title">🎯 Exact solution — fully matches the IFR</div>
+                    </div>
+                    <div class="solution-body" style="display:block;">
+                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
+                } else {
+                    html += `<div class="solution-item expanded">
+                    <div class="solution-header">
+                        <div class="solution-title">✅ Solution found (approximation to the ideal, refinement step ${chainDepth + 1})</div>
+                    </div>
+                    <div class="solution-body" style="display:block;">
+                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
+                }
+                if (!atMaxDepth) {
+                    html += `<div style="margin-top:12px;">
+                        <button class="btn-start-flow" onclick="deepenFromSolution('${pid}', ${escapeHtml(JSON.stringify(data.solution))}, ${depth + 1}, ${chainDepth + 1})">🔁 Turn this solution into a new problem</button>
+                        <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
+                    </div>`;
+                    if (!data.idealMatch && chainDepth + 1 >= 3) {
+                        html += `<div class="s-text" style="color:#c65911; font-size:12px; margin-top:8px;">
+                        ⚠️ A goal-directed search like this usually reaches a solution that exactly matches the IFR within 3 such steps. If the system hasn't found it by this depth, something in how the problem is framed is off — go back and restate the original problem rather than continuing further down this same path.
+                    </div>`;
+                    }
+                }
+                html += `</div></div>`;
+                container.innerHTML = html;
+                return;
             }
 
-            data.principles.forEach((p, idx) => {
-                const pid = nodeId + '_p' + idx;
-                const matchTag = p.score > 0
-                    ? `<span class="solution-score">🔑 text match</span>`
-                    : `<span class="solution-maneuver-tag">universal principle</span>`;
+            if (atMaxDepth) {
+                html += `<div class="s-text" style="color:#6c7a8a; font-size:12px;">
+                Reached the practical recursion depth (${MAX_DEPTH} levels) without converging on a solution.
+                Formulate the next step as a new problem in the input field at the top of the page to continue manually.
+            </div>`;
+                container.innerHTML = html;
+                return;
+            }
 
+            data.subProblems.forEach((sp, idx) => {
+                const pid = nodeId + '_p' + idx;
                 html += `<div class="solution-item" onclick="toggleAccordion(this)">
                 <div class="solution-header">
-                    <div class="solution-title">${p.id}. ${escapeHtml(p.name)} ${matchTag}</div>
+                    <div class="solution-title">${String.fromCharCode(97 + idx)}) ${escapeHtml(sp)}</div>
                     <div class="solution-toggle">▼</div>
                 </div>
                 <div class="solution-body" onclick="event.stopPropagation()">
-                    <div class="s-text">${escapeHtml(p.question)}</div>`;
-
-                if (depth + 1 < MAX_DEPTH) {
-                    html += `<div style="margin-top:12px;">
-                    <div class="s-block-title" style="margin-bottom:6px;">➡️ Next-level sub-problem (editable)</div>
-                    <div class="input-group-row">
-                        <input type="text" class="input-flow-text" id="${pid}_input" value="${escapeHtml(p.question)}">
-                        <button class="btn-start-flow" onclick="deepen('${pid}', ${depth + 1})">🔎 Go deeper</button>
-                    </div>
-                    <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
-                </div>`;
-                } else {
-                    html += `<div class="s-text" style="color:#6c7a8a; font-size:12px; margin-top:10px;">
-                    Practical recursion depth reached (${MAX_DEPTH} levels). Formulate the next step as a new problem
-                    in the input field at the top of the page to keep going.
-                </div>`;
-                }
-
-                html += `</div></div>`;
+                    <div id="${pid}_child"></div>
+                </div>
+            </div>`;
             });
 
-            return html;
+            container.innerHTML = html;
+
+            // Recursively (and in parallel) analyze every next-level sub-problem as
+            // soon as its block is rendered into the DOM.
+            data.subProblems.forEach((sp, idx) => {
+                const pid = nodeId + '_p' + idx;
+                const childContainer = document.getElementById(pid + '_child');
+                if (childContainer) renderNode(sp, depth + 1, childContainer, 0);
+            });
         }
 
-        function deepen(pid, depth) {
-            const input = document.getElementById(pid + '_input');
+        /* A solution is deliberately turned back into a new problem — per your own
+           practice, a found solution has no "final" status; it can become the next
+           step. chainDepth counts exactly these consecutive solution-to-problem
+           conversions (not overall branching depth) — in practice, no more than
+           about 3 of them before reaching an exact IFR match. */
+        function deepenFromSolution(pid, solutionText, depth, chainDepth) {
             const childContainer = document.getElementById(pid + '_child');
-            const subProblem = input.value.trim();
-            if (!subProblem) return;
-            childContainer.innerHTML = renderNode(subProblem, depth);
+            if (!childContainer) return;
+            renderNode(solutionText, depth, childContainer, chainDepth || 0);
         }
 
         function startFlowSolve() {
             const input = document.getElementById('flow-input').value.trim();
             if (!input) return alert("Please enter a problem, technical barrier, or product idea.");
 
-            document.getElementById('results-view').style.display = 'none';
-            document.getElementById('loading-view').style.display = 'block';
+            document.getElementById('results-view').style.display = 'block';
+            document.getElementById('loading-view').style.display = 'none';
+            __nodeCounter = 0;
+            __foundSolutions = [];
+            const panel = document.getElementById('compare-panel');
+            if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
+            renderNode(input, 0, document.getElementById('tree-root'));
+        }
 
-            const stages = [
-                "Formulating the Ideal Final Result (IFR)...",
-                "Matching TRIZ principles to the problem's keywords...",
-                "Building resource-analysis open questions...",
-                "Done — expand any principle to recurse deeper."
-            ];
+        /* Once at least two solutions have been found (in different branches of the
+           tree), the final step of your practice becomes meaningful: compare them
+           and pick the most successful one. The comparison panel appears
+           automatically once there are enough solutions, and updates as more are
+           found. */
+        function updateComparePanel() {
+            const panel = document.getElementById('compare-panel');
+            if (!panel) return;
+            if (__foundSolutions.length < 2) {
+                panel.style.display = 'none';
+                return;
+            }
+            panel.style.display = 'block';
+            panel.innerHTML = `<button class="btn-start-flow" onclick="compareSolutions()">🏆 Compare the solutions found (${__foundSolutions.length}) and pick the best one</button>
+            <div id="compare-result" style="margin-top:14px;"></div>`;
+        }
 
-            let stageIdx = 0;
-            document.getElementById('loading-text').innerText = "Initializing FlowSolve...";
-            document.getElementById('loading-subtext').innerText = stages[0];
-
-            const interval = setInterval(() => {
-                stageIdx++;
-                if (stageIdx < stages.length) {
-                    document.getElementById('loading-subtext').innerText = stages[stageIdx];
-                } else {
-                    clearInterval(interval);
-                    document.getElementById('tree-root').innerHTML = renderNode(input, 0);
-                    document.getElementById('loading-view').style.display = 'none';
-                    document.getElementById('results-view').style.display = 'block';
-                }
-            }, 350);
+        async function compareSolutions() {
+            const resultBox = document.getElementById('compare-result');
+            const solutions = __foundSolutions.slice();
+            resultBox.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Comparing ${solutions.length} solution(s) found...</div>`;
+            let cmp;
+            try {
+                cmp = await callCompareAI(solutions);
+            } catch (err) {
+                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
+                return;
+            }
+            const best = solutions[cmp.bestIndex];
+            if (!best) {
+                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">⚠️ Could not resolve a solution index from the model's response.</div>`;
+                return;
+            }
+            resultBox.innerHTML = `<div class="solution-item expanded" style="border-color:#d53f8c;">
+            <div class="solution-header" style="background:#fdf1f7;">
+                <div class="solution-title">🏆 Most successful solution</div>
+            </div>
+            <div class="solution-body" style="display:block;">
+                <div class="s-text" style="margin-bottom:8px;"><b>Problem:</b> ${escapeHtml(best.problem)}</div>
+                <div class="s-text" style="margin-bottom:8px;"><b>IFR:</b> ${escapeHtml(best.ikr)}</div>
+                <div class="s-text" style="margin-bottom:8px;"><b>Solution:</b> ${escapeHtml(best.solution)}</div>
+                <div class="s-text" style="color:#6c7a8a;"><b>Why:</b> ${escapeHtml(cmp.reasoning)}</div>
+            </div>
+        </div>`;
         }
 
         function toggleAccordion(element) {
