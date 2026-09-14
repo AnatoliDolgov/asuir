@@ -558,25 +558,14 @@
             <!-- LOADING SIMULATION / SPINNER -->
             <div id="loading-view">
                 <div class="spinner"></div>
-                <div id="loading-text">Initializing FlowSolve Recursive Intelligence...</div>
-                <div class="loading-subtext" id="loading-subtext">Scanning 4-D Technology Space (Structure, Capability, Flow, Time)...</div>
+                <div id="loading-text">Initializing FlowSolve...</div>
+                <div class="loading-subtext" id="loading-subtext">Formulating the Ideal Final Result (IFR)...</div>
             </div>
 
-            <!-- RESULTS VIEW -->
+            <!-- RESULTS VIEW: RECURSIVE TREE Problem → IFR → Principles → Sub-problem -->
             <div id="results-view" style="display:none;">
-
-                <!-- SUBTABS WITH MAGENTA ACCENT UNDERLINE -->
-                <div class="matrix-tab-bar">
-                    <a href="#" class="matrix-tab-item active" id="tab-btn-list" onclick="switchView('list'); return false;">📋 Orthogonal Solutions</a>
-                    <a href="#" class="matrix-tab-item" id="tab-btn-compare" onclick="switchView('compare'); return false;">⚖️ 4-D Comparison Matrix</a>
-                </div>
-
                 <div class="matrix-content-body">
-                    <!-- DYNAMIC SOLUTIONS LIST -->
-                    <div id="view-list"></div>
-
-                    <!-- DYNAMIC COMPARISON MATRIX -->
-                    <div id="view-compare" style="display:none; overflow-x:auto;"></div>
+                    <div id="tree-root"></div>
                 </div>
             </div>
 
@@ -589,216 +578,202 @@
 
     <script>
         /* ==========================================================================
-           4-D TECHSPACE KNOWLEDGE BASE (STRUCTURE, CAPABILITY, FLOW, TIME)
+           FLOWSOLVE ENGINE — RECURSIVE SOLUTION SEARCH FOLLOWING
+           Problem → Ideal Final Result (IFR) → Search for paths to achieve it
+           (classical TRIZ / ASUIR algorithm, applied recursively to sub-problems)
            ========================================================================== */
-        const TECHSPACE_DATABASE = [
-            {
-                domain: "drones_and_robotics",
-                keywords: ["drone", "uav", "fpv", "aircraft", "assembly", "personnel", "quadcopter", "robot"],
-                maneuvers: [
-                    {
-                        type: "Flank_Flow (Flow Symbiosis)",
-                        score: "ASUIR Top Symbiosis",
-                        title: "1. Modular PnP Flowline on Pre-Soldered Stacks (Zero-Soldering)",
-                        s_structure: "Elimination of manual wire soldering: snap-in mounting of pre-soldered PnP flight stacks (F405/F7 + 45A ESC) with quick-disconnect vibration-damped ribbon cables and calibrated torque screws.",
-                        c_capability: "Throughput: 6-minute takt time per finished UAV by Grade-2 workers without engineering degree. Defect rate < 0.2%.",
-                        f_flow: "Symbiotic transfer: procurement of SMT-assembled PCBA stacks from specialized automotive/defense contract manufacturers, bypassing in-house soldering facilities.",
-                        t_time: "Line ramp-up time: 7–10 days (TRL 9 — commercially off-the-shelf modules).",
-                        cost: "$12,000 - $18,000",
-                        efficiency: "~98% (Human Error Minimized)",
-                        capex_score: "Minimal"
-                    },
-                    {
-                        type: "Tech_Isolation (Narrow Wedge / Dedicated Tooling)",
-                        score: "Maximum Speed",
-                        title: "2. Semi-Automated Cell with Guide Fixture & Auto-Flashing Dock",
-                        s_structure: "Innovation localized in a single point: quick-clamp ergonomic guide fixture + 10-port parallel firmware flashing dock with integrated Smoke-Stopper protection.",
-                        c_capability: "Zero assembly error rate for airframe polarity. Firmware flashing, parameter injection, and gyro calibration completed in 45 seconds per batch.",
-                        f_flow: "Symbiosis with additive manufacturing hubs (3D printing of carbon-filled polyamide fixtures) + open-source Betaflight/ArduPilot stack.",
-                        t_time: "Deployment timeline: 14 days (TRL 8).",
-                        cost: "$15,000",
-                        efficiency: "~94% (High Batch Takt)",
-                        capex_score: "Low"
-                    },
-                    {
-                        type: "Tech_Envelopment (Dual-Front Squeeze: Cost + Reliability)",
-                        score: "Cost Compression",
-                        title: "3. End-to-End SKD Line on Detall Workbenches with Pick-to-Light",
-                        s_structure: "Deconstruction of assembly into 4 elementary 45-second operations (Frame -> Motors -> Stack -> Payload) guided by Pick-to-Light LED bin sensors.",
-                        c_capability: "Zero operator training requirements. 100% assembly sequence compliance, line output up to 120 UAVs per shift with 3 operators.",
-                        f_flow: "Cooperation with standard industrial ESD furniture vendors and machine vision inspection systems.",
-                        t_time: "Lead time for procurement and setup: 21 days (TRL 9).",
-                        cost: "$22,000",
-                        efficiency: "~96% (Conveyor Rhythm)",
-                        capex_score: "Medium"
-                    },
-                    {
-                        type: "Tech_Mobility (Field Shift / Automated Cell)",
-                        score: "Lights-Out Assembly",
-                        title: "4. Robotic Desktop Fastening & Potting Cell (SCARA)",
-                        s_structure: "Transfer of mechanical screw driving and conformal compound dispensing to a 4-axis desktop SCARA robotic manipulator.",
-                        c_capability: "24/7 continuous operation without operator fatigue. Human operator only loads component trays.",
-                        f_flow: "Off-the-shelf industrial SCARA robots integrated into the ASUIR automated dispatching framework.",
-                        t_time: "Deployment timeline: 30–45 days (TRL 8).",
-                        cost: "$32,000",
-                        efficiency: "~99.5% (Full Automation)",
-                        capex_score: "High"
-                    }
-                ]
-            },
-            {
-                domain: "electronics_devices",
-                keywords: ["phone", "smartphone", "laptop", "notebook", "computer", "pc", "tablet", "electronics"],
-                maneuvers: [
-                    {
-                        type: "Flank_Flow (Flow Symbiosis)",
-                        score: "ASUIR Top Pick",
-                        title: "1. Modular SKD Assembly Cell on Barebone Kits",
-                        s_structure: "Sub-assembly of consumer electronics from pre-tested modules (SoC mainboard, display module, battery pack, chassis) with zero soldering.",
-                        c_capability: "Takt time: 50–90 seconds per finished unit. Production line first-pass yield 99.8%.",
-                        f_flow: "Symbiosis: direct OEM module procurement from Tier-1 contract manufacturers without Capex for in-house surface mounting lines.",
-                        t_time: "Line deployment time: 10–14 days (TRL 9).",
-                        cost: "$8,000 - $15,000",
-                        efficiency: "~99% (Screwdriver SKD Assembly)",
-                        capex_score: "Minimal"
-                    },
-                    {
-                        type: "Tech_Isolation (Narrow Wedge)",
-                        score: "Defect Elimination",
-                        title: "2. Semi-Automated Pneumatic Bonding & Press Station",
-                        s_structure: "Critical enclosure sealing operation isolated inside a specialized heated pneumatic press with precise pressure profiling.",
-                        c_capability: "Uniform IP68 waterproof glass/back-cover adhesion performed safely by entry-level operators.",
-                        f_flow: "Off-the-shelf industrial repair and assembly fixtures.",
-                        t_time: "Setup timeline: 5 days (TRL 9).",
-                        cost: "$6,000",
-                        efficiency: "~97%",
-                        capex_score: "Minimal"
-                    },
-                    {
-                        type: "Tech_Envelopment (Speed & Batch Squeeze)",
-                        score: "Maximum Takt",
-                        title: "3. Flowline with Automated Network PXE Flashing Server",
-                        s_structure: "Simultaneous OS image deployment and stress-testing for up to 24 units across Gigabit LAN during inter-stage conveyor transfer.",
-                        c_capability: "Reduction of pre-delivery staging time from 25 minutes to 2 minutes per batch.",
-                        f_flow: "Utilization of open-source network deployment protocols and standard enterprise servers.",
-                        t_time: "Commissioning timeline: 7 days (TRL 9).",
-                        cost: "$12,000",
-                        efficiency: "~98%",
-                        capex_score: "Low"
-                    }
-                ]
-            },
-            {
-                domain: "universal_engineering",
-                keywords: ["default"],
-                maneuvers: [
-                    {
-                        type: "Flank_Structure (Physical Structure Shift)",
-                        score: "FlowSolve Top Pick",
-                        title: "1. Modular Decomposition with Industrial Standard Substitution",
-                        s_structure: "Physical principle shift: replacement of custom unproven components with standardized industrial modules from adjacent industries.",
-                        c_capability: "Attainment of 100% target functional envelope with zero long-term R&D Capex expenditure.",
-                        f_flow: "Symbiosis: direct integration of COTS (Commercial Off-The-Shelf) components from open B2B marketplaces.",
-                        t_time: "Readiness for immediate launch (TRL 9).",
-                        cost: "$10,000 - $25,000",
-                        efficiency: "~95%",
-                        capex_score: "Low"
-                    },
-                    {
-                        type: "Tech_Isolation (Narrow Wedge)",
-                        score: "Fast Launch",
-                        title: "2. Rapid Deployment Starter Assembly Cell for 2–3 Operators",
-                        s_structure: "Complex technology encapsulated inside an outsourced OEM subsystem. In-house personnel execute only mechanical docking and packaging.",
-                        c_capability: "Minimization of upfront capital expenditure while preserving core product specifications.",
-                        f_flow: "Outsourcing of base machining operations to partner manufacturing facilities coordinated via ASUIR.",
-                        t_time: "Deployment timeline: 2–3 weeks.",
-                        cost: "$15,000",
-                        efficiency: "~90%",
-                        capex_score: "Minimal"
-                    },
-                    {
-                        type: "Tech_Envelopment (Multi-Front Squeeze)",
-                        score: "Economic Optimum",
-                        title: "3. Platform Assembly with Standardized Interfaces (LEGO Standard)",
-                        s_structure: "Unit cost compression via universal structural extrusion profiles and quick-locking mechanical fasteners.",
-                        c_capability: "Ability to assemble up to 5 product variants on a single workbench without line retooling.",
-                        f_flow: "Cooperation with standard structural profile and industrial fastener vendors.",
-                        t_time: "Implementation timeline: 3–4 weeks (TRL 8).",
-                        cost: "$20,000",
-                        efficiency: "~97%",
-                        capex_score: "Medium"
-                    },
-                    {
-                        type: "Flank_Flow (Symbiotic Transfer)",
-                        score: "Zero Capex",
-                        title: "4. Distributed Manufacturing Network Coordinated via ASUIR",
-                        s_structure: "Complete rejection of heavy machinery acquisition: distributing production steps across idle capacities of 3 existing factories.",
-                        c_capability: "Zero fixed-asset investment, pay-per-part manufacturing as orders arrive.",
-                        f_flow: "Contract manufacturing ecosystem and research institute infrastructure.",
-                        t_time: "Network assembly lead time: 10–14 days.",
-                        cost: "$5,000",
-                        efficiency: "~93%",
-                        capex_score: "Zero"
-                    }
-                ]
-            }
+
+        /* The 40 TRIZ inventive principles (standard Altshuller list), grouped by
+           the type of resource they draw on — the group decides which open
+           question (and therefore which sub-problem) a chosen principle produces. */
+        const PRINCIPLES = [
+            { id: 1, name: "Segmentation", group: "structure", kw: ["divide", "modul", "segment", "split into", "stage"] },
+            { id: 3, name: "Local quality", group: "structure", kw: ["uniform", "same everywhere", "different conditions", "zone"] },
+            { id: 4, name: "Asymmetry", group: "structure", kw: ["symmetr", "even load", "balanced"] },
+            { id: 7, name: "Nested doll", group: "structure", kw: ["nested", "compact", "takes up space", "footprint"] },
+            { id: 17, name: "Another dimension", group: "structure", kw: ["flat", "one-dimensional", "linear", "doesn't fit"] },
+            { id: 33, name: "Homogeneity", group: "structure", kw: ["compatib", "different materials", "interface mismatch"] },
+            { id: 40, name: "Composite materials", group: "structure", kw: ["brittle", "strength", "wrong material"] },
+            { id: 31, name: "Porous materials", group: "structure", kw: ["dense", "heavy", "ventilat", "filter"] },
+            { id: 30, name: "Flexible shells and thin films", group: "structure", kw: ["rigid", "shell", "seal", "enclosure"] },
+
+            { id: 9, name: "Preliminary anti-action", group: "timing", kw: ["prevent", "pre-compensat", "prophylact"] },
+            { id: 10, name: "Preliminary action", group: "timing", kw: ["in advance", "prepare", "before it happens", "reserve"] },
+            { id: 11, name: "Beforehand cushioning", group: "timing", kw: ["risk of failure", "accident", "backup", "insurance"] },
+            { id: 16, name: "Partial or excessive action", group: "timing", kw: ["hard to measure exactly", "too much", "too little"] },
+            { id: 19, name: "Periodic action", group: "timing", kw: ["constant", "continuous", "round the clock", "wear"] },
+            { id: 20, name: "Continuity of useful action", group: "timing", kw: ["idle time", "downtime", "standing idle"] },
+            { id: 21, name: "Rushing through", group: "timing", kw: ["slow", "takes too long", "drags on"] },
+            { id: 34, name: "Discarding and recovering", group: "timing", kw: ["waste", "scrap", "worn out", "disposable"] },
+            { id: 36, name: "Phase transition", group: "timing", kw: ["conditions change", "seasonal", "temperature changes"] },
+            { id: 37, name: "Thermal expansion", group: "timing", kw: ["heating", "cooling", "temperature"] },
+
+            { id: 2, name: "Taking out (extraction)", group: "resource", kw: ["gets in the way", "unnecessary", "remove", "not enough", "shortage", "scarcity", "lack of"] },
+            { id: 6, name: "Universality", group: "resource", kw: ["multi-function", "universal", "several devices", "specialist", "trained personnel"] },
+            { id: 8, name: "Anti-weight (counterweight)", group: "resource", kw: ["overload", "balance", "offset"] },
+            { id: 12, name: "Equipotentiality", group: "resource", kw: ["lifting", "moving upward", "extra effort"] },
+            { id: 24, name: "Mediator", group: "resource", kw: ["can't do it directly", "intermediary", "go-between"] },
+            { id: 25, name: "Self-service", group: "resource", kw: ["automat", "self-regulat", "no staff", "no specialist", "by hand", "manual labor"] },
+            { id: 26, name: "Copying", group: "resource", kw: ["expensive", "risky to test", "model", "simulation"] },
+            { id: 27, name: "Cheap short-living objects", group: "resource", kw: ["costly", "expensive", "one-time use"] },
+            { id: 28, name: "Replacement of mechanical system", group: "resource", kw: ["mechanical", "friction", "part wear"] },
+            { id: 29, name: "Pneumatics and hydraulics", group: "resource", kw: ["pressure", "rigid structure", "fluid", "gas"] },
+            { id: 32, name: "Color changes", group: "resource", kw: ["hard to see", "visual control", "recognize"] },
+            { id: 38, name: "Strong oxidants", group: "resource", kw: ["slow reaction", "oxidation", "combustion"] },
+            { id: 39, name: "Inert atmosphere", group: "resource", kw: ["explosive", "spoilage", "oxidized"] },
+
+            { id: 13, name: "The other way round", group: "feedback", kw: ["usually done the opposite way", "standard approach fails"] },
+            { id: 22, name: "Blessing in disguise", group: "feedback", kw: ["harmful", "side effect", "interfering factor", "can't", "impossible"] },
+            { id: 23, name: "Feedback", group: "feedback", kw: ["state is unknown", "monitor", "control", "reduce", "lower"] },
+            { id: 35, name: "Parameter changes", group: "feedback", kw: ["properties", "state of matter", "viscosity", "hardness"] },
+
+            { id: 5, name: "Merging", group: "dynamics", kw: ["scattered", "several operations", "combine"] },
+            { id: 14, name: "Spheroidality", group: "dynamics", kw: ["angle", "straight-line", "rotation"] },
+            { id: 15, name: "Dynamicity", group: "dynamics", kw: ["rigidly fixed", "static", "doesn't adapt"] },
+            { id: 18, name: "Mechanical vibration", group: "dynamics", kw: ["vibration", "stuck", "jammed"] }
         ];
 
+        const GROUP_QUESTION = {
+            structure: (p, problem) =>
+                `Principle "${p}" suggests splitting the system ("${problem}") into parts, zones or levels and tuning each to its own conditions. Open question: what parts does the system actually consist of, and can at least one be isolated for separate tuning?`,
+            timing: (p, problem) =>
+                `Principle "${p}" suggests shifting the action in time — doing it in advance, periodically, or only for the moment it's actually needed. Open question: at what point(s) in time does the system ("${problem}") really need this action, and is there spare time before or between operations?`,
+            resource: (p, problem) =>
+                `Principle "${p}" suggests using an already-existing (free or cheap) resource instead of creating a new one. Open question: what resource in the super-system or nearby already performs a similar function for "${problem}"?`,
+            feedback: (p, problem) =>
+                `Principle "${p}" suggests building in feedback about the system's state, or turning a harmful factor into a useful one. Open question: how does the system ("${problem}") currently learn its own state, and what happens to the interfering factor right now?`,
+            dynamics: (p, problem) =>
+                `Principle "${p}" suggests replacing a rigid/static element with a flexible, adaptive or movable one. Open question: which parameter of the system ("${problem}") is fixed today even though it could adapt to conditions?`
+        };
+
+        /* IFR — formulated per the classical TRIZ pattern: the system performs the
+           needed function itself, with no new device and no added cost, keeping all
+           useful properties and creating no harmful ones. */
+        function formulateIKR(problem) {
+            return `Ideal Final Result: the system "${problem}" ITSELF removes the barrier and performs the needed function — no new device, no added cost, all useful properties kept and no harmful effects introduced. There is no ideal device as a physical object, yet the function is performed.`;
+        }
+
+        /* Principle ranking: relevance = number of matched keywords in the problem
+           text. If nothing matches, an explicitly-labeled "universal, needs
+           resource analysis" starter set is used instead of silently returning an
+           unrelated template. */
+        function rankPrinciples(problem) {
+            const q = problem.toLowerCase();
+            const scored = PRINCIPLES.map(p => ({
+                ...p,
+                score: p.kw.reduce((s, k) => s + (q.includes(k) ? 1 : 0), 0)
+            }));
+            scored.sort((a, b) => b.score - a.score || a.id - b.id);
+
+            const top = scored.slice(0, 4);
+            const isFallback = top.every(p => p.score === 0);
+            return { list: top, isFallback };
+        }
+
+        /* Recursive analysis node: built fresh for any text — the root problem or a
+           sub-problem produced at the previous level. */
+        function analyze(problem) {
+            const ikr = formulateIKR(problem);
+            const { list, isFallback } = rankPrinciples(problem);
+            const principles = list.map(p => ({
+                id: p.id,
+                name: p.name,
+                score: p.score,
+                question: GROUP_QUESTION[p.group](p.name, problem)
+            }));
+            return { problem, ikr, principles, isFallback };
+        }
+
         /* ==========================================================================
-           INTERACTION & UI LOGIC
+           UI / INTERACTION — building the recursive tree
+           Problem → IFR → principles → sub-problem → (again) IFR → ...
            ========================================================================== */
 
-        function toggleAccordion(element) {
-            element.classList.toggle('expanded');
+        let __nodeCounter = 0;
+        const MAX_DEPTH = 4;
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[c]));
         }
 
-        function switchView(view) {
-            document.getElementById('tab-btn-list').classList.remove('active');
-            document.getElementById('tab-btn-compare').classList.remove('active');
-            document.getElementById('view-list').style.display = 'none';
-            document.getElementById('view-compare').style.display = 'none';
+        function renderNode(problem, depth) {
+            const data = analyze(problem);
+            const nodeId = 'n' + (++__nodeCounter);
 
-            if (view === 'list') {
-                document.getElementById('tab-btn-list').classList.add('active');
-                document.getElementById('view-list').style.display = 'block';
-            } else {
-                document.getElementById('tab-btn-compare').classList.add('active');
-                document.getElementById('view-compare').style.display = 'block';
-            }
-        }
+            let html = `<div class="s-block">
+            <div class="s-block-title">🎯 IFR — level ${depth + 1}</div>
+            <div class="s-text">${escapeHtml(data.ikr)}</div>
+        </div>`;
 
-        // Domain matching in 4-D ontology
-        function generateSolutionsForQuery(query) {
-            const q = query.toLowerCase();
-
-            let matched = TECHSPACE_DATABASE.find(item =>
-                item.keywords.some(k => q.includes(k))
-            );
-
-            if (!matched) {
-                matched = TECHSPACE_DATABASE.find(item => item.domain === "universal_engineering");
+            if (data.isFallback) {
+                html += `<div class="s-text" style="color:#c65911; font-size:12.5px; margin-bottom:10px;">
+                ⚠️ No principle matched the problem text by keyword — a universal starter set is shown instead.
+                Refine the problem statement below, or go straight to each principle's resource question.
+            </div>`;
             }
 
-            return matched.maneuvers;
+            data.principles.forEach((p, idx) => {
+                const pid = nodeId + '_p' + idx;
+                const matchTag = p.score > 0
+                    ? `<span class="solution-score">🔑 text match</span>`
+                    : `<span class="solution-maneuver-tag">universal principle</span>`;
+
+                html += `<div class="solution-item" onclick="toggleAccordion(this)">
+                <div class="solution-header">
+                    <div class="solution-title">${p.id}. ${escapeHtml(p.name)} ${matchTag}</div>
+                    <div class="solution-toggle">▼</div>
+                </div>
+                <div class="solution-body" onclick="event.stopPropagation()">
+                    <div class="s-text">${escapeHtml(p.question)}</div>`;
+
+                if (depth + 1 < MAX_DEPTH) {
+                    html += `<div style="margin-top:12px;">
+                    <div class="s-block-title" style="margin-bottom:6px;">➡️ Next-level sub-problem (editable)</div>
+                    <div class="input-group-row">
+                        <input type="text" class="input-flow-text" id="${pid}_input" value="${escapeHtml(p.question)}">
+                        <button class="btn-start-flow" onclick="deepen('${pid}', ${depth + 1})">🔎 Go deeper</button>
+                    </div>
+                    <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
+                </div>`;
+                } else {
+                    html += `<div class="s-text" style="color:#6c7a8a; font-size:12px; margin-top:10px;">
+                    Practical recursion depth reached (${MAX_DEPTH} levels). Formulate the next step as a new problem
+                    in the input field at the top of the page to keep going.
+                </div>`;
+                }
+
+                html += `</div></div>`;
+            });
+
+            return html;
         }
 
-        // Start synthesis with simulated 4-D Socrates navigation
+        function deepen(pid, depth) {
+            const input = document.getElementById(pid + '_input');
+            const childContainer = document.getElementById(pid + '_child');
+            const subProblem = input.value.trim();
+            if (!subProblem) return;
+            childContainer.innerHTML = renderNode(subProblem, depth);
+        }
+
         function startFlowSolve() {
             const input = document.getElementById('flow-input').value.trim();
-            if (!input) return alert("Please enter a technical barrier, problem, or product idea.");
+            if (!input) return alert("Please enter a problem, technical barrier, or product idea.");
 
             document.getElementById('results-view').style.display = 'none';
             document.getElementById('loading-view').style.display = 'block';
 
             const stages = [
-                "Decomposing challenge into 4-D coordinates (Structure, Capability, Flow, Time)...",
-                "Scanning frontal path barriers and launching Socrates maneuvers...",
-                "Executing symbiotic search across industrial supplier graphs and institutes...",
-                "Synthesizing up to 4 orthogonal technological pathways and comparison matrix..."
+                "Formulating the Ideal Final Result (IFR)...",
+                "Matching TRIZ principles to the problem's keywords...",
+                "Building resource-analysis open questions...",
+                "Done — expand any principle to recurse deeper."
             ];
 
             let stageIdx = 0;
-            document.getElementById('loading-text').innerText = "Initializing FlowSolve Recursive Intelligence...";
+            document.getElementById('loading-text').innerText = "Initializing FlowSolve...";
             document.getElementById('loading-subtext').innerText = stages[0];
 
             const interval = setInterval(() => {
@@ -807,94 +782,17 @@
                     document.getElementById('loading-subtext').innerText = stages[stageIdx];
                 } else {
                     clearInterval(interval);
-                    renderResults(input);
+                    document.getElementById('tree-root').innerHTML = renderNode(input, 0);
                     document.getElementById('loading-view').style.display = 'none';
                     document.getElementById('results-view').style.display = 'block';
                 }
-            }, 450);
+            }, 350);
         }
 
-        // Render synthesized results (Accordion + 4-D Comparison Matrix)
-        function renderResults(query) {
-            const solutions = generateSolutionsForQuery(query);
-            const listContainer = document.getElementById('view-list');
-            const compareContainer = document.getElementById('view-compare');
-
-            const encodedQuery = encodeURIComponent(query);
-
-            // 1. Accordion list with 4-D passports
-            let listHtml = '';
-            solutions.forEach((s, idx) => {
-                const isExpanded = idx === 0 ? 'expanded' : '';
-                const encodedTitle = encodeURIComponent(s.title);
-
-                listHtml += `
-                        <div class="solution-item ${isExpanded}" onclick="toggleAccordion(this)">
-                            <div class="solution-header">
-                                <div class="solution-title">
-                                    ${s.title}
-                                    <span class="solution-score">${s.score}</span>
-                                    <span class="solution-maneuver-tag">🎯 Maneuver: ${s.type}</span>
-                                </div>
-                                <div class="solution-toggle">▼</div>
-                            </div>
-                            <div class="solution-body" onclick="event.stopPropagation()">
-
-                                <div class="s-block">
-                                    <div class="s-block-title">🔬 4-D Dimensions: Structure & Capability</div>
-                                    <div class="s-text"><b>Physical Structure (S):</b> ${s.s_structure}</div>
-                                    <div class="s-text" style="margin-top:6px;"><b>Functional Capabilities (C):</b> ${s.c_capability}</div>
-                                </div>
-
-                                <div class="s-block">
-                                    <div class="s-block-title">🏭 4-D Dimensions: Symbiotic Flow & Time</div>
-                                    <div class="s-text"><b>Flow Sourcing (Flow / Factories & Institutes):</b> ${s.f_flow}</div>
-                                    <div class="s-text" style="margin-top:6px;"><b>Deployment Horizon (Time / TRL):</b> ${s.t_time}</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    `;
-            });
-            listContainer.innerHTML = listHtml;
-
-            // 2. 4-D Comparison Matrix
-            let compareHtml = `
-                    <table class="compare-table">
-                        <thead>
-                            <tr>
-                                <th>Parameter / 4-D Dimension</th>
-                                ${solutions.map(s => `<th>${s.title.split('.')[1] || s.title}</th>`).join('')}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Socrates Maneuver Strategy</td>
-                                ${solutions.map(s => `<td><span style="color:#1f4e78; font-weight:700;">${s.type}</span></td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>Assembly & Process Efficiency</td>
-                                ${solutions.map(s => `<td><span class="best-val">${s.efficiency}</span></td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>Estimated Capex / Tooling Cost</td>
-                                ${solutions.map(s => `<td><b>${s.cost}</b></td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>Deployment Lead Time (Time/TRL)</td>
-                                ${solutions.map(s => `<td>${s.t_time}</td>`).join('')}
-                            </tr>
-                            <tr>
-                                <td>Capital Intensity Level</td>
-                                ${solutions.map(s => `<td>${s.capex_score}</td>`).join('')}
-                            </tr>
-                        </tbody>
-                    </table>
-                `;
-            compareContainer.innerHTML = compareHtml;
+        function toggleAccordion(element) {
+            element.classList.toggle('expanded');
         }
 
-        // Auto-run on URL query parameter
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const q = urlParams.get('query');
@@ -903,6 +801,7 @@
                 startFlowSolve();
             }
         };
+
     </script>
 </body>
 </html>
