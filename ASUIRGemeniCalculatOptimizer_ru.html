@@ -2118,7 +2118,7 @@ Thank you!
                     const dailyRevenue = line.perf * topicBenchmarkPrice;
                     const dailyVariableCost = line.perf * (line.components && line.components.length > 0 ? line.components.reduce((sum, c) => sum + (c.qty * c.price), 0) : topicBenchmarkBom);
                     const availableDailySalaryFund = Math.max(0, dailyRevenue - dailyVariableCost - dailyFixedNoSalary);
-                    const fittedSalary = Math.round(((availableDailySalaryFund * 30) / (line.staff || 1)));
+                    const fittedSalary = baseSalary;
 
                     const compList = (line.components && line.components.length > 0) ? line.components : [];
                     const lineBomTotal = compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom;
