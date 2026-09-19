@@ -828,7 +828,12 @@
                                         <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Название станка / оборудования и ссылка</span></span>
                                         <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap;">
                                             <input type="text" id="equip-search-query" class="input-field input-sm" placeholder="Станок, линия..." value="Компактная ESD-линия сборки дронов" style="max-width: 280px;">
-                                            <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты на Alibaba">🔍 Найти на Alibaba ↗</button>
+                                            <select id="equip-src" class="input-field input-sm" style="width:150px;">
+                                                <option value="alibaba">Alibaba</option>
+                                                <option value="madeinchina">Made-in-China</option>
+                                                <option value="machinio">Machinio (б/у)</option>
+                                            </select>
+                                            <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Посмотреть варианты у выбранного источника">🔍 Найти ↗</button>
                                         </div>
                                     </td>
                                     <td class="right">
@@ -1170,220 +1175,220 @@ Thank you!
                     'drone': {
                         title: "Дроны и Радиоэлектроника", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Компактная ESD-линия сборки дронов',
                         c: [
-                            ['Карбоновая рама 10" (T700 Carbon Kit)', 1, 26.0, 'https://www.alibaba.com/'],
-                            ['Стек: Полетный контроллер F7 + ESC 60A', 1, 45.0, 'https://www.alibaba.com/'],
-                            ['Моторы бесколлекторные 2807 1300KV (4 шт.)', 1, 55.0, 'https://www.alibaba.com/'],
-                            ['Видеопередатчик VTX 5.8GHz + Камера FPV', 1, 35.0, 'https://www.alibaba.com/'],
-                            ['Аккумулятор LiPo 6S 5000mAh 100C', 1, 25.0, 'https://www.alibaba.com/']
+                            ['Карбоновая рама 10" (T700 Carbon Kit)', 1, 26.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%80%D0%B0%D0%BC%D0%B0%2010%22%20(T700%20Carbon%20Kit)'],
+                            ['Стек: Полетный контроллер F7 + ESC 60A', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D1%82%D0%B5%D0%BA%3A%20%D0%9F%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%20F7%20%2B%20ESC%2060A'],
+                            ['Моторы бесколлекторные 2807 1300KV (4 шт.)', 1, 55.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%BE%D1%82%D0%BE%D1%80%D1%8B%20%D0%B1%D0%B5%D1%81%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B5%202807%201300KV%20(4%20%D1%88%D1%82.)'],
+                            ['Видеопередатчик VTX 5.8GHz + Камера FPV', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%82%D1%87%D0%B8%D0%BA%20VTX%205.8GHz%20%2B%20%D0%9A%D0%B0%D0%BC%D0%B5%D1%80%D0%B0%20FPV'],
+                            ['Аккумулятор LiPo 6S 5000mAh 100C', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%BA%D0%BA%D1%83%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20LiPo%206S%205000mAh%20100C']
                         ],
                         exp: [
                             ['Аренда рабочего бокса 50 кв.м', 1, 30.0, ''],
-                            ['Паяльный комплекс и инструмент (на 1 рабочее место)', 2, 2.0, 'https://www.alibaba.com/'],
-                            ['Технологические расходники: припой, флюс, биты (на 1 рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
+                            ['Паяльный комплекс и инструмент (на 1 рабочее место)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%B0%D1%8F%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%20%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20(%D0%BD%D0%B0%201%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B5%20%D0%BC%D0%B5%D1%81%D1%82%D0%BE)'],
+                            ['Технологические расходники: припой, флюс, биты (на 1 рабочего)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%80%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8%3A%20%D0%BF%D1%80%D0%B8%D0%BF%D0%BE%D0%B9%2C%20%D1%84%D0%BB%D1%8E%D1%81%2C%20%D0%B1%D0%B8%D1%82%D1%8B%20(%D0%BD%D0%B0%201%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
                             ['Логистика и энергоснабжение производства', 1, 15.0, '']
                         ]
                     },
                     'phone': {
                         title: "Смартфоны и Телефоны", eq: '6000', mkt: '150', perf: '250', staff: '3', q: 'Линия сборки смартфонов',
                         c: [
-                            ['Дисплейный модуль 6.5" FHD+ с тачскрином', 1, 18.0, 'https://www.alibaba.com/'],
-                            ['Материнская плата SoC (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/'],
-                            ['Блок камер (Основная 50MP + Фронтальная 8MP)', 1, 8.0, 'https://www.alibaba.com/'],
-                            ['Аккумулятор Li-Polymer 5000 mAh', 1, 6.0, 'https://www.alibaba.com/'],
-                            ['Средняя рамка, задняя панель, кнопки, SIM-лоток', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Динамики, вибромотор, субплата Type-C, антенны', 1, 3.0, 'https://www.alibaba.com/'],
-                            ['Зарядное 18W Type-C + кабель + коробка', 1, 3.0, 'https://www.alibaba.com/']
+                            ['Дисплейный модуль 6.5" FHD+ с тачскрином', 1, 18.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%94%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D0%B9%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%206.5%22%20FHD%2B%20%D1%81%20%D1%82%D0%B0%D1%87%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D0%BE%D0%BC'],
+                            ['Материнская плата SoC (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20SoC%20(Helio%20G99%20%2F%208GB%20%2F%20128GB)'],
+                            ['Блок камер (Основная 50MP + Фронтальная 8MP)', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%91%D0%BB%D0%BE%D0%BA%20%D0%BA%D0%B0%D0%BC%D0%B5%D1%80%20(%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%B0%D1%8F%2050MP%20%2B%20%D0%A4%D1%80%D0%BE%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%208MP)'],
+                            ['Аккумулятор Li-Polymer 5000 mAh', 1, 6.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%BA%D0%BA%D1%83%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20Li-Polymer%205000%20mAh'],
+                            ['Средняя рамка, задняя панель, кнопки, SIM-лоток', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D1%80%D0%B5%D0%B4%D0%BD%D1%8F%D1%8F%20%D1%80%D0%B0%D0%BC%D0%BA%D0%B0%2C%20%D0%B7%D0%B0%D0%B4%D0%BD%D1%8F%D1%8F%20%D0%BF%D0%B0%D0%BD%D0%B5%D0%BB%D1%8C%2C%20%D0%BA%D0%BD%D0%BE%D0%BF%D0%BA%D0%B8%2C%20SIM-%D0%BB%D0%BE%D1%82%D0%BE%D0%BA'],
+                            ['Динамики, вибромотор, субплата Type-C, антенны', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%94%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D0%BA%D0%B8%2C%20%D0%B2%D0%B8%D0%B1%D1%80%D0%BE%D0%BC%D0%BE%D1%82%D0%BE%D1%80%2C%20%D1%81%D1%83%D0%B1%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20Type-C%2C%20%D0%B0%D0%BD%D1%82%D0%B5%D0%BD%D0%BD%D1%8B'],
+                            ['Зарядное 18W Type-C + кабель + коробка', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%97%D0%B0%D1%80%D1%8F%D0%B4%D0%BD%D0%BE%D0%B5%2018W%20Type-C%20%2B%20%D0%BA%D0%B0%D0%B1%D0%B5%D0%BB%D1%8C%20%2B%20%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B0']
                         ],
                         exp: [
                             ['Аренда сборочного бокса 40 кв.м', 1, 25.0, ''],
-                            ['Пневмопресс и электроотвертки (на рабочего)', 3, 2.0, 'https://www.alibaba.com/'],
-                            ['Расходники: термоскотч, проклейка, салфетки', 3, 1.5, 'https://www.alibaba.com/'],
+                            ['Пневмопресс и электроотвертки (на рабочего)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BD%D0%B5%D0%B2%D0%BC%D0%BE%D0%BF%D1%80%D0%B5%D1%81%D1%81%20%D0%B8%20%D1%8D%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BA%D0%B8%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Расходники: термоскотч, проклейка, салфетки', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A0%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8%3A%20%D1%82%D0%B5%D1%80%D0%BC%D0%BE%D1%81%D0%BA%D0%BE%D1%82%D1%87%2C%20%D0%BF%D1%80%D0%BE%D0%BA%D0%BB%D0%B5%D0%B9%D0%BA%D0%B0%2C%20%D1%81%D0%B0%D0%BB%D1%84%D0%B5%D1%82%D0%BA%D0%B8'],
                             ['Логистика и доставка комплектующих', 1, 15.0, '']
                         ]
                     },
                     'tablet': {
                         title: "Планшеты и Мобильные ПК", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Настольный комплекс сборки планшетов',
                         c: [
-                            ['Экран в сборе (IPS/OLED 10.1")', 1, 35.0, 'https://www.alibaba.com/'],
-                            ['Материнская плата SoC (ARM)', 1, 45.0, 'https://www.alibaba.com/'],
-                            ['Литий-полимерный аккумулятор 6000mAh', 1, 10.0, 'https://www.alibaba.com/'],
-                            ['Ультратонкий корпус и шлейфы', 1, 8.0, 'https://www.alibaba.com/'],
-                            ['Упаковочная коробка + зарядное', 1, 2.0, 'https://www.alibaba.com/']
+                            ['Экран в сборе (IPS/OLED 10.1")', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%AD%D0%BA%D1%80%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B1%D0%BE%D1%80%D0%B5%20(IPS%2FOLED%2010.1%22)'],
+                            ['Материнская плата SoC (ARM)', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20SoC%20(ARM)'],
+                            ['Литий-полимерный аккумулятор 6000mAh', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D1%82%D0%B8%D0%B9-%D0%BF%D0%BE%D0%BB%D0%B8%D0%BC%D0%B5%D1%80%D0%BD%D1%8B%D0%B9%20%D0%B0%D0%BA%D0%BA%D1%83%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%206000mAh'],
+                            ['Ультратонкий корпус и шлейфы', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BB%D1%8C%D1%82%D1%80%D0%B0%D1%82%D0%BE%D0%BD%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%20%D0%B8%20%D1%88%D0%BB%D0%B5%D0%B9%D1%84%D1%8B'],
+                            ['Упаковочная коробка + зарядное', 1, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B0%20%2B%20%D0%B7%D0%B0%D1%80%D1%8F%D0%B4%D0%BD%D0%BE%D0%B5']
                         ],
                         exp: [
                             ['Аренда чистой зоны 40 кв.м', 1, 25.0, ''],
-                            ['Вакуумная оснастка и отверточный инструмент (на рабочего)', 2, 1.5, 'https://www.alibaba.com/'],
-                            ['Расходники: термоскотч, очистители, салфетки', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Вакуумная оснастка и отверточный инструмент (на рабочего)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%92%D0%B0%D0%BA%D1%83%D1%83%D0%BC%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0%20%D0%B8%20%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Расходники: термоскотч, очистители, салфетки', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A0%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8%3A%20%D1%82%D0%B5%D1%80%D0%BC%D0%BE%D1%81%D0%BA%D0%BE%D1%82%D1%87%2C%20%D0%BE%D1%87%D0%B8%D1%81%D1%82%D0%B8%D1%82%D0%B5%D0%BB%D0%B8%2C%20%D1%81%D0%B0%D0%BB%D1%84%D0%B5%D1%82%D0%BA%D0%B8'],
                             ['Логистика и доставка партий', 1, 12.0, '']
                         ]
                     },
                     'tv': {
                         title: "Телевизоры и Дисплеи", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Линия сборки ТВ панелей (Smart TV)',
                         c: [
-                            ['ЖК / OLED Матрица дисплея 55"', 1, 140.0, 'https://www.alibaba.com/'],
-                            ['Smart TV Материнская плата', 1, 45.0, 'https://www.alibaba.com/'],
-                            ['Блок питания инверторный', 1, 25.0, 'https://www.alibaba.com/'],
-                            ['Светодиодная подсветка матрицы', 1, 15.0, 'https://www.alibaba.com/'],
-                            ['Корпус и стереодинамики', 1, 28.0, 'https://www.alibaba.com/']
+                            ['ЖК / OLED Матрица дисплея 55"', 1, 140.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%96%D0%9A%20%2F%20OLED%20%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%20%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D1%8F%2055%22'],
+                            ['Smart TV Материнская плата', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=Smart%20TV%20%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0'],
+                            ['Блок питания инверторный', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%91%D0%BB%D0%BE%D0%BA%20%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%B8%D0%BD%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B9'],
+                            ['Светодиодная подсветка матрицы', 1, 15.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%BE%D0%B4%D1%81%D0%B2%D0%B5%D1%82%D0%BA%D0%B0%20%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D1%8B'],
+                            ['Корпус и стереодинамики', 1, 28.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D1%80%D0%BF%D1%83%D1%81%20%D0%B8%20%D1%81%D1%82%D0%B5%D1%80%D0%B5%D0%BE%D0%B4%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D0%BA%D0%B8']
                         ],
                         exp: [
                             ['Аренда монтажного бокса 60 кв.м', 1, 35.0, ''],
-                            ['Оснастка: вакуумные присоски, автовинтоверты (на рабочего)', 3, 2.0, 'https://www.alibaba.com/'],
-                            ['Расходники: изоляция, крепеж, стикеры', 3, 1.5, 'https://www.alibaba.com/'],
+                            ['Оснастка: вакуумные присоски, автовинтоверты (на рабочего)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9E%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0%3A%20%D0%B2%D0%B0%D0%BA%D1%83%D1%83%D0%BC%D0%BD%D1%8B%D0%B5%20%D0%BF%D1%80%D0%B8%D1%81%D0%BE%D1%81%D0%BA%D0%B8%2C%20%D0%B0%D0%B2%D1%82%D0%BE%D0%B2%D0%B8%D0%BD%D1%82%D0%BE%D0%B2%D0%B5%D1%80%D1%82%D1%8B%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Расходники: изоляция, крепеж, стикеры', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A0%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8%3A%20%D0%B8%D0%B7%D0%BE%D0%BB%D1%8F%D1%86%D0%B8%D1%8F%2C%20%D0%BA%D1%80%D0%B5%D0%BF%D0%B5%D0%B6%2C%20%D1%81%D1%82%D0%B8%D0%BA%D0%B5%D1%80%D1%8B'],
                             ['Логистика крупногабаритных дисплеев', 1, 18.0, '']
                         ]
                     },
                     'pc': {
                         title: "Телеком и Ноутбуки", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'Линия SKD-сборки ноутбуков',
                         c: [
-                            ['Шасси Barebone 15.6" (корпус, клавиатура, батарея 5000mAh)', 1, 85.0, 'https://www.alibaba.com/'],
-                            ['IPS Матрица дисплея 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/'],
-                            ['Плата с процессором Intel SoC + система охлаждения', 1, 68.0, 'https://www.alibaba.com/'],
-                            ['Оперативная память SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/'],
-                            ['Накопитель M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/'],
-                            ['Адаптер 65W Type-C + модуль Wi-Fi 6 + упаковка', 1, 10.0, 'https://www.alibaba.com/']
+                            ['Шасси Barebone 15.6" (корпус, клавиатура, батарея 5000mAh)', 1, 85.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%B0%D1%81%D1%81%D0%B8%20Barebone%2015.6%22%20(%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%2C%20%D0%BA%D0%BB%D0%B0%D0%B2%D0%B8%D0%B0%D1%82%D1%83%D1%80%D0%B0%2C%20%D0%B1%D0%B0%D1%82%D0%B0%D1%80%D0%B5%D1%8F%205000mAh)'],
+                            ['IPS Матрица дисплея 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/trade/search?SearchText=IPS%20%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%20%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D1%8F%2015.6%22%20FHD%20(1920x1080)'],
+                            ['Плата с процессором Intel SoC + система охлаждения', 1, 68.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BB%D0%B0%D1%82%D0%B0%20%D1%81%20%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D1%80%D0%BE%D0%BC%20Intel%20SoC%20%2B%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0%20%D0%BE%D1%85%D0%BB%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F'],
+                            ['Оперативная память SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C%20SO-DIMM%2016GB%20DDR4%2FDDR5'],
+                            ['Накопитель M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9D%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20M.2%20NVMe%20SSD%20512GB'],
+                            ['Адаптер 65W Type-C + модуль Wi-Fi 6 + упаковка', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%B4%D0%B0%D0%BF%D1%82%D0%B5%D1%80%2065W%20Type-C%20%2B%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%20Wi-Fi%206%20%2B%20%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B0']
                         ],
                         exp: [
                             ['Аренда монтажного участка 40 кв.м', 1, 25.0, ''],
-                            ['Стенд прошивки BIOS и отверточная оснастка (на рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
-                            ['Термопаста, защитные пленки, очистители', 2, 1.5, 'https://www.alibaba.com/'],
+                            ['Стенд прошивки BIOS и отверточная оснастка (на рабочего)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D1%82%D0%B5%D0%BD%D0%B4%20%D0%BF%D1%80%D0%BE%D1%88%D0%B8%D0%B2%D0%BA%D0%B8%20BIOS%20%D0%B8%20%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Термопаста, защитные пленки, очистители', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A2%D0%B5%D1%80%D0%BC%D0%BE%D0%BF%D0%B0%D1%81%D1%82%D0%B0%2C%20%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%BD%D1%8B%D0%B5%20%D0%BF%D0%BB%D0%B5%D0%BD%D0%BA%D0%B8%2C%20%D0%BE%D1%87%D0%B8%D1%81%D1%82%D0%B8%D1%82%D0%B5%D0%BB%D0%B8'],
                             ['Логистика и доставка партий', 1, 15.0, '']
                         ]
                     },
                     'furniture': {
                         title: "Мебель и Деревообработка", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Компактный мебельный ЧПУ раскройный центр',
                         c: [
-                            ['ЛДСП / МДФ влагостойкий (4 кв.м.)', 4, 15.0, 'https://www.alibaba.com/'],
-                            ['Кромочная лента ПВХ 2мм', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Мебельная фурнитура и петли', 1, 8.0, 'https://www.alibaba.com/'],
-                            ['Зеркальное / фасадное полотно', 1, 22.0, 'https://www.alibaba.com/'],
-                            ['Упаковочный гофрокартон', 1, 6.0, 'https://www.alibaba.com/']
+                            ['ЛДСП / МДФ влагостойкий (4 кв.м.)', 4, 15.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%94%D0%A1%D0%9F%20%2F%20%D0%9C%D0%94%D0%A4%20%D0%B2%D0%BB%D0%B0%D0%B3%D0%BE%D1%81%D1%82%D0%BE%D0%B9%D0%BA%D0%B8%D0%B9%20(4%20%D0%BA%D0%B2.%D0%BC.)'],
+                            ['Кромочная лента ПВХ 2мм', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D1%80%D0%BE%D0%BC%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BB%D0%B5%D0%BD%D1%82%D0%B0%20%D0%9F%D0%92%D0%A5%202%D0%BC%D0%BC'],
+                            ['Мебельная фурнитура и петли', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D1%84%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D0%B0%20%D0%B8%20%D0%BF%D0%B5%D1%82%D0%BB%D0%B8'],
+                            ['Зеркальное / фасадное полотно', 1, 22.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%97%D0%B5%D1%80%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5%20%2F%20%D1%84%D0%B0%D1%81%D0%B0%D0%B4%D0%BD%D0%BE%D0%B5%20%D0%BF%D0%BE%D0%BB%D0%BE%D1%82%D0%BD%D0%BE'],
+                            ['Упаковочный гофрокартон', 1, 6.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%B3%D0%BE%D1%84%D1%80%D0%BE%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D0%BD']
                         ],
                         exp: [
                             ['Аренда цеха с аспирацией 80 кв.м', 1, 35.0, ''],
-                            ['Сменные концевые фрезы и цанги ISO30 (на рабочего)', 2, 6.0, 'https://www.alibaba.com/'],
-                            ['Смазка рельс, мешки аспирации, фильтры', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Сменные концевые фрезы и цанги ISO30 (на рабочего)', 2, 6.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D0%B2%D1%8B%D0%B5%20%D1%84%D1%80%D0%B5%D0%B7%D1%8B%20%D0%B8%20%D1%86%D0%B0%D0%BD%D0%B3%D0%B8%20ISO30%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Смазка рельс, мешки аспирации, фильтры', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BC%D0%B0%D0%B7%D0%BA%D0%B0%20%D1%80%D0%B5%D0%BB%D1%8C%D1%81%2C%20%D0%BC%D0%B5%D1%88%D0%BA%D0%B8%20%D0%B0%D1%81%D0%BF%D0%B8%D1%80%D0%B0%D1%86%D0%B8%D0%B8%2C%20%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B'],
                             ['Электроэнергия 380В и вывоз стружки', 1, 18.0, '']
                         ]
                     },
                     'clothes': {
                         title: "Пошив Одежды", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'Мини-цех ЧПУ раскроя и пошива',
                         c: [
-                            ['Текстиль / футер 3-нитка (1.8 м)', 1.8, 12.0, 'https://www.alibaba.com/'],
-                            ['Мягкая подкладка / кашкорсе', 1.2, 3.5, 'https://www.alibaba.com/'],
-                            ['Нити и фурнитура (молнии, шнуры)', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Упаковка и брендовая бирка', 1, 1.5, 'https://www.alibaba.com/']
+                            ['Текстиль / футер 3-нитка (1.8 м)', 1.8, 12.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A2%D0%B5%D0%BA%D1%81%D1%82%D0%B8%D0%BB%D1%8C%20%2F%20%D1%84%D1%83%D1%82%D0%B5%D1%80%203-%D0%BD%D0%B8%D1%82%D0%BA%D0%B0%20(1.8%20%D0%BC)'],
+                            ['Мягкая подкладка / кашкорсе', 1.2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D1%8F%D0%B3%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0%20%2F%20%D0%BA%D0%B0%D1%88%D0%BA%D0%BE%D1%80%D1%81%D0%B5'],
+                            ['Нити и фурнитура (молнии, шнуры)', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9D%D0%B8%D1%82%D0%B8%20%D0%B8%20%D1%84%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D0%B0%20(%D0%BC%D0%BE%D0%BB%D0%BD%D0%B8%D0%B8%2C%20%D1%88%D0%BD%D1%83%D1%80%D1%8B)'],
+                            ['Упаковка и брендовая бирка', 1, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B0%20%D0%B8%20%D0%B1%D1%80%D0%B5%D0%BD%D0%B4%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%B1%D0%B8%D1%80%D0%BA%D0%B0']
                         ],
                         exp: [
                             ['Аренда швейного бокса 50 кв.м', 1, 30.0, ''],
-                            ['Сменные ножи раскройного плоттера и заточка', 2, 3.0, 'https://www.alibaba.com/'],
-                            ['Иглы автоматов, машинное масло, лапки', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Сменные ножи раскройного плоттера и заточка', 2, 3.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BD%D0%BE%D0%B6%D0%B8%20%D1%80%D0%B0%D1%81%D0%BA%D1%80%D0%BE%D0%B9%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BB%D0%BE%D1%82%D1%82%D0%B5%D1%80%D0%B0%20%D0%B8%20%D0%B7%D0%B0%D1%82%D0%BE%D1%87%D0%BA%D0%B0'],
+                            ['Иглы автоматов, машинное масло, лапки', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%98%D0%B3%D0%BB%D1%8B%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%BE%D0%B2%2C%20%D0%BC%D0%B0%D1%88%D0%B8%D0%BD%D0%BD%D0%BE%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%BE%2C%20%D0%BB%D0%B0%D0%BF%D0%BA%D0%B8'],
                             ['Логистика тканей и вывоз обрезков', 1, 14.0, '']
                         ]
                     },
                     'jewelry': {
                         title: "Ювелирные Изделия", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Настольный ювелирный литейный комплекс',
                         c: [
-                            ['Золото/Серебро в гранулах (10г)', 10, 8.0, 'https://www.alibaba.com/'],
-                            ['Вставки (камни, фианиты)', 2, 20.0, 'https://www.alibaba.com/'],
-                            ['Ювелирная фурнитура', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Формомасса и расходники', 1, 20.0, 'https://www.alibaba.com/'],
-                            ['Бархатный футляр', 1, 5.0, 'https://www.alibaba.com/']
+                            ['Золото/Серебро в гранулах (10г)', 10, 8.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%2F%D0%A1%D0%B5%D1%80%D0%B5%D0%B1%D1%80%D0%BE%20%D0%B2%20%D0%B3%D1%80%D0%B0%D0%BD%D1%83%D0%BB%D0%B0%D1%85%20(10%D0%B3)'],
+                            ['Вставки (камни, фианиты)', 2, 20.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%92%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8%20(%D0%BA%D0%B0%D0%BC%D0%BD%D0%B8%2C%20%D1%84%D0%B8%D0%B0%D0%BD%D0%B8%D1%82%D1%8B)'],
+                            ['Ювелирная фурнитура', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%AE%D0%B2%D0%B5%D0%BB%D0%B8%D1%80%D0%BD%D0%B0%D1%8F%20%D1%84%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D0%B0'],
+                            ['Формомасса и расходники', 1, 20.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A4%D0%BE%D1%80%D0%BC%D0%BE%D0%BC%D0%B0%D1%81%D1%81%D0%B0%20%D0%B8%20%D1%80%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8'],
+                            ['Бархатный футляр', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%91%D0%B0%D1%80%D1%85%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%84%D1%83%D1%82%D0%BB%D1%8F%D1%80']
                         ],
                         exp: [
                             ['Аренда мастерской с вытяжкой 30 кв.м', 1, 25.0, ''],
-                            ['Графитовые тигли и керамические стаканы (на рабочего)', 2, 5.0, 'https://www.alibaba.com/'],
-                            ['Защитный газ (Аргон) и полировальные пасты', 2, 3.5, 'https://www.alibaba.com/'],
+                            ['Графитовые тигли и керамические стаканы (на рабочего)', 2, 5.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%93%D1%80%D0%B0%D1%84%D0%B8%D1%82%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%82%D0%B8%D0%B3%D0%BB%D0%B8%20%D0%B8%20%D0%BA%D0%B5%D1%80%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D1%82%D0%B0%D0%BA%D0%B0%D0%BD%D1%8B%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Защитный газ (Аргон) и полировальные пасты', 2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%97%D0%B0%D1%89%D0%B8%D1%82%D0%BD%D1%8B%D0%B9%20%D0%B3%D0%B0%D0%B7%20(%D0%90%D1%80%D0%B3%D0%BE%D0%BD)%20%D0%B8%20%D0%BF%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BF%D0%B0%D1%81%D1%82%D1%8B'],
                             ['Охрана и логистика драгметаллов', 1, 10.0, '']
                         ]
                     },
                     'cnc': {
                         title: "Настольные ЧПУ Станки", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Линия узловой сборки настольных ЧПУ',
                         c: [
-                            ['Алюминиевая станина', 1, 300.0, 'https://www.alibaba.com/'],
-                            ['Шаговые моторы', 1, 150.0, 'https://www.alibaba.com/'],
-                            ['Контроллер ЧПУ', 1, 80.0, 'https://www.alibaba.com/'],
-                            ['Шпиндель и блок питания', 1, 200.0, 'https://www.alibaba.com/']
+                            ['Алюминиевая станина', 1, 300.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%BB%D1%8E%D0%BC%D0%B8%D0%BD%D0%B8%D0%B5%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D0%BD%D0%B0'],
+                            ['Шаговые моторы', 1, 150.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%B0%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D1%8B'],
+                            ['Контроллер ЧПУ', 1, 80.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%20%D0%A7%D0%9F%D0%A3'],
+                            ['Шпиндель и блок питания', 1, 200.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%BF%D0%B8%D0%BD%D0%B4%D0%B5%D0%BB%D1%8C%20%D0%B8%20%D0%B1%D0%BB%D0%BE%D0%BA%20%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F']
                         ],
                         exp: [
                             ['Аренда сборочного бокса 40 кв.м', 1, 25.0, ''],
-                            ['Юстировочный инструмент и ключи (на рабочего)', 2, 2.5, 'https://www.alibaba.com/'],
-                            ['Смазки, крепеж М4/М5, фиксаторы', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Юстировочный инструмент и ключи (на рабочего)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%AE%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20%D0%B8%20%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Смазки, крепеж М4/М5, фиксаторы', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BC%D0%B0%D0%B7%D0%BA%D0%B8%2C%20%D0%BA%D1%80%D0%B5%D0%BF%D0%B5%D0%B6%20%D0%9C4%2F%D0%9C5%2C%20%D1%84%D0%B8%D0%BA%D1%81%D0%B0%D1%82%D0%BE%D1%80%D1%8B'],
                             ['Логистика тяжелых станин', 1, 15.0, '']
                         ]
                     },
                     'bakery': {
                         title: "Хлебопекарная Линия", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Компактная ротационная мини-пекарня',
                         c: [
-                            ['Мука высшего сорта (кг)', 0.6, 0.4, 'https://www.alibaba.com/'],
-                            ['Дрожжи и добавки', 1, 0.05, 'https://www.alibaba.com/'],
-                            ['Упаковочный пакет', 1, 0.08, 'https://www.alibaba.com/']
+                            ['Мука высшего сорта (кг)', 0.6, 0.4, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D1%83%D0%BA%D0%B0%20%D0%B2%D1%8B%D1%81%D1%88%D0%B5%D0%B3%D0%BE%20%D1%81%D0%BE%D1%80%D1%82%D0%B0%20(%D0%BA%D0%B3)'],
+                            ['Дрожжи и добавки', 1, 0.05, 'https://www.alibaba.com/trade/search?SearchText=%D0%94%D1%80%D0%BE%D0%B6%D0%B6%D0%B8%20%D0%B8%20%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BA%D0%B8'],
+                            ['Упаковочный пакет', 1, 0.08, 'https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82']
                         ],
                         exp: [
                             ['Аренда пекарни 60 кв.м', 1, 35.0, ''],
-                            ['Формы выпечки и противни (амортизация)', 2, 3.0, 'https://www.alibaba.com/'],
-                            ['Моющие средства, перчатки, пергамент', 2, 2.5, 'https://www.alibaba.com/'],
+                            ['Формы выпечки и противни (амортизация)', 2, 3.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%B2%D1%8B%D0%BF%D0%B5%D1%87%D0%BA%D0%B8%20%D0%B8%20%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BD%D0%B8%20(%D0%B0%D0%BC%D0%BE%D1%80%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F)'],
+                            ['Моющие средства, перчатки, пергамент', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%BE%D1%8E%D1%89%D0%B8%D0%B5%20%D1%81%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%B0%2C%20%D0%BF%D0%B5%D1%80%D1%87%D0%B0%D1%82%D0%BA%D0%B8%2C%20%D0%BF%D0%B5%D1%80%D0%B3%D0%B0%D0%BC%D0%B5%D0%BD%D1%82'],
                             ['Электроэнергия печей и доставка', 1, 20.0, '']
                         ]
                     },
                     'watch': {
                         title: "Сборка Часов", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Часовая сборочная мини-линия',
                         c: [
-                            ['Корпус и сапфировое стекло', 1, 30.0, 'https://www.alibaba.com/'],
-                            ['Точный часовой механизм', 1, 40.0, 'https://www.alibaba.com/'],
-                            ['Циферблат и стрелки', 1, 10.0, 'https://www.alibaba.com/'],
-                            ['Ремешок (кожа/металл)', 1, 15.0, 'https://www.alibaba.com/'],
-                            ['Подарочный футляр', 1, 8.0, 'https://www.alibaba.com/']
+                            ['Корпус и сапфировое стекло', 1, 30.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D1%80%D0%BF%D1%83%D1%81%20%D0%B8%20%D1%81%D0%B0%D0%BF%D1%84%D0%B8%D1%80%D0%BE%D0%B2%D0%BE%D0%B5%20%D1%81%D1%82%D0%B5%D0%BA%D0%BB%D0%BE'],
+                            ['Точный часовой механизм', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%87%D0%B0%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BC%D0%B5%D1%85%D0%B0%D0%BD%D0%B8%D0%B7%D0%BC'],
+                            ['Циферблат и стрелки', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A6%D0%B8%D1%84%D0%B5%D1%80%D0%B1%D0%BB%D0%B0%D1%82%20%D0%B8%20%D1%81%D1%82%D1%80%D0%B5%D0%BB%D0%BA%D0%B8'],
+                            ['Ремешок (кожа/металл)', 1, 15.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A0%D0%B5%D0%BC%D0%B5%D1%88%D0%BE%D0%BA%20(%D0%BA%D0%BE%D0%B6%D0%B0%2F%D0%BC%D0%B5%D1%82%D0%B0%D0%BB%D0%BB)'],
+                            ['Подарочный футляр', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BE%D0%B4%D0%B0%D1%80%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D1%84%D1%83%D1%82%D0%BB%D1%8F%D1%80']
                         ],
                         exp: [
                             ['Аренда беспылевой зоны 30 кв.м', 1, 25.0, ''],
-                            ['Часовой прецизионный инструмент (на мастера)', 2, 2.0, 'https://www.alibaba.com/'],
-                            ['Часовые масла (Moebius), пылеудалители', 2, 1.5, 'https://www.alibaba.com/'],
+                            ['Часовой прецизионный инструмент (на мастера)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A7%D0%B0%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%B5%D1%86%D0%B8%D0%B7%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20(%D0%BD%D0%B0%20%D0%BC%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%B0)'],
+                            ['Часовые масла (Moebius), пылеудалители', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A7%D0%B0%D1%81%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B0%20(Moebius)%2C%20%D0%BF%D1%8B%D0%BB%D0%B5%D1%83%D0%B4%D0%B0%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D0%B8'],
                             ['Страховка и логистика', 1, 10.0, '']
                         ]
                     },
                     'costume': {
                         title: "Производство Бижутерии", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Мини-пресс для бижутерии',
                         c: [
-                            ['Сплав (Заготовка)', 1, 2.0, 'https://www.alibaba.com/'],
-                            ['Декоративные стразы', 1, 1.0, 'https://www.alibaba.com/'],
-                            ['Фурнитура', 1, 0.5, 'https://www.alibaba.com/'],
-                            ['Эко-пакетик', 1, 1.5, 'https://www.alibaba.com/']
+                            ['Сплав (Заготовка)', 1, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BF%D0%BB%D0%B0%D0%B2%20(%D0%97%D0%B0%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%BA%D0%B0)'],
+                            ['Декоративные стразы', 1, 1.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%94%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5%20%D1%81%D1%82%D1%80%D0%B0%D0%B7%D1%8B'],
+                            ['Фурнитура', 1, 0.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%A4%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D0%B0'],
+                            ['Эко-пакетик', 1, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%AD%D0%BA%D0%BE-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B8%D0%BA']
                         ],
                         exp: [
                             ['Аренда мастерской 30 кв.м', 1, 20.0, ''],
-                            ['Пресс-формы и ручной инструмент (на рабочего)', 2, 1.5, 'https://www.alibaba.com/'],
-                            ['Клеи УФ-отверждения, салфетки', 2, 1.5, 'https://www.alibaba.com/'],
+                            ['Пресс-формы и ручной инструмент (на рабочего)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D1%80%D0%B5%D1%81%D1%81-%D1%84%D0%BE%D1%80%D0%BC%D1%8B%20%D0%B8%20%D1%80%D1%83%D1%87%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Клеи УФ-отверждения, салфетки', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BB%D0%B5%D0%B8%20%D0%A3%D0%A4-%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D1%81%D0%B0%D0%BB%D1%84%D0%B5%D1%82%D0%BA%D0%B8'],
                             ['Логистика и доставка', 1, 8.0, '']
                         ]
                     },
                     'instruments': {
                         title: "Измерительные Приборы", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Стенд калибровки и сборки приборов',
                         c: [
-                            ['Сенсорный измерительный модуль', 1, 120.0, 'https://www.alibaba.com/'],
-                            ['Плата обработки сигналов', 1, 65.0, 'https://www.alibaba.com/'],
-                            ['ЖК-дисплей', 1, 25.0, 'https://www.alibaba.com/'],
-                            ['Ударопрочный корпус IP65', 1, 40.0, 'https://www.alibaba.com/']
+                            ['Сенсорный измерительный модуль', 1, 120.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%B5%D0%BD%D1%81%D0%BE%D1%80%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%B7%D0%BC%D0%B5%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C'],
+                            ['Плата обработки сигналов', 1, 65.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8%20%D1%81%D0%B8%D0%B3%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2'],
+                            ['ЖК-дисплей', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%96%D0%9A-%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D0%B9'],
+                            ['Ударопрочный корпус IP65', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%B4%D0%B0%D1%80%D0%BE%D0%BF%D1%80%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%20IP65']
                         ],
                         exp: [
                             ['Аренда лаборатории 40 кв.м', 1, 25.0, ''],
-                            ['Калибровочные эталоны и приборы (на инженера)', 2, 3.5, 'https://www.alibaba.com/'],
-                            ['Кабели, термоусадка, припой', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Калибровочные эталоны и приборы (на инженера)', 2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%B0%D0%BB%D0%B8%D0%B1%D1%80%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B5%20%D1%8D%D1%82%D0%B0%D0%BB%D0%BE%D0%BD%D1%8B%20%D0%B8%20%D0%BF%D1%80%D0%B8%D0%B1%D0%BE%D1%80%D1%8B%20(%D0%BD%D0%B0%20%D0%B8%D0%BD%D0%B6%D0%B5%D0%BD%D0%B5%D1%80%D0%B0)'],
+                            ['Кабели, термоусадка, припой', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%B0%D0%B1%D0%B5%D0%BB%D0%B8%2C%20%D1%82%D0%B5%D1%80%D0%BC%D0%BE%D1%83%D1%81%D0%B0%D0%B4%D0%BA%D0%B0%2C%20%D0%BF%D1%80%D0%B8%D0%BF%D0%BE%D0%B9'],
                             ['Логистика и поверка', 1, 12.0, '']
                         ]
                     },
                     'universal': {
                         title: "Универсальный Проект", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Универсальная производственная линия',
                         c: [
-                            ['Основной базовый материал', 1, 40.0, 'https://www.alibaba.com/'],
-                            ['Функциональные модули', 1, 25.0, 'https://www.alibaba.com/'],
-                            ['Декоративный корпус', 1, 12.0, 'https://www.alibaba.com/'],
-                            ['Потребительская коробка', 1, 3.0, 'https://www.alibaba.com/']
+                            ['Основной базовый материал', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB'],
+                            ['Функциональные модули', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B8'],
+                            ['Декоративный корпус', 1, 12.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%94%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81'],
+                            ['Потребительская коробка', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BE%D1%82%D1%80%D0%B5%D0%B1%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B0']
                         ],
                         exp: [
                             ['Аренда помещения 40 кв.м', 1, 25.0, ''],
-                            ['Оснастка и специнструмент (на рабочего)', 2, 2.0, 'https://www.alibaba.com/'],
-                            ['Расходные материалы рабочего места', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Оснастка и специнструмент (на рабочего)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%9E%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0%20%D0%B8%20%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20(%D0%BD%D0%B0%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE)'],
+                            ['Расходные материалы рабочего места', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A0%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%B5%D1%81%D1%82%D0%B0'],
                             ['Логистика и связь', 1, 10.0, '']
                         ]
                     }
@@ -1406,7 +1411,17 @@ Thank you!
                                         </div>
                                     </td>
                                     <td class="row-search">
-                                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                                        <div style="display:flex; align-items:center; gap:4px;">
+                                            <select id="${rowId}-src" class="input-field input-sm" style="width:110px; font-size:11px;">
+                                                <option value="alibaba">Alibaba</option>
+                                                <option value="alibaba1688">1688.com</option>
+                                                <option value="madeinchina">Made-in-China</option>
+                                                <option value="lcsc">LCSC</option>
+                                                <option value="indiamart">IndiaMART</option>
+                                                <option value="octopart">Octopart</option>
+                                            </select>
+                                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск у выбранного источника">🔍</button>
+                                        </div>
                                     </td>
                                     <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
                                     <td>
@@ -1830,7 +1845,7 @@ Thank you!
 
                 window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
                     const isMine = (itemClientId === myClientId);
-                    if (!isAdminMode && !isMine) {
+                    if (!isMine) {
                         alert("🔒 Вы можете удалять только свои собственные линии!");
                         return;
                     }
@@ -1889,15 +1904,27 @@ Thank you!
                     window.open(url, '_blank');
                 };
 
+                const SOURCE_PLATFORMS = {
+                    alibaba: { label: 'Alibaba', url: q => `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(q)}` },
+                    alibaba1688: { label: '1688.com (Китай)', url: q => `https://s.1688.com/selloffer/offer_search.htm?keywords=${encodeURIComponent(q)}` },
+                    madeinchina: { label: 'Made-in-China', url: q => `https://www.made-in-china.com/productdirectory.do?word=${encodeURIComponent(q)}` },
+                    indiamart: { label: 'IndiaMART', url: q => `https://dir.indiamart.com/search.mp?ss=${encodeURIComponent(q)}` },
+                    lcsc: { label: 'LCSC (электроника)', url: q => `https://www.lcsc.com/search?q=${encodeURIComponent(q)}` },
+                    octopart: { label: 'Octopart (сравнение)', url: q => `https://octopart.com/search?q=${encodeURIComponent(q)}` },
+                    machinio: { label: 'Machinio (б/у станки)', url: q => `https://www.machinio.com/search?q=${encodeURIComponent(q)}` }
+                };
+
                 window.searchAlibaba = function (rowId) {
+                    const srcSelect = document.getElementById(rowId === 'equip' ? 'equip-src' : (rowId + '-src'));
+                    const platform = SOURCE_PLATFORMS[srcSelect ? srcSelect.value : 'alibaba'] || SOURCE_PLATFORMS.alibaba;
                     if (rowId === 'equip') {
                         const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
-                        window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+                        window.open(platform.url(query), '_blank');
                     } else {
                         const nameInput = document.getElementById(rowId + '-name');
                         if (nameInput) {
                             const query = nameInput.value.trim() || 'Material';
-                            window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+                            window.open(platform.url(query), '_blank');
                         }
                     }
                 };
@@ -1951,7 +1978,17 @@ Thank you!
                                         </div>
                                     </td>
                                     <td class="row-search">
-                                        <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск на Alibaba">🔍</button>
+                                        <div style="display:flex; align-items:center; gap:4px;">
+                                            <select id="${rowId}-src" class="input-field input-sm" style="width:110px; font-size:11px;">
+                                                <option value="alibaba">Alibaba</option>
+                                                <option value="alibaba1688">1688.com</option>
+                                                <option value="madeinchina">Made-in-China</option>
+                                                <option value="lcsc">LCSC</option>
+                                                <option value="indiamart">IndiaMART</option>
+                                                <option value="octopart">Octopart</option>
+                                            </select>
+                                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск у выбранного источника">🔍</button>
+                                        </div>
                                     </td>
                                     <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
                                     <td>
@@ -2099,7 +2136,7 @@ Thank you!
                             const isMine = (itemOwner === myClientId);
 
                             const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Моё</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
-                            const showDeleteBtn = isAdminMode || isMine;
+                            const showDeleteBtn = isMine;
                             const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                                             <td style="text-align:center;">
                                                 ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Удалить запись">🗑️</button>` : ''}

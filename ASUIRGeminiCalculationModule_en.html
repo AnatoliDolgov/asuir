@@ -825,7 +825,12 @@
                                         <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Machine / Line Name & URL</span></span>
                                         <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap;">
                                             <input type="text" id="equip-search-query" class="input-field input-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Line" style="max-width: 280px;">
-                                            <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Search options on Alibaba">🔍 Search Alibaba ↗</button>
+                                            <select id="equip-src" class="input-field input-sm" style="width:150px;">
+                                                <option value="alibaba">Alibaba</option>
+                                                <option value="madeinchina">Made-in-China</option>
+                                                <option value="machinio">Machinio (used)</option>
+                                            </select>
+                                            <button class="btn btn-sm" style="background:#2196f3; color:#fff;" onclick="searchAlibaba('equip')" title="Search options at the selected source">🔍 Search ↗</button>
                                         </div>
                                     </td>
                                     <td class="right">
@@ -1167,220 +1172,220 @@ Thank you!
                     'drone': {
                         title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Line',
                         c: [
-                            ['Carbon fiber frame kit 10" (T700 Carbon Kit)', 1, 26.0, 'https://www.alibaba.com/'],
-                            ['Stack: Flight Controller F7 + ESC 60A', 1, 45.0, 'https://www.alibaba.com/'],
-                            ['Brushless motors 2807 1300KV (4 pcs)', 1, 55.0, 'https://www.alibaba.com/'],
-                            ['VTX 5.8GHz + FPV Camera', 1, 35.0, 'https://www.alibaba.com/'],
-                            ['LiPo Battery 6S 5000mAh 100C', 1, 25.0, 'https://www.alibaba.com/']
+                            ['Carbon fiber frame kit 10" (T700 Carbon Kit)', 1, 26.0, 'https://www.alibaba.com/trade/search?SearchText=Carbon%20fiber%20frame%20kit%2010%22%20(T700%20Carbon%20Kit)'],
+                            ['Stack: Flight Controller F7 + ESC 60A', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=Stack%3A%20Flight%20Controller%20F7%20%2B%20ESC%2060A'],
+                            ['Brushless motors 2807 1300KV (4 pcs)', 1, 55.0, 'https://www.alibaba.com/trade/search?SearchText=Brushless%20motors%202807%201300KV%20(4%20pcs)'],
+                            ['VTX 5.8GHz + FPV Camera', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=VTX%205.8GHz%20%2B%20FPV%20Camera'],
+                            ['LiPo Battery 6S 5000mAh 100C', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=LiPo%20Battery%206S%205000mAh%20100C']
                         ],
                         exp: [
                             ['Workshop rent 50 sq.m', 1, 30.0, ''],
-                            ['Soldering station & toolset (per 1 worker)', 2, 2.0, 'https://www.alibaba.com/'],
-                            ['Process consumables: solder, flux, bits (per 1 worker)', 2, 2.5, 'https://www.alibaba.com/'],
+                            ['Soldering station & toolset (per 1 worker)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Soldering%20station%20%26%20toolset%20(per%201%20worker)'],
+                            ['Process consumables: solder, flux, bits (per 1 worker)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=Process%20consumables%3A%20solder%2C%20flux%2C%20bits%20(per%201%20worker)'],
                             ['Logistics and facility utilities', 1, 15.0, '']
                         ]
                     },
                     'phone': {
                         title: "Smartphones & Mobile Phones", eq: '6000', mkt: '150', perf: '250', staff: '3', q: 'Smartphone Assembly Line',
                         c: [
-                            ['Display module 6.5" FHD+ with touchscreen', 1, 18.0, 'https://www.alibaba.com/'],
-                            ['SoC Motherboard (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/'],
-                            ['Camera module set (Main 50MP + Front 8MP)', 1, 8.0, 'https://www.alibaba.com/'],
-                            ['Li-Polymer Battery 5000 mAh', 1, 6.0, 'https://www.alibaba.com/'],
-                            ['Middle chassis, back cover, buttons, SIM tray', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Speakers, vibration motor, sub-board Type-C, antennas', 1, 3.0, 'https://www.alibaba.com/'],
-                            ['Charger 18W Type-C + cable + retail box', 1, 3.0, 'https://www.alibaba.com/']
+                            ['Display module 6.5" FHD+ with touchscreen', 1, 18.0, 'https://www.alibaba.com/trade/search?SearchText=Display%20module%206.5%22%20FHD%2B%20with%20touchscreen'],
+                            ['SoC Motherboard (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=SoC%20Motherboard%20(Helio%20G99%20%2F%208GB%20%2F%20128GB)'],
+                            ['Camera module set (Main 50MP + Front 8MP)', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Camera%20module%20set%20(Main%2050MP%20%2B%20Front%208MP)'],
+                            ['Li-Polymer Battery 5000 mAh', 1, 6.0, 'https://www.alibaba.com/trade/search?SearchText=Li-Polymer%20Battery%205000%20mAh'],
+                            ['Middle chassis, back cover, buttons, SIM tray', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Middle%20chassis%2C%20back%20cover%2C%20buttons%2C%20SIM%20tray'],
+                            ['Speakers, vibration motor, sub-board Type-C, antennas', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Speakers%2C%20vibration%20motor%2C%20sub-board%20Type-C%2C%20antennas'],
+                            ['Charger 18W Type-C + cable + retail box', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Charger%2018W%20Type-C%20%2B%20cable%20%2B%20retail%20box']
                         ],
                         exp: [
                             ['Assembly box rent 40 sq.m', 1, 25.0, ''],
-                            ['Pneumatic press & electric torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/'],
-                            ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/'],
+                            ['Pneumatic press & electric torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Pneumatic%20press%20%26%20electric%20torque%20drivers%20(per%20worker)'],
+                            ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Consumables%3A%20thermal%20tape%2C%20adhesives%2C%20wipes'],
                             ['Logistics & components delivery', 1, 15.0, '']
                         ]
                     },
                     'tablet': {
                         title: "Tablets & Mobile PCs", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Complex',
                         c: [
-                            ['Display assembly (IPS/OLED 10.1")', 1, 35.0, 'https://www.alibaba.com/'],
-                            ['SoC Motherboard (ARM)', 1, 45.0, 'https://www.alibaba.com/'],
-                            ['Li-Polymer battery 6000mAh', 1, 10.0, 'https://www.alibaba.com/'],
-                            ['Ultra-thin chassis & flex cables', 1, 8.0, 'https://www.alibaba.com/'],
-                            ['Packaging retail box + adapter', 1, 2.0, 'https://www.alibaba.com/']
+                            ['Display assembly (IPS/OLED 10.1")', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=Display%20assembly%20(IPS%2FOLED%2010.1%22)'],
+                            ['SoC Motherboard (ARM)', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=SoC%20Motherboard%20(ARM)'],
+                            ['Li-Polymer battery 6000mAh', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=Li-Polymer%20battery%206000mAh'],
+                            ['Ultra-thin chassis & flex cables', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Ultra-thin%20chassis%20%26%20flex%20cables'],
+                            ['Packaging retail box + adapter', 1, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Packaging%20retail%20box%20%2B%20adapter']
                         ],
                         exp: [
                             ['Clean area rent 40 sq.m', 1, 25.0, ''],
-                            ['Vacuum tooling and screwdriver toolkit (per worker)', 2, 1.5, 'https://www.alibaba.com/'],
-                            ['Consumables: thermal tape, cleaners, wipes', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Vacuum tooling and screwdriver toolkit (per worker)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Vacuum%20tooling%20and%20screwdriver%20toolkit%20(per%20worker)'],
+                            ['Consumables: thermal tape, cleaners, wipes', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Consumables%3A%20thermal%20tape%2C%20cleaners%2C%20wipes'],
                             ['Batch logistics & delivery', 1, 12.0, '']
                         ]
                     },
                     'tv': {
                         title: "TVs & Displays", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Smart TV Display Panel Assembly Line',
                         c: [
-                            ['LCD / OLED Matrix Display panel 55"', 1, 140.0, 'https://www.alibaba.com/'],
-                            ['Smart TV Motherboard', 1, 45.0, 'https://www.alibaba.com/'],
-                            ['Inverter power supply unit', 1, 25.0, 'https://www.alibaba.com/'],
-                            ['LED Backlight arrays', 1, 15.0, 'https://www.alibaba.com/'],
-                            ['Housing chassis & stereo speakers', 1, 28.0, 'https://www.alibaba.com/']
+                            ['LCD / OLED Matrix Display panel 55"', 1, 140.0, 'https://www.alibaba.com/trade/search?SearchText=LCD%20%2F%20OLED%20Matrix%20Display%20panel%2055%22'],
+                            ['Smart TV Motherboard', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=Smart%20TV%20Motherboard'],
+                            ['Inverter power supply unit', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=Inverter%20power%20supply%20unit'],
+                            ['LED Backlight arrays', 1, 15.0, 'https://www.alibaba.com/trade/search?SearchText=LED%20Backlight%20arrays'],
+                            ['Housing chassis & stereo speakers', 1, 28.0, 'https://www.alibaba.com/trade/search?SearchText=Housing%20chassis%20%26%20stereo%20speakers']
                         ],
                         exp: [
                             ['Assembly workshop rent 60 sq.m', 1, 35.0, ''],
-                            ['Tooling: vacuum suction lifters, power screwdrivers (per worker)', 3, 2.0, 'https://www.alibaba.com/'],
-                            ['Consumables: insulation, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/'],
+                            ['Tooling: vacuum suction lifters, power screwdrivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Tooling%3A%20vacuum%20suction%20lifters%2C%20power%20screwdrivers%20(per%20worker)'],
+                            ['Consumables: insulation, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Consumables%3A%20insulation%2C%20fasteners%2C%20stickers'],
                             ['Large-screen logistics & freight', 1, 18.0, '']
                         ]
                     },
                     'pc': {
                         title: "Telecom & Laptops", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'SKD Laptop Assembly Line',
                         c: [
-                            ['Barebone Chassis 15.6" (case, keyboard, battery 5000mAh)', 1, 85.0, 'https://www.alibaba.com/'],
-                            ['IPS Display Panel 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/'],
-                            ['Intel SoC Motherboard + cooling system', 1, 68.0, 'https://www.alibaba.com/'],
-                            ['RAM SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/'],
-                            ['Storage M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/'],
-                            ['65W Type-C Adapter + Wi-Fi 6 module + box', 1, 10.0, 'https://www.alibaba.com/']
+                            ['Barebone Chassis 15.6" (case, keyboard, battery 5000mAh)', 1, 85.0, 'https://www.alibaba.com/trade/search?SearchText=Barebone%20Chassis%2015.6%22%20(case%2C%20keyboard%2C%20battery%205000mAh)'],
+                            ['IPS Display Panel 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/trade/search?SearchText=IPS%20Display%20Panel%2015.6%22%20FHD%20(1920x1080)'],
+                            ['Intel SoC Motherboard + cooling system', 1, 68.0, 'https://www.alibaba.com/trade/search?SearchText=Intel%20SoC%20Motherboard%20%2B%20cooling%20system'],
+                            ['RAM SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/trade/search?SearchText=RAM%20SO-DIMM%2016GB%20DDR4%2FDDR5'],
+                            ['Storage M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/trade/search?SearchText=Storage%20M.2%20NVMe%20SSD%20512GB'],
+                            ['65W Type-C Adapter + Wi-Fi 6 module + box', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=65W%20Type-C%20Adapter%20%2B%20Wi-Fi%206%20module%20%2B%20box']
                         ],
                         exp: [
                             ['Assembly workshop rent 40 sq.m', 1, 25.0, ''],
-                            ['BIOS programming station & torque drivers (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
-                            ['Thermal paste, protective film, cleaners', 2, 1.5, 'https://www.alibaba.com/'],
+                            ['BIOS programming station & torque drivers (per worker)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=BIOS%20programming%20station%20%26%20torque%20drivers%20(per%20worker)'],
+                            ['Thermal paste, protective film, cleaners', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Thermal%20paste%2C%20protective%20film%2C%20cleaners'],
                             ['Batch shipping & logistics', 1, 15.0, '']
                         ]
                     },
                     'furniture': {
                         title: "Furniture Woodworking", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Compact CNC Furniture Nesting Center',
                         c: [
-                            ['Laminated MDF / Chipboard (4 sq.m)', 4, 15.0, 'https://www.alibaba.com/'],
-                            ['PVC Edge banding tape 2mm', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Furniture hardware & hinges', 1, 8.0, 'https://www.alibaba.com/'],
-                            ['Mirror / Facade panel', 1, 22.0, 'https://www.alibaba.com/'],
-                            ['Corrugated cardboard packaging', 1, 6.0, 'https://www.alibaba.com/']
+                            ['Laminated MDF / Chipboard (4 sq.m)', 4, 15.0, 'https://www.alibaba.com/trade/search?SearchText=Laminated%20MDF%20%2F%20Chipboard%20(4%20sq.m)'],
+                            ['PVC Edge banding tape 2mm', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=PVC%20Edge%20banding%20tape%202mm'],
+                            ['Furniture hardware & hinges', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Furniture%20hardware%20%26%20hinges'],
+                            ['Mirror / Facade panel', 1, 22.0, 'https://www.alibaba.com/trade/search?SearchText=Mirror%20%2F%20Facade%20panel'],
+                            ['Corrugated cardboard packaging', 1, 6.0, 'https://www.alibaba.com/trade/search?SearchText=Corrugated%20cardboard%20packaging']
                         ],
                         exp: [
                             ['Workshop rent with dust extraction 80 sq.m', 1, 35.0, ''],
-                            ['Carbide end mills and ISO30 collets (per worker)', 2, 6.0, 'https://www.alibaba.com/'],
-                            ['Rail lubricant, dust filter bags, air filters', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Carbide end mills and ISO30 collets (per worker)', 2, 6.0, 'https://www.alibaba.com/trade/search?SearchText=Carbide%20end%20mills%20and%20ISO30%20collets%20(per%20worker)'],
+                            ['Rail lubricant, dust filter bags, air filters', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Rail%20lubricant%2C%20dust%20filter%20bags%2C%20air%20filters'],
                             ['380V Power supply and waste disposal', 1, 18.0, '']
                         ]
                     },
                     'clothes': {
                         title: "Apparel Sewing", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'CNC Cutting & Sewing Mini-Shop',
                         c: [
-                            ['Textile / 3-thread fleece (1.8 m)', 1.8, 12.0, 'https://www.alibaba.com/'],
-                            ['Soft lining / rib knit', 1.2, 3.5, 'https://www.alibaba.com/'],
-                            ['Threads and accessories (zippers, cords)', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Packaging and brand tags', 1, 1.5, 'https://www.alibaba.com/']
+                            ['Textile / 3-thread fleece (1.8 m)', 1.8, 12.0, 'https://www.alibaba.com/trade/search?SearchText=Textile%20%2F%203-thread%20fleece%20(1.8%20m)'],
+                            ['Soft lining / rib knit', 1.2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=Soft%20lining%20%2F%20rib%20knit'],
+                            ['Threads and accessories (zippers, cords)', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Threads%20and%20accessories%20(zippers%2C%20cords)'],
+                            ['Packaging and brand tags', 1, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Packaging%20and%20brand%20tags']
                         ],
                         exp: [
                             ['Sewing workshop rent 50 sq.m', 1, 30.0, ''],
-                            ['CNC cutting plotter replacement blades', 2, 3.0, 'https://www.alibaba.com/'],
-                            ['Machine needles, oil, presser feet', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['CNC cutting plotter replacement blades', 2, 3.0, 'https://www.alibaba.com/trade/search?SearchText=CNC%20cutting%20plotter%20replacement%20blades'],
+                            ['Machine needles, oil, presser feet', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Machine%20needles%2C%20oil%2C%20presser%20feet'],
                             ['Fabric delivery and scrap removal logistics', 1, 14.0, '']
                         ]
                     },
                     'jewelry': {
                         title: "Fine Jewelry Casting", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Desktop Jewelry Casting Complex',
                         c: [
-                            ['Gold/Silver casting granules (10g)', 10, 8.0, 'https://www.alibaba.com/'],
-                            ['Stone inserts (cubic zirconia)', 2, 20.0, 'https://www.alibaba.com/'],
-                            ['Jewelry findings', 1, 5.0, 'https://www.alibaba.com/'],
-                            ['Investment powder & consumables', 1, 20.0, 'https://www.alibaba.com/'],
-                            ['Velvet presentation case', 1, 5.0, 'https://www.alibaba.com/']
+                            ['Gold/Silver casting granules (10g)', 10, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Gold%2FSilver%20casting%20granules%20(10g)'],
+                            ['Stone inserts (cubic zirconia)', 2, 20.0, 'https://www.alibaba.com/trade/search?SearchText=Stone%20inserts%20(cubic%20zirconia)'],
+                            ['Jewelry findings', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Jewelry%20findings'],
+                            ['Investment powder & consumables', 1, 20.0, 'https://www.alibaba.com/trade/search?SearchText=Investment%20powder%20%26%20consumables'],
+                            ['Velvet presentation case', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Velvet%20presentation%20case']
                         ],
                         exp: [
                             ['Workshop rent with fume exhaust 30 sq.m', 1, 25.0, ''],
-                            ['Graphite crucibles & ceramic flasks (per worker)', 2, 5.0, 'https://www.alibaba.com/'],
-                            ['Shielding Argon gas & polishing pastes', 2, 3.5, 'https://www.alibaba.com/'],
+                            ['Graphite crucibles & ceramic flasks (per worker)', 2, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Graphite%20crucibles%20%26%20ceramic%20flasks%20(per%20worker)'],
+                            ['Shielding Argon gas & polishing pastes', 2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=Shielding%20Argon%20gas%20%26%20polishing%20pastes'],
                             ['Security & precious metals transport', 1, 10.0, '']
                         ]
                     },
                     'cnc': {
                         title: "Desktop CNC Machines", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Desktop CNC Modular Assembly Line',
                         c: [
-                            ['Aluminum frame chassis', 1, 300.0, 'https://www.alibaba.com/'],
-                            ['Stepper motors kit', 1, 150.0, 'https://www.alibaba.com/'],
-                            ['CNC Controller board', 1, 80.0, 'https://www.alibaba.com/'],
-                            ['Spindle and power supply unit', 1, 200.0, 'https://www.alibaba.com/']
+                            ['Aluminum frame chassis', 1, 300.0, 'https://www.alibaba.com/trade/search?SearchText=Aluminum%20frame%20chassis'],
+                            ['Stepper motors kit', 1, 150.0, 'https://www.alibaba.com/trade/search?SearchText=Stepper%20motors%20kit'],
+                            ['CNC Controller board', 1, 80.0, 'https://www.alibaba.com/trade/search?SearchText=CNC%20Controller%20board'],
+                            ['Spindle and power supply unit', 1, 200.0, 'https://www.alibaba.com/trade/search?SearchText=Spindle%20and%20power%20supply%20unit']
                         ],
                         exp: [
                             ['Assembly box rent 40 sq.m', 1, 25.0, ''],
-                            ['Alignment tools and hex keys (per worker)', 2, 2.5, 'https://www.alibaba.com/'],
-                            ['Lubricants, M4/M5 hardware, threadlockers', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Alignment tools and hex keys (per worker)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=Alignment%20tools%20and%20hex%20keys%20(per%20worker)'],
+                            ['Lubricants, M4/M5 hardware, threadlockers', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Lubricants%2C%20M4%2FM5%20hardware%2C%20threadlockers'],
                             ['Heavy metal bedplate freight', 1, 15.0, '']
                         ]
                     },
                     'bakery': {
                         title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
                         c: [
-                            ['Premium wheat flour (kg)', 0.6, 0.4, 'https://www.alibaba.com/'],
-                            ['Yeast and additives', 1, 0.05, 'https://www.alibaba.com/'],
-                            ['Packaging bags', 1, 0.08, 'https://www.alibaba.com/']
+                            ['Premium wheat flour (kg)', 0.6, 0.4, 'https://www.alibaba.com/trade/search?SearchText=Premium%20wheat%20flour%20(kg)'],
+                            ['Yeast and additives', 1, 0.05, 'https://www.alibaba.com/trade/search?SearchText=Yeast%20and%20additives'],
+                            ['Packaging bags', 1, 0.08, 'https://www.alibaba.com/trade/search?SearchText=Packaging%20bags']
                         ],
                         exp: [
                             ['Bakery premises rent 60 sq.m', 1, 35.0, ''],
-                            ['Baking pans and trays (amortization)', 2, 3.0, 'https://www.alibaba.com/'],
-                            ['Detergents, gloves, parchment paper', 2, 2.5, 'https://www.alibaba.com/'],
+                            ['Baking pans and trays (amortization)', 2, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Baking%20pans%20and%20trays%20(amortization)'],
+                            ['Detergents, gloves, parchment paper', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=Detergents%2C%20gloves%2C%20parchment%20paper'],
                             ['Oven electric power and local delivery', 1, 20.0, '']
                         ]
                     },
                     'watch': {
                         title: "Watch Assembly", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Watch Assembly Mini-Line',
                         c: [
-                            ['Case & sapphire glass', 1, 30.0, 'https://www.alibaba.com/'],
-                            ['Precision mechanical movement', 1, 40.0, 'https://www.alibaba.com/'],
-                            ['Dial and hands set', 1, 10.0, 'https://www.alibaba.com/'],
-                            ['Strap (leather/steel)', 1, 15.0, 'https://www.alibaba.com/'],
-                            ['Gift presentation box', 1, 8.0, 'https://www.alibaba.com/']
+                            ['Case & sapphire glass', 1, 30.0, 'https://www.alibaba.com/trade/search?SearchText=Case%20%26%20sapphire%20glass'],
+                            ['Precision mechanical movement', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=Precision%20mechanical%20movement'],
+                            ['Dial and hands set', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=Dial%20and%20hands%20set'],
+                            ['Strap (leather/steel)', 1, 15.0, 'https://www.alibaba.com/trade/search?SearchText=Strap%20(leather%2Fsteel)'],
+                            ['Gift presentation box', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Gift%20presentation%20box']
                         ],
                         exp: [
                             ['Clean dust-free room rent 30 sq.m', 1, 25.0, ''],
-                            ['Precision watchmaker toolkit (per master)', 2, 2.0, 'https://www.alibaba.com/'],
-                            ['Watch oils (Moebius), dust blowers', 2, 1.5, 'https://www.alibaba.com/'],
+                            ['Precision watchmaker toolkit (per master)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Precision%20watchmaker%20toolkit%20(per%20master)'],
+                            ['Watch oils (Moebius), dust blowers', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Watch%20oils%20(Moebius)%2C%20dust%20blowers'],
                             ['Insurance and courier delivery', 1, 10.0, '']
                         ]
                     },
                     'costume': {
                         title: "Costume Jewelry Press", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Mini Hydraulic Press for Costume Jewelry',
                         c: [
-                            ['Alloy casting workpiece', 1, 2.0, 'https://www.alibaba.com/'],
-                            ['Decorative rhinestones / crystals', 1, 1.0, 'https://www.alibaba.com/'],
-                            ['Fasteners and findings', 1, 0.5, 'https://www.alibaba.com/'],
-                            ['Eco pouch packaging', 1, 1.5, 'https://www.alibaba.com/']
+                            ['Alloy casting workpiece', 1, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Alloy%20casting%20workpiece'],
+                            ['Decorative rhinestones / crystals', 1, 1.0, 'https://www.alibaba.com/trade/search?SearchText=Decorative%20rhinestones%20%2F%20crystals'],
+                            ['Fasteners and findings', 1, 0.5, 'https://www.alibaba.com/trade/search?SearchText=Fasteners%20and%20findings'],
+                            ['Eco pouch packaging', 1, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Eco%20pouch%20packaging']
                         ],
                         exp: [
                             ['Workshop rent 30 sq.m', 1, 20.0, ''],
-                            ['Press dies and manual assembly tools (per worker)', 2, 1.5, 'https://www.alibaba.com/'],
-                            ['UV-curing adhesives, clean wipes', 2, 1.5, 'https://www.alibaba.com/'],
+                            ['Press dies and manual assembly tools (per worker)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Press%20dies%20and%20manual%20assembly%20tools%20(per%20worker)'],
+                            ['UV-curing adhesives, clean wipes', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=UV-curing%20adhesives%2C%20clean%20wipes'],
                             ['Dispatch and parcel shipping', 1, 8.0, '']
                         ]
                     },
                     'instruments': {
                         title: "Precision Instruments", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Sensor Calibration and Assembly Bench',
                         c: [
-                            ['Sensor measurement module', 1, 120.0, 'https://www.alibaba.com/'],
-                            ['Signal processing controller board', 1, 65.0, 'https://www.alibaba.com/'],
-                            ['LCD Display module', 1, 25.0, 'https://www.alibaba.com/'],
-                            ['Shockproof enclosure IP65', 1, 40.0, 'https://www.alibaba.com/']
+                            ['Sensor measurement module', 1, 120.0, 'https://www.alibaba.com/trade/search?SearchText=Sensor%20measurement%20module'],
+                            ['Signal processing controller board', 1, 65.0, 'https://www.alibaba.com/trade/search?SearchText=Signal%20processing%20controller%20board'],
+                            ['LCD Display module', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=LCD%20Display%20module'],
+                            ['Shockproof enclosure IP65', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=Shockproof%20enclosure%20IP65']
                         ],
                         exp: [
                             ['Laboratory room rent 40 sq.m', 1, 25.0, ''],
-                            ['Calibration standards & instruments (per engineer)', 2, 3.5, 'https://www.alibaba.com/'],
-                            ['Cables, heat shrink, solder', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['Calibration standards & instruments (per engineer)', 2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=Calibration%20standards%20%26%20instruments%20(per%20engineer)'],
+                            ['Cables, heat shrink, solder', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Cables%2C%20heat%20shrink%2C%20solder'],
                             ['Certification & logistics', 1, 12.0, '']
                         ]
                     },
                     'universal': {
                         title: "Universal Project", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Universal Production Cell',
                         c: [
-                            ['Primary base raw material', 1, 40.0, 'https://www.alibaba.com/'],
-                            ['Functional electronic/mechanical units', 1, 25.0, 'https://www.alibaba.com/'],
-                            ['Protective outer housing', 1, 12.0, 'https://www.alibaba.com/'],
-                            ['Consumer retail box', 1, 3.0, 'https://www.alibaba.com/']
+                            ['Primary base raw material', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=Primary%20base%20raw%20material'],
+                            ['Functional electronic/mechanical units', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=Functional%20electronic%2Fmechanical%20units'],
+                            ['Protective outer housing', 1, 12.0, 'https://www.alibaba.com/trade/search?SearchText=Protective%20outer%20housing'],
+                            ['Consumer retail box', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Consumer%20retail%20box']
                         ],
                         exp: [
                             ['Workshop premises rent 40 sq.m', 1, 25.0, ''],
-                            ['General tooling and workbenches (per worker)', 2, 2.0, 'https://www.alibaba.com/'],
-                            ['Workplace consumables and safety gear', 2, 2.0, 'https://www.alibaba.com/'],
+                            ['General tooling and workbenches (per worker)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=General%20tooling%20and%20workbenches%20(per%20worker)'],
+                            ['Workplace consumables and safety gear', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Workplace%20consumables%20and%20safety%20gear'],
                             ['Logistics & operational communications', 1, 10.0, '']
                         ]
                     }
@@ -1403,7 +1408,17 @@ Thank you!
                                             </div>
                                         </td>
                                         <td class="row-search">
-                                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
+                                            <div style="display:flex; align-items:center; gap:4px;">
+                                                <select id="${rowId}-src" class="input-field input-sm" style="width:110px; font-size:11px;">
+                                                    <option value="alibaba">Alibaba</option>
+                                                    <option value="alibaba1688">1688.com</option>
+                                                    <option value="madeinchina">Made-in-China</option>
+                                                    <option value="lcsc">LCSC</option>
+                                                    <option value="indiamart">IndiaMART</option>
+                                                    <option value="octopart">Octopart</option>
+                                                </select>
+                                                <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search at the selected source">🔍</button>
+                                            </div>
                                         </td>
                                         <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
                                         <td>
@@ -1827,7 +1842,7 @@ Thank you!
 
                 window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
                     const isMine = (itemClientId === myClientId);
-                    if (!isAdminMode && !isMine) {
+                    if (!isMine) {
                         alert("🔒 You can only delete your own production lines!");
                         return;
                     }
@@ -1886,15 +1901,27 @@ Thank you!
                     window.open(url, '_blank');
                 };
 
+                const SOURCE_PLATFORMS = {
+                    alibaba: { label: 'Alibaba', url: q => `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(q)}` },
+                    alibaba1688: { label: '1688.com (China)', url: q => `https://s.1688.com/selloffer/offer_search.htm?keywords=${encodeURIComponent(q)}` },
+                    madeinchina: { label: 'Made-in-China', url: q => `https://www.made-in-china.com/productdirectory.do?word=${encodeURIComponent(q)}` },
+                    indiamart: { label: 'IndiaMART', url: q => `https://dir.indiamart.com/search.mp?ss=${encodeURIComponent(q)}` },
+                    lcsc: { label: 'LCSC (electronics)', url: q => `https://www.lcsc.com/search?q=${encodeURIComponent(q)}` },
+                    octopart: { label: 'Octopart (compare)', url: q => `https://octopart.com/search?q=${encodeURIComponent(q)}` },
+                    machinio: { label: 'Machinio (used)', url: q => `https://www.machinio.com/search?q=${encodeURIComponent(q)}` }
+                };
+
                 window.searchAlibaba = function (rowId) {
+                    const srcSelect = document.getElementById(rowId === 'equip' ? 'equip-src' : (rowId + '-src'));
+                    const platform = SOURCE_PLATFORMS[srcSelect ? srcSelect.value : 'alibaba'] || SOURCE_PLATFORMS.alibaba;
                     if (rowId === 'equip') {
                         const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
-                        window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+                        window.open(platform.url(query), '_blank');
                     } else {
                         const nameInput = document.getElementById(rowId + '-name');
                         if (nameInput) {
                             const query = nameInput.value.trim() || 'Material';
-                            window.open(`https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(query)}`, '_blank');
+                            window.open(platform.url(query), '_blank');
                         }
                     }
                 };
@@ -1948,7 +1975,17 @@ Thank you!
                                             </div>
                                         </td>
                                         <td class="row-search">
-                                            <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search on Alibaba">🔍</button>
+                                            <div style="display:flex; align-items:center; gap:4px;">
+                                                <select id="${rowId}-src" class="input-field input-sm" style="width:110px; font-size:11px;">
+                                                    <option value="alibaba">Alibaba</option>
+                                                    <option value="alibaba1688">1688.com</option>
+                                                    <option value="madeinchina">Made-in-China</option>
+                                                    <option value="lcsc">LCSC</option>
+                                                    <option value="indiamart">IndiaMART</option>
+                                                    <option value="octopart">Octopart</option>
+                                                </select>
+                                                <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search at the selected source">🔍</button>
+                                            </div>
                                         </td>
                                         <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
                                         <td>
@@ -2096,7 +2133,7 @@ Thank you!
                             const isMine = (itemOwner === myClientId);
 
                             const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Mine</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
-                            const showDeleteBtn = isAdminMode || isMine;
+                            const showDeleteBtn = isMine;
                             const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                                                 <td style="text-align:center;">
                                                     ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Delete entry">🗑️</button>` : ''}
