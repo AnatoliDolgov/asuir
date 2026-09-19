@@ -1406,16 +1406,23 @@ Thank you!
                     const tr = document.createElement('tr');
                     tr.id = rowId;
                     const defaultUrl = url || '';
+                    // В каталоге аренда, логистика, электроэнергия и охрана заведомо приходят
+                    // с пустой ссылкой (это услуги, а не товар — искать их на Alibaba/1688/LCSC
+                    // бессмысленно, гараж на маркетплейсе тоже никто не купит). Пустая строка,
+                    // добавленная вручную кнопкой "+", ещё не имеет названия — для неё поиск
+                    // остаётся видимым, пока не ясно, что за статья расходов будет вписана.
+                    const isService = !defaultUrl && (name || '').trim().length > 0;
 
                     tr.innerHTML = `
                                     <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Статья расходов / Оснастка..."></td>
                                     <td>
                                         <div style="display:flex; align-items:center; gap:4px;">
-                                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Ссылка Alibaba / Договор...">
+                                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="${isService ? '📄 Договор / контакт арендодателя, поставщика услуги...' : '🔗 Ссылка Alibaba / Договор...'}">
                                             ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти">🔗</button>` : ''}
                                         </div>
                                     </td>
                                     <td class="row-search">
+                                        ${isService ? `<span style="color:#8a94a3; font-size:11px;" title="Аренда/услуги на маркетплейсах не ищутся">— не товар —</span>` : `
                                         <div style="display:flex; align-items:center; gap:4px;">
                                             <select id="${rowId}-src" class="input-field input-sm" style="width:110px; font-size:11px;">
                                                 <option value="alibaba">Alibaba</option>
@@ -1426,7 +1433,7 @@ Thank you!
                                                 <option value="octopart">Octopart</option>
                                             </select>
                                             <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск у выбранного источника">🔍</button>
-                                        </div>
+                                        </div>`}
                                     </td>
                                     <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
                                     <td>

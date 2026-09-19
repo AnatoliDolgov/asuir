@@ -1403,16 +1403,23 @@ Thank you!
                     const tr = document.createElement('tr');
                     tr.id = rowId;
                     const defaultUrl = url || '';
+                    // In the catalog, rent/logistics/electricity/security lines always come with
+                    // an empty link (they're services, not goods — searching them on Alibaba/1688/
+                    // LCSC makes no sense; nobody buys a garage on a marketplace either). A blank
+                    // row added manually via "+" has no name yet, so the search stays visible until
+                    // it's clear what kind of expense item it will be.
+                    const isService = !defaultUrl && (name || '').trim().length > 0;
 
                     tr.innerHTML = `
                                         <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Expense Item / Tooling..."></td>
                                         <td>
                                             <div style="display:flex; align-items:center; gap:4px;">
-                                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Alibaba / Supplier Link...">
+                                                <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="${isService ? '📄 Lease / service provider contact...' : '🔗 Alibaba / Supplier Link...'}">
                                                 ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Open Link">🔗</button>` : ''}
                                             </div>
                                         </td>
                                         <td class="row-search">
+                                            ${isService ? `<span style="color:#8a94a3; font-size:11px;" title="Rent/services aren't found on marketplaces">— not a good —</span>` : `
                                             <div style="display:flex; align-items:center; gap:4px;">
                                                 <select id="${rowId}-src" class="input-field input-sm" style="width:110px; font-size:11px;">
                                                     <option value="alibaba">Alibaba</option>
@@ -1423,7 +1430,7 @@ Thank you!
                                                     <option value="octopart">Octopart</option>
                                                 </select>
                                                 <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Search at the selected source">🔍</button>
-                                            </div>
+                                            </div>`}
                                         </td>
                                         <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
                                         <td>
