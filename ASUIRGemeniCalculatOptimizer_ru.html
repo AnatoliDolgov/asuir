@@ -1091,7 +1091,7 @@ Thank you!
     <!-- ПОДКЛЮЧЕНИЕ FIREBASE SDK -->
     <script type="module">
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-                import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+                import { getDatabase, ref, push, update, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
                 const firebaseConfig = {
                     apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
@@ -1110,6 +1110,9 @@ Thank you!
                 let savedEquipmentList = [];
                 let currentTopicTitle = "Дроны и Радиоэлектроника";
                 let isAdminMode = false;
+                // Если не null — «Сохранить» обновляет именно эту запись в базе,
+                // а не создаёт очередной дубликат производственной линии.
+                let currentEditingItemId = null;
 
                 // ПЕРЕМЕННЫЕ ПАГИНАЦИИ
                 window.currentListingPage = 1;
@@ -1572,6 +1575,7 @@ Thank you!
 
                 window.loadCatalogTemplate = function (key) {
                     closeModal('catalog-modal');
+                    currentEditingItemId = null; // выбор шаблона темы = новая линия, а не правка загруженной
                     const data = catalogDB[key] || catalogDB['drone'];
                     currentTopicTitle = data.title;
 
@@ -1778,9 +1782,15 @@ Thank you!
                         created_at: new Date().toISOString()
                     };
 
-                    push(equipmentDbRef, newItem)
-                        .then(() => alert(`✅ Станок "${query}", оснастка и BOM сохранены в тему "${finalTopic}"!`))
-                        .catch(err => alert(`❌ Ошибка сохранения: ` + err.message));
+                    if (currentEditingItemId) {
+                        update(ref(db, 'equipment_listing/' + currentEditingItemId), newItem)
+                            .then(() => alert(`✅ Линия "${query}" обновлена (перезаписана та же запись в листинге, дубликат не создан).`))
+                            .catch(err => alert(`❌ Ошибка обновления: ` + err.message));
+                    } else {
+                        push(equipmentDbRef, newItem)
+                            .then((ref) => { currentEditingItemId = ref.key; alert(`✅ Станок "${query}", оснастка и BOM сохранены в тему "${finalTopic}"!`); })
+                            .catch(err => alert(`❌ Ошибка сохранения: ` + err.message));
+                    }
                 };
 
                 window.toggleBomDetails = function (rowId) {
@@ -1801,6 +1811,7 @@ Thank you!
                     const item = savedEquipmentList.find(x => x.id === itemId);
                     if (!item) return;
 
+                    currentEditingItemId = itemId;
                     currentTopicTitle = item.topic_title || "Дроны и Радиоэлектроника";
                     let matchedCatalogKey = 'drone';
                     for (let key in catalogDB) {
@@ -1932,19 +1943,41 @@ Thank you!
                     machinio: { label: 'Machinio (б/у станки)', url: q => `https://www.machinio.com/listings?search=${encodeURIComponent(q)}` }
                 };
 
+                // Иностранные площадки (Made-in-China, LCSC, IndiaMART, 1688, Octopart, Machinio)
+                // индексированы на английском (1688 — на китайском) и не находят ничего по
+                // русскому запросу. Перед поиском переводим запрос на английский через
+                // бесплатный, работающий из браузера сервис MyMemory — без ключа и без прокси.
+                function containsCyrillic(s) { return /[а-яёА-ЯЁ]/.test(s || ''); }
+
+                async function translateToEnglish(text) {
+                    if (!containsCyrillic(text)) return text;
+                    try {
+                        const resp = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=ru|en`);
+                        const data = await resp.json();
+                        return (data && data.responseData && data.responseData.translatedText) ? data.responseData.translatedText : text;
+                    } catch (e) {
+                        return text; // если перевод недоступен — ищем как есть, не блокируем пользователя
+                    }
+                }
+
                 window.searchAlibaba = function (rowId) {
                     const srcSelect = document.getElementById(rowId === 'equip' ? 'equip-src' : (rowId + '-src'));
                     const platform = SOURCE_PLATFORMS[srcSelect ? srcSelect.value : 'alibaba'] || SOURCE_PLATFORMS.alibaba;
+                    let rawQuery;
                     if (rowId === 'equip') {
-                        const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
-                        window.open(platform.url(simplifySearchQuery(query)), '_blank');
+                        rawQuery = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
                     } else {
                         const nameInput = document.getElementById(rowId + '-name');
-                        if (nameInput) {
-                            const query = simplifySearchQuery(nameInput.value);
-                            window.open(platform.url(query), '_blank');
-                        }
+                        rawQuery = nameInput ? nameInput.value : 'Material';
                     }
+                    const query = simplifySearchQuery(rawQuery);
+                    // Открываем вкладку сразу, синхронно по клику — иначе браузер заблокирует
+                    // её как всплывающее окно после ожидания ответа от переводчика.
+                    const newWin = window.open('', '_blank');
+                    if (newWin) newWin.document.write('<p style="font-family:sans-serif; padding:20px; color:#555;">Ищем «' + query + '»…</p>');
+                    translateToEnglish(query).then(translated => {
+                        if (newWin && !newWin.closed) newWin.location.href = platform.url(translated);
+                    });
                 };
 
                 window.handleFormSubmit = function (event, lang) {
@@ -2186,7 +2219,9 @@ Thank you!
                                 const qty = c.qty || c[1] || 1;
                                 const price = c.price || c[2] || 0;
                                 const sum = (qty * price).toFixed(2);
-                                const url = c.url || c[3] || '#';
+                                // Даже если в старой записи адрес не сохранён, всегда строим рабочую
+                                // ссылку поиска по названию детали — вместо мёртвой "#".
+                                const url = c.url || c[3] || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(simplifySearchQuery(name))}`;
                                 compRowsHtml += `
                                                 <tr>
                                                     <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>

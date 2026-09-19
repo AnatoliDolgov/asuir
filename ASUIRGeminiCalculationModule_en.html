@@ -1088,7 +1088,7 @@ Thank you!
     <!-- FIREBASE SDK CONNECTION -->
     <script type="module">
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-                import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+                import { getDatabase, ref, push, update, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
                 const firebaseConfig = {
                     apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
@@ -1107,6 +1107,9 @@ Thank you!
                 let savedEquipmentList = [];
                 let currentTopicTitle = "Drones & Radioelectronics";
                 let isAdminMode = false;
+                // When not null, "Save" updates this exact record instead of creating
+                // another duplicate production line.
+                let currentEditingItemId = null;
 
                 // PAGINATION VARIABLES
                 window.currentListingPage = 1;
@@ -1569,6 +1572,7 @@ Thank you!
 
                 window.loadCatalogTemplate = function (key) {
                     closeModal('catalog-modal');
+                    currentEditingItemId = null; // picking a topic template = a new line, not editing a loaded one
                     const data = catalogDB[key] || catalogDB['drone'];
                     currentTopicTitle = data.title;
 
@@ -1775,9 +1779,15 @@ Thank you!
                         created_at: new Date().toISOString()
                     };
 
-                    push(equipmentDbRef, newItem)
-                        .then(() => alert(`✅ Line "${query}", tooling and BOM saved under topic "${finalTopic}"!`))
-                        .catch(err => alert(`❌ Save Error: ` + err.message));
+                    if (currentEditingItemId) {
+                        update(ref(db, 'equipment_listing_en/' + currentEditingItemId), newItem)
+                            .then(() => alert(`✅ Line "${query}" updated (same listing record overwritten, no duplicate created).`))
+                            .catch(err => alert(`❌ Update Error: ` + err.message));
+                    } else {
+                        push(equipmentDbRef, newItem)
+                            .then((ref) => { currentEditingItemId = ref.key; alert(`✅ Line "${query}", tooling and BOM saved under topic "${finalTopic}"!`); })
+                            .catch(err => alert(`❌ Save Error: ` + err.message));
+                    }
                 };
 
                 window.toggleBomDetails = function (rowId) {
@@ -1798,6 +1808,7 @@ Thank you!
                     const item = savedEquipmentList.find(x => x.id === itemId);
                     if (!item) return;
 
+                    currentEditingItemId = itemId;
                     currentTopicTitle = item.topic_title || "Drones & Radioelectronics";
                     let matchedCatalogKey = 'drone';
                     for (let key in catalogDB) {
@@ -1929,19 +1940,41 @@ Thank you!
                     machinio: { label: 'Machinio (used)', url: q => `https://www.machinio.com/listings?search=${encodeURIComponent(q)}` }
                 };
 
+                // If a user types a component name in Russian (or another non-Latin script) on
+                // this page too, foreign catalogs (Made-in-China, LCSC, IndiaMART, 1688, Octopart,
+                // Machinio) won't match it. Translate to English first via the free, CORS-enabled
+                // MyMemory service — no key, no proxy needed.
+                function containsCyrillic(s) { return /[а-яёА-ЯЁ]/.test(s || ''); }
+
+                async function translateToEnglish(text) {
+                    if (!containsCyrillic(text)) return text;
+                    try {
+                        const resp = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=ru|en`);
+                        const data = await resp.json();
+                        return (data && data.responseData && data.responseData.translatedText) ? data.responseData.translatedText : text;
+                    } catch (e) {
+                        return text; // translation unavailable — search with the original text rather than blocking the user
+                    }
+                }
+
                 window.searchAlibaba = function (rowId) {
                     const srcSelect = document.getElementById(rowId === 'equip' ? 'equip-src' : (rowId + '-src'));
                     const platform = SOURCE_PLATFORMS[srcSelect ? srcSelect.value : 'alibaba'] || SOURCE_PLATFORMS.alibaba;
+                    let rawQuery;
                     if (rowId === 'equip') {
-                        const query = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
-                        window.open(platform.url(simplifySearchQuery(query)), '_blank');
+                        rawQuery = document.getElementById('equip-search-query')?.value || 'manufacturing machine';
                     } else {
                         const nameInput = document.getElementById(rowId + '-name');
-                        if (nameInput) {
-                            const query = simplifySearchQuery(nameInput.value);
-                            window.open(platform.url(query), '_blank');
-                        }
+                        rawQuery = nameInput ? nameInput.value : 'Material';
                     }
+                    const query = simplifySearchQuery(rawQuery);
+                    // Open the tab synchronously on click — otherwise the browser blocks it
+                    // as a popup once we start waiting on the translation request.
+                    const newWin = window.open('', '_blank');
+                    if (newWin) newWin.document.write('<p style="font-family:sans-serif; padding:20px; color:#555;">Searching for "' + query + '"…</p>');
+                    translateToEnglish(query).then(translated => {
+                        if (newWin && !newWin.closed) newWin.location.href = platform.url(translated);
+                    });
                 };
 
                 window.handleFormSubmit = function (event, lang) {
@@ -2183,7 +2216,9 @@ Thank you!
                                 const qty = c.qty || c[1] || 1;
                                 const price = c.price || c[2] || 0;
                                 const sum = (qty * price).toFixed(2);
-                                const url = c.url || c[3] || '#';
+                                // Even if an older record never got a saved link, always build a
+                                // working search link from the part name instead of a dead "#".
+                                const url = c.url || c[3] || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(simplifySearchQuery(name))}`;
                                 compRowsHtml += `
                                                     <tr>
                                                         <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>
