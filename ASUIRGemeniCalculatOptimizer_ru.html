@@ -1771,7 +1771,9 @@ Thank you!
                                 detectedKey = 'instruments';
                             }
 
-                            if (detectedKey) {
+                            const currentTopicKeyNow = document.getElementById('topic-selector-dropdown')?.value;
+
+                            if (detectedKey && detectedKey !== currentTopicKeyNow) {
                                 // Для темы с классами оставляем уже выбранный класс, если он из этой же темы,
                                 // иначе берём класс по умолчанию.
                                 const baseEntry = catalogDB[detectedKey];
@@ -1802,6 +1804,8 @@ Thank you!
                                     tbodyExp.innerHTML = '';
                                     data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                                 }
+                            } else if (detectedKey) {
+                                if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             } else {
                                 if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             }
