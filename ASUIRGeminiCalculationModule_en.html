@@ -1712,7 +1712,9 @@ Thank you!
                                 detectedKey = 'instruments';
                             }
 
-                            if (detectedKey) {
+                            const currentTopicKeyNow = document.getElementById('topic-selector-dropdown')?.value;
+
+                            if (detectedKey && detectedKey !== currentTopicKeyNow) {
                                 // For a topic with classes keep the selected class if it belongs to this topic,
                                 // otherwise use the default class.
                                 const baseEntry = catalogDB[detectedKey];
@@ -1743,6 +1745,8 @@ Thank you!
                                     tbodyExp.innerHTML = '';
                                     data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                                 }
+                            } else if (detectedKey) {
+                                if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             } else {
                                 if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             }
