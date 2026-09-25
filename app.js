@@ -49,7 +49,7 @@
             'motors': 'Моторы', 'vtx': 'Цифровая система', 'acc': 'Мелочи'
         };
 
-        title.innerHTML = `📊 Сканер ASUIR Gemini по запросу: <strong>${names[category]}</strong>`;
+        title.innerHTML = `📊 Сканер ASUIR по запросу: <strong>${names[category]}</strong>`;
         list.innerHTML = "";
 
         database[category].forEach((item, index) => {

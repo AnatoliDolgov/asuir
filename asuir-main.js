@@ -235,4 +235,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-console.log('✅ ASUIR Gemini загружен!');
+console.log('✅ ASUIR загружен!');

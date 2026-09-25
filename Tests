@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ASUIR Gemini — Уничтожение расходов</title>
+  <title>ASUIR — Уничтожение расходов</title>
   
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#1e3a8a">
@@ -94,7 +94,7 @@
 
 <div class="container">
   <header>
-    <h1>ASUIR Gemini</h1>
+    <h1>ASUIR</h1>
     <p style="color: #475569; margin: 0; font-size: 18px; font-weight: 600;">Система полного уничтожения постоянных расходов и оптимизации стоимости продукции</p>
   </header>
 
@@ -125,7 +125,7 @@
   </div>
 
   <div class="card" style="border-left: 5px solid #059669; background: #f0fdf4;">
-    <h3 style="margin-top: 0; color: #059669; font-size: 22px;">Эффект работы системы ASUIR Gemini</h3>
+    <h3 style="margin-top: 0; color: #059669; font-size: 22px;">Эффект работы системы ASUIR</h3>
     <table>
       <tr>
         <td>Суммарная рыночная ценность произведенной продукции:</td>
@@ -224,7 +224,7 @@ document.getElementById('preset-selector').addEventListener('change', function(e
     tbody.appendChild(tr);
   });
 
-  // МАТЕМАТИКА ASUIR GEMINI: УНИЧТОЖЕНИЕ НАГРУЗКИ И ЧИСТЫЙ РЕЗУЛЬТАТ
+  // МАТЕМАТИКА ASUIR: УНИЧТОЖЕНИЕ НАГРУЗКИ И ЧИСТЫЙ РЕЗУЛЬТАТ
   const salesValue = preset.finalValue;
   
   // Алгоритм рассчитывает избыточное давление fixed costs и ликвидирует его из себестоимости единицы
