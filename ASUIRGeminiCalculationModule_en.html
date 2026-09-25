@@ -2010,6 +2010,9 @@ Thank you!
                             const queryInput = document.getElementById('equip-search-query');
                             let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Production Line";
                             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
+
+                            const marketPrice = parseFloat(document.getElementById('market-price-input')?.value) || 0;
+
                             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
                             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
@@ -2067,6 +2070,7 @@ Thank you!
                                 cost: cost,
                                 perf: perf,
                                 staff: staff,
+                                market_price: marketPrice,
                                 components: currentComponents,
                                 expenses: currentExpenses,
                                 created_at: new Date().toISOString()
@@ -2119,7 +2123,7 @@ Thank you!
                             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
                             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
-                            const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
+                            const topicBenchmarkPrice = (item.market_price && item.market_price > 0) ? item.market_price : getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
                             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
                             const compList = (item.components && item.components.length > 0) ? item.components : (tplData.c || []).map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] }));
@@ -2475,7 +2479,8 @@ Thank you!
                                     const lineOtherCosts = getLineOtherCosts(line);
                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
-                                    return Math.round(perf * (topicBenchmarkPrice - unitCost) * 30);
+                                    const effectivePrice = (line.market_price && line.market_price > 0) ? line.market_price : topicBenchmarkPrice;
+                                    return Math.round(perf * (effectivePrice - unitCost) * 30);
                                 };
                                 items.sort((a, b) => computeMonthlyProfit(b.line) - computeMonthlyProfit(a.line));
 
