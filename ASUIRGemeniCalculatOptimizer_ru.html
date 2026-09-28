@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNOLOGY MATRIX — ASUIR</title>
+    <title>TECHNOLOGY MATRIX — ASUIR Gemini</title>
     <style>
         * {
             margin: 0;
@@ -678,7 +678,7 @@
                 <span class="sub-label">автоматизированная система управления</span>
             </a>
             <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link active">
-                <span class="main-label" style="color:#1f4e78;">АСУИР</span>
+                <span class="main-label" style="color:#1f4e78;">АСУИР Gemini</span>
                 <span class="sub-label">генератор эффективности</span>
             </a>
 
@@ -1015,8 +1015,8 @@
         </div>
 
         <div class="footer">
-            © АСУИР. Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.
-            <br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).
+            © Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.<br>
+            Код — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.
         </div>
     </div>
 
@@ -1474,7 +1474,7 @@ Thank you!
                                 ]
                             },
                             'cnc': {
-                                title: "Настольные ЧПУ Станки", eq: '15000', mkt: '3500', perf: '4', staff: '2', q: 'Линия узловой сборки настольных ЧПУ',
+                                title: "Настольные ЧПУ Станки", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Линия узловой сборки настольных ЧПУ',
                                 c: [
                                     ['Алюминиевая станина', 1, 300.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%BB%D1%8E%D0%BC%D0%B8%D0%BD%D0%B8%D0%B5%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D0%BD%D0%B0'],
                                     ['Шаговые моторы', 1, 150.0, 'https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%B0%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D1%8B'],
@@ -1489,7 +1489,7 @@ Thank you!
                                 ]
                             },
                             'bakery': {
-                                title: "Хлебопекарная Линия", eq: '16000', mkt: '6', perf: '1200', staff: '2', q: 'Компактная ротационная мини-пекарня',
+                                title: "Хлебопекарная Линия", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Компактная ротационная мини-пекарня',
                                 c: [
                                     ['Мука высшего сорта (кг)', 0.6, 0.4, 'https://www.alibaba.com/trade/search?SearchText=%D0%9C%D1%83%D0%BA%D0%B0%20%D0%B2%D1%8B%D1%81%D1%88%D0%B5%D0%B3%D0%BE%20%D1%81%D0%BE%D1%80%D1%82%D0%B0'],
                                     ['Дрожжи и добавки', 1, 0.05, 'https://www.alibaba.com/trade/search?SearchText=%D0%94%D1%80%D0%BE%D0%B6%D0%B6%D0%B8%20%D0%B8%20%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BA%D0%B8'],
@@ -1772,9 +1772,7 @@ Thank you!
                                 detectedKey = 'instruments';
                             }
 
-                            const currentTopicKeyNow = document.getElementById('topic-selector-dropdown')?.value;
-
-                            if (detectedKey && detectedKey !== currentTopicKeyNow) {
+                            if (detectedKey) {
                                 // Для темы с классами оставляем уже выбранный класс, если он из этой же темы,
                                 // иначе берём класс по умолчанию.
                                 const baseEntry = catalogDB[detectedKey];
@@ -1805,8 +1803,6 @@ Thank you!
                                     tbodyExp.innerHTML = '';
                                     data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                                 }
-                            } else if (detectedKey) {
-                                if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             } else {
                                 if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             }
@@ -2016,9 +2012,6 @@ Thank you!
                             const queryInput = document.getElementById('equip-search-query');
                             let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок производства";
                             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
-
-                            const marketPrice = parseFloat(document.getElementById('market-price-input')?.value) || 0;
-
                             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
                             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
@@ -2076,7 +2069,6 @@ Thank you!
                                 cost: cost,
                                 perf: perf,
                                 staff: staff,
-                                market_price: marketPrice,
                                 components: currentComponents,
                                 expenses: currentExpenses,
                                 created_at: new Date().toISOString()
@@ -2129,7 +2121,7 @@ Thank you!
                             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
                             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
-                            const topicBenchmarkPrice = (item.market_price && item.market_price > 0) ? item.market_price : getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
+                            const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
                             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
                             const compList = (item.components && item.components.length > 0) ? item.components : (tplData.c || []).map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] }));
@@ -2483,8 +2475,7 @@ Thank you!
                                     const lineOtherCosts = getLineOtherCosts(line);
                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
-                                    const effectivePrice = (line.market_price && line.market_price > 0) ? line.market_price : topicBenchmarkPrice;
-                                    return Math.round(perf * (effectivePrice - unitCost) * 30);
+                                    return Math.round(perf * (topicBenchmarkPrice - unitCost) * 30);
                                 };
                                 items.sort((a, b) => computeMonthlyProfit(b.line) - computeMonthlyProfit(a.line));
 

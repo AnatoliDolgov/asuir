@@ -677,7 +677,7 @@
                 <span class="sub-label">automated control system</span>
             </a>
             <a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link active">
-                <span class="main-label" style="color:#1f4e78;">ASUIR</span>
+                <span class="main-label" style="color:#1f4e78;">ASUIR Gemini</span>
                 <span class="sub-label">efficiency generator</span>
             </a>
 
@@ -1014,8 +1014,8 @@
         </div>
 
         <div class="footer">
-            © ASUIR, Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
-            <br>Developed with technical support from the AI assistant Claude (Anthropic).
+            © Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.<br>
+            Code — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.
         </div>
     </div>
 
@@ -1473,7 +1473,7 @@ Thank you!
                                 ]
                             },
                             'cnc': {
-                                title: "Desktop CNC Machines", eq: '15000', mkt: '3500', perf: '4', staff: '2', q: 'Desktop CNC Modular Assembly Line', 
+                                title: "Desktop CNC Machines", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Desktop CNC Modular Assembly Line',
                                 c: [
                                     ['Aluminum frame chassis', 1, 300.0, 'https://www.alibaba.com/trade/search?SearchText=Aluminum%20frame%20chassis'],
                                     ['Stepper motors kit', 1, 150.0, 'https://www.alibaba.com/trade/search?SearchText=Stepper%20motors%20kit'],
@@ -1488,7 +1488,7 @@ Thank you!
                                 ]
                             },
                             'bakery': {
-                                title: "Commercial Bakery Line", eq: '16000', mkt: '6', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
+                                title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
                                 c: [
                                     ['Premium wheat flour (kg)', 0.6, 0.4, 'https://www.alibaba.com/trade/search?SearchText=Premium%20wheat%20flour'],
                                     ['Yeast and additives', 1, 0.05, 'https://www.alibaba.com/trade/search?SearchText=Yeast%20and%20additives'],
@@ -1713,9 +1713,7 @@ Thank you!
                                 detectedKey = 'instruments';
                             }
 
-                            const currentTopicKeyNow = document.getElementById('topic-selector-dropdown')?.value;
-
-                            if (detectedKey && detectedKey !== currentTopicKeyNow) {
+                            if (detectedKey) {
                                 // For a topic with classes keep the selected class if it belongs to this topic,
                                 // otherwise use the default class.
                                 const baseEntry = catalogDB[detectedKey];
@@ -1746,8 +1744,6 @@ Thank you!
                                     tbodyExp.innerHTML = '';
                                     data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
                                 }
-                            } else if (detectedKey) {
-                                if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             } else {
                                 if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
                             }
@@ -2011,9 +2007,6 @@ Thank you!
                             const queryInput = document.getElementById('equip-search-query');
                             let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Production Line";
                             const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
-
-                            const marketPrice = parseFloat(document.getElementById('market-price-input')?.value) || 0;
-
                             const perf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
                             const staff = parseFloat(document.getElementById('val-staff')?.value) || 1;
 
@@ -2071,7 +2064,6 @@ Thank you!
                                 cost: cost,
                                 perf: perf,
                                 staff: staff,
-                                market_price: marketPrice,
                                 components: currentComponents,
                                 expenses: currentExpenses,
                                 created_at: new Date().toISOString()
@@ -2124,7 +2116,7 @@ Thank you!
                             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = item.perf;
                             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
-                            const topicBenchmarkPrice = (item.market_price && item.market_price > 0) ? item.market_price : getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
+                            const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
                             if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = topicBenchmarkPrice;
 
                             const compList = (item.components && item.components.length > 0) ? item.components : (tplData.c || []).map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] }));
@@ -2480,8 +2472,7 @@ Thank you!
                                     const lineOtherCosts = getLineOtherCosts(line);
                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
-                                    const effectivePrice = (line.market_price && line.market_price > 0) ? line.market_price : topicBenchmarkPrice;
-                                    return Math.round(perf * (effectivePrice - unitCost) * 30);
+                                    return Math.round(perf * (topicBenchmarkPrice - unitCost) * 30);
                                 };
                                 items.sort((a, b) => computeMonthlyProfit(b.line) - computeMonthlyProfit(a.line));
 
