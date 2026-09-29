@@ -745,8 +745,8 @@
             const likedText = document.getElementById('fb-like').value.trim();
             const dislikedText = document.getElementById('fb-dislike').value.trim();
             const currentLang = localStorage.getItem('asuir_lang') || 'ru';
-            let subject = currentLang === 'ru' ? "Feedback from ASUIR Gemini (RU)" : "Feedback from ASUIR Gemini (EN)";
-            let emailBody = (currentLang === 'ru' ? "ОБРАТНАЯ СВЯЗЬ АСУИР GEMINI\n\n1. Что понравилось:\n" : "FEEDBACK ASUIR GEMINI\n\n1. What liked:\n") + (likedText || "N/A") + (currentLang === 'ru' ? "\n\n2. Что добавить или улучшить:\n" : "\n\n2. What to improve:\n") + dislikedText + "\n";
+            let subject = currentLang === 'ru' ? "Feedback from ASUIR(RU)" : "Feedback from ASUIR(EN)";
+            let emailBody = (currentLang === 'ru' ? "ОБРАТНАЯ СВЯЗЬ АСУИР\n\n1. Что понравилось:\n" : "FEEDBACK ASUIR\n\n1. What liked:\n") + (likedText || "N/A") + (currentLang === 'ru' ? "\n\n2. Что добавить или улучшить:\n" : "\n\n2. What to improve:\n") + dislikedText + "\n";
 
             window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
