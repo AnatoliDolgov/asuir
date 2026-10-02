@@ -719,6 +719,13 @@
                                 <option value="others">🔍 Чужие (Бенчмаркинг / Отбор)</option>
                                 <option value="all" selected>🌐 Все линии (Свои и чужие)</option>
                             </select>
+                            <label style="font-size:13px; font-weight:700; color:#1f4e78; margin-left:10px;">Страна:</label>
+                            <select id="listing-country-filter" class="input-field input-sm" style="width:200px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
+                                <option value="all" selected>Все страны</option>
+                                <option value="us">🇺🇸 США</option>
+                                <option value="eu">🇪🇺 Евросоюз</option>
+                                <option value="base">🌐 Без привязки</option>
+                            </select>
                         </div>
                     </div>
 
@@ -734,11 +741,12 @@
                                     <th>Персонал</th>
                                     <th>Базовая ЗП ($10,000)</th>
                                     <th>Доход предпринимателя</th>
+                                    <th title="Во сколько раз себестоимость своего производства ниже цены импорта с доставкой и пошлиной">Дешевле импорта</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
                             </thead>
                             <tbody id="client-matched-equipment-rows">
-                                <tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">Загрузка данных из облака Firebase...</td></tr>
+                                <tr><td colspan="10" style="text-align:center; color:#6c7a8a; padding:20px;">Загрузка данных из облака Firebase...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -814,6 +822,12 @@
                                             </select>
                                             <!-- КЛАСС ИЗДЕЛИЯ: показывается только у тем, где в catalogDB заданы classes -->
                                             <select id="class-selector-dropdown" class="input-field input-sm" style="width: 300px; font-weight:600; color:#c65911; display:none;" title="Класс изделия определяет список комплектующих, оборудование и рыночную цену" onchange="loadCatalogTemplate(document.getElementById('topic-selector-dropdown').value, this.value)"></select>
+                                            <!-- СТРАНА ПРОИЗВОДСТВА: задаёт стартовые ставку пошлины и доставки импорта для сравнения -->
+                                            <select id="country-selector" class="input-field input-sm" style="width: 200px; font-weight:600; color:#1f4e78;" title="Страна, где размещается производство: для сравнения с импортом" onchange="onCountryChange()">
+                                                <option value="base">🌐 Без привязки к стране</option>
+                                                <option value="us">🇺🇸 США</option>
+                                                <option value="eu">🇪🇺 Евросоюз</option>
+                                            </select>
                                             <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Каталог</button>
                                         </div>
                                     </td>
@@ -978,6 +992,22 @@
                                         $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
                                     </td>
                                 </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🚢</span> Доставка импортного аналога, % от цены</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="freight-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🛃</span> Пошлина на импорт, % (стартовое значение — проверьте действующую ставку)</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">📦</span> Цена импорта с доставкой и пошлиной (за 1 шт.)</span></td>
+                                    <td class="right" style="font-weight: 600; font-size: 15px;">$ <span id="import-landed">0.00</span></td>
+                                </tr>
+                                <tr style="background:#eef6ff; border-top: 2px solid #1f4e78;">
+                                    <td style="font-weight: 700; font-size: 15px; color:#1f4e78;"><span class="icon-text"><span class="ico">🏭</span> Своё производство дешевле импорта</span></td>
+                                    <td class="right" style="font-weight: 700; font-size: 16px; color:#1f4e78;"><span id="import-advantage">—</span></td>
+                                </tr>
                                 <tr>
                                     <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Необходимый суточный сбыт для окупаемости</span></td>
                                     <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> шт./день</td>
@@ -1007,6 +1037,12 @@
                                     <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
                                 </tr>
                             </table>
+                        </div>
+                        <!-- ПОЛНЫЙ РАСЧЁТ ЛИНИИ СИЛАМИ ИИ ДЛЯ ВЫБРАННОЙ СТРАНЫ -->
+                        <div class="info-hint" style="margin-top:8px;">
+                            <b>🤖 Полный расчёт с ИИ Claude (Anthropic) для вашей страны.</b> Скопируйте запрос, вставьте его в чат с Claude, подставив свою тему, класс изделия и страну. Claude сформирует линию с реальными ссылками и ценами и сравнит её с импортом. Это черновик: каждую позицию затем проверьте и при необходимости замените вручную.
+                            <textarea id="ai-prompt-text" rows="5" class="input-field" style="height:auto; font-size:12px; margin:10px 0 8px;" readonly>Зайди на asuir.org, открой АСУИР Gemini, выбери тему «Сборка часов», класс изделия «Автомат уровня Seiko» и страну производства «США». Сформируй для меня полную производственную линию: оборудование, оснастку и цеховые расходы, сырьё и комплектующие — с реальными ссылками на Alibaba и настоящими ценами, с арендой и электроэнергией по ценам США. Посчитай себестоимость одной единицы при зарплате $10 000 в месяц каждому рабочему, доход предпринимателя и сравни себестоимость с ценой импортного аналога с доставкой и действующей пошлиной США.</textarea>
+                            <button class="btn btn-primary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('ai-prompt-text').value); alert('Запрос скопирован!');">📋 Скопировать запрос</button>
                         </div>
                     </div>
 
@@ -1114,6 +1150,32 @@ Thank you!
                         // Класс изделия внутри темы (например, 'quartz' / 'automatic' у часов).
                         // null — у темы нет классов или загружена старая запись без класса.
                         let currentClassKey = null;
+                        // СТРАНА ПРОИЗВОДСТВА. Стартовые ставки — ориентиры для сравнения с импортом;
+                        // пошлины меняются часто, поэтому значение всегда можно поправить вручную.
+                        const COUNTRIES = {
+                            base: { label: 'Без привязки к стране', flag: '🌐', tariff: 0, freight: 0 },
+                            us:   { label: 'США',       flag: '🇺🇸', tariff: 20, freight: 10 },
+                            eu:   { label: 'Евросоюз',  flag: '🇪🇺', tariff: 5,  freight: 10 }
+                        };
+                        let currentCountry = 'base';
+                        window.onCountryChange = function () {
+                            const sel = document.getElementById('country-selector');
+                            currentCountry = (sel && COUNTRIES[sel.value]) ? sel.value : 'base';
+                            const c = COUNTRIES[currentCountry];
+                            if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = c.tariff;
+                            if (document.getElementById('freight-input')) document.getElementById('freight-input').value = c.freight;
+                            calculateAll();
+                        };
+                        // Цена импорта с доставкой и пошлиной по цене рынка и ставкам линии/страны.
+                        function importLandedPrice(marketPrice, freightPct, tariffPct) {
+                            return marketPrice * (1 + ((freightPct || 0) + (tariffPct || 0)) / 100);
+                        }
+                        function lineRates(line) {
+                            const c = COUNTRIES[line.country_key] || COUNTRIES.base;
+                            const t = (line.tariff != null && line.tariff !== '') ? parseFloat(line.tariff) : c.tariff;
+                            const f = (line.freight != null && line.freight !== '') ? parseFloat(line.freight) : c.freight;
+                            return { t: isNaN(t) ? 0 : t, f: isNaN(f) ? 0 : f };
+                        }
                         let isAdminMode = false;
                         // Если не null — «Сохранить» обновляет именно эту запись в базе,
                         // а не создаёт очередной дубликат производственной линии.
@@ -1994,6 +2056,20 @@ Thank you!
                             if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
                             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit.toLocaleString('ru-RU');
 
+                            // СРАВНЕНИЕ С ИМПОРТОМ: цена импорта с доставкой и пошлиной против своей себестоимости.
+                            const tariffPct = parseFloat(document.getElementById('tariff-input')?.value) || 0;
+                            const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
+                            const landed = importLandedPrice(market, freightPct, tariffPct);
+                            const landedNoTariff = importLandedPrice(market, freightPct, 0);
+                            if (document.getElementById('import-landed')) document.getElementById('import-landed').textContent = landed.toFixed(2);
+                            const advEl = document.getElementById('import-advantage');
+                            if (advEl) {
+                                if (totalCost > 0 && landed > 0) {
+                                    const r = landed / totalCost, r0 = landedNoTariff / totalCost;
+                                    advEl.textContent = (r >= 1 ? `в ${r.toFixed(1)} раза` : `дороже импорта (${r.toFixed(2)})`) + (tariffPct > 0 ? `  ·  без пошлины: в ${r0.toFixed(1)} раза` : '');
+                                } else advEl.textContent = '—';
+                            }
+
                             renderEquipmentListingGroupedByTopic(totalOtherCosts, salary);
                         };
 
@@ -2065,6 +2141,9 @@ Thank you!
                                 client_id: myClientId,
                                 topic_title: finalTopic,
                                 class_key: classKeyToSave,
+                                country_key: currentCountry,
+                                tariff: parseFloat(document.getElementById('tariff-input')?.value) || 0,
+                                freight: parseFloat(document.getElementById('freight-input')?.value) || 0,
                                 name: query,
                                 url: url,
                                 cost: cost,
@@ -2114,6 +2193,12 @@ Thank you!
                             const baseEntry = catalogDB[matchedCatalogKey];
                             currentClassKey = (item.class_key && baseEntry && baseEntry.classes && baseEntry.classes[item.class_key]) ? item.class_key : null;
                             populateClassSelector(matchedCatalogKey, currentClassKey);
+                            // Восстанавливаем страну и ставки сравнения с импортом.
+                            currentCountry = COUNTRIES[item.country_key] ? item.country_key : 'base';
+                            if (document.getElementById('country-selector')) document.getElementById('country-selector').value = currentCountry;
+                            { const r = lineRates(item);
+                              if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = r.t;
+                              if (document.getElementById('freight-input')) document.getElementById('freight-input').value = r.f; }
                             const tplData = resolveCatalogData(matchedCatalogKey, currentClassKey);
 
                             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
@@ -2403,6 +2488,9 @@ Thank you!
                                 if (filterMode === 'my') return isMine;
                                 if (filterMode === 'others') return !isMine;
                                 return true;
+                            }).filter(item => {
+                                const cf = document.getElementById('listing-country-filter')?.value || 'all';
+                                return cf === 'all' || (item.country_key || 'base') === cf;
                             });
 
                             const totalItems = filteredList.length;
@@ -2423,7 +2511,7 @@ Thank you!
                             renderPaginationButtons(totalPages, window.currentListingPage);
 
                             if (totalItems === 0) {
-                                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет записей для этого фильтра.</td></tr>`;
+                                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет записей для этого фильтра.</td></tr>`;
                                 return;
                             }
 
@@ -2439,9 +2527,10 @@ Thank you!
                                 const topicName = normalizeTopicTitle(item.topic_title);
                                 const catKey = findCatalogKeyByTitle(topicName);
                                 const validClass = (catKey && catalogDB[catKey].classes && item.class_key && catalogDB[catKey].classes[item.class_key]) ? item.class_key : null;
-                                const groupKey = topicName + '||' + (validClass || '');
+                                const countryKey = COUNTRIES[item.country_key] ? item.country_key : 'base';
+                                const groupKey = topicName + '||' + (validClass || '') + '||' + countryKey;
                                 if (!groupedByTopic[groupKey]) {
-                                    groupedByTopic[groupKey] = { topic: topicName, classKey: validClass, catKey: catKey, items: [] };
+                                    groupedByTopic[groupKey] = { topic: topicName, classKey: validClass, catKey: catKey, country: countryKey, items: [] };
                                 }
                                 groupedByTopic[groupKey].items.push({ line: item, lineIndexNumber: globalIndex });
                             });
@@ -2459,8 +2548,8 @@ Thank you!
                                 const headerTr = document.createElement('tr');
                                 headerTr.style.background = "#eef6ff";
                                 headerTr.innerHTML = `
-                                                <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                    📂 ТЕМА: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''} (Конкурентная цена = $${topicBenchmarkPrice.toFixed(2)}, Сырье = $${topicBenchmarkBom.toFixed(2)})
+                                                <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                                                    📂 ТЕМА: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].flag} ${COUNTRIES[group.country].label}` : ''} (Конкурентная цена = $${topicBenchmarkPrice.toFixed(2)}, Сырье = $${topicBenchmarkBom.toFixed(2)})
                                                 </td>
                                             `;
                                 container.appendChild(headerTr);
@@ -2476,7 +2565,16 @@ Thank you!
                                     const lineOtherCosts = getLineOtherCosts(line);
                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
+                                    line.$unitCost = unitCost;
                                     return Math.round(perf * (topicBenchmarkPrice - unitCost) * 30);
+                                };
+                                const importAdvantage = (line) => {
+                                    const r = lineRates(line);
+                                    const landed = importLandedPrice(topicBenchmarkPrice, r.f, r.t);
+                                    const uc = line.$unitCost;
+                                    if (!(uc > 0) || !(landed > 0)) return '—';
+                                    const k = landed / uc;
+                                    return k >= 1 ? `в ${k.toFixed(1)} раза` : 'дороже';
                                 };
                                 items.sort((a, b) => computeMonthlyProfit(b.line) - computeMonthlyProfit(a.line));
 
@@ -2510,6 +2608,7 @@ Thank you!
                                                     <td>${line.staff || 1} чел</td>
                                                     <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
                                                     <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                                                    <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                     ${adminDeleteCell}
                                                 `;
                                     container.appendChild(tr);
@@ -2542,7 +2641,7 @@ Thank you!
                                     subTr.style.display = 'none';
                                     subTr.style.background = '#f9fbfe';
                                     subTr.innerHTML = `
-                                                    <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
+                                                    <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
                                                         <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:6px;">
                                                             <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Загрузить производственную линию в калькулятор">
                                                                 📥 Загрузить производственную линию в калькулятор

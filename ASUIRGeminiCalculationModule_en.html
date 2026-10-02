@@ -718,6 +718,13 @@
                                 <option value="others">🔍 Others (Benchmarking / Selection)</option>
                                 <option value="all" selected>🌐 All lines (Mine & others)</option>
                             </select>
+                            <label style="font-size:13px; font-weight:700; color:#1f4e78; margin-left:10px;">Country:</label>
+                            <select id="listing-country-filter" class="input-field input-sm" style="width:200px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
+                                <option value="all" selected>All countries</option>
+                                <option value="us">🇺🇸 USA</option>
+                                <option value="eu">🇪🇺 European Union</option>
+                                <option value="base">🌐 No specific country</option>
+                            </select>
                         </div>
                     </div>
 
@@ -733,11 +740,12 @@
                                     <th>Staff</th>
                                     <th>Base Salary ($10,000)</th>
                                     <th>Entrepreneur Income</th>
+                                    <th title="How many times lower the domestic unit cost is than the landed import price incl. freight and tariff">Cheaper than imports</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
                             </thead>
                             <tbody id="client-matched-equipment-rows">
-                                <tr><td colspan="9" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
+                                <tr><td colspan="10" style="text-align:center; color:#6c7a8a; padding:20px;">Loading cloud database from Firebase...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -813,6 +821,12 @@
                                             </select>
                                             <!-- PRODUCT CLASS: shown only for topics that define classes in catalogDB -->
                                             <select id="class-selector-dropdown" class="input-field input-sm" style="width: 300px; font-weight:600; color:#c65911; display:none;" title="The product class defines the component list, equipment and market price" onchange="loadCatalogTemplate(document.getElementById('topic-selector-dropdown').value, this.value)"></select>
+                                            <!-- COUNTRY OF PRODUCTION: sets starting tariff and import freight rates for the comparison -->
+                                            <select id="country-selector" class="input-field input-sm" style="width: 200px; font-weight:600; color:#1f4e78;" title="Country where production is located: for the comparison with imports" onchange="onCountryChange()">
+                                                <option value="base">🌐 No specific country</option>
+                                                <option value="us">🇺🇸 USA</option>
+                                                <option value="eu">🇪🇺 European Union</option>
+                                            </select>
                                             <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Catalog</button>
                                         </div>
                                     </td>
@@ -977,6 +991,22 @@
                                         $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
                                     </td>
                                 </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🚢</span> Freight for the imported equivalent, % of price</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="freight-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🛃</span> Import tariff, % (starting value — check the current rate)</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">📦</span> Landed import price incl. freight and tariff (per unit)</span></td>
+                                    <td class="right" style="font-weight: 600; font-size: 15px;">$ <span id="import-landed">0.00</span></td>
+                                </tr>
+                                <tr style="background:#eef6ff; border-top: 2px solid #1f4e78;">
+                                    <td style="font-weight: 700; font-size: 15px; color:#1f4e78;"><span class="icon-text"><span class="ico">🏭</span> Domestic production is cheaper than imports</span></td>
+                                    <td class="right" style="font-weight: 700; font-size: 16px; color:#1f4e78;"><span id="import-advantage">—</span></td>
+                                </tr>
                                 <tr>
                                     <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Breakeven Volume</span></td>
                                     <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
@@ -1006,6 +1036,12 @@
                                     <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
                                 </tr>
                             </table>
+                        </div>
+                        <!-- FULL LINE CALCULATION BY AI FOR THE SELECTED COUNTRY -->
+                        <div class="info-hint" style="margin-top:8px;">
+                            <b>🤖 Full calculation with the AI assistant Claude (Anthropic) for your country.</b> Copy the request, paste it into a chat with Claude and put in your own topic, product class and country. Claude will form the line with real links and prices and compare it with imports. This is a draft: check every item afterwards and replace it by hand where needed.
+                            <textarea id="ai-prompt-text" rows="5" class="input-field" style="height:auto; font-size:12px; margin:10px 0 8px;" readonly>Go to asuir.org, open ASUIR Gemini, choose the topic "Watch Assembly", the product class "Seiko-level automatic" and the country of production "USA". Form a complete production line for me: equipment, tooling and facility expenses, raw materials and components, with real Alibaba links and actual prices, and with rent and electricity at US prices. Calculate the cost of one unit at a salary of $10,000 per month for each worker, the entrepreneur's income, and compare the unit cost with the landed price of the imported equivalent including freight and the current US tariff.</textarea>
+                            <button class="btn btn-primary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('ai-prompt-text').value); alert('Request copied!');">📋 Copy request</button>
                         </div>
                     </div>
 
@@ -1113,6 +1149,32 @@ Thank you!
                         // Product class within a topic (e.g. 'quartz' / 'automatic' for watches).
                         // null = the topic has no classes, or an older record without a class is loaded.
                         let currentClassKey = null;
+                        // COUNTRY OF PRODUCTION. Starting rates are estimates for the import comparison;
+                        // tariffs change often, so the value can always be edited by hand.
+                        const COUNTRIES = {
+                            base: { label: 'No specific country', flag: '🌐', tariff: 0, freight: 0 },
+                            us:   { label: 'USA',       flag: '🇺🇸', tariff: 20, freight: 10 },
+                            eu:   { label: 'European Union',  flag: '🇪🇺', tariff: 5,  freight: 10 }
+                        };
+                        let currentCountry = 'base';
+                        window.onCountryChange = function () {
+                            const sel = document.getElementById('country-selector');
+                            currentCountry = (sel && COUNTRIES[sel.value]) ? sel.value : 'base';
+                            const c = COUNTRIES[currentCountry];
+                            if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = c.tariff;
+                            if (document.getElementById('freight-input')) document.getElementById('freight-input').value = c.freight;
+                            calculateAll();
+                        };
+                        // Landed import price from the market price and the line/country rates.
+                        function importLandedPrice(marketPrice, freightPct, tariffPct) {
+                            return marketPrice * (1 + ((freightPct || 0) + (tariffPct || 0)) / 100);
+                        }
+                        function lineRates(line) {
+                            const c = COUNTRIES[line.country_key] || COUNTRIES.base;
+                            const t = (line.tariff != null && line.tariff !== '') ? parseFloat(line.tariff) : c.tariff;
+                            const f = (line.freight != null && line.freight !== '') ? parseFloat(line.freight) : c.freight;
+                            return { t: isNaN(t) ? 0 : t, f: isNaN(f) ? 0 : f };
+                        }
                         let isAdminMode = false;
                         // When not null, "Save" updates this exact record instead of creating
                         // another duplicate production line.
@@ -1989,6 +2051,20 @@ Thank you!
                             if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
                             if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit.toLocaleString('en-US');
 
+                            // IMPORT COMPARISON: landed import price vs. domestic unit cost.
+                            const tariffPct = parseFloat(document.getElementById('tariff-input')?.value) || 0;
+                            const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
+                            const landed = importLandedPrice(market, freightPct, tariffPct);
+                            const landedNoTariff = importLandedPrice(market, freightPct, 0);
+                            if (document.getElementById('import-landed')) document.getElementById('import-landed').textContent = landed.toFixed(2);
+                            const advEl = document.getElementById('import-advantage');
+                            if (advEl) {
+                                if (totalCost > 0 && landed > 0) {
+                                    const r = landed / totalCost, r0 = landedNoTariff / totalCost;
+                                    advEl.textContent = (r >= 1 ? `${r.toFixed(1)}× cheaper` : `more expensive than imports (${r.toFixed(2)})`) + (tariffPct > 0 ? `  ·  without tariff: ${r0.toFixed(1)}×` : '');
+                                } else advEl.textContent = '—';
+                            }
+
                             renderEquipmentListingGroupedByTopic(totalOtherCosts, salary);
                         };
 
@@ -2060,6 +2136,9 @@ Thank you!
                                 client_id: myClientId,
                                 topic_title: finalTopic,
                                 class_key: classKeyToSave,
+                                country_key: currentCountry,
+                                tariff: parseFloat(document.getElementById('tariff-input')?.value) || 0,
+                                freight: parseFloat(document.getElementById('freight-input')?.value) || 0,
                                 name: query,
                                 url: url,
                                 cost: cost,
@@ -2109,6 +2188,12 @@ Thank you!
                             const baseEntry = catalogDB[matchedCatalogKey];
                             currentClassKey = (item.class_key && baseEntry && baseEntry.classes && baseEntry.classes[item.class_key]) ? item.class_key : null;
                             populateClassSelector(matchedCatalogKey, currentClassKey);
+                            // Restore the country and the import comparison rates.
+                            currentCountry = COUNTRIES[item.country_key] ? item.country_key : 'base';
+                            if (document.getElementById('country-selector')) document.getElementById('country-selector').value = currentCountry;
+                            { const r = lineRates(item);
+                              if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = r.t;
+                              if (document.getElementById('freight-input')) document.getElementById('freight-input').value = r.f; }
                             const tplData = resolveCatalogData(matchedCatalogKey, currentClassKey);
 
                             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
@@ -2398,6 +2483,9 @@ Thank you!
                                 if (filterMode === 'my') return isMine;
                                 if (filterMode === 'others') return !isMine;
                                 return true;
+                            }).filter(item => {
+                                const cf = document.getElementById('listing-country-filter')?.value || 'all';
+                                return cf === 'all' || (item.country_key || 'base') === cf;
                             });
 
                             const totalItems = filteredList.length;
@@ -2418,7 +2506,7 @@ Thank you!
                             renderPaginationButtons(totalPages, window.currentListingPage);
 
                             if (totalItems === 0) {
-                                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="text-align:center; color:#6c7a8a; padding:20px;">No records found for this filter.</td></tr>`;
+                                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">No records found for this filter.</td></tr>`;
                                 return;
                             }
 
@@ -2434,9 +2522,10 @@ Thank you!
                                 const topicName = normalizeTopicTitle(item.topic_title);
                                 const catKey = findCatalogKeyByTitle(topicName);
                                 const validClass = (catKey && catalogDB[catKey].classes && item.class_key && catalogDB[catKey].classes[item.class_key]) ? item.class_key : null;
-                                const groupKey = topicName + '||' + (validClass || '');
+                                const countryKey = COUNTRIES[item.country_key] ? item.country_key : 'base';
+                                const groupKey = topicName + '||' + (validClass || '') + '||' + countryKey;
                                 if (!groupedByTopic[groupKey]) {
-                                    groupedByTopic[groupKey] = { topic: topicName, classKey: validClass, catKey: catKey, items: [] };
+                                    groupedByTopic[groupKey] = { topic: topicName, classKey: validClass, catKey: catKey, country: countryKey, items: [] };
                                 }
                                 groupedByTopic[groupKey].items.push({ line: item, lineIndexNumber: globalIndex });
                             });
@@ -2454,8 +2543,8 @@ Thank you!
                                 const headerTr = document.createElement('tr');
                                 headerTr.style.background = "#eef6ff";
                                 headerTr.innerHTML = `
-                                                    <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                        📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''} (Competitive Price = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
+                                                    <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
+                                                        📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].flag} ${COUNTRIES[group.country].label}` : ''} (Competitive Price = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
                                                     </td>
                                                 `;
                                 container.appendChild(headerTr);
@@ -2473,7 +2562,16 @@ Thank you!
                                     const lineOtherCosts = getLineOtherCosts(line);
                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
+                                    line.$unitCost = unitCost;
                                     return Math.round(perf * (topicBenchmarkPrice - unitCost) * 30);
+                                };
+                                const importAdvantage = (line) => {
+                                    const r = lineRates(line);
+                                    const landed = importLandedPrice(topicBenchmarkPrice, r.f, r.t);
+                                    const uc = line.$unitCost;
+                                    if (!(uc > 0) || !(landed > 0)) return '—';
+                                    const k = landed / uc;
+                                    return k >= 1 ? `${k.toFixed(1)}× cheaper` : 'more expensive';
                                 };
                                 items.sort((a, b) => computeMonthlyProfit(b.line) - computeMonthlyProfit(a.line));
 
@@ -2507,6 +2605,7 @@ Thank you!
                                                         <td>${line.staff || 1} staff</td>
                                                         <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
                                                         <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                                                    <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                         ${adminDeleteCell}
                                                     `;
                                     container.appendChild(tr);
@@ -2539,7 +2638,7 @@ Thank you!
                                     subTr.style.display = 'none';
                                     subTr.style.background = '#f9fbfe';
                                     subTr.innerHTML = `
-                                                        <td colspan="${(isAdminMode || filterMode === 'my') ? 9 : 8}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
+                                                        <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
                                                             <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:6px;">
                                                                 <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Load production line into calculator">
                                                                     📥 Load Production Line into Calculator
