@@ -966,6 +966,10 @@
                                     <td class="right">$ <span id="cost-raw">0.00</span></td>
                                 </tr>
                                 <tr>
+                                    <td><span class="icon-text"><span class="ico">🧩</span> <span style="font-weight: 400;">Tariff on imported components (per unit)</span></span></td>
+                                    <td class="right">$ <span id="cost-comp-duty">0.00</span></td>
+                                </tr>
+                                <tr>
                                     <td><span class="icon-text"><span class="ico">⚙️</span> <span style="font-weight: 400;">Equipment & Personnel Share (per 1 unit)</span></span></td>
                                     <td class="right">$ <span id="cost-equip-share">0.00</span></td>
                                 </tr>
@@ -998,6 +1002,10 @@
                                 <tr style="background:#f7f9fc;">
                                     <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🛃</span> Import tariff, % (starting value — check the current rate)</span></td>
                                     <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr style="background:#f7f9fc;">
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🧩</span> Tariff on imported components for your own line, % (starting value — check the rate)</span></td>
+                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="comp-tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
                                 </tr>
                                 <tr style="background:#f7f9fc;">
                                     <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">📦</span> Landed import price incl. freight and tariff (per unit)</span></td>
@@ -1152,9 +1160,9 @@ Thank you!
                         // COUNTRY OF PRODUCTION. Starting rates are estimates for the import comparison;
                         // tariffs change often, so the value can always be edited by hand.
                         const COUNTRIES = {
-                            base: { label: 'No specific country', flag: '🌐', tariff: 0, freight: 0 },
-                            us:   { label: 'USA',       flag: '🇺🇸', tariff: 20, freight: 10 },
-                            eu:   { label: 'European Union',  flag: '🇪🇺', tariff: 5,  freight: 10 }
+                            base: { label: 'No specific country', flag: '🌐', tariff: 0, freight: 0, compTariff: 0 },
+                            us:   { label: 'USA',       flag: '🇺🇸', tariff: 20, freight: 10, compTariff: 20 },
+                            eu:   { label: 'European Union',  flag: '🇪🇺', tariff: 5,  freight: 10, compTariff: 3 }
                         };
                         let currentCountry = 'base';
                         window.onCountryChange = function () {
@@ -1163,6 +1171,7 @@ Thank you!
                             const c = COUNTRIES[currentCountry];
                             if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = c.tariff;
                             if (document.getElementById('freight-input')) document.getElementById('freight-input').value = c.freight;
+                            if (document.getElementById('comp-tariff-input')) document.getElementById('comp-tariff-input').value = c.compTariff;
                             calculateAll();
                         };
                         // Landed import price from the market price and the line/country rates.
@@ -1173,7 +1182,8 @@ Thank you!
                             const c = COUNTRIES[line.country_key] || COUNTRIES.base;
                             const t = (line.tariff != null && line.tariff !== '') ? parseFloat(line.tariff) : c.tariff;
                             const f = (line.freight != null && line.freight !== '') ? parseFloat(line.freight) : c.freight;
-                            return { t: isNaN(t) ? 0 : t, f: isNaN(f) ? 0 : f };
+                            const ct = (line.comp_tariff != null && line.comp_tariff !== '') ? parseFloat(line.comp_tariff) : (c.compTariff || 0);
+                            return { t: isNaN(t) ? 0 : t, f: isNaN(f) ? 0 : f, ct: isNaN(ct) ? 0 : ct };
                         }
                         let isAdminMode = false;
                         // When not null, "Save" updates this exact record instead of creating
@@ -2010,6 +2020,11 @@ Thank you!
 
                             const totalFixedPerDay = overhead + totalOtherCosts;
 
+                            // Tariff on imported components: applied to the raw material and component cost of your own line.
+                            const compTariffPct = parseFloat(document.getElementById('comp-tariff-input')?.value) || 0;
+                            const compDuty = rawCost * compTariffPct / 100;
+                            const rawCostRaw = rawCost;
+                            rawCost = rawCost + compDuty;
                             const unitMargin = market - rawCost;
                             const reqPerf = unitMargin > 0 ? Math.ceil(totalFixedPerDay / unitMargin) : Infinity;
                             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = (reqPerf === Infinity) ? '∞' : reqPerf;
@@ -2019,7 +2034,8 @@ Thank you!
                             const otherShare = actualPerf > 0 ? totalOtherCosts / actualPerf : 0;
                             const totalCost = rawCost + machineShare + otherShare;
 
-                            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCost.toFixed(2);
+                            if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCostRaw.toFixed(2);
+                            if (document.getElementById('cost-comp-duty')) document.getElementById('cost-comp-duty').textContent = compDuty.toFixed(2);
                             if (document.getElementById('cost-equip-share')) document.getElementById('cost-equip-share').textContent = machineShare.toFixed(2);
                             if (document.getElementById('cost-other-share')) document.getElementById('cost-other-share').textContent = otherShare.toFixed(2);
                             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
@@ -2139,6 +2155,7 @@ Thank you!
                                 country_key: currentCountry,
                                 tariff: parseFloat(document.getElementById('tariff-input')?.value) || 0,
                                 freight: parseFloat(document.getElementById('freight-input')?.value) || 0,
+                                comp_tariff: parseFloat(document.getElementById('comp-tariff-input')?.value) || 0,
                                 name: query,
                                 url: url,
                                 cost: cost,
@@ -2193,7 +2210,8 @@ Thank you!
                             if (document.getElementById('country-selector')) document.getElementById('country-selector').value = currentCountry;
                             { const r = lineRates(item);
                               if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = r.t;
-                              if (document.getElementById('freight-input')) document.getElementById('freight-input').value = r.f; }
+                              if (document.getElementById('freight-input')) document.getElementById('freight-input').value = r.f;
+                              if (document.getElementById('comp-tariff-input')) document.getElementById('comp-tariff-input').value = r.ct; }
                             const tplData = resolveCatalogData(matchedCatalogKey, currentClassKey);
 
                             if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = item.name;
@@ -2558,7 +2576,7 @@ Thank you!
                                     const perf = parseFloat(line.perf) || 1;
                                     const dailyAmort = (parseFloat(line.cost) || 0) / 5 / 365;
                                     const compList = (line.components && line.components.length > 0) ? line.components : [];
-                                    const lineBomTotal = compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom;
+                                    const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
                                     const lineOtherCosts = getLineOtherCosts(line);
                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
