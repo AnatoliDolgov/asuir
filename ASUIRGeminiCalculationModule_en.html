@@ -990,7 +990,7 @@
                         <div class="table-responsive">
                             <table class="section-results">
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Minimum Competitive Sales Price (per 1 unit)</span></td>
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Sales price = foreign manufacturer's export price for the equivalent (FOB): excluding freight and tariff, per unit</span><br><span style="font-size:12px; color:#6c7a8a;">In this calculation our line sells at the same price — a conservative estimate: the importer in the destination country pays freight and tariff on top of it.</span></td>
                                     <td class="right" style="font-weight: 400; font-size: 15px;">
                                         $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
                                     </td>
@@ -1008,7 +1008,7 @@
                                     <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="comp-tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
                                 </tr>
                                 <tr style="background:#f7f9fc;">
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">📦</span> Landed import price incl. freight and tariff (per unit)</span></td>
+                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">📦</span> Price paid by the importer: FOB + freight + tariff (per unit)</span></td>
                                     <td class="right" style="font-weight: 600; font-size: 15px;">$ <span id="import-landed">0.00</span></td>
                                 </tr>
                                 <tr style="background:#eef6ff; border-top: 2px solid #1f4e78;">
@@ -2562,7 +2562,7 @@ Thank you!
                                 headerTr.style.background = "#eef6ff";
                                 headerTr.innerHTML = `
                                                     <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                        📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].flag} ${COUNTRIES[group.country].label}` : ''} (Competitive Price = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
+                                                        📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].flag} ${COUNTRIES[group.country].label}` : ''} (Equivalent export price, FOB = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
                                                     </td>
                                                 `;
                                 container.appendChild(headerTr);
