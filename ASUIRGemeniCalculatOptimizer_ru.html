@@ -2196,6 +2196,65 @@ Thank you!
                             }
                         };
 
+                        // ======================================================
+                        // ЭТАЛОННЫЙ ПРИМЕР В ЛИСТИНГЕ: сборка часов (автомат уровня Seiko) — общий случай, Евросоюз, США
+                        // ======================================================
+                        const REF_TOPIC = 'watch', REF_CLASS = 'automatic', REF_COUNTRIES = ['base', 'eu', 'us'];
+                        function buildReferenceLines() {
+                            const d = resolveCatalogData(REF_TOPIC, REF_CLASS);
+                            return REF_COUNTRIES.map(cc => ({
+                                id: 'ref-' + cc, cc: cc,
+                                name: d.q,
+                                url: `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(d.q)}`,
+                                cost: parseFloat(d.eq), perf: parseFloat(d.perf), staff: parseFloat(d.staff),
+                                components: d.c.map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] })),
+                                expenses: d.exp.map(e => ({ name: e[0], qty: e[1], price: e[2], url: e[3] })),
+                                topic_title: d.title, class_key: REF_CLASS, country_key: cc
+                            }));
+                        }
+                        function referenceEconomics(line, baseSalary) {
+                            const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
+                            const r = lineRates(line);
+                            const bom = line.components.reduce((s, c) => s + c.qty * c.price, 0) * (1 + r.ct / 100);
+                            const daily = line.cost / 5 / 365 + (baseSalary * line.staff) / 30 + getLineOtherCosts(line);
+                            const unit = bom + daily / line.perf;
+                            const profit = Math.round(line.perf * (price - unit) * 30);
+                            const k = importLandedPrice(price, r.f, r.t) / unit;
+                            return { unit, profit, k };
+                        }
+                        function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
+                            const head = document.createElement('tr');
+                            head.style.background = '#fff6e0';
+                            head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 ЭТАЛОННЫЙ ПРИМЕР: СБОРКА ЧАСОВ (АВТОМАТ УРОВНЯ SEIKO) — общий случай, Евросоюз и США, стартовые ставки доставки и пошлин</td>`;
+                            container.appendChild(head);
+                            buildReferenceLines().forEach(line => {
+                                const e = referenceEconomics(line, baseSalary);
+                                const c = COUNTRIES[line.cc];
+                                const tr = document.createElement('tr');
+                                tr.style.background = '#fffbf0';
+                                tr.innerHTML = `
+                                    <td style="text-align:center; font-weight:700; color:#8a5a00;">📌</td>
+                                    <td style="padding-left:12px;"><b>${line.name}</b> — ${c.flag} ${c.label}<br>
+                                        <button class="btn-bom-toggle" onclick="openReferenceLine('${line.cc}')">📥 Открыть в генераторе производств</button></td>
+                                    <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                                    <td>$${Number(line.cost).toLocaleString()}</td>
+                                    <td>${line.perf} шт/день</td>
+                                    <td>${line.staff} чел</td>
+                                    <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
+                                    <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                                    <td style="font-weight:600; color:#007600;">${e.k >= 1 ? `в ${e.k.toFixed(1)} раза` : 'дороже'}</td>
+                                    ${showAdminCol ? '<td></td>' : ''}`;
+                                container.appendChild(tr);
+                            });
+                        }
+                        window.openReferenceLine = function (cc) {
+                            loadCatalogTemplate(REF_TOPIC, REF_CLASS);
+                            const sel = document.getElementById('country-selector');
+                            if (sel) sel.value = COUNTRIES[cc] ? cc : 'base';
+                            onCountryChange();
+                            switchMainTab('main-tab-2');
+                        };
+
                         window.loadLineIntoWorkspace = function (itemId) {
                             const item = savedEquipmentList.find(x => x.id === itemId);
                             if (!item) return;
@@ -2243,7 +2302,7 @@ Thank you!
                             }
 
                             calculateAll();
-                            alert(`✅ Линия "${item.name}", оснастка и BOM загружены в калькулятор!`);
+                            alert(`✅ Линия "${item.name}", оснастка и BOM загружены в генератор производств!`);
 
                             switchMainTab('main-tab-2');
                             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.remove('active'));
@@ -2491,7 +2550,7 @@ Thank you!
                         }
 
                         // currentOtherCosts больше не используется: раньше доход ВСЕХ линий в листинге
-                        // считался с цеховыми расходами той линии, что открыта в калькуляторе.
+                        // считался с цеховыми расходами той линии, что открыта в генераторе производств.
                         // Теперь каждая линия считается со своими расходами (getLineOtherCosts).
                         function renderEquipmentListingGroupedByTopic(currentOtherCosts, baseSalary) {
                             const container = document.getElementById('client-matched-equipment-rows');
@@ -2499,6 +2558,8 @@ Thank you!
                             container.innerHTML = '';
 
                             const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
+                            // Эталонный пример всегда закреплён вверху листинга, независимо от фильтров.
+                            renderReferenceBlock(container, baseSalary, (isAdminMode || filterMode === 'my') ? 10 : 9, (isAdminMode || filterMode === 'my'));
 
                             const filteredList = savedEquipmentList.filter(item => {
                                 const itemOwner = item.client_id || "SYSTEM";
@@ -2529,7 +2590,7 @@ Thank you!
                             renderPaginationButtons(totalPages, window.currentListingPage);
 
                             if (totalItems === 0) {
-                                container.innerHTML = `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет записей для этого фильтра.</td></tr>`;
+                                container.insertAdjacentHTML('beforeend', `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">В базе пока нет записей для этого фильтра.</td></tr>`);
                                 return;
                             }
 
@@ -2661,8 +2722,8 @@ Thank you!
                                     subTr.innerHTML = `
                                                     <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
                                                         <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:6px;">
-                                                            <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Загрузить производственную линию в калькулятор">
-                                                                📥 Загрузить производственную линию в калькулятор
+                                                            <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Загрузить производственную линию в генератор производств">
+                                                                📥 Загрузить производственную линию в генератор производств
                                                             </button>
                                                         </div>
                                                         <table class="sub-bom-table">
