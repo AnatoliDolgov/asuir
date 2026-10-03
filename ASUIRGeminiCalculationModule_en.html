@@ -652,7 +652,7 @@
         <div class="top-utility-bar">
             <!-- ADMIN CONTROLS CONTAINER -->
             <div class="admin-controls-container">
-                <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()">Admin Mode</button>
+                <button class="admin-toggle-btn" id="admin-mode-toggle-btn" onclick="toggleAdminMode()">🏭 Create your production line</button>
                 <div id="admin-client-box" style="display: none;">
                     <div class="client-id-badge" onclick="editClientIdentifier()" title="Change Client ID">
                         🆔 Client ID: <span id="client-id-display">CL-XXXXXX</span> ✏️
@@ -728,7 +728,7 @@
                         </div>
                     </div>
 
-                    <div class="info-hint" style="margin-bottom:12px;"><b>How to read the column "Cost of a product made domestically with ASUIR and imported".</b> "Made domestically" — what one unit costs the manufacturer on a line created with ASUIR: parts, workers’ wages of $10,000 a month, equipment, workshop rent. "Imported" — what the same product costs the buyer when imported: Chinese factory price + shipping + tariff.</div>
+                    <div class="info-hint" style="margin-bottom:12px;"><b>How to read this column:</b> what one product made in the country on an ASUIR line costs, and what the same product imported from China costs.</div>
                     <div class="table-responsive">
                         <table class="components-table" style="width:100%;">
                             <thead>
@@ -776,12 +776,12 @@
         <div class="main-tab-content-panel" id="main-tab-2">
             <!-- ADMIN LOCK BANNER -->
             <div id="upload-admin-locked" class="admin-lock-banner">
-                <div style="font-size: 46px; margin-bottom: 12px;">🔒</div>
-                <h3 style="color: #1f4e78; font-size: 19px; margin-bottom: 10px;">Line entry is restricted</h3>
+                <div style="font-size: 46px; margin-bottom: 12px;">🏭</div>
+                <h3 style="color: #1f4e78; font-size: 19px; margin-bottom: 10px;">Create your own production line</h3>
                 <p style="color: #4a5568; font-size: 14px; max-width: 520px; margin: 0 auto 20px; line-height: 1.6;">
-                    To unlock the ability to configure and upload a new production line, please activate <b>«Admin Mode»</b>.
+                    Press the button below to open the Production Generator.
                 </p>
-                <button class="btn btn-primary" onclick="toggleAdminMode()">🔑 Activate Admin Mode</button>
+                <button class="btn btn-primary" onclick="toggleAdminMode()">🏭 Create your production line</button>
             </div>
 
             <!-- WORKSPACE CALCULATOR (VISIBLE ONLY IN ADMIN MODE) -->
@@ -1186,12 +1186,14 @@ Thank you!
                                 : `${where}more expensive than ${imported ? 'imports from China' : 'the Chinese factory price'}`;
                             return `<div style="font-size:20px; font-weight:700; color:#1f4e78;">${head}</div>` +
                                 `<div style="font-size:16px; font-weight:600; margin-top:4px;">Our product: $${unit.toFixed(2)} — ${imported ? 'imported' : 'Chinese factory'}: $${landed.toFixed(2)}</div>` +
-                                `<div style="font-size:13px; color:#4a5568; margin-top:6px;">"${productName}". Ours — a line created with ASUIR: parts, workers' wages of $10,000 a month, equipment, workshop rent. ` +
+                                `<div style="font-size:13px; color:#4a5568; margin-top:6px;">"${productName}". Ours — made on an ASUIR line with workers paid $10,000 a month. ` +
                                 (imported ? `Imported — Chinese factory price $${price.toFixed(2)} + shipping $${fr.toFixed(2)} + tariff $${tr.toFixed(2)}.` : `No shipping or tariff.`) + `</div>`;
                         }
                         function plainImportCell(unit, price, r) {
                             const fr = price * r.f / 100, tr = price * r.t / 100, landed = price + fr + tr, k = landed / unit;
-                            return `Made domestically: <b>$${unit.toFixed(2)}</b><br>Imported: <b>$${landed.toFixed(2)}</b>` + (landed > price ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">factory $${price.toFixed(0)} + shipping $${fr.toFixed(0)} + tariff $${tr.toFixed(0)}</span>` : `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">Chinese factory price</span>`) + `<br>${k >= 1 ? k.toFixed(1) + ' times less' : 'more expensive'}`;
+                            return `Made domestically: <b>$${unit.toFixed(2)}</b><br>` +
+                                `${k >= 1 ? k.toFixed(1) + ' times cheaper than' : 'more expensive than'} the imported Chinese equivalent: <b>$${landed.toFixed(2)}</b>` +
+                                (landed > price ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">equivalent: factory $${price.toFixed(0)} + shipping $${fr.toFixed(0)} + tariff $${tr.toFixed(0)}</span>` : `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">equivalent: Chinese factory price</span>`);
                         }
                         function importLandedPrice(marketPrice, freightPct, tariffPct) {
                             return marketPrice * (1 + ((freightPct || 0) + (tariffPct || 0)) / 100);
@@ -2261,6 +2263,7 @@ Thank you!
                             });
                         }
                         window.openReferenceLine = function (cc) {
+                            if (!isAdminMode) toggleAdminMode(); // open the Production Generator right away
                             loadCatalogTemplate(REF_TOPIC, REF_CLASS);
                             const sel = document.getElementById('country-selector');
                             if (sel) sel.value = COUNTRIES[cc] ? cc : 'base';
@@ -2272,6 +2275,7 @@ Thank you!
                             const item = savedEquipmentList.find(x => x.id === itemId);
                             if (!item) return;
 
+                            if (!isAdminMode) toggleAdminMode(); // open the Production Generator right away
                             currentEditingItemId = itemId;
                             currentTopicTitle = item.topic_title || "Drones & Radioelectronics";
                             let matchedCatalogKey = findCatalogKeyByTitle(currentTopicTitle) || 'drone';
@@ -2340,19 +2344,19 @@ Thank you!
                         window.toggleAdminMode = function () {
                             if (isAdminMode) {
                                 isAdminMode = false;
-                                document.getElementById('admin-mode-toggle-btn').innerText = "Admin Mode";
+                                document.getElementById('admin-mode-toggle-btn').innerText = "🏭 Create your production line";
                                 document.getElementById('admin-mode-toggle-btn').style.background = "transparent";
                                 document.getElementById('admin-mode-toggle-btn').style.color = "#e91e63";
                                 document.getElementById('admin-col-header').style.display = "none";
                                 document.getElementById('admin-client-box').style.display = "none";
                                 updateAdminLockUI();
-                                alert("🔒 Admin mode deactivated.");
+                                alert("Production Generator closed.");
                                 calculateAll();
                                 return;
                             }
 
                             isAdminMode = true;
-                            document.getElementById('admin-mode-toggle-btn').innerText = "✅ Admin Active";
+                            document.getElementById('admin-mode-toggle-btn').innerText = "✅ Production Generator open";
                             document.getElementById('admin-mode-toggle-btn').style.background = "#007600";
                             document.getElementById('admin-mode-toggle-btn').style.color = "#ffffff";
                             document.getElementById('admin-col-header').style.display = "table-cell";
