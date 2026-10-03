@@ -715,9 +715,9 @@
                         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                             <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Фильтр базы оборудования:</label>
                             <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
-                                <option value="my">👤 Только мои производственные линии</option>
-                                <option value="others">🔍 Чужие (Бенчмаркинг / Отбор)</option>
-                                <option value="all" selected>🌐 Все линии (Свои и чужие)</option>
+                                <option value="all" selected>🌐 Все производственные линии</option>
+                                <option value="my">👤 Свои производственные линии</option>
+                                <option value="others">🔍 Чужие производственные линии</option>
                             </select>
                             <label style="font-size:13px; font-weight:700; color:#1f4e78; margin-left:10px;">Страна:</label>
                             <select id="listing-country-filter" class="input-field input-sm" style="width:200px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
@@ -729,20 +729,20 @@
                         </div>
                     </div>
 
-                    <div class="info-hint" style="margin-bottom:12px;"><b>Как читать столбец «Одно изделие: наше против ввезённого из Китая».</b> Все цифры относятся к производственным линиям, созданным с помощью АСУИР. <b>«Наше»</b> — во сколько одно изделие обходится производителю на такой линии: детали, зарплата рабочих по $10 000 в месяц, оборудование, аренда цеха. <b>«Из Китая»</b> — во сколько такое же изделие обходится покупателю при ввозе: цена китайского завода + доставка + пошлина.</div>
+                    <div class="info-hint" style="margin-bottom:12px;"><b>Как читать столбец «Стоимость изделия, изготовленного внутри страны с помощью АСУИР, и импортируемого».</b> «Изготовленного внутри страны» — во сколько одно изделие обходится производителю на линии, созданной с помощью АСУИР: детали, зарплата рабочих по $10 000 в месяц, оборудование, аренда цеха. «Импортируемого» — во сколько такое же изделие обходится покупателю при ввозе: цена китайского завода + доставка + пошлина.</div>
                     <div class="table-responsive">
                         <table class="components-table" style="width:100%;">
                             <thead>
                                 <tr>
                                     <th style="width:45px; text-align:center;">#</th>
-                                    <th>Тип линии</th>
+                                    <th>Производственная линия</th>
                                     <th>Ссылка</th>
                                     <th>Стоимость оборудования</th>
-                                    <th>Производительность</th>
-                                    <th>Персонал</th>
-                                    <th>Базовая ЗП ($10,000)</th>
+                                    <th>Производительность оборудования</th>
+                                    <th>Количество персонала</th>
+                                    <th>Зарплата</th>
                                     <th>Доход предпринимателя</th>
-                                    <th>Одно изделие: наше против ввезённого из Китая</th>
+                                    <th>Стоимость изделия, изготовленного внутри страны с помощью АСУИР, и импортируемого</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
                             </thead>
@@ -1193,7 +1193,7 @@ Thank you!
                         }
                         function plainImportCell(unit, price, r) {
                             const fr = price * r.f / 100, tr = price * r.t / 100, landed = price + fr + tr, k = landed / unit;
-                            return `Наше: <b>$${unit.toFixed(2)}</b><br>Из Китая: <b>$${landed.toFixed(2)}</b>` + (landed > price ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">завод $${price.toFixed(0)} + доставка $${fr.toFixed(0)} + пошлина $${tr.toFixed(0)}</span>` : `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">цена китайского завода</span>`) + `<br>${k >= 1 ? 'в ' + k.toFixed(1) + ' раза дешевле' : 'дороже'}`;
+                            return `Изготовленного внутри страны: <b>$${unit.toFixed(2)}</b><br>Импортируемого: <b>$${landed.toFixed(2)}</b>` + (landed > price ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">завод $${price.toFixed(0)} + доставка $${fr.toFixed(0)} + пошлина $${tr.toFixed(0)}</span>` : `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">цена китайского завода</span>`) + `<br>${k >= 1 ? 'в ' + k.toFixed(1) + ' раза дешевле' : 'дороже'}`;
                         }
                         function importLandedPrice(marketPrice, freightPct, tariffPct) {
                             return marketPrice * (1 + ((freightPct || 0) + (tariffPct || 0)) / 100);

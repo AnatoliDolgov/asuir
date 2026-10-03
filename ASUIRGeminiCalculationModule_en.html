@@ -714,9 +714,9 @@
                         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                             <label style="font-size:13px; font-weight:700; color:#1f4e78;">👁️ Equipment Database Filter:</label>
                             <select id="listing-filter-mode" class="input-field input-sm" style="width:260px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
-                                <option value="my">👤 My production lines only</option>
-                                <option value="others">🔍 Others (Benchmarking / Selection)</option>
-                                <option value="all" selected>🌐 All lines (Mine & others)</option>
+                                <option value="all" selected>🌐 All production lines</option>
+                                <option value="my">👤 My production lines</option>
+                                <option value="others">🔍 Other users' production lines</option>
                             </select>
                             <label style="font-size:13px; font-weight:700; color:#1f4e78; margin-left:10px;">Country:</label>
                             <select id="listing-country-filter" class="input-field input-sm" style="width:200px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
@@ -728,20 +728,20 @@
                         </div>
                     </div>
 
-                    <div class="info-hint" style="margin-bottom:12px;"><b>How to read the column "One unit: ours vs. imported from China".</b> All figures refer to production lines created with ASUIR. <b>"Ours"</b> — what one unit costs the manufacturer on such a line: parts, workers’ wages of $10,000 a month, equipment, workshop rent. <b>"From China"</b> — what the same product costs the buyer when imported: Chinese factory price + shipping + tariff.</div>
+                    <div class="info-hint" style="margin-bottom:12px;"><b>How to read the column "Cost of a product made domestically with ASUIR and imported".</b> "Made domestically" — what one unit costs the manufacturer on a line created with ASUIR: parts, workers’ wages of $10,000 a month, equipment, workshop rent. "Imported" — what the same product costs the buyer when imported: Chinese factory price + shipping + tariff.</div>
                     <div class="table-responsive">
                         <table class="components-table" style="width:100%;">
                             <thead>
                                 <tr>
                                     <th style="width:45px; text-align:center;">#</th>
-                                    <th>Line Type</th>
+                                    <th>Production line</th>
                                     <th>Link</th>
                                     <th>Equipment Cost</th>
-                                    <th>Performance</th>
-                                    <th>Staff</th>
-                                    <th>Base Salary ($10,000)</th>
+                                    <th>Equipment capacity</th>
+                                    <th>Number of staff</th>
+                                    <th>Salary</th>
                                     <th>Entrepreneur Income</th>
-                                    <th>One unit: ours vs. imported from China</th>
+                                    <th>Cost of a product made domestically with ASUIR and imported</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
                             </thead>
@@ -1191,7 +1191,7 @@ Thank you!
                         }
                         function plainImportCell(unit, price, r) {
                             const fr = price * r.f / 100, tr = price * r.t / 100, landed = price + fr + tr, k = landed / unit;
-                            return `Ours: <b>$${unit.toFixed(2)}</b><br>From China: <b>$${landed.toFixed(2)}</b>` + (landed > price ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">factory $${price.toFixed(0)} + shipping $${fr.toFixed(0)} + tariff $${tr.toFixed(0)}</span>` : `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">Chinese factory price</span>`) + `<br>${k >= 1 ? k.toFixed(1) + ' times less' : 'more expensive'}`;
+                            return `Made domestically: <b>$${unit.toFixed(2)}</b><br>Imported: <b>$${landed.toFixed(2)}</b>` + (landed > price ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">factory $${price.toFixed(0)} + shipping $${fr.toFixed(0)} + tariff $${tr.toFixed(0)}</span>` : `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">Chinese factory price</span>`) + `<br>${k >= 1 ? k.toFixed(1) + ' times less' : 'more expensive'}`;
                         }
                         function importLandedPrice(marketPrice, freightPct, tariffPct) {
                             return marketPrice * (1 + ((freightPct || 0) + (tariffPct || 0)) / 100);
