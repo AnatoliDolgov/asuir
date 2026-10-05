@@ -1138,6 +1138,7 @@ Thank you!
     <script type="module">
                         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
                         import { getDatabase, ref, push, update, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+                        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
                         const firebaseConfig = {
                             apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
@@ -1151,6 +1152,21 @@ Thank you!
 
                         const app = initializeApp(firebaseConfig);
                         const db = getDatabase(app);
+                        // АНОНИМНЫЙ ВХОД FIREBASE: каждый браузер автоматически получает постоянный номер (uid). Правила базы разрешают менять и удалять линию только её владельцу.
+                        const auth = getAuth(app);
+                        let myUid = null;
+                        onAuthStateChanged(auth, (user) => {
+                            myUid = user ? user.uid : null;
+                            if (typeof window.calculateAll === 'function') window.calculateAll();
+                        });
+                        signInAnonymously(auth).catch(err => console.error('Anonymous sign-in failed:', err));
+                        // Своя линия: новые записи — по владельцу (owner_uid), старые — по Client ID, как раньше.
+                        function isLineMine(item) {
+                            return item.owner_uid ? (item.owner_uid === myUid) : ((item.client_id || 'SYSTEM') === myClientId);
+                        }
+                        function canDeleteLine(item) {
+                            return !!(item.owner_uid && myUid && item.owner_uid === myUid);
+                        }
                         const equipmentDbRef = ref(db, 'equipment_listing');
 
                         let savedEquipmentList = [];
@@ -2192,7 +2208,14 @@ Thank you!
                                 created_at: new Date().toISOString()
                             };
 
-                            if (currentEditingItemId) {
+                            if (!myUid) {
+                                alert("Нет соединения с базой. Подождите несколько секунд и нажмите ещё раз.");
+                                return;
+                            }
+                            newItem.owner_uid = myUid;
+                            // Обновляем запись, только если она своя; чужую или старую запись без владельца сохраняем как новую линию.
+                            const existingLine = currentEditingItemId ? savedEquipmentList.find(x => x.id === currentEditingItemId) : null;
+                            if (existingLine && existingLine.owner_uid === myUid) {
                                 update(ref(db, 'equipment_listing/' + currentEditingItemId), newItem)
                                     .then(() => alert(`✅ Линия "${query}" обновлена (перезаписана та же запись в листинге, дубликат не создан).`))
                                     .catch(err => alert(`❌ Ошибка обновления: ` + err.message));
@@ -2335,12 +2358,12 @@ Thank you!
                         };
 
                         window.deleteItemFromLiveDatabase = function (id, name, itemClientId) {
-                            const isMine = (itemClientId === myClientId);
-                            if (!isMine) {
-                                alert("🔒 Вы можете удалять только свои собственные линии!");
+                            const item = savedEquipmentList.find(x => x.id === id);
+                            if (!item || !canDeleteLine(item)) {
+                                alert("🔒 Удалять можно только свои линии, созданные в этом браузере. Старые записи без владельца удаляются через консоль Firebase.");
                                 return;
                             }
-                            if (confirm(`🗑️ Удалить станок "${name}" из базы?`)) {
+                            if (confirm(`🗑️ Удалить линию "${name}" из базы?`)) {
                                 remove(ref(db, `equipment_listing/${id}`))
                                     .then(() => alert(`✅ Запись удалена из базы.`))
                                     .catch(err => alert(`❌ Ошибка: ` + err.message));
@@ -2586,7 +2609,7 @@ Thank you!
 
                             const filteredList = savedEquipmentList.filter(item => {
                                 const itemOwner = item.client_id || "SYSTEM";
-                                const isMine = (itemOwner === myClientId);
+                                const isMine = isLineMine(item);
                                 if (filterMode === 'my') return isMine;
                                 if (filterMode === 'others') return !isMine;
                                 return true;
@@ -2684,10 +2707,10 @@ Thank you!
                                     const monthlyProfit = computeMonthlyProfit(line);
 
                                     const itemOwner = line.client_id || "SYSTEM";
-                                    const isMine = (itemOwner === myClientId);
+                                    const isMine = isLineMine(line);
 
                                     const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Моё</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
-                                    const showDeleteBtn = isMine;
+                                    const showDeleteBtn = canDeleteLine(line);
                                     const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                                                     <td style="text-align:center;">
                                                         ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Удалить запись">🗑️</button>` : ''}
