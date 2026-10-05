@@ -1,0 +1,2798 @@
+{
+ "equipment_listing": {
+  "demo_drone": {
+   "client_id": "SYSTEM",
+   "topic_title": "Дроны и Радиоэлектроника",
+   "name": "Компактная ESD-линия сборки дронов",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D0%BA%D1%82%D0%BD%D0%B0%D1%8F%20ESD-%D0%BB%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%B4%D1%80%D0%BE%D0%BD%D0%BE%D0%B2",
+   "cost": 25000.0,
+   "perf": 20.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Карбоновая рама 10\" (T700 Carbon Kit)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%B0%D1%80%D0%B1%D0%BE%D0%BD%D0%BE%D0%B2%D0%B0%D1%8F%20%D1%80%D0%B0%D0%BC%D0%B0%2010%22",
+     "qty": 1,
+     "price": 26
+    },
+    {
+     "name": "Стек: Полетный контроллер F7 + ESC 60A",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BE%D0%BB%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%20F7%20%2B%20ESC%2060A",
+     "qty": 1,
+     "price": 45
+    },
+    {
+     "name": "Моторы бесколлекторные 2807 1300KV (4 шт.)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%BE%D1%82%D0%BE%D1%80%D1%8B%20%D0%B1%D0%B5%D1%81%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D1%8B%D0%B5%202807%201300KV",
+     "qty": 1,
+     "price": 55
+    },
+    {
+     "name": "Видеопередатчик VTX 5.8GHz + Камера FPV",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%82%D1%87%D0%B8%D0%BA%20VTX%205.8GHz%20%2B%20%D0%9A%D0%B0%D0%BC%D0%B5%D1%80%D0%B0%20FPV",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Аккумулятор LiPo 6S 5000mAh 100C",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%BA%D0%BA%D1%83%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20LiPo%206S%205000mAh%20100C",
+     "qty": 1,
+     "price": 25
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда рабочего бокса 50 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 30
+    },
+    {
+     "name": "Паяльный комплекс и инструмент (на 1 рабочее место)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%B0%D1%8F%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%20%D0%B8%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Технологические расходники: припой, флюс, биты (на 1 рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%BF%D1%80%D0%B8%D0%BF%D0%BE%D0%B9",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Логистика и энергоснабжение производства",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_phone_budget": {
+   "client_id": "SYSTEM",
+   "topic_title": "Смартфоны и Телефоны",
+   "name": "Линия сборки бюджетных смартфонов",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%B1%D1%8E%D0%B4%D0%B6%D0%B5%D1%82%D0%BD%D1%8B%D1%85%20%D1%81%D0%BC%D0%B0%D1%80%D1%82%D1%84%D0%BE%D0%BD%D0%BE%D0%B2",
+   "cost": 6000.0,
+   "perf": 250.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Дисплейный модуль 6.5\" HD+ IPS с тачскрином",
+     "url": "",
+     "qty": 1,
+     "price": 9
+    },
+    {
+     "name": "Материнская плата SoC (Unisoc T606 / 4GB / 64GB)",
+     "url": "",
+     "qty": 1,
+     "price": 22
+    },
+    {
+     "name": "Блок камер (Основная 13MP + Фронтальная 5MP)",
+     "url": "",
+     "qty": 1,
+     "price": 4
+    },
+    {
+     "name": "Аккумулятор Li-Polymer 5000 mAh",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Пластиковый корпус, кнопки, SIM-лоток",
+     "url": "",
+     "qty": 1,
+     "price": 3
+    },
+    {
+     "name": "Динамик, вибромотор, субплата Type-C, антенны",
+     "url": "",
+     "qty": 1,
+     "price": 2.5
+    },
+    {
+     "name": "Зарядное 10W + кабель + коробка",
+     "url": "",
+     "qty": 1,
+     "price": 2
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда сборочного бокса 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Пневмопресс и электроотвертки (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=electric%20screwdriver%20pneumatic%20press",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Расходники: термоскотч, проклейка, салфетки",
+     "url": "https://www.alibaba.com/trade/search?SearchText=thermal%20tape%20adhesive",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Логистика и доставка комплектующих",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "budget"
+  },
+  "demo_phone_mid": {
+   "client_id": "SYSTEM",
+   "topic_title": "Смартфоны и Телефоны",
+   "name": "Линия сборки смартфонов среднего класса",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D1%81%D0%BC%D0%B0%D1%80%D1%82%D1%84%D0%BE%D0%BD%D0%BE%D0%B2%20%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B5%D0%B3%D0%BE%20%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0",
+   "cost": 9000.0,
+   "perf": 150.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "AMOLED дисплейный модуль 6.7\" FHD+ 120Hz",
+     "url": "",
+     "qty": 1,
+     "price": 28
+    },
+    {
+     "name": "Материнская плата SoC (Dimensity 7050 / 8GB / 256GB)",
+     "url": "",
+     "qty": 1,
+     "price": 85
+    },
+    {
+     "name": "Блок камер (50MP с OIS + 8MP ширик + 16MP фронт)",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "Аккумулятор Li-Polymer 5000 mAh",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Металлическая рамка, стеклянная задняя панель, кнопки",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Стереодинамики, вибромотор, субплата Type-C, NFC, антенны",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Зарядное 67W + кабель + коробка",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда сборочного бокса 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Пневмопресс и электроотвертки (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=electric%20screwdriver%20pneumatic%20press",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Расходники: термоскотч, проклейка, салфетки",
+     "url": "https://www.alibaba.com/trade/search?SearchText=thermal%20tape%20adhesive",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Логистика и доставка комплектующих",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "mid"
+  },
+  "demo_tablet": {
+   "client_id": "SYSTEM",
+   "topic_title": "Планшеты и Мобильные ПК",
+   "name": "Настольный комплекс сборки планшетов",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%BF%D0%BB%D0%B0%D0%BD%D1%88%D0%B5%D1%82%D0%BE%D0%B2",
+   "cost": 18000.0,
+   "perf": 35.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Экран в сборе (IPS/OLED 10.1\")",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%AD%D0%BA%D1%80%D0%B0%D0%BD%20%D0%B2%20%D1%81%D0%B1%D0%BE%D1%80%D0%B5",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Материнская плата SoC (ARM)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%20SoC",
+     "qty": 1,
+     "price": 45
+    },
+    {
+     "name": "Литий-полимерный аккумулятор 6000mAh",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D1%82%D0%B8%D0%B9-%D0%BF%D0%BE%D0%BB%D0%B8%D0%BC%D0%B5%D1%80%D0%BD%D1%8B%D0%B9%20%D0%B0%D0%BA%D0%BA%D1%83%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%206000mAh",
+     "qty": 1,
+     "price": 10
+    },
+    {
+     "name": "Ультратонкий корпус и шлейфы",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BB%D1%8C%D1%82%D1%80%D0%B0%D1%82%D0%BE%D0%BD%D0%BA%D0%B8%D0%B9%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%20%D0%B8%20%D1%88%D0%BB%D0%B5%D0%B9%D1%84%D1%8B",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "Упаковочная коробка + зарядное",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B0%20%2B%20%D0%B7%D0%B0%D1%80%D1%8F%D0%B4%D0%BD%D0%BE%D0%B5",
+     "qty": 1,
+     "price": 2
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда чистой зоны 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Вакуумная оснастка и отверточный инструмент (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%92%D0%B0%D0%BA%D1%83%D1%83%D0%BC%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0%20%D0%B8%20%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Расходники: термоскотч, очистители, салфетки",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D1%82%D0%B5%D1%80%D0%BC%D0%BE%D1%81%D0%BA%D0%BE%D1%82%D1%87",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Логистика и доставка партий",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_tv_small": {
+   "client_id": "SYSTEM",
+   "topic_title": "Телевизоры и Дисплеи",
+   "name": "Линия сборки ТВ 32–43\"",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%A2%D0%92%2032%E2%80%9343%22",
+   "cost": 25000.0,
+   "perf": 40.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Матрица LCD 43\" FHD (open cell)",
+     "url": "",
+     "qty": 1,
+     "price": 55
+    },
+    {
+     "name": "Smart TV плата (Android TV, 1.5/8 ГБ)",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    },
+    {
+     "name": "Блок питания",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "LED-подсветка матрицы",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Пластиковый корпус, подставка, динамики",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Пульт и упаковка",
+     "url": "",
+     "qty": 1,
+     "price": 4
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда монтажного бокса 60 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Оснастка: вакуумные присоски, автовинтоверты (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifter%20screwdriver",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Расходники: изоляция, крепеж, стикеры",
+     "url": "https://www.alibaba.com/trade/search?SearchText=insulation%20tape%20fasteners",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Логистика крупногабаритных дисплеев",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "small"
+  },
+  "demo_tv_large": {
+   "client_id": "SYSTEM",
+   "topic_title": "Телевизоры и Дисплеи",
+   "name": "Линия сборки 4K ТВ 55–65\"",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%204K%20%D0%A2%D0%92%2055%E2%80%9365%22",
+   "cost": 35000.0,
+   "perf": 20.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Матрица LCD 65\" 4K UHD (open cell)",
+     "url": "",
+     "qty": 1,
+     "price": 190
+    },
+    {
+     "name": "Smart TV плата 4K (2/16 ГБ, HDR)",
+     "url": "",
+     "qty": 1,
+     "price": 30
+    },
+    {
+     "name": "Блок питания инверторный",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "LED-подсветка матрицы",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    },
+    {
+     "name": "Корпус с металлической рамкой и стереодинамики",
+     "url": "",
+     "qty": 1,
+     "price": 28
+    },
+    {
+     "name": "Пульт и упаковка",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда монтажного бокса 60 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Оснастка: вакуумные присоски, автовинтоверты (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifter%20screwdriver",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Расходники: изоляция, крепеж, стикеры",
+     "url": "https://www.alibaba.com/trade/search?SearchText=insulation%20tape%20fasteners",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Логистика крупногабаритных дисплеев",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "large"
+  },
+  "demo_pc": {
+   "client_id": "SYSTEM",
+   "topic_title": "Телеком и Ноутбуки",
+   "name": "Линия SKD-сборки ноутбуков",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D0%BD%D0%B8%D1%8F%20SKD-%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%BD%D0%BE%D1%83%D1%82%D0%B1%D1%83%D0%BA%D0%BE%D0%B2",
+   "cost": 20000.0,
+   "perf": 20.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Шасси Barebone 15.6\" (корпус, клавиатура, батарея 5000mAh)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%B0%D1%81%D1%81%D0%B8%20Barebone%2015.6%22",
+     "qty": 1,
+     "price": 85
+    },
+    {
+     "name": "IPS Матрица дисплея 15.6\" FHD (1920x1080)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=IPS%20%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%20%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D1%8F%2015.6%22%20FHD",
+     "qty": 1,
+     "price": 32
+    },
+    {
+     "name": "Плата с процессором Intel SoC + система охлаждения",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BB%D0%B0%D1%82%D0%B0%20%D1%81%20%D0%BF%D1%80%D0%BE%D1%86%D0%B5%D1%81%D1%81%D0%BE%D1%80%D0%BE%D0%BC%20Intel%20SoC%20%2B%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0%20%D0%BE%D1%85%D0%BB%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F",
+     "qty": 1,
+     "price": 68
+    },
+    {
+     "name": "Оперативная память SO-DIMM 16GB DDR4/DDR5",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9E%D0%BF%D0%B5%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C%20SO-DIMM%2016GB%20DDR4%2FDDR5",
+     "qty": 1,
+     "price": 22
+    },
+    {
+     "name": "Накопитель M.2 NVMe SSD 512GB",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9D%D0%B0%D0%BA%D0%BE%D0%BF%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%20M.2%20NVMe%20SSD%20512GB",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "Адаптер 65W Type-C + модуль Wi-Fi 6 + упаковка",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%B4%D0%B0%D0%BF%D1%82%D0%B5%D1%80%2065W%20Type-C%20%2B%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%20Wi-Fi%206%20%2B%20%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B0",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда монтажного участка 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Стенд прошивки BIOS и отверточная оснастка (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A1%D1%82%D0%B5%D0%BD%D0%B4%20%D0%BF%D1%80%D0%BE%D1%88%D0%B8%D0%B2%D0%BA%D0%B8%20BIOS%20%D0%B8%20%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%BE%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Термопаста, защитные пленки, очистители",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A2%D0%B5%D1%80%D0%BC%D0%BE%D0%BF%D0%B0%D1%81%D1%82%D0%B0",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Логистика и доставка партий",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_furniture_panel": {
+   "client_id": "SYSTEM",
+   "topic_title": "Мебель и Деревообработка",
+   "name": "Компактный мебельный ЧПУ раскройный центр",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D0%BA%D1%82%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%A7%D0%9F%D0%A3%20%D1%80%D0%B0%D1%81%D0%BA%D1%80%D0%BE%D0%B9%D0%BD%D1%8B%D0%B9%20%D1%86%D0%B5%D0%BD%D1%82%D1%80",
+   "cost": 28000.0,
+   "perf": 15.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "ЛДСП / МДФ влагостойкий (4 кв.м.)",
+     "url": "",
+     "qty": 4,
+     "price": 15
+    },
+    {
+     "name": "Кромочная лента ПВХ 2мм",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Мебельная фурнитура и петли",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "Зеркальное / фасадное полотно",
+     "url": "",
+     "qty": 1,
+     "price": 22
+    },
+    {
+     "name": "Упаковочный гофрокартон",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда цеха с аспирацией 80 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Сменные концевые фрезы и цанги ISO30 (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=carbide%20end%20mill%20ISO30%20collet",
+     "qty": 2,
+     "price": 6
+    },
+    {
+     "name": "Смазка рельс, мешки аспирации, фильтры",
+     "url": "https://www.alibaba.com/trade/search?SearchText=linear%20rail%20lubricant%20dust%20bag",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Электроэнергия 380В и вывоз стружки",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "panel"
+  },
+  "demo_furniture_solid": {
+   "client_id": "SYSTEM",
+   "topic_title": "Мебель и Деревообработка",
+   "name": "Участок производства мебели из массива",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A3%D1%87%D0%B0%D1%81%D1%82%D0%BE%D0%BA%20%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B0%20%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D0%B8%20%D0%B8%D0%B7%20%D0%BC%D0%B0%D1%81%D1%81%D0%B8%D0%B2%D0%B0",
+   "cost": 45000.0,
+   "perf": 6.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Мебельный щит из дуба/бука (0.12 куб.м)",
+     "url": "",
+     "qty": 1,
+     "price": 110
+    },
+    {
+     "name": "Фурнитура и крепёж",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    },
+    {
+     "name": "Лак / масло для покрытия",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Шлифовальные материалы",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Упаковка: гофрокартон, уголки, стрейч",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда цеха с аспирацией и сушилкой 120 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 50
+    },
+    {
+     "name": "Фрезы, пилы, строгальные ножи (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=wood%20router%20bits%20saw%20blades%20planer%20knives",
+     "qty": 3,
+     "price": 6
+    },
+    {
+     "name": "Шлифовальные ленты, фильтры аспирации (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=sanding%20belts%20dust%20filter",
+     "qty": 3,
+     "price": 2.5
+    },
+    {
+     "name": "Электроэнергия 380В и вывоз стружки",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "solid"
+  },
+  "demo_clothes_knit": {
+   "client_id": "SYSTEM",
+   "topic_title": "Пошив Одежды",
+   "name": "Мини-цех пошива трикотажа",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B8%D0%BD%D0%B8-%D1%86%D0%B5%D1%85%20%D0%BF%D0%BE%D1%88%D0%B8%D0%B2%D0%B0%20%D1%82%D1%80%D0%B8%D0%BA%D0%BE%D1%82%D0%B0%D0%B6%D0%B0",
+   "cost": 18000.0,
+   "perf": 120.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Трикотажное полотно кулирка/футер (1.2 м)",
+     "url": "",
+     "qty": 1.2,
+     "price": 4
+    },
+    {
+     "name": "Рибана для горловины и манжет (0.2 м)",
+     "url": "",
+     "qty": 0.2,
+     "price": 3
+    },
+    {
+     "name": "Нитки",
+     "url": "",
+     "qty": 1,
+     "price": 0.3
+    },
+    {
+     "name": "Бирки, этикетки, упаковка",
+     "url": "",
+     "qty": 1,
+     "price": 0.6
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда швейного бокса 50 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 30
+    },
+    {
+     "name": "Иглы, лапки, машинное масло (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=sewing%20machine%20needles%20presser%20foot",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Сменные ножи раскройной машины и заточка",
+     "url": "https://www.alibaba.com/trade/search?SearchText=cloth%20cutting%20machine%20blade",
+     "qty": 1,
+     "price": 3
+    },
+    {
+     "name": "Логистика тканей и вывоз обрезков",
+     "url": "",
+     "qty": 1,
+     "price": 14
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "knit"
+  },
+  "demo_clothes_outer": {
+   "client_id": "SYSTEM",
+   "topic_title": "Пошив Одежды",
+   "name": "Мини-цех пошива курток",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B8%D0%BD%D0%B8-%D1%86%D0%B5%D1%85%20%D0%BF%D0%BE%D1%88%D0%B8%D0%B2%D0%B0%20%D0%BA%D1%83%D1%80%D1%82%D0%BE%D0%BA",
+   "cost": 25000.0,
+   "perf": 25.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Мембранная ткань верха (2 м)",
+     "url": "",
+     "qty": 2,
+     "price": 4.5
+    },
+    {
+     "name": "Подкладочная ткань (1.8 м)",
+     "url": "",
+     "qty": 1.8,
+     "price": 1.5
+    },
+    {
+     "name": "Утеплитель синтепух / Thinsulate (1.5 м)",
+     "url": "",
+     "qty": 1.5,
+     "price": 3
+    },
+    {
+     "name": "Молнии, кнопки, кулиски",
+     "url": "",
+     "qty": 1,
+     "price": 4
+    },
+    {
+     "name": "Нитки и лента для проклейки швов",
+     "url": "",
+     "qty": 1,
+     "price": 1.5
+    },
+    {
+     "name": "Бирки, этикетки, упаковка",
+     "url": "",
+     "qty": 1,
+     "price": 1
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда швейного бокса 60 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Иглы, лапки, машинное масло (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=sewing%20machine%20needles%20presser%20foot",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Расходники пресса для проклейки швов",
+     "url": "https://www.alibaba.com/trade/search?SearchText=seam%20sealing%20tape",
+     "qty": 1,
+     "price": 4
+    },
+    {
+     "name": "Логистика тканей и вывоз обрезков",
+     "url": "",
+     "qty": 1,
+     "price": 14
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "outer"
+  },
+  "demo_jewelry": {
+   "client_id": "SYSTEM",
+   "topic_title": "Ювелирные Изделия",
+   "name": "Настольный ювелирный литейный комплекс",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9D%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D1%8E%D0%B2%D0%B5%D0%BB%D0%B8%D1%80%D0%BD%D1%8B%D0%B9%20%D0%BB%D0%B8%D1%82%D0%B5%D0%B9%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D0%BC%D0%BF%D0%BB%D0%B5%D0%BA%D1%81",
+   "cost": 12000.0,
+   "perf": 25.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Золото/Серебро в гранулах (10г)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%2F%D0%A1%D0%B5%D1%80%D0%B5%D0%B1%D1%80%D0%BE%20%D0%B2%20%D0%B3%D1%80%D0%B0%D0%BD%D1%83%D0%BB%D0%B0%D1%85",
+     "qty": 10,
+     "price": 8
+    },
+    {
+     "name": "Вставки (камни, фианиты)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%92%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B8",
+     "qty": 2,
+     "price": 20
+    },
+    {
+     "name": "Ювелирная фурнитура",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%AE%D0%B2%D0%B5%D0%BB%D0%B8%D1%80%D0%BD%D0%B0%D1%8F%20%D1%84%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D0%B0",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Формомасса и расходники",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A4%D0%BE%D1%80%D0%BC%D0%BE%D0%BC%D0%B0%D1%81%D1%81%D0%B0%20%D0%B8%20%D1%80%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D0%B8%D0%BA%D0%B8",
+     "qty": 1,
+     "price": 20
+    },
+    {
+     "name": "Бархатный футляр",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%91%D0%B0%D1%80%D1%85%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%84%D1%83%D1%82%D0%BB%D1%8F%D1%80",
+     "qty": 1,
+     "price": 5
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда мастерской с вытяжкой 30 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Графитовые тигли и керамические стаканы (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%93%D1%80%D0%B0%D1%84%D0%B8%D1%82%D0%BE%D0%B2%D1%8B%D0%B5%20%D1%82%D0%B8%D0%B3%D0%BB%D0%B8%20%D0%B8%20%D0%BA%D0%B5%D1%80%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D1%81%D1%82%D0%B0%D0%BA%D0%B0%D0%BD%D1%8B",
+     "qty": 2,
+     "price": 5
+    },
+    {
+     "name": "Защитный газ (Аргон) и полировальные пасты",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%97%D0%B0%D1%89%D0%B8%D1%82%D0%BD%D1%8B%D0%B9%20%D0%B3%D0%B0%D0%B7%20%20%D0%B8%20%D0%BF%D0%BE%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BF%D0%B0%D1%81%D1%82%D1%8B",
+     "qty": 2,
+     "price": 3.5
+    },
+    {
+     "name": "Охрана и логистика драгметаллов",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_cnc": {
+   "client_id": "SYSTEM",
+   "topic_title": "Настольные ЧПУ Станки",
+   "name": "Линия узловой сборки настольных ЧПУ",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9B%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%83%D0%B7%D0%BB%D0%BE%D0%B2%D0%BE%D0%B9%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%BD%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%A7%D0%9F%D0%A3",
+   "cost": 15000.0,
+   "perf": 4.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Алюминиевая станина",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%90%D0%BB%D1%8E%D0%BC%D0%B8%D0%BD%D0%B8%D0%B5%D0%B2%D0%B0%D1%8F%20%D1%81%D1%82%D0%B0%D0%BD%D0%B8%D0%BD%D0%B0",
+     "qty": 1,
+     "price": 300
+    },
+    {
+     "name": "Шаговые моторы",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%B0%D0%B3%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D1%8B",
+     "qty": 1,
+     "price": 150
+    },
+    {
+     "name": "Контроллер ЧПУ",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D0%BB%D0%B5%D1%80%20%D0%A7%D0%9F%D0%A3",
+     "qty": 1,
+     "price": 80
+    },
+    {
+     "name": "Шпиндель и блок питания",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A8%D0%BF%D0%B8%D0%BD%D0%B4%D0%B5%D0%BB%D1%8C%20%D0%B8%20%D0%B1%D0%BB%D0%BE%D0%BA%20%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D1%8F",
+     "qty": 1,
+     "price": 200
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда сборочного бокса 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Юстировочный инструмент и ключи (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%AE%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%20%D0%B8%20%D0%BA%D0%BB%D1%8E%D1%87%D0%B8",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Смазки, крепеж М4/М5, фиксаторы",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BC%D0%B0%D0%B7%D0%BA%D0%B8",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Логистика тяжелых станин",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_bakery": {
+   "client_id": "SYSTEM",
+   "topic_title": "Хлебопекарная Линия",
+   "name": "Компактная ротационная мини-пекарня",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BE%D0%BC%D0%BF%D0%B0%D0%BA%D1%82%D0%BD%D0%B0%D1%8F%20%D1%80%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B8%D0%BD%D0%B8-%D0%BF%D0%B5%D0%BA%D0%B0%D1%80%D0%BD%D1%8F",
+   "cost": 16000.0,
+   "perf": 1200.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Мука высшего сорта (кг)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D1%83%D0%BA%D0%B0%20%D0%B2%D1%8B%D1%81%D1%88%D0%B5%D0%B3%D0%BE%20%D1%81%D0%BE%D1%80%D1%82%D0%B0",
+     "qty": 0.6,
+     "price": 0.4
+    },
+    {
+     "name": "Дрожжи и добавки",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%94%D1%80%D0%BE%D0%B6%D0%B6%D0%B8%20%D0%B8%20%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BA%D0%B8",
+     "qty": 1,
+     "price": 0.05
+    },
+    {
+     "name": "Упаковочный пакет",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82",
+     "qty": 1,
+     "price": 0.08
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда пекарни 60 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Формы выпечки и противни (амортизация)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%B2%D1%8B%D0%BF%D0%B5%D1%87%D0%BA%D0%B8%20%D0%B8%20%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BD%D0%B8",
+     "qty": 2,
+     "price": 3
+    },
+    {
+     "name": "Моющие средства, перчатки, пергамент",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%BE%D1%8E%D1%89%D0%B8%D0%B5%20%D1%81%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%B0",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Электроэнергия печей и доставка",
+     "url": "",
+     "qty": 1,
+     "price": 20
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_watch_quartz": {
+   "client_id": "SYSTEM",
+   "topic_title": "Сборка Часов",
+   "name": "Мини-линия сборки кварцевых часов",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B8%D0%BD%D0%B8-%D0%BB%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%BA%D0%B2%D0%B0%D1%80%D1%86%D0%B5%D0%B2%D1%8B%D1%85%20%D1%87%D0%B0%D1%81%D0%BE%D0%B2",
+   "cost": 5000.0,
+   "perf": 120.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Кварцевый механизм Miyota 2035",
+     "url": "",
+     "qty": 1,
+     "price": 1.5
+    },
+    {
+     "name": "Корпус из цинкового сплава с минеральным стеклом",
+     "url": "",
+     "qty": 1,
+     "price": 3.5
+    },
+    {
+     "name": "Циферблат и комплект стрелок",
+     "url": "",
+     "qty": 1,
+     "price": 1.2
+    },
+    {
+     "name": "Ремешок из искусственной кожи",
+     "url": "",
+     "qty": 1,
+     "price": 1
+    },
+    {
+     "name": "Батарейка SR626SW",
+     "url": "",
+     "qty": 1,
+     "price": 0.1
+    },
+    {
+     "name": "Картонная подарочная коробка",
+     "url": "",
+     "qty": 1,
+     "price": 0.8
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда беспылевой зоны 30 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Часовой прецизионный инструмент (на мастера)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=watch%20repair%20tool%20kit",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Расходники: напальчники, пылеудалители, салфетки (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=finger%20cots%20dust%20blower",
+     "qty": 2,
+     "price": 1
+    },
+    {
+     "name": "Страховка и логистика",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "quartz"
+  },
+  "demo_watch_automatic": {
+   "client_id": "SYSTEM",
+   "topic_title": "Сборка Часов",
+   "name": "Мини-линия сборки механических часов (NH35)",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B8%D0%BD%D0%B8-%D0%BB%D0%B8%D0%BD%D0%B8%D1%8F%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%BC%D0%B5%D1%85%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D1%85%20%D1%87%D0%B0%D1%81%D0%BE%D0%B2%20%28NH35%29",
+   "cost": 12000.0,
+   "perf": 30.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Автоматический механизм Seiko NH35A",
+     "url": "",
+     "qty": 1,
+     "price": 32
+    },
+    {
+     "name": "Корпус из нержавеющей стали 316L",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "Сапфировое стекло",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Циферблат и стрелки с люминофором",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Стальной браслет или кожаный ремешок",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "Подарочный футляр",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда беспылевой зоны 30 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Часовой прецизионный инструмент (на мастера)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A7%D0%B0%D1%81%D0%BE%D0%B2%D0%BE%D0%B9%20%D0%BF%D1%80%D0%B5%D1%86%D0%B8%D0%B7%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Часовые масла (Moebius), пылеудалители",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A7%D0%B0%D1%81%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%81%D0%BB%D0%B0",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Страховка и логистика",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "automatic"
+  },
+  "demo_costume": {
+   "client_id": "SYSTEM",
+   "topic_title": "Производство Бижутерии",
+   "name": "Мини-пресс для бижутерии",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9C%D0%B8%D0%BD%D0%B8-%D0%BF%D1%80%D0%B5%D1%81%D1%81%20%D0%B4%D0%BB%D1%8F%20%D0%B1%D0%B8%D0%B6%D1%83%D1%82%D0%B5%D1%80%D0%B8%D0%B8",
+   "cost": 8000.0,
+   "perf": 300.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Сплав (Заготовка)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%BF%D0%BB%D0%B0%D0%B2",
+     "qty": 1,
+     "price": 2
+    },
+    {
+     "name": "Декоративные стразы",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%94%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5%20%D1%81%D1%82%D1%80%D0%B0%D0%B7%D1%8B",
+     "qty": 1,
+     "price": 1
+    },
+    {
+     "name": "Фурнитура",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A4%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D0%B0",
+     "qty": 1,
+     "price": 0.5
+    },
+    {
+     "name": "Эко-пакетик",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%AD%D0%BA%D0%BE-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B8%D0%BA",
+     "qty": 1,
+     "price": 1.5
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда мастерской 30 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 20
+    },
+    {
+     "name": "Пресс-формы и ручной инструмент (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9F%D1%80%D0%B5%D1%81%D1%81-%D1%84%D0%BE%D1%80%D0%BC%D1%8B%20%D0%B8%20%D1%80%D1%83%D1%87%D0%BD%D0%BE%D0%B9%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Клеи УФ-отверждения, салфетки",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%BB%D0%B5%D0%B8%20%D0%A3%D0%A4-%D0%BE%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Логистика и доставка",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_instruments": {
+   "client_id": "SYSTEM",
+   "topic_title": "Измерительные Приборы",
+   "name": "Стенд калибровки и сборки приборов",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A1%D1%82%D0%B5%D0%BD%D0%B4%20%D0%BA%D0%B0%D0%BB%D0%B8%D0%B1%D1%80%D0%BE%D0%B2%D0%BA%D0%B8%20%D0%B8%20%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8%20%D0%BF%D1%80%D0%B8%D0%B1%D0%BE%D1%80%D0%BE%D0%B2",
+   "cost": 22000.0,
+   "perf": 15.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Сенсорный измерительный модуль",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A1%D0%B5%D0%BD%D1%81%D0%BE%D1%80%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%B7%D0%BC%D0%B5%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C",
+     "qty": 1,
+     "price": 120
+    },
+    {
+     "name": "Плата обработки сигналов",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BB%D0%B0%D1%82%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8%20%D1%81%D0%B8%D0%B3%D0%BD%D0%B0%D0%BB%D0%BE%D0%B2",
+     "qty": 1,
+     "price": 65
+    },
+    {
+     "name": "ЖК-дисплей",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%96%D0%9A-%D0%B4%D0%B8%D1%81%D0%BF%D0%BB%D0%B5%D0%B9",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Ударопрочный корпус IP65",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%B4%D0%B0%D1%80%D0%BE%D0%BF%D1%80%D0%BE%D1%87%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81%20IP65",
+     "qty": 1,
+     "price": 40
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда лаборатории 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Калибровочные эталоны и приборы (на инженера)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%B0%D0%BB%D0%B8%D0%B1%D1%80%D0%BE%D0%B2%D0%BE%D1%87%D0%BD%D1%8B%D0%B5%20%D1%8D%D1%82%D0%B0%D0%BB%D0%BE%D0%BD%D1%8B%20%D0%B8%20%D0%BF%D1%80%D0%B8%D0%B1%D0%BE%D1%80%D1%8B",
+     "qty": 2,
+     "price": 3.5
+    },
+    {
+     "name": "Кабели, термоусадка, припой",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9A%D0%B0%D0%B1%D0%B5%D0%BB%D0%B8",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Логистика и поверка",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_universal": {
+   "client_id": "SYSTEM",
+   "topic_title": "Универсальный Проект",
+   "name": "Универсальная производственная линия",
+   "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A3%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F%20%D0%BB%D0%B8%D0%BD%D0%B8%D1%8F",
+   "cost": 20000.0,
+   "perf": 25.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Основной базовый материал",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9%20%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB",
+     "qty": 1,
+     "price": 40
+    },
+    {
+     "name": "Функциональные модули",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D0%B8",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Декоративный корпус",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%94%D0%B5%D0%BA%D0%BE%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%BE%D1%80%D0%BF%D1%83%D1%81",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Потребительская коробка",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9F%D0%BE%D1%82%D1%80%D0%B5%D0%B1%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BA%D0%BE%D1%80%D0%BE%D0%B1%D0%BA%D0%B0",
+     "qty": 1,
+     "price": 3
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Аренда помещения 40 кв.м",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Оснастка и специнструмент (на рабочего)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%9E%D1%81%D0%BD%D0%B0%D1%81%D1%82%D0%BA%D0%B0%20%D0%B8%20%D1%81%D0%BF%D0%B5%D1%86%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Расходные материалы рабочего места",
+     "url": "https://www.alibaba.com/trade/search?SearchText=%D0%A0%D0%B0%D1%81%D1%85%D0%BE%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B%20%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE%20%D0%BC%D0%B5%D1%81%D1%82%D0%B0",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Логистика и связь",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  }
+ },
+ "equipment_listing_en": {
+  "demo_drone": {
+   "client_id": "SYSTEM",
+   "topic_title": "Drones & Radioelectronics",
+   "name": "Compact ESD Drone Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Compact%20ESD%20Drone%20Assembly%20Line",
+   "cost": 25000.0,
+   "perf": 20.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Carbon fiber frame kit 10\" (T700 Carbon Kit)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Carbon%20fiber%20frame%20kit%2010%22",
+     "qty": 1,
+     "price": 26
+    },
+    {
+     "name": "Stack: Flight Controller F7 + ESC 60A",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Flight%20Controller%20F7%20%2B%20ESC%2060A",
+     "qty": 1,
+     "price": 45
+    },
+    {
+     "name": "Brushless motors 2807 1300KV (4 pcs)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Brushless%20motors%202807%201300KV",
+     "qty": 1,
+     "price": 55
+    },
+    {
+     "name": "VTX 5.8GHz + FPV Camera",
+     "url": "https://www.alibaba.com/trade/search?SearchText=VTX%205.8GHz%20%2B%20FPV%20Camera",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "LiPo Battery 6S 5000mAh 100C",
+     "url": "https://www.alibaba.com/trade/search?SearchText=LiPo%20Battery%206S%205000mAh%20100C",
+     "qty": 1,
+     "price": 25
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Workshop rent 50 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 30
+    },
+    {
+     "name": "Soldering station & toolset (per 1 worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Soldering%20station%20%26%20toolset",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Process consumables: solder, flux, bits (per 1 worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=solder",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Logistics and facility utilities",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_phone_budget": {
+   "client_id": "SYSTEM",
+   "topic_title": "Smartphones & Mobile Phones",
+   "name": "Budget Smartphone Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Budget%20Smartphone%20Assembly%20Line",
+   "cost": 6000.0,
+   "perf": 250.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Display module 6.5\" HD+ IPS with touchscreen",
+     "url": "",
+     "qty": 1,
+     "price": 9
+    },
+    {
+     "name": "SoC Motherboard (Unisoc T606 / 4GB / 64GB)",
+     "url": "",
+     "qty": 1,
+     "price": 22
+    },
+    {
+     "name": "Camera module set (Main 13MP + Front 5MP)",
+     "url": "",
+     "qty": 1,
+     "price": 4
+    },
+    {
+     "name": "Li-Polymer Battery 5000 mAh",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Plastic housing, buttons, SIM tray",
+     "url": "",
+     "qty": 1,
+     "price": 3
+    },
+    {
+     "name": "Speaker, vibration motor, Type-C sub-board, antennas",
+     "url": "",
+     "qty": 1,
+     "price": 2.5
+    },
+    {
+     "name": "Charger 10W + cable + retail box",
+     "url": "",
+     "qty": 1,
+     "price": 2
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Assembly box rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Pneumatic press & electric torque drivers (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=electric%20screwdriver%20pneumatic%20press",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Consumables: thermal tape, adhesives, wipes",
+     "url": "https://www.alibaba.com/trade/search?SearchText=thermal%20tape%20adhesive",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Logistics & components delivery",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "budget"
+  },
+  "demo_phone_mid": {
+   "client_id": "SYSTEM",
+   "topic_title": "Smartphones & Mobile Phones",
+   "name": "Mid-range Smartphone Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Mid-range%20Smartphone%20Assembly%20Line",
+   "cost": 9000.0,
+   "perf": 150.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "AMOLED display module 6.7\" FHD+ 120Hz",
+     "url": "",
+     "qty": 1,
+     "price": 28
+    },
+    {
+     "name": "SoC Motherboard (Dimensity 7050 / 8GB / 256GB)",
+     "url": "",
+     "qty": 1,
+     "price": 85
+    },
+    {
+     "name": "Camera module set (50MP OIS + 8MP ultrawide + 16MP front)",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "Li-Polymer Battery 5000 mAh",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Metal frame, glass back panel, buttons",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Stereo speakers, vibration motor, Type-C sub-board, NFC, antennas",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Charger 67W + cable + retail box",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Assembly box rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Pneumatic press & electric torque drivers (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=electric%20screwdriver%20pneumatic%20press",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Consumables: thermal tape, adhesives, wipes",
+     "url": "https://www.alibaba.com/trade/search?SearchText=thermal%20tape%20adhesive",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Logistics & components delivery",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "mid"
+  },
+  "demo_tablet": {
+   "client_id": "SYSTEM",
+   "topic_title": "Tablets & Mobile PCs",
+   "name": "Desktop Tablet Assembly Complex",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Desktop%20Tablet%20Assembly%20Complex",
+   "cost": 18000.0,
+   "perf": 35.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Display assembly (IPS/OLED 10.1\")",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Display%20assembly",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "SoC Motherboard (ARM)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=SoC%20Motherboard",
+     "qty": 1,
+     "price": 45
+    },
+    {
+     "name": "Li-Polymer battery 6000mAh",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Li-Polymer%20battery%206000mAh",
+     "qty": 1,
+     "price": 10
+    },
+    {
+     "name": "Ultra-thin chassis & flex cables",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Ultra-thin%20chassis%20%26%20flex%20cables",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "Packaging retail box + adapter",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Packaging%20retail%20box%20%2B%20adapter",
+     "qty": 1,
+     "price": 2
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Clean area rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Vacuum tooling and screwdriver toolkit (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Vacuum%20tooling%20and%20screwdriver%20toolkit",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Consumables: thermal tape, cleaners, wipes",
+     "url": "https://www.alibaba.com/trade/search?SearchText=thermal%20tape",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Batch logistics & delivery",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_tv_small": {
+   "client_id": "SYSTEM",
+   "topic_title": "TVs & Displays",
+   "name": "32–43\" TV Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=32%E2%80%9343%22%20TV%20Assembly%20Line",
+   "cost": 25000.0,
+   "perf": 40.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "LCD panel 43\" FHD (open cell)",
+     "url": "",
+     "qty": 1,
+     "price": 55
+    },
+    {
+     "name": "Smart TV board (Android TV, 1.5/8 GB)",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    },
+    {
+     "name": "Power supply unit",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "LED backlight arrays",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Plastic housing, stand, speakers",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Remote control and packaging",
+     "url": "",
+     "qty": 1,
+     "price": 4
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Assembly workshop rent 60 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Tooling: vacuum suction lifters, power screwdrivers (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifter%20screwdriver",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Consumables: insulation, fasteners, stickers",
+     "url": "https://www.alibaba.com/trade/search?SearchText=insulation%20tape%20fasteners",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Large-screen logistics & freight",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "small"
+  },
+  "demo_tv_large": {
+   "client_id": "SYSTEM",
+   "topic_title": "TVs & Displays",
+   "name": "55–65\" 4K TV Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=55%E2%80%9365%22%204K%20TV%20Assembly%20Line",
+   "cost": 35000.0,
+   "perf": 20.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "LCD panel 65\" 4K UHD (open cell)",
+     "url": "",
+     "qty": 1,
+     "price": 190
+    },
+    {
+     "name": "4K Smart TV board (2/16 GB, HDR)",
+     "url": "",
+     "qty": 1,
+     "price": 30
+    },
+    {
+     "name": "Inverter power supply unit",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "LED backlight arrays",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    },
+    {
+     "name": "Housing with metal frame & stereo speakers",
+     "url": "",
+     "qty": 1,
+     "price": 28
+    },
+    {
+     "name": "Remote control and packaging",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Assembly workshop rent 60 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Tooling: vacuum suction lifters, power screwdrivers (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifter%20screwdriver",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Consumables: insulation, fasteners, stickers",
+     "url": "https://www.alibaba.com/trade/search?SearchText=insulation%20tape%20fasteners",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Large-screen logistics & freight",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "large"
+  },
+  "demo_pc": {
+   "client_id": "SYSTEM",
+   "topic_title": "Telecom & Laptops",
+   "name": "SKD Laptop Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=SKD%20Laptop%20Assembly%20Line",
+   "cost": 20000.0,
+   "perf": 20.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Barebone Chassis 15.6\" (case, keyboard, battery 5000mAh)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Barebone%20Chassis%2015.6%22",
+     "qty": 1,
+     "price": 85
+    },
+    {
+     "name": "IPS Display Panel 15.6\" FHD (1920x1080)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=IPS%20Display%20Panel%2015.6%22%20FHD",
+     "qty": 1,
+     "price": 32
+    },
+    {
+     "name": "Intel SoC Motherboard + cooling system",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Intel%20SoC%20Motherboard%20%2B%20cooling%20system",
+     "qty": 1,
+     "price": 68
+    },
+    {
+     "name": "RAM SO-DIMM 16GB DDR4/DDR5",
+     "url": "https://www.alibaba.com/trade/search?SearchText=RAM%20SO-DIMM%2016GB%20DDR4%2FDDR5",
+     "qty": 1,
+     "price": 22
+    },
+    {
+     "name": "Storage M.2 NVMe SSD 512GB",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Storage%20M.2%20NVMe%20SSD%20512GB",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "65W Type-C Adapter + Wi-Fi 6 module + box",
+     "url": "https://www.alibaba.com/trade/search?SearchText=65W%20Type-C%20Adapter%20%2B%20Wi-Fi%206%20module%20%2B%20box",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Assembly workshop rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "BIOS programming station & torque drivers (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=BIOS%20programming%20station%20%26%20torque%20drivers",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Thermal paste, protective film, cleaners",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Thermal%20paste",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Batch shipping & logistics",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_furniture_panel": {
+   "client_id": "SYSTEM",
+   "topic_title": "Furniture Woodworking",
+   "name": "Compact CNC Furniture Nesting Center",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Compact%20CNC%20Furniture%20Nesting%20Center",
+   "cost": 28000.0,
+   "perf": 15.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Laminated MDF / Chipboard (4 sq.m)",
+     "url": "",
+     "qty": 4,
+     "price": 15
+    },
+    {
+     "name": "PVC Edge banding tape 2mm",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Furniture hardware & hinges",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "Mirror / Facade panel",
+     "url": "",
+     "qty": 1,
+     "price": 22
+    },
+    {
+     "name": "Corrugated cardboard packaging",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Workshop rent with dust extraction 80 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Carbide end mills and ISO30 collets (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=carbide%20end%20mill%20ISO30%20collet",
+     "qty": 2,
+     "price": 6
+    },
+    {
+     "name": "Rail lubricant, dust filter bags, air filters",
+     "url": "https://www.alibaba.com/trade/search?SearchText=linear%20rail%20lubricant%20dust%20bag",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "380V Power supply and waste disposal",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "panel"
+  },
+  "demo_furniture_solid": {
+   "client_id": "SYSTEM",
+   "topic_title": "Furniture Woodworking",
+   "name": "Solid Wood Furniture Workshop",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Solid%20Wood%20Furniture%20Workshop",
+   "cost": 45000.0,
+   "perf": 6.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Oak/beech furniture panel (0.12 cu.m)",
+     "url": "",
+     "qty": 1,
+     "price": 110
+    },
+    {
+     "name": "Hardware and fasteners",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    },
+    {
+     "name": "Lacquer / finishing oil",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Sanding materials",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Packaging: cardboard, corners, stretch film",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Workshop rent with dust extraction & drying room 120 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 50
+    },
+    {
+     "name": "Router bits, saw blades, planer knives (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=wood%20router%20bits%20saw%20blades%20planer%20knives",
+     "qty": 3,
+     "price": 6
+    },
+    {
+     "name": "Sanding belts, dust filters (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=sanding%20belts%20dust%20filter",
+     "qty": 3,
+     "price": 2.5
+    },
+    {
+     "name": "380V Power supply and waste disposal",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "solid"
+  },
+  "demo_clothes_knit": {
+   "client_id": "SYSTEM",
+   "topic_title": "Apparel Sewing",
+   "name": "Knitwear Sewing Mini-Shop",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Knitwear%20Sewing%20Mini-Shop",
+   "cost": 18000.0,
+   "perf": 120.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Jersey / fleece knit fabric (1.2 m)",
+     "url": "",
+     "qty": 1.2,
+     "price": 4
+    },
+    {
+     "name": "Rib knit for collar and cuffs (0.2 m)",
+     "url": "",
+     "qty": 0.2,
+     "price": 3
+    },
+    {
+     "name": "Threads",
+     "url": "",
+     "qty": 1,
+     "price": 0.3
+    },
+    {
+     "name": "Tags, labels, packaging",
+     "url": "",
+     "qty": 1,
+     "price": 0.6
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Sewing workshop rent 50 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 30
+    },
+    {
+     "name": "Needles, presser feet, machine oil (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=sewing%20machine%20needles%20presser%20foot",
+     "qty": 3,
+     "price": 1.5
+    },
+    {
+     "name": "Cutting machine replacement blades & sharpening",
+     "url": "https://www.alibaba.com/trade/search?SearchText=cloth%20cutting%20machine%20blade",
+     "qty": 1,
+     "price": 3
+    },
+    {
+     "name": "Fabric delivery and scrap removal logistics",
+     "url": "",
+     "qty": 1,
+     "price": 14
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "knit"
+  },
+  "demo_clothes_outer": {
+   "client_id": "SYSTEM",
+   "topic_title": "Apparel Sewing",
+   "name": "Jacket Sewing Mini-Shop",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Jacket%20Sewing%20Mini-Shop",
+   "cost": 25000.0,
+   "perf": 25.0,
+   "staff": 3.0,
+   "components": [
+    {
+     "name": "Membrane shell fabric (2 m)",
+     "url": "",
+     "qty": 2,
+     "price": 4.5
+    },
+    {
+     "name": "Lining fabric (1.8 m)",
+     "url": "",
+     "qty": 1.8,
+     "price": 1.5
+    },
+    {
+     "name": "Synthetic down / Thinsulate insulation (1.5 m)",
+     "url": "",
+     "qty": 1.5,
+     "price": 3
+    },
+    {
+     "name": "Zippers, snaps, drawcords",
+     "url": "",
+     "qty": 1,
+     "price": 4
+    },
+    {
+     "name": "Threads and seam sealing tape",
+     "url": "",
+     "qty": 1,
+     "price": 1.5
+    },
+    {
+     "name": "Tags, labels, packaging",
+     "url": "",
+     "qty": 1,
+     "price": 1
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Sewing workshop rent 60 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Needles, presser feet, machine oil (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=sewing%20machine%20needles%20presser%20foot",
+     "qty": 3,
+     "price": 2
+    },
+    {
+     "name": "Seam sealing press consumables",
+     "url": "https://www.alibaba.com/trade/search?SearchText=seam%20sealing%20tape",
+     "qty": 1,
+     "price": 4
+    },
+    {
+     "name": "Fabric delivery and scrap removal logistics",
+     "url": "",
+     "qty": 1,
+     "price": 14
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "outer"
+  },
+  "demo_jewelry": {
+   "client_id": "SYSTEM",
+   "topic_title": "Fine Jewelry Casting",
+   "name": "Desktop Jewelry Casting Complex",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Desktop%20Jewelry%20Casting%20Complex",
+   "cost": 12000.0,
+   "perf": 25.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Gold/Silver casting granules (10g)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Gold%2FSilver%20casting%20granules",
+     "qty": 10,
+     "price": 8
+    },
+    {
+     "name": "Stone inserts (cubic zirconia)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Stone%20inserts",
+     "qty": 2,
+     "price": 20
+    },
+    {
+     "name": "Jewelry findings",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Jewelry%20findings",
+     "qty": 1,
+     "price": 5
+    },
+    {
+     "name": "Investment powder & consumables",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Investment%20powder%20%26%20consumables",
+     "qty": 1,
+     "price": 20
+    },
+    {
+     "name": "Velvet presentation case",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Velvet%20presentation%20case",
+     "qty": 1,
+     "price": 5
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Workshop rent with fume exhaust 30 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Graphite crucibles & ceramic flasks (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Graphite%20crucibles%20%26%20ceramic%20flasks",
+     "qty": 2,
+     "price": 5
+    },
+    {
+     "name": "Shielding Argon gas & polishing pastes",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Shielding%20Argon%20gas%20%26%20polishing%20pastes",
+     "qty": 2,
+     "price": 3.5
+    },
+    {
+     "name": "Security & precious metals transport",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_cnc": {
+   "client_id": "SYSTEM",
+   "topic_title": "Desktop CNC Machines",
+   "name": "Desktop CNC Modular Assembly Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Desktop%20CNC%20Modular%20Assembly%20Line",
+   "cost": 15000.0,
+   "perf": 4.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Aluminum frame chassis",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Aluminum%20frame%20chassis",
+     "qty": 1,
+     "price": 300
+    },
+    {
+     "name": "Stepper motors kit",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Stepper%20motors%20kit",
+     "qty": 1,
+     "price": 150
+    },
+    {
+     "name": "CNC Controller board",
+     "url": "https://www.alibaba.com/trade/search?SearchText=CNC%20Controller%20board",
+     "qty": 1,
+     "price": 80
+    },
+    {
+     "name": "Spindle and power supply unit",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Spindle%20and%20power%20supply%20unit",
+     "qty": 1,
+     "price": 200
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Assembly box rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Alignment tools and hex keys (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Alignment%20tools%20and%20hex%20keys",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Lubricants, M4/M5 hardware, threadlockers",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Lubricants",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Heavy metal bedplate freight",
+     "url": "",
+     "qty": 1,
+     "price": 15
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_bakery": {
+   "client_id": "SYSTEM",
+   "topic_title": "Commercial Bakery Line",
+   "name": "Compact Rotary Mini-Bakery",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Compact%20Rotary%20Mini-Bakery",
+   "cost": 16000.0,
+   "perf": 1200.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Premium wheat flour (kg)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Premium%20wheat%20flour",
+     "qty": 0.6,
+     "price": 0.4
+    },
+    {
+     "name": "Yeast and additives",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Yeast%20and%20additives",
+     "qty": 1,
+     "price": 0.05
+    },
+    {
+     "name": "Packaging bags",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Packaging%20bags",
+     "qty": 1,
+     "price": 0.08
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Bakery premises rent 60 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 35
+    },
+    {
+     "name": "Baking pans and trays (amortization)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Baking%20pans%20and%20trays",
+     "qty": 2,
+     "price": 3
+    },
+    {
+     "name": "Detergents, gloves, parchment paper",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Detergents",
+     "qty": 2,
+     "price": 2.5
+    },
+    {
+     "name": "Oven electric power and local delivery",
+     "url": "",
+     "qty": 1,
+     "price": 20
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_watch_quartz": {
+   "client_id": "SYSTEM",
+   "topic_title": "Watch Assembly",
+   "name": "Quartz Watch Assembly Mini-Line",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Quartz%20Watch%20Assembly%20Mini-Line",
+   "cost": 5000.0,
+   "perf": 120.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Miyota 2035 quartz movement",
+     "url": "",
+     "qty": 1,
+     "price": 1.5
+    },
+    {
+     "name": "Zinc alloy case with mineral glass",
+     "url": "",
+     "qty": 1,
+     "price": 3.5
+    },
+    {
+     "name": "Dial and hands set",
+     "url": "",
+     "qty": 1,
+     "price": 1.2
+    },
+    {
+     "name": "Faux leather strap",
+     "url": "",
+     "qty": 1,
+     "price": 1
+    },
+    {
+     "name": "SR626SW battery",
+     "url": "",
+     "qty": 1,
+     "price": 0.1
+    },
+    {
+     "name": "Cardboard gift box",
+     "url": "",
+     "qty": 1,
+     "price": 0.8
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Clean dust-free room rent 30 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Precision watchmaker toolkit (per master)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=watch%20repair%20tool%20kit",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Consumables: finger cots, dust blowers, wipes (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=finger%20cots%20dust%20blower",
+     "qty": 2,
+     "price": 1
+    },
+    {
+     "name": "Insurance and courier delivery",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "quartz"
+  },
+  "demo_watch_automatic": {
+   "client_id": "SYSTEM",
+   "topic_title": "Watch Assembly",
+   "name": "Mechanical Watch Assembly Mini-Line (NH35)",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Mechanical%20Watch%20Assembly%20Mini-Line%20%28NH35%29",
+   "cost": 12000.0,
+   "perf": 30.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Seiko NH35A automatic movement",
+     "url": "",
+     "qty": 1,
+     "price": 32
+    },
+    {
+     "name": "316L stainless steel case",
+     "url": "",
+     "qty": 1,
+     "price": 18
+    },
+    {
+     "name": "Sapphire crystal",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Dial and luminous hands",
+     "url": "",
+     "qty": 1,
+     "price": 6
+    },
+    {
+     "name": "Steel bracelet or leather strap",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    },
+    {
+     "name": "Gift presentation box",
+     "url": "",
+     "qty": 1,
+     "price": 5
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Clean dust-free room rent 30 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Precision watchmaker toolkit (per master)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Precision%20watchmaker%20toolkit",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Watch oils (Moebius), dust blowers",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Watch%20oils",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Insurance and courier delivery",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z",
+   "class_key": "automatic"
+  },
+  "demo_costume": {
+   "client_id": "SYSTEM",
+   "topic_title": "Costume Jewelry Press",
+   "name": "Mini Hydraulic Press for Costume Jewelry",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Mini%20Hydraulic%20Press%20for%20Costume%20Jewelry",
+   "cost": 8000.0,
+   "perf": 300.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Alloy casting workpiece",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Alloy%20casting%20workpiece",
+     "qty": 1,
+     "price": 2
+    },
+    {
+     "name": "Decorative rhinestones / crystals",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Decorative%20rhinestones%20%2F%20crystals",
+     "qty": 1,
+     "price": 1
+    },
+    {
+     "name": "Fasteners and findings",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Fasteners%20and%20findings",
+     "qty": 1,
+     "price": 0.5
+    },
+    {
+     "name": "Eco pouch packaging",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Eco%20pouch%20packaging",
+     "qty": 1,
+     "price": 1.5
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Workshop rent 30 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 20
+    },
+    {
+     "name": "Press dies and manual assembly tools (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Press%20dies%20and%20manual%20assembly%20tools",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "UV-curing adhesives, clean wipes",
+     "url": "https://www.alibaba.com/trade/search?SearchText=UV-curing%20adhesives",
+     "qty": 2,
+     "price": 1.5
+    },
+    {
+     "name": "Dispatch and parcel shipping",
+     "url": "",
+     "qty": 1,
+     "price": 8
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_instruments": {
+   "client_id": "SYSTEM",
+   "topic_title": "Precision Instruments",
+   "name": "Sensor Calibration and Assembly Bench",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Sensor%20Calibration%20and%20Assembly%20Bench",
+   "cost": 22000.0,
+   "perf": 15.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Sensor measurement module",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Sensor%20measurement%20module",
+     "qty": 1,
+     "price": 120
+    },
+    {
+     "name": "Signal processing controller board",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Signal%20processing%20controller%20board",
+     "qty": 1,
+     "price": 65
+    },
+    {
+     "name": "LCD Display module",
+     "url": "https://www.alibaba.com/trade/search?SearchText=LCD%20Display%20module",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Shockproof enclosure IP65",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Shockproof%20enclosure%20IP65",
+     "qty": 1,
+     "price": 40
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Laboratory room rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Calibration standards & instruments (per engineer)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Calibration%20standards%20%26%20instruments",
+     "qty": 2,
+     "price": 3.5
+    },
+    {
+     "name": "Cables, heat shrink, solder",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Cables",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Certification & logistics",
+     "url": "",
+     "qty": 1,
+     "price": 12
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  },
+  "demo_universal": {
+   "client_id": "SYSTEM",
+   "topic_title": "Universal Project",
+   "name": "Universal Production Cell",
+   "url": "https://www.alibaba.com/trade/search?SearchText=Universal%20Production%20Cell",
+   "cost": 20000.0,
+   "perf": 25.0,
+   "staff": 2.0,
+   "components": [
+    {
+     "name": "Primary base raw material",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Primary%20base%20raw%20material",
+     "qty": 1,
+     "price": 40
+    },
+    {
+     "name": "Functional electronic/mechanical units",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Functional%20electronic%2Fmechanical%20units",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "Protective outer housing",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Protective%20outer%20housing",
+     "qty": 1,
+     "price": 12
+    },
+    {
+     "name": "Consumer retail box",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Consumer%20retail%20box",
+     "qty": 1,
+     "price": 3
+    }
+   ],
+   "expenses": [
+    {
+     "name": "Workshop premises rent 40 sq.m",
+     "url": "",
+     "qty": 1,
+     "price": 25
+    },
+    {
+     "name": "General tooling and workbenches (per worker)",
+     "url": "https://www.alibaba.com/trade/search?SearchText=General%20tooling%20and%20workbenches",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Workplace consumables and safety gear",
+     "url": "https://www.alibaba.com/trade/search?SearchText=Workplace%20consumables%20and%20safety%20gear",
+     "qty": 2,
+     "price": 2
+    },
+    {
+     "name": "Logistics & operational communications",
+     "url": "",
+     "qty": 1,
+     "price": 10
+    }
+   ],
+   "country_key": "base",
+   "tariff": 0,
+   "freight": 0,
+   "comp_tariff": 0,
+   "created_at": "2026-10-05T00:00:00.000Z"
+  }
+ }
+}
