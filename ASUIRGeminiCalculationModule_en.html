@@ -386,6 +386,101 @@
             gap: 4px;
         }
 
+        .mod-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 980px;
+            font-size: 13px;
+        }
+
+            .mod-table th {
+                text-align: left;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                color: #6c7a8a;
+                padding: 8px;
+                border-bottom: 2px solid #d5dde6;
+                vertical-align: bottom;
+            }
+
+            .mod-table td {
+                padding: 8px;
+                border-bottom: 1px solid #e3e8ee;
+                vertical-align: top;
+            }
+
+            .mod-table .num {
+                text-align: right;
+                white-space: nowrap;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .mod-table tr.mod-current td {
+                background: #eef6ff;
+            }
+
+            .mod-table tr.mod-not td {
+                background: #fdf3ea;
+            }
+
+        .mod-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 3px;
+            padding: 1px 5px;
+            margin: 3px 4px 0 0;
+        }
+
+            .mod-tag.cat {
+                background: #e6eef6;
+                color: #1f4e78;
+            }
+
+            .mod-tag.new {
+                background: #fbefe4;
+                color: #b8520f;
+            }
+
+            .mod-tag.cur {
+                background: #1f4e78;
+                color: #fff;
+            }
+
+        .mod-table details summary {
+            cursor: pointer;
+            color: #1f4e78;
+        }
+
+        .mod-table details ul {
+            margin: 4px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mod-table details li {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px dotted #d5dde6;
+        }
+
+        .mod-core {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            margin: 4px 0 12px;
+            font-size: 13px;
+        }
+
+            .mod-core span {
+                border: 1px solid #d5dde6;
+                border-radius: 5px;
+                padding: 1px 7px;
+            }
+
         .info-hint {
             background: #f0f5fa;
             padding: 12px 16px;
@@ -793,6 +888,7 @@
                     <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Raw Materials & BOM</a>
                     <a href="#" class="matrix-tab-item" data-tab="tab4">📊 4. Unit Cost Price</a>
                     <a href="#" class="matrix-tab-item" data-tab="tab5">🎯 5. Results</a>
+                    <a href="#" class="matrix-tab-item" data-tab="tab6">🧩 6. Modules</a>
                 </div>
 
                 <div class="matrix-content-body">
@@ -1077,6 +1173,12 @@
                         </div>
                     </div>
 
+                    <!-- ТАБ 6: МОДУЛИ — ДРУГИЕ ПРОДУКТЫ НА ЭТОЙ ЖЕ ЛИНИИ -->
+                    <div class="section" id="tab6">
+                        <div class="info-hint"><b>🧩 Modules: other products on the same line.</b> The core equipment stays; for a new product you buy a changeover module: tooling, molds, jigs, programs. Unit cost is calculated for the current line: its fixed costs per day plus the module spread over 5 years, divided by the product output. Output and prices are starting estimates; check them with the supplier.</div>
+                        <div id="modules-box"></div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -1251,6 +1353,49 @@ Thank you!
                                     Object.keys(MARKET_DATA).map(k => [k, MARKET_DATA[k]['en']]).sort((a, b) => a[1].localeCompare(b[1], 'en'))
                                         .forEach(([k, n]) => { const o = document.createElement('option'); o.value = k; o.textContent = n; sel.appendChild(o); });
                                     sel.addEventListener('change', () => calculateAll()); })();
+                                // МАТРИЦА МОДУЛЕЙ: продукты, которые выпускает та же линия после смены модуля.
+                                // ref — продукт из каталога (тема, класс): его комплектующие, выпуск и цена берутся из catalogDB.
+                                const MODULE_LINES = [{"id": "electronics", "topics": ["drone", "phone", "tablet", "tv", "pc"], "name": "Electronics assembly", "core": ["ESD assembly line", "soldering stations", "glue dispenser", "display lamination press", "test benches", "firmware programmer"], "rows": [{"n": "Budget smartphone", "st": "cat", "ref": ["phone", "budget"], "mod": "housing nests, 6.5\" display press jig, test firmware", "mp": 800, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "Mid-range smartphone", "st": "cat", "ref": ["phone", "mid"], "mod": "nests, AMOLED press jig, test firmware", "mp": 900, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "10\" tablet", "st": "cat", "ref": ["tablet", null], "mod": "10\" nests, display press jig, test", "mp": 900, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "15.6\" laptop", "st": "cat", "ref": ["pc", null], "mod": "nests, hinge jig, test bench", "mp": 1500, "ch": "6 h", "perf": 0, "fob": 0, "c": []}, {"n": "32–43\" TV", "st": "cat", "ref": ["tv", "small"], "mod": "large-panel assembly table, vacuum grippers, test-signal generator", "mp": 3000, "ch": "1 shift", "perf": 0, "fob": 0, "c": []}, {"n": "Camera drone", "st": "cat", "ref": ["drone", null], "mod": "frame nests, calibration stand, motor tester", "mp": 1200, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "Feature phone", "st": "new", "ref": null, "mod": "nests, test program", "mp": 400, "ch": "2 h", "perf": 300, "fob": 18, "c": [["Board", 5], ["2.4\" display", 1.5], ["Keypad", 0.8], ["Housing", 1.2], ["Battery", 1], ["Charger", 0.8], ["Box", 0.5]]}, {"n": "20,000 mAh power bank", "st": "new", "ref": null, "mod": "cell spot-welding jig, capacity tester", "mp": 1200, "ch": "3 h", "perf": 200, "fob": 22, "c": [["18650 cells ×6", 9], ["Controller board", 1.5], ["Housing", 2], ["Cable", 0.5], ["Box", 0.5]]}, {"n": "Handheld radio", "st": "new", "ref": null, "mod": "nests, RF test stand", "mp": 1500, "ch": "4 h", "perf": 150, "fob": 35, "c": [["Board", 9], ["Housing", 2.5], ["Antenna", 0.8], ["Battery", 3], ["Charger", 1.5], ["Box", 0.8]]}]}, {"id": "watch", "topics": ["watch"], "name": "Watch assembly", "core": ["workstations with stereo microscope", "crystal and caseback press", "timing machine", "water-resistance tester", "ultrasonic cleaner"], "rows": [{"n": "Simple quartz", "st": "cat", "ref": ["watch", "quartz"], "mod": "Miyota 2035 movement holders, hand-setting tool, battery tester", "mp": 350, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Seiko-level automatic", "st": "cat", "ref": ["watch", "automatic"], "mod": "NH35 movement holder, demagnetizer, rotor tool", "mp": 450, "ch": "2 h", "perf": 0, "fob": 0, "c": []}, {"n": "Women's quartz", "st": "new", "ref": null, "mod": "small-movement holders, small-case mandrels", "mp": 300, "ch": "1 h", "perf": 120, "fob": 45, "c": [["Miyota 1L45 movement", 3], ["Case", 4], ["Crystal", 0.8], ["Dial with crystals", 2.5], ["Hands", 0.6], ["Bracelet", 3], ["Box", 1.5]]}, {"n": "Quartz chronograph", "st": "new", "ref": null, "mod": "VK63 movement holder, pusher set, chronograph tester", "mp": 400, "ch": "2 h", "perf": 60, "fob": 140, "c": [["Seiko VK63 movement", 9], ["316L steel case", 15], ["Sapphire crystal", 6], ["Dial", 4], ["Hands ×6", 3], ["Bracelet", 8], ["Box", 3]]}, {"n": "Smartwatch", "st": "new", "ref": null, "mod": "jig, glue dispenser, firmware and test stand", "mp": 1500, "ch": "4 h", "perf": 100, "fob": 60, "c": [["Board with display", 18], ["Case", 4], ["Battery", 2], ["Strap", 1.5], ["Charging cable", 1.5], ["Box", 1]]}]}, {"id": "clothes", "topics": ["clothes"], "name": "Garment sewing", "core": ["lockstitch machines", "overlockers", "coverstitch machines", "cutting table and knife", "ironing table"], "rows": [{"n": "Knitwear: T-shirts, hoodies", "st": "cat", "ref": ["clothes", "knit"], "mod": "size-range patterns, presser feet, neckline binder", "mp": 250, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Insulated jackets", "st": "cat", "ref": ["clothes", "outer"], "mod": "patterns, zipper feet, snap press, seam-taping heat press", "mp": 2500, "ch": "1 shift", "perf": 0, "fob": 0, "c": []}, {"n": "Sweatpants", "st": "new", "ref": null, "mod": "patterns, elastic-insertion attachment", "mp": 200, "ch": "1 h", "perf": 100, "fob": 16, "c": [["Fleece 1.3 m", 6.5], ["Elastic", 0.5], ["Drawcord", 0.3], ["Thread", 0.3], ["Label and bag", 0.3]]}, {"n": "Children's knitwear", "st": "new", "ref": null, "mod": "children's patterns, snap press with dies", "mp": 350, "ch": "2 h", "perf": 150, "fob": 7, "c": [["Interlock 0.6 m", 2.4], ["Snaps", 0.3], ["Thread", 0.2], ["Label and bag", 0.25]]}]}, {"id": "bakery", "topics": ["bakery"], "name": "Bakery", "core": ["oven", "spiral mixer", "proofing cabinet", "dough divider", "work tables"], "rows": [{"n": "Bread (catalog template)", "st": "cat", "ref": ["bakery", null], "mod": "bread pans, set of 40", "mp": 400, "ch": "30 min", "perf": 0, "fob": 0, "c": []}, {"n": "Baguettes", "st": "new", "ref": null, "mod": "perforated baguette trays, proofing cloths", "mp": 450, "ch": "30 min", "perf": 800, "fob": 1.2, "c": [["Flour 0.2 kg", 0.11], ["Yeast, salt", 0.03], ["Bag", 0.04]]}, {"n": "Burger buns", "st": "new", "ref": null, "mod": "semi-automatic divider-rounder", "mp": 2500, "ch": "1 h", "perf": 3000, "fob": 0.35, "c": [["Flour 0.07 kg", 0.04], ["Sugar, oil, sesame", 0.03], ["Packaging", 0.02]]}, {"n": "Cookies, 100 g pack", "st": "new", "ref": null, "mod": "piping nozzles, cutters, trays", "mp": 600, "ch": "1 h", "perf": 1500, "fob": 1.5, "c": [["Flour, sugar, butter", 0.25], ["Packaging", 0.06]]}, {"n": "Croissants", "st": "new", "ref": null, "mod": "dough sheeter", "mp": 3000, "ch": "1 h", "perf": 1500, "fob": 1, "c": [["Flour 0.04 kg", 0.03], ["Butter 0.03 kg", 0.2], ["Sugar, yeast", 0.02], ["Packaging", 0.03]]}]}, {"id": "furniture", "topics": ["furniture"], "name": "Furniture and woodworking", "core": ["CNC router", "edge bander", "boring machine", "dust extraction"], "rows": [{"n": "Panel furniture", "st": "cat", "ref": ["furniture", "panel"], "mod": "nesting programs, cutters, hinge jig", "mp": 400, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Shelving unit", "st": "new", "ref": null, "mod": "programs, drilling jig", "mp": 150, "ch": "30 min", "perf": 20, "fob": 150, "c": [["Chipboard, 1.5 sheets", 68], ["Edge banding", 4], ["Screws, shelf supports", 3], ["Packaging", 4]]}, {"n": "MDF kitchen door", "st": "new", "ref": null, "mod": "door cutter set, programs", "mp": 600, "ch": "1 h", "perf": 60, "fob": 35, "c": [["MDF 0.4 m²", 6], ["Foil or paint", 5], ["Packaging", 1]]}, {"n": "Chest of drawers", "st": "new", "ref": null, "mod": "drawer-slide jig, programs", "mp": 250, "ch": "1 h", "perf": 15, "fob": 160, "c": [["Chipboard, 1.2 sheets", 54], ["Drawer slides ×4 pairs", 12], ["Handles", 4], ["Edge banding", 4], ["Packaging", 5]]}, {"n": "Children's bed", "st": "new", "ref": null, "mod": "radius cutters, programs", "mp": 300, "ch": "1 h", "perf": 10, "fob": 200, "c": [["Chipboard and MDF", 70], ["Fasteners", 8], ["Edge banding", 5], ["Packaging", 6]]}]}, {"id": "jewelry", "topics": ["jewelry"], "name": "Jewelry", "core": ["vacuum casting machine", "burnout furnace", "polishing machine", "laser welder", "ultrasonic cleaner"], "rows": [{"n": "Catalog template items", "st": "cat", "ref": ["jewelry", null], "mod": "rubber molds and wax patterns", "mp": 300, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Rings, 925 silver", "st": "new", "ref": null, "mod": "molds and wax patterns for the size range", "mp": 300, "ch": "1 h", "perf": 25, "fob": 25, "c": [["925 silver, 4 g", 4], ["CZ stone", 0.3], ["Packaging", 0.5]]}, {"n": "Earrings, 925 silver", "st": "new", "ref": null, "mod": "molds, clasp tool", "mp": 250, "ch": "1 h", "perf": 30, "fob": 22, "c": [["925 silver, 3 g", 3], ["Clasps", 0.6], ["Stones", 0.5], ["Packaging", 0.5]]}, {"n": "Pendants, 925 silver", "st": "new", "ref": null, "mod": "molds", "mp": 200, "ch": "30 min", "perf": 40, "fob": 18, "c": [["925 silver, 2.5 g", 2.5], ["Bail", 0.2], ["Stone", 0.4], ["Packaging", 0.5]]}, {"n": "Wedding bands, 14K gold", "st": "new", "ref": null, "mod": "molds, engraving templates", "mp": 500, "ch": "1 h", "perf": 15, "fob": 320, "c": [["14K gold, 3 g", 165], ["Packaging", 3]]}, {"n": "Chains", "st": "not", "ref": null, "mod": "not a module: needs a chain-making machine, about $4,000", "mp": 0, "ch": "—", "perf": 20, "fob": 30, "c": [["925 silver, 5 g", 5], ["Clasp", 0.4], ["Packaging", 0.5]]}]}, {"id": "costume", "topics": ["costume"], "name": "Costume jewelry", "core": ["alloy casting", "tumbler", "plating line", "assembly tables"], "rows": [{"n": "Catalog template items", "st": "cat", "ref": ["costume", null], "mod": "silicone molds", "mp": 150, "ch": "30 min", "perf": 0, "fob": 0, "c": []}, {"n": "Bracelets", "st": "new", "ref": null, "mod": "link molds, mandrels", "mp": 200, "ch": "30 min", "perf": 300, "fob": 4, "c": [["Links", 0.3], ["Clasp", 0.08], ["Plating", 0.12], ["Packaging", 0.1]]}, {"n": "Keychains", "st": "new", "ref": null, "mod": "molds, split rings", "mp": 150, "ch": "30 min", "perf": 400, "fob": 2.5, "c": [["Alloy", 0.2], ["Enamel", 0.08], ["Ring", 0.04], ["Packaging", 0.05]]}, {"n": "Pins", "st": "new", "ref": null, "mod": "molds, enamel dispensers", "mp": 400, "ch": "1 h", "perf": 500, "fob": 2, "c": [["Alloy", 0.12], ["Enamel", 0.06], ["Pin with clutch", 0.05], ["Packaging", 0.05]]}]}, {"id": "cnc", "topics": ["cnc"], "name": "Desktop CNC machines", "core": ["assembly area", "router for own parts", "laser machine", "run-in stand"], "rows": [{"n": "CNC router (catalog template)", "st": "cat", "ref": ["cnc", null], "mod": "frame assembly jig, run-in programs", "mp": 500, "ch": "1 shift", "perf": 0, "fob": 0, "c": []}, {"n": "20 W laser engraver", "st": "new", "ref": null, "mod": "gantry jig, alignment stand", "mp": 300, "ch": "4 h", "perf": 6, "fob": 280, "c": [["Aluminum extrusion", 25], ["Laser module", 60], ["Stepper motors ×2", 20], ["Controller", 15], ["Power supply", 10], ["Belts and pulleys", 8]]}, {"n": "3D printer", "st": "new", "ref": null, "mod": "frame jig, calibration stand", "mp": 400, "ch": "4 h", "perf": 6, "fob": 250, "c": [["Frame", 30], ["Extruder with hotend", 18], ["Heated bed", 15], ["Stepper motors ×4", 28], ["Control board", 15], ["Display", 8], ["Power supply", 12]]}, {"n": "Cutting plotter", "st": "new", "ref": null, "mod": "assembly jig", "mp": 250, "ch": "4 h", "perf": 8, "fob": 160, "c": [["Housing", 20], ["Blade carriage", 10], ["Stepper motors ×2", 14], ["Control board", 12], ["Pinch rollers", 8], ["Power supply", 6]]}]}, {"id": "instruments", "topics": ["instruments"], "name": "Measuring instruments", "core": ["ESD assembly", "soldering stations", "calibration stand", "programmer"], "rows": [{"n": "Catalog template instrument", "st": "cat", "ref": ["instruments", null], "mod": "nests, calibrator", "mp": 800, "ch": "2 h", "perf": 0, "fob": 0, "c": []}, {"n": "Multimeter", "st": "new", "ref": null, "mod": "nests, calibrator", "mp": 800, "ch": "2 h", "perf": 80, "fob": 15, "c": [["Board", 3], ["Display", 1], ["Housing", 1.5], ["Test leads", 0.8], ["Rotary switch", 0.5], ["Box", 0.4]]}, {"n": "Infrared thermometer", "st": "new", "ref": null, "mod": "reference blackbody for calibration", "mp": 1200, "ch": "2 h", "perf": 60, "fob": 18, "c": [["IR sensor", 2.5], ["Board", 2], ["Display", 0.8], ["Laser pointer", 0.3], ["Housing", 1.2], ["Box", 0.4]]}, {"n": "Laser distance meter", "st": "new", "ref": null, "mod": "optical alignment stand", "mp": 1500, "ch": "3 h", "perf": 40, "fob": 30, "c": [["Laser module", 6], ["Board", 3], ["Display", 1], ["Housing", 2], ["Box", 0.5]]}, {"n": "CO₂ monitor", "st": "new", "ref": null, "mod": "gas calibration chamber", "mp": 1000, "ch": "2 h", "perf": 40, "fob": 45, "c": [["NDIR sensor", 12], ["Board", 3], ["Display", 2], ["Housing", 2], ["Box", 0.5]]}, {"n": "Digital caliper", "st": "not", "ref": null, "mod": "not a module: needs machining and scale grinding", "mp": 0, "ch": "—", "perf": 0, "fob": 12, "c": [["Steel beam with slider", 4], ["Electronic unit", 1.5], ["Case", 0.8]]}]}];
+                                function renderModules(fixedPerDay, compTariffPct) {
+                                    const box = document.getElementById('modules-box'); if (!box) return;
+                                    const topicKey = findCatalogKeyByTitle(currentTopicTitle);
+                                    const L = MODULE_LINES.find(l => l.topics.includes(topicKey));
+                                    if (!L) { box.innerHTML = '<p>No modules have been selected for this topic yet.</p>'; return; }
+                                    const loc = 'en-US';
+                                    const money = v => (v < 0 ? '−$' : '$') + (Math.abs(v) >= 100 ? Math.round(Math.abs(v)).toLocaleString(loc) : Math.abs(v).toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                    const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+                                    const rows = L.rows.map(r => {
+                                        let comps = r.c, perf = r.perf, fob = r.fob;
+                                        if (r.ref && catalogDB[r.ref[0]]) {
+                                            const d = resolveCatalogData(r.ref[0], r.ref[1]);
+                                            comps = (d.c || []).map(c => [c[0] + (c[1] != 1 ? ' ×' + c[1] : ''), (parseFloat(c[1]) || 0) * (parseFloat(c[2]) || 0)]);
+                                            perf = parseFloat(d.perf) || 0; fob = parseFloat(d.mkt) || 0;
+                                        }
+                                        const sumC = comps.reduce((x, c) => x + c[1], 0) * (1 + compTariffPct / 100);
+                                        const cost = perf > 0 ? sumC + (fixedPerDay + r.mp / 5 / 365) / perf : null;
+                                        const profit = cost !== null ? Math.round((fob - cost) * perf * 30) : null;
+                                        const isCur = r.ref && r.ref[0] === topicKey && (r.ref[1] || null) === (currentClassKey || null);
+                                        const tags = (r.st === 'cat' ? '<span class="mod-tag cat">catalog class</span>' : r.st === 'new' ? '<span class="mod-tag new">new</span>' : '<span class="mod-tag new">not a module</span>') + (isCur ? '<span class="mod-tag cur">this line</span>' : '');
+                                        const list = comps.map(c => `<li><span>${esc(c[0])}</span><span>${money(c[1])}</span></li>`).join('');
+                                        const btn = (r.ref && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="openModuleProduct('${r.ref[0]}', ${r.ref[1] ? "'" + r.ref[1] + "'" : 'null'})">Open in form</button>` : '';
+                                        return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
+                                            <td><b>${esc(r.n)}</b><br>${tags}${btn}</td><td>${esc(r.mod)}</td>
+                                            <td class="num">${r.st === 'not' ? '—' : money(r.mp)}</td><td class="num">${esc(r.ch)}</td><td class="num">${perf || '—'}</td>
+                                            <td><details><summary>${comps.length} items · ${money(sumC)}</summary><ul>${list}</ul></details></td>
+                                            <td class="num"><b>${cost !== null ? money(cost) : '—'}</b></td><td class="num">${money(fob)}</td>
+                                            <td class="num" style="color:${profit !== null && profit < 0 ? '#c0392b' : '#1f4e78'}; font-weight:700;">${profit !== null ? money(profit) : '—'}</td></tr>`;
+                                    }).join('');
+                                    box.innerHTML = `<h3 style="margin:4px 0 2px; color:#1f4e78;">${esc(L.name)}</h3>
+                                        <div class="mod-core"><b style="font-size:11px; text-transform:uppercase; color:#6c7a8a;">Stays on the line</b>${L.core.map(c => `<span>${esc(c)}</span>`).join('')}</div>
+                                        <p style="font-size:13px; color:#4a5568; margin:0 0 10px;">${'Fixed costs of the current line: ${f} per day (equipment, staff at $10,000 a month, workshop).'.replace('{f}', Math.round(fixedPerDay).toLocaleString(loc))}${compTariffPct ? ' ' + 'Components include a {p}% duty.'.replace('{p}', compTariffPct) : ''}</p>
+                                        <div class="table-responsive"><table class="mod-table"><thead><tr><th>Product</th><th>Module: what to buy</th><th class="num">Module</th><th class="num">Changeover</th><th class="num">Output, pcs/day</th><th>Components per unit</th><th class="num">Unit cost</th><th class="num">FOB price</th><th class="num">Profit per month</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+                                }
+                                window.openModuleProduct = function (topic, cls) {
+                                    const sel = document.getElementById('topic-selector-dropdown'); if (sel) sel.value = topic;
+                                    loadCatalogTemplate(topic, cls || undefined);
+                                    document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.toggle('active', l.dataset.tab === 'tab1'));
+                                    document.querySelectorAll('.section').forEach(x => x.classList.toggle('active', x.id === 'tab1'));
+                                };
                                 let currentCountry = 'base';
                                 window.onCountryChange = function () {
                                     const sel = document.getElementById('country-selector');
@@ -2236,6 +2381,7 @@ Thank you!
                                             mEl.textContent = txt + ((me && !me.empty) ? ' Source: UN Comtrade.' : '');
                                         }
                                     }
+                                    renderModules(totalFixedPerDay, compTariffPct);
                                     renderEquipmentListingGroupedByTopic(totalOtherCosts, salary);
                                 };
 
