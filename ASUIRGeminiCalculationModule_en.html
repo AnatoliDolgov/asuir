@@ -416,6 +416,12 @@
                 font-variant-numeric: tabular-nums;
             }
 
+            .mod-table th.num {
+                white-space: normal;
+                min-width: 70px;
+                max-width: 120px;
+            }
+
             .mod-table tr.mod-current td {
                 background: #eef6ff;
             }
@@ -949,7 +955,7 @@
                     <a href="#" class="matrix-tab-item" data-tab="tab3">⚙️ 3. Raw Materials & BOM</a>
                     <a href="#" class="matrix-tab-item" data-tab="tab4">📊 4. Unit Cost Price</a>
                     <a href="#" class="matrix-tab-item" data-tab="tab5">🎯 5. Results</a>
-                    <a href="#" class="matrix-tab-item" data-tab="tab6">🧩 6. Modules</a>
+                    <a href="#" class="matrix-tab-item" data-tab="tab6">🧩 6. Modules: other items</a>
                 </div>
 
                 <div class="matrix-content-body">
@@ -1229,7 +1235,7 @@
 
                     <!-- ТАБ 6: МОДУЛИ — ДРУГИЕ ПРОДУКТЫ НА ЭТОЙ ЖЕ ЛИНИИ -->
                     <div class="section" id="tab6">
-                        <div class="info-hint"><b>🧩 Modules: other products on the same line.</b> The core equipment stays; for a new product you buy a changeover module: tooling, molds, jigs, programs. Unit cost is calculated for the current line: its fixed costs per day plus the module spread over 5 years, divided by the product output. Output and prices are starting estimates; check them with the supplier.</div>
+                        <div class="info-hint"><b>🧩 What else you can make on the same equipment.</b> The equipment stays the same: for a new item you buy a small set — molds, fixtures, programs. The table shows what this set costs, what each item will cost you and the profit it brings. The figures are first estimates; get exact prices from the supplier.</div>
                         <div id="modules-box"></div>
                     </div>
 
@@ -1429,7 +1435,7 @@ Thank you!
                                         const cost = perf > 0 ? sumC + (fixedPerDay + r.mp / 5 / 365) / perf : null;
                                         const profit = cost !== null ? Math.round((fob - cost) * perf * 30) : null;
                                         const isCur = r.ref && r.ref[0] === topicKey && (r.ref[1] || null) === (currentClassKey || null);
-                                        const tags = (r.st === 'cat' ? '<span class="mod-tag cat">catalog class</span>' : r.st === 'new' ? '<span class="mod-tag new">new</span>' : '<span class="mod-tag new">not a module</span>') + (isCur ? '<span class="mod-tag cur">this line</span>' : '');
+                                        const tags = (r.st === 'cat' ? '<span class="mod-tag cat">in the catalog</span>' : r.st === 'new' ? '<span class="mod-tag new">new</span>' : '<span class="mod-tag new">needs other equipment</span>') + (isCur ? '<span class="mod-tag cur">open now</span>' : '');
                                         const list = comps.map(c => `<li><span>${esc(c[0])}</span><span>${money(c[1])}</span></li>`).join('');
                                         const btn = (r.ref && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="openModuleProduct('${r.ref[0]}', ${r.ref[1] ? "'" + r.ref[1] + "'" : 'null'})">Open in form</button>` : '';
                                         return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
@@ -1440,9 +1446,9 @@ Thank you!
                                             <td class="num" style="color:${profit !== null && profit < 0 ? '#c0392b' : '#1f4e78'}; font-weight:700;">${profit !== null ? money(profit) : '—'}</td></tr>`;
                                     }).join('');
                                     box.innerHTML = `<h3 style="margin:4px 0 2px; color:#1f4e78;">${esc(L.name)}</h3>
-                                        <div class="mod-core"><b style="font-size:11px; text-transform:uppercase; color:#6c7a8a;">Stays on the line</b>${L.core.map(c => `<span>${esc(c)}</span>`).join('')}</div>
-                                        <p style="font-size:13px; color:#4a5568; margin:0 0 10px;">${'Fixed costs of the current line: ${f} per day (equipment, staff at $10,000 a month, workshop).'.replace('{f}', Math.round(fixedPerDay).toLocaleString(loc))}${compTariffPct ? ' ' + 'Components include a {p}% duty.'.replace('{p}', compTariffPct) : ''}</p>
-                                        <div class="table-responsive"><table class="mod-table"><thead><tr><th>Product</th><th>Module: what to buy</th><th class="num">Module</th><th class="num">Changeover</th><th class="num">Output, pcs/day</th><th>Components per unit</th><th class="num">Unit cost</th><th class="num">FOB price</th><th class="num">Profit per month</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+                                        <div class="mod-core"><b style="font-size:11px; text-transform:uppercase; color:#6c7a8a;">The equipment stays the same</b>${L.core.map(c => `<span>${esc(c)}</span>`).join('')}</div>
+                                        <p style="font-size:13px; color:#4a5568; margin:0 0 10px;">${'Your costs that do not depend on how many items you make: ${f} per day (equipment, wages of $10,000 a month, premises).'.replace('{f}', Math.round(fixedPerDay).toLocaleString(loc))}${compTariffPct ? ' ' + 'Part prices include a {p}% duty.'.replace('{p}', compTariffPct) : ''}</p>
+                                        <div class="table-responsive"><table class="mod-table"><thead><tr><th>What else you can make</th><th>What to buy</th><th class="num">What it costs to buy</th><th class="num">Time to switch to this item</th><th class="num">Items per day</th><th>Parts per item</th><th class="num">What one item costs you</th><th class="num">Price of the same item at the factory abroad</th><th class="num">Your profit per month</th></tr></thead><tbody>${rows}</tbody></table></div>`;
                                 }
                                 window.openModuleProduct = function (topic, cls) {
                                     const sel = document.getElementById('topic-selector-dropdown'); if (sel) sel.value = topic;
@@ -3002,7 +3008,7 @@ Thank you!
                                         headerTr.style.background = "#eef6ff";
                                         headerTr.innerHTML = `
                                                             <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                                📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''} (Equivalent export price, FOB = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
+                                                                📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''} (same item at the factory abroad: $${topicBenchmarkPrice.toFixed(2)}, parts per item: $${topicBenchmarkBom.toFixed(2)})
                                                             </td>
                                                         `;
                                         container.appendChild(headerTr);
