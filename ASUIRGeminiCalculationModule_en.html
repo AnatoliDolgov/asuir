@@ -481,6 +481,67 @@
                 padding: 1px 7px;
             }
 
+        .result-hero {
+            background: #eef6ff;
+            border-left: 5px solid #1f4e78;
+            border-radius: 6px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            line-height: 1.55;
+            color: #1a2632;
+        }
+
+            .result-hero .rh-head {
+                font-size: 21px;
+                font-weight: 700;
+                color: #1f4e78;
+            }
+
+            .result-hero .rh-sub {
+                font-size: 16px;
+                font-weight: 600;
+                margin-top: 4px;
+            }
+
+            .result-hero .rh-note {
+                font-size: 13px;
+                color: #4a5568;
+                margin-top: 6px;
+            }
+
+        tr.res-group td {
+            background: #1f4e78;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: .02em;
+            padding: 9px 12px;
+        }
+
+        tr.res-group.res-eng td {
+            background: #e9edf2;
+            color: #4a5568;
+        }
+
+        tr.res-main td {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1f4e78;
+        }
+
+        tr.res-eng-row td {
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .res-small {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+            color: #6c7a8a;
+            margin-top: 2px;
+        }
+
         .info-hint {
             background: #f0f5fa;
             padding: 12px 16px;
@@ -816,9 +877,9 @@
                             <label style="font-size:13px; font-weight:700; color:#1f4e78; margin-left:10px;">Country:</label>
                             <select id="listing-country-filter" class="input-field input-sm" style="width:200px; font-weight:600;" onchange="currentListingPage=1; calculateAll();">
                                 <option value="all" selected>All countries</option>
-                                <option value="us">🇺🇸 USA</option>
-                                <option value="eu">🇪🇺 European Union</option>
-                                <option value="base">🌐 No specific country</option>
+                                <option value="us">USA</option>
+                                <option value="eu">European Union</option>
+                                <option value="base">No specific country</option>
                             </select>
                         </div>
                     </div>
@@ -920,9 +981,9 @@
                                             <select id="class-selector-dropdown" class="input-field input-sm" style="width: 300px; font-weight:600; color:#c65911; display:none;" title="The product class defines the component list, equipment and market price" onchange="loadCatalogTemplate(document.getElementById('topic-selector-dropdown').value, this.value)"></select>
                                             <!-- COUNTRY OF PRODUCTION: sets starting tariff and import freight rates for the comparison -->
                                             <select id="country-selector" class="input-field input-sm" style="width: 200px; font-weight:600; color:#1f4e78;" title="Country where production is located: for the comparison with imports" onchange="onCountryChange()">
-                                                <option value="base">🌐 No specific country</option>
-                                                <option value="us">🇺🇸 USA</option>
-                                                <option value="eu">🇪🇺 European Union</option>
+                                                <option value="base">No specific country</option>
+                                                <option value="us">USA</option>
+                                                <option value="eu">European Union</option>
                                             </select>
                                             <button class="btn btn-primary btn-sm" onclick="openModal('catalog-modal')">📋 Catalog</button>
                                         </div>
@@ -991,8 +1052,7 @@
                     <!-- TAB 2: TOOLING & FACILITY EXPENSES -->
                     <div class="section" id="tab2">
                         <div class="info-hint">
-                            <b>💡 Proportional Staff Scaling:</b> Toolkits and consumables scale directly with the number of operators (staff), while general overhead (facility rent, ventilation) is counted once per setup.
-                            <br><b>⚠️ The amounts in the "$ / day" column are starting estimates,</b> not fact: look up the item via 🔍, get a real quote from the supplier, and type it in manually — only then does the calculation reflect your actual line.
+                            <b>⚠️ The amounts in the "$ / day" column are starting estimates,</b> not fact: look up the item via 🔍, get a real quote from the supplier, and type it in manually — only then does the calculation reflect your actual line.
                         </div>
                         <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;">
                             <button class="btn btn-primary btn-sm" onclick="addExpenseRow('', 1, 0, '')">＋ Add Facility / Tooling Expense Item</button>
@@ -1084,84 +1144,78 @@
 
                     <!-- TAB 5: RESULTS -->
                     <div class="section" id="tab5">
+                        <div id="import-advantage" class="result-hero">—</div>
                         <div class="table-responsive">
                             <table class="section-results">
-                                <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">💰</span> Sales price = foreign manufacturer's export price for the equivalent (FOB): excluding freight and tariff, per unit</span><br><span style="font-size:12px; color:#6c7a8a;">In this calculation our line sells at the same price — a conservative estimate: the importer in the destination country pays freight and tariff on top of it.</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px;">
-                                        $ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423">
-                                    </td>
+                                <tr class="res-group"><td colspan="2">🏭 Your production</td></tr>
+                                <tr class="res-main">
+                                    <td>What one item costs you<span class="res-small">everything together: parts, equipment, premises and staff wages</span></td>
+                                    <td class="right">$ <span id="own-cost">—</span></td>
                                 </tr>
-                                <tr style="background:#f7f9fc;">
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🚢</span> Freight for the imported equivalent, % of price</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="freight-input" class="input-field input-field-sm" value="0" step="1"> %</td>
-                                </tr>
-                                <tr style="background:#f7f9fc;">
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🛃</span> Import tariff, % (starting value — check the current rate)</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
-                                </tr>
-                                <tr style="background:#f7f9fc;">
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🧩</span> Tariff on imported components for your own line, % (starting value — check the rate)</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px;"><input type="number" id="comp-tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
-                                </tr>
-                                <tr style="background:#f7f9fc;">
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">📦</span> Price paid by the importer: FOB + freight + tariff (per unit)</span></td>
-                                    <td class="right" style="font-weight: 600; font-size: 15px;">$ <span id="import-landed">0.00</span></td>
-                                </tr>
-                                <tr style="background:#eef6ff; border-top: 2px solid #1f4e78;">
-                                    <td colspan="2" style="font-size: 15px; line-height: 1.6; color:#1a2632;"><div id="import-advantage">—</div></td>
+                                <tr class="res-main">
+                                    <td>Your profit per month<span class="res-small">after all costs, including wages</span></td>
+                                    <td class="right">$ <span id="own-profit">—</span></td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">🎯</span> Required Daily Breakeven Volume</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="perf-val">0</span> pcs/day</td>
+                                    <td>Wage of each worker</td>
+                                    <td class="right"><span id="fitted-salary-display" style="background:#007600; color:#fff; padding:5px 11px; border-radius:4px; font-size:15px; font-weight:700;">$10,000 / month</span></td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⚡</span> Rated Equipment Capacity (from Alibaba)</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#c65911; font-weight:700;"><span id="actual-perf-val">20</span> pcs/day</td>
-                                </tr>
-                                <tr style="background: #fcfcfc;">
-                                    <td style="font-weight: 600; font-size: 15px;"><span class="icon-text"><span class="ico">📊</span> Feasibility Indicator:</span></td>
-                                    <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">Checking...</span></td>
-                                </tr>
-                                <tr style="background: #f0fdf4; border-top: 2px solid #007600;">
-                                    <td style="font-weight: 700; color: #007600;">
-                                        <span class="icon-text"><span class="ico">💵</span> Worker Salary:</span>
-                                    </td>
-                                    <td class="right">
-                                        <span id="fitted-salary-display" style="background:#007600; color:#fff; padding:6px 12px; border-radius:4px; font-size:16px; font-weight:700;">$10,000 / mo</span>
-                                    </td>
+                                    <td>How many items you sell per day<span class="res-small">Don't know? Leave it empty: we assume everything the equipment makes is sold.</span></td>
+                                    <td class="right"><input type="number" id="sales-input" class="input-field input-field-sm" min="0" step="1" placeholder="all" style="font-weight:700; color:#c65911;"> pcs</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text"><span class="ico">⏳</span> Full Equipment Payback Period</span></td>
-                                    <td class="right" style="font-weight: 400; font-size: 15px; color:#1f4e78;"><span id="payback-days">0</span> days</td>
-                                </tr>
-                                <tr class="result-row">
-                                    <td style="font-weight: 700; font-size: 18px;"><span class="icon-text"><span class="ico">📈</span> Projected Monthly Net Profit</span></td>
-                                    <td class="right" style="font-weight: 700; font-size: 20px; color:#1f4e78;">$ <span id="income-month">0</span></td>
-                                </tr>
-                                <!-- РЕАЛЬНЫЙ СБЫТ И УСТОЙЧИВОСТЬ БИЗНЕСА -->
-                                <tr style="background:#fdf8f3; border-top: 2px solid #e68a00;">
-                                    <td style="font-weight: 600; font-size: 15px; color:#c65911;"><span class="icon-text">🛒 Actual sales, pcs per day</span><br><span style="font-size:12px; font-weight:400; color:#6c7a8a;">How many you actually sell. Empty — assumes the full line capacity is sold.</span></td>
-                                    <td class="right"><input type="number" id="sales-input" class="input-field input-field-sm" min="0" step="1" placeholder="= capacity" style="font-weight:700; color:#c65911;"> pcs/day</td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text">📦 Line utilization at actual sales</span></td>
-                                    <td class="right" style="font-weight: 600; font-size: 15px; color:#1f4e78;"><span id="sales-load">—</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text">📊 Unit cost at actual sales</span></td>
-                                    <td class="right" style="font-weight: 600; font-size: 15px; color:#1f4e78;">$ <span id="sales-unit-cost">—</span></td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: 400; font-size: 15px;"><span class="icon-text">📈 Monthly profit at actual sales</span></td>
-                                    <td class="right" style="font-weight: 600; font-size: 15px; color:#1f4e78;">$ <span id="sales-profit-month">—</span></td>
-                                </tr>
-                                <tr style="background:#fcfcfc;">
-                                    <td style="font-weight: 600; font-size: 15px;"><span class="icon-text">🛡️ Safety margin — how far sales can drop before a loss</span></td>
+                                    <td>Safety margin<span class="res-small">how far sales can drop while you still make money</span></td>
                                     <td class="right"><span id="sales-safety" style="font-weight:700; font-size:16px;">—</span><br><span id="sales-safety-badge" class="status-badge status-success">—</span></td>
                                 </tr>
-                                <tr id="market-share-row">
-                                    <td colspan="2" style="font-size: 14px; line-height:1.5; color:#1a2632;"><span class="icon-text" style="font-weight:600;">🌎 Import market</span><span style="float:right;"><select id="market-country" class="input-field input-sm" style="width:240px;" title="Country whose market is compared with the line output"><option value="">= country of production (or USA)</option></select></span><div id="market-share-text" style="margin-top:4px;">—</div></td>
+                                <tr class="res-group"><td colspan="2">🚢 The same item, imported from abroad</td></tr>
+                                <tr>
+                                    <td>Price of the item at the factory abroad<span class="res-small">without shipping or duty. In the calculation you sell your own item at this same price.</span></td>
+                                    <td class="right">$ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423"></td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping, % of the factory price</td>
+                                    <td class="right"><input type="number" id="freight-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr>
+                                    <td>Import duty, % of the factory price<span class="res-small">check the current rate in your country</span></td>
+                                    <td class="right"><input type="number" id="tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr class="res-main">
+                                    <td>What the buyer pays for the imported item<span class="res-small">factory price + shipping + duty</span></td>
+                                    <td class="right">$ <span id="import-landed">0.00</span></td>
+                                </tr>
+                                <tr class="res-group res-eng"><td colspan="2">🔧 Details for the engineer</td></tr>
+                                <tr class="res-eng-row">
+                                    <td>Duty on parts you import for your own production, %</td>
+                                    <td class="right"><input type="number" id="comp-tariff-input" class="input-field input-field-sm" value="0" step="1"> %</td>
+                                </tr>
+                                <tr class="res-eng-row">
+                                    <td>How many items per day your equipment can make</td>
+                                    <td class="right"><span id="actual-perf-val">20</span> pcs</td>
+                                </tr>
+                                <tr class="res-eng-row">
+                                    <td>How many you need to sell per day to avoid a loss</td>
+                                    <td class="right"><span id="perf-val">0</span> pcs</td>
+                                </tr>
+                                <tr class="res-eng-row">
+                                    <td>Is your equipment enough</td>
+                                    <td class="right"><span id="feasibility-status-badge" class="status-badge status-success">—</span></td>
+                                </tr>
+                                <tr class="res-eng-row">
+                                    <td>How busy the equipment is at your sales</td>
+                                    <td class="right"><span id="sales-load">—</span></td>
+                                </tr>
+                                <tr class="res-eng-row">
+                                    <td>Profit per month if you sell everything the equipment makes</td>
+                                    <td class="right">$ <span id="income-month">0</span></td>
+                                </tr>
+                                <tr class="res-eng-row">
+                                    <td>How many days until the equipment pays for itself<span class="res-small">if you sell the full output</span></td>
+                                    <td class="right"><span id="payback-days">0</span> days</td>
+                                </tr>
+                                <tr id="market-share-row" class="res-eng-row">
+                                    <td colspan="2"><span style="font-weight:600;">Will there be enough buyers: how many such items the country imports per year</span><span style="float:right;"><select id="market-country" class="input-field input-sm" style="width:240px;"><option value="">= country of production (or USA)</option></select></span><div id="market-share-text" style="margin-top:4px;">—</div></td>
                                 </tr>
                             </table>
                         </div>
@@ -1412,7 +1466,7 @@ Thank you!
                                     const fr = price * r.f / 100, tr = price * r.t / 100, landed = price + fr + tr;
                                     const k = landed / unit, c = COUNTRIES[countryKey] || COUNTRIES.base;
                                     const imported = landed > price;
-                                    const where = countryKey && countryKey !== 'base' ? c.flag + ' ' + c.label + ': ' : '';
+                                    const where = countryKey && countryKey !== 'base' ? c.label + ': ' : '';
                                     const head = k >= 1
                                         ? `${where}${k.toFixed(1)} times cheaper than ${imported ? 'imports from China' : 'the Chinese factory price'}`
                                         : `${where}more expensive than ${imported ? 'imports from China' : 'the Chinese factory price'}`;
@@ -2302,15 +2356,15 @@ Thank you!
                                     if (badge) {
                                         if (reqPerf === Infinity) {
                                             badge.className = 'status-badge status-warning';
-                                            badge.innerHTML = `⚠️ NOT VIABLE! (Sale price does not cover raw material cost per unit)`;
+                                            badge.innerHTML = `⚠️ The price does not even cover the cost of parts`;
                                         } else if (actualPerf >= reqPerf) {
                                             const surplus = Math.round(((actualPerf - reqPerf) / reqPerf) * 100);
                                             badge.className = 'status-badge status-success';
-                                            badge.innerHTML = `✅ FEASIBLE! (Capacity reserve: +${surplus}%)`;
+                                            badge.innerHTML = `✅ Enough: makes ${actualPerf} per day, break-even needs ${reqPerf}`;
                                         } else {
                                             const deficit = Math.round(((reqPerf - actualPerf) / reqPerf) * 100);
                                             badge.className = 'status-badge status-warning';
-                                            badge.innerHTML = `⚠️ CAPACITY DEFICIT! (Deficit: -${deficit}%)`;
+                                            badge.innerHTML = `⚠️ Not enough: makes ${actualPerf} per day, but ${reqPerf} are needed`;
                                         }
                                     }
 
@@ -2326,7 +2380,7 @@ Thank you!
                                     const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
                                     const landed = importLandedPrice(market, freightPct, tariffPct);
                                     const landedNoTariff = importLandedPrice(market, freightPct, 0);
-                                    if (document.getElementById('import-landed')) document.getElementById('import-landed').textContent = landed.toFixed(2);
+                                    if (document.getElementById('import-landed')) document.getElementById('import-landed').textContent = landed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                     const advEl = document.getElementById('import-advantage');
                                     if (advEl) {
                                         if (totalCost > 0 && landed > 0) {
@@ -2346,6 +2400,19 @@ Thank you!
                                         set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                         set('sales-unit-cost', fmt(sCost, 2));
                                         set('sales-profit-month', sProfit.toLocaleString('en-US'));
+                                        set('own-cost', fmt(sCost, 2));
+                                        set('own-profit', sProfit.toLocaleString('en-US'));
+                                        { const hEl = document.getElementById('import-advantage');
+                                          if (hEl) {
+                                            const cK = findCatalogKeyByTitle(currentTopicTitle), cl = currentClassKey && catalogDB[cK]?.classes?.[currentClassKey];
+                                            const pName = currentTopicTitle + (cl ? ' — ' + cl.label.replace(/^\S+\s/, '') : '');
+                                            const where = (currentCountry && currentCountry !== 'base') ? COUNTRIES[currentCountry].label + ': ' : '';
+                                            const imported = landed > market + 0.001;
+                                            if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">${where}your item — $${fmt(sCost, 2)}, imported — $${fmt(landed, 2)}</div>` +
+                                              `<div class="rh-sub">${landed >= sCost ? `Yours is $${fmt(landed - sCost, 2)} cheaper per item (${fmt(landed / sCost, 1)} times cheaper).` : `Your item costs $${fmt(sCost - landed, 2)} more than the imported one.`}</div>` +
+                                              `<div class="rh-note">“${pName}”. Yours: everything one item costs you, including a $10,000 monthly wage for each worker. ${imported ? `Imported: what the buyer pays — factory price $${fmt(market, 2)} + shipping $${fmt(market * freightPct / 100, 2)} + duty $${fmt(market * tariffPct / 100, 2)}.` : `Imported: the price of the same item at the factory abroad, without shipping or duty.`}</div>`;
+                                            else hEl.textContent = '—';
+                                          } }
                                         const sb = document.getElementById('sales-safety-badge');
                                         if (reqPerf === Infinity) {
                                             set('sales-safety', '—');
@@ -2538,7 +2605,7 @@ Thank you!
                                         tr.style.background = '#fffbf0';
                                         tr.innerHTML = `
                                             <td style="text-align:center; font-weight:700; color:#8a5a00;">📌</td>
-                                            <td style="padding-left:12px;"><b>${line.name}</b> — ${c.flag} ${c.label}<br>
+                                            <td style="padding-left:12px;"><b>${line.name}</b> — ${c.label}<br>
                                                 <button class="btn-bom-toggle" onclick="openReferenceLine('${line.cc}')">📥 Open in the Production Generator</button></td>
                                             <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                                             <td>$${Number(line.cost).toLocaleString()}</td>
@@ -2935,7 +3002,7 @@ Thank you!
                                         headerTr.style.background = "#eef6ff";
                                         headerTr.innerHTML = `
                                                             <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                                📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].flag} ${COUNTRIES[group.country].label}` : ''} (Equivalent export price, FOB = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
+                                                                📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''} (Equivalent export price, FOB = $${topicBenchmarkPrice.toFixed(2)}, BOM = $${topicBenchmarkBom.toFixed(2)})
                                                             </td>
                                                         `;
                                         container.appendChild(headerTr);
