@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АСУИР — генератор сверхэффективных услуг</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; padding: 20px 40px 60px; }
+        .main-wrapper { max-width: 1240px; margin: 0 auto; }
+        .top-utility-bar { display: flex; justify-content: flex-end; font-size: 13px; margin-bottom: 10px; }
+        .brand-title-block { text-align: center; margin: 20px 0 15px; }
+        .brand-title-text { font-family: 'Times New Roman', Times, Georgia, serif; font-size: 52px; font-weight: 400; letter-spacing: 2px; color: #555; text-transform: uppercase; line-height: 1; }
+        .nav-global-menu { display: flex; justify-content: center; align-items: center; gap: 40px; padding: 8px 0 12px; flex-wrap: wrap; }
+        .nav-global-link { text-decoration: none; text-align: center; }
+        .nav-global-link .main-label { display: block; font-size: 13px; font-weight: 700; color: #222; text-transform: uppercase; letter-spacing: .5px; }
+        .nav-global-link .sub-label { display: block; font-size: 12px; color: #666; margin-top: 2px; }
+        .nav-global-link:hover .main-label, .nav-global-link.active .main-label { color: #1f4e78; }
+        .divider { margin: 10px 0 25px; }
+        .divider .thin { height: 1px; background: #d0d7dd; margin-bottom: 4px; }
+        .divider .thick { height: 4px; background: #a0a8b0; }
+
+        .card { background: #fff; border: 1px solid #d0d7dd; border-radius: 4px; padding: 24px; margin-bottom: 20px; }
+        h2 { font-size: 20px; color: #1f4e78; margin-bottom: 10px; }
+        h3 { font-size: 16px; color: #1f4e78; margin: 18px 0 8px; }
+        p { line-height: 1.6; margin-bottom: 10px; font-size: 15px; }
+        .result-hero { background: #eef6ff; border-left: 5px solid #1f4e78; border-radius: 6px; padding: 16px 18px; margin-bottom: 16px; line-height: 1.55; }
+        .rh-head { font-size: 24px; font-weight: 700; color: #1f4e78; }
+        .rh-sub { font-size: 16px; font-weight: 600; margin-top: 4px; }
+        .rh-note { font-size: 13px; color: #4a5568; margin-top: 6px; }
+        .levers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 6px; }
+        .lever { border: 1px solid #d5dde6; border-radius: 6px; padding: 14px; background: #f9fbfe; }
+        .lever b { display: block; color: #1f4e78; font-size: 15px; margin-bottom: 6px; }
+        .lever span { font-size: 14px; line-height: 1.5; color: #333; }
+        .catalog { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .cat-item { border: 1px solid #d0d7dd; border-radius: 4px; padding: 10px 14px; font-size: 14px; font-weight: 600; background: #f7f9fa; color: #4a5568; }
+        .cat-item.active { background: #1f4e78; color: #fff; border-color: #1f4e78; }
+        .cat-item small { display: block; font-weight: 400; font-size: 11px; opacity: .8; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 9px 12px; border: 1px solid #e0e4e8; text-align: left; vertical-align: middle; }
+        th { background: #f8f9fa; font-weight: 600; }
+        td.num, th.num { text-align: right; white-space: nowrap; }
+        tr.total td { background: #f0f5fa; font-weight: 700; color: #1f4e78; font-size: 16px; }
+        tr.group td { background: #1f4e78; color: #fff; font-weight: 700; }
+        tr.group.eng td { background: #e9edf2; color: #4a5568; }
+        .table-responsive { overflow-x: auto; margin-bottom: 12px; }
+        input[type=number] { width: 110px; height: 34px; padding: 4px 8px; border: 1px solid #d0d7dd; border-radius: 4px; text-align: right; font-weight: 600; font-size: 14px; background: #fcfcfc; }
+        input[type=number]:focus { outline: none; border-color: #1f4e78; }
+        .small { display: block; font-size: 12px; color: #6c7a8a; margin-top: 2px; font-weight: 400; }
+        .info-hint { background: #f0f5fa; padding: 12px 16px; border-left: 4px solid #1f4e78; border-radius: 4px; font-size: 13px; color: #3a4a5a; margin: 10px 0; line-height: 1.5; }
+        .bar { height: 22px; display: flex; border-radius: 4px; overflow: hidden; border: 1px solid #c9d3de; margin: 8px 0 4px; }
+        .bar .w { background: #1f4e78; }
+        .bar .x { background: repeating-linear-gradient(45deg, #f2b897 0 6px, #fce4d6 6px 12px); }
+        .legend { font-size: 13px; color: #4a5568; }
+        .legend i { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-right: 4px; border: 1px solid #c9d3de; }
+        .sources { font-size: 12px; color: #6c7a8a; line-height: 1.6; }
+        .sources a { color: #4a90d9; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e8ecf0; font-size: 12px; color: #6c7a8a; text-align: center; }
+        .footer a { color: #6c7a8a; }
+        .btn { display: inline-block; background: #4a90d9; color: #fff; border: none; border-radius: 4px; padding: 10px 18px; font-size: 13px; cursor: pointer; }
+        @media (max-width: 768px) {
+            body { padding: 10px 16px; }
+            .brand-title-text { font-size: 34px; }
+            .nav-global-menu { flex-direction: column; gap: 12px; }
+            .levers { grid-template-columns: 1fr; }
+        }
+        @media print { .btn, .top-utility-bar { display: none; } input[type=number] { border: none; } }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-SCZYX0Z5VX');</script>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="top-utility-bar">
+        <div style="cursor:pointer; font-weight:600;" onclick="window.location.href='ASUIRServices_en.html'">Languages ⌵</div>
+    </div>
+
+    <div class="brand-title-block"><h1 class="brand-title-text">TECHNOLOGY MATRIX</h1></div>
+    <div style="height:1px; background:#d0d7dd; margin:15px 0 10px;"></div>
+
+    <nav class="nav-global-menu">
+        <a href="index_ru.html" class="nav-global-link"><span class="main-label">О ПРОЕКТЕ</span><span class="sub-label">автоматизированная система управления</span></a>
+        <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link"><span class="main-label">АСУИР</span><span class="sub-label">генератор сверхэффективных производств</span></a>
+        <a href="ASUIRServices_ru.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">АСУИР — УСЛУГИ</span><span class="sub-label">генератор сверхэффективных услуг</span></a>
+        <a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">справка и формулы</span></a>
+    </nav>
+    <div class="divider"><div class="thin"></div><div class="thick"></div></div>
+
+    <!-- ВВЕДЕНИЕ -->
+    <div class="card">
+        <div class="result-hero">
+            <div class="rh-head">Та же больница принимает больше пациентов — без новых затрат.</div>
+            <div class="rh-sub">Тот же аппарат, те же врачи и медсёстры — просто работа выстроена по производительности, как линия на заводе.</div>
+        </div>
+
+        <h2>Что такое генератор услуг</h2>
+        <p>Больница, лаборатория, гостиница, прачечная — это тоже производство. Только вместо изделия они выпускают услугу: снимок, анализ, процедуру. Поэтому для них работает тот же принцип АСУИР: <b>зарплаты на уровне США и выше, а цена — как в Бангладеш</b>, без пошлин и без потери прибыли.</p>
+        <p>Секрет один: чем больше услуг в день даёт тот же аппарат и тот же человек, тем меньше в цене доля аренды, оборудования и зарплат. Цена приближается к стоимости расходных материалов.</p>
+
+        <h3>Три рычага услуг</h3>
+        <div class="levers">
+            <div class="lever"><b>1. Оборудование не простаивает</b><span>Аппарат работает не одну смену, а вечером и в выходные. В обычной больнице аппарат КТ загружен около трети рабочего времени.</span></div>
+            <div class="lever"><b>2. Люди работают без пауз</b><span>Этапы услуги согласованы между собой, никто не ждёт. Ускорять нужно самый медленный участок — обычно это врач.</span></div>
+            <div class="lever"><b>3. Клиент участвует в услуге</b><span>Подготовленный пациент (с графиками своих показателей) экономит время врача: приём за 10 минут вместо 15 — врач принимает 48 человек в день вместо 32.</span></div>
+        </div>
+
+        <h3>Своя услуга против «привозной»</h3>
+        <p>Услугу не привозят в контейнере — за ней едет сам человек. Поэтому сравниваем так: <b>своя услуга здесь</b> против <b>такой же услуги за границей</b> (например, в клинике Мексики), куда люди едут ради низкой цены.</p>
+
+        <h3>Каталог отраслей</h3>
+        <div class="catalog">
+            <div class="cat-item active">🏥 Медицина — КТ<small>пример ниже</small></div>
+            <div class="cat-item">🏥 Медицина — капельничная терапия<small>скоро</small></div>
+            <div class="cat-item">🏥 Медицина — МРТ<small>скоро</small></div>
+            <div class="cat-item">🧪 Лаборатории<small>скоро</small></div>
+            <div class="cat-item">🦷 Стоматология<small>скоро</small></div>
+            <div class="cat-item">🏨 Гостиницы, прачечные<small>скоро</small></div>
+        </div>
+    </div>
+
+    <!-- ПРИМЕР 1: КТ -->
+    <div class="card">
+        <h2>Пример 1. Крупная больница Лос-Анджелеса — компьютерная томография (КТ)</h2>
+        <div id="ct-hero" class="result-hero">—</div>
+
+        <div class="table-responsive">
+            <table>
+                <tr><th>Что считаем</th><th class="num">Как сейчас</th><th class="num">По принципу АСУИР</th></tr>
+                <tr class="group"><td colspan="3">Режим работы аппарата</td></tr>
+                <tr><td>Исследований в день<span class="small">сейчас: одна смена, аппарат загружен около трети времени; АСУИР: круглосуточно</span></td>
+                    <td class="num"><input type="number" id="perDay-a" value="25"></td><td class="num"><input type="number" id="perDay-b" value="120"></td></tr>
+                <tr><td>Рабочих дней в году</td>
+                    <td class="num"><input type="number" id="days-a" value="260"></td><td class="num"><input type="number" id="days-b" value="365"></td></tr>
+                <tr><td>Техников (лаборантов) в штате</td>
+                    <td class="num"><input type="number" id="techs-a" value="2"></td><td class="num"><input type="number" id="techs-b" value="9"></td></tr>
+                <tr><td>Обслуживание и замена трубок, $ в год</td>
+                    <td class="num"><input type="number" id="service-a" value="140000"></td><td class="num"><input type="number" id="service-b" value="200000"></td></tr>
+                <tr class="group"><td colspan="3">Общее для обоих вариантов</td></tr>
+                <tr><td>Цена аппарата КТ (128 срезов), $</td><td class="num" colspan="2"><input type="number" id="equip" value="1100000"></td></tr>
+                <tr><td>Срок службы аппарата, лет</td><td class="num" colspan="2"><input type="number" id="life" value="8"></td></tr>
+                <tr><td>Помещение, $ в год</td><td class="num" colspan="2"><input type="number" id="premises" value="100000"></td></tr>
+                <tr><td>Зарплата техника, $ в месяц</td><td class="num" colspan="2"><input type="number" id="wage" value="10000"></td></tr>
+                <tr><td>Расходники и контраст на 1 КТ, $</td><td class="num" colspan="2"><input type="number" id="consum" value="25"></td></tr>
+                <tr><td>Врач-рентгенолог на 1 КТ, $<span class="small">при зарплате около $40 000 в месяц</span></td><td class="num" colspan="2"><input type="number" id="reading" value="30"></td></tr>
+                <tr class="group"><td colspan="3">Результат</td></tr>
+                <tr><td>Исследований в год</td><td class="num" id="scans-a">—</td><td class="num" id="scans-b">—</td></tr>
+                <tr><td>Постоянные затраты на 1 КТ<span class="small">аппарат + обслуживание + помещение + техники, делённые на число исследований</span></td><td class="num" id="fixed-a">—</td><td class="num" id="fixed-b">—</td></tr>
+                <tr class="total"><td>Себестоимость 1 КТ</td><td class="num" id="cost-a">—</td><td class="num" id="cost-b">—</td></tr>
+                <tr class="group"><td colspan="3">Такая же услуга в другом месте</td></tr>
+                <tr><td>КТ в крупной клинике Тихуаны (Мексика), $<span class="small">в небольших клиниках Мексики — $200–300, плюс дорога</span></td><td class="num" colspan="2"><input type="number" id="abroad" value="475"></td></tr>
+                <tr><td>Сколько платят сейчас в Лос-Анджелесе, $<span class="small">нижняя граница; обычно от $500 до $3 000</span></td><td class="num" colspan="2"><input type="number" id="local" value="500"></td></tr>
+            </table>
+        </div>
+        <div class="info-hint">Все суммы можно менять — расчёт пересчитывается сразу. Цифры по аппарату, загрузке и ценам — из открытых источников (внизу страницы); помещение, число техников и расход контраста — оценки для проверки.</div>
+    </div>
+
+    <!-- ПРИМЕР 2: ЦЕПОЧКА ПАЦИЕНТА -->
+    <div class="card">
+        <h2>Пример 2. Путь пациента до процедуры — где теряется время</h2>
+        <div id="chain-hero" class="result-hero">—</div>
+        <div class="table-responsive">
+            <table>
+                <tr><th>Этап</th><th>Кто занят</th><th class="num">Работа, мин</th><th class="num">Ожидание, мин</th></tr>
+                <tr><td>1. Подключение к порту</td><td>медсестра</td><td class="num"><input type="number" id="s1w" value="10"></td><td class="num"><input type="number" id="s1x" value="0"></td></tr>
+                <tr><td>2. Ожидание врача</td><td>никто — пациент ждёт</td><td class="num"><input type="number" id="s2w" value="0"></td><td class="num"><input type="number" id="s2x" value="60"></td></tr>
+                <tr><td>3. Приём врача уровня профессора</td><td>врач</td><td class="num"><input type="number" id="s3w" value="10"></td><td class="num"><input type="number" id="s3x" value="0"></td></tr>
+                <tr><td>4. Ожидание у процедурной</td><td>никто — пациент ждёт</td><td class="num"><input type="number" id="s4w" value="0"></td><td class="num"><input type="number" id="s4x" value="25"></td></tr>
+                <tr class="total"><td colspan="2">Итого до начала процедуры</td><td class="num" id="sumW">—</td><td class="num" id="sumX">—</td></tr>
+            </table>
+        </div>
+        <div class="bar"><div class="w" id="barW"></div><div class="x" id="barX"></div></div>
+        <div class="legend"><i style="background:#1f4e78"></i>работа с пациентом &nbsp;&nbsp; <i style="background:repeating-linear-gradient(45deg,#f2b897 0 3px,#fce4d6 3px 6px)"></i>ожидание</div>
+
+        <h3>Почему так: узкое место — врач</h3>
+        <p>Как на заводе, темп всей цепочки задаёт самый медленный участок. Первый этап может пройти быстро, но пациент просто раньше встаёт в очередь к врачу. Ускорять нужно именно врача — и согласовывать этапы: кресло в процедурной готовится к моменту окончания приёма.</p>
+
+        <h3>Сколько пациентов принимает врач за день</h3>
+        <div class="table-responsive">
+            <table>
+                <tr><td>Рабочее время врача, минут в день</td><td class="num"><input type="number" id="docDay" value="480"></td></tr>
+                <tr><td>Обычный приём, минут</td><td class="num"><input type="number" id="visitA" value="15"></td></tr>
+                <tr><td>Приём подготовленного пациента (с графиками показателей), минут</td><td class="num"><input type="number" id="visitB" value="10"></td></tr>
+                <tr class="total"><td id="docResult" colspan="2">—</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ДЛЯ ИНЖЕНЕРА -->
+    <div class="card">
+        <h3 style="margin-top:0;">Для инженера: как считается</h3>
+        <p style="font-size:14px;">Себестоимость 1 КТ = (цена аппарата ÷ срок службы + обслуживание + помещение + техники × зарплата × 12) ÷ (исследований в день × рабочих дней) + расходники на 1 КТ + рентгенолог на 1 КТ.</p>
+        <p style="font-size:14px;">Врач за день = рабочее время врача ÷ длительность приёма.</p>
+        <div class="sources">
+            Источники: цена аппарата КТ 128 срезов и обслуживание — ECRI, через <a href="https://www.beckershospitalreview.com/?p=19587" target="_blank">Becker's Hospital Review</a>; срок службы 7–10 лет — <a href="https://www.dotmed.com/news/story/19725" target="_blank">DOTmed / ECRI</a>; загрузка аппарата около 35% — <a href="https://elischolar.library.yale.edu/ymtdl/239" target="_blank">Йельский университет</a>; пропускная способность при работе вечером и в субботу — <a href="https://www.auntminnie.com/clinical-news/ct/article/15585574/people-not-equipment-maximize-mdct-capacity-study-finds" target="_blank">Массачусетская больница, AuntMinnie</a>; цены КТ в США — <a href="https://freemarkethealthcareblog.com/cost-of-ct-scan/" target="_blank">Free Market Healthcare</a>; цена КТ в Тихуане — <a href="https://bookimed.com/clinic/hospital-angeles-tijuana/" target="_blank">Hospital Angeles Tijuana, Bookimed</a>; цены в Мексике — <a href="https://us-uk.bookimed.com/clinics/country=mexico/procedure=ct-scan-of-the-body-part/" target="_blank">Bookimed</a>.
+        </div>
+        <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
+    </div>
+
+    <div class="footer">
+        © Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.
+        <br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).
+        <br>Код — <a href="https://opensource.org/licenses/MIT" target="_blank">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank">CC BY 4.0</a>.
+    </div>
+</div>
+
+<script>
+    const v = id => parseFloat(document.getElementById(id).value) || 0;
+    const set = (id, t) => { document.getElementById(id).textContent = t; };
+    const fmt = (n, d = 0) => n.toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const usd = n => '$' + fmt(n, n < 100 ? 2 : 0);
+
+    function ctCost(s) {
+        const scans = v('perDay-' + s) * v('days-' + s);
+        const fixedYear = v('equip') / Math.max(v('life'), 1) + v('service-' + s) + v('premises') + v('techs-' + s) * v('wage') * 12;
+        const fixedPer = scans > 0 ? fixedYear / scans : 0;
+        return { scans, fixedPer, cost: fixedPer + v('consum') + v('reading') };
+    }
+
+    function calc() {
+        const a = ctCost('a'), b = ctCost('b');
+        set('scans-a', fmt(a.scans)); set('scans-b', fmt(b.scans));
+        set('fixed-a', usd(a.fixedPer)); set('fixed-b', usd(b.fixedPer));
+        set('cost-a', usd(a.cost)); set('cost-b', usd(b.cost));
+        const abroad = v('abroad'), local = v('local');
+        document.getElementById('ct-hero').innerHTML =
+            `<div class="rh-head">Своё КТ в Лос-Анджелесе — ${usd(b.cost)}</div>` +
+            `<div class="rh-sub">Такое же КТ в Тихуане — ${usd(abroad)}, плюс дорога. Сейчас в Лос-Анджелесе платят от ${usd(local)}.</div>` +
+            `<div class="rh-note">Своё — всё, во что больнице обходится одно исследование: аппарат, обслуживание, помещение, зарплата техников $${fmt(v('wage'))} в месяц, расходники и врач. При нынешнем режиме работы (одна смена) то же исследование обходится в ${usd(a.cost)}.</div>`;
+
+        const w = v('s1w') + v('s2w') + v('s3w') + v('s4w');
+        const x = v('s1x') + v('s2x') + v('s3x') + v('s4x');
+        const total = w + x;
+        set('sumW', fmt(w)); set('sumX', fmt(x));
+        const pw = total > 0 ? w / total * 100 : 0;
+        document.getElementById('barW').style.width = pw + '%';
+        document.getElementById('barX').style.width = (100 - pw) + '%';
+        const hm = m => (m >= 60 ? Math.floor(m / 60) + ' ч ' : '') + (m % 60 ? fmt(m % 60) + ' мин' : (m >= 60 ? '' : '0 мин'));
+        document.getElementById('chain-hero').innerHTML =
+            `<div class="rh-head">Из ${hm(total)} до процедуры с пациентом работают ${hm(w)}.</div>` +
+            `<div class="rh-sub">Остальное время — ${hm(x)} — пациент ждёт. Это около ${fmt(100 - pw)}% времени.</div>` +
+            `<div class="rh-note">Цифры — реальный путь пациента онкоцентра крупной больницы Лос-Анджелеса.</div>`;
+
+        const day = v('docDay'), va = v('visitA'), vb = v('visitB');
+        const na = va > 0 ? Math.floor(day / va) : 0, nb = vb > 0 ? Math.floor(day / vb) : 0;
+        set('docResult', `Обычный приём — пациентов за день: ${fmt(na)}. Подготовленные пациенты — за день: ${fmt(nb)}, то есть на ${fmt(nb - na)} больше. Тот же врач и та же зарплата.`);
+    }
+    document.addEventListener('input', calc);
+    calc();
+</script>
+</body>
+</html>

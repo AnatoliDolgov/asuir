@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASUIR — driver of ultra-efficient services</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; padding: 20px 40px 60px; }
+        .main-wrapper { max-width: 1240px; margin: 0 auto; }
+        .top-utility-bar { display: flex; justify-content: flex-end; font-size: 13px; margin-bottom: 10px; }
+        .brand-title-block { text-align: center; margin: 20px 0 15px; }
+        .brand-title-text { font-family: 'Times New Roman', Times, Georgia, serif; font-size: 52px; font-weight: 400; letter-spacing: 2px; color: #555; text-transform: uppercase; line-height: 1; }
+        .nav-global-menu { display: flex; justify-content: center; align-items: center; gap: 40px; padding: 8px 0 12px; flex-wrap: wrap; }
+        .nav-global-link { text-decoration: none; text-align: center; }
+        .nav-global-link .main-label { display: block; font-size: 13px; font-weight: 700; color: #222; text-transform: uppercase; letter-spacing: .5px; }
+        .nav-global-link .sub-label { display: block; font-size: 12px; color: #666; margin-top: 2px; }
+        .nav-global-link:hover .main-label, .nav-global-link.active .main-label { color: #1f4e78; }
+        .divider { margin: 10px 0 25px; }
+        .divider .thin { height: 1px; background: #d0d7dd; margin-bottom: 4px; }
+        .divider .thick { height: 4px; background: #a0a8b0; }
+
+        .card { background: #fff; border: 1px solid #d0d7dd; border-radius: 4px; padding: 24px; margin-bottom: 20px; }
+        h2 { font-size: 20px; color: #1f4e78; margin-bottom: 10px; }
+        h3 { font-size: 16px; color: #1f4e78; margin: 18px 0 8px; }
+        p { line-height: 1.6; margin-bottom: 10px; font-size: 15px; }
+        .result-hero { background: #eef6ff; border-left: 5px solid #1f4e78; border-radius: 6px; padding: 16px 18px; margin-bottom: 16px; line-height: 1.55; }
+        .rh-head { font-size: 24px; font-weight: 700; color: #1f4e78; }
+        .rh-sub { font-size: 16px; font-weight: 600; margin-top: 4px; }
+        .rh-note { font-size: 13px; color: #4a5568; margin-top: 6px; }
+        .levers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 6px; }
+        .lever { border: 1px solid #d5dde6; border-radius: 6px; padding: 14px; background: #f9fbfe; }
+        .lever b { display: block; color: #1f4e78; font-size: 15px; margin-bottom: 6px; }
+        .lever span { font-size: 14px; line-height: 1.5; color: #333; }
+        .catalog { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .cat-item { border: 1px solid #d0d7dd; border-radius: 4px; padding: 10px 14px; font-size: 14px; font-weight: 600; background: #f7f9fa; color: #4a5568; }
+        .cat-item.active { background: #1f4e78; color: #fff; border-color: #1f4e78; }
+        .cat-item small { display: block; font-weight: 400; font-size: 11px; opacity: .8; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 9px 12px; border: 1px solid #e0e4e8; text-align: left; vertical-align: middle; }
+        th { background: #f8f9fa; font-weight: 600; }
+        td.num, th.num { text-align: right; white-space: nowrap; }
+        tr.total td { background: #f0f5fa; font-weight: 700; color: #1f4e78; font-size: 16px; }
+        tr.group td { background: #1f4e78; color: #fff; font-weight: 700; }
+        tr.group.eng td { background: #e9edf2; color: #4a5568; }
+        .table-responsive { overflow-x: auto; margin-bottom: 12px; }
+        input[type=number] { width: 110px; height: 34px; padding: 4px 8px; border: 1px solid #d0d7dd; border-radius: 4px; text-align: right; font-weight: 600; font-size: 14px; background: #fcfcfc; }
+        input[type=number]:focus { outline: none; border-color: #1f4e78; }
+        .small { display: block; font-size: 12px; color: #6c7a8a; margin-top: 2px; font-weight: 400; }
+        .info-hint { background: #f0f5fa; padding: 12px 16px; border-left: 4px solid #1f4e78; border-radius: 4px; font-size: 13px; color: #3a4a5a; margin: 10px 0; line-height: 1.5; }
+        .bar { height: 22px; display: flex; border-radius: 4px; overflow: hidden; border: 1px solid #c9d3de; margin: 8px 0 4px; }
+        .bar .w { background: #1f4e78; }
+        .bar .x { background: repeating-linear-gradient(45deg, #f2b897 0 6px, #fce4d6 6px 12px); }
+        .legend { font-size: 13px; color: #4a5568; }
+        .legend i { display: inline-block; width: 12px; height: 12px; vertical-align: -1px; margin-right: 4px; border: 1px solid #c9d3de; }
+        .sources { font-size: 12px; color: #6c7a8a; line-height: 1.6; }
+        .sources a { color: #4a90d9; }
+        .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e8ecf0; font-size: 12px; color: #6c7a8a; text-align: center; }
+        .footer a { color: #6c7a8a; }
+        .btn { display: inline-block; background: #4a90d9; color: #fff; border: none; border-radius: 4px; padding: 10px 18px; font-size: 13px; cursor: pointer; }
+        @media (max-width: 768px) {
+            body { padding: 10px 16px; }
+            .brand-title-text { font-size: 34px; }
+            .nav-global-menu { flex-direction: column; gap: 12px; }
+            .levers { grid-template-columns: 1fr; }
+        }
+        @media print { .btn, .top-utility-bar { display: none; } input[type=number] { border: none; } }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-SCZYX0Z5VX');</script>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="top-utility-bar">
+        <div style="cursor:pointer; font-weight:600;" onclick="window.location.href='ASUIRServices_ru.html'">Languages ⌵</div>
+    </div>
+
+    <div class="brand-title-block"><h1 class="brand-title-text">TECHNOLOGY MATRIX</h1></div>
+    <div style="height:1px; background:#d0d7dd; margin:15px 0 10px;"></div>
+
+    <nav class="nav-global-menu">
+        <a href="index.html" class="nav-global-link"><span class="main-label">ABOUT PROJECT</span><span class="sub-label">automated control system</span></a>
+        <a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link"><span class="main-label">ASUIR</span><span class="sub-label">driver of ultra-efficient manufacturing</span></a>
+        <a href="ASUIRServices_en.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">ASUIR — SERVICES</span><span class="sub-label">driver of ultra-efficient services</span></a>
+        <a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">formulas &amp; documentation</span></a>
+    </nav>
+    <div class="divider"><div class="thin"></div><div class="thick"></div></div>
+
+    <!-- INTRO -->
+    <div class="card">
+        <div class="result-hero">
+            <div class="rh-head">The same hospital sees more patients — at no extra cost.</div>
+            <div class="rh-sub">The same scanner, the same doctors and nurses — the work is simply organized for throughput, like a factory line.</div>
+        </div>
+
+        <h2>What the services generator is</h2>
+        <p>A hospital, a lab, a hotel, a laundry — these are production too. Instead of an item, they turn out a service: a scan, a test, a procedure. So the same ASUIR principle applies: <b>US-level wages and higher, at a Bangladesh-level price</b>, with no tariffs and no loss of profit.</p>
+        <p>The key is simple: the more services the same machine and the same person deliver per day, the smaller the share of rent, equipment and wages in the price. The price approaches the cost of supplies.</p>
+
+        <h3>Three levers for services</h3>
+        <div class="levers">
+            <div class="lever"><b>1. Equipment never sits idle</b><span>The machine works not one shift but evenings and weekends too. In a typical hospital a CT scanner is busy about a third of its working time.</span></div>
+            <div class="lever"><b>2. People work without gaps</b><span>The steps of the service are synchronized, nobody waits. Speed up the slowest step — usually the doctor.</span></div>
+            <div class="lever"><b>3. The client takes part in the service</b><span>A prepared patient (with charts of their own readings) saves the doctor's time: a 10-minute visit instead of 15 — the doctor sees 48 people a day instead of 32.</span></div>
+        </div>
+
+        <h3>Your own service vs. the "imported" one</h3>
+        <p>A service does not arrive in a container — the person travels for it. So we compare <b>your own service here</b> with <b>the same service abroad</b> (for example, at a clinic in Mexico), where people go for a lower price.</p>
+
+        <h3>Sector catalog</h3>
+        <div class="catalog">
+            <div class="cat-item active">🏥 Medicine — CT<small>example below</small></div>
+            <div class="cat-item">🏥 Medicine — infusion therapy<small>coming soon</small></div>
+            <div class="cat-item">🏥 Medicine — MRI<small>coming soon</small></div>
+            <div class="cat-item">🧪 Laboratories<small>coming soon</small></div>
+            <div class="cat-item">🦷 Dentistry<small>coming soon</small></div>
+            <div class="cat-item">🏨 Hotels, laundries<small>coming soon</small></div>
+        </div>
+    </div>
+
+    <!-- EXAMPLE 1: CT -->
+    <div class="card">
+        <h2>Example 1. A large Los Angeles hospital — CT scan</h2>
+        <div id="ct-hero" class="result-hero">—</div>
+
+        <div class="table-responsive">
+            <table>
+                <tr><th>What we count</th><th class="num">As it is now</th><th class="num">The ASUIR way</th></tr>
+                <tr class="group"><td colspan="3">How the scanner is run</td></tr>
+                <tr><td>Scans per day<span class="small">now: one shift, scanner busy about a third of the time; ASUIR: around the clock</span></td>
+                    <td class="num"><input type="number" id="perDay-a" value="25"></td><td class="num"><input type="number" id="perDay-b" value="120"></td></tr>
+                <tr><td>Working days per year</td>
+                    <td class="num"><input type="number" id="days-a" value="260"></td><td class="num"><input type="number" id="days-b" value="365"></td></tr>
+                <tr><td>Technologists on staff</td>
+                    <td class="num"><input type="number" id="techs-a" value="2"></td><td class="num"><input type="number" id="techs-b" value="9"></td></tr>
+                <tr><td>Service contract and tube replacement, $ per year</td>
+                    <td class="num"><input type="number" id="service-a" value="140000"></td><td class="num"><input type="number" id="service-b" value="200000"></td></tr>
+                <tr class="group"><td colspan="3">Common to both</td></tr>
+                <tr><td>CT scanner price (128-slice), $</td><td class="num" colspan="2"><input type="number" id="equip" value="1100000"></td></tr>
+                <tr><td>Scanner service life, years</td><td class="num" colspan="2"><input type="number" id="life" value="8"></td></tr>
+                <tr><td>Premises, $ per year</td><td class="num" colspan="2"><input type="number" id="premises" value="100000"></td></tr>
+                <tr><td>Technologist wage, $ per month</td><td class="num" colspan="2"><input type="number" id="wage" value="10000"></td></tr>
+                <tr><td>Supplies and contrast per scan, $</td><td class="num" colspan="2"><input type="number" id="consum" value="25"></td></tr>
+                <tr><td>Radiologist per scan, $<span class="small">at a salary of about $40,000 a month</span></td><td class="num" colspan="2"><input type="number" id="reading" value="30"></td></tr>
+                <tr class="group"><td colspan="3">Result</td></tr>
+                <tr><td>Scans per year</td><td class="num" id="scans-a">—</td><td class="num" id="scans-b">—</td></tr>
+                <tr><td>Fixed costs per scan<span class="small">scanner + service + premises + technologists, divided by the number of scans</span></td><td class="num" id="fixed-a">—</td><td class="num" id="fixed-b">—</td></tr>
+                <tr class="total"><td>Cost of one scan</td><td class="num" id="cost-a">—</td><td class="num" id="cost-b">—</td></tr>
+                <tr class="group"><td colspan="3">The same service elsewhere</td></tr>
+                <tr><td>CT at a large clinic in Tijuana (Mexico), $<span class="small">at smaller clinics in Mexico — $200–300, plus travel</span></td><td class="num" colspan="2"><input type="number" id="abroad" value="475"></td></tr>
+                <tr><td>What people pay now in Los Angeles, $<span class="small">low end; usually $500 to $3,000</span></td><td class="num" colspan="2"><input type="number" id="local" value="500"></td></tr>
+            </table>
+        </div>
+        <div class="info-hint">Every amount can be changed — the calculation updates at once. Scanner, utilization and price figures come from public sources (bottom of the page); premises, number of technologists and contrast use are estimates to be checked.</div>
+    </div>
+
+    <!-- EXAMPLE 2: PATIENT CHAIN -->
+    <div class="card">
+        <h2>Example 2. The patient's path to the procedure — where time is lost</h2>
+        <div id="chain-hero" class="result-hero">—</div>
+        <div class="table-responsive">
+            <table>
+                <tr><th>Step</th><th>Who is busy</th><th class="num">Work, min</th><th class="num">Waiting, min</th></tr>
+                <tr><td>1. Port access</td><td>nurse</td><td class="num"><input type="number" id="s1w" value="10"></td><td class="num"><input type="number" id="s1x" value="0"></td></tr>
+                <tr><td>2. Waiting for the doctor</td><td>nobody — the patient waits</td><td class="num"><input type="number" id="s2w" value="0"></td><td class="num"><input type="number" id="s2x" value="60"></td></tr>
+                <tr><td>3. Visit with a professor-level doctor</td><td>doctor</td><td class="num"><input type="number" id="s3w" value="10"></td><td class="num"><input type="number" id="s3x" value="0"></td></tr>
+                <tr><td>4. Waiting at the treatment room</td><td>nobody — the patient waits</td><td class="num"><input type="number" id="s4w" value="0"></td><td class="num"><input type="number" id="s4x" value="25"></td></tr>
+                <tr class="total"><td colspan="2">Total before the procedure starts</td><td class="num" id="sumW">—</td><td class="num" id="sumX">—</td></tr>
+            </table>
+        </div>
+        <div class="bar"><div class="w" id="barW"></div><div class="x" id="barX"></div></div>
+        <div class="legend"><i style="background:#1f4e78"></i>working with the patient &nbsp;&nbsp; <i style="background:repeating-linear-gradient(45deg,#f2b897 0 3px,#fce4d6 3px 6px)"></i>waiting</div>
+
+        <h3>Why: the bottleneck is the doctor</h3>
+        <p>As in a factory, the slowest step sets the pace of the whole chain. The first step may go fast, but the patient simply joins the doctor's queue sooner. It is the doctor who must be sped up — and the steps synchronized: the treatment chair gets ready for the moment the visit ends.</p>
+
+        <h3>How many patients the doctor sees per day</h3>
+        <div class="table-responsive">
+            <table>
+                <tr><td>Doctor's working time, minutes per day</td><td class="num"><input type="number" id="docDay" value="480"></td></tr>
+                <tr><td>Regular visit, minutes</td><td class="num"><input type="number" id="visitA" value="15"></td></tr>
+                <tr><td>Visit with a prepared patient (with charts of readings), minutes</td><td class="num"><input type="number" id="visitB" value="10"></td></tr>
+                <tr class="total"><td id="docResult" colspan="2">—</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- FOR THE ENGINEER -->
+    <div class="card">
+        <h3 style="margin-top:0;">For the engineer: how it is calculated</h3>
+        <p style="font-size:14px;">Cost of one scan = (scanner price ÷ service life + service + premises + technologists × wage × 12) ÷ (scans per day × working days) + supplies per scan + radiologist per scan.</p>
+        <p style="font-size:14px;">Patients per doctor per day = doctor's working time ÷ visit length.</p>
+        <div class="sources">
+            Sources: 128-slice CT scanner price and service — ECRI, via <a href="https://www.beckershospitalreview.com/?p=19587" target="_blank">Becker's Hospital Review</a>; service life 7–10 years — <a href="https://www.dotmed.com/news/story/19725" target="_blank">DOTmed / ECRI</a>; scanner utilization about 35% — <a href="https://elischolar.library.yale.edu/ymtdl/239" target="_blank">Yale University</a>; throughput with evening and Saturday hours — <a href="https://www.auntminnie.com/clinical-news/ct/article/15585574/people-not-equipment-maximize-mdct-capacity-study-finds" target="_blank">Massachusetts General Hospital, AuntMinnie</a>; CT prices in the US — <a href="https://freemarkethealthcareblog.com/cost-of-ct-scan/" target="_blank">Free Market Healthcare</a>; CT price in Tijuana — <a href="https://bookimed.com/clinic/hospital-angeles-tijuana/" target="_blank">Hospital Angeles Tijuana, Bookimed</a>; prices in Mexico — <a href="https://us-uk.bookimed.com/clinics/country=mexico/procedure=ct-scan-of-the-body-part/" target="_blank">Bookimed</a>.
+        </div>
+        <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button></div>
+    </div>
+
+    <div class="footer">
+        © Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
+        <br>Developed with technical support from AI assistant Claude (Anthropic).
+        <br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+</div>
+
+<script>
+    const v = id => parseFloat(document.getElementById(id).value) || 0;
+    const set = (id, t) => { document.getElementById(id).textContent = t; };
+    const fmt = (n, d = 0) => n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const usd = n => '$' + fmt(n, n < 100 ? 2 : 0);
+
+    function ctCost(s) {
+        const scans = v('perDay-' + s) * v('days-' + s);
+        const fixedYear = v('equip') / Math.max(v('life'), 1) + v('service-' + s) + v('premises') + v('techs-' + s) * v('wage') * 12;
+        const fixedPer = scans > 0 ? fixedYear / scans : 0;
+        return { scans, fixedPer, cost: fixedPer + v('consum') + v('reading') };
+    }
+
+    function calc() {
+        const a = ctCost('a'), b = ctCost('b');
+        set('scans-a', fmt(a.scans)); set('scans-b', fmt(b.scans));
+        set('fixed-a', usd(a.fixedPer)); set('fixed-b', usd(b.fixedPer));
+        set('cost-a', usd(a.cost)); set('cost-b', usd(b.cost));
+        const abroad = v('abroad'), local = v('local');
+        document.getElementById('ct-hero').innerHTML =
+            `<div class="rh-head">Your own CT scan in Los Angeles — ${usd(b.cost)}</div>` +
+            `<div class="rh-sub">The same scan in Tijuana — ${usd(abroad)}, plus travel. Today people in Los Angeles pay from ${usd(local)}.</div>` +
+            `<div class="rh-note">Your own: everything one scan costs the hospital — scanner, service, premises, technologists at $${fmt(v('wage'))} a month, supplies and the radiologist. Run the way it is now (one shift), the same scan costs ${usd(a.cost)}.</div>`;
+
+        const w = v('s1w') + v('s2w') + v('s3w') + v('s4w');
+        const x = v('s1x') + v('s2x') + v('s3x') + v('s4x');
+        const total = w + x;
+        set('sumW', fmt(w)); set('sumX', fmt(x));
+        const pw = total > 0 ? w / total * 100 : 0;
+        document.getElementById('barW').style.width = pw + '%';
+        document.getElementById('barX').style.width = (100 - pw) + '%';
+        const hm = m => (m >= 60 ? Math.floor(m / 60) + ' h ' : '') + (m % 60 ? fmt(m % 60) + ' min' : (m >= 60 ? '' : '0 min'));
+        document.getElementById('chain-hero').innerHTML =
+            `<div class="rh-head">Of ${hm(total)} before the procedure, staff work with the patient for ${hm(w)}.</div>` +
+            `<div class="rh-sub">The rest — ${hm(x)} — the patient waits. That is about ${fmt(100 - pw)}% of the time.</div>` +
+            `<div class="rh-note">These are the real steps of a patient at the cancer center of a large Los Angeles hospital.</div>`;
+
+        const day = v('docDay'), va = v('visitA'), vb = v('visitB');
+        const na = va > 0 ? Math.floor(day / va) : 0, nb = vb > 0 ? Math.floor(day / vb) : 0;
+        set('docResult', `Regular visit: ${fmt(na)} patients a day. Prepared patient: ${fmt(nb)} patients a day — ${fmt(nb - na)} more, same doctor, same salary.`);
+    }
+    document.addEventListener('input', calc);
+    calc();
+</script>
+</body>
+</html>
