@@ -405,21 +405,25 @@
         <!-- INTRO -->
         <div class="card">
             <div class="result-hero">
-                <div class="rh-head">Services get cheaper through machines, not by pushing people.</div>
-                <div class="rh-sub">Buy a module or a robot and see the result. Each service needs less staff time, and every employee keeps the same high wage of $10,000 a month.</div>
+                <div class="rh-head">The service is becoming cheaper thanks to machines, rather than people.</div>
+                <div class="rh-sub">Purchase a robotic device while maintaining the same salary for service personnel ($10,000 per month in this case).</div>
             </div>
 
-            <h2>What is the service generator?</h2>
-            <p>Hospitals, labs, hotels, and laundries are also places of production. Instead of producing an item, they provide a service: a procedure, a test, or a scan. So, the same ASUIR principle applies: <b>U.S.-level wages and higher at a Bangladesh-level price</b>.</p>
-            <p>People cannot be expected to work to exhaustion. So, in the generator, each person works at a normal, steady pace. Output grows <b>only through purchased equipment</b>. Part of the wage bill turns into the cost of equipment and is written off as depreciation. The more services the equipment delivers, the smaller the depreciation per service — just as in a factory.</p>
+            <h2>Here is some general information about the service generator compared to the automated control system.</h2>
+            <p>
+                Hospitals, laboratories, and hotels are types of production facilities that provide services instead of products. These services include procedures, tests, and X-rays. Therefore, the same principle of automated control and information systems applies to services
+                : <b>Staff salaries are on par with or higher than those in the U.S., while the cost of providing a service (i.e., what it costs the hospital to perform a single procedure) is the same as in Bangladesh</b> — In other words, it's like living in one of the world's 
+                cheapest countries, where staff salaries are comparable to those in the U.S. ($10,000 here).
+            </p>
+            <p>At the same time, the increase in procedures is not because the service staff is working harder <b>through the automation of production, robots are used.</b>.</p>
 
-            <h3>Automation step by step — as with CNC machines</h3>
+            <h3>Automation Step by Step</h3>
             <div class="steps">
-                <div class="step"><b>1. Today: people</b><span>People do all the work in one shift. This is the starting point.</span></div>
-                <div class="step"><b>2. Today: people + ready-made modules</b><span>We buy what is already on sale and used in hospitals: an electronic queue, self-check kiosks, and infusion pumps with a central console. Each service needs fewer people.</span></div>
-                <div class="step hyp"><b>3. Hypothesis: robots</b><span>Robots replace the support staff. They work two shifts with no days off. One person stays on as a supervisor. This becomes possible after medical approval, in N years.</span></div>
+                <div class="step"><b>1. People:</b><span>Everything is done by people.</span></div>
+                <div class="step"><b>2. People + Off-the-Shelf Devices: </b><span>Purchasing certain devices already in use in hospitals, such as electronic queuing systems, self-service kiosks where patients can measure their own blood pressure and temperature, and IV pumps with a central control panel. This reduces the need for support staff..</span></div>
+                <div class="step hyp"><b>3. The future: robots</b><span>Robots will replace support staff and work two shifts without days off. This will become possible in a few years once authorities allow robots to work with patients.</span></div>
             </div>
-            <p style="font-size:14px; color:#4a5568;">The doctor's fee and the drug cost are the same in every option, so they are left out. We count only what it costs the hospital to service one procedure: staff wages, equipment, and premises.</p>
+            <p style="font-size:14px; color:#4a5568;">The doctor and medications are the same in all scenarios, so they are not included in the calculation. Only the hospital’s internal costs for the procedure itself are considered.</p>
 
             <h3>Sector catalog</h3>
             <div class="catalog">
@@ -438,7 +442,7 @@
 
             <div class="table-responsive">
                 <table>
-                    <tr><th>What we count</th><th class="num">1. Today: people</th><th class="num">2. People + modules</th><th class="num hyp">3. Hypothesis: robots</th></tr>
+                    <tr><th>What we count</th><th class="num">1. Today: people</th><th class="num">2. People + devices</th><th class="num hyp">3. The future: robots</th></tr>
 
                     <tr class="group"><td colspan="4">Operating hours</td></tr>
                     <tr>
@@ -454,7 +458,7 @@
                         <td class="num hyp"><input type="number" id="days-c" value="365"></td>
                     </tr>
                     <tr>
-                        <td>Chair turnover between patients, hours<span class="small">with modules and robots, the chair is ready before the patient arrives, not after</span></td>
+                        <td>Chair turnover between patients, hours<span class="small">with devices and robots, the chair is ready before the patient arrives, not after</span></td>
                         <td class="num"><input type="number" id="turn-a" value="1" step="0.25"></td>
                         <td class="num"><input type="number" id="turn-b" value="0.5" step="0.25"></td>
                         <td class="num hyp"><input type="number" id="turn-c" value="0.25" step="0.25"></td>
@@ -462,7 +466,7 @@
 
                     <tr class="group"><td colspan="4">People per shift</td></tr>
                     <tr>
-                        <td>Chairside nurses<span class="small">today, one nurse covers about 3.7 chairs; with a central console, about 6; with robots, one supervisor per shift</span></td>
+                        <td>Chairside nurses<span class="small">today, one nurse covers about 3.7 chairs; with a shared IV screen, about 6; with robots, one person keeps an eye on them</span></td>
                         <td class="num"><input type="number" id="nurse-a" value="5.4" step="0.1"></td>
                         <td class="num"><input type="number" id="nurse-b" value="3.3" step="0.1"></td>
                         <td class="num hyp"><input type="number" id="nurse-c" value="1" step="0.1"></td>
@@ -476,87 +480,87 @@
 
                     <tr class="group"><td colspan="4">Robots (option 3 only)</td></tr>
                     <tr><td>Robots, units<span class="small">5 chairside (one per 4 chairs) + 2 for support</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="7"></td></tr>
-                    <tr><td>Price of one robot, $<span class="small">assumption: a medical version will cost more than today's general-purpose robots ($13,500–$100,000)</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
+                    <tr><td>Purchase price of one robot, $<span class="small">our estimate: a hospital robot will cost more than today's ordinary robots, which sell for $13,500–$100,000</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
                     <tr><td>Robot service life, years</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
-                    <tr><td>Robot maintenance, % of price per year</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
-                    <tr><td>Medical approval expected in, years</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="approval" value="5"></td></tr>
+                    <tr><td>Robot repair and maintenance per year, % of its purchase price</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
+                    <tr><td>In how many years robots will be allowed to work with patients</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="approval" value="5"></td></tr>
 
                     <tr class="group"><td colspan="4">Common to all options</td></tr>
                     <tr><td>Chairs</td><td class="num" colspan="3"><input type="number" id="chairs" value="20"></td></tr>
                     <tr><td>Average procedure, hours<span class="small">procedures run 2 or 5 hours</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
-                    <tr><td>Wage of each employee (nurse, support staff, supervisor), $ per month</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
+                    <tr><td>Wage of each hospital employee (nurse, support staff, the person who watches the robots), $ per month</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
                     <tr><td>Rent of the premises and the treatment chairs, $ per year</td><td class="num" colspan="3"><input type="number" id="premises" value="300000"></td></tr>
 
                     <tr class="group"><td colspan="4">Result</td></tr>
                     <tr><td>Procedures per year</td><td class="num" id="proc-a"></td><td class="num" id="proc-b"></td><td class="num hyp" id="proc-c"></td></tr>
-                    <tr><td>Staff, full-time equivalents<span class="small">a person works 8 hours a day, 250 days a year</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
-                    <tr><td>Human time per procedure</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
-                    <tr><td>Total wages paid by the hospital per year</td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
-                    <tr><td>Modules and robots per year<span class="small">purchase price spread over the service life, plus maintenance</span></td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
-                    <tr class="total"><td>What one procedure costs the hospital to service<span class="small">wages + equipment + premises, divided by the number of procedures; without the drug and the doctor</span></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                    <tr><td>How many employees the hospital needs<span class="small">each works 8 hours a day, 250 days a year</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
+                    <tr><td>Staff working time per procedure</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
+                    <tr><td>Total staff wages paid by the hospital per year</td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
+                    <tr><td>Buying devices and robots, per year<span class="small">purchase price divided by the years of service, plus repairs</span></td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
+                    <tr class="total"><td>What one procedure costs the hospital to service<span class="small">staff wages + equipment + premises, divided by the number of procedures; without the drug and the doctor</span></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
                 </table>
             </div>
             <div id="breakeven" class="info-hint">—</div>
 
-            <h3>What we buy (options 2 and 3)</h3>
+            <h3>What we buy</h3>
             <div class="table-responsive">
                 <table>
-                    <tr><th>Module</th><th>What it replaces</th><th>Approval</th><th class="num">Qty</th><th class="num">Purchase price per unit, $</th><th class="num">Total</th></tr>
+                    <tr><th>Device</th><th>Instead of</th><th>Allowed?</th><th class="num">Qty</th><th class="num">Purchase price per unit, $</th><th class="num">Total</th></tr>
                     <tr>
                         <td><a href="https://m.indiamart.com/proddetail/customized-smart-token-queue-management-system-for-hospitals-25309736955.html" target="_blank">Electronic queue</a> with calling and wait-time tracking</td>
                         <td>front desk</td>
-                        <td><span class="tag ok">not required</span></td>
+                        <td><span class="tag ok">no approval needed</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q1" value="1"></td>
                         <td class="num"><input class="mp" type="number" id="p1" value="600"></td>
                         <td class="num" id="s1"></td>
                     </tr>
                     <tr>
-                        <td><a href="https://neotech.ae/products/4-484" target="_blank">Self-check kiosk</a>: blood pressure, pulse, oxygen, temperature<span class="small">price on request — estimate</span></td>
+                        <td><a href="https://neotech.ae/products/4-484" target="_blank">Machine</a> where patients check their own blood pressure, pulse, oxygen, and temperature<span class="small">the seller gives the purchase price on request — estimate here</span></td>
                         <td>nurse taking vitals</td>
-                        <td><span class="tag ok">on sale</span></td>
+                        <td><span class="tag ok">freely on sale</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q2" value="2"></td>
                         <td class="num"><input class="mp" type="number" id="p2" value="8000"></td>
                         <td class="num" id="s2"></td>
                     </tr>
                     <tr>
-                        <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Alaris infusion pump</a>, refurbished</td>
-                        <td>manual IV monitoring</td>
+                        <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Alaris IV pump</a>, refurbished</td>
+                        <td>a nurse watching each IV by hand</td>
                         <td><span class="tag ok">used in US hospitals</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q3" value="20"></td>
                         <td class="num"><input class="mp" type="number" id="p3" value="1150"></td>
                         <td class="num" id="s3"></td>
                     </tr>
                     <tr>
-                        <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Central pump console</a> Alaris Infusion Central<span class="small">price — estimate</span></td>
+                        <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Shared screen</a> Alaris Infusion Central: the nurse sees all IVs at once<span class="small">purchase price — estimate</span></td>
                         <td>nurse rounds between chairs</td>
                         <td><span class="tag ok">used in hospitals</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q4" value="1"></td>
                         <td class="num"><input class="mp" type="number" id="p4" value="20000"></td>
                         <td class="num" id="s4"></td>
                     </tr>
-                    <tr class="total"><td colspan="5">Modules total (service life 7 years, maintenance 10% per year)</td><td class="num" id="modTotal"></td></tr>
+                    <tr class="total"><td colspan="5">Devices total (last 7 years; repairs — 10% of the purchase price a year)</td><td class="num" id="modTotal"></td></tr>
                     <tr>
-                        <td>Service robot — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">reference: Unitree H1 / H2 Plus</a> ($90,000–100,000)</td>
+                        <td>Helper robot — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">reference: Unitree H1 / H2 Plus</a> ($90,000–100,000)</td>
                         <td>chairside nurse, support staff</td>
-                        <td><span class="tag hyp">hypothesis, approval needed</span></td>
+                        <td><span class="tag hyp">future, approval needed</span></td>
                         <td class="num" id="rq"></td>
                         <td class="num" id="rp"></td>
                         <td class="num" id="rs"></td>
                     </tr>
                 </table>
             </div>
-            <div class="info-hint">Any figure can be changed, and the calculation will update immediately. The number of chairs per nurse comes from the Association of Cancer Care Centers (U.S.). Module prices come from the links. The premises, chair turnover, and the medical robot price are estimates and should be verified.</div>
+            <div class="info-hint">Any figure can be changed, and the calculation will update immediately. The number of chairs per nurse comes from the Association of Cancer Care Centers (U.S.). Device purchase prices come from the links. Rent of the premises, chair turnover, and the purchase price of a medical robot are estimates and should be verified.</div>
         </div>
 
         <!-- FOR THE ENGINEER -->
         <div class="card">
             <h3 style="margin-top:0;">For the engineer: how it is calculated</h3>
             <p style="font-size:14px;">Procedures per year = chairs × hours per day ÷ (procedure + chair turnover) × days per year.</p>
-            <p style="font-size:14px;">Full-time equivalents = people per shift × (hours per day ÷ 8) × (days per year ÷ 250).</p>
-            <p style="font-size:14px;">Servicing one procedure = (wages + modules and robots ÷ service life + their maintenance + premises) ÷ procedures per year.</p>
-            <p style="font-size:14px;">Break-even robot price — the price at which servicing a procedure in option 3 equals option 2.</p>
+            <p style="font-size:14px;">Employees = people per shift × (hours per day ÷ 8) × (days per year ÷ 250).</p>
+            <p style="font-size:14px;">Hospital cost per procedure = (staff wages per year + purchase price of devices and robots ÷ service life + their repair and maintenance + rent of the premises) ÷ procedures per year.</p>
+            <p style="font-size:14px;">Break-even robot purchase price — the price at which the hospital cost per procedure in option 3 equals option 2.</p>
             <div class="sources">
-                Sources: chairs per nurse — <a href="https://accc-cancer.org/docs/documents/oncology-issues/articles/2003-2016/2015/nd15/nd15-how-does-your-infusion-center-measure-up.pdf" target="_blank">ACCC, Oncology Issues</a>; general-purpose robot prices — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">eWeek</a>; module prices — links in the table.
+                Sources: chairs per nurse — <a href="https://accc-cancer.org/docs/documents/oncology-issues/articles/2003-2016/2015/nd15/nd15-how-does-your-infusion-center-measure-up.pdf" target="_blank">ACCC, Oncology Issues</a>; purchase prices of general-purpose robots — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">eWeek</a>; device purchase prices — links in the table.
             </div>
             <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button></div>
         </div>
@@ -573,11 +577,11 @@
                 loc: 'en-US', h: 'h', min: 'min',
                 hero: (a, b, c, yr) =>
                     `<div class="rh-head">Cost to the hospital of one procedure: ${a} → ${b} → ${c}</div>` +
-                    `<div class="rh-sub">${a} — today, with people only. ${b} — the same people with ready-made modules. ${c} — robots in place of the support staff.</div>` +
-                    `<div class="rh-note">This is what the hospital spends to service one procedure: staff wages, equipment, and premises. The drug and the doctor are not included, as they are the same in every option. Every employee earns the same ${usd(v('wage'))} a month in all options. Robots are an assumption: they become possible after medical approval, around ${yr}.</div>`,
+                    `<div class="rh-sub">${a} — today, people do all the work. ${b} — the same people with ready-made devices. ${c} — robots in place of the support staff.</div>` +
+                    `<div class="rh-note">This is what the hospital spends to service one procedure: staff wages, equipment (its purchase price spread over its service life), and rent of the premises. The drug and the doctor are not included, as they are the same in every option. The wage of every hospital employee is the same ${usd(v('wage'))} a month in all options. Robots are the future: they will arrive once the authorities allow them to work with patients, around ${yr}.</div>`,
                 be: (p, cur) => p > 0
-                    ? `Robots are cheaper for the hospital than ready-made modules as long as one robot costs less than <b>${usd(p)}</b>. The calculation assumes ${cur} per robot.`
-                    : `With these figures robots do not beat ready-made modules at any price — check the operating hours and the number of robots.`
+                    ? `Robots are cheaper for the hospital than ready-made devices as long as the purchase price of one robot is less than <b>${usd(p)}</b>. The calculation assumes a purchase price of ${cur} per robot.`
+                    : `With these figures robots do not beat ready-made devices at any robot purchase price — check the operating hours and the number of robots.`
             };
 
             const v = id => parseFloat(document.getElementById(id).value) || 0;

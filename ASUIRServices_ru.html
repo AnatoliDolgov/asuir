@@ -406,20 +406,22 @@
         <div class="card">
             <div class="result-hero">
                 <div class="rh-head">Услуга дешевеет за счёт автоматов, а не людей.</div>
-                <div class="rh-sub">Купил модуль или робота — получил видимый результат: меньше человеческого времени на одну услугу, та же высокая зарплата.</div>
+                <div class="rh-sub">Покупка робототехнического устройства, с той же зарплатой у уобслуживающего персонала что и раньше (здесь — $10 000 в месяц).</div>
             </div>
 
-            <h2>Что такое генератор услуг</h2>
-            <p>Больница, лаборатория, гостиница — это тоже производство, только вместо изделия оно выпускает услугу: процедуру, анализ, снимок. Поэтому для услуг работает тот же принцип АСУИР: <b>зарплаты на уровне США и выше, а цена — как в Бангладеш</b>.</p>
-            <p>Рассчитывать, что люди будут работать на износ, нельзя. Поэтому производительность человека в генераторе неизменна: растёт она <b>только от купленного оборудования</b>. Зарплата переходит в стоимость оборудования и уходит в амортизацию, а амортизацию сжимает производительность — как на заводе.</p>
+            <h2>Некоторая общая информация о генератора услугв сравнении с АСУИР</h2>
+            <p>Больница, лаборатория, гостиница — это тоже производство, только вместо изделия оно выпускает услугу: процедуру, анализ, снимок. Поэтому для услуг работает тот же принцип АСУИР: <b>зарплата персонала — на уровне США и выше, а себестоимость услуги
+                (во что больнице обходится одна процедура) — как в Бангладеш</b>, то есть как в одной из самых дешёвых стран мира, с зарплатой персонала как в США (здесь $10,000).</p>
+            <p>При этом большее количество процедур делается не за счет интенсификации работы обсулживающего персонала <b>а за счёт автоматизации производства - имспользования роботов</b></p>
 
-            <h3>Автоматизация по частям — как на станках с ЧПУ</h3>
+            <h3>Автоматизация шаг за шагом</h3>
             <div class="steps">
-                <div class="step"><b>1. Сегодня: люди</b><span>Всё делают люди, одна смена. Это точка отсчёта.</span></div>
-                <div class="step"><b>2. Сегодня: люди + готовые модули</b><span>Покупаем то, что уже продаётся и разрешено в больницах: электронную очередь, киоски самоизмерения, насосы с центральным пультом. Людей на одну услугу нужно меньше.</span></div>
-                <div class="step hyp"><b>3. Гипотеза: роботы</b><span>Роботы вместо обслуживающего персонала. Работают в две смены и без выходных. Человек остаётся контролёром. Станет возможным после медицинского допуска — через N лет.</span></div>
+                <div class="step"><b>1. Люди:</b><span> Всё делается людьми.</span></div>
+                <div class="step"><b>2. Люди + готовые устройства</b><span>Приобретение некоторых устройств уже используемых в больницах: имеется ввиду- электронная очередь, автоматы, где пациент сам меряет давление и температуру, насосы для капельниц 
+                    с общим пультом, с уменьшением при этом обслуживающего персонала.</span></div>
+                <div class="step hyp"><b>3. Будущее: роботы</b><span>Роботы вместо обслуживающего персонала, с работой в две смены и без выходных. Станет возможным, когда власти разрешат роботам работать с пациентами, — через несколько лет.</span></div>
             </div>
-            <p style="font-size:14px; color:#4a5568;">Врач и лекарство во всех вариантах одинаковы, поэтому в расчёт не входят: считаем только обслуживание процедуры.</p>
+            <p style="font-size:14px; color:#4a5568;">Врач и лекарства во всех вариантах одинаковы, поэтому в расчёт не входят - считаются только внутренние расходы больницы на саму процедуру.</p>
 
             <h3>Каталог отраслей</h3>
             <div class="catalog">
@@ -438,11 +440,11 @@
 
             <div class="table-responsive">
                 <table>
-                    <tr><th>Что считаем</th><th class="num">1. Сегодня: люди</th><th class="num">2. Люди + модули</th><th class="num hyp">3. Гипотеза: роботы</th></tr>
+                    <tr><th>Что считаем</th><th class="num">1. Сегодня: люди</th><th class="num">2. Люди + устройства</th><th class="num hyp">3. Будущее: роботы</th></tr>
 
                     <tr class="group"><td colspan="4">Режим работы</td></tr>
                     <tr>
-                        <td>Часов работы в день<span class="small">роботы не устают — отделение работает и вечером</span></td>
+                        <td>Часов работы в день<span class="small">роботы - утром и вечером</span></td>
                         <td class="num"><input type="number" id="hours-a" value="10"></td>
                         <td class="num"><input type="number" id="hours-b" value="10"></td>
                         <td class="num hyp"><input type="number" id="hours-c" value="16"></td>
@@ -454,7 +456,7 @@
                         <td class="num hyp"><input type="number" id="days-c" value="365"></td>
                     </tr>
                     <tr>
-                        <td>Подготовка кресла между пациентами, часов<span class="small">с модулями и роботами кресло готовится к приходу пациента, а не после</span></td>
+                        <td>Подготовка кресел между пациентами, часов</td>
                         <td class="num"><input type="number" id="turn-a" value="1" step="0.25"></td>
                         <td class="num"><input type="number" id="turn-b" value="0.5" step="0.25"></td>
                         <td class="num hyp"><input type="number" id="turn-c" value="0.25" step="0.25"></td>
@@ -462,7 +464,7 @@
 
                     <tr class="group"><td colspan="4">Люди в одной смене</td></tr>
                     <tr>
-                        <td>Медсёстры у кресел<span class="small">сегодня одна медсестра ведёт около 3,7 кресла; с центральным пультом — около 6; с роботами — один контролёр на смену</span></td>
+                        <td>Медсёстры у кресел<span class="small">сегодня одна медсестра ведёт около 3,7 кресла; с общим пультом для капельниц — около 6; при использовании роботов контроль обеспечивается одним человеком</span></td>
                         <td class="num"><input type="number" id="nurse-a" value="5.4" step="0.1"></td>
                         <td class="num"><input type="number" id="nurse-b" value="3.3" step="0.1"></td>
                         <td class="num hyp"><input type="number" id="nurse-c" value="1" step="0.1"></td>
@@ -476,87 +478,87 @@
 
                     <tr class="group"><td colspan="4">Роботы (только вариант 3)</td></tr>
                     <tr><td>Роботов, шт.<span class="small">5 у кресел (один на 4 кресла) + 2 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="7"></td></tr>
-                    <tr><td>Цена одного робота, $<span class="small">гипотеза: медицинская версия дороже нынешних роботов общего назначения ($13 500–100 000)</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
+                    <tr><td>Цена покупки одного робота, $<span class="small">наша оценка: робот для больницы будет дороже нынешних обычных роботов (они продаются по $13 500–100 000)</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
                     <tr><td>Срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
-                    <tr><td>Обслуживание робота, % цены в год</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
-                    <tr><td>Медицинский допуск ожидается через, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="approval" value="5"></td></tr>
+                    <tr><td>Ремонт и обслуживание робота в год, % от цены его покупки</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
+                    <tr><td>Через сколько лет роботам разрешат работать с пациентами</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="approval" value="5"></td></tr>
 
                     <tr class="group"><td colspan="4">Общее для всех вариантов</td></tr>
                     <tr><td>Кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="20"></td></tr>
                     <tr><td>Средняя процедура, часов<span class="small">процедуры бывают по 2 и по 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
-                    <tr><td>Зарплата каждого работника (медсестра, персонал, контролёр), $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
+                    <tr><td>Зарплата каждого работника больницы (медсестра, персонал, тот, кто присматривает за роботами), $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
                     <tr><td>Аренда помещения и процедурные кресла, $ в год</td><td class="num" colspan="3"><input type="number" id="premises" value="300000"></td></tr>
 
                     <tr class="group"><td colspan="4">Результат</td></tr>
                     <tr><td>Процедур в год</td><td class="num" id="proc-a"></td><td class="num" id="proc-b"></td><td class="num hyp" id="proc-c"></td></tr>
-                    <tr><td>Людей в штате, полных ставок<span class="small">человек работает 8 часов в день, 250 дней в году</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
-                    <tr><td>Человеческого времени на одну процедуру</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
+                    <tr><td>Сколько работников нужно больнице<span class="small">каждый работает 8 часов в день, 250 дней в году</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
+                    <tr><td>Сколько рабочего времени персонала уходит на одну процедуру</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
                     <tr><td>Все зарплаты, которые больница платит за год</td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
-                    <tr><td>Модули и роботы в год<span class="small">цена покупки, разложенная на срок службы, плюс обслуживание</span></td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
-                    <tr class="total"><td>Во сколько больнице обходится обслуживание одной процедуры<span class="small">зарплаты + оборудование + помещение, делённые на число процедур; без лекарства и врача</span></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                    <tr><td>Покупка устройств и роботов, в пересчёте на год<span class="small">цена покупки, делённая на годы службы, плюс ремонт</span></td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
+                    <tr class="total"><td>Во сколько больнице обходится обслуживание одной процедуры<span class="small">зарплата персонала + оборудование + помещение, делённые на число процедур; без лекарства и врача</span></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
                 </table>
             </div>
             <div id="breakeven" class="info-hint">—</div>
 
-            <h3>Что покупаем (варианты 2 и 3)</h3>
+            <h3>Что покупаем</h3>
             <div class="table-responsive">
                 <table>
-                    <tr><th>Модуль</th><th>Что заменяет</th><th>Допуск</th><th class="num">Кол-во</th><th class="num">Цена покупки за шт., $</th><th class="num">Сумма</th></tr>
+                    <tr><th>Устройство</th><th>Вместо чего</th><th>Разрешено?</th><th class="num">Кол-во</th><th class="num">Цена покупки за шт., $</th><th class="num">Сумма</th></tr>
                     <tr>
                         <td><a href="https://m.indiamart.com/proddetail/customized-smart-token-queue-management-system-for-hospitals-25309736955.html" target="_blank">Электронная очередь</a> с вызовом и учётом времени ожидания</td>
                         <td>регистратура</td>
-                        <td><span class="tag ok">не требуется</span></td>
+                        <td><span class="tag ok">разрешение не нужно</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q1" value="1"></td>
                         <td class="num"><input class="mp" type="number" id="p1" value="600"></td>
                         <td class="num" id="s1"></td>
                     </tr>
                     <tr>
-                        <td><a href="https://neotech.ae/products/4-484" target="_blank">Киоск самоизмерения</a>: давление, пульс, кислород, температура<span class="small">цена по запросу — оценка</span></td>
+                        <td><a href="https://neotech.ae/products/4-484" target="_blank">Автомат</a>, где пациент сам меряет давление, пульс, кислород и температуру<span class="small">цену покупки продавец даёт по запросу — здесь оценка</span></td>
                         <td>замер медсестрой</td>
-                        <td><span class="tag ok">продаётся</span></td>
+                        <td><span class="tag ok">продаётся свободно</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q2" value="2"></td>
                         <td class="num"><input class="mp" type="number" id="p2" value="8000"></td>
                         <td class="num" id="s2"></td>
                     </tr>
                     <tr>
-                        <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Инфузионный насос Alaris</a>, восстановленный</td>
-                        <td>ручной контроль капельницы</td>
+                        <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Насос для капельниц Alaris</a>, восстановленный</td>
+                        <td>медсестра следит за капельницей вручную</td>
                         <td><span class="tag ok">применяется в больницах США</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q3" value="20"></td>
                         <td class="num"><input class="mp" type="number" id="p3" value="1150"></td>
                         <td class="num" id="s3"></td>
                     </tr>
                     <tr>
-                        <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Центральный пульт насосов</a> Alaris Infusion Central<span class="small">цена — оценка</span></td>
+                        <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Общий пульт</a> Alaris Infusion Central: медсестра видит все капельницы сразу<span class="small">цена покупки — оценка</span></td>
                         <td>обход кресел медсестрой</td>
                         <td><span class="tag ok">применяется в больницах</span></td>
                         <td class="num"><input class="qty mq" type="number" id="q4" value="1"></td>
                         <td class="num"><input class="mp" type="number" id="p4" value="20000"></td>
                         <td class="num" id="s4"></td>
                     </tr>
-                    <tr class="total"><td colspan="5">Итого модулей (срок службы 7 лет, обслуживание 10% в год)</td><td class="num" id="modTotal"></td></tr>
+                    <tr class="total"><td colspan="5">Итого устройств (служат 7 лет, ремонт — 10% от цены покупки в год)</td><td class="num" id="modTotal"></td></tr>
                     <tr>
-                        <td>Робот обслуживания — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">ориентир: Unitree H1 / H2 Plus</a> ($90 000–100 000)</td>
+                        <td>Робот-помощник — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">ориентир: Unitree H1 / H2 Plus</a> ($90 000–100 000)</td>
                         <td>медсестра у кресел, обслуживающий персонал</td>
-                        <td><span class="tag hyp">гипотеза, допуск нужен</span></td>
+                        <td><span class="tag hyp">будущее, нужно разрешение</span></td>
                         <td class="num" id="rq"></td>
                         <td class="num" id="rp"></td>
                         <td class="num" id="rs"></td>
                     </tr>
                 </table>
             </div>
-            <div class="info-hint">Все цифры можно менять — расчёт пересчитывается сразу. Число кресел на одну медсестру — по данным американской ассоциации онкоцентров; цены модулей — по ссылкам; помещение, время подготовки кресла и цена медицинского робота — оценки для проверки.</div>
+            <div class="info-hint">Все цифры можно менять — расчёт пересчитывается сразу. Число кресел на одну медсестру — по данным американской ассоциации онкоцентров; цены покупки устройств — по ссылкам; аренда помещения, время подготовки кресла и цена покупки медицинского робота — оценки для проверки.</div>
         </div>
 
         <!-- ДЛЯ ИНЖЕНЕРА -->
         <div class="card">
             <h3 style="margin-top:0;">Для инженера: как считается</h3>
             <p style="font-size:14px;">Процедур в год = кресел × часов в день ÷ (процедура + подготовка кресла) × дней в году.</p>
-            <p style="font-size:14px;">Полных ставок = людей в смене × (часов в день ÷ 8) × (дней в году ÷ 250).</p>
-            <p style="font-size:14px;">Обслуживание одной процедуры = (зарплаты + модули и роботы ÷ срок службы + их обслуживание + помещение) ÷ процедур в год.</p>
-            <p style="font-size:14px;">Предельная цена робота — цена, при которой обслуживание процедуры в варианте 3 равно варианту 2.</p>
+            <p style="font-size:14px;">Работников = людей в смене × (часов в день ÷ 8) × (дней в году ÷ 250).</p>
+            <p style="font-size:14px;">Расходы больницы на одну процедуру = (зарплата персонала за год + цена покупки устройств и роботов ÷ срок службы + их ремонт и обслуживание + аренда помещения) ÷ процедур в год.</p>
+            <p style="font-size:14px;">Предельная цена покупки робота — цена, при которой расходы больницы на одну процедуру в варианте 3 равны варианту 2.</p>
             <div class="sources">
-                Источники: кресел на медсестру — <a href="https://accc-cancer.org/docs/documents/oncology-issues/articles/2003-2016/2015/nd15/nd15-how-does-your-infusion-center-measure-up.pdf" target="_blank">ACCC, Oncology Issues</a>; цены роботов общего назначения — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">eWeek</a>; цены модулей — по ссылкам в таблице.
+                Источники: кресел на медсестру — <a href="https://accc-cancer.org/docs/documents/oncology-issues/articles/2003-2016/2015/nd15/nd15-how-does-your-infusion-center-measure-up.pdf" target="_blank">ACCC, Oncology Issues</a>; цены покупки роботов общего назначения — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">eWeek</a>; цены покупки устройств — по ссылкам в таблице.
             </div>
             <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
         </div>
@@ -573,11 +575,11 @@
                 loc: 'ru-RU', h: 'ч', min: 'мин',
                 hero: (a, b, c, yr) =>
                     `<div class="rh-head">Расходы больницы на одну процедуру: ${a} → ${b} → ${c}</div>` +
-                    `<div class="rh-sub">${a} — сегодня, люди. ${b} — те же люди с готовыми модулями. ${c} — роботы вместо обслуживающего персонала.</div>` +
-                    `<div class="rh-note">Это то, что больница тратит на обслуживание одной процедуры: зарплаты персонала, оборудование и помещение. Лекарство и врач не входят — они одинаковы во всех вариантах. Каждый работник во всех вариантах получает ${usd(v('wage'))} в месяц. Роботы — гипотеза: станут возможны после медицинского допуска, ориентировочно в ${yr} году.</div>`,
+                    `<div class="rh-sub">${a} — сегодня, всё делают люди. ${b} — те же люди с готовыми устройствами. ${c} — роботы вместо обслуживающего персонала.</div>` +
+                    `<div class="rh-note">Это то, что больница тратит на обслуживание одной процедуры: зарплата персонала, оборудование (цена покупки, разложенная на срок службы) и аренда помещения. Лекарство и врач не входят — они одинаковы во всех вариантах. Зарплата каждого работника больницы во всех вариантах — ${usd(v('wage'))} в месяц. Роботы — это будущее: они появятся, когда власти разрешат им работать с пациентами, ориентировочно в ${yr} году.</div>`,
                 be: (p, cur) => p > 0
-                    ? `Роботы обходятся больнице дешевле готовых модулей, пока один робот стоит меньше <b>${usd(p)}</b>. В расчёте заложено ${cur} за робота.`
-                    : `При этих цифрах роботы не выгоднее готовых модулей ни при какой цене — проверьте режим работы и число роботов.`
+                    ? `Роботы обходятся больнице дешевле готовых устройств, пока цена покупки одного робота меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за робота.`
+                    : `При этих цифрах роботы не выгоднее готовых устройств ни при какой цене покупки робота — проверьте режим работы и число роботов.`
             };
 
             const v = id => parseFloat(document.getElementById(id).value) || 0;
