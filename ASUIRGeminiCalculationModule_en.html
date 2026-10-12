@@ -1069,6 +1069,35 @@
                                     <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
                                 </tr>
 
+                                <tr style="background:#f4f8fc; border-left:4px dashed #1f4e78;">
+                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Outlook in 3–5 years: robots instead of workers</span></span><br><span style="font-size:12px; color:#6c7a8a;">Wages turn into robot depreciation. Robots work around the clock, with no days off.</span></td>
+                                    <td class="right"><label style="cursor:pointer; font-weight:600; color:#1f4e78;"><input type="checkbox" id="robot-mode" onchange="calculateAll()"> turn on</label></td>
+                                </tr>
+                                <tr class="robot-row" style="display:none; background:#f4f8fc;">
+                                    <td style="padding-left:28px;">Robots on the line, units<br><span style="font-size:12px; color:#6c7a8a;">empty — as many as workers</span></td>
+                                    <td class="right"><input type="number" id="robot-count" class="input-field input-field-sm" value="" placeholder="as workers" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr class="robot-row" style="display:none; background:#f4f8fc;">
+                                    <td style="padding-left:28px;">Price of one robot, $<br><span style="font-size:12px; color:#6c7a8a;">reference: Unitree H2 humanoid robot — $29,900</span></td>
+                                    <td class="right"><input type="number" id="robot-price" class="input-field input-field-sm" value="30000" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr class="robot-row" style="display:none; background:#f4f8fc;">
+                                    <td style="padding-left:28px;">Robot service life, years</td>
+                                    <td class="right"><input type="number" id="robot-life" class="input-field input-field-sm" value="5" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr class="robot-row" style="display:none; background:#f4f8fc;">
+                                    <td style="padding-left:28px;">Robot maintenance, % of price per year</td>
+                                    <td class="right"><input type="number" id="robot-svc" class="input-field input-field-sm" value="10" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr class="robot-row" style="display:none; background:#f4f8fc;">
+                                    <td style="padding-left:28px;">Line hours per day<br><span style="font-size:12px; color:#6c7a8a;">people work 8 hours, one shift</span></td>
+                                    <td class="right"><input type="number" id="robot-hours" class="input-field input-field-sm" value="24" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr class="robot-row" style="display:none; background:#f4f8fc;">
+                                    <td style="padding-left:28px;">Human supervisors on the line<br><span style="font-size:12px; color:#6c7a8a;">each paid $10,000 a month</span></td>
+                                    <td class="right"><input type="number" id="robot-humans" class="input-field input-field-sm" value="0" oninput="calculateAll()"></td>
+                                </tr>
+
                                 <tr class="total-row" style="background: #f0f5fa; border-top: 2px solid #1f4e78;">
                                     <td><span class="icon-text"><span class="ico">📊</span> <span style="font-weight: 600;">Total Daily Equipment & Personnel Costs</span></span></td>
                                     <td class="right">$ <span id="total-daily-cost">0</span></td>
@@ -1176,6 +1205,7 @@
                     <!-- TAB 5: RESULTS -->
                     <div class="section" id="tab5">
                         <div id="import-advantage" class="result-hero">—</div>
+                        <div id="robot-compare" class="result-hero" style="display:none; border-left-style:dashed;"></div>
                         <div class="table-responsive">
                             <table class="section-results">
                                 <tr class="res-group"><td colspan="2">🏭 Your production</td></tr>
@@ -2340,7 +2370,14 @@ Thank you!
                                             const salary = 10000;
 
                                             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
-                                            const actualPerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
+                                            const robotMode = !!document.getElementById('robot-mode')?.checked;
+                                            document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
+                                            const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
+                                            const basePerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
+                                            const rHours = Math.min(Math.max(rNum('robot-hours', 24), 1), 24);
+                                            const rCount = rNum('robot-count', parseFloat(document.getElementById('val-staff')?.value) || 1);
+                                            const rPrice = rNum('robot-price', 30000), rLife = Math.max(rNum('robot-life', 5), 1), rSvc = rNum('robot-svc', 10), rHumans = rNum('robot-humans', 0);
+                                            const actualPerf = robotMode ? Math.round(basePerf * rHours / 8) : basePerf;
 
                                             let rawCost = 0;
                                             const tbodyBomRows = document.querySelectorAll('#component-dynamic-rows tr');
@@ -2370,8 +2407,10 @@ Thank you!
                                             if (otherCostsElem) otherCostsElem.textContent = totalOtherCosts.toFixed(2);
 
                                             const amort = equip / 5 / 365;
-                                            const salaryPerDay = (salary * staff) / 30;
-                                            const overhead = amort + salaryPerDay;
+                                            const peopleSalaryDay = (salary * staff) / 30;
+                                            const salaryPerDay = robotMode ? (salary * rHumans) / 30 : peopleSalaryDay;
+                                            const robotPerDay = robotMode ? rCount * rPrice * (1 / rLife + rSvc / 100) / 365 : 0;
+                                            const overhead = amort + salaryPerDay + robotPerDay;
 
                                             if (document.getElementById('total-daily-cost')) document.getElementById('total-daily-cost').textContent = Math.round(overhead);
 
@@ -2390,6 +2429,21 @@ Thank you!
                                             const machineShare = actualPerf > 0 ? overhead / actualPerf : 0;
                                             const otherShare = actualPerf > 0 ? totalOtherCosts / actualPerf : 0;
                                             const totalCost = rawCost + machineShare + otherShare;
+                                            {
+                                                const rcEl = document.getElementById('robot-compare');
+                                                if (rcEl) {
+                                                    if (robotMode) {
+                                                        const f0 = n => Math.round(n).toLocaleString('en-US');
+                                                        const f2 = n => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                                                        const peopleCost = rawCost + (amort + peopleSalaryDay + totalOtherCosts) / basePerf;
+                                                        rcEl.innerHTML = `<div class="rh-head">Outlook in 3–5 years: item made with robots — $${f2(totalCost)}, with people — $${f2(peopleCost)}</div>` +
+                                                            `<div class="rh-sub">Your profit per month: with robots — $${f0(actualPerf * (market - totalCost) * 30)}, with people — $${f0(basePerf * (market - peopleCost) * 30)}.</div>` +
+                                                            `<div class="rh-note">Workers' wages — $${f0(peopleSalaryDay)} a day — are replaced by robots: $${f0(robotPerDay)} a day for depreciation and maintenance. The line runs ${rHours} hours a day and makes ${actualPerf} items a day instead of ${basePerf}.</div>` +
+                                                            `<div class="rh-note">Robots: ${rCount} at $${f0(rPrice)}, service life ${rLife} years, maintenance ${rSvc}% a year. People on the line: ${rHumans}. With people — ${staff} workers at $10,000 a month, 8 hours a day.</div>`;
+                                                        rcEl.style.display = '';
+                                                    } else rcEl.style.display = 'none';
+                                                }
+                                            }
 
                                             if (document.getElementById('cost-raw')) document.getElementById('cost-raw').textContent = rawCostRaw.toFixed(2);
                                             if (document.getElementById('cost-comp-duty')) document.getElementById('cost-comp-duty').textContent = compDuty.toFixed(2);
@@ -2459,7 +2513,7 @@ Thank you!
                                                     const imported = landed > market + 0.001;
                                                     if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">${where}your item — $${fmt(sCost, 2)}, imported — $${fmt(landed, 2)}</div>` +
                                                       `<div class="rh-sub">${landed >= sCost ? `Yours is $${fmt(landed - sCost, 2)} cheaper per item (${fmt(landed / sCost, 1)} times cheaper).` : `Your item costs $${fmt(sCost - landed, 2)} more than the imported one.`}</div>` +
-                                                      `<div class="rh-note">“${pName}”. Yours: everything one item costs you, including a $10,000 monthly wage for each worker. ${imported ? `Imported: what the buyer pays — factory price $${fmt(market, 2)} + shipping $${fmt(market * freightPct / 100, 2)} + duty $${fmt(market * tariffPct / 100, 2)}.` : `Imported: the price of the same item at the factory abroad, without shipping or duty.`}</div>`;
+                                                      `<div class="rh-note">“${pName}”. Yours: everything one item costs you, ${robotMode ? 'including the robots that replaced the workers.' : 'including a $10,000 monthly wage for each worker.'} ${imported ? `Imported: what the buyer pays — factory price $${fmt(market, 2)} + shipping $${fmt(market * freightPct / 100, 2)} + duty $${fmt(market * tariffPct / 100, 2)}.` : `Imported: the price of the same item at the factory abroad, without shipping or duty.`}</div>`;
                                                     else hEl.textContent = '—';
                                                   } }
                                                 const sb = document.getElementById('sales-safety-badge');
