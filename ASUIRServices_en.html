@@ -406,33 +406,33 @@
         <div class="card">
             <div class="result-hero">
                 <div class="rh-head">The service becomes cheaper through the use of automated machines rather than by increasing the workload of service staff.</div>
+                <div class="rh-sub">Purchasing a robotic device while keeping the salaries of the service staff the same (in this case, $10,000 per month).</div>
             </div>
 
-            <h2>Comparative Information: ASUIR Service vs. a ASUIR - Generator of Ultra-Efficient Production</h2>
+            <h2>Comparative Information: ASUIR Service vs. ASUIR: A Service Generator vs. a Generator of Ultra-Efficient Production</h2>
             <p>
                 As with ASUIR, a hospital, laboratory, or hotel can be viewed as a production facility that generates services rather than goods, such as a procedure, an analysis, or an X-ray.
                 In this sense, the principles of ASUIR and ASUIR Service are similar. Staff salaries are at U.S. levels or higher, while the cost of the service (e.g., a hospital procedure)
                 is comparable to that in Bangladesh, one of the cheapest countries in the world.
             </p>
-            <p>At the same time, the ASUIR service's productivity increase is not achieved by intensifying the work of service personnel, but rather through production automation—the use of robotic systems.</p>
+            <p>At the same time, the ASUIR Service's productivity growth is achieved not through intensifying service personnel's work, but through automation—the use of robots.</p>
 
-            <h3>Step-by-Step Automation: From Manual Service Production to Production Largely Carried Out by Robotic Devices</h3>
+            <h3>Automation Step by Step</h3>
             <div class="steps">
                 <div class="step"><b>1. People:</b><span>Everything is done by people.</span></div>
                 <div class="step">
                     <b>2. People + Ready-Made Devices: </b><span>
                         Purchasing certain devices already in use in hospitals, such as electronic queuing systems, self-service kiosks where patients can measure
-                        their own blood pressure and temperature, and IV pumps controlled by a central console, results in a reduction in support staff. 
+                        their own blood pressure and temperature, and IV pumps controlled by a central console, results in a reduction in support staff. .
                     </span>
                 </div>
                 <div class="step hyp">
-                    <b>3. The Future: Robotic Devices</b><span>
-                        Robotic devices - operate in two shifts, seven days a week. This will be possible once robots are approved for use in patient care.
+                    <b>3. The future: robots</b><span>
+                        Robots will work two shifts, seven days a week, instead of staff. This will be possible once robots are approved for use in patient care.
                     </span>
                 </div>
             </div>
-            <p style="font-size:14px; color:#4a5568;">  A given option is evaluated for effectiveness in the same way as an automated control system for a production generator. The hospital considers equipment, 
-            the building, and the salaries of all employees, including the doctor, to be direct costs. The cost of medication is included in the cost of the service, and the amount is the same for all options..</p>
+            <p style="font-size:14px; color:#4a5568;">The calculation works the same way as in the production generator. The drug is a material (like components for a product): its cost is the same in all scenarios and is part of the cost of the procedure. Equipment, the building, and the wages of all employees, including the doctor, are the hospital's direct costs. They are covered by the unit's productivity (how many procedures it performs per day), and each scenario needs its own level of productivity.</p>
 
             <h3>Sector catalog</h3>
             <div class="catalog">
@@ -451,8 +451,7 @@
 
             <div class="table-responsive">
                 <table>
-                    <tr><th>From manually provided services to services primarily provided by robotic devices.</th><th class="num">1. Today: people</th><th class="num">2. People + devices</th>
-                    <th class="num hyp">3. The future: robots</th></tr>
+                    <tr><th>What we count</th><th class="num">1. Today: people</th><th class="num">2. People + devices</th><th class="num hyp">3. The future: robots</th></tr>
 
                     <tr class="group"><td colspan="4">Operating hours</td></tr>
                     <tr>
@@ -474,7 +473,7 @@
                         <td class="num hyp"><input type="number" id="turn-c" value="0.25" step="0.25"></td>
                     </tr>
 
-                    <tr class="group"><td colspan="4">Staff: one shift</td></tr>
+                    <tr class="group"><td colspan="4">People per shift</td></tr>
                     <tr>
                         <td>Chairside nurses<span class="small">today, one nurse covers about 3.7 chairs; with a shared IV screen, about 6; today the two rooms have about 23 nurses; with robots, 5 nurses who access ports and 3 people who watch the robots remain</span></td>
                         <td class="num"><input type="number" id="nurse-a" value="23" step="0.1"></td>
@@ -601,8 +600,7 @@
                                 loc: 'en-US', h: 'h', min: 'min',
                                 hero: (r, yr) =>
                                     `<div class="rh-head">Full cost of one procedure: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
-                                    `<div class="rh-sub">Of this, the drug is ${usd(v('drug'))} in every scenario. The rest is the hospital's direct costs per procedure (equipment, building, wages of staff and doctors): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>` +
-                                    `<div class="rh-note">Three figures, three scenarios: today people do all the work; the same people with ready-made devices; robots in place of the support staff. To cover its direct costs, the unit needs ${r.a.req} → ${r.b.req} → ${r.c.req} procedures a day, and it performs ${r.a.act} → ${r.b.act} → ${r.c.act}. The wage of every employee (nurse, support staff) is ${usd(v('wage'))} a month in all scenarios; a doctor's is ${usd(v('docWage'))}. Robots are the future: they will arrive once the authorities allow them to work with patients, around ${yr}.</div>`,
+                                    `<div class="rh-sub">Of this, the drug is ${usd(v('drug'))} in every scenario. The rest is the hospital's direct costs per procedure (equipment, building, wages of staff and doctors): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
                                 be: (p, cur) => p > 0
                                     ? `Robots are cheaper for the hospital than ready-made devices as long as the purchase price of one robot is less than <b>${usd(p)}</b>. The calculation assumes a purchase price of ${cur} per robot.`
                                     : `With these figures robots do not beat ready-made devices at any robot purchase price — check the operating hours and the number of robots.`
