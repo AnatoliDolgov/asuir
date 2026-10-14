@@ -447,7 +447,7 @@
 
         <!-- ЛИНИЯ -->
         <div class="card">
-            <h2>Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, 20 кресел)</h2>
+            <h2>Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел в двух залах)</h2>
             <div id="hero" class="result-hero">—</div>
 
             <div class="table-responsive">
@@ -457,8 +457,8 @@
                     <tr class="group"><td colspan="4">Режим работы</td></tr>
                     <tr>
                         <td>Часов работы в день<span class="small">роботы - утром и вечером</span></td>
-                        <td class="num"><input type="number" id="hours-a" value="10"></td>
-                        <td class="num"><input type="number" id="hours-b" value="10"></td>
+                        <td class="num"><input type="number" id="hours-a" value="12"></td>
+                        <td class="num"><input type="number" id="hours-b" value="12"></td>
                         <td class="num hyp"><input type="number" id="hours-c" value="16"></td>
                     </tr>
                     <tr>
@@ -476,40 +476,40 @@
 
                     <tr class="group"><td colspan="4">Люди в одной смене</td></tr>
                     <tr>
-                        <td>Медсёстры у кресел<span class="small">сегодня одна медсестра ведёт около 3,7 кресла; с общим пультом для капельниц — около 6; при использовании роботов контроль обеспечивается одним человеком</span></td>
-                        <td class="num"><input type="number" id="nurse-a" value="5.4" step="0.1"></td>
-                        <td class="num"><input type="number" id="nurse-b" value="3.3" step="0.1"></td>
-                        <td class="num hyp"><input type="number" id="nurse-c" value="1" step="0.1"></td>
+                        <td>Медсёстры у кресел<span class="small">сегодня одна медсестра ведёт около 3,7 кресла; с общим пультом для капельниц — около 6; сейчас в двух залах около 23 медсестёр; с роботами остаются 5 медсестёр, подключающих порты, и 3 человека, присматривающих за роботами</span></td>
+                        <td class="num"><input type="number" id="nurse-a" value="23" step="0.1"></td>
+                        <td class="num"><input type="number" id="nurse-b" value="13.3" step="0.1"></td>
+                        <td class="num hyp"><input type="number" id="nurse-c" value="8" step="0.1"></td>
                     </tr>
                     <tr>
-                        <td>Обслуживающий персонал<span class="small">регистрация, замер давления и температуры, подготовка кресел</span></td>
-                        <td class="num"><input type="number" id="supp-a" value="4" step="0.1"></td>
-                        <td class="num"><input type="number" id="supp-b" value="2" step="0.1"></td>
+                        <td>Обслуживающий персонал<span class="small">приём в офисе, подключение портов, регистрация, замер давления и температуры, подготовка кресел; сейчас вместе с медсёстрами процедурами заняты 35–40 человек</span></td>
+                        <td class="num"><input type="number" id="supp-a" value="14" step="0.1"></td>
+                        <td class="num"><input type="number" id="supp-b" value="9" step="0.1"></td>
                         <td class="num hyp"><input type="number" id="supp-c" value="0" step="0.1"></td>
                     </tr>
 
                     <tr class="group"><td colspan="4">Роботы (только вариант 3)</td></tr>
-                    <tr><td>Роботов, шт.<span class="small">5 у кресел (один на 4 кресла) + 2 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="7"></td></tr>
+                    <tr><td>Роботов, шт.<span class="small">20 у кресел (один на 4 кресла) + 8 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="28"></td></tr>
                     <tr><td>Цена покупки одного робота, $<span class="small">наша оценка: робот для больницы будет дороже нынешних обычных роботов (они продаются по $13 500–100 000)</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
                     <tr><td>Срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
                     <tr><td>Ремонт и обслуживание робота в год, % от цены его покупки</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
                     <tr><td>Через сколько лет роботам разрешат работать с пациентами</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="approval" value="5"></td></tr>
 
                     <tr class="group"><td colspan="4">Общее для всех вариантов</td></tr>
-                    <tr><td>Кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="20"></td></tr>
+                    <tr><td>Кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
                     <tr><td>Средняя процедура, часов<span class="small">процедуры бывают по 2 и по 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
                     <tr><td>Зарплата каждого работника больницы (медсестра, персонал, тот, кто присматривает за роботами), $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
-                    <tr><td>Аренда помещения и процедурные кресла, $ в год</td><td class="num" colspan="3"><input type="number" id="premises" value="300000"></td></tr>
+                    <tr><td>Аренда помещения и процедурные кресла, $ в год<span class="small">оценка для двух залов на 80 кресел</span></td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
                     <tr><td>Лекарство и расходники на одну процедуру, $<span class="small">пример — впишите стоимость лекарства для вашей процедуры; у большинства схем химиотерапии от $1 000 до $12 000 и больше</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
                     <tr><td>Зарплата одного врача, $ в месяц</td><td class="num" colspan="3"><input type="number" id="docWage" value="40000"></td></tr>
-                    <tr><td>Приём врача на одного пациента, минут</td><td class="num" colspan="3"><input type="number" id="docMin" value="15"></td></tr>
+                    <tr><td>Врачей в отделении<span class="small">не меньше 5; работают днём, обычно до 17:00</span></td><td class="num" colspan="3"><input type="number" id="docN" value="5"></td></tr>
                     <tr><td>Сколько страховка платит больнице за проведение одной процедуры, без лекарства, $<span class="small">коммерческие страховки платят $358–536 за первый час и $55–75 за каждый следующий; лекарство страховка оплачивает отдельно — здесь по его цене</span></td><td class="num" colspan="3"><input type="number" id="pay" value="580"></td></tr>
 
                     <tr class="group"><td colspan="4">Результат</td></tr>
                     <tr><td>Процедур в год</td><td class="num" id="proc-a"></td><td class="num" id="proc-b"></td><td class="num hyp" id="proc-c"></td></tr>
                     <tr><td>Сколько работников нужно больнице<span class="small">каждый работает 8 часов в день, 250 дней в году</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
                     <tr><td>Сколько рабочего времени персонала уходит на одну процедуру</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
-                    <tr><td>Врачей нужно больнице<span class="small">каждый работает 8 часов в день, 250 дней в году</span></td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
+                    <tr><td>Врачей нужно больнице<span class="small">врачи работают только днём, примерно до 17:00, поэтому их число не зависит от часов работы отделения</span></td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
                     <tr><td>Все зарплаты за год: персонал и врачи</td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
                     <tr><td>Покупка устройств и роботов, в пересчёте на год<span class="small">цена покупки, делённая на годы службы, плюс ремонт</span></td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
                     <tr><td>Прямые затраты больницы в день<span class="small">оборудование, здание, зарплаты персонала и врачей</span></td><td class="num" id="fday-a"></td><td class="num" id="fday-b"></td><td class="num hyp" id="fday-c"></td></tr>
@@ -539,7 +539,7 @@
                         <td><a href="https://neotech.ae/products/4-484" target="_blank">Автомат</a>, где пациент сам меряет давление, пульс, кислород и температуру<span class="small">цену покупки продавец даёт по запросу — здесь оценка</span></td>
                         <td>замер медсестрой</td>
                         <td><span class="tag ok">продаётся свободно</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q2" value="2"></td>
+                        <td class="num"><input class="qty mq" type="number" id="q2" value="4"></td>
                         <td class="num"><input class="mp" type="number" id="p2" value="8000"></td>
                         <td class="num" id="s2"></td>
                     </tr>
@@ -547,7 +547,7 @@
                         <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Насос для капельниц Alaris</a>, восстановленный</td>
                         <td>медсестра следит за капельницей вручную</td>
                         <td><span class="tag ok">применяется в больницах США</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q3" value="20"></td>
+                        <td class="num"><input class="qty mq" type="number" id="q3" value="80"></td>
                         <td class="num"><input class="mp" type="number" id="p3" value="1150"></td>
                         <td class="num" id="s3"></td>
                     </tr>
@@ -555,7 +555,7 @@
                         <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Общий пульт</a> Alaris Infusion Central: медсестра видит все капельницы сразу<span class="small">цена покупки — оценка</span></td>
                         <td>обход кресел медсестрой</td>
                         <td><span class="tag ok">применяется в больницах</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q4" value="1"></td>
+                        <td class="num"><input class="qty mq" type="number" id="q4" value="2"></td>
                         <td class="num"><input class="mp" type="number" id="p4" value="20000"></td>
                         <td class="num" id="s4"></td>
                     </tr>
@@ -578,7 +578,7 @@
             <h3 style="margin-top:0;">Для инженера: как считается</h3>
             <p style="font-size:14px;">Процедур в год = кресел × часов в день ÷ (процедура + подготовка кресла) × дней в году.</p>
             <p style="font-size:14px;">Работников = людей в смене × (часов в день ÷ 8) × (дней в году ÷ 250).</p>
-            <p style="font-size:14px;">Врачей = процедур в год × приём врача в минутах ÷ (250 дней × 480 минут).</p>
+            <p style="font-size:14px;">Врачи работают днём (обычно до 17:00), поэтому их число не меняется при более долгой работе отделения.</p>
             <p style="font-size:14px;">Прямые затраты за год = зарплата персонала и врачей за год + цена покупки устройств и роботов ÷ срок службы + их ремонт и обслуживание + аренда помещения.</p>
             <p style="font-size:14px;">Нужная производительность = прямые затраты за год ÷ дней работы в году ÷ оплата проведения одной процедуры.</p>
             <p style="font-size:14px;">Полная себестоимость одной процедуры = лекарство + прямые затраты за год ÷ процедур в год.</p>
@@ -597,82 +597,81 @@
     </div>
 
     <script>
-                    const T = {
-                        loc: 'ru-RU', h: 'ч', min: 'мин',
-                        hero: (r, yr) =>
-                            `<div class="rh-head">Полная себестоимость одной процедуры: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
-                            `<div class="rh-sub">Из неё лекарство — ${usd(v('drug'))} во всех вариантах. Остальное — прямые затраты больницы на одну процедуру (оборудование, здание, зарплаты персонала и врачей): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>` +
-                            `<div class="rh-note">Три цифры — три варианта: сегодня всё делают люди; те же люди с готовыми устройствами; роботы вместо обслуживающего персонала. Чтобы покрыть прямые затраты, отделению нужно проводить в день ${r.a.req} → ${r.b.req} → ${r.c.req} процедур, а оно проводит ${r.a.act} → ${r.b.act} → ${r.c.act}. Зарплата каждого работника (медсестра, обслуживающий персонал) во всех вариантах — ${usd(v('wage'))} в месяц, врача — ${usd(v('docWage'))}. Роботы — это будущее: они появятся, когда власти разрешат им работать с пациентами, ориентировочно в ${yr} году.</div>`,
-                        be: (p, cur) => p > 0
-                            ? `Роботы обходятся больнице дешевле готовых устройств, пока цена покупки одного робота меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за робота.`
-                            : `При этих цифрах роботы не выгоднее готовых устройств ни при какой цене покупки робота — проверьте режим работы и число роботов.`
-                    };
+                            const T = {
+                                loc: 'ru-RU', h: 'ч', min: 'мин',
+                                hero: (r, yr) =>
+                                    `<div class="rh-head">Полная себестоимость одной процедуры: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
+                                    `<div class="rh-sub">Из неё лекарство — ${usd(v('drug'))} во всех вариантах. Остальное — прямые затраты больницы на одну процедуру (оборудование, здание, зарплаты персонала и врачей): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>` +
+                                    `<div class="rh-note">Три цифры — три варианта: сегодня всё делают люди; те же люди с готовыми устройствами; роботы вместо обслуживающего персонала. Чтобы покрыть прямые затраты, отделению нужно проводить в день ${r.a.req} → ${r.b.req} → ${r.c.req} процедур, а оно проводит ${r.a.act} → ${r.b.act} → ${r.c.act}. Зарплата каждого работника (медсестра, обслуживающий персонал) во всех вариантах — ${usd(v('wage'))} в месяц, врача — ${usd(v('docWage'))}. Роботы — это будущее: они появятся, когда власти разрешат им работать с пациентами, ориентировочно в ${yr} году.</div>`,
+                                be: (p, cur) => p > 0
+                                    ? `Роботы обходятся больнице дешевле готовых устройств, пока цена покупки одного робота меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за робота.`
+                                    : `При этих цифрах роботы не выгоднее готовых устройств ни при какой цене покупки робота — проверьте режим работы и число роботов.`
+                            };
 
-                    const v = id => parseFloat(document.getElementById(id).value) || 0;
-                    const set = (id, t) => { document.getElementById(id).textContent = t; };
-                    const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
-                    const usd = n => '$' + fmt(Math.round(n));
-                    const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
+                            const v = id => parseFloat(document.getElementById(id).value) || 0;
+                            const set = (id, t) => { document.getElementById(id).textContent = t; };
+                            const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
+                            const usd = n => '$' + fmt(Math.round(n));
+                            const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
 
-                    function calc() {
-                        let mod = 0;
-                        for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
-                        set('modTotal', usd(mod));
-                        const modYear = mod / MOD_LIFE + mod * MOD_SVC;
+                            function calc() {
+                                let mod = 0;
+                                for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
+                                set('modTotal', usd(mod));
+                                const modYear = mod / MOD_LIFE + mod * MOD_SVC;
 
-                        const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
-                        const robotRate = 1 / rLife + rSvc;
-                        set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
+                                const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
+                                const robotRate = 1 / rLife + rSvc;
+                                set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
 
-                        const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
-                        const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
-                        const visitsPerDoc = PERSON_D * PERSON_H * 60 / Math.max(v('docMin'), 1);
-                        const res = {};
-                        for (const k of ['a', 'b', 'c']) {
-                            const hours = v('hours-' + k), days = v('days-' + k);
-                            const cycle = procH + v('turn-' + k);
-                            const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
-                            const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
-                            const docs = proc / visitsPerDoc;
-                            const wages = fte * wageYear + docs * docYear;
-                            let equip = 0;
-                            if (k !== 'a') equip += modYear;
-                            if (k === 'c') equip += robots * rPrice * robotRate;
-                            const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
-                            const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
-                            const fixedYear = wages + equip + premises;
-                            const perDay = cycle > 0 ? chairs * hours / cycle : 0;
-                            const fday = days > 0 ? fixedYear / days : 0;
-                            const req = pay > 0 ? fday / pay : Infinity;
-                            const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
-                            const full = drug + cost;
-                            const prof = (pay - cost) * proc / 12;
-                            res[k] = { proc, fte, wages, equip, cost, fixedYear };
-                            set('docs-' + k, fmt(docs, 1));
-                            set('fday-' + k, usd(fday));
-                            set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
-                            set('act-' + k, fmt(perDay, 1));
-                            set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
-                            set('full-' + k, usd(full));
-                            set('prof-' + k, usd(prof));
-                            res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
-                            set('proc-' + k, fmt(proc));
-                            set('fte-' + k, fmt(fte, 1));
-                            set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
-                            set('wages-' + k, usd(wages));
-                            set('equip-' + k, usd(equip));
-                            set('cost-' + k, usd(cost));
-                        }
+                                const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
+                                const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
+                                const res = {};
+                                for (const k of ['a', 'b', 'c']) {
+                                    const hours = v('hours-' + k), days = v('days-' + k);
+                                    const cycle = procH + v('turn-' + k);
+                                    const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
+                                    const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
+                                    const docs = v('docN');
+                                    const wages = fte * wageYear + docs * docYear;
+                                    let equip = 0;
+                                    if (k !== 'a') equip += modYear;
+                                    if (k === 'c') equip += robots * rPrice * robotRate;
+                                    const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
+                                    const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
+                                    const fixedYear = wages + equip + premises;
+                                    const perDay = cycle > 0 ? chairs * hours / cycle : 0;
+                                    const fday = days > 0 ? fixedYear / days : 0;
+                                    const req = pay > 0 ? fday / pay : Infinity;
+                                    const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
+                                    const full = drug + cost;
+                                    const prof = (pay - cost) * proc / 12;
+                                    res[k] = { proc, fte, wages, equip, cost, fixedYear };
+                                    set('docs-' + k, fmt(docs, 1));
+                                    set('fday-' + k, usd(fday));
+                                    set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
+                                    set('act-' + k, fmt(perDay, 1));
+                                    set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
+                                    set('full-' + k, usd(full));
+                                    set('prof-' + k, usd(prof));
+                                    res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
+                                    set('proc-' + k, fmt(proc));
+                                    set('fte-' + k, fmt(fte, 1));
+                                    set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
+                                    set('wages-' + k, usd(wages));
+                                    set('equip-' + k, usd(equip));
+                                    set('cost-' + k, usd(cost));
+                                }
 
-                        const yr = new Date().getFullYear() + Math.round(v('approval'));
-                        document.getElementById('hero').innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr);
+                                const yr = new Date().getFullYear() + Math.round(v('approval'));
+                                document.getElementById('hero').innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr);
 
-                        const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
-                        const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
-                        document.getElementById('breakeven').innerHTML = T.be(pMax, usd(rPrice));
-                    }
-                    document.addEventListener('input', calc);
-                    calc();
+                                const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
+                                const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
+                                document.getElementById('breakeven').innerHTML = T.be(pMax, usd(rPrice));
+                            }
+                            document.addEventListener('input', calc);
+                            calc();
     </script>
 </body>
 </html>
