@@ -455,6 +455,81 @@
         <!-- ЛИНИЯ -->
         <div class="card">
             <h2>Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел в двух залах)</h2>
+            <div id="preamble" style="font-size:15px; line-height:1.6;">
+                <p><b>Главное:</b> с переходом от ручной работы к роботам число процедур в отделении вырастет <b>с <span id="pre-proc-a"></span> до <span id="pre-proc-c"></span> в год</b>, а прямые затраты больницы на одну процедуру снизятся <b>с <span id="pre-cost-a"></span> до <span id="pre-cost-c"></span></b>. Зарплата каждого работника при этом не снижается — <span id="pre-wage"></span> в месяц.</p>
+
+                <h3>1. Почему автоматизация идёт по этапам</h3>
+                <p>Лечение людей — консервативная отрасль: новое оборудование вводится только после проверки и разрешения. Поэтому автоматизация услуг идёт в три этапа:</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li><b>Этап 1 — текущий.</b> Все операции выполняют люди.</li>
+                    <li><b>Этап 2 — частичная автоматизация.</b> К людям добавляются готовые устройства, которые уже продаются и применяются в больницах.</li>
+                    <li><b>Этап 3 — почти полная автоматизация</b> (если смотреть из сегодняшнего дня). Обслуживающий персонал заменяют роботы. Людьми остаются врачи, медсёстры, подключающие порты, и те, кто присматривает за роботами. Этап станет возможным после разрешения на работу роботов с пациентами — ориентировочно в <span id="pre-year"></span> году.</li>
+                </ul>
+
+                <h3>2. Что закупается на каждом этапе</h3>
+                <p><b>Этап 2</b> — закупка на <span id="pre-mod"></span>:</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li><b>электронная очередь</b> — пациента вызывают по табло, ему не нужно стоять в регистратуре;</li>
+                    <li><b>автоматы для самостоятельного замера</b> (<span id="pre-q2"></span> шт.) — пациент сам меряет давление, пульс, кислород и температуру, без медсестры;</li>
+                    <li><b>насосы для капельниц</b> (<span id="pre-q3"></span> шт., по одному на кресло) — насос сам дозирует лекарство и подаёт сигнал при сбое;</li>
+                    <li><b>общий пульт</b> (<span id="pre-q4"></span> шт., по одному на зал) — медсестра видит все капельницы зала на одном экране и поэтому ведёт около 6 кресел вместо 3–4.</li>
+                </ul>
+                <p><b>Этап 3</b> — дополнительно к устройствам этапа 2 закупаются <b>роботы-помощники</b>: <span id="pre-robots"></span> шт. на <span id="pre-robsum"></span> (цена покупки одного — <span id="pre-robprice"></span>). В расчёте принято, что один робот у кресел обслуживает 4 кресла: готовит кресло, следит за капельницей, помогает пациенту. Остальные роботы заняты регистрацией, доставкой и уборкой. Роботы работают <span id="pre-hours-c"></span> часов в день без выходных.</p>
+
+                <h3>3. Что это даёт</h3>
+                <p>Рост производительности позволяет увеличить объём услуг (этап 1 → этап 2 → этап 3):</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li><b>процедур в год:</b> <span id="pre-proc"></span>;</li>
+                    <li><b>оплата, которую больница получает за проведение процедур, в год</b> (без лекарства): <span id="pre-rev"></span>;</li>
+                    <li><b>работников обслуживающего персонала и медсестёр</b> (полных ставок): <span id="pre-fte"></span>;</li>
+                    <li><b>прямые затраты больницы на одну процедуру</b> (оборудование, здание, зарплаты персонала и врачей; без лекарства): <span id="pre-cost"></span>;</li>
+                    <li><b>прибыль больницы от отделения в месяц:</b> <span id="pre-prof"></span>.</li>
+                </ul>
+                <h3>4. Откуда берутся эти цифры</h3>
+                <p><b>Число процедур.</b> Одно кресло за день проходит столько пациентов, сколько раз за рабочий день помещаются «процедура + подготовка кресла к следующему пациенту»:</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li>этап 1: <span id="dv-proc-a"></span>;</li>
+                    <li>этап 2: <span id="dv-proc-b"></span> — подготовка кресла короче, потому что электронная очередь и автоматы замера готовят пациента заранее;</li>
+                    <li>этап 3: <span id="dv-proc-c"></span> — роботы не устают, отделение работает дольше и без выходных.</li>
+                </ul>
+                <p><b>Число работников</b> (полных ставок; один человек работает 8 часов в день, 250 дней в году):</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li>этап 1: <span id="dv-fte-a"></span>;</li>
+                    <li>этап 2: <span id="dv-fte-b"></span> — с общим пультом одна медсестра ведёт около 6 кресел вместо 3,5; автоматы замера и электронная очередь заменяют часть обслуживающего персонала;</li>
+                    <li>этап 3: <span id="dv-fte-c"></span> — остаются медсёстры, подключающие порты, и те, кто присматривает за роботами.</li>
+                </ul>
+                <p><b>Прямые затраты больницы на одну процедуру</b> = все прямые затраты за год ÷ число процедур за год:</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li>этап 1: <span id="dv-cost-a"></span>;</li>
+                    <li>этап 2: <span id="dv-cost-b"></span>;</li>
+                    <li>этап 3: <span id="dv-cost-c"></span>.</li>
+                </ul>
+                <p>Зарплаты здесь — зарплата персонала и медсестёр (<span id="dv-wage"></span> в месяц каждому) и врачей (<span id="dv-docs"></span> врачей по <span id="dv-docwage"></span> в месяц). Врачи работают днём, поэтому их число на всех этапах одинаковое.</p>
+                <p><b>Прибыль больницы от отделения</b> = (оплата за проведение одной процедуры − прямые затраты на одну процедуру) × процедур в месяц:</p>
+                <ul style="margin:0 0 10px 22px;">
+                    <li>этап 1: <span id="dv-prof-a"></span>;</li>
+                    <li>этап 2: <span id="dv-prof-b"></span>;</li>
+                    <li>этап 3: <span id="dv-prof-c"></span>.</li>
+                </ul>
+                <p>Лекарство (<span id="dv-drug"></span> на процедуру в примере) в прибыль не входит: страховка оплачивает его отдельно, по его цене. Поэтому полная себестоимость процедуры — лекарство плюс прямые затраты: <span id="dv-full"></span>.</p>
+
+                <h3>5. За сколько окупаются закупки</h3>
+                <ul style="margin:0 0 10px 22px;">
+                    <li><b>Этап 2:</b> устройства стоят <span id="pb-cost-b"></span>. Прибыль отделения растёт на <span id="pb-gain-b"></span> в месяц, поэтому закупка окупается примерно за <b><span id="pb-b"></span></b>.</li>
+                    <li><b>Этап 3:</b> устройства и роботы вместе стоят <span id="pb-cost-c"></span>. Прибыль отделения растёт на <span id="pb-gain-c"></span> в месяц по сравнению с сегодняшней, поэтому закупка окупается примерно за <b><span id="pb-c"></span></b>.</li>
+                    <li><b>Запас по цене робота:</b> роботы остаются выгоднее одних устройств, пока цена покупки одного робота меньше <span id="pb-robmax"></span>. В расчёте заложено <span id="pb-robprice"></span>, то есть даже если робот окажется в несколько раз дороже, вывод не изменится.</li>
+                </ul>
+
+                <h3>6. Что взято из открытых данных, а что — оценка</h3>
+                <ul style="margin:0 0 10px 22px;">
+                    <li><b>Открытые данные:</b> одна медсестра ведёт около 3,7 кресла (американская ассоциация онкоцентров ACCC); оплата страховкой проведения процедуры — $358–536 за первый час и $55–75 за каждый следующий; лекарство для большинства схем химиотерапии — от $1 000 до $12 000 и больше на процедуру; цены покупки насосов, электронной очереди и роботов общего назначения — по ссылкам в таблице «Что покупаем».</li>
+                    <li><b>Наблюдения в отделении:</b> около 80 кресел в двух залах, 35–40 человек персонала, не меньше 5 врачей, которые работают днём, обычно до 17:00; процедуры идут и вечером.</li>
+                    <li><b>Оценки, которые нужно проверить:</b> аренда помещения, время подготовки кресла, цена покупки медицинского робота и сколько кресел может обслуживать один робот.</li>
+                </ul>
+                <p>Ниже — приложение: таблица с подтверждающими данными. Все цифры в ней можно изменить, и расчёт, включая цифры этого раздела, пересчитается сразу.</p>
+            </div>
+
+            <h3>Приложение: расчёт с подтверждающими данными</h3>
             <div id="hero" class="result-hero">—</div>
 
             <div class="table-responsive">
@@ -529,6 +604,9 @@
                     <tr><td>Врачей нужно больнице<span class="small">врачи работают только днём, примерно до 17:00, поэтому их число не зависит от часов работы отделения</span></td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
                     <tr><td>Все зарплаты за год: персонал и врачи</td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
                     <tr><td>Покупка устройств и роботов, в пересчёте на год<span class="small">цена покупки, делённая на годы службы, плюс ремонт</span></td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
+                    <tr><td>Аренда помещения и кресел за год</td><td class="num" id="prem-a"></td><td class="num" id="prem-b"></td><td class="num hyp" id="prem-c"></td></tr>
+                    <tr><td>Прямые затраты больницы за год<span class="small">зарплаты + устройства и роботы + аренда</span></td><td class="num" id="fyear-a"></td><td class="num" id="fyear-b"></td><td class="num hyp" id="fyear-c"></td></tr>
+                    <tr><td>Оплата, которую больница получает за проведение процедур, за год<span class="small">оплата за одну процедуру × процедур в год; без лекарства</span></td><td class="num" id="rev-a"></td><td class="num" id="rev-b"></td><td class="num hyp" id="rev-c"></td></tr>
                     <tr><td>Прямые затраты больницы в день<span class="small">оборудование, здание, зарплаты персонала и врачей</span></td><td class="num" id="fday-a"></td><td class="num" id="fday-b"></td><td class="num hyp" id="fday-c"></td></tr>
                     <tr><td>Нужная производительность, процедур в день<span class="small">столько процедур в день покрывают прямые затраты: прямые затраты в день ÷ оплата проведения одной процедуры</span></td><td class="num" id="req-a"></td><td class="num" id="req-b"></td><td class="num hyp" id="req-c"></td></tr>
                     <tr><td>Фактическая производительность, процедур в день<span class="small">сколько процедур в день отделение проводит</span></td><td class="num" id="act-a"></td><td class="num" id="act-b"></td><td class="num hyp" id="act-c"></td></tr>
@@ -536,6 +614,9 @@
                     <tr><td>Прямые затраты на одну процедуру<span class="small">прямые затраты за год ÷ процедур в год; без лекарства</span></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
                     <tr class="total"><td>Полная себестоимость одной процедуры<span class="small">лекарство + прямые затраты на одну процедуру</span></td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
                     <tr><td>Прибыль больницы в месяц от отделения<span class="small">(оплата проведения − прямые затраты на одну процедуру) × процедур в месяц</span></td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
+                    <tr><td>Прибыль больницы от отделения за год</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
+                    <tr><td>Закупка устройств и роботов<span class="small">цена покупки всего, что закупается на этапе</span></td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
+                    <tr><td>За сколько окупается закупка<span class="small">цена закупки ÷ рост прибыли в месяц по сравнению с этапом 1</span></td><td class="num" id="pbt-a"></td><td class="num" id="pbt-b"></td><td class="num hyp" id="pbt-c"></td></tr>
                 </table>
             </div>
             <div id="breakeven" class="info-hint">—</div>
@@ -680,7 +761,48 @@
                                         }
 
                                         const yr = new Date().getFullYear() + Math.round(v('approval'));
+                                        const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
                                         document.getElementById('hero').innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr);
+                                        {
+                                            const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' млн' : usd(n);
+                                            const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
+                                            set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
+                                            set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
+                                            set('pre-wage', usd(v('wage')));
+                                            set('pre-year', String(yr));
+                                            set('pre-mod', usd(mod));
+                                            set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
+                                            set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
+                                            set('pre-hours-c', fmt(v('hours-c')));
+                                            set('pre-proc', arr(k => fmt(res[k].proc)));
+                                            set('pre-rev', arr(k => big(res[k].proc * pay)));
+                                            set('pre-fte', arr(k => fmt(res[k].fte, 1)));
+                                            set('pre-cost', arr(k => usd(res[k].cost)));
+                                            set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
+                                            const P = {};
+                                            for (const k of ['a', 'b', 'c']) {
+                                                const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
+                                                const r = res[k], prof = (pay - r.cost) * r.proc / 12;
+                                                const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
+                                                P[k] = { prof, buy };
+                                                set('dv-proc-' + k, `${fmt(chairs)} кресел × ${fmt(hours)} ч ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка) × ${fmt(days)} дней = ${fmt(r.proc)} процедур в год`);
+                                                set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} медсестёр + ${fmt(v('supp-' + k), 1)} чел. персонала в смене) × ${fmt(hours)} ч ÷ 8 ч × ${fmt(days)} ÷ 250 дней = ${fmt(r.fte, 1)}`);
+                                                set('dv-cost-' + k, `(зарплаты ${usd(r.wages)} + устройства и роботы ${usd(r.equip)} + аренда ${usd(premises)}) ÷ ${fmt(r.proc)} процедур = ${usd(r.cost)}`);
+                                                set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} процедур в месяц = ${usd(prof)} в месяц`);
+                                                set('prem-' + k, usd(premises)); set('fyear-' + k, usd(r.fixedYear)); set('rev-' + k, usd(r.proc * pay));
+                                                set('profy-' + k, usd(prof * 12)); set('buy-' + k, buy ? usd(buy) : '—');
+                                            }
+                                            const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' дней' : fmt(buy / gain, 1) + ' месяца') : 'не окупается';
+                                            for (const k of ['b', 'c']) {
+                                                const gain = P[k].prof - P.a.prof;
+                                                set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
+                                                set('pbt-' + k, months(P[k].buy, gain));
+                                            }
+                                            set('pbt-a', '—');
+                                            set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
+                                            set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
+                                            set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
+                                        }
 
                                         const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
                                         const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
