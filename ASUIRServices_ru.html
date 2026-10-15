@@ -521,9 +521,8 @@
                     <tr class="group"><td colspan="4">Персонал - одна смена</td></tr>
                     <tr>
                         <td>
-                            Медсёстры у кресел<span class="small">
-                                сегодня одна медсестра ведёт около 3,7 кресла; с общим пультом для капельниц — около 6; сейчас в двух залах около 23 медсестёр;
-                                с роботами остаются 5 медсестёр, подключающих порты, и 3 человека, присматривающих за роботами
+                            Обслукживающий персонал - медсестры<span class="small">
+                                сегодняшная нагрузка 1 медсестра на 3-4 пациента; в режиме 2 (частичная автоматизация) количество обслуживаемых пациентов одной медсестрой увеличивается до 6; в режиме 3 (полная автоматизация) количество пациентов обслуживаемых одной медсестрой + роботы увеличивается до 10 - 12 
                             </span>
                         </td>
                         <td class="num"><input type="number" id="nurse-a" value="23" step="0.1"></td>
@@ -531,24 +530,32 @@
                         <td class="num hyp"><input type="number" id="nurse-c" value="8" step="0.1"></td>
                     </tr>
                     <tr>
-                        <td>Обслуживающий персонал<span class="small">приём в офисе, подключение портов, регистрация, замер давления и температуры, подготовка кресел; сейчас вместе с медсёстрами процедурами заняты 35–40 человек</span></td>
+                        <td>Обслуживающий персонал для вспомогательных операций: <span class="small">приём в офисе, подключение портов, регистрация, замер давления и температуры, подготовка кресел; сейчас вместе с медсёстрами процедурами заняты 35–40 человек</span></td>
                         <td class="num"><input type="number" id="supp-a" value="14" step="0.1"></td>
                         <td class="num"><input type="number" id="supp-b" value="9" step="0.1"></td>
                         <td class="num hyp"><input type="number" id="supp-c" value="0" step="0.1"></td>
                     </tr>
 
-                    <tr class="group"><td colspan="4">Роботы (только вариант 3)</td></tr>
-                    <tr><td>Роботов, шт.<span class="small">20 у кресел (один на 4 кресла) + 8 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="28"></td></tr>
-                    <tr><td>Цена покупки одного робота, $<span class="small">наша оценка: робот для больницы будет дороже нынешних обычных роботов (они продаются по $13 500–100 000)</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
-                    <tr><td>Срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
+                    <tr class="group"><td colspan="4">Роботизированные комплексы (только вариант 3 - возможное количество, стоимость и т.п.)</td></tr>
+                    <tr><td>Роботизированные комплексы, шт.<span class="small">20 у кресел (один на 4 кресла) + 8 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="28"></td></tr>
+                    <tr><td>Стоимость одного комплекса, $<span class="small">предварительная оценка: медицинские специализированные роботизированные комплексы будут дороже нынешних роботов, стоящих $15,000 - $100,000</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
+                    <tr><td>Предполагаемый срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
                     <tr><td>Ремонт и обслуживание робота в год, % от цены его покупки</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
-                    <tr><td>Через сколько лет роботам разрешат работать с пациентами</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="approval" value="5"></td></tr>
-
-                    <tr class="group"><td colspan="4">Общее для всех вариантов</td></tr>
+                    
+                    <tr class="group"><td colspan="4">Справочная информация общая для всех трех вариантов</td></tr>
                     <tr><td>Кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
-                    <tr><td>Средняя процедура, часов<span class="small">процедуры бывают по 2 и по 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
-                    <tr><td>Зарплата каждого работника больницы (медсестра, персонал, тот, кто присматривает за роботами), $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
-                    <tr><td>Аренда помещения и процедурные кресла, $ в год<span class="small">оценка для двух залов на 80 кресел</span></td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
+                    <tr><td>Длительность процедуры, часов<span class="small">от 2 до 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
+                    <tr><td>Зарплата обслуживающего персонала (медсестры) $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
+
+
+
+
+
+
+
+
+
+
                     <tr><td>Лекарство и расходники на одну процедуру, $<span class="small">пример — впишите стоимость лекарства для вашей процедуры; у большинства схем химиотерапии от $1 000 до $12 000 и больше</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
                     <tr><td>Зарплата одного врача, $ в месяц</td><td class="num" colspan="3"><input type="number" id="docWage" value="40000"></td></tr>
                     <tr><td>Врачей в отделении<span class="small">не меньше 5; работают днём, обычно до 17:00</span></td><td class="num" colspan="3"><input type="number" id="docN" value="5"></td></tr>
