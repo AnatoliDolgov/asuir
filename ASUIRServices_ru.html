@@ -489,12 +489,25 @@
 
                 <h3>3. Рост производительности</h3>
                 <p>Рост производительности позволяет увеличить объём услуг:</p>
-                <ul style="margin:0 0 10px 22px;">
-                    <li><b>с увеличением числа процедур (в год):</b>;</li>
-                    <li><b>уменьшением количества облуживающего персонала</b>;</li>
-                    <li><b>одновременным уменьшением прямых затрат (оборудование, здание, зарплаты персонала и врачей; без лекарства) на одну процедуру  <span id="pre-cost"></span>;</b></li>
-                    <li><b>с увеличением общей прибыли от отделения в месяц</b> .</li>
-                </ul>
+                <div class="table-responsive">
+                    <table>
+                        <tr><th></th><th class="num">1. Сегодня: люди</th><th class="num">2. Люди + устройства</th><th class="num hyp">3. Будущее: роботизированные комплексы</th></tr>
+                        <tr class="subgroup"><td colspan="4">Затраты больницы за год</td></tr>
+                        <tr><td>Медперсонал (медсёстры, вспомогательный персонал, врачи)</td><td class="num" id="sm-wages-a"></td><td class="num" id="sm-wages-b"></td><td class="num hyp" id="sm-wages-c"></td></tr>
+                        <tr><td>Устройства и роботизированные комплексы (в пересчёте на год)</td><td class="num" id="sm-equip-a"></td><td class="num" id="sm-equip-b"></td><td class="num hyp" id="sm-equip-c"></td></tr>
+                        <tr><td>Аренда помещения и кресел</td><td class="num" id="sm-prem-a"></td><td class="num" id="sm-prem-b"></td><td class="num hyp" id="sm-prem-c"></td></tr>
+                        <tr><td><b>Прямые затраты за год</b></td><td class="num" id="sm-fyear-a"></td><td class="num" id="sm-fyear-b"></td><td class="num hyp" id="sm-fyear-c"></td></tr>
+                        <tr class="subgroup"><td colspan="4">Себестоимость одной процедуры</td></tr>
+                        <tr><td>Процедур в год</td><td class="num" id="sm-proc-a"></td><td class="num" id="sm-proc-b"></td><td class="num hyp" id="sm-proc-c"></td></tr>
+                        <tr><td>Прямые затраты на одну процедуру</td><td class="num" id="sm-cost-a"></td><td class="num" id="sm-cost-b"></td><td class="num hyp" id="sm-cost-c"></td></tr>
+                        <tr><td>Лекарство на одну процедуру</td><td class="num" id="sm-drug-a"></td><td class="num" id="sm-drug-b"></td><td class="num hyp" id="sm-drug-c"></td></tr>
+                        <tr class="total"><td>Полная себестоимость одной процедуры</td><td class="num" id="sm-full-a"></td><td class="num" id="sm-full-b"></td><td class="num hyp" id="sm-full-c"></td></tr>
+                        <tr class="subgroup"><td colspan="4">Прибыль больницы</td></tr>
+                        <tr><td>Оплата за проведение процедур за год (без лекарства)</td><td class="num" id="sm-rev-a"></td><td class="num" id="sm-rev-b"></td><td class="num hyp" id="sm-rev-c"></td></tr>
+                        <tr><td>Прямые затраты за год</td><td class="num" id="sm-fyear2-a"></td><td class="num" id="sm-fyear2-b"></td><td class="num hyp" id="sm-fyear2-c"></td></tr>
+                        <tr class="total"><td>Прибыль от отделения за год</td><td class="num" id="sm-profy-a"></td><td class="num" id="sm-profy-b"></td><td class="num hyp" id="sm-profy-c"></td></tr>
+                    </table>
+                </div>
             </div>
 
             <h3>Приложение: расчёт с подтверждающими данными</h3>
@@ -673,143 +686,150 @@
     </div>
 
     <script>
-                                                            const T = {
-                                                                loc: 'ru-RU', h: 'ч', min: 'мин',
-                                                                hero: (r, yr) =>
-                                                                    `<div class="rh-head">Полная себестоимость одной процедуры, в трех вариантах услуги: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
-                                                                    `<div class="rh-sub">Здесь стоимость лекарства — ${usd(v('drug'))} во всех вариантах. Остальное — прямые затраты больницы на одну процедуру (оборудование, здание, зарплаты персонала и врачей): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
-                                                                be: (p, cur) => p > 0
-                                                                    ? `Роботизированные комплексы обходятся больнице дешевле готовых устройств, пока цена покупки одного комплекса меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за комплекс.`
-                                                                    : `При этих цифрах роботизированные комплексы не выгоднее готовых устройств ни при какой цене покупки комплекса — проверьте режим работы и число комплексов.`
-                                                            };
+                                                                    const T = {
+                                                                        loc: 'ru-RU', h: 'ч', min: 'мин',
+                                                                        hero: (r, yr) =>
+                                                                            `<div class="rh-head">Полная себестоимость одной процедуры, в трех вариантах услуги: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
+                                                                            `<div class="rh-sub">Здесь стоимость лекарства — ${usd(v('drug'))} во всех вариантах. Остальное — прямые затраты больницы на одну процедуру (оборудование, здание, зарплаты персонала и врачей): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
+                                                                        be: (p, cur) => p > 0
+                                                                            ? `Роботизированные комплексы обходятся больнице дешевле готовых устройств, пока цена покупки одного комплекса меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за комплекс.`
+                                                                            : `При этих цифрах роботизированные комплексы не выгоднее готовых устройств ни при какой цене покупки комплекса — проверьте режим работы и число комплексов.`
+                                                                    };
 
-                                                            const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
-                                                            const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
-                                                            const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
-                                                            const usd = n => '$' + fmt(Math.round(n));
-                                                            const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = `${main}<span class="small">${how}</span>`; };
-                                                            const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
+                                                                    const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
+                                                                    const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+                                                                    const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
+                                                                    const usd = n => '$' + fmt(Math.round(n));
+                                                                    const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = `${main}<span class="small">${how}</span>`; };
+                                                                    const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
 
-                                                            function calc() {
-                                                                let mod = 0;
-                                                                for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
-                                                                set('modTotal', usd(mod));
-                                                                const modYear = mod / MOD_LIFE + mod * MOD_SVC;
+                                                                    function calc() {
+                                                                        let mod = 0;
+                                                                        for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
+                                                                        set('modTotal', usd(mod));
+                                                                        const modYear = mod / MOD_LIFE + mod * MOD_SVC;
 
-                                                                const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
-                                                                const robotRate = 1 / rLife + rSvc;
-                                                                set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
+                                                                        const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
+                                                                        const robotRate = 1 / rLife + rSvc;
+                                                                        set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
 
-                                                                const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
-                                                                const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
-                                                                const res = {};
-                                                                for (const k of ['a', 'b', 'c']) {
-                                                                    const hours = v('hours-' + k), days = v('days-' + k);
-                                                                    const cycle = procH + v('turn-' + k);
-                                                                    const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
-                                                                    const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
-                                                                    const docs = v('docN');
-                                                                    const wages = fte * wageYear + docs * docYear;
-                                                                    let equip = 0;
-                                                                    if (k !== 'a') equip += modYear;
-                                                                    if (k === 'c') equip += robots * rPrice * robotRate;
-                                                                    const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
-                                                                    const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
-                                                                    const fixedYear = wages + equip + premises;
-                                                                    const perDay = cycle > 0 ? chairs * hours / cycle : 0;
-                                                                    const fday = days > 0 ? fixedYear / days : 0;
-                                                                    const req = pay > 0 ? fday / pay : Infinity;
-                                                                    const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
-                                                                    const full = drug + cost;
-                                                                    const prof = (pay - cost) * proc / 12;
-                                                                    res[k] = { proc, fte, wages, equip, cost, fixedYear };
-                                                                    set('docs-' + k, fmt(docs, 1));
-                                                                    set('fday-' + k, usd(fday));
-                                                                    set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
-                                                                    set('act-' + k, fmt(perDay, 1));
-                                                                    set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
-                                                                    set('full-' + k, usd(full));
-                                                                    set('prof-' + k, usd(prof));
-                                                                    res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
-                                                                    set('proc-' + k, fmt(proc));
-                                                                    set('fte-' + k, fmt(fte, 1));
-                                                                    set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
-                                                                    set('wages-' + k, usd(wages));
-                                                                    set('equip-' + k, usd(equip));
-                                                                    set('cost-' + k, usd(cost));
-                                                                    {
-                                                                        const turn = v('turn-' + k);
-                                                                        const hppTxt = hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`;
-                                                                        cell('act-' + k, fmt(perDay, 1), `${fmt(chairs)} кресел × ${fmt(hours)} ч работы ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка кресла)`);
-                                                                        cell('proc-' + k, fmt(proc), `${fmt(perDay, 1)} процедур в день × ${fmt(days)} дней работы`);
-                                                                        cell('fte-' + k, fmt(fte, 1), `${fmt(v('nurse-' + k) + v('supp-' + k), 1)} чел. в смене × ${fmt(hours)} ч ÷ 8 × ${fmt(days)} ÷ 250`);
-                                                                        cell('hpp-' + k, hppTxt, `${fmt(fte, 1)} ставки × 2 000 ч в год ÷ ${fmt(proc)} пациентов`);
-                                                                        cell('docs-' + k, fmt(docs, 1), 'задано в поле «Врачей в отделении»');
-                                                                        cell('wn-' + k, usd(fte * wageYear), `${fmt(fte, 1)} × ${usd(v('wage'))} × 12`);
-                                                                        cell('wd-' + k, usd(docs * docYear), `${fmt(docs)} × ${usd(v('docWage'))} × 12`);
-                                                                        cell('equip-' + k, usd(equip), k === 'a' ? 'закупок нет' : (`устройства ${usd(mod)} ÷ 7 лет службы + ремонт 10% в год` + (k === 'c' ? ` + комплексы ${usd(robots * rPrice)} ÷ ${fmt(rLife)} лет службы + ремонт ${fmt(rSvc * 100)}% в год` : '')));
-                                                                        cell('prem-' + k, usd(premises), 'задано в поле «Аренда помещения»');
-                                                                        cell('fyear-' + k, usd(fixedYear), `медперсонал ${usd(wages)} + устройства ${usd(equip)} + аренда ${usd(premises)}`);
-                                                                        cell('cost-' + k, usd(cost), `${usd(fixedYear)} за год ÷ ${fmt(proc)} процедур`);
-                                                                        cell('full-' + k, usd(full), `лекарство ${usd(drug)} + прямые затраты ${usd(cost)}`);
-                                                                        cell('rev-' + k, usd(proc * pay), `${usd(pay)} за процедуру × ${fmt(proc)} процедур`);
-                                                                        cell('prof-' + k, usd(prof), `(${usd(pay)} − ${usd(cost)}) × ${fmt(proc)} процедур в год ÷ 12 месяцев`);
-                                                                        cell('fday-' + k, usd(fday), `${usd(fixedYear)} за год ÷ ${fmt(days)} дней работы`);
-                                                                        cell('req-' + k, isFinite(req) ? fmt(req, 1) : '∞', `${usd(fday)} в день ÷ ${usd(pay)} за процедуру`);
-                                                                        cell('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—', `(${fmt(perDay, 1)} − ${isFinite(req) ? fmt(req, 1) : '∞'}) ÷ ${fmt(perDay, 1)}`);
+                                                                        const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
+                                                                        const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
+                                                                        const res = {};
+                                                                        for (const k of ['a', 'b', 'c']) {
+                                                                            const hours = v('hours-' + k), days = v('days-' + k);
+                                                                            const cycle = procH + v('turn-' + k);
+                                                                            const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
+                                                                            const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
+                                                                            const docs = v('docN');
+                                                                            const wages = fte * wageYear + docs * docYear;
+                                                                            let equip = 0;
+                                                                            if (k !== 'a') equip += modYear;
+                                                                            if (k === 'c') equip += robots * rPrice * robotRate;
+                                                                            const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
+                                                                            const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
+                                                                            const fixedYear = wages + equip + premises;
+                                                                            const perDay = cycle > 0 ? chairs * hours / cycle : 0;
+                                                                            const fday = days > 0 ? fixedYear / days : 0;
+                                                                            const req = pay > 0 ? fday / pay : Infinity;
+                                                                            const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
+                                                                            const full = drug + cost;
+                                                                            const prof = (pay - cost) * proc / 12;
+                                                                            res[k] = { proc, fte, wages, equip, cost, fixedYear };
+                                                                            set('docs-' + k, fmt(docs, 1));
+                                                                            set('fday-' + k, usd(fday));
+                                                                            set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
+                                                                            set('act-' + k, fmt(perDay, 1));
+                                                                            set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
+                                                                            set('full-' + k, usd(full));
+                                                                            set('prof-' + k, usd(prof));
+                                                                            res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
+                                                                            set('proc-' + k, fmt(proc));
+                                                                            set('fte-' + k, fmt(fte, 1));
+                                                                            set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
+                                                                            set('wages-' + k, usd(wages));
+                                                                            set('equip-' + k, usd(equip));
+                                                                            set('cost-' + k, usd(cost));
+                                                                            {
+                                                                                const turn = v('turn-' + k);
+                                                                                const hppTxt = hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`;
+                                                                                cell('act-' + k, fmt(perDay, 1), `${fmt(chairs)} кресел × ${fmt(hours)} ч работы ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка кресла)`);
+                                                                                cell('proc-' + k, fmt(proc), `${fmt(perDay, 1)} процедур в день × ${fmt(days)} дней работы`);
+                                                                                cell('fte-' + k, fmt(fte, 1), `${fmt(v('nurse-' + k) + v('supp-' + k), 1)} чел. в смене × ${fmt(hours)} ч ÷ 8 × ${fmt(days)} ÷ 250`);
+                                                                                cell('hpp-' + k, hppTxt, `${fmt(fte, 1)} ставки × 2 000 ч в год ÷ ${fmt(proc)} пациентов`);
+                                                                                cell('docs-' + k, fmt(docs, 1), 'задано в поле «Врачей в отделении»');
+                                                                                cell('wn-' + k, usd(fte * wageYear), `${fmt(fte, 1)} × ${usd(v('wage'))} × 12`);
+                                                                                cell('wd-' + k, usd(docs * docYear), `${fmt(docs)} × ${usd(v('docWage'))} × 12`);
+                                                                                cell('equip-' + k, usd(equip), k === 'a' ? 'закупок нет' : (`устройства ${usd(mod)} ÷ 7 лет службы + ремонт 10% в год` + (k === 'c' ? ` + комплексы ${usd(robots * rPrice)} ÷ ${fmt(rLife)} лет службы + ремонт ${fmt(rSvc * 100)}% в год` : '')));
+                                                                                cell('prem-' + k, usd(premises), 'задано в поле «Аренда помещения»');
+                                                                                cell('fyear-' + k, usd(fixedYear), `медперсонал ${usd(wages)} + устройства ${usd(equip)} + аренда ${usd(premises)}`);
+                                                                                cell('cost-' + k, usd(cost), `${usd(fixedYear)} за год ÷ ${fmt(proc)} процедур`);
+                                                                                cell('full-' + k, usd(full), `лекарство ${usd(drug)} + прямые затраты ${usd(cost)}`);
+                                                                                cell('rev-' + k, usd(proc * pay), `${usd(pay)} за процедуру × ${fmt(proc)} процедур`);
+                                                                                cell('prof-' + k, usd(prof), `(${usd(pay)} − ${usd(cost)}) × ${fmt(proc)} процедур в год ÷ 12 месяцев`);
+                                                                                cell('fday-' + k, usd(fday), `${usd(fixedYear)} за год ÷ ${fmt(days)} дней работы`);
+                                                                                cell('req-' + k, isFinite(req) ? fmt(req, 1) : '∞', `${usd(fday)} в день ÷ ${usd(pay)} за процедуру`);
+                                                                                cell('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—', `(${fmt(perDay, 1)} − ${isFinite(req) ? fmt(req, 1) : '∞'}) ÷ ${fmt(perDay, 1)}`);
+                                                                            }
+                                                                        }
+
+                                                                        const yr = new Date().getFullYear() + Math.round(v('approval'));
+                                                                        const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
+                                                                        { const h = document.getElementById('hero'); if (h) h.innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr); }
+                                                                        {
+                                                                            const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' млн' : usd(n);
+                                                                            const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
+                                                                            set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
+                                                                            set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
+                                                                            set('pre-wage', usd(v('wage')));
+                                                                            set('pre-year', String(yr));
+                                                                            set('pre-mod', usd(mod));
+                                                                            set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
+                                                                            set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
+                                                                            set('pre-hours-c', fmt(v('hours-c')));
+                                                                            set('pre-proc', arr(k => fmt(res[k].proc)));
+                                                                            set('pre-rev', arr(k => big(res[k].proc * pay)));
+                                                                            set('pre-fte', arr(k => fmt(res[k].fte, 1)));
+                                                                            set('pre-cost', arr(k => usd(res[k].cost)));
+                                                                            set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
+                                                                            for (const k of ['a', 'b', 'c']) {
+                                                                                const r = res[k];
+                                                                                set('sm-wages-' + k, usd(r.wages)); set('sm-equip-' + k, usd(r.equip)); set('sm-prem-' + k, usd(premises));
+                                                                                set('sm-fyear-' + k, usd(r.fixedYear)); set('sm-proc-' + k, fmt(r.proc)); set('sm-cost-' + k, usd(r.cost));
+                                                                                set('sm-drug-' + k, usd(drug)); set('sm-full-' + k, usd(drug + r.cost));
+                                                                                set('sm-rev-' + k, usd(r.proc * pay)); set('sm-fyear2-' + k, '− ' + usd(r.fixedYear)); set('sm-profy-' + k, usd(r.proc * pay - r.fixedYear));
+                                                                            }
+                                                                            const P = {};
+                                                                            for (const k of ['a', 'b', 'c']) {
+                                                                                const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
+                                                                                const r = res[k], prof = (pay - r.cost) * r.proc / 12;
+                                                                                const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
+                                                                                P[k] = { prof, buy };
+                                                                                set('dv-proc-' + k, `${fmt(chairs)} кресел × ${fmt(hours)} ч ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка) × ${fmt(days)} дней = ${fmt(r.proc)} процедур в год`);
+                                                                                set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} медсестёр + ${fmt(v('supp-' + k), 1)} чел. персонала в смене) × ${fmt(hours)} ч ÷ 8 ч × ${fmt(days)} ÷ 250 дней = ${fmt(r.fte, 1)}`);
+                                                                                set('dv-cost-' + k, `(зарплаты ${usd(r.wages)} + устройства и роботизированные комплексы ${usd(r.equip)} + аренда ${usd(premises)}) ÷ ${fmt(r.proc)} процедур = ${usd(r.cost)}`);
+                                                                                set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} процедур в месяц = ${usd(prof)} в месяц`);
+
+                                                                                cell('profy-' + k, usd(prof * 12), `${usd(prof)} в месяц × 12`); cell('buy-' + k, buy ? usd(buy) : '—', k === 'a' ? 'закупок нет' : (k === 'b' ? 'устройства (таблица «Что покупаем»)' : `устройства ${usd(mod)} + комплексы ${fmt(robots)} × ${usd(rPrice)}`));
+                                                                            }
+                                                                            const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' дней' : fmt(buy / gain, 1) + ' месяца') : 'не окупается';
+                                                                            for (const k of ['b', 'c']) {
+                                                                                const gain = P[k].prof - P.a.prof;
+                                                                                set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
+                                                                                cell('pbt-' + k, months(P[k].buy, gain), `${usd(P[k].buy)} ÷ рост прибыли ${usd(gain)} в месяц`);
+                                                                            }
+                                                                            set('pbt-a', '—');
+                                                                            set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
+                                                                            set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
+                                                                            set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
+                                                                        }
+
+                                                                        const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
+                                                                        const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
+                                                                        { const be = document.getElementById('breakeven'); if (be) be.innerHTML = T.be(pMax, usd(rPrice)); }
                                                                     }
-                                                                }
-
-                                                                const yr = new Date().getFullYear() + Math.round(v('approval'));
-                                                                const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
-                                                                { const h = document.getElementById('hero'); if (h) h.innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr); }
-                                                                {
-                                                                    const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' млн' : usd(n);
-                                                                    const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
-                                                                    set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
-                                                                    set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
-                                                                    set('pre-wage', usd(v('wage')));
-                                                                    set('pre-year', String(yr));
-                                                                    set('pre-mod', usd(mod));
-                                                                    set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
-                                                                    set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
-                                                                    set('pre-hours-c', fmt(v('hours-c')));
-                                                                    set('pre-proc', arr(k => fmt(res[k].proc)));
-                                                                    set('pre-rev', arr(k => big(res[k].proc * pay)));
-                                                                    set('pre-fte', arr(k => fmt(res[k].fte, 1)));
-                                                                    set('pre-cost', arr(k => usd(res[k].cost)));
-                                                                    set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
-                                                                    const P = {};
-                                                                    for (const k of ['a', 'b', 'c']) {
-                                                                        const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
-                                                                        const r = res[k], prof = (pay - r.cost) * r.proc / 12;
-                                                                        const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
-                                                                        P[k] = { prof, buy };
-                                                                        set('dv-proc-' + k, `${fmt(chairs)} кресел × ${fmt(hours)} ч ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка) × ${fmt(days)} дней = ${fmt(r.proc)} процедур в год`);
-                                                                        set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} медсестёр + ${fmt(v('supp-' + k), 1)} чел. персонала в смене) × ${fmt(hours)} ч ÷ 8 ч × ${fmt(days)} ÷ 250 дней = ${fmt(r.fte, 1)}`);
-                                                                        set('dv-cost-' + k, `(зарплаты ${usd(r.wages)} + устройства и роботизированные комплексы ${usd(r.equip)} + аренда ${usd(premises)}) ÷ ${fmt(r.proc)} процедур = ${usd(r.cost)}`);
-                                                                        set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} процедур в месяц = ${usd(prof)} в месяц`);
-
-                                                                        cell('profy-' + k, usd(prof * 12), `${usd(prof)} в месяц × 12`); cell('buy-' + k, buy ? usd(buy) : '—', k === 'a' ? 'закупок нет' : (k === 'b' ? 'устройства (таблица «Что покупаем»)' : `устройства ${usd(mod)} + комплексы ${fmt(robots)} × ${usd(rPrice)}`));
-                                                                    }
-                                                                    const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' дней' : fmt(buy / gain, 1) + ' месяца') : 'не окупается';
-                                                                    for (const k of ['b', 'c']) {
-                                                                        const gain = P[k].prof - P.a.prof;
-                                                                        set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
-                                                                        cell('pbt-' + k, months(P[k].buy, gain), `${usd(P[k].buy)} ÷ рост прибыли ${usd(gain)} в месяц`);
-                                                                    }
-                                                                    set('pbt-a', '—');
-                                                                    set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
-                                                                    set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
-                                                                    set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
-                                                                }
-
-                                                                const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
-                                                                const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
-                                                                { const be = document.getElementById('breakeven'); if (be) be.innerHTML = T.be(pMax, usd(rPrice)); }
-                                                            }
-                                                            document.addEventListener('input', calc);
-                                                            calc();
+                                                                    document.addEventListener('input', calc);
+                                                                    calc();
     </script>
 </body>
 </html>
