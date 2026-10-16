@@ -496,15 +496,15 @@
                         <tr><td>Медперсонал (медсёстры, вспомогательный персонал, врачи)</td><td class="num" id="sm-wages-a"></td><td class="num" id="sm-wages-b"></td><td class="num hyp" id="sm-wages-c"></td></tr>
                         <tr><td>Расходы на амортизацию устройств и роботизированных комплексов за год</td><td class="num" id="sm-equip-a"></td><td class="num" id="sm-equip-b"></td><td class="num hyp" id="sm-equip-c"></td></tr>
                         <tr><td>Аренда помещения и кресел</td><td class="num" id="sm-prem-a"></td><td class="num" id="sm-prem-b"></td><td class="num hyp" id="sm-prem-c"></td></tr>
-                        <tr><td><b>Прямые затраты за год</b></td><td class="num" id="sm-fyear-a"></td><td class="num" id="sm-fyear-b"></td><td class="num hyp" id="sm-fyear-c"></td></tr>
+                        <tr><td><b>Прямые расходы за год</b></td><td class="num" id="sm-fyear-a"></td><td class="num" id="sm-fyear-b"></td><td class="num hyp" id="sm-fyear-c"></td></tr>
                         <tr class="subgroup"><td colspan="4">Себестоимость одной процедуры</td></tr>
-                        <tr><td>Процедур в год</td><td class="num" id="sm-proc-a"></td><td class="num" id="sm-proc-b"></td><td class="num hyp" id="sm-proc-c"></td></tr>
-                        <tr><td>Прямые затраты на одну процедуру</td><td class="num" id="sm-cost-a"></td><td class="num" id="sm-cost-b"></td><td class="num hyp" id="sm-cost-c"></td></tr>
-                        <tr><td>Лекарство на одну процедуру</td><td class="num" id="sm-drug-a"></td><td class="num" id="sm-drug-b"></td><td class="num hyp" id="sm-drug-c"></td></tr>
-                        <tr class="total"><td>Полная себестоимость одной процедуры</td><td class="num" id="sm-full-a"></td><td class="num" id="sm-full-b"></td><td class="num hyp" id="sm-full-c"></td></tr>
+                        <tr><td>Количество процедур в год</td><td class="num" id="sm-proc-a"></td><td class="num" id="sm-proc-b"></td><td class="num hyp" id="sm-proc-c"></td></tr>
+                        <tr><td>Прямые расходы на одну процедуру</td><td class="num" id="sm-cost-a"></td><td class="num" id="sm-cost-b"></td><td class="num hyp" id="sm-cost-c"></td></tr>
+                        <tr><td>Стоимость лекарства на одну процедуру</td><td class="num" id="sm-drug-a"></td><td class="num" id="sm-drug-b"></td><td class="num hyp" id="sm-drug-c"></td></tr>
+                        <tr class="total"><td>Итоговая полная себестоимость одной процедуры</td><td class="num" id="sm-full-a"></td><td class="num" id="sm-full-b"></td><td class="num hyp" id="sm-full-c"></td></tr>
                         <tr class="subgroup"><td colspan="4">Прибыль больницы</td></tr>
-                        <tr><td>Оплата за проведение процедур за год (без лекарства)</td><td class="num" id="sm-rev-a"></td><td class="num" id="sm-rev-b"></td><td class="num hyp" id="sm-rev-c"></td></tr>
-                        <tr><td>Прямые затраты за год</td><td class="num" id="sm-fyear2-a"></td><td class="num" id="sm-fyear2-b"></td><td class="num hyp" id="sm-fyear2-c"></td></tr>
+                        <tr><td>Стоимость проведение процедур за год (учета стоимости лекарства)</td><td class="num" id="sm-rev-a"></td><td class="num" id="sm-rev-b"></td><td class="num hyp" id="sm-rev-c"></td></tr>
+                        <tr><td>Прямые расходы за год</td><td class="num" id="sm-fyear2-a"></td><td class="num" id="sm-fyear2-b"></td><td class="num hyp" id="sm-fyear2-c"></td></tr>
                         <tr class="total"><td>Прибыль от отделения за год</td><td class="num" id="sm-profy-a"></td><td class="num" id="sm-profy-b"></td><td class="num hyp" id="sm-profy-c"></td></tr>
                     </table>
                 </div>
@@ -523,13 +523,13 @@
                     </tr>
                     <tr class="group"><td colspan="4">Режим работы</td></tr>
                     <tr>
-                        <td>Часов работы в день<span class="small">роботы - утром и вечером</span></td>
+                        <td>Количество Часов работы персонала и роботехнологических устройств в день</td>
                         <td class="num"><input type="number" id="hours-a" value="12"></td>
                         <td class="num"><input type="number" id="hours-b" value="12"></td>
                         <td class="num hyp"><input type="number" id="hours-c" value="16"></td>
                     </tr>
                     <tr>
-                        <td>Дней работы в году</td>
+                        <td>Количество дней работы работы персонала и роботехнологических устройств в году</td>
                         <td class="num"><input type="number" id="days-a" value="260"></td>
                         <td class="num"><input type="number" id="days-b" value="260"></td>
                         <td class="num hyp"><input type="number" id="days-c" value="365"></td>
@@ -542,10 +542,10 @@
                     </tr>
 
 
-                    <tr class="group"><td colspan="4">Персонал - одна смена</td></tr>
+                    <tr class="group"><td colspan="4">Количество персонала в смене (при двусменной работе)</td></tr>
                     <tr>
                         <td>
-                            Обслукживающий персонал - медсестры<span class="small">
+                            Обслуживающий персонал - медсестры<span class="small">
                                 сегодняшная нагрузка 1 медсестра на 3-4 пациента; в режиме 2 (частичная автоматизация) количество обслуживаемых пациентов одной медсестрой увеличивается до 6; в режиме 3 (полная автоматизация) количество пациентов обслуживаемых одной медсестрой + роботы увеличивается до 10 - 12
                             </span>
                         </td>
@@ -562,15 +562,15 @@
 
                     <tr class="group"><td colspan="4">Роботизированные комплексы (только вариант 3 - возможное количество, стоимость и т.п.)</td></tr>
                     <tr><td>Роботизированные комплексы, шт.<span class="small">20 у кресел (один на 4 кресла) + 8 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="28"></td></tr>
-                    <tr><td>Стоимость одного комплекса, $<span class="small">предварительная оценка: медицинские специализированные роботизированные комплексы будут дороже нынешних роботов, стоящих $15,000 - $100,000</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
+                    <tr><td>Стоимость одного комплекса, $<span class="small">предварительная оценка: медицинские специализированные роботизированные комплексы будут стоить дороже нынешних роботов, стоящих $15,000 - $100,000</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
                     <tr><td>Предполагаемый срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
                     <tr><td>Ремонт и обслуживание робота в год, % от цены его покупки</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
 
                     <tr class="group"><td colspan="4">Справочная информация общая для всех трех вариантов</td></tr>
-                    <tr><td>Кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
-                    <tr><td>Длительность процедуры, часов<span class="small">от 2 до 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
-                    <tr><td>Аренда помещения и процедурные кресла, $ в год<span class="small">оценка для двух залов на 80 кресел</span></td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
-                    <tr><td>Лекарство и расходники на одну процедуру, $<span class="small">для точного расчета себестоимости лекарства необходимо вписать его стоимость для используемой процедуры</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
+                    <tr><td>Общее количество кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
+                    <tr><td>Длительность процедуры, часов, в среднем <span class="small">от 2 до 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
+                    <tr><td>Стоимость аренды помещения и процедурных кресел, $ в год</td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
+                    <tr><td>Стоимость лекарств и расходников на одну процедуру, $<span class="small">для точного расчета себестоимости лекарства необходимо вписать его стоимость для используемой процедуры</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
                     <tr><td>Зарплата обслуживающего персонала (медсестры) $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
                     <tr><td>Зарплата одного врача, $ в месяц</td><td class="num" colspan="3"><input type="number" id="docWage" value="40000"></td></tr>
                     <tr><td>Врачей в отделении<span class="small">не меньше 5; </span></td><td class="num" colspan="3"><input type="number" id="docN" value="5"></td></tr>
@@ -585,33 +585,33 @@
                     <tr><td>суммарное количество времени, затрачиваемое персоналом на одного пациента</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
                     <tr><td>Предполагаемое количество врачей в каждом из вариантов</td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
                     <tr class="subgroup"><td colspan="4">3. Суммарные затраты на медперсонал за год</td></tr>
-                    <tr><td>Медсёстры и вспомогательный персонал за год<span class="small">полных ставок (8 часов в день, 250 дней в году) × зарплата в месяц × 12 месяцев</span></td><td class="num" id="wn-a"></td><td class="num" id="wn-b"></td><td class="num hyp" id="wn-c"></td></tr>
-                    <tr><td>Врачи за год<span class="small">врачей × зарплата врача в месяц × 12 месяцев</span></td><td class="num" id="wd-a"></td><td class="num" id="wd-b"></td><td class="num hyp" id="wd-c"></td></tr>
-                    <tr><td><b>Затраты на медперсонал за год</b><span class="small">медсёстры и вспомогательный персонал + врачи</span></td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
+                    <tr><td>Затраты на медперсонал и вспомогательные службы за год<span class="small">полных ставок (8 часов в день, 250 дней в году) × зарплата в месяц × 12 месяцев</span></td><td class="num" id="wn-a"></td><td class="num" id="wn-b"></td><td class="num hyp" id="wn-c"></td></tr>
+                    <tr><td>Затраты на врачей за год<span class="small">врачей × зарплата врача в месяц × 12 месяцев</span></td><td class="num" id="wd-a"></td><td class="num" id="wd-b"></td><td class="num hyp" id="wd-c"></td></tr>
+                    <tr><td><b>Затраты на медперсонал, врачей и вспомогательные службы за год</b></td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
                     <tr class="subgroup"><td colspan="4">4. Прямые затраты </td></tr>
                     <tr><td>Приобретение устройств и роботизированных комплексов</td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
                     <tr><td>Расходы на амортизацию устройств и роботизированных комплексов за год</td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
                     <tr><td>Аренда помещения и кресел за год</td><td class="num" id="prem-a"></td><td class="num" id="prem-b"></td><td class="num hyp" id="prem-c"></td></tr>
-                    <tr><td>Суммарные прямые затраты за год<span class="small">(зарплаты, роботизированные комплексы, аренда</span></td><td class="num" id="fyear-a"></td><td class="num" id="fyear-b"></td><td class="num hyp" id="fyear-c"></td></tr>
+                    <tr><td>Суммарные прямые затраты за год<span class="small">(зарплаты, роботизированные комплексы, аренда)</span></td><td class="num" id="fyear-a"></td><td class="num" id="fyear-b"></td><td class="num hyp" id="fyear-c"></td></tr>
 
 
                     <tr class="subgroup"><td colspan="4">5. Затраты на одну процедуру</td></tr>
-                    <tr><td>Прямые затраты на одну процедуру<span class="small">прямые затраты за год ÷ процедур в год; без лекарства</span></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
-                    <tr class="total"><td>Полная себестоимость одной процедуры<span class="small">лекарство + прямые затраты на одну процедуру</span></td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
+                    <tr><td>Прямые затраты, приходящиеся на одну процедуру, без учета лекарств</td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                    <tr class="total"><td>Полная себестоимость одной процедуры, с учетом стоимости лекарств</td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
                     <tr class="subgroup"><td colspan="4">6. Доход и прибыль больницы</td></tr>
-                    <tr><td>Оплата, которую больница получает за проведение процедур, за год<span class="small">оплата за одну процедуру × процедур в год; без лекарства</span></td><td class="num" id="rev-a"></td><td class="num" id="rev-b"></td><td class="num hyp" id="rev-c"></td></tr>
-                    <tr><td>Прибыль больницы в месяц от отделения<span class="small">(оплата проведения − прямые затраты на одну процедуру) × процедур в месяц</span></td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
+                    <tr><td>Оплата, которую больница получает за проведение процедур, за год, без учета стоимости лекарств</td><td class="num" id="rev-a"></td><td class="num" id="rev-b"></td><td class="num hyp" id="rev-c"></td></tr>
+                    <tr><td>Прибыль больницы от отделения в месяц</td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
                     <tr><td>Прибыль больницы от отделения за год</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
-                    <tr><td>За сколько окупается закупка<span class="small">цена закупки ÷ рост прибыли в месяц по сравнению с этапом 1</span></td><td class="num" id="pbt-a"></td><td class="num" id="pbt-b"></td><td class="num hyp" id="pbt-c"></td></tr>
+                    <tr><td>Период окупки приобретаемых робототехнологических комплексов и иного оборудования</td><td class="num" id="pbt-a"></td><td class="num" id="pbt-b"></td><td class="num hyp" id="pbt-c"></td></tr>
                     <tr class="subgroup"><td colspan="4">7. Запас прочности</td></tr>
-                    <tr><td>Прямые затраты больницы в день<span class="small">оборудование, здание, зарплаты персонала и врачей</span></td><td class="num" id="fday-a"></td><td class="num" id="fday-b"></td><td class="num hyp" id="fday-c"></td></tr>
-                    <tr><td>Нужная производительность, процедур в день<span class="small">столько процедур в день покрывают прямые затраты: прямые затраты в день ÷ оплата проведения одной процедуры</span></td><td class="num" id="req-a"></td><td class="num" id="req-b"></td><td class="num hyp" id="req-c"></td></tr>
+                    <tr><td>Прямые затраты больницы в день (оборудование, здание, зарплаты персонала и врачей)</td><td class="num" id="fday-a"></td><td class="num" id="fday-b"></td><td class="num hyp" id="fday-c"></td></tr>
+                    <tr><td>Необходимое, для покрытия прямых затрат количество процедур в день</td><td class="num" id="req-a"></td><td class="num" id="req-b"></td><td class="num hyp" id="req-c"></td></tr>
                     <tr><td>Запас производительности<span class="small">на сколько можно сократить число процедур, пока больница не уйдёт в убыток</span></td><td class="num" id="marg-a"></td><td class="num" id="marg-b"></td><td class="num hyp" id="marg-c"></td></tr>
                 </table>
             </div>
             <div id="breakeven" class="info-hint">—</div>
 
-            <h3>Что покупаем</h3>
+            <h3>Приобретаемые устройства</h3>
             <div class="table-responsive">
                 <table>
                     <tr><th>Устройство</th><th>Вместо чего</th><th>Разрешено?</th><th class="num">Кол-во</th><th class="num">Цена покупки за шт., $</th><th class="num">Сумма</th></tr>
@@ -658,7 +658,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="info-hint">Все цифры можно менять — расчёт пересчитывается сразу. Число кресел на одну медсестру — по данным американской ассоциации онкоцентров; цены покупки устройств — по ссылкам; аренда помещения, время подготовки кресла и цена покупки медицинского роботизированного комплекса — оценки для проверки.</div>
+            <div class="info-hint">Все цифры можно менять — перерасчет производится в реальном времени. Число кресел на одну медсестру — по данным американской ассоциации онкоцентров; цены покупки устройств — по ссылкам; аренда помещения, время подготовки кресла и цена покупки медицинского роботизированного комплекса — оценки для проверки.</div>
         </div>
 
         <!-- ДЛЯ ИНЖЕНЕРА -->
