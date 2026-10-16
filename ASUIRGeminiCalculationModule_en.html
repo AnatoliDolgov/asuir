@@ -430,6 +430,34 @@
                 background: #fdf3ea;
             }
 
+            .mod-table tr.mod-detail td {
+                background: #fafcfe;
+                padding-top: 0;
+            }
+
+            .mod-table tr.mod-detail summary {
+                cursor: pointer;
+                color: #1f4e78;
+                font-weight: 600;
+                font-size: 13px;
+                padding: 4px 0;
+            }
+
+            .mod-table tr.mod-sec td {
+                background: #f0f5fa;
+                font-weight: 700;
+                color: #1f4e78;
+                font-size: 12px;
+            }
+
+            .mod-table .components-table {
+                min-width: 760px;
+            }
+
+                .mod-table .components-table td {
+                    vertical-align: middle;
+                }
+
         .mod-tag {
             display: inline-block;
             font-size: 10px;
@@ -1045,6 +1073,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr><td colspan="2" style="padding-top:0;"><div id="module-items-box" style="display:none; background:#eef6ff; border-left:4px solid #1f4e78; padding:8px 12px; border-radius:4px;"></div></td></tr>
 
                                 <tr style="background: #fdf8f3; border-left: 4px solid #e68a00;">
                                     <td>
@@ -1493,7 +1522,7 @@ Thank you!
                                                 function renderModules(fixedPerDay, compTariffPct) {
                                                     const box = document.getElementById('modules-box'); if (!box) return;
                                                     // do not redraw while the client is typing a link or price
-                                                    if (document.activeElement && box.contains(document.activeElement) && document.activeElement.classList.contains('mod-in')) return;
+                                                    if (document.activeElement && box.contains(document.activeElement) && (document.activeElement.classList.contains('mod-in') || document.activeElement.classList.contains('mod-src'))) return;
                                                     const openD = new Set([...box.querySelectorAll('details[open]')].map(d => d.dataset.d));
                                                     const st = modStore();
                                                     const topicKey = findCatalogKeyByTitle(currentTopicTitle);
@@ -1508,42 +1537,63 @@ Thank you!
                                                     const plural = n => n + (n === 1 ? ' item' : ' items');
                                                     const link = (label, query, url) => `<a href="#" class="mod-link" title="open at supplier" data-q="${esc(query)}" data-u="${esc(url || '')}">${esc(label)} ↗</a>`;
                                                     const rows = L.rows.map((r, ri) => {
-                                                        let comps = r.c, perf = r.perf, fob = r.fob;
+                                                        let comps = r.c.map(c => [c[0], 1, parseFloat(c[1]) || 0, c[2], '']), perf = r.perf, fob = r.fob;
                                                         if (r.ref && catalogDB[r.ref[0]]) {
                                                             const d = resolveCatalogData(r.ref[0], r.ref[1]);
-                                                            comps = (d.c || []).map(c => [c[0] + (c[1] != 1 ? ' ×' + c[1] : ''), (parseFloat(c[1]) || 0) * (parseFloat(c[2]) || 0), c[0], c[3] || '']);
+                                                            comps = (d.c || []).map(c => [c[0], parseFloat(c[1]) || 0, parseFloat(c[2]) || 0, c[0], c[3] || '']);
                                                             perf = parseFloat(d.perf) || 0; fob = parseFloat(d.mkt) || 0;
                                                         }
-                                                        comps = comps.map((c, ci) => { const o = st[L.id + '|' + ri + '|c|' + ci] || {}; const pr = parseFloat(o.price);
-                                                            return [c[0], isNaN(pr) ? c[1] : pr, c[2], o.url || c[3], L.id + '|' + ri + '|c|' + ci, o.url || '', isNaN(pr) ? '' : pr]; });
-                                                        const sumC = comps.reduce((x, c) => x + c[1], 0) * (1 + compTariffPct / 100);
-                                                        const cost = perf > 0 ? sumC + (fixedPerDay + r.mp / 5 / 365) / perf : null;
+                                                        comps = comps.map((c, ci) => { const k = L.id + '|' + ri + '|c|' + ci, o = st[k] || {}; const pr = parseFloat(o.price);
+                                                            return [c[0], c[1], isNaN(pr) ? c[2] : pr, c[3], o.url || c[4], k, o.url || '', isNaN(pr) ? '' : pr]; });
+                                                        const mis = r.mi.map((m, mi) => { const k = L.id + '|' + ri + '|m|' + mi, o = st[k] || {}; const pr = parseFloat(o.price);
+                                                            return [m[0], 1, isNaN(pr) ? null : pr, m[1], o.url || '', k, o.url || '', isNaN(pr) ? '' : pr]; });
+                                                        const mpMine = mis.length && mis.every(x => x[2] !== null);
+                                                        const mpEff = mpMine ? mis.reduce((x, m) => x + m[2], 0) : r.mp;
+                                                        const sumC = comps.reduce((x, c) => x + c[1] * c[2], 0) * (1 + compTariffPct / 100);
+                                                        const cost = perf > 0 ? sumC + (fixedPerDay + mpEff / 5 / 365) / perf : null;
                                                         const profit = cost !== null ? Math.round((fob - cost) * perf * 30) : null;
                                                         const landed = fob * (1 + (freightPct + tariffPct) / 100);
                                                         const diff = cost !== null ? landed - cost : null;
                                                         const isCur = currentModuleName ? (r.n === currentModuleName) : (r.ref && r.ref[0] === topicKey && (r.ref[1] || null) === (currentClassKey || null));
                                                         const downtime = fixedPerDay / 8 * changeoverHours(r.ch);
                                                         const tags = (r.st === 'cat' ? '<span class="mod-tag cat">in the catalog</span>' : r.st === 'new' ? '<span class="mod-tag new">new</span>' : '<span class="mod-tag new">needs other equipment</span>') + (isCur ? '<span class="mod-tag cur">open now</span>' : '');
-                                                        const modCell = r.st === 'not' ? `<span style="color:#9a3412; font-weight:600;">${esc(r.mod)}</span>` : r.mi.map((m, mi) => { const o = st[L.id + '|' + ri + '|m|' + mi] || {}; return link(m[0], m[1], o.url) + (o.url ? ' ✓' : ''); }).join('<br>') + `<details data-d="m${ri}"><summary style="font-size:11px; margin-top:4px;">paste links to what you chose</summary>${r.mi.map((m, mi) => { const k = L.id + '|' + ri + '|m|' + mi, o = st[k] || {}; return `<div style="margin-top:3px;"><input class="mod-in" data-k="${k}" data-f="url" value="${esc(o.url || '')}" placeholder="paste the link to the product you chose" style="width:100%; height:24px; font-size:11px; padding:2px 6px; border:1px dashed #b8c4d0; border-radius:3px;"></div>`; }).join('')}</details>`;
-                                                        const list = comps.map(c => `<li><span>${link(c[0], c[2], c[3])}${c[5] || c[6] !== '' ? ' ✓' : ''}</span><span>${money(c[1])}</span></li>` + `<li style="border-bottom:none; gap:4px; margin-bottom:4px;"><input class="mod-in" data-k="${c[4]}" data-f="url" value="${esc(c[5])}" placeholder="paste the link to the product you chose" style="flex:1; min-width:120px; height:24px; font-size:11px; padding:2px 6px; border:1px dashed #b8c4d0; border-radius:3px;"><input class="mod-in" data-k="${c[4]}" data-f="price" value="${esc(c[6])}" placeholder="price $" style="width:72px; height:24px; font-size:11px; padding:2px 6px; border:1px dashed #b8c4d0; border-radius:3px;"></li>`).join('');
+                                                        const modCell = r.st === 'not' ? `<span style="color:#9a3412; font-weight:600;">${esc(r.mod)}</span>` : mis.map(m => m[6] ? `<a href="${esc(m[6])}" target="_blank" rel="noopener" class="mod-chosen">${esc(m[0])} ↗</a> ✓` : esc(m[0])).join('<br>');
+                                                        const linkRow = (c, isMod) => `<tr><td>${esc(c[0])}${c[6] ? ' <b style="color:#007600;">✓</b>' : ''}</td>
+                                                            <td><div style="display:flex; align-items:center; gap:4px;"><input type="text" class="input-url input-url-sm mod-in" data-k="${c[5]}" data-f="url" value="${esc(c[4])}" placeholder="🔗 Paste the link to the product you found here"><button class="btn-icon btn-icon-sm" data-open="1" title="Open the link">🔗</button></div></td>
+                                                            <td><div style="display:flex; align-items:center; gap:4px;"><select class="input-field input-sm mod-src" style="width:110px; font-size:11px;">${Object.keys(SOURCE_PLATFORMS).filter(p => p !== 'machinio' || isMod).map(p => `<option value="${p}">${esc(SOURCE_PLATFORMS[p].label)}</option>`).join('')}</select><button class="btn-icon btn-icon-sm" data-search="${esc(c[3])}" title="Search at the chosen supplier">🔍</button></div></td>
+                                                            <td class="num">${isMod ? 1 : c[1]}</td>
+                                                            <td class="num"><input type="number" step="0.01" class="input-field input-sm mod-in" data-k="${c[5]}" data-f="price" value="${c[2] === null ? '' : c[2]}" placeholder="$" style="width:90px;"></td></tr>`;
+                                                        const nAll = mis.length + comps.length, nSel = mis.concat(comps).filter(c => c[6]).length;
+                                                        const det = r.st === 'not' ? '' : `<tr class="mod-detail"><td colspan="9"><details data-d="x${ri}"><summary>${'📋 Links and prices: module tooling and parts — chosen {k} of {n}'.replace('{k}', nSel).replace('{n}', nAll)}</summary>
+                                                            <p class="mod-small" style="margin:6px 0;">How to choose: press 🔍 — the supplier search opens. Find the product, copy the address of its page and paste it into the “Link” field. The link and price are kept in this browser, 🔗 opens the product directly. When you reconfigure the line, the links go into the line and are saved to the database with it.</p>
+                                                            <div class="table-responsive"><table class="components-table"><thead><tr><th>Item</th><th>🔗 Link to the product you chose</th><th>🔍 Find at supplier</th><th>Qty</th><th>Price per pc ($)</th></tr></thead><tbody>
+                                                            ${mis.length ? `<tr class="mod-sec"><td colspan="5">🧩 Module tooling — bought once, added to the equipment</td></tr>` + mis.map(c => linkRow(c, true)).join('') : ''}
+                                                            ${comps.length ? `<tr class="mod-sec"><td colspan="5">📦 Parts per 1 item</td></tr>` + comps.map(c => linkRow(c, false)).join('') : ''}
+                                                            </tbody></table></div></details></td></tr>`;
                                                         const btn = (r.st !== 'not' && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="reconfigureToModule('${L.id}', ${L.rows.indexOf(r)})">🔧 Reconfigure the line to this item</button>` : '';
                                                         const impNote = landed > fob + 0.001 ? `factory $${fmt2(fob)} + shipping + duty` : 'factory price, without shipping or duty';
                                                         return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
                                                             <td><b>${esc(r.n)}</b><br>${tags}${btn}</td><td>${modCell}</td>
-                                                            <td class="num">${r.st === 'not' ? '—' : money(r.mp) + '<span class="mod-small">switching to this item: ' + esc(r.ch) + (downtime > 0 ? ', downtime costs ' + money(downtime) : '') + '</span>'}</td>
+                                                            <td class="num">${r.st === 'not' ? '—' : money(mpEff) + (mpMine ? '<span class="mod-small">at your prices</span>' : '') + '<span class="mod-small">switching to this item: ' + esc(r.ch) + (downtime > 0 ? ', downtime costs ' + money(downtime) : '') + '</span>'}</td>
                                                             <td class="num">${perf ? plural(perf) : '—'}</td>
-                                                            <td><details data-d="c${ri}"><summary>${comps.length} parts · ${money(sumC)}</summary><ul>${list}</ul></details></td>
+                                                            <td>${comps.length} parts · ${money(sumC)}</td>
                                                             <td class="num"><b>${cost !== null ? money(cost) : '—'}</b></td>
                                                             <td class="num">${money(landed)}<span class="mod-small">${impNote}</span></td>
                                                             <td class="num" style="font-weight:700; color:${diff !== null && diff < 0 ? '#c0392b' : '#007600'};">${diff === null ? '—' : diff >= 0 ? money(diff) : 'yours costs more by ' + money(-diff)}</td>
-                                                            <td class="num" style="color:${profit !== null && profit < 0 ? '#c0392b' : '#1f4e78'}; font-weight:700;">${profit !== null ? money(profit) : '—'}</td></tr>`;
+                                                            <td class="num" style="color:${profit !== null && profit < 0 ? '#c0392b' : '#1f4e78'}; font-weight:700;">${profit !== null ? money(profit) : '—'}</td></tr>` + det;
                                                     }).join('');
                                                     box.innerHTML = `<h3 style="margin:4px 0 2px; color:#1f4e78;">${esc(L.name)}</h3>
                                                         <div class="mod-core"><b style="font-size:11px; text-transform:uppercase; color:#6c7a8a;">The equipment stays the same</b>${L.core.map(c => `<span>${esc(c)}</span>`).join('')}</div>
                                                         <p style="font-size:13px; color:#4a5568; margin:0 0 10px;">${'Your costs that do not depend on how many items you make: ${f} per day (equipment, wages of $10,000 a month, premises).'.replace('{f}', Math.round(fixedPerDay).toLocaleString(loc))}${compTariffPct ? ' ' + 'Part prices include a {p}% duty.'.replace('{p}', compTariffPct) : ''}</p>
                                                         <div class="table-responsive"><table class="mod-table"><thead><tr><th>What else you can make</th><th>What to add to the equipment (module)</th><th class="num">Module cost</th><th class="num">Output per day</th><th>Parts per item</th><th class="num">What one item costs you</th><th class="num">The same item, imported from abroad</th><th class="num">Yours is cheaper than the imported one by</th><th class="num">Your profit per month</th></tr></thead><tbody>${rows}</tbody></table></div>`;
                                                     box.querySelectorAll('details').forEach(d => { if (openD.has(d.dataset.d)) d.open = true; });
-                                                    box.onclick = e => { const a = e.target.closest('.mod-link'); if (!a) return; e.preventDefault(); openSupplierSearch(a.dataset.q, a.dataset.u); };
+                                                    box.onclick = e => {
+                                                        const op = e.target.closest('[data-open]'), se = e.target.closest('[data-search]');
+                                                        if (op) { e.preventDefault(); const u = op.parentElement.querySelector('input').value.trim(); if (!u) return alert('No link pasted yet. Press 🔍, find the product and paste the address of its page into this field.'); window.open(/^https?:\/\//.test(u) ? u : 'https://' + u, '_blank'); return; }
+                                                        if (se) { e.preventDefault(); const sel = se.parentElement.querySelector('select'); const platform = SOURCE_PLATFORMS[sel ? sel.value : 'alibaba'] || SOURCE_PLATFORMS.alibaba;
+                                                            const query = simplifySearchQuery(se.dataset.search); const w = window.open('', '_blank');
+                                                            translateToEnglish(query).then(en => { if (w && !w.closed) w.location.href = platform.url(en); }); }
+                                                    };
                                                     box.onchange = e => { const t = e.target; if (!t.classList || !t.classList.contains('mod-in')) return;
                                                         modStoreSet(t.dataset.k, t.dataset.f, t.value.trim()); t.blur(); calculateAll(); };
                                                 }
@@ -1567,10 +1617,14 @@ Thank you!
                                                     }
                                                     { const st = modStore();
                                                       comps = comps.map((c, ci) => { const o = st[L.id + '|' + idx + '|c|' + ci] || {}; const pr = parseFloat(o.price);
-                                                          return { name: c.name, qty: c.qty, price: isNaN(pr) ? c.price : pr / (parseFloat(c.qty) || 1), url: o.url || c.url }; }); }
+                                                          return { name: c.name, qty: c.qty, price: isNaN(pr) ? c.price : pr, url: o.url || c.url }; });
+                                                      currentModuleItems = r.mi.map((m, mi) => { const o = st[L.id + '|' + idx + '|m|' + mi] || {}; const pr = parseFloat(o.price);
+                                                          return { name: m[0], url: o.url || '', price: isNaN(pr) ? null : pr }; });
+                                                      currentModuleItems.forEach(m => m.query = r.mi.find(x => x[0] === m.name)[1]); }
+                                                    const mpEff = currentModuleItems.length && currentModuleItems.every(m => m.price !== null) ? currentModuleItems.reduce((x, m) => x + m.price, 0) : (r.mp || 0);
                                                     const eqEl = document.getElementById('val-equip');
                                                     const eqOld = parseFloat(eqEl?.value) || 0;
-                                                    if (eqEl) eqEl.value = Math.round(eqOld + (r.mp || 0));
+                                                    if (eqEl) eqEl.value = Math.round(eqOld + mpEff);
                                                     if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = perf;
                                                     if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = fob;
                                                     if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
@@ -1579,9 +1633,10 @@ Thank you!
                                                     const tb = document.getElementById('component-dynamic-rows');
                                                     if (tb) { tb.innerHTML = ''; comps.forEach(c => addComponentRow(c.name, c.qty, c.price, c.url)); }
                                                     currentModuleName = r.n;
+                                                    renderModuleItemsBox();
                                                     currentEditingItemId = null;
                                                     calculateAll();
-                                                    alert(`🔧 The line is reconfigured to make "${r.n}".\nEquipment, workers and premises stay the same. The module was added to the equipment cost: $${Math.round(r.mp || 0).toLocaleString('en-US')}.\nParts and sales price are those of the new item. Check it and save the line to the database with the button on tab 1.`);
+                                                    alert(`🔧 The line is reconfigured to make "${r.n}".\nEquipment, workers and premises stay the same. The module was added to the equipment cost: $${Math.round(mpEff).toLocaleString('en-US')}.\nParts and sales price are those of the new item. Check it and save the line to the database with the button on tab 1.`);
                                                     document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.toggle('active', l.dataset.tab === 'tab5'));
                                                     document.querySelectorAll('.section').forEach(x => x.classList.toggle('active', x.id === 'tab5'));
                                                 };
@@ -1594,6 +1649,16 @@ Thank you!
                                                 let currentCountry = 'base';
                                                 // The item the line has been reconfigured to (tab 6). null = the line makes its own topic's item.
                                                 let currentModuleName = null;
+                                                // Оснастка модуля, докупленная к оборудованию при перенастройке: название, ссылка, цена.
+                                                let currentModuleItems = [];
+                                                function renderModuleItemsBox() {
+                                                    const box = document.getElementById('module-items-box'); if (!box) return;
+                                                    if (!currentModuleName || !currentModuleItems.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+                                                    const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+                                                    box.style.display = '';
+                                                    box.innerHTML = `<b style="color:#1f4e78;">${'🧩 Module tooling for “{n}”'.replace('{n}', esc(currentModuleName))}</b> <span style="font-size:12px; color:#6c7a8a;">— bought once with the equipment, included in the equipment cost</span>` +
+                                                        currentModuleItems.map(m => `<div style="margin-top:4px; font-size:13px;">${m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.name)} ↗</a> ✓` : esc(m.name) + ' <span style="color:#9a3412; font-size:12px;">— no link chosen yet</span>'}${m.price !== null && m.price !== undefined ? ' · $' + m.price : ''}</div>`).join('');
+                                                }
                                                 window.onCountryChange = function () {
                                                     const sel = document.getElementById('country-selector');
                                                     currentCountry = (sel && COUNTRIES[sel.value]) ? sel.value : 'base';
@@ -2373,6 +2438,7 @@ Thank you!
                                                     closeModal('catalog-modal');
                                                     currentEditingItemId = null; // picking a topic template = a new line, not editing a loaded one
                                                     currentModuleName = null;
+                                                    currentModuleItems = []; renderModuleItemsBox();
                                                     const realKey = catalogDB[key] ? key : 'drone';
                                                     const baseEntry = catalogDB[realKey];
                                                     // For a topic with classes, a new line is always created from a specific class.
@@ -2694,6 +2760,7 @@ Thank you!
                                                         comp_tariff: parseFloat(document.getElementById('comp-tariff-input')?.value) || 0,
                                                         sales_per_day: parseFloat(document.getElementById('sales-input')?.value) || null,
                                                         product_name: currentModuleName || null,
+                                                        module_items: currentModuleName && currentModuleItems.length ? currentModuleItems : null,
                                                         market_price: parseFloat(document.getElementById('market-price-input')?.value) || null,
                                                         name: query,
                                                         url: url,
@@ -2831,6 +2898,8 @@ Thank you!
                                                     const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
                                                     if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || topicBenchmarkPrice;
                                                     currentModuleName = item.product_name || null;
+                                                    currentModuleItems = Array.isArray(item.module_items) ? item.module_items : [];
+                                                    renderModuleItemsBox();
 
                                                     const compList = (item.components && item.components.length > 0) ? item.components : (tplData.c || []).map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] }));
                                                     const tbodyBom = document.getElementById('component-dynamic-rows');
