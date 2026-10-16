@@ -1100,23 +1100,23 @@
                                 </tr>
 
                                 <tr style="background:#f4f8fc; border-left:4px dashed #1f4e78;">
-                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Перспектива через 3–5 лет: роботы вместо рабочих</span></span><br><span style="font-size:12px; color:#6c7a8a;">Зарплата превращается в амортизацию роботов. Роботы работают круглосуточно, без выходных.</span></td>
+                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Перспектива через 3–5 лет: робототехнологические комплексы вместо рабочих</span></span><br><span style="font-size:12px; color:#6c7a8a;">Зарплата превращается в амортизацию робототехнологических комплексов. Роботы работают круглосуточно, без выходных.</span></td>
                                     <td class="right"><label style="cursor:pointer; font-weight:600; color:#1f4e78;"><input type="checkbox" id="robot-mode" onchange="calculateAll()"> включить</label></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
-                                    <td style="padding-left:28px;">Роботов на линии, шт.<br><span style="font-size:12px; color:#6c7a8a;">пусто — столько же, сколько рабочих</span></td>
+                                    <td style="padding-left:28px;">Робототехнологических комплексовна линии, шт.<br><span style="font-size:12px; color:#6c7a8a;">пусто — столько же, сколько рабочих</span></td>
                                     <td class="right"><input type="number" id="robot-count" class="input-field input-field-sm" value="" placeholder="как рабочих" oninput="calculateAll()"></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
-                                    <td style="padding-left:28px;">Цена одного робота, $<br><span style="font-size:12px; color:#6c7a8a;">ориентир: человекоподобный робот Unitree H2 — $29 900</span></td>
+                                    <td style="padding-left:28px;">Цена одного робототехнологического комплекса, $<br><span style="font-size:12px; color:#6c7a8a;">ориентир: человекоподобный робототехнологический комплекс Unitree H2 — $29 900</span></td>
                                     <td class="right"><input type="number" id="robot-price" class="input-field input-field-sm" value="30000" oninput="calculateAll()"></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
-                                    <td style="padding-left:28px;">Срок службы робота, лет</td>
+                                    <td style="padding-left:28px;">Срок службы робототехнологического комплекса, лет</td>
                                     <td class="right"><input type="number" id="robot-life" class="input-field input-field-sm" value="5" oninput="calculateAll()"></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
-                                    <td style="padding-left:28px;">Обслуживание робота, % цены в год</td>
+                                    <td style="padding-left:28px;">Обслуживание робототехнологического комплекса, % цены в год</td>
                                     <td class="right"><input type="number" id="robot-svc" class="input-field input-field-sm" value="10" oninput="calculateAll()"></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
@@ -2573,10 +2573,10 @@ Thank you!
                                                                         const f0 = n => Math.round(n).toLocaleString('ru-RU');
                                                                         const f2 = n => n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                                         const peopleCost = rawCost + (amort + peopleSalaryDay + totalOtherCosts) / basePerf;
-                                                                        rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: изделие с роботами — $${f2(totalCost)}, с людьми — $${f2(peopleCost)}</div>` +
-                                                                            `<div class="rh-sub">Ваша прибыль в месяц: с роботами — $${f0(actualPerf * (market - totalCost) * 30)}, с людьми — $${f0(basePerf * (market - peopleCost) * 30)}.</div>` +
-                                                                            `<div class="rh-note">Зарплата рабочих — $${f0(peopleSalaryDay)} в день — заменена роботами: $${f0(robotPerDay)} в день на амортизацию и обслуживание. Линия работает ${rHours} ч в сутки и выпускает ${actualPerf} шт. в день вместо ${basePerf}.</div>` +
-                                                                            `<div class="rh-note">Роботов: ${rCount} шт. по $${f0(rPrice)}, срок службы ${rLife} лет, обслуживание ${rSvc}% в год. Людей на линии: ${rHumans}. С людьми — ${staff} рабочих по $10 000 в месяц, 8 часов в сутки.</div>`;
+                                                                        rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: изделие с робототехнологическими комплексами — $${f2(totalCost)}, с людьми — $${f2(peopleCost)}</div>` +
+                                                                            `<div class="rh-sub">Ваша прибыль в месяц: с робототехнологическими комплексами — $${f0(actualPerf * (market - totalCost) * 30)}, с людьми — $${f0(basePerf * (market - peopleCost) * 30)}.</div>` +
+                                                                            `<div class="rh-note">Зарплата рабочих — $${f0(peopleSalaryDay)} в день — заменена робототехнологическими комплексами: $${f0(robotPerDay)} в день на амортизацию и обслуживание. Линия работает ${rHours} ч в сутки и выпускает ${actualPerf} шт. в день вместо ${basePerf}.</div>` +
+                                                                            `<div class="rh-note">Робототехнологических комплексов: ${rCount} шт. по $${f0(rPrice)}, срок службы ${rLife} лет, обслуживание ${rSvc}% в год. Людей на линии: ${rHumans}. С людьми — ${staff} рабочих по $10 000 в месяц, 8 часов в сутки.</div>`;
                                                                         rcEl.style.display = '';
                                                                     } else rcEl.style.display = 'none';
                                                                 }
@@ -2650,7 +2650,7 @@ Thank you!
                                                                     const imported = landed > market + 0.001;
                                                                     if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">${where}своё изделие — $${fmt(sCost, 2)}, привезённое — $${fmt(landed, 2)}</div>` +
                                                                       `<div class="rh-sub">${landed >= sCost ? `Своё дешевле на $${fmt(landed - sCost, 2)} за каждое изделие (в ${fmt(landed / sCost, 1)} раза).` : `Своё изделие дороже привезённого на $${fmt(sCost - landed, 2)}.`}</div>` +
-                                                                      `<div class="rh-note">«${pName}». Своё — всё, во что вам обходится одно изделие, ${robotMode ? 'включая роботов, заменивших рабочих.' : 'включая зарплату $10 000 в месяц каждому работнику.'} ${imported ? `Привезённое — сколько платит покупатель: цена завода $${fmt(market, 2)} + доставка $${fmt(market * freightPct / 100, 2)} + пошлина $${fmt(market * tariffPct / 100, 2)}.` : `Привезённое — цена такого же изделия на заводе за границей, без доставки и пошлины.`}</div>`;
+                                                                        `<div class="rh-note">«${pName}». Своё — всё, во что вам обходится одно изделие, ${robotMode ? 'включая робототехнологических комплексов, заменивших рабочих.' : 'включая зарплату $10 000 в месяц каждому работнику.'} ${imported ? `Привезённое — сколько платит покупатель: цена завода $${fmt(market, 2)} + доставка $${fmt(market * freightPct / 100, 2)} + пошлина $${fmt(market * tariffPct / 100, 2)}.` : `Привезённое — цена такого же изделия на заводе за границей, без доставки и пошлины.`}</div>`;
                                                                     else hEl.textContent = '—';
                                                                   } }
                                                                 const sb = document.getElementById('sales-safety-badge');
