@@ -392,6 +392,135 @@
                 border: none;
             }
         }
+        /* ИНТЕРФЕЙС КАК В ГЕНЕРАТОРЕ ПРОИЗВОДСТВ */
+        .main-two-tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .main-two-tab-btn {
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #4a5568;
+            background: #edf2f7;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+        }
+
+            .main-two-tab-btn:hover {
+                background: #e2e8f0;
+                color: #111;
+            }
+
+            .main-two-tab-btn.active {
+                background: #1f4e78;
+                color: #fff;
+                border-color: #1f4e78;
+            }
+
+        .main-tab-content-panel {
+            display: none;
+        }
+
+            .main-tab-content-panel.active {
+                display: block;
+            }
+
+        .matrix-card-box {
+            background: #fff;
+            border: 1px solid #d0d7dd;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+
+        .matrix-tab-bar {
+            display: flex;
+            background: #fbfbfb;
+            border-bottom: 1px solid #d0d7dd;
+            padding: 0 6px;
+            overflow-x: auto;
+        }
+
+        .matrix-tab-item {
+            padding: 13px 18px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -1px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+            .matrix-tab-item:hover {
+                color: #111;
+                background: #f0f2f5;
+            }
+
+            .matrix-tab-item.active {
+                color: #111;
+                font-weight: 700;
+                border-bottom: 3px solid #d53f8c;
+                background: #fff;
+            }
+
+        .matrix-content-body {
+            padding: 24px 24px 30px;
+        }
+
+        .section {
+            display: none;
+        }
+
+            .section.active {
+                display: block;
+            }
+
+        .svc-select {
+            height: 38px;
+            padding: 6px 10px;
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f4e78;
+            background: #fcfcfc;
+            min-width: 340px;
+        }
+
+        tr.lst-topic td {
+            background: #eef6ff;
+            color: #1f4e78;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .btn-open {
+            background: #f0f5fa;
+            border: 1px solid #c9daf8;
+            color: #1f4e78;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        @media print {
+            .main-two-tabs-nav, .matrix-tab-bar {
+                display: none;
+            }
+
+            .main-tab-content-panel, .section {
+                display: block !important;
+            }
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
     <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-SCZYX0Z5VX');</script>
@@ -427,8 +556,8 @@
             </p>
             <p>
                 При этом рост производительности АСУИР сервис - генератора услуг осуществляется не за счет интенсификации работы обслуживающего персонала
-                    а за счёт автоматизации производства - использования
-                    робототехнологических комплексов
+                а за счёт автоматизации производства - использования
+                робототехнологических комплексов
                 </b>
             </p>
 
@@ -463,202 +592,299 @@
             </div>
         </div>
 
-        <!-- ЛИНИЯ -->
-        <div class="card">
-            <h2>Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел в двух залах)</h2>
-            <div id="preamble" style="font-size:15px; line-height:1.6;">
-                <p><b>Главное:</b> с переходом от ручной работы к робототехнологическим устройствам число процедур в отделении вырастет <b>с <span id="pre-proc-a"></span> до <span id="pre-proc-c"></span> в год</b>, а прямые затраты (в том числе стоимость оборудования, зарплата персонала, расходы на рент) больницы на одну процедуру снизятся <b>с <span id="pre-cost-a"></span> до <span id="pre-cost-c"></span></b>. Зарплата каждого работника при этом не снижается.</p>
 
-                <h3>1. Почему автоматизация идёт по этапам</h3>
-                <p>Лечение людей — консервативная отрасль: новое оборудование вводится только после проверки и разрешения. Поэтому автоматизация услуг идёт в три этапа:</p>
-                <ul style="margin:0 0 10px 22px;">
-                    <li><b>Этап 1 — текущий.</b> Все операции выполняются людьми - персоналом.</li>
-                    <li><b>Этап 2 — частичная автоматизация.</b> Добавляются готовые устройства, которые уже продаются и применяются в больницах.</li>
-                    <li><b>Этап 3 — почти полная автоматизация</b> (если смотреть из сегодняшнего дня). Обслуживающий персонал заменяют робототехнологические устройства. Тем не менее, определенное количество врачей, медсестер остается. Этап станет возможным после разрешения на использование роботизированных комплексов для работы с пациентами — ориентировочно, это будет возможно в 2031 году.</li>
-                </ul>
+        <!-- ДВЕ ГЛАВНЫЕ ВКЛАДКИ, КАК В ГЕНЕРАТОРЕ ПРОИЗВОДСТВ -->
+        <div class="main-two-tabs-nav">
+            <button class="main-two-tab-btn active" id="btn-main-listing" onclick="switchMainTab('main-tab-1')">📋 Листинг услуг</button>
+            <button class="main-two-tab-btn" id="btn-main-gen" onclick="switchMainTab('main-tab-2')">⚙️ Генератор услуг</button>
+        </div>
 
-                <h3>2. Что закупается на каждом этапе</h3>
-                <p><b>Этап 2</b> — закупка примерного перечня нижеперечисленных устройств:</p>
-                <ul style="margin:0 0 10px 22px;">
-                    <li><b>электронная очередь</b> с использованием табло для вызова пациента;</li>
-                    <li><b>автоматы для самостоятельного замера</b> (<span id="pre-q2"></span> шт.) давления, пульса, кислорода и температуры;</li>
-                    <li><b>насосы для капельниц по одному на кресло с целью автоматизированной дозировки лекарства;</b></li>
-                    <li><b>общий пульт по одному на зал, с отображением в одном месте состояния всех капельниц, что позволяет уменьшить количество медсестер.</b></li>
-                </ul>
-                <p><b>Этап 3</b> In addition to the Phase 2 devices, robotic devices are being purchased. It is anticipated that each robotic system will be able to service up to four chairs. </p>
-
-                <h3>3. Рост производительности</h3>
-                <p>Рост производительности позволяет увеличить объём услуг:</p>
+        <!-- ВКЛАДКА 1: ЛИСТИНГ УСЛУГ -->
+        <div class="main-tab-content-panel active" id="main-tab-1">
+            <div class="matrix-card-box" style="padding:24px;">
                 <div class="table-responsive">
                     <table>
-                        <tr><th></th><th class="num">1. Сегодня: люди</th><th class="num">2. Люди + устройства</th><th class="num hyp">3. Будущее: робототехнологические комплексы</th></tr>
-                        <tr class="subgroup"><td colspan="4">Затраты больницы за год</td></tr>
-                        <tr><td>Медперсонал (медсёстры, вспомогательный персонал, врачи)</td><td class="num" id="sm-wages-a"></td><td class="num" id="sm-wages-b"></td><td class="num hyp" id="sm-wages-c"></td></tr>
-                        <tr><td>Расходы на амортизацию устройств и робототехнологических комплексов за год</td><td class="num" id="sm-equip-a"></td><td class="num" id="sm-equip-b"></td><td class="num hyp" id="sm-equip-c"></td></tr>
-                        <tr><td>Аренда помещения и кресел</td><td class="num" id="sm-prem-a"></td><td class="num" id="sm-prem-b"></td><td class="num hyp" id="sm-prem-c"></td></tr>
-                        <tr><td><b>Прямые расходы за год</b></td><td class="num" id="sm-fyear-a"></td><td class="num" id="sm-fyear-b"></td><td class="num hyp" id="sm-fyear-c"></td></tr>
-                        <tr class="subgroup"><td colspan="4">Себестоимость одной процедуры</td></tr>
-                        <tr><td>Количество процедур в год</td><td class="num" id="sm-proc-a"></td><td class="num" id="sm-proc-b"></td><td class="num hyp" id="sm-proc-c"></td></tr>
-                        <tr><td>Прямые расходы на одну процедуру</td><td class="num" id="sm-cost-a"></td><td class="num" id="sm-cost-b"></td><td class="num hyp" id="sm-cost-c"></td></tr>
-                        <tr><td>Стоимость лекарства на одну процедуру</td><td class="num" id="sm-drug-a"></td><td class="num" id="sm-drug-b"></td><td class="num hyp" id="sm-drug-c"></td></tr>
-                        <tr class="total"><td>Итоговая полная себестоимость одной процедуры</td><td class="num" id="sm-full-a"></td><td class="num" id="sm-full-b"></td><td class="num hyp" id="sm-full-c"></td></tr>
-                        <tr class="subgroup"><td colspan="4">Прибыль больницы</td></tr>
-                        <tr><td>Стоимость проведение процедур за год (без учета стоимости лекарства)</td><td class="num" id="sm-rev-a"></td><td class="num" id="sm-rev-b"></td><td class="num hyp" id="sm-rev-c"></td></tr>
-                        <tr><td>Прямые расходы за год</td><td class="num" id="sm-fyear2-a"></td><td class="num" id="sm-fyear2-b"></td><td class="num hyp" id="sm-fyear2-c"></td></tr>
-                        <tr class="total"><td>Прибыль от отделения за год</td><td class="num" id="sm-profy-a"></td><td class="num" id="sm-profy-b"></td><td class="num hyp" id="sm-profy-c"></td></tr>
+                        <tr>
+                            <th style="width:40px; text-align:center;">#</th>
+                            <th>Услуга и вариант</th>
+                            <th class="num">Покупка устройств и робототехнологических комплексов</th>
+                            <th class="num">Процедур в год</th>
+                            <th class="num">Персонал, полных ставок</th>
+                            <th class="num">Зарплата медсестры в месяц</th>
+                            <th class="num">Прибыль больницы в месяц</th>
+                            <th class="num">Себестоимость одной процедуры</th>
+                        </tr>
+                        <tbody id="svc-listing-rows"></tbody>
                     </table>
                 </div>
+                <div style="text-align:center; margin-top:12px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
             </div>
+        </div>
 
-            <h3>Приложение: расчёт с подтверждающими данными</h3>
-            <div id="hero" class="result-hero">—</div>
-
-            <div class="table-responsive">
-                <table>
-                    <tr>
-                        <th>от ручного производства услуг до производства их в основном робототехнологическими устройствами</th>
-                        <th class="num">1. Сегодня: люди</th>
-                        <th class="num">2. Люди + устройства</th>
-                        <th class="num hyp">3. Будущее: роботы</th>
-                    </tr>
-                    <tr class="group"><td colspan="4">Режим работы</td></tr>
-                    <tr>
-                        <td>Количество часов работы персонала и робототехнологических устройств в день</td>
-                        <td class="num"><input type="number" id="hours-a" value="12"></td>
-                        <td class="num"><input type="number" id="hours-b" value="12"></td>
-                        <td class="num hyp"><input type="number" id="hours-c" value="16"></td>
-                    </tr>
-                    <tr>
-                        <td>Количество дней работы работы персонала и робототехнологических устройств в году</td>
-                        <td class="num"><input type="number" id="days-a" value="260"></td>
-                        <td class="num"><input type="number" id="days-b" value="260"></td>
-                        <td class="num hyp"><input type="number" id="days-c" value="365"></td>
-                    </tr>
-                    <tr>
-                        <td>Подготовка кресел между пациентами, часов</td>
-                        <td class="num"><input type="number" id="turn-a" value="1" step="0.25"></td>
-                        <td class="num"><input type="number" id="turn-b" value="0.5" step="0.25"></td>
-                        <td class="num hyp"><input type="number" id="turn-c" value="0.25" step="0.25"></td>
-                    </tr>
-
-
-                    <tr class="group"><td colspan="4">Количество персонала в смене (при двусменной работе)</td></tr>
-                    <tr>
-                        <td>
-                            Обслуживающий персонал - медсестры<span class="small">
-                                сегодняшная нагрузка 1 медсестра на 3-4 пациента; в режиме 2 (частичная автоматизация) количество обслуживаемых пациентов одной медсестрой увеличивается до 6; в режиме 3 (полная автоматизация) количество пациентов обслуживаемых одной медсестрой + роботы увеличивается до 10 - 12
-                            </span>
-                        </td>
-                        <td class="num"><input type="number" id="nurse-a" value="23" step="0.1"></td>
-                        <td class="num"><input type="number" id="nurse-b" value="13.3" step="0.1"></td>
-                        <td class="num hyp"><input type="number" id="nurse-c" value="8" step="0.1"></td>
-                    </tr>
-                    <tr>
-                        <td>Обслуживающий персонал для вспомогательных операций: <span class="small">приём в офисе, подключение портов, регистрация, замер давления и температуры, подготовка кресел; сейчас вместе с медсёстрами процедурами заняты 35–40 человек</span></td>
-                        <td class="num"><input type="number" id="supp-a" value="14" step="0.1"></td>
-                        <td class="num"><input type="number" id="supp-b" value="9" step="0.1"></td>
-                        <td class="num hyp"><input type="number" id="supp-c" value="0" step="0.1"></td>
-                    </tr>
-
-                    <tr class="group"><td colspan="4">Робототехнологические комплексы (только вариант 3 - возможное количество, стоимость и т.п.)</td></tr>
-                    <tr><td>Робототехнологические комплексы, шт.<span class="small">20 у кресел (один на 4 кресла) + 8 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="28"></td></tr>
-                    <tr><td>Стоимость одного комплекса, $<span class="small">предварительная оценка: медицинские специализированные робототехнологические комплексы будут стоить дороже нынешних робототехнологических устройств, стоящих $15,000 - $100,000</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
-                    <tr><td>Предполагаемый срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
-                    <tr><td>Ремонт и обслуживание робота в год, % от цены его покупки</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
-
-                    <tr class="group"><td colspan="4">Справочная информация общая для всех трех вариантов</td></tr>
-                    <tr><td>Общее количество кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
-                    <tr><td>Длительность процедуры, часов, в среднем <span class="small">от 2 до 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
-                    <tr><td>Стоимость аренды помещения и процедурных кресел, $ в год</td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
-                    <tr><td>Стоимость лекарств и расходников на одну процедуру, $<span class="small">для точного расчета себестоимости лекарства необходимо вписать его стоимость для используемой процедуры</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
-                    <tr><td>Зарплата обслуживающего персонала (медсестры) $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
-                    <tr><td>Зарплата одного врача, $ в месяц</td><td class="num" colspan="3"><input type="number" id="docWage" value="40000"></td></tr>
-                    <tr><td>Врачей в отделении<span class="small">не меньше 5; </span></td><td class="num" colspan="3"><input type="number" id="docN" value="5"></td></tr>
-                    <tr><td>Оплата процедуры, без учета стоимости лекарства, страховой компанией, $</td><td class="num" colspan="3"><input type="number" id="pay" value="580"></td></tr>
-
-                    <tr class="group"><td colspan="4">Предполагаевые показатели</td></tr>
-                    <tr class="subgroup"><td colspan="4">1. возможное количество процедур</td></tr>
-                    <tr><td>Предполагаемое количество процедур в день</td><td class="num" id="act-a"></td><td class="num" id="act-b"></td><td class="num hyp" id="act-c"></td></tr>
-                    <tr><td>Возможное количество процедур в год</td><td class="num" id="proc-a"></td><td class="num" id="proc-b"></td><td class="num hyp" id="proc-c"></td></tr>
-                    <tr class="subgroup"><td colspan="4">2. Необходимое количество персонала</td></tr>
-                    <tr><td>Предполагаемое количество медперсонала<span class="small"> с заг8рузкой 8 часов в день, суммарно 250 дней в году</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
-                    <tr><td>суммарное количество времени, затрачиваемое персоналом на одного пациента</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
-                    <tr><td>Предполагаемое количество врачей в каждом из вариантов</td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
-                    <tr class="subgroup"><td colspan="4">3. Суммарные затраты на медперсонал за год</td></tr>
-                    <tr><td>Затраты на медперсонал и вспомогательные службы за год<span class="small">полных ставок (8 часов в день, 250 дней в году) × зарплата в месяц × 12 месяцев</span></td><td class="num" id="wn-a"></td><td class="num" id="wn-b"></td><td class="num hyp" id="wn-c"></td></tr>
-                    <tr><td>Затраты на врачей за год<span class="small">врачей × зарплата врача в месяц × 12 месяцев</span></td><td class="num" id="wd-a"></td><td class="num" id="wd-b"></td><td class="num hyp" id="wd-c"></td></tr>
-                    <tr><td><b>Затраты на медперсонал, врачей и вспомогательные службы за год</b></td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
-                    <tr class="subgroup"><td colspan="4">4. Прямые затраты </td></tr>
-                    <tr><td>Приобретение устройств и робототехнологических комплексов</td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
-                    <tr><td>Расходы на амортизацию устройств и робототехнологических комплексов за год</td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
-                    <tr><td>Аренда помещения и кресел за год</td><td class="num" id="prem-a"></td><td class="num" id="prem-b"></td><td class="num hyp" id="prem-c"></td></tr>
-                    <tr><td>Суммарные прямые затраты за год<span class="small">(зарплаты, робототехнологические комплексы, аренда)</span></td><td class="num" id="fyear-a"></td><td class="num" id="fyear-b"></td><td class="num hyp" id="fyear-c"></td></tr>
+        <!-- ВКЛАДКА 2: ГЕНЕРАТОР УСЛУГ -->
+        <div class="main-tab-content-panel" id="main-tab-2">
+            <div class="matrix-card-box">
+                <div style="padding:18px 24px 0;">
+                    <label style="font-size:13px; font-weight:700; color:#1f4e78;">⚙️ Отрасль услуг / Категория</label><br>
+                    <select id="svc-topic" class="svc-select" style="margin-top:6px;" onchange="this.value='infusion'">
+                        <option value="infusion" selected>🏥 Медицина — процедурное отделение</option>
+                        <option disabled>🏥 Медицина — КТ, МРТ (скоро)</option>
+                        <option disabled>🏥 Медицина — реабилитационный центр (скоро)</option>
+                        <option disabled>🧪 Лаборатории (скоро)</option>
+                        <option disabled>🦷 Стоматология (скоро)</option>
+                        <option disabled>🏨 Гостиницы, прачечные (скоро)</option>
+                    </select>
+                    <h2 style="margin-top:14px;">Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел в двух залах)</h2>
+                </div>
+                <div class="matrix-tab-bar" id="svcTabs">
+                    <a class="matrix-tab-item active" data-tab="sv1">👷 1. Режим работы и персонал</a>
+                    <a class="matrix-tab-item" data-tab="sv2">🤖 2. Устройства и робототехнологические комплексы</a>
+                    <a class="matrix-tab-item" data-tab="sv3">💊 3. Лекарства, аренда, зарплаты, оплата</a>
+                    <a class="matrix-tab-item" data-tab="sv4">📊 4. Себестоимость процедуры</a>
+                    <a class="matrix-tab-item" data-tab="sv5">🎯 5. Результаты</a>
+                </div>
+                <div class="matrix-content-body">
+                    <div class="section active" id="sv1">
+                        <div class="table-responsive">
+                            <table>
+                                <tr>
+                                    <th>от ручного производства услуг до производства их в основном робототехнологическими устройствами</th>
+                                    <th class="num">1. Сегодня: люди</th>
+                                    <th class="num">2. Люди + устройства</th>
+                                    <th class="num hyp">3. Будущее: роботы</th>
+                                </tr>
+                                <tr class="group"><td colspan="4">Режим работы</td></tr>
+                                <tr>
+                                    <td>Количество часов работы персонала и робототехнологических устройств в день</td>
+                                    <td class="num"><input type="number" id="hours-a" value="12"></td>
+                                    <td class="num"><input type="number" id="hours-b" value="12"></td>
+                                    <td class="num hyp"><input type="number" id="hours-c" value="16"></td>
+                                </tr>
+                                <tr>
+                                    <td>Количество дней работы работы персонала и робототехнологических устройств в году</td>
+                                    <td class="num"><input type="number" id="days-a" value="260"></td>
+                                    <td class="num"><input type="number" id="days-b" value="260"></td>
+                                    <td class="num hyp"><input type="number" id="days-c" value="365"></td>
+                                </tr>
+                                <tr>
+                                    <td>Подготовка кресел между пациентами, часов</td>
+                                    <td class="num"><input type="number" id="turn-a" value="1" step="0.25"></td>
+                                    <td class="num"><input type="number" id="turn-b" value="0.5" step="0.25"></td>
+                                    <td class="num hyp"><input type="number" id="turn-c" value="0.25" step="0.25"></td>
+                                </tr>
 
 
-                    <tr class="subgroup"><td colspan="4">5. Затраты на одну процедуру</td></tr>
-                    <tr><td>Прямые затраты, приходящиеся на одну процедуру, без учета стоимости лекарств</td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
-                    <tr class="total"><td>Полная себестоимость одной процедуры, с учетом стоимости лекарств</td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
-                    <tr class="subgroup"><td colspan="4">6. Доход и прибыль больницы</td></tr>
-                    <tr><td>Оплата, которую больница получает за проведение процедур, за год, без учета стоимости лекарств</td><td class="num" id="rev-a"></td><td class="num" id="rev-b"></td><td class="num hyp" id="rev-c"></td></tr>
-                    <tr><td>Прибыль больницы от отделения в месяц</td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
-                    <tr><td>Прибыль больницы от отделения за год</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
-                    <tr><td>Период окупаемости приобретаемых робототехнологических комплексов и иного оборудования</td><td class="num" id="pbt-a"></td><td class="num" id="pbt-b"></td><td class="num hyp" id="pbt-c"></td></tr>
-                    <tr class="subgroup"><td colspan="4">7. Запас прочности</td></tr>
-                    <tr><td>Прямые затраты больницы в день (оборудование, здание, зарплаты персонала и врачей)</td><td class="num" id="fday-a"></td><td class="num" id="fday-b"></td><td class="num hyp" id="fday-c"></td></tr>
-                    <tr><td>Необходимое, для покрытия прямых затрат количество процедур в день</td><td class="num" id="req-a"></td><td class="num" id="req-b"></td><td class="num hyp" id="req-c"></td></tr>
-                    <tr><td>Запас производительности<span class="small">на сколько можно сократить число процедур, пока больница не уйдёт в убыток</span></td><td class="num" id="marg-a"></td><td class="num" id="marg-b"></td><td class="num hyp" id="marg-c"></td></tr>
-                </table>
+                                <tr class="group"><td colspan="4">Количество персонала в смене (при двусменной работе)</td></tr>
+                                <tr>
+                                    <td>
+                                        Обслуживающий персонал - медсестры<span class="small">
+                                            сегодняшная нагрузка 1 медсестра на 3-4 пациента; в режиме 2 (частичная автоматизация) количество обслуживаемых пациентов одной медсестрой увеличивается до 6; в режиме 3 (полная автоматизация) количество пациентов обслуживаемых одной медсестрой + роботы увеличивается до 10 - 12
+                                        </span>
+                                    </td>
+                                    <td class="num"><input type="number" id="nurse-a" value="23" step="0.1"></td>
+                                    <td class="num"><input type="number" id="nurse-b" value="13.3" step="0.1"></td>
+                                    <td class="num hyp"><input type="number" id="nurse-c" value="8" step="0.1"></td>
+                                </tr>
+                                <tr>
+                                    <td>Обслуживающий персонал для вспомогательных операций: <span class="small">приём в офисе, подключение портов, регистрация, замер давления и температуры, подготовка кресел; сейчас вместе с медсёстрами процедурами заняты 35–40 человек</span></td>
+                                    <td class="num"><input type="number" id="supp-a" value="14" step="0.1"></td>
+                                    <td class="num"><input type="number" id="supp-b" value="9" step="0.1"></td>
+                                    <td class="num hyp"><input type="number" id="supp-c" value="0" step="0.1"></td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="section" id="sv2">
+                        <div class="table-responsive">
+                            <table>
+                                <tr>
+                                    <th>от ручного производства услуг до производства их в основном робототехнологическими устройствами</th>
+                                    <th class="num">1. Сегодня: люди</th>
+                                    <th class="num">2. Люди + устройства</th>
+                                    <th class="num hyp">3. Будущее: роботы</th>
+                                </tr>
+                                <tr class="group"><td colspan="4">Робототехнологические комплексы (только вариант 3 - возможное количество, стоимость и т.п.)</td></tr>
+                                <tr><td>Робототехнологические комплексы, шт.<span class="small">20 у кресел (один на 4 кресла) + 8 на обслуживании</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robots" value="28"></td></tr>
+                                <tr><td>Стоимость одного комплекса, $<span class="small">предварительная оценка: медицинские специализированные робототехнологические комплексы будут стоить дороже нынешних робототехнологических устройств, стоящих $15,000 - $100,000</span></td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotPrice" value="150000"></td></tr>
+                                <tr><td>Предполагаемый срок службы робота, лет</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotLife" value="5"></td></tr>
+                                <tr><td>Ремонт и обслуживание робота в год, % от цены его покупки</td><td class="na">—</td><td class="na">—</td><td class="num hyp"><input type="number" id="robotSvc" value="15"></td></tr>
+
+                            </table>
+                        </div>
+                        <h3>Приобретаемые устройства</h3>
+                        <div class="table-responsive">
+                            <table>
+                                <tr><th>Устройство</th><th>Вместо чего</th><th>Разрешено?</th><th class="num">Кол-во</th><th class="num">Цена покупки за шт., $</th><th class="num">Сумма</th></tr>
+                                <tr>
+                                    <td><a href="https://m.indiamart.com/proddetail/customized-smart-token-queue-management-system-for-hospitals-25309736955.html" target="_blank">Электронная очередь</a> с вызовом и учётом времени ожидания</td>
+                                    <td>регистратура</td>
+                                    <td><span class="tag ok">разрешение не нужно</span></td>
+                                    <td class="num"><input class="qty mq" type="number" id="q1" value="1"></td>
+                                    <td class="num"><input class="mp" type="number" id="p1" value="600"></td>
+                                    <td class="num" id="s1"></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://neotech.ae/products/4-484" target="_blank">Автомат</a>, где пациент сам меряет давление, пульс, кислород и температуру<span class="small">цену покупки продавец даёт по запросу — здесь оценка</span></td>
+                                    <td>замер медсестрой</td>
+                                    <td><span class="tag ok">продаётся свободно</span></td>
+                                    <td class="num"><input class="qty mq" type="number" id="q2" value="4"></td>
+                                    <td class="num"><input class="mp" type="number" id="p2" value="8000"></td>
+                                    <td class="num" id="s2"></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Насос для капельниц Alaris</a>, восстановленный</td>
+                                    <td>медсестра следит за капельницей вручную</td>
+                                    <td><span class="tag ok">применяется в больницах США</span></td>
+                                    <td class="num"><input class="qty mq" type="number" id="q3" value="80"></td>
+                                    <td class="num"><input class="mp" type="number" id="p3" value="1150"></td>
+                                    <td class="num" id="s3"></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Общий пульт</a> Alaris Infusion Central: медсестра видит все капельницы сразу<span class="small">цена покупки — оценка</span></td>
+                                    <td>обход кресел медсестрой</td>
+                                    <td><span class="tag ok">применяется в больницах</span></td>
+                                    <td class="num"><input class="qty mq" type="number" id="q4" value="2"></td>
+                                    <td class="num"><input class="mp" type="number" id="p4" value="20000"></td>
+                                    <td class="num" id="s4"></td>
+                                </tr>
+                                <tr class="total"><td colspan="5">Итого устройств (служат 7 лет, ремонт — 10% от цены покупки в год)</td><td class="num" id="modTotal"></td></tr>
+                                <tr>
+                                    <td>робототехнологический комплекс — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">ориентир: Unitree H1 / H2 Plus</a> ($90 000–100 000)</td>
+                                    <td>медсестра у кресел, обслуживающий персонал</td>
+                                    <td><span class="tag hyp">будущее, нужно разрешение</span></td>
+                                    <td class="num" id="rq"></td>
+                                    <td class="num" id="rp"></td>
+                                    <td class="num" id="rs"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="section" id="sv3">
+                        <div class="table-responsive">
+                            <table>
+                                <tr>
+                                    <th>от ручного производства услуг до производства их в основном робототехнологическими устройствами</th>
+                                    <th class="num">1. Сегодня: люди</th>
+                                    <th class="num">2. Люди + устройства</th>
+                                    <th class="num hyp">3. Будущее: роботы</th>
+                                </tr>
+                                <tr class="group"><td colspan="4">Справочная информация общая для всех трех вариантов</td></tr>
+                                <tr><td>Общее количество кресел</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
+                                <tr><td>Длительность процедуры, часов, в среднем <span class="small">от 2 до 5 часов</span></td><td class="num" colspan="3"><input type="number" id="procH" value="3" step="0.5"></td></tr>
+                                <tr><td>Стоимость аренды помещения и процедурных кресел, $ в год</td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
+                                <tr><td>Стоимость лекарств и расходников на одну процедуру, $<span class="small">для точного расчета себестоимости лекарства необходимо вписать его стоимость для используемой процедуры</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
+                                <tr><td>Зарплата обслуживающего персонала (медсестры) $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="10000"></td></tr>
+                                <tr><td>Зарплата одного врача, $ в месяц</td><td class="num" colspan="3"><input type="number" id="docWage" value="40000"></td></tr>
+                                <tr><td>Врачей в отделении<span class="small">не меньше 5; </span></td><td class="num" colspan="3"><input type="number" id="docN" value="5"></td></tr>
+                                <tr><td>Оплата процедуры, без учета стоимости лекарства, страховой компанией, $</td><td class="num" colspan="3"><input type="number" id="pay" value="580"></td></tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="section" id="sv4">
+                        <div class="table-responsive">
+                            <table>
+                                <tr>
+                                    <th>от ручного производства услуг до производства их в основном робототехнологическими устройствами</th>
+                                    <th class="num">1. Сегодня: люди</th>
+                                    <th class="num">2. Люди + устройства</th>
+                                    <th class="num hyp">3. Будущее: роботы</th>
+                                </tr>
+                                <tr class="group"><td colspan="4">Предполагаевые показатели</td></tr>
+                                <tr class="subgroup"><td colspan="4">1. возможное количество процедур</td></tr>
+                                <tr><td>Предполагаемое количество процедур в день</td><td class="num" id="act-a"></td><td class="num" id="act-b"></td><td class="num hyp" id="act-c"></td></tr>
+                                <tr><td>Возможное количество процедур в год</td><td class="num" id="proc-a"></td><td class="num" id="proc-b"></td><td class="num hyp" id="proc-c"></td></tr>
+                                <tr class="subgroup"><td colspan="4">2. Необходимое количество персонала</td></tr>
+                                <tr><td>Предполагаемое количество медперсонала<span class="small"> с заг8рузкой 8 часов в день, суммарно 250 дней в году</span></td><td class="num" id="fte-a"></td><td class="num" id="fte-b"></td><td class="num hyp" id="fte-c"></td></tr>
+                                <tr><td>суммарное количество времени, затрачиваемое персоналом на одного пациента</td><td class="num" id="hpp-a"></td><td class="num" id="hpp-b"></td><td class="num hyp" id="hpp-c"></td></tr>
+                                <tr><td>Предполагаемое количество врачей в каждом из вариантов</td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
+                                <tr class="subgroup"><td colspan="4">3. Суммарные затраты на медперсонал за год</td></tr>
+                                <tr><td>Затраты на медперсонал и вспомогательные службы за год<span class="small">полных ставок (8 часов в день, 250 дней в году) × зарплата в месяц × 12 месяцев</span></td><td class="num" id="wn-a"></td><td class="num" id="wn-b"></td><td class="num hyp" id="wn-c"></td></tr>
+                                <tr><td>Затраты на врачей за год<span class="small">врачей × зарплата врача в месяц × 12 месяцев</span></td><td class="num" id="wd-a"></td><td class="num" id="wd-b"></td><td class="num hyp" id="wd-c"></td></tr>
+                                <tr><td><b>Затраты на медперсонал, врачей и вспомогательные службы за год</b></td><td class="num" id="wages-a"></td><td class="num" id="wages-b"></td><td class="num hyp" id="wages-c"></td></tr>
+                                <tr class="subgroup"><td colspan="4">4. Прямые затраты </td></tr>
+                                <tr><td>Приобретение устройств и робототехнологических комплексов</td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
+                                <tr><td>Расходы на амортизацию устройств и робототехнологических комплексов за год</td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
+                                <tr><td>Аренда помещения и кресел за год</td><td class="num" id="prem-a"></td><td class="num" id="prem-b"></td><td class="num hyp" id="prem-c"></td></tr>
+                                <tr><td>Суммарные прямые затраты за год<span class="small">(зарплаты, робототехнологические комплексы, аренда)</span></td><td class="num" id="fyear-a"></td><td class="num" id="fyear-b"></td><td class="num hyp" id="fyear-c"></td></tr>
+
+
+                                <tr class="subgroup"><td colspan="4">5. Затраты на одну процедуру</td></tr>
+                                <tr><td>Прямые затраты, приходящиеся на одну процедуру, без учета стоимости лекарств</td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                                <tr class="total"><td>Полная себестоимость одной процедуры, с учетом стоимости лекарств</td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="section" id="sv5">
+                        <div id="hero" class="result-hero">—</div>
+                        <div id="preamble" style="font-size:15px; line-height:1.6;">
+                            <p><b>Главное:</b> с переходом от ручной работы к робототехнологическим устройствам число процедур в отделении вырастет <b>с <span id="pre-proc-a"></span> до <span id="pre-proc-c"></span> в год</b>, а прямые затраты (в том числе стоимость оборудования, зарплата персонала, расходы на рент) больницы на одну процедуру снизятся <b>с <span id="pre-cost-a"></span> до <span id="pre-cost-c"></span></b>. Зарплата каждого работника при этом не снижается.</p>
+
+                            <h3>1. Почему автоматизация идёт по этапам</h3>
+                            <p>Лечение людей — консервативная отрасль: новое оборудование вводится только после проверки и разрешения. Поэтому автоматизация услуг идёт в три этапа:</p>
+                            <ul style="margin:0 0 10px 22px;">
+                                <li><b>Этап 1 — текущий.</b> Все операции выполняются людьми - персоналом.</li>
+                                <li><b>Этап 2 — частичная автоматизация.</b> Добавляются готовые устройства, которые уже продаются и применяются в больницах.</li>
+                                <li><b>Этап 3 — почти полная автоматизация</b> (если смотреть из сегодняшнего дня). Обслуживающий персонал заменяют робототехнологические устройства. Тем не менее, определенное количество врачей, медсестер остается. Этап станет возможным после разрешения на использование роботизированных комплексов для работы с пациентами — ориентировочно, это будет возможно в 2031 году.</li>
+                            </ul>
+
+                            <h3>2. Что закупается на каждом этапе</h3>
+                            <p><b>Этап 2</b> — закупка примерного перечня нижеперечисленных устройств:</p>
+                            <ul style="margin:0 0 10px 22px;">
+                                <li><b>электронная очередь</b> с использованием табло для вызова пациента;</li>
+                                <li><b>автоматы для самостоятельного замера</b> (<span id="pre-q2"></span> шт.) давления, пульса, кислорода и температуры;</li>
+                                <li><b>насосы для капельниц по одному на кресло с целью автоматизированной дозировки лекарства;</b></li>
+                                <li><b>общий пульт по одному на зал, с отображением в одном месте состояния всех капельниц, что позволяет уменьшить количество медсестер.</b></li>
+                            </ul>
+                            <p><b>Этап 3</b> In addition to the Phase 2 devices, robotic devices are being purchased. It is anticipated that each robotic system will be able to service up to four chairs. </p>
+
+                            <h3>3. Рост производительности</h3>
+                            <p>Рост производительности позволяет увеличить объём услуг:</p>
+                            <div class="table-responsive">
+                                <table>
+                                    <tr><th></th><th class="num">1. Сегодня: люди</th><th class="num">2. Люди + устройства</th><th class="num hyp">3. Будущее: робототехнологические комплексы</th></tr>
+                                    <tr class="subgroup"><td colspan="4">Затраты больницы за год</td></tr>
+                                    <tr><td>Медперсонал (медсёстры, вспомогательный персонал, врачи)</td><td class="num" id="sm-wages-a"></td><td class="num" id="sm-wages-b"></td><td class="num hyp" id="sm-wages-c"></td></tr>
+                                    <tr><td>Расходы на амортизацию устройств и робототехнологических комплексов за год</td><td class="num" id="sm-equip-a"></td><td class="num" id="sm-equip-b"></td><td class="num hyp" id="sm-equip-c"></td></tr>
+                                    <tr><td>Аренда помещения и кресел</td><td class="num" id="sm-prem-a"></td><td class="num" id="sm-prem-b"></td><td class="num hyp" id="sm-prem-c"></td></tr>
+                                    <tr><td><b>Прямые расходы за год</b></td><td class="num" id="sm-fyear-a"></td><td class="num" id="sm-fyear-b"></td><td class="num hyp" id="sm-fyear-c"></td></tr>
+                                    <tr class="subgroup"><td colspan="4">Себестоимость одной процедуры</td></tr>
+                                    <tr><td>Количество процедур в год</td><td class="num" id="sm-proc-a"></td><td class="num" id="sm-proc-b"></td><td class="num hyp" id="sm-proc-c"></td></tr>
+                                    <tr><td>Прямые расходы на одну процедуру</td><td class="num" id="sm-cost-a"></td><td class="num" id="sm-cost-b"></td><td class="num hyp" id="sm-cost-c"></td></tr>
+                                    <tr><td>Стоимость лекарства на одну процедуру</td><td class="num" id="sm-drug-a"></td><td class="num" id="sm-drug-b"></td><td class="num hyp" id="sm-drug-c"></td></tr>
+                                    <tr class="total"><td>Итоговая полная себестоимость одной процедуры</td><td class="num" id="sm-full-a"></td><td class="num" id="sm-full-b"></td><td class="num hyp" id="sm-full-c"></td></tr>
+                                    <tr class="subgroup"><td colspan="4">Прибыль больницы</td></tr>
+                                    <tr><td>Стоимость проведение процедур за год (без учета стоимости лекарства)</td><td class="num" id="sm-rev-a"></td><td class="num" id="sm-rev-b"></td><td class="num hyp" id="sm-rev-c"></td></tr>
+                                    <tr><td>Прямые расходы за год</td><td class="num" id="sm-fyear2-a"></td><td class="num" id="sm-fyear2-b"></td><td class="num hyp" id="sm-fyear2-c"></td></tr>
+                                    <tr class="total"><td>Прибыль от отделения за год</td><td class="num" id="sm-profy-a"></td><td class="num" id="sm-profy-b"></td><td class="num hyp" id="sm-profy-c"></td></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table>
+                                <tr>
+                                    <th>от ручного производства услуг до производства их в основном робототехнологическими устройствами</th>
+                                    <th class="num">1. Сегодня: люди</th>
+                                    <th class="num">2. Люди + устройства</th>
+                                    <th class="num hyp">3. Будущее: роботы</th>
+                                </tr>
+                                <tr class="subgroup"><td colspan="4">6. Доход и прибыль больницы</td></tr>
+                                <tr><td>Оплата, которую больница получает за проведение процедур, за год, без учета стоимости лекарств</td><td class="num" id="rev-a"></td><td class="num" id="rev-b"></td><td class="num hyp" id="rev-c"></td></tr>
+                                <tr><td>Прибыль больницы от отделения в месяц</td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
+                                <tr><td>Прибыль больницы от отделения за год</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
+                                <tr><td>Период окупаемости приобретаемых робототехнологических комплексов и иного оборудования</td><td class="num" id="pbt-a"></td><td class="num" id="pbt-b"></td><td class="num hyp" id="pbt-c"></td></tr>
+                                <tr class="subgroup"><td colspan="4">7. Запас прочности</td></tr>
+                                <tr><td>Прямые затраты больницы в день (оборудование, здание, зарплаты персонала и врачей)</td><td class="num" id="fday-a"></td><td class="num" id="fday-b"></td><td class="num hyp" id="fday-c"></td></tr>
+                                <tr><td>Необходимое, для покрытия прямых затрат количество процедур в день</td><td class="num" id="req-a"></td><td class="num" id="req-b"></td><td class="num hyp" id="req-c"></td></tr>
+                                <tr><td>Запас производительности<span class="small">на сколько можно сократить число процедур, пока больница не уйдёт в убыток</span></td><td class="num" id="marg-a"></td><td class="num" id="marg-b"></td><td class="num hyp" id="marg-c"></td></tr>
+                            </table>
+                        </div>
+                        <div id="breakeven" class="info-hint">—</div>
+                    </div>
+                    <div class="info-hint">Все цифры можно менять — перерасчет производится в реальном времени. Число кресел на одну медсестру — по данным американской ассоциации онкоцентров; цены покупки устройств — по ссылкам; аренда помещения, время подготовки кресла и цена покупки медицинского робототехнологического комплекса — оценки для проверки.</div>
+                </div>
             </div>
-            <div id="breakeven" class="info-hint">—</div>
-
-            <h3>Приобретаемые устройства</h3>
-            <div class="table-responsive">
-                <table>
-                    <tr><th>Устройство</th><th>Вместо чего</th><th>Разрешено?</th><th class="num">Кол-во</th><th class="num">Цена покупки за шт., $</th><th class="num">Сумма</th></tr>
-                    <tr>
-                        <td><a href="https://m.indiamart.com/proddetail/customized-smart-token-queue-management-system-for-hospitals-25309736955.html" target="_blank">Электронная очередь</a> с вызовом и учётом времени ожидания</td>
-                        <td>регистратура</td>
-                        <td><span class="tag ok">разрешение не нужно</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q1" value="1"></td>
-                        <td class="num"><input class="mp" type="number" id="p1" value="600"></td>
-                        <td class="num" id="s1"></td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://neotech.ae/products/4-484" target="_blank">Автомат</a>, где пациент сам меряет давление, пульс, кислород и температуру<span class="small">цену покупки продавец даёт по запросу — здесь оценка</span></td>
-                        <td>замер медсестрой</td>
-                        <td><span class="tag ok">продаётся свободно</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q2" value="4"></td>
-                        <td class="num"><input class="mp" type="number" id="p2" value="8000"></td>
-                        <td class="num" id="s2"></td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://relinkonline.com/products/carefusion-alaris-bd-8015-pcu" target="_blank">Насос для капельниц Alaris</a>, восстановленный</td>
-                        <td>медсестра следит за капельницей вручную</td>
-                        <td><span class="tag ok">применяется в больницах США</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q3" value="80"></td>
-                        <td class="num"><input class="mp" type="number" id="p3" value="1150"></td>
-                        <td class="num" id="s3"></td>
-                    </tr>
-                    <tr>
-                        <td><a href="https://www.bd.com/en-mena/our-products/infusion/infusion-software/alaris-infusion-central" target="_blank">Общий пульт</a> Alaris Infusion Central: медсестра видит все капельницы сразу<span class="small">цена покупки — оценка</span></td>
-                        <td>обход кресел медсестрой</td>
-                        <td><span class="tag ok">применяется в больницах</span></td>
-                        <td class="num"><input class="qty mq" type="number" id="q4" value="2"></td>
-                        <td class="num"><input class="mp" type="number" id="p4" value="20000"></td>
-                        <td class="num" id="s4"></td>
-                    </tr>
-                    <tr class="total"><td colspan="5">Итого устройств (служат 7 лет, ремонт — 10% от цены покупки в год)</td><td class="num" id="modTotal"></td></tr>
-                    <tr>
-                        <td>робототехнологический комплекс — <a href="https://www.eweek.com/news/how-much-does-a-humanoid-robot-cost/" target="_blank">ориентир: Unitree H1 / H2 Plus</a> ($90 000–100 000)</td>
-                        <td>медсестра у кресел, обслуживающий персонал</td>
-                        <td><span class="tag hyp">будущее, нужно разрешение</span></td>
-                        <td class="num" id="rq"></td>
-                        <td class="num" id="rp"></td>
-                        <td class="num" id="rs"></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="info-hint">Все цифры можно менять — перерасчет производится в реальном времени. Число кресел на одну медсестру — по данным американской ассоциации онкоцентров; цены покупки устройств — по ссылкам; аренда помещения, время подготовки кресла и цена покупки медицинского робототехнологического комплекса — оценки для проверки.</div>
         </div>
 
         <!-- ДЛЯ ИНЖЕНЕРА -->
@@ -685,150 +911,179 @@
     </div>
 
     <script>
-                                                                            const T = {
-                                                                                loc: 'ru-RU', h: 'ч', min: 'мин',
-                                                                                hero: (r, yr) =>
-                                                                                    `<div class="rh-head">Полная себестоимость одной процедуры, в трех вариантах услуги: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
-                                                                                    `<div class="rh-sub">Здесь стоимость лекарства — ${usd(v('drug'))} во всех вариантах. Остальное — прямые затраты больницы на одну процедуру (оборудование, здание, зарплаты персонала и врачей): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
-                                                                                be: (p, cur) => p > 0
-                                                                                    ? `робототехнологические комплексы обходятся больнице дешевле готовых устройств, пока цена покупки одного комплекса меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за комплекс.`
-                                                                                    : `При этих цифрах робототехнологические комплексы не выгоднее готовых устройств ни при какой цене покупки комплекса — проверьте режим работы и число комплексов.`
-                                                                            };
+                                                                                    const T = {
+                                                                                        loc: 'ru-RU', h: 'ч', min: 'мин',
+                                                                                        hero: (r, yr) =>
+                                                                                            `<div class="rh-head">Полная себестоимость одной процедуры, в трех вариантах услуги: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
+                                                                                            `<div class="rh-sub">Здесь стоимость лекарства — ${usd(v('drug'))} во всех вариантах. Остальное — прямые затраты больницы на одну процедуру (оборудование, здание, зарплаты персонала и врачей): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
+                                                                                        be: (p, cur) => p > 0
+                                                                                            ? `робототехнологические комплексы обходятся больнице дешевле готовых устройств, пока цена покупки одного комплекса меньше <b>${usd(p)}</b>. В расчёте заложена цена покупки ${cur} за комплекс.`
+                                                                                            : `При этих цифрах робототехнологические комплексы не выгоднее готовых устройств ни при какой цене покупки комплекса — проверьте режим работы и число комплексов.`
+                                                                                    };
 
-                                                                            const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
-                                                                            const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
-                                                                            const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
-                                                                            const usd = n => '$' + fmt(Math.round(n));
-                                                                            const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = `${main}<span class="small">${how}</span>`; };
-                                                                            const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
+                                                                                    const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
+                                                                                    const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+                                                                                    const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
+                                                                                    const usd = n => '$' + fmt(Math.round(n));
+                                                                                    const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = `${main}<span class="small">${how}</span>`; };
+                                                                                    const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
 
-                                                                            function calc() {
-                                                                                let mod = 0;
-                                                                                for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
-                                                                                set('modTotal', usd(mod));
-                                                                                const modYear = mod / MOD_LIFE + mod * MOD_SVC;
 
-                                                                                const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
-                                                                                const robotRate = 1 / rLife + rSvc;
-                                                                                set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
-
-                                                                                const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
-                                                                                const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
-                                                                                const res = {};
-                                                                                for (const k of ['a', 'b', 'c']) {
-                                                                                    const hours = v('hours-' + k), days = v('days-' + k);
-                                                                                    const cycle = procH + v('turn-' + k);
-                                                                                    const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
-                                                                                    const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
-                                                                                    const docs = v('docN');
-                                                                                    const wages = fte * wageYear + docs * docYear;
-                                                                                    let equip = 0;
-                                                                                    if (k !== 'a') equip += modYear;
-                                                                                    if (k === 'c') equip += robots * rPrice * robotRate;
-                                                                                    const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
-                                                                                    const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
-                                                                                    const fixedYear = wages + equip + premises;
-                                                                                    const perDay = cycle > 0 ? chairs * hours / cycle : 0;
-                                                                                    const fday = days > 0 ? fixedYear / days : 0;
-                                                                                    const req = pay > 0 ? fday / pay : Infinity;
-                                                                                    const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
-                                                                                    const full = drug + cost;
-                                                                                    const prof = (pay - cost) * proc / 12;
-                                                                                    res[k] = { proc, fte, wages, equip, cost, fixedYear };
-                                                                                    set('docs-' + k, fmt(docs, 1));
-                                                                                    set('fday-' + k, usd(fday));
-                                                                                    set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
-                                                                                    set('act-' + k, fmt(perDay, 1));
-                                                                                    set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
-                                                                                    set('full-' + k, usd(full));
-                                                                                    set('prof-' + k, usd(prof));
-                                                                                    res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
-                                                                                    set('proc-' + k, fmt(proc));
-                                                                                    set('fte-' + k, fmt(fte, 1));
-                                                                                    set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
-                                                                                    set('wages-' + k, usd(wages));
-                                                                                    set('equip-' + k, usd(equip));
-                                                                                    set('cost-' + k, usd(cost));
-                                                                                    {
-                                                                                        const turn = v('turn-' + k);
-                                                                                        const hppTxt = hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`;
-                                                                                        cell('act-' + k, fmt(perDay, 1), `${fmt(chairs)} кресел × ${fmt(hours)} ч работы ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка кресла)`);
-                                                                                        cell('proc-' + k, fmt(proc), `${fmt(perDay, 1)} процедур в день × ${fmt(days)} дней работы`);
-                                                                                        cell('fte-' + k, fmt(fte, 1), `${fmt(v('nurse-' + k) + v('supp-' + k), 1)} чел. в смене × ${fmt(hours)} ч ÷ 8 × ${fmt(days)} ÷ 250`);
-                                                                                        cell('hpp-' + k, hppTxt, `${fmt(fte, 1)} ставки × 2 000 ч в год ÷ ${fmt(proc)} пациентов`);
-                                                                                        cell('docs-' + k, fmt(docs, 1), 'задано в поле «Врачей в отделении»');
-                                                                                        cell('wn-' + k, usd(fte * wageYear), `${fmt(fte, 1)} × ${usd(v('wage'))} × 12`);
-                                                                                        cell('wd-' + k, usd(docs * docYear), `${fmt(docs)} × ${usd(v('docWage'))} × 12`);
-                                                                                        cell('equip-' + k, usd(equip), k === 'a' ? 'закупок нет' : (`устройства ${usd(mod)} ÷ 7 лет службы + ремонт 10% в год` + (k === 'c' ? ` + комплексы ${usd(robots * rPrice)} ÷ ${fmt(rLife)} лет службы + ремонт ${fmt(rSvc * 100)}% в год` : '')));
-                                                                                        cell('prem-' + k, usd(premises), 'задано в поле «Аренда помещения»');
-                                                                                        cell('fyear-' + k, usd(fixedYear), `медперсонал ${usd(wages)} + устройства ${usd(equip)} + аренда ${usd(premises)}`);
-                                                                                        cell('cost-' + k, usd(cost), `${usd(fixedYear)} за год ÷ ${fmt(proc)} процедур`);
-                                                                                        cell('full-' + k, usd(full), `лекарство ${usd(drug)} + прямые затраты ${usd(cost)}`);
-                                                                                        cell('rev-' + k, usd(proc * pay), `${usd(pay)} за процедуру × ${fmt(proc)} процедур`);
-                                                                                        cell('prof-' + k, usd(prof), `(${usd(pay)} − ${usd(cost)}) × ${fmt(proc)} процедур в год ÷ 12 месяцев`);
-                                                                                        cell('fday-' + k, usd(fday), `${usd(fixedYear)} за год ÷ ${fmt(days)} дней работы`);
-                                                                                        cell('req-' + k, isFinite(req) ? fmt(req, 1) : '∞', `${usd(fday)} в день ÷ ${usd(pay)} за процедуру`);
-                                                                                        cell('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—', `(${fmt(perDay, 1)} − ${isFinite(req) ? fmt(req, 1) : '∞'}) ÷ ${fmt(perDay, 1)}`);
+                                                                                    // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК — КАК В ГЕНЕРАТОРЕ ПРОИЗВОДСТВ
+                                                                                    window.switchMainTab = function (id) {
+                                                                                        document.querySelectorAll('.main-tab-content-panel').forEach(p => p.classList.toggle('active', p.id === id));
+                                                                                        document.getElementById('btn-main-listing').classList.toggle('active', id === 'main-tab-1');
+                                                                                        document.getElementById('btn-main-gen').classList.toggle('active', id === 'main-tab-2');
+                                                                                    };
+                                                                                    window.openSvcTab = function (tab) {
+                                                                                        document.querySelectorAll('#svcTabs a').forEach(a => a.classList.toggle('active', a.dataset.tab === tab));
+                                                                                        document.querySelectorAll('#main-tab-2 .section').forEach(s => s.classList.toggle('active', s.id === tab));
+                                                                                    };
+                                                                                    document.querySelectorAll('#svcTabs a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openSvcTab(a.dataset.tab); }));
+                                                                                    window.openInGenerator = function (tab) { switchMainTab('main-tab-2'); openSvcTab(tab || 'sv5'); window.scrollTo(0, 0); };
+                                                                                    // ЛИСТИНГ УСЛУГ: три варианта шаблона, по текущим цифрам генератора
+                                                                                    function renderServiceListing(res, mod, robots, rPrice, pay, drug) {
+                                                                                        const tb = document.getElementById('svc-listing-rows'); if (!tb) return;
+                                                                                        const names = { a: '1. Сегодня: люди', b: '2. Люди + устройства', c: '3. Будущее: робототехнологические комплексы' };
+                                                                                        let html = `<tr class="lst-topic"><td colspan="8">📂 МЕДИЦИНА — ПРОЦЕДУРНОЕ ОТДЕЛЕНИЕ: крупная больница Лос-Анджелеса, около ${fmt(v('chairs'))} кресел (оплата процедуры страховой компанией — ${usd(pay)}, лекарство — ${usd(drug)})</td></tr>`;
+                                                                                        ['a', 'b', 'c'].forEach((k, i) => {
+                                                                                            const r = res[k], buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice), prof = (pay - r.cost) * r.proc / 12;
+                                                                                            html += `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
+                                                                                                <td><b>${names[k]}</b><br><button class="btn-open" onclick="openInGenerator('sv5')">📥 Открыть в генераторе услуг</button></td>
+                                                                                                <td class="num">${buy ? usd(buy) : '—'}</td><td class="num">${fmt(r.proc)}</td><td class="num">${fmt(r.fte, 1)}</td>
+                                                                                                <td class="num">${usd(v('wage'))}</td><td class="num"><b style="color:#1f4e78;">${usd(prof)}</b></td>
+                                                                                                <td class="num"><b>${usd(drug + r.cost)}</b><span class="small">лекарство ${usd(drug)} + прямые затраты ${usd(r.cost)}</span></td></tr>`;
+                                                                                        });
+                                                                                        tb.innerHTML = html;
                                                                                     }
-                                                                                }
+                                                                                    function calc() {
+                                                                                        let mod = 0;
+                                                                                        for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
+                                                                                        set('modTotal', usd(mod));
+                                                                                        const modYear = mod / MOD_LIFE + mod * MOD_SVC;
 
-                                                                                const yr = new Date().getFullYear() + Math.round(v('approval'));
-                                                                                const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
-                                                                                { const h = document.getElementById('hero'); if (h) h.innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr); }
-                                                                                {
-                                                                                    const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' млн' : usd(n);
-                                                                                    const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
-                                                                                    set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
-                                                                                    set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
-                                                                                    set('pre-wage', usd(v('wage')));
-                                                                                    set('pre-year', String(yr));
-                                                                                    set('pre-mod', usd(mod));
-                                                                                    set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
-                                                                                    set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
-                                                                                    set('pre-hours-c', fmt(v('hours-c')));
-                                                                                    set('pre-proc', arr(k => fmt(res[k].proc)));
-                                                                                    set('pre-rev', arr(k => big(res[k].proc * pay)));
-                                                                                    set('pre-fte', arr(k => fmt(res[k].fte, 1)));
-                                                                                    set('pre-cost', arr(k => usd(res[k].cost)));
-                                                                                    set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
-                                                                                    for (const k of ['a', 'b', 'c']) {
-                                                                                        const r = res[k];
-                                                                                        set('sm-wages-' + k, usd(r.wages)); set('sm-equip-' + k, usd(r.equip)); set('sm-prem-' + k, usd(premises));
-                                                                                        set('sm-fyear-' + k, usd(r.fixedYear)); set('sm-proc-' + k, fmt(r.proc)); set('sm-cost-' + k, usd(r.cost));
-                                                                                        set('sm-drug-' + k, usd(drug)); set('sm-full-' + k, usd(drug + r.cost));
-                                                                                        set('sm-rev-' + k, usd(r.proc * pay)); set('sm-fyear2-' + k, '− ' + usd(r.fixedYear)); set('sm-profy-' + k, usd(r.proc * pay - r.fixedYear));
-                                                                                    }
-                                                                                    const P = {};
-                                                                                    for (const k of ['a', 'b', 'c']) {
-                                                                                        const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
-                                                                                        const r = res[k], prof = (pay - r.cost) * r.proc / 12;
-                                                                                        const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
-                                                                                        P[k] = { prof, buy };
-                                                                                        set('dv-proc-' + k, `${fmt(chairs)} кресел × ${fmt(hours)} ч ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка) × ${fmt(days)} дней = ${fmt(r.proc)} процедур в год`);
-                                                                                        set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} медсестёр + ${fmt(v('supp-' + k), 1)} чел. персонала в смене) × ${fmt(hours)} ч ÷ 8 ч × ${fmt(days)} ÷ 250 дней = ${fmt(r.fte, 1)}`);
-                                                                                        set('dv-cost-' + k, `(зарплаты ${usd(r.wages)} + устройства и робототехнологические комплексы ${usd(r.equip)} + аренда ${usd(premises)}) ÷ ${fmt(r.proc)} процедур = ${usd(r.cost)}`);
-                                                                                        set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} процедур в месяц = ${usd(prof)} в месяц`);
+                                                                                        const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
+                                                                                        const robotRate = 1 / rLife + rSvc;
+                                                                                        set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
 
-                                                                                        cell('profy-' + k, usd(prof * 12), `${usd(prof)} в месяц × 12`); cell('buy-' + k, buy ? usd(buy) : '—', k === 'a' ? 'закупок нет' : (k === 'b' ? 'устройства (таблица «Приобретаемые устройства»)' : `устройства ${usd(mod)} + комплексы ${fmt(robots)} × ${usd(rPrice)}`));
-                                                                                    }
-                                                                                    const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' дней' : fmt(buy / gain, 1) + ' месяца') : 'не окупается';
-                                                                                    for (const k of ['b', 'c']) {
-                                                                                        const gain = P[k].prof - P.a.prof;
-                                                                                        set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
-                                                                                        cell('pbt-' + k, months(P[k].buy, gain), `${usd(P[k].buy)} ÷ рост прибыли ${usd(gain)} в месяц`);
-                                                                                    }
-                                                                                    set('pbt-a', '—');
-                                                                                    set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
-                                                                                    set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
-                                                                                    set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
-                                                                                }
+                                                                                        const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
+                                                                                        const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
+                                                                                        const res = {};
+                                                                                        for (const k of ['a', 'b', 'c']) {
+                                                                                            const hours = v('hours-' + k), days = v('days-' + k);
+                                                                                            const cycle = procH + v('turn-' + k);
+                                                                                            const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
+                                                                                            const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
+                                                                                            const docs = v('docN');
+                                                                                            const wages = fte * wageYear + docs * docYear;
+                                                                                            let equip = 0;
+                                                                                            if (k !== 'a') equip += modYear;
+                                                                                            if (k === 'c') equip += robots * rPrice * robotRate;
+                                                                                            const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
+                                                                                            const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
+                                                                                            const fixedYear = wages + equip + premises;
+                                                                                            const perDay = cycle > 0 ? chairs * hours / cycle : 0;
+                                                                                            const fday = days > 0 ? fixedYear / days : 0;
+                                                                                            const req = pay > 0 ? fday / pay : Infinity;
+                                                                                            const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
+                                                                                            const full = drug + cost;
+                                                                                            const prof = (pay - cost) * proc / 12;
+                                                                                            res[k] = { proc, fte, wages, equip, cost, fixedYear };
+                                                                                            set('docs-' + k, fmt(docs, 1));
+                                                                                            set('fday-' + k, usd(fday));
+                                                                                            set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
+                                                                                            set('act-' + k, fmt(perDay, 1));
+                                                                                            set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
+                                                                                            set('full-' + k, usd(full));
+                                                                                            set('prof-' + k, usd(prof));
+                                                                                            res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
+                                                                                            set('proc-' + k, fmt(proc));
+                                                                                            set('fte-' + k, fmt(fte, 1));
+                                                                                            set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
+                                                                                            set('wages-' + k, usd(wages));
+                                                                                            set('equip-' + k, usd(equip));
+                                                                                            set('cost-' + k, usd(cost));
+                                                                                            {
+                                                                                                const turn = v('turn-' + k);
+                                                                                                const hppTxt = hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`;
+                                                                                                cell('act-' + k, fmt(perDay, 1), `${fmt(chairs)} кресел × ${fmt(hours)} ч работы ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка кресла)`);
+                                                                                                cell('proc-' + k, fmt(proc), `${fmt(perDay, 1)} процедур в день × ${fmt(days)} дней работы`);
+                                                                                                cell('fte-' + k, fmt(fte, 1), `${fmt(v('nurse-' + k) + v('supp-' + k), 1)} чел. в смене × ${fmt(hours)} ч ÷ 8 × ${fmt(days)} ÷ 250`);
+                                                                                                cell('hpp-' + k, hppTxt, `${fmt(fte, 1)} ставки × 2 000 ч в год ÷ ${fmt(proc)} пациентов`);
+                                                                                                cell('docs-' + k, fmt(docs, 1), 'задано в поле «Врачей в отделении»');
+                                                                                                cell('wn-' + k, usd(fte * wageYear), `${fmt(fte, 1)} × ${usd(v('wage'))} × 12`);
+                                                                                                cell('wd-' + k, usd(docs * docYear), `${fmt(docs)} × ${usd(v('docWage'))} × 12`);
+                                                                                                cell('equip-' + k, usd(equip), k === 'a' ? 'закупок нет' : (`устройства ${usd(mod)} ÷ 7 лет службы + ремонт 10% в год` + (k === 'c' ? ` + комплексы ${usd(robots * rPrice)} ÷ ${fmt(rLife)} лет службы + ремонт ${fmt(rSvc * 100)}% в год` : '')));
+                                                                                                cell('prem-' + k, usd(premises), 'задано в поле «Аренда помещения»');
+                                                                                                cell('fyear-' + k, usd(fixedYear), `медперсонал ${usd(wages)} + устройства ${usd(equip)} + аренда ${usd(premises)}`);
+                                                                                                cell('cost-' + k, usd(cost), `${usd(fixedYear)} за год ÷ ${fmt(proc)} процедур`);
+                                                                                                cell('full-' + k, usd(full), `лекарство ${usd(drug)} + прямые затраты ${usd(cost)}`);
+                                                                                                cell('rev-' + k, usd(proc * pay), `${usd(pay)} за процедуру × ${fmt(proc)} процедур`);
+                                                                                                cell('prof-' + k, usd(prof), `(${usd(pay)} − ${usd(cost)}) × ${fmt(proc)} процедур в год ÷ 12 месяцев`);
+                                                                                                cell('fday-' + k, usd(fday), `${usd(fixedYear)} за год ÷ ${fmt(days)} дней работы`);
+                                                                                                cell('req-' + k, isFinite(req) ? fmt(req, 1) : '∞', `${usd(fday)} в день ÷ ${usd(pay)} за процедуру`);
+                                                                                                cell('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—', `(${fmt(perDay, 1)} − ${isFinite(req) ? fmt(req, 1) : '∞'}) ÷ ${fmt(perDay, 1)}`);
+                                                                                            }
+                                                                                        }
 
-                                                                                const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
-                                                                                const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
-                                                                                { const be = document.getElementById('breakeven'); if (be) be.innerHTML = T.be(pMax, usd(rPrice)); }
-                                                                            }
-                                                                            document.addEventListener('input', calc);
-                                                                            calc();
+                                                                                        const yr = new Date().getFullYear() + Math.round(v('approval'));
+                                                                                        const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
+                                                                                        { const h = document.getElementById('hero'); if (h) h.innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr); }
+                                                                                        {
+                                                                                            const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' млн' : usd(n);
+                                                                                            const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
+                                                                                            set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
+                                                                                            set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
+                                                                                            set('pre-wage', usd(v('wage')));
+                                                                                            set('pre-year', String(yr));
+                                                                                            set('pre-mod', usd(mod));
+                                                                                            set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
+                                                                                            set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
+                                                                                            set('pre-hours-c', fmt(v('hours-c')));
+                                                                                            set('pre-proc', arr(k => fmt(res[k].proc)));
+                                                                                            set('pre-rev', arr(k => big(res[k].proc * pay)));
+                                                                                            set('pre-fte', arr(k => fmt(res[k].fte, 1)));
+                                                                                            set('pre-cost', arr(k => usd(res[k].cost)));
+                                                                                            set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
+                                                                                            for (const k of ['a', 'b', 'c']) {
+                                                                                                const r = res[k];
+                                                                                                set('sm-wages-' + k, usd(r.wages)); set('sm-equip-' + k, usd(r.equip)); set('sm-prem-' + k, usd(premises));
+                                                                                                set('sm-fyear-' + k, usd(r.fixedYear)); set('sm-proc-' + k, fmt(r.proc)); set('sm-cost-' + k, usd(r.cost));
+                                                                                                set('sm-drug-' + k, usd(drug)); set('sm-full-' + k, usd(drug + r.cost));
+                                                                                                set('sm-rev-' + k, usd(r.proc * pay)); set('sm-fyear2-' + k, '− ' + usd(r.fixedYear)); set('sm-profy-' + k, usd(r.proc * pay - r.fixedYear));
+                                                                                            }
+                                                                                            const P = {};
+                                                                                            for (const k of ['a', 'b', 'c']) {
+                                                                                                const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
+                                                                                                const r = res[k], prof = (pay - r.cost) * r.proc / 12;
+                                                                                                const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
+                                                                                                P[k] = { prof, buy };
+                                                                                                set('dv-proc-' + k, `${fmt(chairs)} кресел × ${fmt(hours)} ч ÷ (${fmt(procH, 1)} ч процедура + ${fmt(turn, 2)} ч подготовка) × ${fmt(days)} дней = ${fmt(r.proc)} процедур в год`);
+                                                                                                set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} медсестёр + ${fmt(v('supp-' + k), 1)} чел. персонала в смене) × ${fmt(hours)} ч ÷ 8 ч × ${fmt(days)} ÷ 250 дней = ${fmt(r.fte, 1)}`);
+                                                                                                set('dv-cost-' + k, `(зарплаты ${usd(r.wages)} + устройства и робототехнологические комплексы ${usd(r.equip)} + аренда ${usd(premises)}) ÷ ${fmt(r.proc)} процедур = ${usd(r.cost)}`);
+                                                                                                set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} процедур в месяц = ${usd(prof)} в месяц`);
+
+                                                                                                cell('profy-' + k, usd(prof * 12), `${usd(prof)} в месяц × 12`); cell('buy-' + k, buy ? usd(buy) : '—', k === 'a' ? 'закупок нет' : (k === 'b' ? 'устройства (таблица «Приобретаемые устройства»)' : `устройства ${usd(mod)} + комплексы ${fmt(robots)} × ${usd(rPrice)}`));
+                                                                                            }
+                                                                                            const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' дней' : fmt(buy / gain, 1) + ' месяца') : 'не окупается';
+                                                                                            for (const k of ['b', 'c']) {
+                                                                                                const gain = P[k].prof - P.a.prof;
+                                                                                                set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
+                                                                                                cell('pbt-' + k, months(P[k].buy, gain), `${usd(P[k].buy)} ÷ рост прибыли ${usd(gain)} в месяц`);
+                                                                                            }
+                                                                                            set('pbt-a', '—');
+                                                                                            set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
+                                                                                            set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
+                                                                                            set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
+                                                                                        }
+
+                                                                                        const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
+                                                                                        const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
+                                                                                        { const be = document.getElementById('breakeven'); if (be) be.innerHTML = T.be(pMax, usd(rPrice)); }
+                                                                                        renderServiceListing(res, mod, robots, rPrice, pay, drug);
+                                                                                    }
+                                                                                    document.addEventListener('input', calc);
+                                                                                    calc();
     </script>
 </body>
 </html>
