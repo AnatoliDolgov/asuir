@@ -2872,19 +2872,23 @@ Thank you!
                                                                 };
 
                                                                 // ======================================================
-                                                                // ЭТАЛОННЫЙ ПРИМЕР В ЛИСТИНГЕ: сборка часов (автомат уровня Seiko) — общий случай, Евросоюз, США
+                                                                // ЭТАЛОННЫЕ ПРИМЕРЫ В ЛИСТИНГЕ: сборка часов и жильё ЛСТК — общий случай, Евросоюз, США
                                                                 // ======================================================
-                                                                const REF_TOPIC = 'watch', REF_CLASS = 'automatic', REF_COUNTRIES = ['base', 'eu', 'us'];
-                                                                function buildReferenceLines() {
-                                                                    const d = resolveCatalogData(REF_TOPIC, REF_CLASS);
-                                                                    return REF_COUNTRIES.map(cc => ({
-                                                                        id: 'ref-' + cc, cc: cc,
+                                                                // Каждый пример: тема, класс, страны и заголовок блока. Блоки идут в листинге один за другим.
+                                                                const REF_EXAMPLES = [
+                                                                    { topic: 'watch', cls: 'automatic', countries: ['base', 'eu', 'us'], title: 'ЭТАЛОННЫЙ ПРИМЕР: СБОРКА ЧАСОВ (АВТОМАТ УРОВНЯ SEIKO) — общий случай, Евросоюз и США, стартовые ставки доставки и пошлин' },
+                                                                    { topic: 'housing', cls: 'lstk', countries: ['base', 'eu', 'us'], title: 'ЭТАЛОННЫЙ ПРИМЕР: ЖИЛЬЁ — ДОМОКОМПЛЕКТ ЛСТК 100 М² — общий случай, Евросоюз и США, стартовые ставки доставки и пошлин' }
+                                                                ];
+                                                                function buildReferenceLines(ex) {
+                                                                    const d = resolveCatalogData(ex.topic, ex.cls);
+                                                                    return ex.countries.map(cc => ({
+                                                                        id: 'ref-' + ex.topic + '-' + cc, cc: cc,
                                                                         name: d.q,
                                                                         url: `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(d.q)}`,
-                                                                        cost: parseFloat(d.eq), perf: parseFloat(d.perf), staff: parseFloat(d.staff),
+                                                                        cost: parseFloat(d.eq), perf: parseFloat(d.perf), staff: parseFloat(d.staff), area: parseFloat(d.area) || 0,
                                                                         components: d.c.map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] })),
                                                                         expenses: d.exp.map(e => ({ name: e[0], qty: e[1], price: e[2], url: e[3] })),
-                                                                        topic_title: d.title, class_key: REF_CLASS, country_key: cc
+                                                                        topic_title: d.title, class_key: ex.cls, country_key: cc
                                                                     }));
                                                                 }
                                                                 function referenceEconomics(line, baseSalary) {
@@ -2898,33 +2902,38 @@ Thank you!
                                                                     return { unit, profit, k, landed: importLandedPrice(price, r.f, r.t) };
                                                                 }
                                                                 function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
-                                                                    const head = document.createElement('tr');
-                                                                    head.style.background = '#fff6e0';
-                                                                    head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 ЭТАЛОННЫЙ ПРИМЕР: СБОРКА ЧАСОВ (АВТОМАТ УРОВНЯ SEIKO) — общий случай, Евросоюз и США, стартовые ставки доставки и пошлин</td>`;
-                                                                    container.appendChild(head);
-                                                                    buildReferenceLines().forEach(line => {
-                                                                        const e = referenceEconomics(line, baseSalary);
-                                                                        const c = COUNTRIES[line.cc];
-                                                                        const tr = document.createElement('tr');
-                                                                        tr.style.background = '#fffbf0';
-                                                                        tr.innerHTML = `
-                                                                            <td style="text-align:center; font-weight:700; color:#8a5a00;">📌</td>
-                                                                            <td style="padding-left:12px;"><b>${line.name}</b> — ${c.label}<br>
-                                                                                <button class="btn-bom-toggle" onclick="openReferenceLine('${line.cc}')">📥 Открыть в генераторе производств</button></td>
-                                                                            <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                                                                            <td>$${Number(line.cost).toLocaleString()}</td>
-                                                                            <td>${line.perf} шт/день</td>
-                                                                            <td>${line.staff} чел</td>
-                                                                            <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
-                                                                            <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b></td>
-                                                                            <td style="font-weight:600; color:#007600;">${ruNum(plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line)))}</td>
-                                                                            ${showAdminCol ? '<td></td>' : ''}`;
-                                                                        container.appendChild(tr);
+                                                                    REF_EXAMPLES.forEach((ex, xi) => {
+                                                                        const head = document.createElement('tr');
+                                                                        head.style.background = '#fff6e0';
+                                                                        head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 ${ex.title}</td>`;
+                                                                        container.appendChild(head);
+                                                                        buildReferenceLines(ex).forEach(line => {
+                                                                            const e = referenceEconomics(line, baseSalary);
+                                                                            const c = COUNTRIES[line.cc];
+                                                                            const perM2 = line.area ? `<br><span style="font-weight:400; font-size:11px; color:#4a5568;">на 1 м² жилья: своё $${Math.round(e.unit / line.area).toLocaleString('ru-RU')}, привезённое $${Math.round(e.landed / line.area).toLocaleString('ru-RU')}</span>` : '';
+                                                                            const tr = document.createElement('tr');
+                                                                            tr.style.background = '#fffbf0';
+                                                                            tr.innerHTML = `
+                                                                                <td style="text-align:center; font-weight:700; color:#8a5a00;">📌</td>
+                                                                                <td style="padding-left:12px;"><b>${line.name}</b> — ${c.label}<br>
+                                                                                    <button class="btn-bom-toggle" onclick="openReferenceLine(${xi}, '${line.cc}')">📥 Открыть в генераторе производств</button></td>
+                                                                                <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                                                                                <td>$${Number(line.cost).toLocaleString()}</td>
+                                                                                <td>${line.perf} шт/день</td>
+                                                                                <td>${line.staff} чел</td>
+                                                                                <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
+                                                                                <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                                                                                <td style="font-weight:600; color:#007600;">${ruNum(plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line)))}${perM2}</td>
+                                                                                ${showAdminCol ? '<td></td>' : ''}`;
+                                                                            container.appendChild(tr);
+                                                                        });
                                                                     });
                                                                 }
-                                                                window.openReferenceLine = function (cc) {
+                                                                window.openReferenceLine = function (xi, cc) {
+                                                                    if (typeof xi === 'string') { cc = xi; xi = 0; }
+                                                                    const ex = REF_EXAMPLES[xi] || REF_EXAMPLES[0];
                                                                     if (!isAdminMode) toggleAdminMode(); // сразу открываем генератор производств
-                                                                    loadCatalogTemplate(REF_TOPIC, REF_CLASS);
+                                                                    loadCatalogTemplate(ex.topic, ex.cls);
                                                                     const sel = document.getElementById('country-selector');
                                                                     if (sel) sel.value = COUNTRIES[cc] ? cc : 'base';
                                                                     onCountryChange();
@@ -3428,4 +3437,3 @@ Thank you!
                                                                 });
     </script>
 </body>
-</html>
