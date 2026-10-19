@@ -1,0 +1,2014 @@
+[
+ {
+  "group": "Electronics assembly",
+  "topics": [
+   "drone",
+   "phone",
+   "tablet",
+   "tv",
+   "pc"
+  ],
+  "equipment_that_stays": [
+   "ESD assembly line",
+   "soldering stations",
+   "glue dispenser",
+   "display lamination press",
+   "test benches",
+   "firmware programmer"
+  ],
+  "products": [
+   {
+    "product": "Budget smartphone",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "phone",
+     "class": "budget"
+    },
+    "module_items": [
+     {
+      "name": "housing nests",
+      "search": "housing nests",
+      "url": "https://www.alibaba.com/showroom/phone-jig.html"
+     },
+     {
+      "name": "6.5\" display press jig",
+      "search": "6.5\" display press jig",
+      "url": "https://www.alibaba.com/product-detail/Qianli-Universal-Holding-Pressure-Mold-for_1600250336500.html"
+     },
+     {
+      "name": "test firmware",
+      "search": "test firmware",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 800,
+    "changeover_time": "4 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Mid-range smartphone",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "phone",
+     "class": "mid"
+    },
+    "module_items": [
+     {
+      "name": "nests",
+      "search": "nests",
+      "url": "https://www.alibaba.com/showroom/phone-jig.html"
+     },
+     {
+      "name": "AMOLED press jig",
+      "search": "AMOLED press jig",
+      "url": "https://www.alibaba.com/product-detail/In-frame-mold-lcd-laminating-mold_60820337550.html"
+     },
+     {
+      "name": "test firmware",
+      "search": "test firmware",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 900,
+    "changeover_time": "4 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "10\" tablet",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "tablet",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "10\" nests",
+      "search": "10\" nests",
+      "url": "https://www.alibaba.com/showroom/lcd-screen-molds.html"
+     },
+     {
+      "name": "display press jig",
+      "search": "display press jig",
+      "url": "https://www.alibaba.com/product-detail/8pcs-Mobile-Phone-screen-Bonding-Fixture_1600539814695.html"
+     },
+     {
+      "name": "test",
+      "search": "test",
+      "url": "https://www.alibaba.com/product-detail/Manufacturer-Non-Standard-Parts-Customized-Electronic_1600317029997.html"
+     }
+    ],
+    "module_price_usd": 900,
+    "changeover_time": "4 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "15.6\" laptop",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "pc",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "nests",
+      "search": "nests",
+      "url": "https://www.alibaba.com/showroom/phone-jig.html"
+     },
+     {
+      "name": "hinge jig",
+      "search": "hinge jig",
+      "url": "https://www.alibaba.com/product-detail/Laptop-Hinge-Life-Tester-Mobile-Phone_1600285922070.html"
+     },
+     {
+      "name": "test bench",
+      "search": "test bench",
+      "url": "https://www.alibaba.com/product-detail/Manufacturer-Non-Standard-Parts-Customized-Electronic_1600317029997.html"
+     }
+    ],
+    "module_price_usd": 1500,
+    "changeover_time": "6 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "32–43\" TV",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "tv",
+     "class": "small"
+    },
+    "module_items": [
+     {
+      "name": "large-panel assembly table",
+      "search": "large-panel assembly table",
+      "url": "https://www.alibaba.com/product-detail/Tv-assembly-line-workbench-repair-table_1600061477808.html"
+     },
+     {
+      "name": "vacuum grippers",
+      "search": "vacuum grippers",
+      "url": "https://www.alibaba.com/product-detail/Vacuum-Sucker-Cup-Lifting-Holder-TV_1600051458802.html"
+     },
+     {
+      "name": "test-signal generator",
+      "search": "test-signal generator",
+      "url": "https://www.alibaba.com/showroom/hdmi-signal-generator.html"
+     }
+    ],
+    "module_price_usd": 3000,
+    "changeover_time": "1 shift",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Camera drone",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "drone",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "frame nests",
+      "search": "frame nests",
+      "url": ""
+     },
+     {
+      "name": "calibration stand",
+      "search": "calibration stand",
+      "url": "https://www.alibaba.com/showroom/brushless-motor-test.html"
+     },
+     {
+      "name": "motor tester",
+      "search": "motor tester",
+      "url": "https://www.alibaba.com/showroom/brushless-motor-test.html"
+     }
+    ],
+    "module_price_usd": 1200,
+    "changeover_time": "4 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Feature phone",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "nests",
+      "search": "nests",
+      "url": "https://www.alibaba.com/showroom/phone-jig.html"
+     },
+     {
+      "name": "test program",
+      "search": "test program",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 400,
+    "changeover_time": "2 h",
+    "output_per_day": 300,
+    "price_same_product_factory_abroad_usd": 18,
+    "parts_per_piece": [
+     {
+      "name": "Board",
+      "price_usd": 5,
+      "url": "https://www.alibaba.com/showroom/mobile-phone-motherboard-pcba.html"
+     },
+     {
+      "name": "2.4\" display",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/product-detail/1-8-inch-2-4inch-tft_1600773618140.html"
+     },
+     {
+      "name": "Keypad",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/showroom/rubber-keypad-mobile-phone.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 1.2,
+      "url": "https://www.alibaba.com/showroom/custom-phone-housing.html"
+     },
+     {
+      "name": "Battery",
+      "price_usd": 1,
+      "url": "https://www.alibaba.com/product-detail/Factory-Wholesale-Replacement-Phone-Battery-1020mah_1600789261151.html"
+     },
+     {
+      "name": "Charger",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/product-detail/Hot-selling-usb-5V1A-5-volt_1601281809978.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/packaging-box-for-cell-phone.html"
+     }
+    ]
+   },
+   {
+    "product": "20,000 mAh power bank",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "cell spot-welding jig",
+      "search": "cell spot-welding jig",
+      "url": "https://www.alibaba.com/product-detail/KNOKOO-Battery-Spot-Welders-18650-Spot_60701559724.html"
+     },
+     {
+      "name": "capacity tester",
+      "search": "capacity tester",
+      "url": "https://www.alibaba.com/product-detail/EBC-X-8-Channels-18650-lithium_1600723647200.html"
+     }
+    ],
+    "module_price_usd": 1200,
+    "changeover_time": "3 h",
+    "output_per_day": 200,
+    "price_same_product_factory_abroad_usd": 22,
+    "parts_per_piece": [
+     {
+      "name": "18650 cells ×6",
+      "price_usd": 9,
+      "url": "https://www.alibaba.com/product-detail/China-3-7V-3000MAH-cell-batteries_1600083209514.html"
+     },
+     {
+      "name": "Controller board",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/showroom/22.5w-fast-charging-board.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 2,
+      "url": "https://www.alibaba.com/product-detail/20000mAh-Dual-USB-Power-Bank-Case_62138630640.html"
+     },
+     {
+      "name": "Cable",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/product-detail/Wholesale-Pure-Copper-USB-C-Charging_1601561721818.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html"
+     }
+    ]
+   },
+   {
+    "product": "Handheld radio",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "nests",
+      "search": "nests",
+      "url": "https://www.alibaba.com/showroom/phone-jig.html"
+     },
+     {
+      "name": "RF test stand",
+      "search": "RF test stand",
+      "url": "https://m.alibaba.com/product/62203951542/0-5Mhz-470Mhz-RF-Signal-Generator.html"
+     }
+    ],
+    "module_price_usd": 1500,
+    "changeover_time": "4 h",
+    "output_per_day": 150,
+    "price_same_product_factory_abroad_usd": 35,
+    "parts_per_piece": [
+     {
+      "name": "Board",
+      "price_usd": 9,
+      "url": "https://www.alibaba.com/showroom/walkie-talkie-circuit-board.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 2.5,
+      "url": "https://www.alibaba.com/showroom/walkie-talkie-shell-enclosure.html"
+     },
+     {
+      "name": "Antenna",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/product-detail/Walkie-Talkie-Antenna-SMA-F-RHD_1601286959949.html"
+     },
+     {
+      "name": "Battery",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/7.4v-two-way-radio-battery.html"
+     },
+     {
+      "name": "Charger",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/showroom/handheld-charging-walkie-talkie-chargers.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Watch assembly",
+  "topics": [
+   "watch"
+  ],
+  "equipment_that_stays": [
+   "workstations with stereo microscope",
+   "crystal and caseback press",
+   "timing machine",
+   "water-resistance tester",
+   "ultrasonic cleaner"
+  ],
+  "products": [
+   {
+    "product": "Simple quartz",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "watch",
+     "class": "quartz"
+    },
+    "module_items": [
+     {
+      "name": "Miyota 2035 movement holders",
+      "search": "watch Miyota 2035 movement holders",
+      "url": "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html"
+     },
+     {
+      "name": "hand-setting tool",
+      "search": "watch hand-setting tool",
+      "url": "https://www.alibaba.com/product-detail/New-Watch-Tool-Hand-Press-Fitting_62142240189.html"
+     },
+     {
+      "name": "battery tester",
+      "search": "watch battery tester",
+      "url": "https://www.alibaba.com/product-detail/Multifunctional-Watch-Battery-Tester-watch-Quartz_1600633777455.html"
+     }
+    ],
+    "module_price_usd": 350,
+    "changeover_time": "1 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Seiko-level automatic",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "watch",
+     "class": "automatic"
+    },
+    "module_items": [
+     {
+      "name": "NH35 movement holder",
+      "search": "watch NH35 movement holder",
+      "url": "https://www.alibaba.com/product-detail/Stainless-Steel-Repair-And-Assembly-Tool_1600509239089.html"
+     },
+     {
+      "name": "demagnetizer",
+      "search": "watch demagnetizer",
+      "url": "https://www.alibaba.com/product-detail/Professional-Mechanical-Wristwatch-Demagnetizer-Demagnetizing-Tool_1600511489161.html"
+     },
+     {
+      "name": "rotor tool",
+      "search": "watch rotor tool",
+      "url": "https://www.alibaba.com/showroom/watch-maker-tools.html"
+     }
+    ],
+    "module_price_usd": 450,
+    "changeover_time": "2 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Women's quartz",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "small-movement holders",
+      "search": "watch small-movement holders",
+      "url": "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html"
+     },
+     {
+      "name": "small-case mandrels",
+      "search": "watch small-case mandrels",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 300,
+    "changeover_time": "1 h",
+    "output_per_day": 120,
+    "price_same_product_factory_abroad_usd": 45,
+    "parts_per_piece": [
+     {
+      "name": "Miyota 1L45 movement",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/miyota-1l45.html"
+     },
+     {
+      "name": "Case",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/product-detail/Watch-Case-Exquisite-316L-Stainless-Steel_1600173969046.html"
+     },
+     {
+      "name": "Crystal",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/showroom/watch-glass-replacement.html"
+     },
+     {
+      "name": "Dial with crystals",
+      "price_usd": 2.5,
+      "url": "https://www.alibaba.com/showroom/watch-dial-custom.html"
+     },
+     {
+      "name": "Hands",
+      "price_usd": 0.6,
+      "url": "https://www.alibaba.com/product-detail/High-Quality-Arrow-Watch-Hands-With_60737184017.html"
+     },
+     {
+      "name": "Bracelet",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/product-detail/Black-Silver-Rose-Gold-18mm-20mm_62518800257.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/showroom/paper-watch-box.html"
+     }
+    ]
+   },
+   {
+    "product": "Quartz chronograph",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "VK63 movement holder",
+      "search": "watch VK63 movement holder",
+      "url": "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html"
+     },
+     {
+      "name": "pusher set",
+      "search": "watch pusher set",
+      "url": "https://www.alibaba.com/countrysearch/CN/watch-pusher.html"
+     },
+     {
+      "name": "chronograph tester",
+      "search": "watch chronograph tester",
+      "url": "https://www.alibaba.com/product-detail/Watches-maintenance-tools-Quartz-watch-tester_1600799121714.html"
+     }
+    ],
+    "module_price_usd": 400,
+    "changeover_time": "2 h",
+    "output_per_day": 60,
+    "price_same_product_factory_abroad_usd": 140,
+    "parts_per_piece": [
+     {
+      "name": "Seiko VK63 movement",
+      "price_usd": 9,
+      "url": "https://www.alibaba.com/showroom/vk63-movement.html"
+     },
+     {
+      "name": "316L steel case",
+      "price_usd": 15,
+      "url": "https://www.alibaba.com/product-detail/38mm-Stainless-Steel-Rose-Gold-Watch_1601381429908.html"
+     },
+     {
+      "name": "Sapphire crystal",
+      "price_usd": 6,
+      "url": "https://www.alibaba.com/showroom/watch-glass-sapphire-crystal.html"
+     },
+     {
+      "name": "Dial",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/product-detail/Custom-Classic-Blank-Watch-Dials-Face_1600979402235.html"
+     },
+     {
+      "name": "Hands ×6",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/product-detail/High-Quality-Arrow-Watch-Hands-With_60737184017.html"
+     },
+     {
+      "name": "Bracelet",
+      "price_usd": 8,
+      "url": "https://www.alibaba.com/product-detail/Black-Silver-Rose-Gold-18mm-20mm_62518800257.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/paper-watch-box.html"
+     }
+    ]
+   },
+   {
+    "product": "Smartwatch",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "jig",
+      "search": "watch jig",
+      "url": "https://www.alibaba.com/showroom/lcd-jig.html"
+     },
+     {
+      "name": "glue dispenser",
+      "search": "watch glue dispenser",
+      "url": "https://www.alibaba.com/product-detail/Desktop-glue-dispensing-machine-3-axis_1600084724719.html"
+     },
+     {
+      "name": "firmware and test stand",
+      "search": "watch firmware and test stand",
+      "url": "https://www.alibaba.com/product-detail/Manual-PCBA-test-fixture-pcb-test_62447714577.html"
+     }
+    ],
+    "module_price_usd": 1500,
+    "changeover_time": "4 h",
+    "output_per_day": 100,
+    "price_same_product_factory_abroad_usd": 60,
+    "parts_per_piece": [
+     {
+      "name": "Board with display",
+      "price_usd": 18,
+      "url": "https://www.alibaba.com/showroom/smart-watch-pcba.html"
+     },
+     {
+      "name": "Case",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/product-detail/Watch-Case-Exquisite-316L-Stainless-Steel_1600173969046.html"
+     },
+     {
+      "name": "Battery",
+      "price_usd": 2,
+      "url": "https://www.alibaba.com/product-detail/Factory-Lipo-Battery-3-7V-300mAh_1601267182850.html"
+     },
+     {
+      "name": "Strap",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/product-detail/Leopard-Print-18-20-22mm-Quick_1601634015235.html"
+     },
+     {
+      "name": "Charging cable",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/product-detail/Wholesale-60cm-Durable-Smart-Watch-Charger_1600448855128.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 1,
+      "url": "https://www.alibaba.com/showroom/paper-watch-box.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Garment sewing",
+  "topics": [
+   "clothes"
+  ],
+  "equipment_that_stays": [
+   "lockstitch machines",
+   "overlockers",
+   "coverstitch machines",
+   "cutting table and knife",
+   "ironing table"
+  ],
+  "products": [
+   {
+    "product": "Knitwear: T-shirts, hoodies",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "clothes",
+     "class": "knit"
+    },
+    "module_items": [
+     {
+      "name": "size-range patterns",
+      "search": "sewing size-range patterns",
+      "url": "https://www.alibaba.com/showroom/garment-pattern-makers.html"
+     },
+     {
+      "name": "presser feet",
+      "search": "sewing presser feet",
+      "url": "https://www.alibaba.com/product-detail/25Pcs-Silver-Presser-Foot-Sewing-Machine_1600086469409.html"
+     },
+     {
+      "name": "neckline binder",
+      "search": "sewing neckline binder",
+      "url": "https://www.alibaba.com/product-detail/Industrial-sewing-machine-attachment-folder-binder_11000000517741.html"
+     }
+    ],
+    "module_price_usd": 250,
+    "changeover_time": "1 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Insulated jackets",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "clothes",
+     "class": "outer"
+    },
+    "module_items": [
+     {
+      "name": "patterns",
+      "search": "sewing patterns",
+      "url": "https://www.alibaba.com/showroom/garment-pattern-makers.html"
+     },
+     {
+      "name": "zipper feet",
+      "search": "sewing zipper feet",
+      "url": "https://www.alibaba.com/showroom/invisable-zipper-foot.html"
+     },
+     {
+      "name": "snap press",
+      "search": "sewing snap press",
+      "url": "https://www.alibaba.com/product-detail/Cheap-Snap-Button-Fastening-Press-Fixing_1600810914323.html"
+     },
+     {
+      "name": "seam-taping heat press",
+      "search": "sewing seam-taping heat press",
+      "url": "https://www.alibaba.com/product-detail/Hot-air-seam-sealing-tape-hot_1600215725125.html"
+     }
+    ],
+    "module_price_usd": 2500,
+    "changeover_time": "1 shift",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Sweatpants",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "patterns",
+      "search": "sewing patterns",
+      "url": "https://www.alibaba.com/showroom/garment-pattern-makers.html"
+     },
+     {
+      "name": "elastic-insertion attachment",
+      "search": "sewing elastic-insertion attachment",
+      "url": "https://www.alibaba.com/showroom/attachment-sewing-machine-elastic.html"
+     }
+    ],
+    "module_price_usd": 200,
+    "changeover_time": "1 h",
+    "output_per_day": 100,
+    "price_same_product_factory_abroad_usd": 16,
+    "parts_per_piece": [
+     {
+      "name": "Fleece 1.3 m",
+      "price_usd": 6.5,
+      "url": "https://www.alibaba.com/showroom/60-cotton-40-polyester-fleece-knit-fabric.html"
+     },
+     {
+      "name": "Elastic",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/pants-elastic-bands.html"
+     },
+     {
+      "name": "Drawcord",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/showroom/round-drawcord-with-metal-tip.html"
+     },
+     {
+      "name": "Thread",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/showroom/polyester-sewing-thread-40-2-5000y.html"
+     },
+     {
+      "name": "Label and bag",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/product-detail/Low-MOQ-Custom-clothing-woven-labels_1600717043496.html"
+     }
+    ]
+   },
+   {
+    "product": "Children's knitwear",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "children's patterns",
+      "search": "sewing children's patterns",
+      "url": "https://www.alibaba.com/showroom/garment-pattern-makers.html"
+     },
+     {
+      "name": "snap press with dies",
+      "search": "sewing snap press with dies",
+      "url": "https://www.alibaba.com/product-detail/Cheap-Snap-Button-Fastening-Press-Fixing_1600810914323.html"
+     }
+    ],
+    "module_price_usd": 350,
+    "changeover_time": "2 h",
+    "output_per_day": 150,
+    "price_same_product_factory_abroad_usd": 7,
+    "parts_per_piece": [
+     {
+      "name": "Interlock 0.6 m",
+      "price_usd": 2.4,
+      "url": "https://www.alibaba.com/showroom/baby-cotton-interlock-knit-fabric.html"
+     },
+     {
+      "name": "Snaps",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/product-detail/100sets-Plastic-Snaps-Button-Fasteners-Buttons_1600541566375.html"
+     },
+     {
+      "name": "Thread",
+      "price_usd": 0.2,
+      "url": "https://www.alibaba.com/showroom/polyester-sewing-thread-40-2-5000y.html"
+     },
+     {
+      "name": "Label and bag",
+      "price_usd": 0.25,
+      "url": "https://www.alibaba.com/product-detail/Low-MOQ-Custom-clothing-woven-labels_1600717043496.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Bakery",
+  "topics": [
+   "bakery"
+  ],
+  "equipment_that_stays": [
+   "oven",
+   "spiral mixer",
+   "proofing cabinet",
+   "dough divider",
+   "work tables"
+  ],
+  "products": [
+   {
+    "product": "Bread (catalog template)",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "bakery",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "bread pans",
+      "search": "bakery bread pans",
+      "url": "https://www.alibaba.com/product-detail/ZJ-3061110W-food-grade-commercial-non_1600215098008.html"
+     },
+     {
+      "name": "set of 40",
+      "search": "bakery set of 40",
+      "url": "https://www.alibaba.com/showroom/bread-pans-4-strap.html"
+     }
+    ],
+    "module_price_usd": 400,
+    "changeover_time": "30 min",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Baguettes",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "perforated baguette trays",
+      "search": "bakery perforated baguette trays",
+      "url": "https://www.alibaba.com/product-detail/Industrial-5-wava-baguette-tray-aluminized_1601250882556.html"
+     },
+     {
+      "name": "proofing cloths",
+      "search": "bakery proofing cloths",
+      "url": "https://www.alibaba.com/product-detail/100-Pure-Cotton-Canvas-Baker-s_1600190507091.html"
+     }
+    ],
+    "module_price_usd": 450,
+    "changeover_time": "30 min",
+    "output_per_day": 800,
+    "price_same_product_factory_abroad_usd": 1.2,
+    "parts_per_piece": [
+     {
+      "name": "Flour 0.2 kg",
+      "price_usd": 0.11,
+      "url": "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"
+     },
+     {
+      "name": "Yeast, salt",
+      "price_usd": 0.03,
+      "url": "https://www.alibaba.com/product-detail/Baking-Dry-Yeast-powder-500g-Instant_1601001015505.html"
+     },
+     {
+      "name": "Bag",
+      "price_usd": 0.04,
+      "url": "https://www.alibaba.com/product-detail/High-transparent-baguette-bread-food-plastic_1600290504012.html"
+     }
+    ]
+   },
+   {
+    "product": "Burger buns",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "semi-automatic divider-rounder",
+      "search": "bakery semi-automatic divider-rounder",
+      "url": "https://www.alibaba.com/product-detail/Semi-automatic-Dough-Divider-Rounder-Machine_62024650874.html"
+     }
+    ],
+    "module_price_usd": 2500,
+    "changeover_time": "1 h",
+    "output_per_day": 3000,
+    "price_same_product_factory_abroad_usd": 0.35,
+    "parts_per_piece": [
+     {
+      "name": "Flour 0.07 kg",
+      "price_usd": 0.04,
+      "url": "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"
+     },
+     {
+      "name": "Sugar, oil, sesame",
+      "price_usd": 0.03,
+      "url": "https://www.alibaba.com/showroom/hulled-sesame-seeds.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.02,
+      "url": "https://www.alibaba.com/showroom/bun-packaging-bags.html"
+     }
+    ]
+   },
+   {
+    "product": "Cookies, 100 g pack",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "piping nozzles",
+      "search": "bakery piping nozzles",
+      "url": "https://www.alibaba.com/product-detail/Cake-Piping-Icing-Nozzles-Tips-Stainless_62088852696.html"
+     },
+     {
+      "name": "cutters",
+      "search": "bakery cutters",
+      "url": "https://www.alibaba.com/product-detail/12Pcs-Round-Stainless-Steel-Cookie-Cutters_1601287320698.html"
+     },
+     {
+      "name": "trays",
+      "search": "bakery trays",
+      "url": "https://www.alibaba.com/product-detail/600x400-cm-Bakery-Trays-Nonstick-Pastry_1601383687727.html"
+     }
+    ],
+    "module_price_usd": 600,
+    "changeover_time": "1 h",
+    "output_per_day": 1500,
+    "price_same_product_factory_abroad_usd": 1.5,
+    "parts_per_piece": [
+     {
+      "name": "Flour, sugar, butter",
+      "price_usd": 0.25,
+      "url": "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.06,
+      "url": "https://www.alibaba.com/showroom/biscuit-pouch-bag.html"
+     }
+    ]
+   },
+   {
+    "product": "Croissants",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "dough sheeter",
+      "search": "bakery dough sheeter",
+      "url": "https://www.alibaba.com/product-detail/Hot-Selling-520mm-Industrial-Rondo-Croissant_1601198051927.html"
+     }
+    ],
+    "module_price_usd": 3000,
+    "changeover_time": "1 h",
+    "output_per_day": 1500,
+    "price_same_product_factory_abroad_usd": 1,
+    "parts_per_piece": [
+     {
+      "name": "Flour 0.04 kg",
+      "price_usd": 0.03,
+      "url": "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"
+     },
+     {
+      "name": "Butter 0.03 kg",
+      "price_usd": 0.2,
+      "url": "https://www.alibaba.com/showroom/unsalted-butter-82.html"
+     },
+     {
+      "name": "Sugar, yeast",
+      "price_usd": 0.02,
+      "url": "https://www.alibaba.com/showroom/sugar-icumsa-45.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.03,
+      "url": "https://www.alibaba.com/showroom/croissant-plastic-bag.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Furniture and woodworking",
+  "topics": [
+   "furniture"
+  ],
+  "equipment_that_stays": [
+   "CNC router",
+   "edge bander",
+   "boring machine",
+   "dust extraction"
+  ],
+  "products": [
+   {
+    "product": "Panel furniture",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "furniture",
+     "class": "panel"
+    },
+    "module_items": [
+     {
+      "name": "nesting programs",
+      "search": "furniture nesting programs",
+      "url": ""
+     },
+     {
+      "name": "cutters",
+      "search": "furniture cutters",
+      "url": "https://www.alibaba.com/product-detail/MDF-Plywood-Chipboard-Laminate-board-killer_1600142710336.html"
+     },
+     {
+      "name": "hinge jig",
+      "search": "furniture hinge jig",
+      "url": "https://www.alibaba.com/product-detail/35mm-Concealed-Hinge-Jig-Boring-Hole_1600155124187.html"
+     }
+    ],
+    "module_price_usd": 400,
+    "changeover_time": "1 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Shelving unit",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "programs",
+      "search": "furniture programs",
+      "url": ""
+     },
+     {
+      "name": "drilling jig",
+      "search": "furniture drilling jig",
+      "url": "https://www.alibaba.com/product-detail/Woodworking-cabinet-hardware-jig-tool-drill_1601220472577.html"
+     }
+    ],
+    "module_price_usd": 150,
+    "changeover_time": "30 min",
+    "output_per_day": 20,
+    "price_same_product_factory_abroad_usd": 150,
+    "parts_per_piece": [
+     {
+      "name": "Chipboard, 1.5 sheets",
+      "price_usd": 68,
+      "url": "https://www.alibaba.com/product-detail/Eco-friendly-18mm-melamine-chipboard-particle_1601367087461.html"
+     },
+     {
+      "name": "Edge banding",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/product-detail/high-quality-pvc-edge-banding-tape_1601282043897.html"
+     },
+     {
+      "name": "Screws, shelf supports",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/product-detail/Good-quality-Furniture-Screw-M7-50_1600993994430.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "MDF kitchen door",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "door cutter set",
+      "search": "furniture door cutter set",
+      "url": "https://www.alibaba.com/product-detail/8mm-Shank-Door-Panel-Cutters-Raised_1600331218888.html"
+     },
+     {
+      "name": "programs",
+      "search": "furniture programs",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 600,
+    "changeover_time": "1 h",
+    "output_per_day": 60,
+    "price_same_product_factory_abroad_usd": 35,
+    "parts_per_piece": [
+     {
+      "name": "MDF 0.4 m²",
+      "price_usd": 6,
+      "url": "https://www.alibaba.com/product-detail/Wholesale-1220-2440-3mm-12mm-18mm_1600680523116.html"
+     },
+     {
+      "name": "Foil or paint",
+      "price_usd": 5,
+      "url": "https://www.alibaba.com/product-detail/thermo-foil-for-membrane-vacuum-press_60652312705.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 1,
+      "url": "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Chest of drawers",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "drawer-slide jig",
+      "search": "furniture drawer-slide jig",
+      "url": "https://www.alibaba.com/product-detail/Imbot-Woodworking-Cabinet-Drawer-Mounting-Jig_1601390258695.html"
+     },
+     {
+      "name": "programs",
+      "search": "furniture programs",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 250,
+    "changeover_time": "1 h",
+    "output_per_day": 15,
+    "price_same_product_factory_abroad_usd": 160,
+    "parts_per_piece": [
+     {
+      "name": "Chipboard, 1.2 sheets",
+      "price_usd": 54,
+      "url": "https://www.alibaba.com/product-detail/Eco-friendly-18mm-melamine-chipboard-particle_1601367087461.html"
+     },
+     {
+      "name": "Drawer slides ×4 pairs",
+      "price_usd": 12,
+      "url": "https://www.alibaba.com/product-detail/Prompt-goods-400mm-500mm-3-fold_62455774014.html"
+     },
+     {
+      "name": "Handles",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/product-detail/Aluminium-Cabinet-Furniture-Hardware-Gold-Black_1600074389065.html"
+     },
+     {
+      "name": "Edge banding",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/product-detail/high-quality-pvc-edge-banding-tape_1601282043897.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 5,
+      "url": "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Children's bed",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "radius cutters",
+      "search": "furniture radius cutters",
+      "url": "https://www.alibaba.com/showroom/radius-router-bit.html"
+     },
+     {
+      "name": "programs",
+      "search": "furniture programs",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 300,
+    "changeover_time": "1 h",
+    "output_per_day": 10,
+    "price_same_product_factory_abroad_usd": 200,
+    "parts_per_piece": [
+     {
+      "name": "Chipboard and MDF",
+      "price_usd": 70,
+      "url": "https://www.alibaba.com/product-detail/Eco-friendly-18mm-melamine-chipboard-particle_1601367087461.html"
+     },
+     {
+      "name": "Fasteners",
+      "price_usd": 8,
+      "url": "https://www.alibaba.com/product-detail/15-9-5mm-Minifix-Furniture-Connector_1600763347085.html"
+     },
+     {
+      "name": "Edge banding",
+      "price_usd": 5,
+      "url": "https://www.alibaba.com/product-detail/high-quality-pvc-edge-banding-tape_1601282043897.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 6,
+      "url": "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Jewelry",
+  "topics": [
+   "jewelry"
+  ],
+  "equipment_that_stays": [
+   "vacuum casting machine",
+   "burnout furnace",
+   "polishing machine",
+   "laser welder",
+   "ultrasonic cleaner"
+  ],
+  "products": [
+   {
+    "product": "Catalog template items",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "jewelry",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "rubber molds and wax patterns",
+      "search": "jewelry rubber molds and wax patterns",
+      "url": "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"
+     }
+    ],
+    "module_price_usd": 300,
+    "changeover_time": "1 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Rings, 925 silver",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "molds and wax patterns for the size range",
+      "search": "jewelry molds and wax patterns for the size range",
+      "url": "https://www.alibaba.com/showroom/jewelry-wax-models.html"
+     }
+    ],
+    "module_price_usd": 300,
+    "changeover_time": "1 h",
+    "output_per_day": 25,
+    "price_same_product_factory_abroad_usd": 25,
+    "parts_per_piece": [
+     {
+      "name": "925 silver, 4 g",
+      "price_usd": 4,
+      "url": "https://www.alibaba.com/showroom/casting-grain-silver.html"
+     },
+     {
+      "name": "CZ stone",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/showroom/aaaaa-cz-stone.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Earrings, 925 silver",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "molds",
+      "search": "jewelry molds",
+      "url": "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"
+     },
+     {
+      "name": "clasp tool",
+      "search": "jewelry clasp tool",
+      "url": "https://www.alibaba.com/showroom/earring-set-tool-kit.html"
+     }
+    ],
+    "module_price_usd": 250,
+    "changeover_time": "1 h",
+    "output_per_day": 30,
+    "price_same_product_factory_abroad_usd": 22,
+    "parts_per_piece": [
+     {
+      "name": "925 silver, 3 g",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/casting-grain-silver.html"
+     },
+     {
+      "name": "Clasps",
+      "price_usd": 0.6,
+      "url": "https://www.alibaba.com/product-detail/S925-Sterling-Silver-Ear-Hook-Earrings_1601460913612.html"
+     },
+     {
+      "name": "Stones",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/aaaaa-cz-stone.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Pendants, 925 silver",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "molds",
+      "search": "jewelry molds",
+      "url": "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"
+     }
+    ],
+    "module_price_usd": 200,
+    "changeover_time": "30 min",
+    "output_per_day": 40,
+    "price_same_product_factory_abroad_usd": 18,
+    "parts_per_piece": [
+     {
+      "name": "925 silver, 2.5 g",
+      "price_usd": 2.5,
+      "url": "https://www.alibaba.com/showroom/casting-grain-silver.html"
+     },
+     {
+      "name": "Bail",
+      "price_usd": 0.2,
+      "url": "https://www.alibaba.com/product-detail/S925-Sterling-Silver-23mm-Pinch-Bail_1601385354302.html"
+     },
+     {
+      "name": "Stone",
+      "price_usd": 0.4,
+      "url": "https://www.alibaba.com/showroom/aaaaa-cz-stone.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Wedding bands, 14K gold",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "molds",
+      "search": "jewelry molds",
+      "url": "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"
+     },
+     {
+      "name": "engraving templates",
+      "search": "jewelry engraving templates",
+      "url": "https://www.alibaba.com/showroom/manual-ring-engraving-machine.html"
+     }
+    ],
+    "module_price_usd": 500,
+    "changeover_time": "1 h",
+    "output_per_day": 15,
+    "price_same_product_factory_abroad_usd": 320,
+    "parts_per_piece": [
+     {
+      "name": "14K gold, 3 g",
+      "price_usd": 165,
+      "url": "https://www.alibaba.com/showroom/gold-casting-grain.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Chains",
+    "status": "needs other equipment",
+    "catalog_ref": null,
+    "module_items": [],
+    "module_price_usd": 0,
+    "changeover_time": "—",
+    "output_per_day": 20,
+    "price_same_product_factory_abroad_usd": 30,
+    "needs": "not a module: needs a chain-making machine, about $4,000",
+    "parts_per_piece": [
+     {
+      "name": "925 silver, 5 g",
+      "price_usd": 5,
+      "url": ""
+     },
+     {
+      "name": "Clasp",
+      "price_usd": 0.4,
+      "url": "https://www.alibaba.com/showroom/colored-lobster-clasps.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Costume jewelry",
+  "topics": [
+   "costume"
+  ],
+  "equipment_that_stays": [
+   "alloy casting",
+   "tumbler",
+   "plating line",
+   "assembly tables"
+  ],
+  "products": [
+   {
+    "product": "Catalog template items",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "costume",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "silicone molds",
+      "search": "jewelry silicone molds",
+      "url": "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"
+     }
+    ],
+    "module_price_usd": 150,
+    "changeover_time": "30 min",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Bracelets",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "link molds",
+      "search": "jewelry link molds",
+      "url": "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"
+     },
+     {
+      "name": "mandrels",
+      "search": "jewelry mandrels",
+      "url": "https://www.alibaba.com/product-detail/Bracelet-Mandrel-Oval-Shape-Set-of_1600180667200.html"
+     }
+    ],
+    "module_price_usd": 200,
+    "changeover_time": "30 min",
+    "output_per_day": 300,
+    "price_same_product_factory_abroad_usd": 4,
+    "parts_per_piece": [
+     {
+      "name": "Links",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/showroom/stainless-steel-cuban-link.html"
+     },
+     {
+      "name": "Clasp",
+      "price_usd": 0.08,
+      "url": "https://www.alibaba.com/showroom/colored-lobster-clasps.html"
+     },
+     {
+      "name": "Plating",
+      "price_usd": 0.12,
+      "url": "https://www.alibaba.com/showroom/jewelry-small-plating-machine.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.1,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Keychains",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "molds",
+      "search": "jewelry molds",
+      "url": "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"
+     },
+     {
+      "name": "split rings",
+      "search": "jewelry split rings",
+      "url": "https://www.alibaba.com/showroom/split-ring-25mm.html"
+     }
+    ],
+    "module_price_usd": 150,
+    "changeover_time": "30 min",
+    "output_per_day": 400,
+    "price_same_product_factory_abroad_usd": 2.5,
+    "parts_per_piece": [
+     {
+      "name": "Alloy",
+      "price_usd": 0.2,
+      "url": "https://www.alibaba.com/showroom/zinc-zamak-3.html"
+     },
+     {
+      "name": "Enamel",
+      "price_usd": 0.08,
+      "url": "https://www.alibaba.com/countrysearch/CN/paints-enamel.html"
+     },
+     {
+      "name": "Ring",
+      "price_usd": 0.04,
+      "url": "https://www.alibaba.com/showroom/split-ring-25mm.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.05,
+      "url": "https://www.alibaba.com/showroom/ring-boxes.html"
+     }
+    ]
+   },
+   {
+    "product": "Pins",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "molds",
+      "search": "jewelry molds",
+      "url": "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"
+     },
+     {
+      "name": "enamel dispensers",
+      "search": "jewelry enamel dispensers",
+      "url": "https://www.alibaba.com/showroom/enamel-badge-coloring-machine.html"
+     }
+    ],
+    "module_price_usd": 400,
+    "changeover_time": "1 h",
+    "output_per_day": 500,
+    "price_same_product_factory_abroad_usd": 2,
+    "parts_per_piece": [
+     {
+      "name": "Alloy",
+      "price_usd": 0.12,
+      "url": "https://www.alibaba.com/showroom/zinc-zamak-3.html"
+     },
+     {
+      "name": "Enamel",
+      "price_usd": 0.06,
+      "url": "https://www.alibaba.com/countrysearch/CN/paints-enamel.html"
+     },
+     {
+      "name": "Pin with clutch",
+      "price_usd": 0.05,
+      "url": "https://www.alibaba.com/product-detail/Badge-clutch-pin-backings-set-pvc_60812749693.html"
+     },
+     {
+      "name": "Packaging",
+      "price_usd": 0.05,
+      "url": "https://www.alibaba.com/product-detail/Enamel_Pin_Backing_Cards_Custom_Pin_Badge_Custom_Metal_Brooch_Pins_60817323182.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Desktop CNC machines",
+  "topics": [
+   "cnc"
+  ],
+  "equipment_that_stays": [
+   "assembly area",
+   "router for own parts",
+   "laser machine",
+   "run-in stand"
+  ],
+  "products": [
+   {
+    "product": "CNC router (catalog template)",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "cnc",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "frame assembly jig",
+      "search": "CNC frame assembly jig",
+      "url": ""
+     },
+     {
+      "name": "run-in programs",
+      "search": "CNC run-in programs",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 500,
+    "changeover_time": "1 shift",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "20 W laser engraver",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "gantry jig",
+      "search": "CNC gantry jig",
+      "url": ""
+     },
+     {
+      "name": "alignment stand",
+      "search": "CNC alignment stand",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 300,
+    "changeover_time": "4 h",
+    "output_per_day": 6,
+    "price_same_product_factory_abroad_usd": 280,
+    "parts_per_piece": [
+     {
+      "name": "Aluminum extrusion",
+      "price_usd": 25,
+      "url": "https://www.alibaba.com/product-detail/2020-3030-4040-4080-Industrial-Extruded_1600615046597.html"
+     },
+     {
+      "name": "Laser module",
+      "price_usd": 60,
+      "url": "https://www.alibaba.com/product-detail/LASER-TREE-K20-20W-Optical-Power_1601048872707.html"
+     },
+     {
+      "name": "Stepper motors ×2",
+      "price_usd": 20,
+      "url": "https://www.alibaba.com/product-detail/17HS15-1704S-Casun-DC-24V-1_1600087867109.html"
+     },
+     {
+      "name": "Controller",
+      "price_usd": 15,
+      "url": "https://www.alibaba.com/product-detail/New-32-bits-GRBL-Control-Board_1600464729169.html"
+     },
+     {
+      "name": "Power supply",
+      "price_usd": 10,
+      "url": "https://www.alibaba.com/product-detail/S-120-24-switching-power-supply_60022969819.html"
+     },
+     {
+      "name": "Belts and pulleys",
+      "price_usd": 8,
+      "url": "https://www.alibaba.com/product-detail/GT2-Timing-Belt-Tensioner-Idler-Pulley_1600598774689.html"
+     }
+    ]
+   },
+   {
+    "product": "3D printer",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "frame jig",
+      "search": "CNC frame jig",
+      "url": ""
+     },
+     {
+      "name": "calibration stand",
+      "search": "CNC calibration stand",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 400,
+    "changeover_time": "4 h",
+    "output_per_day": 6,
+    "price_same_product_factory_abroad_usd": 250,
+    "parts_per_piece": [
+     {
+      "name": "Frame",
+      "price_usd": 30,
+      "url": "https://www.alibaba.com/product-detail/3D-Printer-Frame-Kit-20x20-20x40_60567369181.html"
+     },
+     {
+      "name": "Extruder with hotend",
+      "price_usd": 18,
+      "url": "https://www.alibaba.com/product-detail/Trianglelab-DDE-V2-Orbiter-2-0_1600640457359.html"
+     },
+     {
+      "name": "Heated bed",
+      "price_usd": 15,
+      "url": "https://www.alibaba.com/product-detail/24v-235-235mm-250-250mm-flexible_62020704310.html"
+     },
+     {
+      "name": "Stepper motors ×4",
+      "price_usd": 28,
+      "url": "https://www.alibaba.com/product-detail/17HS15-1704S-Casun-DC-24V-1_1600087867109.html"
+     },
+     {
+      "name": "Control board",
+      "price_usd": 15,
+      "url": "https://www.alibaba.com/product-detail/Mellow-5-Axis-FLY-D5-V1-1601209356629.html"
+     },
+     {
+      "name": "Display",
+      "price_usd": 8,
+      "url": "https://www.alibaba.com/product-detail/Ender-3-12864-LCD-Screen-Display-1600582380469.html"
+     },
+     {
+      "name": "Power supply",
+      "price_usd": 12,
+      "url": "https://www.alibaba.com/product-detail/S-120-24-switching-power-supply_60022969819.html"
+     }
+    ]
+   },
+   {
+    "product": "Cutting plotter",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "assembly jig",
+      "search": "CNC assembly jig",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 250,
+    "changeover_time": "4 h",
+    "output_per_day": 8,
+    "price_same_product_factory_abroad_usd": 160,
+    "parts_per_piece": [
+     {
+      "name": "Housing",
+      "price_usd": 20,
+      "url": ""
+     },
+     {
+      "name": "Blade carriage",
+      "price_usd": 10,
+      "url": "https://www.alibaba.com/product-detail/Roland-Graphtec-printer-cutting-plotter-blade_1600069173085.html"
+     },
+     {
+      "name": "Stepper motors ×2",
+      "price_usd": 14,
+      "url": "https://www.alibaba.com/product-detail/17HS15-1704S-Casun-DC-24V-1_1600087867109.html"
+     },
+     {
+      "name": "Control board",
+      "price_usd": 12,
+      "url": "https://www.alibaba.com/product-detail/Mellow-5-Axis-FLY-D5-V1-1601209356629.html"
+     },
+     {
+      "name": "Pinch rollers",
+      "price_usd": 8,
+      "url": "https://www.alibaba.com/product-detail/10PCS-Rubber-Plotter-Pinch-Roller-Wheel_62488557673.html"
+     },
+     {
+      "name": "Power supply",
+      "price_usd": 6,
+      "url": "https://www.alibaba.com/product-detail/S-120-24-switching-power-supply_60022969819.html"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "group": "Measuring instruments",
+  "topics": [
+   "instruments"
+  ],
+  "equipment_that_stays": [
+   "ESD assembly",
+   "soldering stations",
+   "calibration stand",
+   "programmer"
+  ],
+  "products": [
+   {
+    "product": "Catalog template instrument",
+    "status": "in catalog",
+    "catalog_ref": {
+     "topic": "instruments",
+     "class": null
+    },
+    "module_items": [
+     {
+      "name": "nests",
+      "search": "nests",
+      "url": ""
+     },
+     {
+      "name": "calibrator",
+      "search": "calibrator",
+      "url": "https://www.alibaba.com/product-detail/TUNKIA-AC-DC-Digital-Multimeter-Tester_1600938968981.html"
+     }
+    ],
+    "module_price_usd": 800,
+    "changeover_time": "2 h",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": null,
+    "parts_per_piece": []
+   },
+   {
+    "product": "Multimeter",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "nests",
+      "search": "nests",
+      "url": ""
+     },
+     {
+      "name": "calibrator",
+      "search": "calibrator",
+      "url": "https://www.alibaba.com/product-detail/TUNKIA-AC-DC-Digital-Multimeter-Tester_1600938968981.html"
+     }
+    ],
+    "module_price_usd": 800,
+    "changeover_time": "2 h",
+    "output_per_day": 80,
+    "price_same_product_factory_abroad_usd": 15,
+    "parts_per_piece": [
+     {
+      "name": "Board",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/pcb-for-digital-multimeter.html"
+     },
+     {
+      "name": "Display",
+      "price_usd": 1,
+      "url": "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 1.5,
+      "url": "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"
+     },
+     {
+      "name": "Test leads",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/product-detail/Silicone-Multimeter-Test-Leads-Kit-Precision_1600106359821.html"
+     },
+     {
+      "name": "Rotary switch",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/multi-position-switch.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.4,
+      "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html"
+     }
+    ]
+   },
+   {
+    "product": "Infrared thermometer",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "reference blackbody for calibration",
+      "search": "reference blackbody for calibration",
+      "url": "https://www.alibaba.com/product-detail/CEM-BX-500-500C-932F-Portable_1600744178941.html"
+     }
+    ],
+    "module_price_usd": 1200,
+    "changeover_time": "2 h",
+    "output_per_day": 60,
+    "price_same_product_factory_abroad_usd": 18,
+    "parts_per_piece": [
+     {
+      "name": "IR sensor",
+      "price_usd": 2.5,
+      "url": "https://www.alibaba.com/product-detail/Hot-Sell-Non-contact-Infrared-Temperature_1600053417361.html"
+     },
+     {
+      "name": "Board",
+      "price_usd": 2,
+      "url": "https://www.alibaba.com/showroom/electronic-meter-pcb-assembly.html"
+     },
+     {
+      "name": "Display",
+      "price_usd": 0.8,
+      "url": "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"
+     },
+     {
+      "name": "Laser pointer",
+      "price_usd": 0.3,
+      "url": "https://www.alibaba.com/product-detail/Red-Dot-Focusable-3v-Laser-Diode_1600398163875.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 1.2,
+      "url": "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.4,
+      "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html"
+     }
+    ]
+   },
+   {
+    "product": "Laser distance meter",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "optical alignment stand",
+      "search": "optical alignment stand",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 1500,
+    "changeover_time": "3 h",
+    "output_per_day": 40,
+    "price_same_product_factory_abroad_usd": 30,
+    "parts_per_piece": [
+     {
+      "name": "Laser module",
+      "price_usd": 6,
+      "url": "https://www.alibaba.com/product-detail/Automatic-Laser-Distance-Sensor-Modbus-40m_1601200375895.html"
+     },
+     {
+      "name": "Board",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/electronic-meter-pcb-assembly.html"
+     },
+     {
+      "name": "Display",
+      "price_usd": 1,
+      "url": "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 2,
+      "url": "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html"
+     }
+    ]
+   },
+   {
+    "product": "CO₂ monitor",
+    "status": "new",
+    "catalog_ref": null,
+    "module_items": [
+     {
+      "name": "gas calibration chamber",
+      "search": "gas calibration chamber",
+      "url": ""
+     }
+    ],
+    "module_price_usd": 1000,
+    "changeover_time": "2 h",
+    "output_per_day": 40,
+    "price_same_product_factory_abroad_usd": 45,
+    "parts_per_piece": [
+     {
+      "name": "NDIR sensor",
+      "price_usd": 12,
+      "url": "https://www.alibaba.com/product-detail/MH-Z19-MH-Z19B-NDIR-Infrared_60664884475.html"
+     },
+     {
+      "name": "Board",
+      "price_usd": 3,
+      "url": "https://www.alibaba.com/showroom/electronic-meter-pcb-assembly.html"
+     },
+     {
+      "name": "Display",
+      "price_usd": 2,
+      "url": "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"
+     },
+     {
+      "name": "Housing",
+      "price_usd": 2,
+      "url": "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"
+     },
+     {
+      "name": "Box",
+      "price_usd": 0.5,
+      "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html"
+     }
+    ]
+   },
+   {
+    "product": "Digital caliper",
+    "status": "needs other equipment",
+    "catalog_ref": null,
+    "module_items": [],
+    "module_price_usd": 0,
+    "changeover_time": "—",
+    "output_per_day": null,
+    "price_same_product_factory_abroad_usd": 12,
+    "needs": "not a module: needs machining and scale grinding",
+    "parts_per_piece": [
+     {
+      "name": "Steel beam with slider",
+      "price_usd": 4,
+      "url": ""
+     },
+     {
+      "name": "Electronic unit",
+      "price_usd": 1.5,
+      "url": ""
+     },
+     {
+      "name": "Case",
+      "price_usd": 0.8,
+      "url": ""
+     }
+    ]
+   }
+  ]
+ }
+]

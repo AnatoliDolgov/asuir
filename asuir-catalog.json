@@ -1,0 +1,1170 @@
+{
+ "drone": {
+  "topic": "Drones & Radioelectronics",
+  "classes": {
+   "standard": {
+    "class_name": "Drones & Radioelectronics",
+    "equipment": "Compact ESD Drone Assembly Line",
+    "equipment_price_usd": 25000,
+    "output_per_day": 20,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 423,
+    "parts_per_piece": [
+     {
+      "name": "Carbon fiber frame kit 10\" (T700 Carbon Kit)",
+      "qty": 1,
+      "price_usd": 26
+     },
+     {
+      "name": "Stack: Flight Controller F7 + ESC 60A",
+      "qty": 1,
+      "price_usd": 45
+     },
+     {
+      "name": "Brushless motors 2807 1300KV (4 pcs)",
+      "qty": 1,
+      "price_usd": 55
+     },
+     {
+      "name": "VTX 5.8GHz + FPV Camera",
+      "qty": 1,
+      "price_usd": 35
+     },
+     {
+      "name": "LiPo Battery 6S 5000mAh 100C",
+      "qty": 1,
+      "price_usd": 25
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Workshop rent 50 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 30
+     },
+     {
+      "name": "Soldering station & toolset (per 1 worker)",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Process consumables: solder, flux, bits (per 1 worker)",
+      "qty": 2,
+      "price_usd_per_day": 2.5
+     },
+     {
+      "name": "Logistics and facility utilities",
+      "qty": 1,
+      "price_usd_per_day": 15
+     }
+    ]
+   }
+  }
+ },
+ "phone": {
+  "topic": "Smartphones & Mobile Phones",
+  "classes": {
+   "budget": {
+    "class_name": "Budget (Unisoc/Helio G, 4/64 GB, IPS, plastic)",
+    "equipment": "Budget Smartphone Assembly Line",
+    "equipment_price_usd": 6000,
+    "output_per_day": 250,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 85,
+    "parts_per_piece": [
+     {
+      "name": "Display module 6.5\" HD+ IPS with touchscreen",
+      "qty": 1,
+      "price_usd": 9
+     },
+     {
+      "name": "SoC Motherboard (Unisoc T606 / 4GB / 64GB)",
+      "qty": 1,
+      "price_usd": 22
+     },
+     {
+      "name": "Camera module set (Main 13MP + Front 5MP)",
+      "qty": 1,
+      "price_usd": 4
+     },
+     {
+      "name": "Li-Polymer Battery 5000 mAh",
+      "qty": 1,
+      "price_usd": 5
+     },
+     {
+      "name": "Plastic housing, buttons, SIM tray",
+      "qty": 1,
+      "price_usd": 3
+     },
+     {
+      "name": "Speaker, vibration motor, Type-C sub-board, antennas",
+      "qty": 1,
+      "price_usd": 2.5
+     },
+     {
+      "name": "Charger 10W + cable + retail box",
+      "qty": 1,
+      "price_usd": 2
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Assembly box rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Pneumatic press & electric torque drivers (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Consumables: thermal tape, adhesives, wipes",
+      "qty": 3,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Logistics & components delivery",
+      "qty": 1,
+      "price_usd_per_day": 15
+     }
+    ]
+   },
+   "mid": {
+    "class_name": "Mid-range (Dimensity/Snapdragon 7, 8/256 GB, AMOLED, metal)",
+    "equipment": "Mid-range Smartphone Assembly Line",
+    "equipment_price_usd": 9000,
+    "output_per_day": 150,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 240,
+    "parts_per_piece": [
+     {
+      "name": "AMOLED display module 6.7\" FHD+ 120Hz",
+      "qty": 1,
+      "price_usd": 28
+     },
+     {
+      "name": "SoC Motherboard (Dimensity 7050 / 8GB / 256GB)",
+      "qty": 1,
+      "price_usd": 85
+     },
+     {
+      "name": "Camera module set (50MP OIS + 8MP ultrawide + 16MP front)",
+      "qty": 1,
+      "price_usd": 18
+     },
+     {
+      "name": "Li-Polymer Battery 5000 mAh",
+      "qty": 1,
+      "price_usd": 6
+     },
+     {
+      "name": "Metal frame, glass back panel, buttons",
+      "qty": 1,
+      "price_usd": 12
+     },
+     {
+      "name": "Stereo speakers, vibration motor, Type-C sub-board, NFC, antennas",
+      "qty": 1,
+      "price_usd": 6
+     },
+     {
+      "name": "Charger 67W + cable + retail box",
+      "qty": 1,
+      "price_usd": 6
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Assembly box rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Pneumatic press & electric torque drivers (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Consumables: thermal tape, adhesives, wipes",
+      "qty": 3,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Logistics & components delivery",
+      "qty": 1,
+      "price_usd_per_day": 15
+     }
+    ]
+   }
+  }
+ },
+ "tablet": {
+  "topic": "Tablets & Mobile PCs",
+  "classes": {
+   "standard": {
+    "class_name": "Tablets & Mobile PCs",
+    "equipment": "Desktop Tablet Assembly Complex",
+    "equipment_price_usd": 18000,
+    "output_per_day": 35,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 150,
+    "parts_per_piece": [
+     {
+      "name": "Display assembly (IPS/OLED 10.1\")",
+      "qty": 1,
+      "price_usd": 35
+     },
+     {
+      "name": "SoC Motherboard (ARM)",
+      "qty": 1,
+      "price_usd": 45
+     },
+     {
+      "name": "Li-Polymer battery 6000mAh",
+      "qty": 1,
+      "price_usd": 10
+     },
+     {
+      "name": "Ultra-thin chassis & flex cables",
+      "qty": 1,
+      "price_usd": 8
+     },
+     {
+      "name": "Packaging retail box + adapter",
+      "qty": 1,
+      "price_usd": 2
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Clean area rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Vacuum tooling and screwdriver toolkit (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Consumables: thermal tape, cleaners, wipes",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Batch logistics & delivery",
+      "qty": 1,
+      "price_usd_per_day": 12
+     }
+    ]
+   }
+  }
+ },
+ "tv": {
+  "topic": "TVs & Displays",
+  "classes": {
+   "small": {
+    "class_name": "32–43\" (HD/FHD, basic Smart board)",
+    "equipment": "32–43\" TV Assembly Line",
+    "equipment_price_usd": 25000,
+    "output_per_day": 40,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 180,
+    "parts_per_piece": [
+     {
+      "name": "LCD panel 43\" FHD (open cell)",
+      "qty": 1,
+      "price_usd": 55
+     },
+     {
+      "name": "Smart TV board (Android TV, 1.5/8 GB)",
+      "qty": 1,
+      "price_usd": 15
+     },
+     {
+      "name": "Power supply unit",
+      "qty": 1,
+      "price_usd": 8
+     },
+     {
+      "name": "LED backlight arrays",
+      "qty": 1,
+      "price_usd": 6
+     },
+     {
+      "name": "Plastic housing, stand, speakers",
+      "qty": 1,
+      "price_usd": 12
+     },
+     {
+      "name": "Remote control and packaging",
+      "qty": 1,
+      "price_usd": 4
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Assembly workshop rent 60 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 35
+     },
+     {
+      "name": "Tooling: vacuum suction lifters, power screwdrivers (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Consumables: insulation, fasteners, stickers",
+      "qty": 3,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Large-screen logistics & freight",
+      "qty": 1,
+      "price_usd_per_day": 18
+     }
+    ]
+   },
+   "large": {
+    "class_name": "55–65\" (4K, powerful Smart board)",
+    "equipment": "55–65\" 4K TV Assembly Line",
+    "equipment_price_usd": 35000,
+    "output_per_day": 20,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 550,
+    "parts_per_piece": [
+     {
+      "name": "LCD panel 65\" 4K UHD (open cell)",
+      "qty": 1,
+      "price_usd": 190
+     },
+     {
+      "name": "4K Smart TV board (2/16 GB, HDR)",
+      "qty": 1,
+      "price_usd": 30
+     },
+     {
+      "name": "Inverter power supply unit",
+      "qty": 1,
+      "price_usd": 18
+     },
+     {
+      "name": "LED backlight arrays",
+      "qty": 1,
+      "price_usd": 15
+     },
+     {
+      "name": "Housing with metal frame & stereo speakers",
+      "qty": 1,
+      "price_usd": 28
+     },
+     {
+      "name": "Remote control and packaging",
+      "qty": 1,
+      "price_usd": 8
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Assembly workshop rent 60 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 35
+     },
+     {
+      "name": "Tooling: vacuum suction lifters, power screwdrivers (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Consumables: insulation, fasteners, stickers",
+      "qty": 3,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Large-screen logistics & freight",
+      "qty": 1,
+      "price_usd_per_day": 18
+     }
+    ]
+   }
+  }
+ },
+ "pc": {
+  "topic": "Telecom & Laptops",
+  "classes": {
+   "standard": {
+    "class_name": "Telecom & Laptops",
+    "equipment": "SKD Laptop Assembly Line",
+    "equipment_price_usd": 20000,
+    "output_per_day": 20,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 380,
+    "parts_per_piece": [
+     {
+      "name": "Barebone Chassis 15.6\" (case, keyboard, battery 5000mAh)",
+      "qty": 1,
+      "price_usd": 85
+     },
+     {
+      "name": "IPS Display Panel 15.6\" FHD (1920x1080)",
+      "qty": 1,
+      "price_usd": 32
+     },
+     {
+      "name": "Intel SoC Motherboard + cooling system",
+      "qty": 1,
+      "price_usd": 68
+     },
+     {
+      "name": "RAM SO-DIMM 16GB DDR4/DDR5",
+      "qty": 1,
+      "price_usd": 22
+     },
+     {
+      "name": "Storage M.2 NVMe SSD 512GB",
+      "qty": 1,
+      "price_usd": 18
+     },
+     {
+      "name": "65W Type-C Adapter + Wi-Fi 6 module + box",
+      "qty": 1,
+      "price_usd": 10
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Assembly workshop rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "BIOS programming station & torque drivers (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 2.5
+     },
+     {
+      "name": "Thermal paste, protective film, cleaners",
+      "qty": 2,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Batch shipping & logistics",
+      "qty": 1,
+      "price_usd_per_day": 15
+     }
+    ]
+   }
+  }
+ },
+ "furniture": {
+  "topic": "Furniture Woodworking",
+  "classes": {
+   "panel": {
+    "class_name": "Panel furniture (chipboard/MDF, CNC nesting)",
+    "equipment": "Compact CNC Furniture Nesting Center",
+    "equipment_price_usd": 28000,
+    "output_per_day": 15,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 280,
+    "parts_per_piece": [
+     {
+      "name": "Laminated MDF / Chipboard (4 sq.m)",
+      "qty": 4,
+      "price_usd": 15
+     },
+     {
+      "name": "PVC Edge banding tape 2mm",
+      "qty": 1,
+      "price_usd": 5
+     },
+     {
+      "name": "Furniture hardware & hinges",
+      "qty": 1,
+      "price_usd": 8
+     },
+     {
+      "name": "Mirror / Facade panel",
+      "qty": 1,
+      "price_usd": 22
+     },
+     {
+      "name": "Corrugated cardboard packaging",
+      "qty": 1,
+      "price_usd": 6
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Workshop rent with dust extraction 80 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 35
+     },
+     {
+      "name": "Carbide end mills and ISO30 collets (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 6
+     },
+     {
+      "name": "Rail lubricant, dust filter bags, air filters",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "380V Power supply and waste disposal",
+      "qty": 1,
+      "price_usd_per_day": 18
+     }
+    ]
+   },
+   "solid": {
+    "class_name": "Solid wood (milling, sanding, finishing)",
+    "equipment": "Solid Wood Furniture Workshop",
+    "equipment_price_usd": 45000,
+    "output_per_day": 6,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 650,
+    "parts_per_piece": [
+     {
+      "name": "Oak/beech furniture panel (0.12 cu.m)",
+      "qty": 1,
+      "price_usd": 110
+     },
+     {
+      "name": "Hardware and fasteners",
+      "qty": 1,
+      "price_usd": 15
+     },
+     {
+      "name": "Lacquer / finishing oil",
+      "qty": 1,
+      "price_usd": 12
+     },
+     {
+      "name": "Sanding materials",
+      "qty": 1,
+      "price_usd": 5
+     },
+     {
+      "name": "Packaging: cardboard, corners, stretch film",
+      "qty": 1,
+      "price_usd": 10
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Workshop rent with dust extraction & drying room 120 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 50
+     },
+     {
+      "name": "Router bits, saw blades, planer knives (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 6
+     },
+     {
+      "name": "Sanding belts, dust filters (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 2.5
+     },
+     {
+      "name": "380V Power supply and waste disposal",
+      "qty": 1,
+      "price_usd_per_day": 25
+     }
+    ]
+   }
+  }
+ },
+ "clothes": {
+  "topic": "Apparel Sewing",
+  "classes": {
+   "knit": {
+    "class_name": "Knitwear (T-shirts, hoodies)",
+    "equipment": "Knitwear Sewing Mini-Shop",
+    "equipment_price_usd": 18000,
+    "output_per_day": 120,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 35,
+    "parts_per_piece": [
+     {
+      "name": "Jersey / fleece knit fabric (1.2 m)",
+      "qty": 1.2,
+      "price_usd": 4
+     },
+     {
+      "name": "Rib knit for collar and cuffs (0.2 m)",
+      "qty": 0.2,
+      "price_usd": 3
+     },
+     {
+      "name": "Threads",
+      "qty": 1,
+      "price_usd": 0.3
+     },
+     {
+      "name": "Tags, labels, packaging",
+      "qty": 1,
+      "price_usd": 0.6
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Sewing workshop rent 50 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 30
+     },
+     {
+      "name": "Needles, presser feet, machine oil (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Cutting machine replacement blades & sharpening",
+      "qty": 1,
+      "price_usd_per_day": 3
+     },
+     {
+      "name": "Fabric delivery and scrap removal logistics",
+      "qty": 1,
+      "price_usd_per_day": 14
+     }
+    ]
+   },
+   "outer": {
+    "class_name": "Outerwear (jackets: membrane, insulation)",
+    "equipment": "Jacket Sewing Mini-Shop",
+    "equipment_price_usd": 25000,
+    "output_per_day": 25,
+    "workers": 3,
+    "price_same_product_factory_abroad_usd": 120,
+    "parts_per_piece": [
+     {
+      "name": "Membrane shell fabric (2 m)",
+      "qty": 2,
+      "price_usd": 4.5
+     },
+     {
+      "name": "Lining fabric (1.8 m)",
+      "qty": 1.8,
+      "price_usd": 1.5
+     },
+     {
+      "name": "Synthetic down / Thinsulate insulation (1.5 m)",
+      "qty": 1.5,
+      "price_usd": 3
+     },
+     {
+      "name": "Zippers, snaps, drawcords",
+      "qty": 1,
+      "price_usd": 4
+     },
+     {
+      "name": "Threads and seam sealing tape",
+      "qty": 1,
+      "price_usd": 1.5
+     },
+     {
+      "name": "Tags, labels, packaging",
+      "qty": 1,
+      "price_usd": 1
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Sewing workshop rent 60 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 35
+     },
+     {
+      "name": "Needles, presser feet, machine oil (per worker)",
+      "qty": 3,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Seam sealing press consumables",
+      "qty": 1,
+      "price_usd_per_day": 4
+     },
+     {
+      "name": "Fabric delivery and scrap removal logistics",
+      "qty": 1,
+      "price_usd_per_day": 14
+     }
+    ]
+   }
+  }
+ },
+ "jewelry": {
+  "topic": "Fine Jewelry Casting",
+  "classes": {
+   "standard": {
+    "class_name": "Fine Jewelry Casting",
+    "equipment": "Desktop Jewelry Casting Complex",
+    "equipment_price_usd": 12000,
+    "output_per_day": 25,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 350,
+    "parts_per_piece": [
+     {
+      "name": "Gold/Silver casting granules (10g)",
+      "qty": 10,
+      "price_usd": 8
+     },
+     {
+      "name": "Stone inserts (cubic zirconia)",
+      "qty": 2,
+      "price_usd": 20
+     },
+     {
+      "name": "Jewelry findings",
+      "qty": 1,
+      "price_usd": 5
+     },
+     {
+      "name": "Investment powder & consumables",
+      "qty": 1,
+      "price_usd": 20
+     },
+     {
+      "name": "Velvet presentation case",
+      "qty": 1,
+      "price_usd": 5
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Workshop rent with fume exhaust 30 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Graphite crucibles & ceramic flasks (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 5
+     },
+     {
+      "name": "Shielding Argon gas & polishing pastes",
+      "qty": 2,
+      "price_usd_per_day": 3.5
+     },
+     {
+      "name": "Security & precious metals transport",
+      "qty": 1,
+      "price_usd_per_day": 10
+     }
+    ]
+   }
+  }
+ },
+ "cnc": {
+  "topic": "Desktop CNC Machines",
+  "classes": {
+   "standard": {
+    "class_name": "Desktop CNC Machines",
+    "equipment": "Desktop CNC Modular Assembly Line",
+    "equipment_price_usd": 15000,
+    "output_per_day": 4,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 1500,
+    "parts_per_piece": [
+     {
+      "name": "Aluminum frame chassis",
+      "qty": 1,
+      "price_usd": 300
+     },
+     {
+      "name": "Stepper motors kit",
+      "qty": 1,
+      "price_usd": 150
+     },
+     {
+      "name": "CNC Controller board",
+      "qty": 1,
+      "price_usd": 80
+     },
+     {
+      "name": "Spindle and power supply unit",
+      "qty": 1,
+      "price_usd": 200
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Assembly box rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Alignment tools and hex keys (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 2.5
+     },
+     {
+      "name": "Lubricants, M4/M5 hardware, threadlockers",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Heavy metal bedplate freight",
+      "qty": 1,
+      "price_usd_per_day": 15
+     }
+    ]
+   }
+  }
+ },
+ "bakery": {
+  "topic": "Commercial Bakery Line",
+  "classes": {
+   "standard": {
+    "class_name": "Commercial Bakery Line",
+    "equipment": "Compact Rotary Mini-Bakery",
+    "equipment_price_usd": 16000,
+    "output_per_day": 1200,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 1.5,
+    "parts_per_piece": [
+     {
+      "name": "Premium wheat flour (kg)",
+      "qty": 0.6,
+      "price_usd": 0.4
+     },
+     {
+      "name": "Yeast and additives",
+      "qty": 1,
+      "price_usd": 0.05
+     },
+     {
+      "name": "Packaging bags",
+      "qty": 1,
+      "price_usd": 0.08
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Bakery premises rent 60 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 35
+     },
+     {
+      "name": "Baking pans and trays (amortization)",
+      "qty": 2,
+      "price_usd_per_day": 3
+     },
+     {
+      "name": "Detergents, gloves, parchment paper",
+      "qty": 2,
+      "price_usd_per_day": 2.5
+     },
+     {
+      "name": "Oven electric power and local delivery",
+      "qty": 1,
+      "price_usd_per_day": 20
+     }
+    ]
+   }
+  }
+ },
+ "watch": {
+  "topic": "Watch Assembly",
+  "classes": {
+   "quartz": {
+    "class_name": "Simple quartz (Miyota, alloy, mineral glass)",
+    "equipment": "Quartz Watch Assembly Mini-Line",
+    "equipment_price_usd": 5000,
+    "output_per_day": 120,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 35,
+    "parts_per_piece": [
+     {
+      "name": "Miyota 2035 quartz movement",
+      "qty": 1,
+      "price_usd": 1.5
+     },
+     {
+      "name": "Zinc alloy case with mineral glass",
+      "qty": 1,
+      "price_usd": 3.5
+     },
+     {
+      "name": "Dial and hands set",
+      "qty": 1,
+      "price_usd": 1.2
+     },
+     {
+      "name": "Faux leather strap",
+      "qty": 1,
+      "price_usd": 1
+     },
+     {
+      "name": "SR626SW battery",
+      "qty": 1,
+      "price_usd": 0.1
+     },
+     {
+      "name": "Cardboard gift box",
+      "qty": 1,
+      "price_usd": 0.8
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Clean dust-free room rent 30 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Precision watchmaker toolkit (per master)",
+      "qty": 2,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Consumables: finger cots, dust blowers, wipes (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 1
+     },
+     {
+      "name": "Insurance and courier delivery",
+      "qty": 1,
+      "price_usd_per_day": 8
+     }
+    ]
+   },
+   "automatic": {
+    "class_name": "Seiko-level automatic (NH35, 316L steel, sapphire)",
+    "equipment": "Mechanical Watch Assembly Mini-Line (NH35)",
+    "equipment_price_usd": 12000,
+    "output_per_day": 30,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 220,
+    "parts_per_piece": [
+     {
+      "name": "Seiko NH35A automatic movement",
+      "qty": 1,
+      "price_usd": 32
+     },
+     {
+      "name": "316L stainless steel case",
+      "qty": 1,
+      "price_usd": 18
+     },
+     {
+      "name": "Sapphire crystal",
+      "qty": 1,
+      "price_usd": 6
+     },
+     {
+      "name": "Dial and luminous hands",
+      "qty": 1,
+      "price_usd": 6
+     },
+     {
+      "name": "Steel bracelet or leather strap",
+      "qty": 1,
+      "price_usd": 8
+     },
+     {
+      "name": "Gift presentation box",
+      "qty": 1,
+      "price_usd": 5
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Clean dust-free room rent 30 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Precision watchmaker toolkit (per master)",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Watch oils (Moebius), dust blowers",
+      "qty": 2,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Insurance and courier delivery",
+      "qty": 1,
+      "price_usd_per_day": 10
+     }
+    ]
+   }
+  }
+ },
+ "costume": {
+  "topic": "Costume Jewelry Press",
+  "classes": {
+   "standard": {
+    "class_name": "Costume Jewelry Press",
+    "equipment": "Mini Hydraulic Press for Costume Jewelry",
+    "equipment_price_usd": 8000,
+    "output_per_day": 300,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 25,
+    "parts_per_piece": [
+     {
+      "name": "Alloy casting workpiece",
+      "qty": 1,
+      "price_usd": 2
+     },
+     {
+      "name": "Decorative rhinestones / crystals",
+      "qty": 1,
+      "price_usd": 1
+     },
+     {
+      "name": "Fasteners and findings",
+      "qty": 1,
+      "price_usd": 0.5
+     },
+     {
+      "name": "Eco pouch packaging",
+      "qty": 1,
+      "price_usd": 1.5
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Workshop rent 30 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 20
+     },
+     {
+      "name": "Press dies and manual assembly tools (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "UV-curing adhesives, clean wipes",
+      "qty": 2,
+      "price_usd_per_day": 1.5
+     },
+     {
+      "name": "Dispatch and parcel shipping",
+      "qty": 1,
+      "price_usd_per_day": 8
+     }
+    ]
+   }
+  }
+ },
+ "instruments": {
+  "topic": "Precision Instruments",
+  "classes": {
+   "standard": {
+    "class_name": "Precision Instruments",
+    "equipment": "Sensor Calibration and Assembly Bench",
+    "equipment_price_usd": 22000,
+    "output_per_day": 15,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 450,
+    "parts_per_piece": [
+     {
+      "name": "Sensor measurement module",
+      "qty": 1,
+      "price_usd": 120
+     },
+     {
+      "name": "Signal processing controller board",
+      "qty": 1,
+      "price_usd": 65
+     },
+     {
+      "name": "LCD Display module",
+      "qty": 1,
+      "price_usd": 25
+     },
+     {
+      "name": "Shockproof enclosure IP65",
+      "qty": 1,
+      "price_usd": 40
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Laboratory room rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "Calibration standards & instruments (per engineer)",
+      "qty": 2,
+      "price_usd_per_day": 3.5
+     },
+     {
+      "name": "Cables, heat shrink, solder",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Certification & logistics",
+      "qty": 1,
+      "price_usd_per_day": 12
+     }
+    ]
+   }
+  }
+ },
+ "universal": {
+  "topic": "Universal Project",
+  "classes": {
+   "standard": {
+    "class_name": "Universal Project",
+    "equipment": "Universal Production Cell",
+    "equipment_price_usd": 20000,
+    "output_per_day": 25,
+    "workers": 2,
+    "price_same_product_factory_abroad_usd": 200,
+    "parts_per_piece": [
+     {
+      "name": "Primary base raw material",
+      "qty": 1,
+      "price_usd": 40
+     },
+     {
+      "name": "Functional electronic/mechanical units",
+      "qty": 1,
+      "price_usd": 25
+     },
+     {
+      "name": "Protective outer housing",
+      "qty": 1,
+      "price_usd": 12
+     },
+     {
+      "name": "Consumer retail box",
+      "qty": 1,
+      "price_usd": 3
+     }
+    ],
+    "shop_costs_per_day": [
+     {
+      "name": "Workshop premises rent 40 sq.m",
+      "qty": 1,
+      "price_usd_per_day": 25
+     },
+     {
+      "name": "General tooling and workbenches (per worker)",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Workplace consumables and safety gear",
+      "qty": 2,
+      "price_usd_per_day": 2
+     },
+     {
+      "name": "Logistics & operational communications",
+      "qty": 1,
+      "price_usd_per_day": 10
+     }
+    ]
+   }
+  }
+ }
+}
