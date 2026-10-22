@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ASUIR Services - Help</title>
+    <style>
+        :root {
+            --primary-blue: #1f4e78;
+            --light-blue: #2b5b84;
+            --accent-blue: #31859c;
+            --orange-brown: #c65911;
+            --dark-green: #375623;
+            --light-green-bg: #e2efda;
+            --main-green-bg: #c6e0b4;
+            --text-dark: #333333;
+            --border-color: #bfbfbf;
+            --accent-orange: #ed7d31;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6f8;
+            color: var(--text-dark);
+            padding: 30px 15px;
+        }
+
+        /* GLOBAL NAVIGATION PANEL STYLES */
+        .nav-tabs-container {
+            max-width: 950px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 10px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+            .nav-tab:hover {
+                color: var(--orange-brown);
+                border-color: var(--orange-brown);
+                background: #fff8f5;
+            }
+
+            .nav-tab.active-page {
+                color: #ffffff;
+                border-color: var(--primary-blue);
+                background: var(--primary-blue);
+                pointer-events: none;
+                box-shadow: none;
+            }
+
+        /* LANGUAGE SWITCHER TABS */
+        .lang-switcher {
+            max-width: 950px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .lang-btn {
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            background: #e2e8f0;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            cursor: pointer;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            margin-right: 5px;
+            color: #475569;
+            transition: all 0.2s;
+        }
+
+            .lang-btn:hover {
+                background: #f1f5f9;
+            }
+
+            .lang-btn.active-lang {
+                background: #ffffff;
+                color: var(--primary-blue);
+                border-top: 3px solid var(--primary-blue);
+                position: relative;
+                top: 2px;
+            }
+
+        /* MAIN CONTENT HOLDER */
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 35px;
+        }
+
+        .help-content {
+            display: none;
+        }
+
+            .help-content.active-content {
+                display: block;
+            }
+
+        /* TYPOGRAPHY & LAYOUT STYLES */
+        h1 {
+            color: var(--primary-blue);
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--light-blue);
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--primary-blue);
+            font-size: 14px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #334155;
+            text-align: justify;
+        }
+
+        /* CALLOUT BOXES */
+        .platform-mission {
+            background-color: #fdf5f0;
+            border-left: 5px solid var(--accent-orange);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+            .platform-mission h3 {
+                color: var(--orange-brown);
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+
+        .info-highlight {
+            background-color: #e2efda;
+            border-left: 4px solid var(--dark-green);
+            padding: 12px 15px;
+            margin: 15px 0;
+            font-size: 13.5px;
+            border-radius: 3px;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        strong {
+            color: #0f172a;
+        }
+
+        /* ИЛЛЮСТРАЦИИ / СКРИНШОТЫ */
+        .image-container {
+            margin: 15px 0 25px 0;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .screenshot-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .image-caption {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 6px;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: bold;
+        }
+
+        .meta-box {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+            .meta-box p {
+                margin-bottom: 8px;
+                font-size: 13px;
+            }
+
+                .meta-box p:last-child {
+                    margin-bottom: 0;
+                }
+
+        .appendix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+            .appendix-table th, .appendix-table td {
+                border: 1px solid var(--border-color);
+                padding: 10px 12px;
+                font-size: 13px;
+                text-align: left;
+            }
+
+            .appendix-table th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+                color: var(--primary-blue);
+            }
+
+        /* МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            padding-top: 60px;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 500px;
+            margin: auto;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 16px;
+            top: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6c7a8a;
+        }
+
+            .modal-close:hover {
+                color: #1a2632;
+            }
+    </style>
+
+    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFQ8P31GG"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', 'G-KWFQ8P31GG');
+    </script>
+
+</head>
+<body>
+
+    <!-- Навигационная панель АСУИР верхнего уровня -->
+    <div class="nav-tabs-container">
+        <a href="index_ru.html" id="nav-link-dashboard" class="nav-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span id="txt-tab-dashboard">Главная панель</span>
+        </a>
+        <a href="ASUIRGemeniCalculatOptimizer_ru.html" id="nav-link-optimizer" class="nav-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="9" x2="12" y2="15"></line></svg>
+            <span id="txt-tab-asuir">АСУИР</span>
+        </a>
+        <a href="ASUIRServices_ru.html" id="nav-link-services" class="nav-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="9"></line><line x1="9" y1="15" x2="15" y2="15"></line><line x1="12" y1="9" x2="12" y2="15"></line></svg>
+            <span id="txt-tab-services">АСУИР — УСЛУГИ</span>
+        </a>
+        <a href="Help_en.html?lang=ru" id="nav-link-help" class="nav-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span id="txt-tab-help">Справка: производства</span>
+        </a>
+        <a href="#" class="nav-tab active-page">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span id="txt-tab-doc">Справка: услуги</span>
+        </a>
+        <a href="#" onclick="openModal('feedback-modal')" class="nav-tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span id="txt-tab-feedback">Обратная связь</span>
+        </a>
+    </div>
+
+    <!-- Переключатель языков -->
+    <div class="lang-switcher">
+        <button id="btn-ru" class="lang-btn" onclick="switchLang('ru')">Русский (RU)</button>
+        <button id="btn-en" class="lang-btn" onclick="switchLang('en')">English (EN)</button>
+    </div>
+
+    <div class="container">
+
+        <!-- ======================================================== -->
+        <!-- РУССКАЯ ВЕРСИЯ СПРАВКИ -->
+        <!-- ======================================================== -->
+        <div id="content-ru" class="help-content">
+            <h1>АСУИР — генератор сверхэффективных услуг: справка</h1>
+
+            <h2><b>🏥 Процедурное отделение (капельничная терапия)</b></h2>
+
+            <h3>Шаг 1. Открыть страницу</h3>
+            <p>На сайте asuir.org в верхнем меню нажмите третий пункт <b>«АСУИР — УСЛУГИ»</b>. Откроется страница процедурного отделения крупной больницы Лос-Анджелеса (80 кресел).</p>
+
+            <h3>Шаг 2. Прочитать главный вывод</h3>
+            <p>Под заголовком отделения первым идёт абзац <b>«Главное»</b>: сколько процедур в год отделение проводит сегодня и сколько сможет провести с робототехнологическими комплексами, и во сколько больнице обходится одна процедура в каждом случае.</p>
+            <p>Ниже, в разделе <b>«3. Рост производительности»</b>, — таблица с тремя колонками: «1. Сегодня: люди», «2. Люди + устройства», «3. Будущее: робототехнологические комплексы». В ней затраты больницы за год, себестоимость одной процедуры и прибыль отделения за год.</p>
+
+            <h3>Шаг 3. Подставить свои цифры</h3>
+            <p>Прокрутите страницу до раздела <b>«Приложение: расчёт с подтверждающими данными»</b>. Числа в белых рамках можно менять: нажмите на число, сотрите его и введите своё. Все результаты на странице, включая таблицу из шага 2, пересчитываются сразу — нажимать ничего не нужно.</p>
+            <ul>
+                <li><b>«Режим работы»</b> — часы и дни работы, время подготовки кресла между пациентами;</li>
+                <li><b>«Количество персонала в смене»</b> — число медсестёр и вспомогательного персонала в смене, отдельно для каждого варианта;</li>
+                <li><b>«Робототехнологические комплексы»</b> (только колонка 3) — количество комплексов, цена покупки одного комплекса, срок службы, процент на ремонт;</li>
+                <li><b>«Справочная информация общая для всех трех вариантов»</b> — число кресел, длительность процедуры, аренда помещения, стоимость лекарства на одну процедуру, зарплата медсестры, зарплата врача, число врачей, оплата процедуры страховой компанией.</li>
+            </ul>
+
+            <h3>Шаг 4. Изменить список устройств</h3>
+            <p>Ниже, в таблице <b>«Приобретаемые устройства»</b>, можно поменять количество и цену покупки каждого устройства. Название устройства — ссылка: по ней открывается страница продавца.</p>
+
+            <h3>Шаг 5. Посмотреть результат</h3>
+            <p>Под каждым результатом в таблице мелким шрифтом написано, как он получен, например «лекарство $3 000 + прямые затраты $169». Главные строки:</p>
+            <ul>
+                <li>«Полная себестоимость одной процедуры, с учетом стоимости лекарств»;</li>
+                <li>«Прибыль больницы от отделения за год»;</li>
+                <li>«Период окупаемости приобретаемых робототехнологических комплексов и иного оборудования»;</li>
+                <li>«Запас производительности».</li>
+            </ul>
+            <p>В голубой рамке сразу под таблицей написана цена покупки одного комплекса, до которой комплексы обходятся больнице дешевле готовых устройств.</p>
+
+            <h3>Шаг 6. Сохранить расчёт</h3>
+            <p>Внизу страницы нажмите <b>«🖨️ Распечатать / Сохранить PDF»</b>. Откроется окно печати; чтобы получить файл, выберите в нём принтер «Сохранить как PDF».</p>
+            <div class="info-highlight">Введённые цифры страница не запоминает: если её закрыть или обновить, вернутся исходные значения.</div>
+
+            <h2><b>🏥 КТ, МРТ</b></h2>
+            <p>Скоро.</p>
+
+            <div style="font-size: 11px; color: #888888; text-align: justify; margin-top: 30px; padding-top: 15px; border-top: 1px dashed #bfbfbf; line-height: 1.4;">
+                Ограничение ответственности: Информация, представленная на платформе, носит справочно-информационный характер. Разработчики не дают никаких гарантий достижения указанных финансовых результатов. Эта модель является математической абстракцией рентабельности бизнеса. Пользователь самостоятельно несет профессиональные и юридические риски, связанные с коммерческой деятельностью.
+            </div>
+            <div class="footer">
+                © АСУИР. Анатолий Долгов, Лос-Анджелес, Калифорния, США.
+                <br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).
+                <br>Код — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- ENGLISH VERSION OF HELP -->
+        <!-- ======================================================== -->
+        <div id="content-en" class="help-content">
+            <h1>ASUIR — driver of ultra-efficient services: help</h1>
+
+            <h2><b>🏥 Infusion unit (IV therapy)</b></h2>
+
+            <h3>Step 1. Open the page</h3>
+            <p>On asuir.org, click the third item in the top menu, <b>"ASUIR — SERVICES"</b>. The page of the infusion unit of a large Los Angeles hospital (80 chairs) opens.</p>
+
+            <h3>Step 2. Read the main conclusion</h3>
+            <p>Right under the unit's heading is the paragraph <b>"The main point"</b>: how many procedures a year the unit performs today and how many it can perform with robotic systems, and what one procedure costs the hospital in each case.</p>
+            <p>Below, in the section <b>"3. Productivity growth"</b>, is a table with three columns: "1. Today: people", "2. People + devices", "3. Future: robotic systems". It shows the hospital's costs per year, the cost of one procedure and the unit's profit per year.</p>
+
+            <h3>Step 3. Enter your own figures</h3>
+            <p>Scroll down to the section <b>"Appendix: calculation with supporting data"</b>. Numbers in white boxes can be changed: click a number, delete it and type your own. All results on the page, including the table from Step 2, are recalculated at once — there is nothing to press.</p>
+            <ul>
+                <li><b>"Operating schedule"</b> — working hours and days, time to prepare a chair between patients;</li>
+                <li><b>"Number of staff per shift"</b> — the number of nurses and support staff per shift, separately for each option;</li>
+                <li><b>"Robotic systems"</b> (column 3 only) — the number of systems, the purchase price of one system, service life, repair percentage;</li>
+                <li><b>"Reference data common to all three options"</b> — number of chairs, length of a procedure, rent of premises, drug cost per procedure, a nurse's pay, a doctor's pay, number of doctors, payment for a procedure by the insurance company.</li>
+            </ul>
+
+            <h3>Step 4. Change the list of devices</h3>
+            <p>Further down, in the table <b>"Devices to be purchased"</b>, you can change the quantity and purchase price of each device. The device name is a link to the seller's page.</p>
+
+            <h3>Step 5. See the result</h3>
+            <p>Under every result in the table, small print shows how it was obtained, for example "drug $3,000 + direct costs $169". The main rows:</p>
+            <ul>
+                <li>"Full cost of one procedure, including drugs";</li>
+                <li>"Hospital profit from the unit per year";</li>
+                <li>"Payback period of the purchased robotic systems and other equipment";</li>
+                <li>"Capacity margin".</li>
+            </ul>
+            <p>The light-blue box right under the table shows the purchase price of one robotic system up to which the systems cost the hospital less than ready-made devices.</p>
+
+            <h3>Step 6. Save the calculation</h3>
+            <p>At the bottom of the page click <b>"🖨️ Print / Save as PDF"</b>. The print window opens; to get a file, choose the printer "Save as PDF" in it.</p>
+            <div class="info-highlight">The page does not remember the figures you entered: if you close or reload it, the original values come back.</div>
+
+            <h2><b>🏥 CT, MRI</b></h2>
+            <p>Coming soon.</p>
+
+            <div style="font-size: 11px; color: #888888; text-align: justify; margin-top: 30px; padding-top: 15px; border-top: 1px dashed #bfbfbf; line-height: 1.4;">
+                Disclaimer: The information on this platform is for reference purposes only. The developers do not guarantee the achievement of the stated financial results. This model is a mathematical representation of business profitability. Users assume sole responsibility for any professional and legal risks associated with commercial activities.
+            </div>
+            <div class="footer">
+                © ASUIR. Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
+                <br>Developed with technical support from the AI assistant Claude (Anthropic).
+                <br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ОБРАТНОЙ СВЯЗИ -->
+    <div id="feedback-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('feedback-modal')">&times;</span>
+            <h3 id="fb-modal-title" style="border-bottom:2px solid var(--primary-blue); padding-bottom:8px; margin-bottom: 15px; font-size:16px; color:var(--primary-blue);">💡 Обратная связь</h3>
+            <form id="feedback-form" onsubmit="handleFormSubmit(event)">
+                <label id="fb-label-like" style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что вам понравилось в системе?</label>
+                <textarea id="fb-like" rows="3" style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; margin-bottom: 15px; font-size:13px; font-family:inherit; outline:none;"></textarea>
+
+                <label id="fb-label-dislike" style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600;">Что стоит улучшить или добавить?</label>
+                <textarea id="fb-dislike" rows="4" required style="width:100%; padding:8px; border:1px solid var(--border-color); border-radius:4px; margin-bottom: 20px; font-size:13px; font-family:inherit; outline:none;"></textarea>
+
+                <button type="submit" id="fb-btn-submit" style="display:block; width:100%; background:var(--primary-blue); color:#fff; border:none; padding:10px; font-weight:bold; border-radius:4px; cursor:pointer; font-size:13px;">Отправить письмо</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const likedText = document.getElementById('fb-like').value.trim();
+            const dislikedText = document.getElementById('fb-dislike').value.trim();
+            const currentLang = localStorage.getItem('asuir_lang') || 'ru';
+            let subject = currentLang === 'ru' ? "Feedback from ASUIR Services(RU)" : "Feedback from ASUIR Services(EN)";
+            let emailBody = (currentLang === 'ru' ? "ОБРАТНАЯ СВЯЗЬ АСУИР — УСЛУГИ\n\n1. Что понравилось:\n" : "FEEDBACK ASUIR — SERVICES\n\n1. What liked:\n") + (likedText || "N/A") + (currentLang === 'ru' ? "\n\n2. Что добавить или улучшить:\n" : "\n\n2. What to improve:\n") + dislikedText + "\n";
+            window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
+        }
+
+        function switchLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
+            document.querySelectorAll('.help-content').forEach(content => content.classList.remove('active-content'));
+            const ru = lang === 'ru';
+            document.getElementById(ru ? 'content-ru' : 'content-en').classList.add('active-content');
+            document.getElementById(ru ? 'btn-ru' : 'btn-en').classList.add('active-lang');
+            document.documentElement.lang = ru ? 'ru' : 'en';
+
+            document.getElementById('txt-tab-dashboard').innerText = ru ? "Главная панель" : "Main Dashboard";
+            document.getElementById('txt-tab-asuir').innerText = ru ? "АСУИР" : "ASUIR";
+            document.getElementById('txt-tab-services').innerText = ru ? "АСУИР — УСЛУГИ" : "ASUIR — SERVICES";
+            document.getElementById('txt-tab-help').innerText = ru ? "Справка: производства" : "Help: production";
+            document.getElementById('txt-tab-doc').innerText = ru ? "Справка: услуги" : "Help: services";
+            document.getElementById('txt-tab-feedback').innerText = ru ? "Обратная связь" : "Feedback";
+
+            document.getElementById('fb-modal-title').innerText = ru ? "💡 Обратная связь" : "💡 Feedback";
+            document.getElementById('fb-label-like').innerText = ru ? "Что вам понравилось в системе?" : "What did you like about the system?";
+            document.getElementById('fb-label-dislike').innerText = ru ? "Что стоит улучшить или добавить?" : "What should be improved or added?";
+            document.getElementById('fb-btn-submit').innerText = ru ? "Отправить письмо" : "Send Email";
+
+            document.getElementById('nav-link-dashboard').href = ru ? "index_ru.html" : "index.html";
+            document.getElementById('nav-link-optimizer').href = ru ? "ASUIRGemeniCalculatOptimizer_ru.html" : "ASUIRGeminiCalculationModule_en.html";
+            document.getElementById('nav-link-services').href = ru ? "ASUIRServices_ru.html" : "ASUIRServices_en.html";
+            document.getElementById('nav-link-help').href = ru ? "Help_en.html?lang=ru" : "Help_en.html?lang=en";
+            try { localStorage.setItem('asuir_lang', lang); } catch (e) { }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const langParam = new URLSearchParams(window.location.search).get('lang');
+            const referrer = document.referrer.toLowerCase();
+            let targetLang = 'ru';
+            if (langParam === 'ru' || langParam === 'en') targetLang = langParam;
+            else if (referrer && referrer.includes('_en')) targetLang = 'en';
+            else if (referrer && referrer.includes('_ru')) targetLang = 'ru';
+            else { try { targetLang = localStorage.getItem('asuir_lang') || 'ru'; } catch (e) { } }
+            switchLang(targetLang);
+        });
+    </script>
+</body>
+</html>
