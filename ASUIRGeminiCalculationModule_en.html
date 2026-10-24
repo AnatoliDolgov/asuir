@@ -2284,7 +2284,7 @@ Thank you!
                                                                 detectedKey = 'pc';
                                                             } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven') || lower.includes('хлеб')) {
                                                                 detectedKey = 'bakery';
-                                                            } else if (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver') || lower.includes('ювелир')) {
+                                                            } else if (!lower.includes('costume') && !lower.includes('бижутерия') && (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver') || lower.includes('ювелир'))) {
                                                                 detectedKey = 'jewelry';
                                                             } else if (lower.includes('watch') || lower.includes('clock') || lower.includes('час')) {
                                                                 detectedKey = 'watch';
@@ -2356,9 +2356,9 @@ Thank you!
                                                             if (t.includes('tv') || t.includes('телевизор')) return "TVs & Displays";
                                                             if (t.includes('pc') || t.includes('компьютер') || t.includes('ноутбук') || t.includes('laptop')) return "Telecom & Laptops";
                                                             if (t.includes('bakery') || t.includes('хлеб')) return "Commercial Bakery Line";
+                                                            if (t.includes('costume') || t.includes('бижутерия')) return "Costume Jewelry Press";
                                                             if (t.includes('jewelry') || t.includes('ювелир')) return "Fine Jewelry Casting";
                                                             if (t.includes('watch') || t.includes('час')) return "Watch Assembly";
-                                                            if (t.includes('costume') || t.includes('бижутерия')) return "Costume Jewelry Press";
                                                             if (t.includes('clothes') || t.includes('apparel') || t.includes('одежд')) return "Apparel Sewing";
                                                             if (t.includes('furniture') || t.includes('мебель')) return "Furniture Woodworking";
                                                             if (t.includes('instruments') || t.includes('прибор')) return "Precision Instruments";

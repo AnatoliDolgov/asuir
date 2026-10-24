@@ -2344,7 +2344,7 @@ Thank you!
                                                                 detectedKey = 'pc';
                                                             } else if (lower.includes('bakery') || lower.includes('bread') || lower.includes('dough') || lower.includes('oven') || lower.includes('хлеб')) {
                                                                 detectedKey = 'bakery';
-                                                            } else if (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver') || lower.includes('ювелир')) {
+                                                            } else if (!lower.includes('costume') && !lower.includes('бижутерия') && (lower.includes('jewelry') || lower.includes('casting') || lower.includes('gold') || lower.includes('silver') || lower.includes('ювелир'))) {
                                                                 detectedKey = 'jewelry';
                                                             } else if (lower.includes('watch') || lower.includes('clock') || lower.includes('час')) {
                                                                 detectedKey = 'watch';
