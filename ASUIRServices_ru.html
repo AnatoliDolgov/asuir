@@ -669,11 +669,11 @@
                         <tr>
                             <th style="width:40px; text-align:center;">#</th>
                             <th>Услуга и вариант</th>
+                            <th class="num" style="color:#1f4e78;">Прибыль больницы в месяц</th>
                             <th class="num">Покупка устройств и робототехнологических комплексов</th>
                             <th class="num">Процедур в год</th>
                             <th class="num">Персонал, полных ставок</th>
                             <th class="num">Зарплата медсестры в месяц</th>
-                            <th class="num">Прибыль больницы в месяц</th>
                             <th class="num">Себестоимость одной процедуры</th>
                         </tr>
                         <tbody id="svc-listing-rows"></tbody>
@@ -1029,9 +1029,9 @@
                                                                                                         return ['a', 'b', 'c'].map((k, i) => {
                                                                                                             const r = rows[k];
                                                                                                             return `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
-                                                                                                                <td><b>${VAR_NAMES[k]}</b><br>${openBtn}</td>
+                                                                                                                <td><b>${VAR_NAMES[k]}</b><br>${openBtn}</td><td class="num"><b style="color:#1f4e78; font-size:15px;">${usd(r.prof)}</b></td>
                                                                                                                 <td class="num">${r.buy ? usd(r.buy) : '—'}</td><td class="num">${fmt(r.proc)}</td><td class="num">${fmt(r.fte, 1)}</td>
-                                                                                                                <td class="num">${usd(info.wage)}</td><td class="num"><b style="color:#1f4e78;">${usd(r.prof)}</b></td>
+                                                                                                                <td class="num">${usd(info.wage)}</td>
                                                                                                                 <td class="num"><b>${usd(r.full)}</b><span class="small">лекарство ${usd(info.drug)} + прямые затраты ${usd(r.cost)}</span></td></tr>`;
                                                                                                         }).join('');
                                                                                                     }
