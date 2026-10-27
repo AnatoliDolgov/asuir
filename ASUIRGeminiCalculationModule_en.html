@@ -386,6 +386,13 @@
             gap: 4px;
         }
 
+        /* Модули: подробные колонки (выпуск, детали, себестоимость, привезённое, разница) и строка о переходе скрыты — не удалены */
+        .mod-table > thead > tr > th:nth-child(n+4):nth-child(-n+8),
+        .mod-table > tbody > tr:not(.mod-detail) > td:nth-child(n+4):nth-child(-n+8),
+        .mod-table .mod-ch {
+            display: none;
+        }
+
         .mod-table {
             width: 100%;
             border-collapse: collapse;
@@ -457,6 +464,44 @@
                 .mod-table .components-table td {
                     vertical-align: middle;
                 }
+
+        .mod-card {
+            border: 1px solid #d6e0ea;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin: 0 0 14px;
+            background: #fff;
+        }
+
+            .mod-card.mod-current {
+                background: #eef6ff;
+            }
+
+        .mod-card-head {
+            font-size: 15px;
+            color: #1f4e78;
+            margin-bottom: 8px;
+        }
+
+            .mod-card-head .btn {
+                margin-left: 0;
+            }
+
+            .mod-card-head .mod-tag {
+                margin-left: 8px;
+                vertical-align: middle;
+            }
+
+        .mod-card tr.mod-sec td {
+            background: #f0f5fa;
+            font-weight: 700;
+            color: #1f4e78;
+            font-size: 12px;
+        }
+
+        .mod-card .components-table td {
+            vertical-align: middle;
+        }
 
         .mod-tag {
             display: inline-block;
@@ -1322,7 +1367,7 @@
 
                     <!-- ТАБ 6: МОДУЛИ — ДРУГИЕ ПРОДУКТЫ НА ЭТОЙ ЖЕ ЛИНИИ -->
                     <div class="section" id="tab6">
-                        <div class="info-hint"><b>🧩 What else you can make on the same equipment.</b> A module is a set of add-ons to your equipment: molds, fixtures, tools, programs. The equipment itself stays the same; you buy only this set, and the line starts making a different item. Every item of the set and every part is a link to a supplier, where you see real prices and can choose another option. Our figures are first estimates.</div>
+                        <div class="info-hint"><b>🧩 Modules</b> are simply a set of new components that add new functions to your equipment, so it can make new products.</div>
                         <div id="modules-box"></div>
                     </div>
 
@@ -1539,6 +1584,7 @@ Thank you!
                                                                     const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
                                                                     const plural = n => n + (n === 1 ? ' item' : ' items');
                                                                     const link = (label, query, url) => `<a href="#" class="mod-link" title="open at supplier" data-q="${esc(query)}" data-u="${esc(url || '')}">${esc(label)} ↗</a>`;
+                                                                    const cards = []; const MOD_LISTS = true; // true — списки модулей и комплектующих по каждому изделию; false — прежняя таблица
                                                                     const rows = L.rows.map((r, ri) => {
                                                                         let comps = r.c.map(c => [c[0], 1, parseFloat(c[1]) || 0, c[2], c[3] || '']), perf = r.perf, fob = r.fob;
                                                                         if (r.ref && catalogDB[r.ref[0]]) {
@@ -1575,9 +1621,10 @@ Thank you!
                                                                             </tbody></table></div></details></td></tr>`;
                                                                         const btn = (r.st !== 'not' && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="reconfigureToModule('${L.id}', ${L.rows.indexOf(r)})">🔧 Reconfigure the line to this item</button>` : '';
                                                                         const impNote = landed > fob + 0.001 ? `factory $${fmt2(fob)} + shipping + duty` : 'factory price, without shipping or duty';
+                                                                        cards.push(`<div class="mod-card${isCur ? ' mod-current' : ''}"><div class="mod-card-head"><b>${esc(r.n)}</b>${isCur ? '<span class="mod-tag cur">open now</span>' : ''}${btn}</div>${r.st === 'not' ? `<p style="color:#9a3412; font-weight:600; margin:6px 0 0;">${esc(r.mod)}</p>` : `<div class="table-responsive"><table class="components-table"><thead><tr><th>Item</th><th>🔗 Link to the product you chose</th><th>🔍 Find at supplier</th><th>Qty</th><th>Price per pc ($)</th></tr></thead><tbody>${mis.length ? `<tr class="mod-sec"><td colspan="5">🧩 Modules</td></tr>` + mis.map(c => linkRow(c, true)).join('') : ''}${comps.length ? `<tr class="mod-sec"><td colspan="5">📦 Components per item</td></tr>` + comps.map(c => linkRow(c, false)).join('') : ''}</tbody></table></div>`}</div>`);
                                                                         return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
                                                                             <td><b>${esc(r.n)}</b><br>${tags}${btn}</td><td>${modCell}</td>
-                                                                            <td class="num">${r.st === 'not' ? '—' : money(mpEff) + (mpMine ? '<span class="mod-small">at your prices</span>' : '') + '<span class="mod-small">switching to this item: ' + esc(r.ch) + (downtime > 0 ? ', downtime costs ' + money(downtime) : '') + '</span>'}</td>
+                                                                            <td class="num">${r.st === 'not' ? '—' : money(mpEff) + (mpMine ? '<span class="mod-small">at your prices</span>' : '') + '<span class="mod-small mod-ch">switching to this item: ' + esc(r.ch) + (downtime > 0 ? ', downtime costs ' + money(downtime) : '') + '</span>'}</td>
                                                                             <td class="num">${perf ? plural(perf) : '—'}</td>
                                                                             <td>${comps.length} parts · ${money(sumC)}</td>
                                                                             <td class="num"><b>${cost !== null ? money(cost) : '—'}</b></td>
@@ -1587,8 +1634,7 @@ Thank you!
                                                                     }).join('');
                                                                     box.innerHTML = `<h3 style="margin:4px 0 2px; color:#1f4e78;">${esc(L.name)}</h3>
                                                                         <div class="mod-core"><b style="font-size:11px; text-transform:uppercase; color:#6c7a8a;">The equipment stays the same</b>${L.core.map(c => `<span>${esc(c)}</span>`).join('')}</div>
-                                                                        <p style="font-size:13px; color:#4a5568; margin:0 0 10px;">${'Your costs that do not depend on how many items you make: ${f} per day (equipment, wages of $10,000 a month, premises).'.replace('{f}', Math.round(fixedPerDay).toLocaleString(loc))}${compTariffPct ? ' ' + 'Part prices include a {p}% duty.'.replace('{p}', compTariffPct) : ''}</p>
-                                                                        <div class="table-responsive"><table class="mod-table"><thead><tr><th>What else you can make</th><th>What to add to the equipment (module)</th><th class="num">Module cost</th><th class="num">Output per day</th><th>Parts per item</th><th class="num">What one item costs you</th><th class="num">The same item, imported from abroad</th><th class="num">Yours is cheaper than the imported one by</th><th class="num">Your profit per month</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+                                                                        ${MOD_LISTS ? cards.join('') : `<div class="table-responsive"><table class="mod-table"><thead><tr><th>New products</th><th>What to add to the equipment (module)</th><th class="num">Module price (bought once)</th><th class="num">Output per day</th><th>Parts per item</th><th class="num">What one item costs you</th><th class="num">The same item, imported from abroad</th><th class="num">Yours is cheaper than the imported one by</th><th class="num">Your profit per month</th></tr></thead><tbody>${rows}</tbody></table></div>`}`;
                                                                     box.querySelectorAll('details').forEach(d => { if (openD.has(d.dataset.d)) d.open = true; });
                                                                     box.onclick = e => {
                                                                         const op = e.target.closest('[data-open]'), se = e.target.closest('[data-search]');

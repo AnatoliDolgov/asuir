@@ -386,6 +386,13 @@
             gap: 4px;
         }
 
+        /* Модули: подробные колонки (выпуск, детали, себестоимость, привезённое, разница) и строка о переходе скрыты — не удалены */
+        .mod-table > thead > tr > th:nth-child(n+4):nth-child(-n+8),
+        .mod-table > tbody > tr:not(.mod-detail) > td:nth-child(n+4):nth-child(-n+8),
+        .mod-table .mod-ch {
+            display: none;
+        }
+
         .mod-table {
             width: 100%;
             border-collapse: collapse;
@@ -457,6 +464,44 @@
                 .mod-table .components-table td {
                     vertical-align: middle;
                 }
+
+        .mod-card {
+            border: 1px solid #d6e0ea;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin: 0 0 14px;
+            background: #fff;
+        }
+
+            .mod-card.mod-current {
+                background: #eef6ff;
+            }
+
+        .mod-card-head {
+            font-size: 15px;
+            color: #1f4e78;
+            margin-bottom: 8px;
+        }
+
+            .mod-card-head .btn {
+                margin-left: 0;
+            }
+
+            .mod-card-head .mod-tag {
+                margin-left: 8px;
+                vertical-align: middle;
+            }
+
+        .mod-card tr.mod-sec td {
+            background: #f0f5fa;
+            font-weight: 700;
+            color: #1f4e78;
+            font-size: 12px;
+        }
+
+        .mod-card .components-table td {
+            vertical-align: middle;
+        }
 
         .mod-tag {
             display: inline-block;
@@ -1323,7 +1368,7 @@
 
                     <!-- ТАБ 6: МОДУЛИ — ДРУГИЕ ПРОДУКТЫ НА ЭТОЙ ЖЕ ЛИНИИ -->
                     <div class="section" id="tab6">
-                        <div class="info-hint"><b>🧩 Что ещё можно выпускать на этом же оборудовании.</b> Модуль — это набор дополнений к вашему оборудованию: формы, приспособления, инструмент, программы. Само оборудование остаётся то же, докупается только этот набор, и линия начинает выпускать другое изделие. Каждый пункт набора и каждая деталь — ссылка на поставщика: там видны реальные цены, можно выбрать другой вариант. Наши цифры — первые ориентиры.</div>
+                        <div class="info-hint"><b>🧩 Модули</b> — это просто набор новых комплектующих дополняющих функции вашего оборудования новыми, позволяющими выпускать новые изделия.</div>
                         <div id="modules-box"></div>
                     </div>
 
@@ -1540,6 +1585,7 @@ Thank you!
                                                                     const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
                                                                     const plural = n => { const a = Math.abs(n) % 100, b = a % 10; return n + ' ' + (a > 10 && a < 20 ? 'изделий' : b === 1 ? 'изделие' : b >= 2 && b <= 4 ? 'изделия' : 'изделий'); };
                                                                     const link = (label, query, url) => `<a href="#" class="mod-link" title="открыть у поставщика" data-q="${esc(query)}" data-u="${esc(url || '')}">${esc(label)} ↗</a>`;
+                                                                    const cards = []; const MOD_LISTS = true; // true — списки модулей и комплектующих по каждому изделию; false — прежняя таблица
                                                                     const rows = L.rows.map((r, ri) => {
                                                                         let comps = r.c.map(c => [c[0], 1, parseFloat(c[1]) || 0, c[2], c[3] || '']), perf = r.perf, fob = r.fob;
                                                                         if (r.ref && catalogDB[r.ref[0]]) {
@@ -1576,9 +1622,10 @@ Thank you!
                                                                             </tbody></table></div></details></td></tr>`;
                                                                         const btn = (r.st !== 'not' && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="reconfigureToModule('${L.id}', ${L.rows.indexOf(r)})">🔧 Перенастроить линию на это изделие</button>` : '';
                                                                         const impNote = landed > fob + 0.001 ? `завод $${fmt2(fob)} + доставка + пошлина` : 'цена завода, без доставки и пошлины';
+                                                                        cards.push(`<div class="mod-card${isCur ? ' mod-current' : ''}"><div class="mod-card-head"><b>${esc(r.n)}</b>${isCur ? '<span class="mod-tag cur">сейчас открыто</span>' : ''}${btn}</div>${r.st === 'not' ? `<p style="color:#9a3412; font-weight:600; margin:6px 0 0;">${esc(r.mod)}</p>` : `<div class="table-responsive"><table class="components-table"><thead><tr><th>Что</th><th>🔗 Ссылка на выбранный товар</th><th>🔍 Найти у поставщика</th><th>Кол-во</th><th>Цена 1 шт. ($)</th></tr></thead><tbody>${mis.length ? `<tr class="mod-sec"><td colspan="5">🧩 Модули</td></tr>` + mis.map(c => linkRow(c, true)).join('') : ''}${comps.length ? `<tr class="mod-sec"><td colspan="5">📦 Комплектующие на 1 изделие</td></tr>` + comps.map(c => linkRow(c, false)).join('') : ''}</tbody></table></div>`}</div>`);
                                                                         return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
                                                                             <td><b>${esc(r.n)}</b><br>${tags}${btn}</td><td>${modCell}</td>
-                                                                            <td class="num">${r.st === 'not' ? '—' : money(mpEff) + (mpMine ? '<span class="mod-small">по вашим ценам</span>' : '') + '<span class="mod-small">переход на это изделие: ' + esc(r.ch) + (downtime > 0 ? ', простой обходится в ' + money(downtime) : '') + '</span>'}</td>
+                                                                            <td class="num">${r.st === 'not' ? '—' : money(mpEff) + (mpMine ? '<span class="mod-small">по вашим ценам</span>' : '') + '<span class="mod-small mod-ch">переход на это изделие: ' + esc(r.ch) + (downtime > 0 ? ', простой обходится в ' + money(downtime) : '') + '</span>'}</td>
                                                                             <td class="num">${perf ? plural(perf) : '—'}</td>
                                                                             <td>${comps.length} деталей · ${money(sumC)}</td>
                                                                             <td class="num"><b>${cost !== null ? money(cost) : '—'}</b></td>
@@ -1588,8 +1635,7 @@ Thank you!
                                                                     }).join('');
                                                                     box.innerHTML = `<h3 style="margin:4px 0 2px; color:#1f4e78;">${esc(L.name)}</h3>
                                                                         <div class="mod-core"><b style="font-size:11px; text-transform:uppercase; color:#6c7a8a;">Оборудование остаётся то же</b>${L.core.map(c => `<span>${esc(c)}</span>`).join('')}</div>
-                                                                        <p style="font-size:13px; color:#4a5568; margin:0 0 10px;">${'Ваши расходы, которые не зависят от количества изделий: ${f} в день (оборудование, зарплата по $10 000 в месяц, помещение).'.replace('{f}', Math.round(fixedPerDay).toLocaleString(loc))}${compTariffPct ? ' ' + 'Цены деталей — с пошлиной {p}%.'.replace('{p}', compTariffPct) : ''}</p>
-                                                                        <div class="table-responsive"><table class="mod-table"><thead><tr><th>Что ещё можно выпускать</th><th>Что докупить к оборудованию (модуль)</th><th class="num">Сколько стоит модуль</th><th class="num">Выпуск за день</th><th>Детали на 1 изделие</th><th class="num">Во сколько вам обходится 1 изделие</th><th class="num">Такое же изделие, привезённое из-за границы</th><th class="num">Ваше дешевле привезённого на</th><th class="num">Ваша прибыль за месяц</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+                                                                        ${MOD_LISTS ? cards.join('') : `<div class="table-responsive"><table class="mod-table"><thead><tr><th>Новая продукция</th><th>Что докупить к оборудованию (модуль)</th><th class="num">Цена модуля (покупается один раз)</th><th class="num">Выпуск за день</th><th>Детали на 1 изделие</th><th class="num">Во сколько вам обходится 1 изделие</th><th class="num">Такое же изделие, привезённое из-за границы</th><th class="num">Ваше дешевле привезённого на</th><th class="num">Ваша прибыль за месяц</th></tr></thead><tbody>${rows}</tbody></table></div>`}`;
                                                                     box.querySelectorAll('details').forEach(d => { if (openD.has(d.dataset.d)) d.open = true; });
                                                                     box.onclick = e => {
                                                                         const op = e.target.closest('[data-open]'), se = e.target.closest('[data-search]');
