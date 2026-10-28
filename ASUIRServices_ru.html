@@ -589,8 +589,34 @@
             }
         }
     </style>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCZYX0Z5VX"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-SCZYX0Z5VX');</script>
+    <!-- Google Analytics: включается только после согласия посетителя («Согласен»); выбор хранится в браузере (asuir_ga_consent) -->
+    <script>
+                (function () {
+                    var KEY = 'asuir_ga_consent', ID = 'G-SCZYX0Z5VX';
+                    function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+                    function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { } }
+                    function loadGA() {
+                        var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID; document.head.appendChild(s);
+                        window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+                        gtag('js', new Date()); gtag('config', ID);
+                    }
+                    if (get() === 'yes') { loadGA(); return; }
+                    if (get() === 'no') return;
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var b = document.createElement('div');
+                        b.id = 'ga-consent';
+                        b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;font:14px/1.4 -apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;box-shadow:0 -2px 8px rgba(0,0,0,.2);';
+                        b.innerHTML = '<span>Сайт считает посещения с помощью Google Analytics. Разрешить? <a href="/privacy.html#ru" style="color:#cfe3f7;">Подробнее</a></span>' +
+                            '<button type="button" data-v="yes" style="background:#fff;color:#1f4e78;border:0;border-radius:4px;padding:6px 16px;font-weight:700;cursor:pointer;">Согласен</button>' +
+                            '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">Нет</button>';
+                        b.addEventListener('click', function (e) {
+                            var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
+                            set(v); b.remove(); if (v === 'yes') loadGA();
+                        });
+                        document.body.appendChild(b);
+                    });
+                })();
+    </script>
 </head>
 <body>
     <div class="main-wrapper">
