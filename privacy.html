@@ -39,14 +39,15 @@ The site uses Google Analytics to count visits.
 </div>
 
 <h2>1. Who runs the site</h2>
-<p>asuir.org («АСУИР — генератор сверхэффективных производств», “ASUIR — driver of ultra-efficient manufacturing”, and related sections) is an open, free project developed and run by Anatoli Dolgov.
+<p>asuir.org («АСУИР — генератор сверхэффективных производств», “ASUIR — driver of ultra-efficient manufacturing”, “ASUIR — services” and related sections) is an open, free project developed and run by Anatoli Dolgov.
 Contact for any privacy question: <a href="mailto:AnatoliDolgov@outlook.com">AnatoliDolgov@outlook.com</a>.</p>
 
 <h2>2. What data is processed</h2>
 <div class="tbl"><table>
 <tr><th>Data</th><th>When</th><th>Where it is kept</th><th>Who can see it</th></tr>
-<tr><td><b>Anonymous technical ID</b> (random string created by Google Firebase “anonymous sign-in”; no name or e-mail)</td><td>When you open the production generator</td><td>Google Firebase</td><td>Used only to know which saved lines are yours, so only you can change or delete them</td></tr>
+<tr><td><b>Anonymous technical ID</b> (random string created by Google Firebase “anonymous sign-in”; no name or e-mail)</td><td>When you open the production or services generator</td><td>Google Firebase</td><td>Used only to know which saved lines and variants are yours, so only you can change or delete them</td></tr>
 <tr><td><b>Production lines you save</b>: topic, product, equipment, links to suppliers, prices, quantities, number of workers, country, sales per day, date of saving, your anonymous ID and “Client ID” label</td><td>Only when you press “💾 Save … to Database”</td><td>Google Firebase Realtime Database</td><td><b>Public</b> — everyone visiting the listing</td></tr>
+<tr><td><b>Your service variants</b> (“ASUIR — services”): the name you give the variant, the figures you entered, the calculation result, date of saving</td><td>Only when you press “💾 Save my option”</td><td>Google Firebase Realtime Database, under your anonymous ID</td><td><b>Only you</b> — other visitors cannot see them</td></tr>
 <tr><td><b>Client ID label</b> (by default a random code like CL-AB12CD; you may change it)</td><td>Created automatically in your browser</td><td>Your browser (localStorage); saved together with a line you save</td><td>Public, together with the saved line</td></tr>
 <tr><td><b>Your module choices</b> (links and prices you enter on the “Modules” tab)</td><td>When you enter them</td><td>Only your browser (localStorage)</td><td>Only you, on this device</td></tr>
 <tr><td><b>Visit statistics</b>: pages viewed, approximate location (country/city), device and browser type, IP address (processed by Google)</td><td>On every visit</td><td>Google Analytics (ID G-SCZYX0Z5VX), uses cookies</td><td>The site owner sees only aggregated statistics</td></tr>
@@ -74,13 +75,14 @@ Google’s and GitHub’s servers may be located outside your country, including
 <h2>5. How long data is kept</h2>
 <ul>
 <li>Saved production lines — until you delete them (🗑️ button) or the site owner removes them.</li>
+<li>Your service variants — until you delete them. If you clear your browser data, the site no longer recognises you as their owner; write to the contact address to have them removed.</li>
 <li>Browser data — until you clear your browser’s site data.</li>
 <li>Google Analytics — according to Google Analytics retention settings.</li>
 </ul>
 
 <h2>6. Your rights and choices</h2>
 <ul>
-<li>Delete your own saved line at any time with the 🗑️ button in the listing.</li>
+<li>Delete your own saved line or service variant at any time with the 🗑️ button.</li>
 <li>Clear the site data in your browser to remove your Client ID and module choices.</li>
 <li>Block analytics cookies in your browser or with the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out add-on</a>.</li>
 <li>Write to <a href="mailto:AnatoliDolgov@outlook.com">AnatoliDolgov@outlook.com</a> to ask what data about you is stored, or to have a line removed. Requests are answered within 30 days.</li>
@@ -114,14 +116,15 @@ Google’s and GitHub’s servers may be located outside your country, including
 </div>
 
 <h2>1. Кто ведёт сайт</h2>
-<p>asuir.org («АСУИР — генератор сверхэффективных производств» и связанные разделы) — открытый бесплатный проект, который разработал и ведёт Анатолий Долгов.
+<p>asuir.org («АСУИР — генератор сверхэффективных производств», «АСУИР — сервис» и связанные разделы) — открытый бесплатный проект, который разработал и ведёт Анатолий Долгов.
 По вопросам о данных: <a href="mailto:AnatoliDolgov@outlook.com">AnatoliDolgov@outlook.com</a>.</p>
 
 <h2>2. Какие данные обрабатываются</h2>
 <div class="tbl"><table>
 <tr><th>Данные</th><th>Когда</th><th>Где хранятся</th><th>Кто их видит</th></tr>
-<tr><td><b>Анонимный технический номер</b> (случайная строка, которую создаёт «анонимный вход» Google Firebase; без имени и e-mail)</td><td>При открытии генератора производств</td><td>Google Firebase</td><td>Нужен только чтобы знать, какие сохранённые линии ваши: менять и удалять их можете только вы</td></tr>
+<tr><td><b>Анонимный технический номер</b> (случайная строка, которую создаёт «анонимный вход» Google Firebase; без имени и e-mail)</td><td>При открытии генератора производств или услуг</td><td>Google Firebase</td><td>Нужен только чтобы знать, какие сохранённые линии и варианты ваши: менять и удалять их можете только вы</td></tr>
 <tr><td><b>Сохранённые вами производственные линии</b>: тема, изделие, оборудование, ссылки на поставщиков, цены, количества, число рабочих, страна, сбыт в день, дата сохранения, ваш анонимный номер и метка «Client ID»</td><td>Только когда вы нажимаете «💾 Зафиксировать … в Базу»</td><td>Google Firebase Realtime Database</td><td><b>Все</b> посетители листинга</td></tr>
+<tr><td><b>Ваши варианты услуг</b> («АСУИР — сервис»): название варианта, вписанные вами цифры, результат расчёта, дата сохранения</td><td>Только когда вы нажимаете «💾 Сохранить мой вариант»</td><td>Google Firebase Realtime Database, под вашим анонимным номером</td><td><b>Только вы</b> — другие посетители их не видят</td></tr>
 <tr><td><b>Метка Client ID</b> (по умолчанию случайный код вида CL-AB12CD; её можно изменить)</td><td>Создаётся автоматически в вашем браузере</td><td>Ваш браузер (localStorage); сохраняется вместе с линией</td><td>Все — вместе с сохранённой линией</td></tr>
 <tr><td><b>Ваш выбор на вкладке «Модули»</b> (ссылки и цены, которые вы вписали)</td><td>Когда вы их вписываете</td><td>Только ваш браузер (localStorage)</td><td>Только вы, на этом устройстве</td></tr>
 <tr><td><b>Статистика посещений</b>: просмотренные страницы, примерное место (страна/город), тип устройства и браузера, IP-адрес (обрабатывает Google)</td><td>При каждом посещении</td><td>Google Analytics (ID G-SCZYX0Z5VX), использует cookie</td><td>Владелец сайта видит только общую статистику</td></tr>
@@ -149,13 +152,14 @@ MyMemory — <a href="https://mymemory.translated.net" target="_blank" rel="noop
 <h2>5. Сколько хранятся данные</h2>
 <ul>
 <li>Сохранённые линии — пока вы их не удалите (кнопка 🗑️) или их не удалит владелец сайта.</li>
+<li>Ваши варианты услуг — пока вы их не удалите. Если вы очистите данные браузера, сайт больше не узнает в вас владельца; чтобы удалить их, напишите на адрес для связи.</li>
 <li>Данные в браузере — пока вы не очистите данные сайта в браузере.</li>
 <li>Google Analytics — по настройкам хранения Google Analytics.</li>
 </ul>
 
 <h2>6. Ваши права</h2>
 <ul>
-<li>Удалить свою сохранённую линию в любой момент кнопкой 🗑️ в листинге.</li>
+<li>Удалить свою сохранённую линию или вариант услуги в любой момент кнопкой 🗑️.</li>
 <li>Очистить данные сайта в браузере — так удаляются Client ID и ваш выбор модулей.</li>
 <li>Запретить cookie статистики в браузере или дополнением <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out</a>.</li>
 <li>Написать на <a href="mailto:AnatoliDolgov@outlook.com">AnatoliDolgov@outlook.com</a>, чтобы узнать, какие данные о вас хранятся, или попросить удалить линию. Ответ — в течение 30 дней.</li>

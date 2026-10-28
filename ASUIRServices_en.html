@@ -976,314 +976,315 @@
             © Anatoly Dolgov, Los Angeles, California, USA. Free use for humanity.
             <br>Developed with technical support from Claude, the AI assistant from Anthropic.
             <br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank">CC BY 4.0</a>.
+            <br><a href="/privacy.html">Privacy Policy</a>
         </div>
     </div>
 
     <script>
-                                                                                            const T = {
-                                                                                                loc: 'en-US', h: 'h', min: 'min',
-                                                                                                hero: (r, yr) =>
-                                                                                                    `<div class="rh-head">Full cost of one procedure in the three service options: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
-                                                                                                    `<div class="rh-sub">The drug costs ${usd(v('drug'))} in all options. The rest is the hospital's direct costs per procedure (equipment, building, pay of staff and doctors): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
-                                                                                                be: (p, cur) => p > 0
-                                                                                                    ? `Robotic systems cost the hospital less than ready-made devices as long as the purchase price of one system is below <b>${usd(p)}</b>. The calculation assumes a purchase price of ${cur} per system.`
-                                                                                                    : `With these figures, robotic systems are not cheaper than ready-made devices at any purchase price — check the operating schedule and the number of systems.`
-                                                                                            };
+                                                                                                    const T = {
+                                                                                                        loc: 'en-US', h: 'h', min: 'min',
+                                                                                                        hero: (r, yr) =>
+                                                                                                            `<div class="rh-head">Full cost of one procedure in the three service options: ${r.a.full} → ${r.b.full} → ${r.c.full}</div>` +
+                                                                                                            `<div class="rh-sub">The drug costs ${usd(v('drug'))} in all options. The rest is the hospital's direct costs per procedure (equipment, building, pay of staff and doctors): ${r.a.cost} → ${r.b.cost} → ${r.c.cost}.</div>`,
+                                                                                                        be: (p, cur) => p > 0
+                                                                                                            ? `Robotic systems cost the hospital less than ready-made devices as long as the purchase price of one system is below <b>${usd(p)}</b>. The calculation assumes a purchase price of ${cur} per system.`
+                                                                                                            : `With these figures, robotic systems are not cheaper than ready-made devices at any purchase price — check the operating schedule and the number of systems.`
+                                                                                                    };
 
-                                                                                            const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
-                                                                                            const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
-                                                                                            const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
-                                                                                            const usd = n => '$' + fmt(Math.round(n));
-                                                                                            const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = `${main}<span class="small">${how}</span>`; };
-                                                                                            const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
+                                                                                                    const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
+                                                                                                    const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+                                                                                                    const fmt = (n, d = 0) => n.toLocaleString(T.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
+                                                                                                    const usd = n => '$' + fmt(Math.round(n));
+                                                                                                    const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = `${main}<span class="small">${how}</span>`; };
+                                                                                                    const MOD_LIFE = 7, MOD_SVC = 0.10, PERSON_H = 8, PERSON_D = 250;
 
 
-                                                                                            // TAB SWITCHING — AS IN THE PRODUCTION GENERATOR
-                                                                                            window.switchMainTab = function (id) {
-                                                                                                document.querySelectorAll('.main-tab-content-panel').forEach(p => p.classList.toggle('active', p.id === id));
-                                                                                                document.getElementById('btn-main-listing').classList.toggle('active', id === 'main-tab-1');
-                                                                                                document.getElementById('btn-main-gen').classList.toggle('active', id === 'main-tab-2');
-                                                                                            };
-                                                                                            window.openSvcTab = function (tab) {
-                                                                                                document.querySelectorAll('#svcTabs a').forEach(a => a.classList.toggle('active', a.dataset.tab === tab));
-                                                                                                document.querySelectorAll('#main-tab-2 .section').forEach(s => s.classList.toggle('active', s.id === tab));
-                                                                                            };
-                                                                                            document.querySelectorAll('#svcTabs a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openSvcTab(a.dataset.tab); }));
-                                                                                            window.openInGenerator = function (tab) { switchMainTab('main-tab-2'); openSvcTab(tab || 'sv5'); window.scrollTo(0, 0); };
-                                                                                            // SERVICE LISTING: base option (the page's original figures) + the user's saved options (visible only to that user)
-                                                                                            const BASE_INPUTS = {};
-                                                                                            document.querySelectorAll('#main-tab-2 input[type=number]').forEach(i => { BASE_INPUTS[i.id] = i.defaultValue; });
-                                                                                            let baseRows = null, baseInfo = null, lastRows = null, lastInfo = null;
-                                                                                            window.myVariants = [];
-                                                                                            const VAR_NAMES = { a: '1. Today: people', b: '2. People + devices', c: '3. Future: robotic systems' };
-                                                                                            const fin = x => (isFinite(x) ? x : 0);
-                                                                                            function makeRows(res, mod, robots, rPrice, pay, drug) {
-                                                                                                const rows = {};
-                                                                                                for (const k of ['a', 'b', 'c']) {
-                                                                                                    const r = res[k];
-                                                                                                    rows[k] = { buy: fin(k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice)), proc: fin(r.proc), fte: fin(r.fte), prof: fin((pay - r.cost) * r.proc / 12), cost: fin(r.cost), full: fin(drug + r.cost) };
-                                                                                                }
-                                                                                                return rows;
-                                                                                            }
-                                                                                            function rowsHtml(rows, info, openBtn) {
-                                                                                                return ['a', 'b', 'c'].map((k, i) => {
-                                                                                                    const r = rows[k];
-                                                                                                    return `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
-                                                                                                        <td><b>${VAR_NAMES[k]}</b><br>${openBtn}</td>
-                                                                                                        <td class="num">${r.buy ? usd(r.buy) : '—'}</td><td class="num">${fmt(r.proc)}</td><td class="num">${fmt(r.fte, 1)}</td>
-                                                                                                        <td class="num">${usd(info.wage)}</td><td class="num"><b style="color:#1f4e78;">${usd(r.prof)}</b></td>
-                                                                                                        <td class="num"><b>${usd(r.full)}</b><span class="small">drug ${usd(info.drug)} + direct costs ${usd(r.cost)}</span></td></tr>`;
-                                                                                                }).join('');
-                                                                                            }
-                                                                                            const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-                                                                                            window.renderServiceListing = function () {
-                                                                                                const tb = document.getElementById('svc-listing-rows'); if (!tb || !baseRows) return;
-                                                                                                let html = `<tr class="lst-topic"><td colspan="8">📂 MEDICINE — INFUSION UNIT: a large Los Angeles hospital, about ${fmt(baseInfo.chairs)} chairs (payment for a procedure by the insurance company — ${usd(baseInfo.pay)}, drug — ${usd(baseInfo.drug)}) — base option</td></tr>`;
-                                                                                                html += rowsHtml(baseRows, baseInfo, `<button class="btn-open" onclick="openBase()">📥 Open in the service generator</button>`); html += presetHtml();
-                                                                                                const mine = window.myVariants || [];
-                                                                                                if (!mine.length) {
-                                                                                                    html += `<tr class="lst-mine"><td colspan="8">📁 MY OPTIONS: no saved options yet. Open "⚙️ Service generator", enter your own figures and click "💾 Save my option".</td></tr>`;
-                                                                                                }
-                                                                                                mine.forEach(m => {
-                                                                                                    if (!m.rows || !m.info) return;
-                                                                                                    const d = m.created ? new Date(m.created).toLocaleDateString(T.loc) : '';
-                                                                                                    html += `<tr class="lst-mine"><td colspan="8">📁 MY OPTION: ${esc(m.name || 'untitled')} (saved ${d}; ${fmt(m.info.chairs)} chairs, payment for a procedure ${usd(m.info.pay)}, drug ${usd(m.info.drug)})
-                                                                                                        &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">🗑️ Delete</button></td></tr>`;
-                                                                                                    html += rowsHtml(m.rows, m.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">📥 Open in the service generator</button>`);
-                                                                                                });
-                                                                                                tb.innerHTML = html;
-                                                                                            };
-                                                                                            function applyInputs(vals) {
-                                                                                                for (const id in vals) { const el = document.getElementById(id); if (el) el.value = vals[id]; }
-                                                                                                calc();
-                                                                                            }
-                                                                                            const svcStatus = t => { const el = document.getElementById('svc-status'); if (el) el.textContent = t; };
-                                                                                            const svcCurrent = t => { const el = document.getElementById('svc-current'); if (el) el.textContent = t; };
-                                                                                            window.openBase = function () { applyInputs(BASE_INPUTS); svcCurrent('base option'); openInGenerator('sv5'); };
-                                                                                            window.resetToBase = function () { applyInputs(BASE_INPUTS); svcCurrent('base option'); svcStatus('The figures of the base option are back.'); };
-                                                                                            window.openMyVariant = function (id) {
-                                                                                                const m = (window.myVariants || []).find(x => x.id === id); if (!m) return;
-                                                                                                applyInputs(m.inputs || {}); svcCurrent('my option "' + (m.name || 'untitled') + '"');
-                                                                                                const nm = document.getElementById('svc-name'); if (nm) nm.value = m.name || '';
-                                                                                                openInGenerator('sv5');
-                                                                                            };
-                                                                                            window.saveMyVariant = async function () {
-                                                                                                const nm = document.getElementById('svc-name');
-                                                                                                const name = (nm && nm.value.trim()) || ('My option ' + new Date().toLocaleDateString(T.loc));
-                                                                                                const inputs = {};
-                                                                                                document.querySelectorAll('#main-tab-2 input[type=number]').forEach(i => { inputs[i.id] = i.value; });
-                                                                                                if (typeof window.svcSaveToDb !== 'function') { svcStatus('⚠️ The database has not connected yet — wait a few seconds and click again.'); return; }
-                                                                                                try {
-                                                                                                    await window.svcSaveToDb({ name, created: Date.now(), inputs, rows: lastRows, info: lastInfo });
-                                                                                                    svcCurrent('my option "' + name + '"');
-                                                                                                    svcStatus('✓ Option "' + name + '" is saved. It now appears in the service listing under "My options".');
-                                                                                                } catch (e) { svcStatus('⚠️ Could not save: ' + e.message); }
-                                                                                            };
-                                                                                            window.deleteMyVariant = async function (id) {
-                                                                                                const m = (window.myVariants || []).find(x => x.id === id);
-                                                                                                if (!confirm('Delete option "' + ((m && m.name) || '') + '"? The base option stays.')) return;
-                                                                                                try { await window.svcDeleteFromDb(id); } catch (e) { alert('Could not delete: ' + e.message); }
-                                                                                            };
-                                                                                            // СКРЫТЫЕ ГОТОВЫЕ ВАРИАНТЫ: видны в листинге только по ссылке вида ...html?v=moscow
-                                                                                            const PRESETS = {
-                                                                                                moscow: { short: "📌 MOSCOW, PRIVATE CLINIC — estimate, amounts in US dollars at 82.85 rubles per $1 (inputs and sources — above the table)", cur: 'Moscow, private clinic', head: "📌 MOSCOW, PRIVATE CLINIC — estimate, amounts in US dollars at the Bank of Russia rate of 82.85 rubles per $1 (Oct 20, 2026): nurse's pay 118,000 rubles ≈ $1,424 per month, doctor's pay 200,000 rubles ≈ $2,414 per month, payment for a procedure excluding the drug 15,000 rubles ≈ $181, drug per procedure ≈ 100,000 rubles ≈ $1,207, rent 1,500 m² × 23,900 rubles per year ≈ $432,700 per year. Devices and robotic systems at the same purchase prices as in the base option.", src: 'Sources: nurse\'s pay — vacancy for an oncologist\'s nurse, Meditsina clinic, Moscow (<a href="https://hh.ru/vacancy/135856022" target="_blank">hh.ru</a>); doctor\'s pay — oncologist vacancy, RZD-Meditsina, Moscow, from 150,000 rubles (<a href="https://hh.ru/vacancy/135918421" target="_blank">hh.ru</a>), 200,000 rubles used here is an estimate; payment for a procedure — prices for administering chemotherapy excluding the drug: ACC Medical, Moscow, 9,000–14,000 rubles (<a href="https://accmedical.ru/skolko-stoit-kurs-himioterapii/" target="_blank">accmedical.ru</a>), SM-Clinic 18,110 rubles (<a href="https://www.smclinic-spb.ru/uslugi/khimioterapiya" target="_blank">smclinic-spb.ru</a>); rent — class B offices, Q1 2026, IBC Real Estate (<a href="https://realty.rbc.ru/news/6a03841a9a794767d6278185" target="_blank">RBC Real Estate</a>), area of 1,500 m² is an estimate; drug — estimate.',
-                                                                                                    inputs: { wage: '1424', docWage: '2414', pay: '181', drug: '1207', premises: '432700' } },
-                                                                                                uk: { short: "📌 UNITED KINGDOM (NHS) — estimate, amounts in US dollars at $1.335 per £1 (inputs and sources — above the table)", cur: "United Kingdom (NHS)", head: "📌 UNITED KINGDOM (NHS) — estimate, amounts in US dollars at the Bank of Russia cross rate of $1.335 per £1 (Oct 20, 2026): nurse's pay (Band 5, mid-scale) £34,592 per year ≈ $3,849 per month, consultant's pay £119,490 per year ≈ $13,296 per month, payment for a procedure excluding the drug ≈ £300 ≈ $401, rent 1,500 m² (16,146 sq ft) × £28 per year ≈ $603,700 per year. Drug, devices and robotic systems as in the base option.", src: "Sources: nurse — NHS Agenda for Change 2026/27, Band 5 £32,073–39,043 (<a href=\"https://salarytax.uk/professions/nhs-band-5-nurse\" target=\"_blank\">salarytax.uk</a>); consultant — £109,725–145,478 in 2026/27 (<a href=\"https://nhstakehomepaycalculator.co.uk/guides/nhs-consultant-salary-2026-27/\" target=\"_blank\">nhstakehomepaycalculator.co.uk</a>); payment for a procedure — estimate: the NHS price for simple chemotherapy delivery (SB12Z) was not found in public sources; for comparison, complex chemotherapy delivery (SB14Z) was £473 in the 2015/16 tariff (<a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/379571/S118_Annex_4A_NTCN1516.pdf\" target=\"_blank\">gov.uk</a>); rent — outer London offices £25–30 per sq ft per year (<a href=\"https://londonofficespace.com/buzz/comparing-office-space-cost-central-london-vs-outer-london/\" target=\"_blank\">londonofficespace.com</a>, 2024), area is an estimate.",
-                                                                                                    inputs: { wage: '3849', docWage: '13296', pay: '401', premises: '603700' } },
-                                                                                                germany: { short: "📌 GERMANY — estimate, amounts in US dollars at $1.125 per €1 (inputs and sources — above the table)", cur: "Germany", head: "📌 GERMANY — estimate, amounts in US dollars at the Bank of Russia cross rate of $1.125 per €1 (Oct 20, 2026): nurse's pay (TVöD-P, P8, step 4) €4,076 per month ≈ $4,586, specialist doctor's pay (TV-Ärzte/VKA, group II) €8,185 ≈ $9,211 per month, payment for a procedure excluding the drug ≈ €150 ≈ $169, rent 1,500 m² × €20 per month ≈ $405,100 per year. Drug, devices and robotic systems as in the base option.", src: "Sources: nurse — TVöD-P table from May 1, 2026 (<a href=\"https://www.medi-karriere.de/magazin/tvoed-2026/\" target=\"_blank\">medi-karriere.de</a>); doctor — TV-Ärzte/VKA table from June 1, 2026, group II €7,552–9,699 (<a href=\"https://www.haufe.de/oeffentlicher-dienst/personal-tarifrecht/entgelttabellen/entgelttabelle-tv-aerztevka_144_519958.html\" target=\"_blank\">haufe.de</a>); payment for a procedure — estimate: in Germany outpatient chemotherapy is paid by quarterly flat fees, not per infusion; €150 is derived from a DGHO example (about €3,582 of physician revenue per year for a daratumumab course of about 23 infusions) (<a href=\"https://germanoncology.de/wp-content/uploads/2022/10/V278-DGHO-2022-Vortrag-Lipp-Kosten-SC-Therapien.pdf\" target=\"_blank\">DGHO</a>); rent and area — estimate.",
-                                                                                                    inputs: { wage: '4586', docWage: '9211', pay: '169', premises: '405100' } },
-                                                                                                france: { short: "📌 FRANCE — estimate, amounts in US dollars at $1.125 per €1 (inputs and sources — above the table)", cur: "France", head: "📌 FRANCE — estimate, amounts in US dollars at the Bank of Russia cross rate of $1.125 per €1 (Oct 20, 2026): nurse's pay (mid-career) €2,950 per month ≈ $3,320, hospital doctor's pay €6,000 ≈ $6,752 per month, payment for a procedure excluding the drug — GHS 9606 tariff \"chemotherapy, sessions\" €461 ≈ $519, rent 1,500 m² × €445 per year ≈ $751,100 per year. Drug, devices and robotic systems as in the base option.", src: "Sources: nurse — €2,800–3,100 gross mid-career, hospital doctor — from €4,100 at the start to €8,000 at the end of a career, mid-point used (<a href=\"https://salairebrut-en-net.fr/blog/salaire-sante-infirmier-aide-soignant-2026.html\" target=\"_blank\">salairebrut-en-net.fr</a>); payment for a procedure — GHS 9606 (GHM 28Z07Z) tariff for public hospitals, 2024 (<a href=\"https://www.aideaucodage.fr/ghm-28z07z\" target=\"_blank\">aideaucodage.fr</a>); rent — average office rent in Île-de-France, Q1 2026 (<a href=\"https://www.arthur-loyd.com/media/file/7afe8363-l-indispensable-t1-2026-1.pdf\" target=\"_blank\">Arthur Loyd</a>), area is an estimate.",
-                                                                                                    inputs: { wage: '3320', docWage: '6752', pay: '519', premises: '751100' } },
-                                                                                                india: { short: "📌 INDIA, PRIVATE CLINIC — estimate, amounts in US dollars at 94.8 rupees per $1 (inputs and sources — above the table)", cur: "India, private clinic", head: "📌 INDIA, PRIVATE CLINIC — estimate, amounts in US dollars at the Bank of Russia cross rate of 94.8 rupees per $1 (Oct 20, 2026): nurse's pay ₹40,000 per month ≈ $422, oncologist's pay ₹1,600,000 per year ≈ $1,407 per month, payment for a procedure excluding the drug ₹10,000 ≈ $106, drug ≈ ₹40,000 ≈ $422, rent 1,500 m² (16,146 sq ft) × ₹100.6 per month ≈ $205,700 per year (Bengaluru). Devices and robotic systems as in the base option.", src: "Sources: nurse — Bengaluru ₹28,000–50,000 per month (<a href=\"https://www.vedantu.com/neet/nurse-salary-in-india-government-hospital-vs-private\" target=\"_blank\">vedantu.com</a>); oncologist — average ₹1,600,000 per year (<a href=\"https://www.payscale.com/research/IN/Job=Physician_%2F_Doctor%2C_Oncologist/Salary\" target=\"_blank\">PayScale</a>), higher in large private networks; payment for a procedure — day care ₹5,000–20,000 per session excluding the drug (<a href=\"https://www.impactguru.com/info/chemotherapy-cost-in-india/\" target=\"_blank\">impactguru.com</a>); drug — estimate; rent — average Bengaluru office rent, Q1 2026, Knight Frank (<a href=\"https://www.propnewz.com/blog/knight-frank-q1-2026-bengaluru-office-residential-buyer-2026-06-07\" target=\"_blank\">propnewz.com</a>), area is an estimate.",
-                                                                                                    inputs: { wage: '422', docWage: '1407', pay: '106', drug: '422', premises: '205700' } }
-                                                                                            };
-                                                                                            const PRESET_KEY = (() => { try { return new URLSearchParams(location.search).get('v'); } catch (e) { return null; } })();
-                                                                                            let presetRows = null, presetInfo = null;
-                                                                                            function presetInputs() { return Object.assign({}, BASE_INPUTS, PRESETS[PRESET_KEY].inputs); }
-                                                                                            window.openPreset = function () { applyInputs(presetInputs()); svcCurrent(PRESETS[PRESET_KEY].cur); openInGenerator('sv5'); };
-                                                                                            function presetHtml() {
-                                                                                                if (!presetRows) return '';
-                                                                                                const p = PRESETS[PRESET_KEY];
-                                                                                                return `<tr class="lst-topic"><td colspan="8">${p.short}</td></tr>` +
-                                                                                                    rowsHtml(presetRows, presetInfo, `<button class="btn-open" onclick="openPreset()">📥 Open in the service generator</button>`);
-                                                                                            }
-                                                                                            function initPreset() {
-                                                                                                if (!PRESET_KEY || !PRESETS[PRESET_KEY]) return;
-                                                                                                applyInputs(presetInputs()); presetRows = lastRows; presetInfo = lastInfo;
-                                                                                                applyInputs(BASE_INPUTS);
-                                                                                                { const tr = document.querySelector('#main-tab-1 .table-responsive'); if (tr) { const n = document.createElement('div'); n.className = 'info-hint'; n.id = 'preset-note'; n.innerHTML = PRESETS[PRESET_KEY].head + '<span class="small" style="margin-top:6px;">' + PRESETS[PRESET_KEY].src + '</span>'; tr.parentNode.insertBefore(n, tr); } }
-                                                                                            }
-                                                                                            function calc() {
-                                                                                                let mod = 0;
-                                                                                                for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
-                                                                                                set('modTotal', usd(mod));
-                                                                                                const modYear = mod / MOD_LIFE + mod * MOD_SVC;
-
-                                                                                                const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
-                                                                                                const robotRate = 1 / rLife + rSvc;
-                                                                                                set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
-
-                                                                                                const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
-                                                                                                const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
-                                                                                                const res = {};
-                                                                                                for (const k of ['a', 'b', 'c']) {
-                                                                                                    const hours = v('hours-' + k), days = v('days-' + k);
-                                                                                                    const cycle = procH + v('turn-' + k);
-                                                                                                    const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
-                                                                                                    const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
-                                                                                                    const docs = v('docN');
-                                                                                                    const wages = fte * wageYear + docs * docYear;
-                                                                                                    let equip = 0;
-                                                                                                    if (k !== 'a') equip += modYear;
-                                                                                                    if (k === 'c') equip += robots * rPrice * robotRate;
-                                                                                                    const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
-                                                                                                    const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
-                                                                                                    const fixedYear = wages + equip + premises;
-                                                                                                    const perDay = cycle > 0 ? chairs * hours / cycle : 0;
-                                                                                                    const fday = days > 0 ? fixedYear / days : 0;
-                                                                                                    const req = pay > 0 ? fday / pay : Infinity;
-                                                                                                    const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
-                                                                                                    const full = drug + cost;
-                                                                                                    const prof = (pay - cost) * proc / 12;
-                                                                                                    res[k] = { proc, fte, wages, equip, cost, fixedYear };
-                                                                                                    set('docs-' + k, fmt(docs, 1));
-                                                                                                    set('fday-' + k, usd(fday));
-                                                                                                    set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
-                                                                                                    set('act-' + k, fmt(perDay, 1));
-                                                                                                    set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
-                                                                                                    set('full-' + k, usd(full));
-                                                                                                    set('prof-' + k, usd(prof));
-                                                                                                    res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
-                                                                                                    set('proc-' + k, fmt(proc));
-                                                                                                    set('fte-' + k, fmt(fte, 1));
-                                                                                                    set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
-                                                                                                    set('wages-' + k, usd(wages));
-                                                                                                    set('equip-' + k, usd(equip));
-                                                                                                    set('cost-' + k, usd(cost));
-                                                                                                    {
-                                                                                                        const turn = v('turn-' + k);
-                                                                                                        const hppTxt = hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`;
-                                                                                                        cell('act-' + k, fmt(perDay, 1), `${fmt(chairs)} chairs × ${fmt(hours)} h of work ÷ (${fmt(procH, 1)} h procedure + ${fmt(turn, 2)} h chair preparation)`);
-                                                                                                        cell('proc-' + k, fmt(proc), `${fmt(perDay, 1)} procedures per day × ${fmt(days)} working days`);
-                                                                                                        cell('fte-' + k, fmt(fte, 1), `${fmt(v('nurse-' + k) + v('supp-' + k), 1)} people per shift × ${fmt(hours)} h ÷ 8 × ${fmt(days)} ÷ 250`);
-                                                                                                        cell('hpp-' + k, hppTxt, `${fmt(fte, 1)} full-time positions × 2,000 h per year ÷ ${fmt(proc)} patients`);
-                                                                                                        cell('docs-' + k, fmt(docs, 1), 'set in the field “Doctors in the unit”');
-                                                                                                        cell('wn-' + k, usd(fte * wageYear), `${fmt(fte, 1)} × ${usd(v('wage'))} × 12`);
-                                                                                                        cell('wd-' + k, usd(docs * docYear), `${fmt(docs)} × ${usd(v('docWage'))} × 12`);
-                                                                                                        cell('equip-' + k, usd(equip), k === 'a' ? 'no purchases' : (`devices ${usd(mod)} ÷ 7 years of service + repairs 10% per year` + (k === 'c' ? ` + robotic systems ${usd(robots * rPrice)} ÷ ${fmt(rLife)} years of service + repairs ${fmt(rSvc * 100)}% per year` : '')));
-                                                                                                        cell('prem-' + k, usd(premises), 'set in the field “Rent of premises”');
-                                                                                                        cell('fyear-' + k, usd(fixedYear), `medical staff ${usd(wages)} + devices ${usd(equip)} + rent ${usd(premises)}`);
-                                                                                                        cell('cost-' + k, usd(cost), `${usd(fixedYear)} per year ÷ ${fmt(proc)} procedures`);
-                                                                                                        cell('full-' + k, usd(full), `drug ${usd(drug)} + direct costs ${usd(cost)}`);
-                                                                                                        cell('rev-' + k, usd(proc * pay), `${usd(pay)} per procedure × ${fmt(proc)} procedures`);
-                                                                                                        cell('prof-' + k, usd(prof), `(${usd(pay)} − ${usd(cost)}) × ${fmt(proc)} procedures per year ÷ 12 months`);
-                                                                                                        cell('fday-' + k, usd(fday), `${usd(fixedYear)} per year ÷ ${fmt(days)} working days`);
-                                                                                                        cell('req-' + k, isFinite(req) ? fmt(req, 1) : '∞', `${usd(fday)} per day ÷ ${usd(pay)} per procedure`);
-                                                                                                        cell('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—', `(${fmt(perDay, 1)} − ${isFinite(req) ? fmt(req, 1) : '∞'}) ÷ ${fmt(perDay, 1)}`);
+                                                                                                    // TAB SWITCHING — AS IN THE PRODUCTION GENERATOR
+                                                                                                    window.switchMainTab = function (id) {
+                                                                                                        document.querySelectorAll('.main-tab-content-panel').forEach(p => p.classList.toggle('active', p.id === id));
+                                                                                                        document.getElementById('btn-main-listing').classList.toggle('active', id === 'main-tab-1');
+                                                                                                        document.getElementById('btn-main-gen').classList.toggle('active', id === 'main-tab-2');
+                                                                                                    };
+                                                                                                    window.openSvcTab = function (tab) {
+                                                                                                        document.querySelectorAll('#svcTabs a').forEach(a => a.classList.toggle('active', a.dataset.tab === tab));
+                                                                                                        document.querySelectorAll('#main-tab-2 .section').forEach(s => s.classList.toggle('active', s.id === tab));
+                                                                                                    };
+                                                                                                    document.querySelectorAll('#svcTabs a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openSvcTab(a.dataset.tab); }));
+                                                                                                    window.openInGenerator = function (tab) { switchMainTab('main-tab-2'); openSvcTab(tab || 'sv5'); window.scrollTo(0, 0); };
+                                                                                                    // SERVICE LISTING: base option (the page's original figures) + the user's saved options (visible only to that user)
+                                                                                                    const BASE_INPUTS = {};
+                                                                                                    document.querySelectorAll('#main-tab-2 input[type=number]').forEach(i => { BASE_INPUTS[i.id] = i.defaultValue; });
+                                                                                                    let baseRows = null, baseInfo = null, lastRows = null, lastInfo = null;
+                                                                                                    window.myVariants = [];
+                                                                                                    const VAR_NAMES = { a: '1. Today: people', b: '2. People + devices', c: '3. Future: robotic systems' };
+                                                                                                    const fin = x => (isFinite(x) ? x : 0);
+                                                                                                    function makeRows(res, mod, robots, rPrice, pay, drug) {
+                                                                                                        const rows = {};
+                                                                                                        for (const k of ['a', 'b', 'c']) {
+                                                                                                            const r = res[k];
+                                                                                                            rows[k] = { buy: fin(k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice)), proc: fin(r.proc), fte: fin(r.fte), prof: fin((pay - r.cost) * r.proc / 12), cost: fin(r.cost), full: fin(drug + r.cost) };
+                                                                                                        }
+                                                                                                        return rows;
                                                                                                     }
-                                                                                                }
-
-                                                                                                const yr = new Date().getFullYear() + Math.round(v('approval'));
-                                                                                                const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
-                                                                                                { const h = document.getElementById('hero'); if (h) h.innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr); }
-                                                                                                {
-                                                                                                    const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' M' : usd(n);
-                                                                                                    const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
-                                                                                                    set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
-                                                                                                    set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
-                                                                                                    set('pre-wage', usd(v('wage')));
-                                                                                                    set('pre-year', String(yr));
-                                                                                                    set('pre-mod', usd(mod));
-                                                                                                    set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
-                                                                                                    set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
-                                                                                                    set('pre-hours-c', fmt(v('hours-c')));
-                                                                                                    set('pre-proc', arr(k => fmt(res[k].proc)));
-                                                                                                    set('pre-rev', arr(k => big(res[k].proc * pay)));
-                                                                                                    set('pre-fte', arr(k => fmt(res[k].fte, 1)));
-                                                                                                    set('pre-cost', arr(k => usd(res[k].cost)));
-                                                                                                    set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
-                                                                                                    for (const k of ['a', 'b', 'c']) {
-                                                                                                        const r = res[k];
-                                                                                                        set('sm-wages-' + k, usd(r.wages)); set('sm-equip-' + k, usd(r.equip)); set('sm-prem-' + k, usd(premises));
-                                                                                                        set('sm-fyear-' + k, usd(r.fixedYear)); set('sm-proc-' + k, fmt(r.proc)); set('sm-cost-' + k, usd(r.cost));
-                                                                                                        set('sm-drug-' + k, usd(drug)); set('sm-full-' + k, usd(drug + r.cost));
-                                                                                                        set('sm-rev-' + k, usd(r.proc * pay)); set('sm-fyear2-' + k, '− ' + usd(r.fixedYear)); set('sm-profy-' + k, usd(r.proc * pay - r.fixedYear));
+                                                                                                    function rowsHtml(rows, info, openBtn) {
+                                                                                                        return ['a', 'b', 'c'].map((k, i) => {
+                                                                                                            const r = rows[k];
+                                                                                                            return `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
+                                                                                                                <td><b>${VAR_NAMES[k]}</b><br>${openBtn}</td>
+                                                                                                                <td class="num">${r.buy ? usd(r.buy) : '—'}</td><td class="num">${fmt(r.proc)}</td><td class="num">${fmt(r.fte, 1)}</td>
+                                                                                                                <td class="num">${usd(info.wage)}</td><td class="num"><b style="color:#1f4e78;">${usd(r.prof)}</b></td>
+                                                                                                                <td class="num"><b>${usd(r.full)}</b><span class="small">drug ${usd(info.drug)} + direct costs ${usd(r.cost)}</span></td></tr>`;
+                                                                                                        }).join('');
                                                                                                     }
-                                                                                                    const P = {};
-                                                                                                    for (const k of ['a', 'b', 'c']) {
-                                                                                                        const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
-                                                                                                        const r = res[k], prof = (pay - r.cost) * r.proc / 12;
-                                                                                                        const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
-                                                                                                        P[k] = { prof, buy };
-                                                                                                        set('dv-proc-' + k, `${fmt(chairs)} chairs × ${fmt(hours)} h ÷ (${fmt(procH, 1)} h procedure + ${fmt(turn, 2)} h preparation) × ${fmt(days)} days = ${fmt(r.proc)} procedures per year`);
-                                                                                                        set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} nurses + ${fmt(v('supp-' + k), 1)} support staff per shift) × ${fmt(hours)} h ÷ 8 h × ${fmt(days)} ÷ 250 days = ${fmt(r.fte, 1)}`);
-                                                                                                        set('dv-cost-' + k, `(pay ${usd(r.wages)} + devices and robotic systems ${usd(r.equip)} + rent ${usd(premises)}) ÷ ${fmt(r.proc)} procedures = ${usd(r.cost)}`);
-                                                                                                        set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} procedures per month = ${usd(prof)} per month`);
-
-                                                                                                        cell('profy-' + k, usd(prof * 12), `${usd(prof)} per month × 12`); cell('buy-' + k, buy ? usd(buy) : '—', k === 'a' ? 'no purchases' : (k === 'b' ? 'devices (table “Devices to be purchased”)' : `devices ${usd(mod)} + robotic systems ${fmt(robots)} × ${usd(rPrice)}`));
+                                                                                                    const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+                                                                                                    window.renderServiceListing = function () {
+                                                                                                        const tb = document.getElementById('svc-listing-rows'); if (!tb || !baseRows) return;
+                                                                                                        let html = `<tr class="lst-topic"><td colspan="8">📂 MEDICINE — INFUSION UNIT: a large Los Angeles hospital, about ${fmt(baseInfo.chairs)} chairs (payment for a procedure by the insurance company — ${usd(baseInfo.pay)}, drug — ${usd(baseInfo.drug)}) — base option</td></tr>`;
+                                                                                                        html += rowsHtml(baseRows, baseInfo, `<button class="btn-open" onclick="openBase()">📥 Open in the service generator</button>`); html += presetHtml();
+                                                                                                        const mine = window.myVariants || [];
+                                                                                                        if (!mine.length) {
+                                                                                                            html += `<tr class="lst-mine"><td colspan="8">📁 MY OPTIONS: no saved options yet. Open "⚙️ Service generator", enter your own figures and click "💾 Save my option".</td></tr>`;
+                                                                                                        }
+                                                                                                        mine.forEach(m => {
+                                                                                                            if (!m.rows || !m.info) return;
+                                                                                                            const d = m.created ? new Date(m.created).toLocaleDateString(T.loc) : '';
+                                                                                                            html += `<tr class="lst-mine"><td colspan="8">📁 MY OPTION: ${esc(m.name || 'untitled')} (saved ${d}; ${fmt(m.info.chairs)} chairs, payment for a procedure ${usd(m.info.pay)}, drug ${usd(m.info.drug)})
+                                                                                                                &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">🗑️ Delete</button></td></tr>`;
+                                                                                                            html += rowsHtml(m.rows, m.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">📥 Open in the service generator</button>`);
+                                                                                                        });
+                                                                                                        tb.innerHTML = html;
+                                                                                                    };
+                                                                                                    function applyInputs(vals) {
+                                                                                                        for (const id in vals) { const el = document.getElementById(id); if (el) el.value = vals[id]; }
+                                                                                                        calc();
                                                                                                     }
-                                                                                                    const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' days' : fmt(buy / gain, 1) + ' months') : 'does not pay back';
-                                                                                                    for (const k of ['b', 'c']) {
-                                                                                                        const gain = P[k].prof - P.a.prof;
-                                                                                                        set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
-                                                                                                        cell('pbt-' + k, months(P[k].buy, gain), `${usd(P[k].buy)} ÷ profit increase ${usd(gain)} per month`);
+                                                                                                    const svcStatus = t => { const el = document.getElementById('svc-status'); if (el) el.textContent = t; };
+                                                                                                    const svcCurrent = t => { const el = document.getElementById('svc-current'); if (el) el.textContent = t; };
+                                                                                                    window.openBase = function () { applyInputs(BASE_INPUTS); svcCurrent('base option'); openInGenerator('sv5'); };
+                                                                                                    window.resetToBase = function () { applyInputs(BASE_INPUTS); svcCurrent('base option'); svcStatus('The figures of the base option are back.'); };
+                                                                                                    window.openMyVariant = function (id) {
+                                                                                                        const m = (window.myVariants || []).find(x => x.id === id); if (!m) return;
+                                                                                                        applyInputs(m.inputs || {}); svcCurrent('my option "' + (m.name || 'untitled') + '"');
+                                                                                                        const nm = document.getElementById('svc-name'); if (nm) nm.value = m.name || '';
+                                                                                                        openInGenerator('sv5');
+                                                                                                    };
+                                                                                                    window.saveMyVariant = async function () {
+                                                                                                        const nm = document.getElementById('svc-name');
+                                                                                                        const name = (nm && nm.value.trim()) || ('My option ' + new Date().toLocaleDateString(T.loc));
+                                                                                                        const inputs = {};
+                                                                                                        document.querySelectorAll('#main-tab-2 input[type=number]').forEach(i => { inputs[i.id] = i.value; });
+                                                                                                        if (typeof window.svcSaveToDb !== 'function') { svcStatus('⚠️ The database has not connected yet — wait a few seconds and click again.'); return; }
+                                                                                                        try {
+                                                                                                            await window.svcSaveToDb({ name, created: Date.now(), inputs, rows: lastRows, info: lastInfo });
+                                                                                                            svcCurrent('my option "' + name + '"');
+                                                                                                            svcStatus('✓ Option "' + name + '" is saved. It now appears in the service listing under "My options".');
+                                                                                                        } catch (e) { svcStatus('⚠️ Could not save: ' + e.message); }
+                                                                                                    };
+                                                                                                    window.deleteMyVariant = async function (id) {
+                                                                                                        const m = (window.myVariants || []).find(x => x.id === id);
+                                                                                                        if (!confirm('Delete option "' + ((m && m.name) || '') + '"? The base option stays.')) return;
+                                                                                                        try { await window.svcDeleteFromDb(id); } catch (e) { alert('Could not delete: ' + e.message); }
+                                                                                                    };
+                                                                                                    // СКРЫТЫЕ ГОТОВЫЕ ВАРИАНТЫ: видны в листинге только по ссылке вида ...html?v=moscow
+                                                                                                    const PRESETS = {
+                                                                                                        moscow: { short: "📌 MOSCOW, PRIVATE CLINIC — estimate, amounts in US dollars at 82.85 rubles per $1 (inputs and sources — above the table)", cur: 'Moscow, private clinic', head: "📌 MOSCOW, PRIVATE CLINIC — estimate, amounts in US dollars at the Bank of Russia rate of 82.85 rubles per $1 (Oct 20, 2026): nurse's pay 118,000 rubles ≈ $1,424 per month, doctor's pay 200,000 rubles ≈ $2,414 per month, payment for a procedure excluding the drug 15,000 rubles ≈ $181, drug per procedure ≈ 100,000 rubles ≈ $1,207, rent 1,500 m² × 23,900 rubles per year ≈ $432,700 per year. Devices and robotic systems at the same purchase prices as in the base option.", src: 'Sources: nurse\'s pay — vacancy for an oncologist\'s nurse, Meditsina clinic, Moscow (<a href="https://hh.ru/vacancy/135856022" target="_blank">hh.ru</a>); doctor\'s pay — oncologist vacancy, RZD-Meditsina, Moscow, from 150,000 rubles (<a href="https://hh.ru/vacancy/135918421" target="_blank">hh.ru</a>), 200,000 rubles used here is an estimate; payment for a procedure — prices for administering chemotherapy excluding the drug: ACC Medical, Moscow, 9,000–14,000 rubles (<a href="https://accmedical.ru/skolko-stoit-kurs-himioterapii/" target="_blank">accmedical.ru</a>), SM-Clinic 18,110 rubles (<a href="https://www.smclinic-spb.ru/uslugi/khimioterapiya" target="_blank">smclinic-spb.ru</a>); rent — class B offices, Q1 2026, IBC Real Estate (<a href="https://realty.rbc.ru/news/6a03841a9a794767d6278185" target="_blank">RBC Real Estate</a>), area of 1,500 m² is an estimate; drug — estimate.',
+                                                                                                            inputs: { wage: '1424', docWage: '2414', pay: '181', drug: '1207', premises: '432700' } },
+                                                                                                        uk: { short: "📌 UNITED KINGDOM (NHS) — estimate, amounts in US dollars at $1.335 per £1 (inputs and sources — above the table)", cur: "United Kingdom (NHS)", head: "📌 UNITED KINGDOM (NHS) — estimate, amounts in US dollars at the Bank of Russia cross rate of $1.335 per £1 (Oct 20, 2026): nurse's pay (Band 5, mid-scale) £34,592 per year ≈ $3,849 per month, consultant's pay £119,490 per year ≈ $13,296 per month, payment for a procedure excluding the drug ≈ £300 ≈ $401, rent 1,500 m² (16,146 sq ft) × £28 per year ≈ $603,700 per year. Drug, devices and robotic systems as in the base option.", src: "Sources: nurse — NHS Agenda for Change 2026/27, Band 5 £32,073–39,043 (<a href=\"https://salarytax.uk/professions/nhs-band-5-nurse\" target=\"_blank\">salarytax.uk</a>); consultant — £109,725–145,478 in 2026/27 (<a href=\"https://nhstakehomepaycalculator.co.uk/guides/nhs-consultant-salary-2026-27/\" target=\"_blank\">nhstakehomepaycalculator.co.uk</a>); payment for a procedure — estimate: the NHS price for simple chemotherapy delivery (SB12Z) was not found in public sources; for comparison, complex chemotherapy delivery (SB14Z) was £473 in the 2015/16 tariff (<a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/379571/S118_Annex_4A_NTCN1516.pdf\" target=\"_blank\">gov.uk</a>); rent — outer London offices £25–30 per sq ft per year (<a href=\"https://londonofficespace.com/buzz/comparing-office-space-cost-central-london-vs-outer-london/\" target=\"_blank\">londonofficespace.com</a>, 2024), area is an estimate.",
+                                                                                                            inputs: { wage: '3849', docWage: '13296', pay: '401', premises: '603700' } },
+                                                                                                        germany: { short: "📌 GERMANY — estimate, amounts in US dollars at $1.125 per €1 (inputs and sources — above the table)", cur: "Germany", head: "📌 GERMANY — estimate, amounts in US dollars at the Bank of Russia cross rate of $1.125 per €1 (Oct 20, 2026): nurse's pay (TVöD-P, P8, step 4) €4,076 per month ≈ $4,586, specialist doctor's pay (TV-Ärzte/VKA, group II) €8,185 ≈ $9,211 per month, payment for a procedure excluding the drug ≈ €150 ≈ $169, rent 1,500 m² × €20 per month ≈ $405,100 per year. Drug, devices and robotic systems as in the base option.", src: "Sources: nurse — TVöD-P table from May 1, 2026 (<a href=\"https://www.medi-karriere.de/magazin/tvoed-2026/\" target=\"_blank\">medi-karriere.de</a>); doctor — TV-Ärzte/VKA table from June 1, 2026, group II €7,552–9,699 (<a href=\"https://www.haufe.de/oeffentlicher-dienst/personal-tarifrecht/entgelttabellen/entgelttabelle-tv-aerztevka_144_519958.html\" target=\"_blank\">haufe.de</a>); payment for a procedure — estimate: in Germany outpatient chemotherapy is paid by quarterly flat fees, not per infusion; €150 is derived from a DGHO example (about €3,582 of physician revenue per year for a daratumumab course of about 23 infusions) (<a href=\"https://germanoncology.de/wp-content/uploads/2022/10/V278-DGHO-2022-Vortrag-Lipp-Kosten-SC-Therapien.pdf\" target=\"_blank\">DGHO</a>); rent and area — estimate.",
+                                                                                                            inputs: { wage: '4586', docWage: '9211', pay: '169', premises: '405100' } },
+                                                                                                        france: { short: "📌 FRANCE — estimate, amounts in US dollars at $1.125 per €1 (inputs and sources — above the table)", cur: "France", head: "📌 FRANCE — estimate, amounts in US dollars at the Bank of Russia cross rate of $1.125 per €1 (Oct 20, 2026): nurse's pay (mid-career) €2,950 per month ≈ $3,320, hospital doctor's pay €6,000 ≈ $6,752 per month, payment for a procedure excluding the drug — GHS 9606 tariff \"chemotherapy, sessions\" €461 ≈ $519, rent 1,500 m² × €445 per year ≈ $751,100 per year. Drug, devices and robotic systems as in the base option.", src: "Sources: nurse — €2,800–3,100 gross mid-career, hospital doctor — from €4,100 at the start to €8,000 at the end of a career, mid-point used (<a href=\"https://salairebrut-en-net.fr/blog/salaire-sante-infirmier-aide-soignant-2026.html\" target=\"_blank\">salairebrut-en-net.fr</a>); payment for a procedure — GHS 9606 (GHM 28Z07Z) tariff for public hospitals, 2024 (<a href=\"https://www.aideaucodage.fr/ghm-28z07z\" target=\"_blank\">aideaucodage.fr</a>); rent — average office rent in Île-de-France, Q1 2026 (<a href=\"https://www.arthur-loyd.com/media/file/7afe8363-l-indispensable-t1-2026-1.pdf\" target=\"_blank\">Arthur Loyd</a>), area is an estimate.",
+                                                                                                            inputs: { wage: '3320', docWage: '6752', pay: '519', premises: '751100' } },
+                                                                                                        india: { short: "📌 INDIA, PRIVATE CLINIC — estimate, amounts in US dollars at 94.8 rupees per $1 (inputs and sources — above the table)", cur: "India, private clinic", head: "📌 INDIA, PRIVATE CLINIC — estimate, amounts in US dollars at the Bank of Russia cross rate of 94.8 rupees per $1 (Oct 20, 2026): nurse's pay ₹40,000 per month ≈ $422, oncologist's pay ₹1,600,000 per year ≈ $1,407 per month, payment for a procedure excluding the drug ₹10,000 ≈ $106, drug ≈ ₹40,000 ≈ $422, rent 1,500 m² (16,146 sq ft) × ₹100.6 per month ≈ $205,700 per year (Bengaluru). Devices and robotic systems as in the base option.", src: "Sources: nurse — Bengaluru ₹28,000–50,000 per month (<a href=\"https://www.vedantu.com/neet/nurse-salary-in-india-government-hospital-vs-private\" target=\"_blank\">vedantu.com</a>); oncologist — average ₹1,600,000 per year (<a href=\"https://www.payscale.com/research/IN/Job=Physician_%2F_Doctor%2C_Oncologist/Salary\" target=\"_blank\">PayScale</a>), higher in large private networks; payment for a procedure — day care ₹5,000–20,000 per session excluding the drug (<a href=\"https://www.impactguru.com/info/chemotherapy-cost-in-india/\" target=\"_blank\">impactguru.com</a>); drug — estimate; rent — average Bengaluru office rent, Q1 2026, Knight Frank (<a href=\"https://www.propnewz.com/blog/knight-frank-q1-2026-bengaluru-office-residential-buyer-2026-06-07\" target=\"_blank\">propnewz.com</a>), area is an estimate.",
+                                                                                                            inputs: { wage: '422', docWage: '1407', pay: '106', drug: '422', premises: '205700' } }
+                                                                                                    };
+                                                                                                    const PRESET_KEY = (() => { try { return new URLSearchParams(location.search).get('v'); } catch (e) { return null; } })();
+                                                                                                    let presetRows = null, presetInfo = null;
+                                                                                                    function presetInputs() { return Object.assign({}, BASE_INPUTS, PRESETS[PRESET_KEY].inputs); }
+                                                                                                    window.openPreset = function () { applyInputs(presetInputs()); svcCurrent(PRESETS[PRESET_KEY].cur); openInGenerator('sv5'); };
+                                                                                                    function presetHtml() {
+                                                                                                        if (!presetRows) return '';
+                                                                                                        const p = PRESETS[PRESET_KEY];
+                                                                                                        return `<tr class="lst-topic"><td colspan="8">${p.short}</td></tr>` +
+                                                                                                            rowsHtml(presetRows, presetInfo, `<button class="btn-open" onclick="openPreset()">📥 Open in the service generator</button>`);
                                                                                                     }
-                                                                                                    set('pbt-a', '—');
-                                                                                                    set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
-                                                                                                    set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
-                                                                                                    set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
-                                                                                                }
+                                                                                                    function initPreset() {
+                                                                                                        if (!PRESET_KEY || !PRESETS[PRESET_KEY]) return;
+                                                                                                        applyInputs(presetInputs()); presetRows = lastRows; presetInfo = lastInfo;
+                                                                                                        applyInputs(BASE_INPUTS);
+                                                                                                        { const tr = document.querySelector('#main-tab-1 .table-responsive'); if (tr) { const n = document.createElement('div'); n.className = 'info-hint'; n.id = 'preset-note'; n.innerHTML = PRESETS[PRESET_KEY].head + '<span class="small" style="margin-top:6px;">' + PRESETS[PRESET_KEY].src + '</span>'; tr.parentNode.insertBefore(n, tr); } }
+                                                                                                    }
+                                                                                                    function calc() {
+                                                                                                        let mod = 0;
+                                                                                                        for (let i = 1; i <= 4; i++) { const s = v('q' + i) * v('p' + i); mod += s; set('s' + i, usd(s)); }
+                                                                                                        set('modTotal', usd(mod));
+                                                                                                        const modYear = mod / MOD_LIFE + mod * MOD_SVC;
 
-                                                                                                const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
-                                                                                                const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
-                                                                                                { const be = document.getElementById('breakeven'); if (be) be.innerHTML = T.be(pMax, usd(rPrice)); }
-                                                                                                lastRows = makeRows(res, mod, robots, rPrice, pay, drug);
-                                                                                                lastInfo = { chairs, pay, drug, wage: v('wage') };
-                                                                                                if (!baseRows) { baseRows = lastRows; baseInfo = lastInfo; }
-                                                                                                window.renderServiceListing();
-                                                                                            }
-                                                                                            document.addEventListener('input', calc);
-                                                                                            calc();
-                                                                                            initPreset();
+                                                                                                        const robots = v('robots'), rPrice = v('robotPrice'), rLife = Math.max(v('robotLife'), 1), rSvc = v('robotSvc') / 100;
+                                                                                                        const robotRate = 1 / rLife + rSvc;
+                                                                                                        set('rq', fmt(robots)); set('rp', usd(rPrice)); set('rs', usd(robots * rPrice));
+
+                                                                                                        const wageYear = v('wage') * 12, premises = v('premises'), chairs = v('chairs'), procH = v('procH');
+                                                                                                        const drug = v('drug'), docYear = v('docWage') * 12, pay = v('pay');
+                                                                                                        const res = {};
+                                                                                                        for (const k of ['a', 'b', 'c']) {
+                                                                                                            const hours = v('hours-' + k), days = v('days-' + k);
+                                                                                                            const cycle = procH + v('turn-' + k);
+                                                                                                            const proc = cycle > 0 ? chairs * hours / cycle * days : 0;
+                                                                                                            const fte = (v('nurse-' + k) + v('supp-' + k)) * (hours / PERSON_H) * (days / PERSON_D);
+                                                                                                            const docs = v('docN');
+                                                                                                            const wages = fte * wageYear + docs * docYear;
+                                                                                                            let equip = 0;
+                                                                                                            if (k !== 'a') equip += modYear;
+                                                                                                            if (k === 'c') equip += robots * rPrice * robotRate;
+                                                                                                            const cost = proc > 0 ? (wages + equip + premises) / proc : 0;
+                                                                                                            const hpp = proc > 0 ? fte * PERSON_H * PERSON_D / proc : 0;
+                                                                                                            const fixedYear = wages + equip + premises;
+                                                                                                            const perDay = cycle > 0 ? chairs * hours / cycle : 0;
+                                                                                                            const fday = days > 0 ? fixedYear / days : 0;
+                                                                                                            const req = pay > 0 ? fday / pay : Infinity;
+                                                                                                            const marg = perDay > 0 && isFinite(req) ? (perDay - req) / perDay * 100 : -Infinity;
+                                                                                                            const full = drug + cost;
+                                                                                                            const prof = (pay - cost) * proc / 12;
+                                                                                                            res[k] = { proc, fte, wages, equip, cost, fixedYear };
+                                                                                                            set('docs-' + k, fmt(docs, 1));
+                                                                                                            set('fday-' + k, usd(fday));
+                                                                                                            set('req-' + k, isFinite(req) ? fmt(req, 1) : '∞');
+                                                                                                            set('act-' + k, fmt(perDay, 1));
+                                                                                                            set('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—');
+                                                                                                            set('full-' + k, usd(full));
+                                                                                                            set('prof-' + k, usd(prof));
+                                                                                                            res[k].txt = { full: usd(full), cost: usd(cost), req: isFinite(req) ? fmt(req, 1) : '∞', act: fmt(perDay, 1) };
+                                                                                                            set('proc-' + k, fmt(proc));
+                                                                                                            set('fte-' + k, fmt(fte, 1));
+                                                                                                            set('hpp-' + k, hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`);
+                                                                                                            set('wages-' + k, usd(wages));
+                                                                                                            set('equip-' + k, usd(equip));
+                                                                                                            set('cost-' + k, usd(cost));
+                                                                                                            {
+                                                                                                                const turn = v('turn-' + k);
+                                                                                                                const hppTxt = hpp >= 1 ? `${Math.floor(hpp)} ${T.h} ${fmt(Math.round((hpp % 1) * 60))} ${T.min}` : `${fmt(Math.round(hpp * 60))} ${T.min}`;
+                                                                                                                cell('act-' + k, fmt(perDay, 1), `${fmt(chairs)} chairs × ${fmt(hours)} h of work ÷ (${fmt(procH, 1)} h procedure + ${fmt(turn, 2)} h chair preparation)`);
+                                                                                                                cell('proc-' + k, fmt(proc), `${fmt(perDay, 1)} procedures per day × ${fmt(days)} working days`);
+                                                                                                                cell('fte-' + k, fmt(fte, 1), `${fmt(v('nurse-' + k) + v('supp-' + k), 1)} people per shift × ${fmt(hours)} h ÷ 8 × ${fmt(days)} ÷ 250`);
+                                                                                                                cell('hpp-' + k, hppTxt, `${fmt(fte, 1)} full-time positions × 2,000 h per year ÷ ${fmt(proc)} patients`);
+                                                                                                                cell('docs-' + k, fmt(docs, 1), 'set in the field “Doctors in the unit”');
+                                                                                                                cell('wn-' + k, usd(fte * wageYear), `${fmt(fte, 1)} × ${usd(v('wage'))} × 12`);
+                                                                                                                cell('wd-' + k, usd(docs * docYear), `${fmt(docs)} × ${usd(v('docWage'))} × 12`);
+                                                                                                                cell('equip-' + k, usd(equip), k === 'a' ? 'no purchases' : (`devices ${usd(mod)} ÷ 7 years of service + repairs 10% per year` + (k === 'c' ? ` + robotic systems ${usd(robots * rPrice)} ÷ ${fmt(rLife)} years of service + repairs ${fmt(rSvc * 100)}% per year` : '')));
+                                                                                                                cell('prem-' + k, usd(premises), 'set in the field “Rent of premises”');
+                                                                                                                cell('fyear-' + k, usd(fixedYear), `medical staff ${usd(wages)} + devices ${usd(equip)} + rent ${usd(premises)}`);
+                                                                                                                cell('cost-' + k, usd(cost), `${usd(fixedYear)} per year ÷ ${fmt(proc)} procedures`);
+                                                                                                                cell('full-' + k, usd(full), `drug ${usd(drug)} + direct costs ${usd(cost)}`);
+                                                                                                                cell('rev-' + k, usd(proc * pay), `${usd(pay)} per procedure × ${fmt(proc)} procedures`);
+                                                                                                                cell('prof-' + k, usd(prof), `(${usd(pay)} − ${usd(cost)}) × ${fmt(proc)} procedures per year ÷ 12 months`);
+                                                                                                                cell('fday-' + k, usd(fday), `${usd(fixedYear)} per year ÷ ${fmt(days)} working days`);
+                                                                                                                cell('req-' + k, isFinite(req) ? fmt(req, 1) : '∞', `${usd(fday)} per day ÷ ${usd(pay)} per procedure`);
+                                                                                                                cell('marg-' + k, isFinite(marg) ? fmt(marg, 0) + '%' : '—', `(${fmt(perDay, 1)} − ${isFinite(req) ? fmt(req, 1) : '∞'}) ÷ ${fmt(perDay, 1)}`);
+                                                                                                            }
+                                                                                                        }
+
+                                                                                                        const yr = new Date().getFullYear() + Math.round(v('approval'));
+                                                                                                        const pMaxPre = robots > 0 ? (res.b.cost * res.c.proc - (res.c.fixedYear - robots * rPrice * robotRate)) / (robots * robotRate) : 0;
+                                                                                                        { const h = document.getElementById('hero'); if (h) h.innerHTML = T.hero({ a: res.a.txt, b: res.b.txt, c: res.c.txt }, yr); }
+                                                                                                        {
+                                                                                                            const big = n => n >= 1e6 ? '$' + fmt(n / 1e6, 1) + ' M' : usd(n);
+                                                                                                            const arr = (f) => ['a', 'b', 'c'].map(f).join(' → ');
+                                                                                                            set('pre-proc-a', fmt(res.a.proc)); set('pre-proc-c', fmt(res.c.proc));
+                                                                                                            set('pre-cost-a', usd(res.a.cost)); set('pre-cost-c', usd(res.c.cost));
+                                                                                                            set('pre-wage', usd(v('wage')));
+                                                                                                            set('pre-year', String(yr));
+                                                                                                            set('pre-mod', usd(mod));
+                                                                                                            set('pre-q2', fmt(v('q2'))); set('pre-q3', fmt(v('q3'))); set('pre-q4', fmt(v('q4')));
+                                                                                                            set('pre-robots', fmt(robots)); set('pre-robsum', usd(robots * rPrice)); set('pre-robprice', usd(rPrice));
+                                                                                                            set('pre-hours-c', fmt(v('hours-c')));
+                                                                                                            set('pre-proc', arr(k => fmt(res[k].proc)));
+                                                                                                            set('pre-rev', arr(k => big(res[k].proc * pay)));
+                                                                                                            set('pre-fte', arr(k => fmt(res[k].fte, 1)));
+                                                                                                            set('pre-cost', arr(k => usd(res[k].cost)));
+                                                                                                            set('pre-prof', arr(k => big((pay - res[k].cost) * res[k].proc / 12)));
+                                                                                                            for (const k of ['a', 'b', 'c']) {
+                                                                                                                const r = res[k];
+                                                                                                                set('sm-wages-' + k, usd(r.wages)); set('sm-equip-' + k, usd(r.equip)); set('sm-prem-' + k, usd(premises));
+                                                                                                                set('sm-fyear-' + k, usd(r.fixedYear)); set('sm-proc-' + k, fmt(r.proc)); set('sm-cost-' + k, usd(r.cost));
+                                                                                                                set('sm-drug-' + k, usd(drug)); set('sm-full-' + k, usd(drug + r.cost));
+                                                                                                                set('sm-rev-' + k, usd(r.proc * pay)); set('sm-fyear2-' + k, '− ' + usd(r.fixedYear)); set('sm-profy-' + k, usd(r.proc * pay - r.fixedYear));
+                                                                                                            }
+                                                                                                            const P = {};
+                                                                                                            for (const k of ['a', 'b', 'c']) {
+                                                                                                                const hours = v('hours-' + k), days = v('days-' + k), turn = v('turn-' + k);
+                                                                                                                const r = res[k], prof = (pay - r.cost) * r.proc / 12;
+                                                                                                                const buy = k === 'a' ? 0 : (k === 'b' ? mod : mod + robots * rPrice);
+                                                                                                                P[k] = { prof, buy };
+                                                                                                                set('dv-proc-' + k, `${fmt(chairs)} chairs × ${fmt(hours)} h ÷ (${fmt(procH, 1)} h procedure + ${fmt(turn, 2)} h preparation) × ${fmt(days)} days = ${fmt(r.proc)} procedures per year`);
+                                                                                                                set('dv-fte-' + k, `(${fmt(v('nurse-' + k), 1)} nurses + ${fmt(v('supp-' + k), 1)} support staff per shift) × ${fmt(hours)} h ÷ 8 h × ${fmt(days)} ÷ 250 days = ${fmt(r.fte, 1)}`);
+                                                                                                                set('dv-cost-' + k, `(pay ${usd(r.wages)} + devices and robotic systems ${usd(r.equip)} + rent ${usd(premises)}) ÷ ${fmt(r.proc)} procedures = ${usd(r.cost)}`);
+                                                                                                                set('dv-prof-' + k, `(${usd(pay)} − ${usd(r.cost)}) × ${fmt(r.proc / 12)} procedures per month = ${usd(prof)} per month`);
+
+                                                                                                                cell('profy-' + k, usd(prof * 12), `${usd(prof)} per month × 12`); cell('buy-' + k, buy ? usd(buy) : '—', k === 'a' ? 'no purchases' : (k === 'b' ? 'devices (table “Devices to be purchased”)' : `devices ${usd(mod)} + robotic systems ${fmt(robots)} × ${usd(rPrice)}`));
+                                                                                                            }
+                                                                                                            const months = (buy, gain) => gain > 0 ? (buy / gain < 1 ? fmt(buy / gain * 30) + ' days' : fmt(buy / gain, 1) + ' months') : 'does not pay back';
+                                                                                                            for (const k of ['b', 'c']) {
+                                                                                                                const gain = P[k].prof - P.a.prof;
+                                                                                                                set('pb-cost-' + k, usd(P[k].buy)); set('pb-gain-' + k, usd(gain)); set('pb-' + k, months(P[k].buy, gain));
+                                                                                                                cell('pbt-' + k, months(P[k].buy, gain), `${usd(P[k].buy)} ÷ profit increase ${usd(gain)} per month`);
+                                                                                                            }
+                                                                                                            set('pbt-a', '—');
+                                                                                                            set('pb-robmax', usd(pMaxPre)); set('pb-robprice', usd(rPrice));
+                                                                                                            set('dv-wage', usd(v('wage'))); set('dv-docs', fmt(v('docN'))); set('dv-docwage', usd(v('docWage'))); set('dv-drug', usd(drug));
+                                                                                                            set('dv-full', ['a', 'b', 'c'].map(k => usd(drug + res[k].cost)).join(' → '));
+                                                                                                        }
+
+                                                                                                        const c = res.c, fixedC = c.fixedYear - robots * rPrice * robotRate;
+                                                                                                        const pMax = robots > 0 ? (res.b.cost * c.proc - fixedC) / (robots * robotRate) : 0;
+                                                                                                        { const be = document.getElementById('breakeven'); if (be) be.innerHTML = T.be(pMax, usd(rPrice)); }
+                                                                                                        lastRows = makeRows(res, mod, robots, rPrice, pay, drug);
+                                                                                                        lastInfo = { chairs, pay, drug, wage: v('wage') };
+                                                                                                        if (!baseRows) { baseRows = lastRows; baseInfo = lastInfo; }
+                                                                                                        window.renderServiceListing();
+                                                                                                    }
+                                                                                                    document.addEventListener('input', calc);
+                                                                                                    calc();
+                                                                                                    initPreset();
     </script>
 
     <!-- FIREBASE: MY OPTIONS — each browser gets its own anonymous id (uid); database rules show options only to their owner -->
     <script type="module">
-                        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-                        import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-                        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+                                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+                                import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+                                import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-                        const firebaseConfig = {
-                            apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
-                            authDomain: "asuir-gemini.firebaseapp.com",
-                            projectId: "asuir-gemini",
-                            storageBucket: "asuir-gemini.firebasestorage.app",
-                            messagingSenderId: "53572749601",
-                            appId: "1:53572749601:web:e3c33578afd4bdac309660",
-                            databaseURL: "https://asuir-gemini-default-rtdb.firebaseio.com"
-                        };
-                        const app = initializeApp(firebaseConfig);
-                        const db = getDatabase(app);
-                        const auth = getAuth(app);
-                        let uid = null;
-                        onAuthStateChanged(auth, (user) => {
-                            if (!user) return;
-                            uid = user.uid;
-                            onValue(ref(db, 'service_variants/' + uid), (snap) => {
-                                const val = snap.val() || {};
-                                window.myVariants = Object.entries(val).map(([id, x]) => ({ id, ...x })).sort((p, q) => (q.created || 0) - (p.created || 0));
-                                if (typeof window.renderServiceListing === 'function') window.renderServiceListing();
-                            }, (err) => console.error('service_variants read failed:', err));
-                        });
-                        signInAnonymously(auth).catch(err => console.error('Anonymous sign-in failed:', err));
-                        window.svcSaveToDb = async (data) => {
-                            if (!uid) throw new Error('not signed in to the database, reload the page');
-                            await push(ref(db, 'service_variants/' + uid), data);
-                        };
-                        window.svcDeleteFromDb = async (id) => {
-                            if (!uid) throw new Error('not signed in to the database, reload the page');
-                            await remove(ref(db, 'service_variants/' + uid + '/' + id));
-                        };
+                                const firebaseConfig = {
+                                    apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
+                                    authDomain: "asuir-gemini.firebaseapp.com",
+                                    projectId: "asuir-gemini",
+                                    storageBucket: "asuir-gemini.firebasestorage.app",
+                                    messagingSenderId: "53572749601",
+                                    appId: "1:53572749601:web:e3c33578afd4bdac309660",
+                                    databaseURL: "https://asuir-gemini-default-rtdb.firebaseio.com"
+                                };
+                                const app = initializeApp(firebaseConfig);
+                                const db = getDatabase(app);
+                                const auth = getAuth(app);
+                                let uid = null;
+                                onAuthStateChanged(auth, (user) => {
+                                    if (!user) return;
+                                    uid = user.uid;
+                                    onValue(ref(db, 'service_variants/' + uid), (snap) => {
+                                        const val = snap.val() || {};
+                                        window.myVariants = Object.entries(val).map(([id, x]) => ({ id, ...x })).sort((p, q) => (q.created || 0) - (p.created || 0));
+                                        if (typeof window.renderServiceListing === 'function') window.renderServiceListing();
+                                    }, (err) => console.error('service_variants read failed:', err));
+                                });
+                                signInAnonymously(auth).catch(err => console.error('Anonymous sign-in failed:', err));
+                                window.svcSaveToDb = async (data) => {
+                                    if (!uid) throw new Error('not signed in to the database, reload the page');
+                                    await push(ref(db, 'service_variants/' + uid), data);
+                                };
+                                window.svcDeleteFromDb = async (id) => {
+                                    if (!uid) throw new Error('not signed in to the database, reload the page');
+                                    await remove(ref(db, 'service_variants/' + uid + '/' + id));
+                                };
     </script>
 </body>
 </html>
