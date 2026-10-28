@@ -8,9 +8,9 @@ Welcome to ASUIR — a technology that levels the standard of living across all 
 
 The economic algorithms of the ASUIR platform are identical everywhere, enabling production systems to be created for any country that ensure:
 
-Prices of manufactured goods at the level of Bangladesh + workers' salaries: of $10,000 per month Entrepreneur’s income : of $100,000–$1,000,000 per month;
+Prices of manufactured goods at the level of Bangladesh + workers' salaries: at the level of Switzerland and Washington, D.C. Entrepreneur’s income : of $100,000–$1,000,000 per month;
 
-At the same time, the entrepreneur does not need to work personally. – The calculations include wages for hired staff at a rate of $10,000 per person per month;
+At the same time, the entrepreneur does not need to work personally. – The calculations include wages for hired staff at the level of Switzerland and Washington, D.C.;
 
 Production with the ability to retool equipment for a new product type involves setting up a new production line using existing equipment to manufacture related products. Once you have set up a production line, you can use the reconfiguration module to adapt it to produce new products;
 
@@ -39,6 +39,8 @@ owner's profit per month  = (price abroad - cost of one item) x output per day x
 
 "Price abroad" is the price of the same item at a factory abroad. The import price the buyer pays adds delivery and import duty to it.
 
+The wage of $10,000 a month per hired worker is only an example used in the calculations. The algorithm allows higher wages, at the level of Switzerland and Washington, D.C., and above.
+
 ## Technology
 
 - Static HTML pages with plain JavaScript. There is no build step and no server code. The site is hosted on GitHub Pages.
@@ -59,7 +61,7 @@ owner's profit per month  = (price abroad - cost of one item) x output per day x
 ASUIR is built around the UN 2030 Agenda, mainly:
 
 - **SDG 1, No poverty**, and **SDG 10, Reduced inequalities**: the same cost of production and US-level wages in every country.
-- **SDG 8, Decent work and economic growth**: every calculation pays each hired worker $10,000 a month or more.
+- **SDG 8, Decent work and economic growth**: every calculation pays each hired worker at the level of Switzerland and Washington, D.C. ($10,000 a month in the examples) or more.
 - **SDG 9, Industry, innovation and infrastructure**: local production lines and changeover modules instead of imports.
 - **SDG 3, Good health and well-being**: lower cost of medical services through devices and robotic complexes, without lowering staff pay.
 
