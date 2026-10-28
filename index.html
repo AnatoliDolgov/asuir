@@ -22,15 +22,35 @@
     <script src="libraries/bootstrap.min.js"></script>
 
     <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFQ8P31GG"></script>
+    <!-- Google Analytics: включается только после согласия посетителя; выбор хранится в браузере (asuir_ga_consent) -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-KWFQ8P31GG');
+        (function () {
+            var KEY = 'asuir_ga_consent', ID = 'G-KWFQ8P31GG';
+            function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+            function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { } }
+            function loadGA() {
+                var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID; document.head.appendChild(s);
+                window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+                gtag('js', new Date()); gtag('config', ID);
+            }
+            if (get() === 'yes') { loadGA(); return; }
+            if (get() === 'no') return;
+            document.addEventListener('DOMContentLoaded', function () {
+                var L = 'en';
+                var TX = { ru: ["Сайт считает посещения с помощью Google Analytics. Разрешить?", "Согласен", "Нет", "Подробнее", "/privacy.html#ru"], en: ["This site counts visits with Google Analytics. Allow it?", "Agree", "No", "Details", "/privacy.html"] }[L];
+                var b = document.createElement('div');
+                b.id = 'ga-consent';
+                b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;font:14px/1.4 -apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;box-shadow:0 -2px 8px rgba(0,0,0,.2);';
+                b.innerHTML = '<span>' + TX[0] + ' <a href="' + TX[4] + '" style="color:#cfe3f7;">' + TX[3] + '</a></span>' +
+                    '<button type="button" data-v="yes" style="background:#fff;color:#1f4e78;border:0;border-radius:4px;padding:6px 16px;font-weight:700;cursor:pointer;">' + TX[1] + '</button>' +
+                    '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">' + TX[2] + '</button>';
+                b.addEventListener('click', function (e) {
+                    var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
+                    set(v); b.remove(); if (v === 'yes') loadGA();
+                });
+                document.body.appendChild(b);
+            });
+        })();
     </script>
 </head>
 
@@ -194,7 +214,7 @@
                                     <p>In 2013, together with the leadership of “Business Russia” (Kirillova Natalia Limovna, head of the section of Engineering Russia) participated in promotion in Russia of the American system of ensuring Socrates" technological superiority system in Russia, with simultaneous development of his own ASUI project. Currently, the ASUIR project has been realized on a turnkey basis.</p>
                                     <p>In 2025, development and turnkey implementation of FlowSolve, the first universal thinking interface that allows humans to work together with AI to solve any task using recursive approximation to an ideal solution.</p>
 
-                                    <p style="margin-top: 15px;">e-Mail: <a href="mailto:AnatoliDolgov@asuir.org">AnatoliDolgov@asuir.org</a></p>
+                                    <p style="margin-top: 15px;">e-Mail: <a href="mailto:AnatoliDolgov@outlook.com">AnatoliDolgov@outlook.com</a></p>
                                     <p>Website: <a href="https://asuir.org" target="_blank">asuir.org</a></p>
                                     <br />
 
@@ -226,6 +246,8 @@
             © 2025 ASUIR. The website materials are the intellectual property of the author. Text use without prior consent is not permitted. Developer: Anatoli Dolgov
             <br> Developed with technical support from the AI assistant Claude (Anthropic)
             <br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>
+        
+            <br><a href="/privacy.html" style="color:#6c7a8a;">Privacy Policy</a>
         </p>
 
     </footer>

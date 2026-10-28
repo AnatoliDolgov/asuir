@@ -317,16 +317,36 @@
     </style>
 
     <!-- Google Analytics -->
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWFQ8P31GG"></script>
+    <!-- Google Analytics: включается только после согласия посетителя; выбор хранится в браузере (asuir_ga_consent) -->
     <script>
-                                window.dataLayer = window.dataLayer || [];
-                                function gtag() { dataLayer.push(arguments); }
-                                gtag('js', new Date());
-
-                                gtag('config', 'G-KWFQ8P31GG');
+        (function () {
+            var KEY = 'asuir_ga_consent', ID = 'G-KWFQ8P31GG';
+            function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+            function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { } }
+            function loadGA() {
+                var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID; document.head.appendChild(s);
+                window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+                gtag('js', new Date()); gtag('config', ID);
+            }
+            if (get() === 'yes') { loadGA(); return; }
+            if (get() === 'no') return;
+            document.addEventListener('DOMContentLoaded', function () {
+                var L = (function () { var q = new URLSearchParams(location.search).get('lang'); if (q === 'ru' || q === 'en') return q; var r = (document.referrer || '').toLowerCase(); if (r.indexOf('_en') > -1) return 'en'; if (r.indexOf('_ru') > -1) return 'ru'; try { return localStorage.getItem('asuir_lang') || 'ru'; } catch (e) { return 'ru'; } })();
+                var TX = { ru: ["Сайт считает посещения с помощью Google Analytics. Разрешить?", "Согласен", "Нет", "Подробнее", "/privacy.html#ru"], en: ["This site counts visits with Google Analytics. Allow it?", "Agree", "No", "Details", "/privacy.html"] }[L];
+                var b = document.createElement('div');
+                b.id = 'ga-consent';
+                b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;font:14px/1.4 -apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;box-shadow:0 -2px 8px rgba(0,0,0,.2);';
+                b.innerHTML = '<span>' + TX[0] + ' <a href="' + TX[4] + '" style="color:#cfe3f7;">' + TX[3] + '</a></span>' +
+                    '<button type="button" data-v="yes" style="background:#fff;color:#1f4e78;border:0;border-radius:4px;padding:6px 16px;font-weight:700;cursor:pointer;">' + TX[1] + '</button>' +
+                    '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">' + TX[2] + '</button>';
+                b.addEventListener('click', function (e) {
+                    var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
+                    set(v); b.remove(); if (v === 'yes') loadGA();
+                });
+                document.body.appendChild(b);
+            });
+        })();
     </script>
-
 </head>
 <body>
 
@@ -415,6 +435,7 @@
                 © АСУИР. Анатолий Долгов, Лос-Анджелес, Калифорния, США.
                 <br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).
                 <br>Код — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.
+                <br><a href="/privacy.html#ru" style="color:#6c7a8a;">Политика конфиденциальности</a>
             </div>
         </div>
 
@@ -470,6 +491,7 @@
                 © ASUIR. Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
                 <br>Developed with technical support from the Claude AI assistant (Anthropic).
                 <br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.
+                <br><a href="/privacy.html" style="color:#6c7a8a;">Privacy Policy</a>
             </div>
         </div>
     </div>
@@ -503,7 +525,7 @@
                             const currentLang = localStorage.getItem('asuir_lang') || 'ru';
                             let subject = currentLang === 'ru' ? "Feedback from ASUIR Services(RU)" : "Feedback from ASUIR Services(EN)";
                             let emailBody = (currentLang === 'ru' ? "ОБРАТНАЯ СВЯЗЬ АСУИР — УСЛУГИ\n\n1. Что понравилось:\n" : "FEEDBACK ASUIR — SERVICES\n\n1. What liked:\n") + (likedText || "N/A") + (currentLang === 'ru' ? "\n\n2. Что добавить или улучшить:\n" : "\n\n2. What to improve:\n") + dislikedText + "\n";
-                            window.location.href = `mailto:AnatoliDolgov@asuir.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+                            window.location.href = `mailto:AnatoliDolgov@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
                             setTimeout(function () { closeModal('feedback-modal'); document.getElementById('feedback-form').reset(); }, 500);
                         }
 
