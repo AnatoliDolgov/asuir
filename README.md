@@ -14,6 +14,14 @@ At the same time, the entrepreneur does not need to work personally. – The cal
 
 Production with the ability to retool equipment for a new product type involves setting up a new production line using existing equipment to manufacture related products. Once you have set up a production line, you can use the reconfiguration module to adapt it to produce new products;
 
+The same algorithm works for services, with robotic complexes as the equipment. Example: the infusion unit of a large hospital ([ASUIR — services](https://asuir.org/ASUIRServices_en.html)):
+
+1. The hospital's profit grows from $0.81 million to $1.04 million a month with the same 100 procedures a day, and to $2.19 million when robotic complexes let the same 80 chairs be fully used (200 procedures a day).
+2. Hospital direct costs per procedure (rent, doctors, nurses, equipment) fall from $211 to $108 (−49%) and to $83 (−61%): robotic complexes do the nurses' work.
+3. The full cost of a procedure including the drug falls by only 3–4%: about 90% of it is the drug, whose price in the US is set by the maker and the FDA. The cost of a medical service therefore tends to the local price of drugs.
+
+Changeover modules for services will be added in a future update.
+
 ## What you can do on the site
 
 | Page | What it does |
@@ -63,7 +71,7 @@ ASUIR is built around the UN 2030 Agenda, mainly:
 - **SDG 1, No poverty**, and **SDG 10, Reduced inequalities**: the same cost of production and US-level wages in every country.
 - **SDG 8, Decent work and economic growth**: every calculation pays each hired worker at the level of Switzerland and Washington, D.C. ($10,000 a month in the examples) or more.
 - **SDG 9, Industry, innovation and infrastructure**: local production lines and changeover modules instead of imports.
-- **SDG 3, Good health and well-being**: lower cost of medical services through devices and robotic complexes, without lowering staff pay.
+- **SDG 3, Good health and well-being**: robotic complexes cut hospital direct costs per procedure by about half, so the cost of a medical service tends to the local price of drugs.
 
 ## Privacy
 
