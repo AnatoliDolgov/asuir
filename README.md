@@ -30,7 +30,7 @@ Changeover modules for services will be added in a future update.
 | [Services generator (EN)](https://asuir.org/ASUIRServices_en.html) · [RU](https://asuir.org/ASUIRServices_ru.html) | Hospital infusion unit in three variants, with country examples (USA, Moscow, UK, Germany, France, India). Visitors can save their own variants, visible only to them. |
 | [Help: production](https://asuir.org/Help_en.html) · [Help: services](https://asuir.org/HelpServices.html) | Step-by-step instructions in English and Russian. |
 | [asuir-ai.txt](https://asuir.org/asuir-ai.txt), [asuir-catalog.json](https://asuir.org/asuir-catalog.json), [asuir-modules.json](https://asuir.org/asuir-modules.json) | The method and reference data published for any AI assistant (Claude, ChatGPT, Gemini), so that every AI builds a line the same way. |
-| [FlowSolve (EN)](https://asuir.org/flowsolve_en.html) · [RU](https://asuir.org/flowsolve.html) | A problem-solving tool (problem → ideal final result → ways to reach it). It is not finished yet. |
+| [FlowSolve (EN)](https://asuir.org/flowsolve_en.html) · [RU](https://asuir.org/flowsolve.html) | A problem-solving tool (problem → ideal final result → ways to reach it). It is in development. |
 
 ## How it works
 

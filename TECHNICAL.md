@@ -15,7 +15,7 @@ Live site: https://asuir.org · Repository: https://github.com/AnatoliDolgov/asu
 | `asuir-ai.txt` | The calculation method, published for people and AI assistants |
 | `asuir-catalog.json` | Reference data: production topics, product classes, equipment, parts, shop costs, price of the same product abroad |
 | `asuir-modules.json` | Changeover modules: other products the same equipment can make after buying add-ons |
-| `flowsolve.html`, `flowsolve_en.html`, `flowsolve-proxy.js` | FlowSolve problem-solving tool (not finished) |
+| `flowsolve.html`, `flowsolve_en.html`, `flowsolve-proxy.js` | FlowSolve problem-solving tool (in development) |
 | `css/`, `icons/`, `libraries/` | Styles, icon font, jQuery and Bootstrap (home and help pages) |
 | `LICENSE`, `LICENSE-TEXTS.md`, `README.md`, `CNAME` | Licences, overview, domain |
 
