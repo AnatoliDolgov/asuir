@@ -576,31 +576,6 @@
                 color: #1f4e78;
             }
 
-            .asuir-mini { border-collapse: collapse; font-size: 13px; min-width: 330px; }
-        .asuir-mini th { font-size: 11px; font-weight: 600; color: #6c7a8a; text-align: right; padding: 2px 6px; border: none; background: none; }
-        .asuir-mini td { padding: 3px 6px; text-align: right; border-top: 1px solid #e3e9ef; white-space: nowrap; }
-        .asuir-mini td:first-child, .asuir-mini th:first-child { text-align: left; }
-        .asuir-mini tr.am-imp td { color: #6c7a8a; }
-        .asuir-mini tr.am-rob td { background: #f0f7ec; font-weight: 600; }
-        #listing-table > thead > tr > th:nth-child(3), #listing-table > thead > tr > th:nth-child(4), #listing-table > thead > tr > th:nth-child(5),
-        #listing-table > thead > tr > th:nth-child(6), #listing-table > thead > tr > th:nth-child(7), #listing-table > thead > tr > th:nth-child(9),
-        #listing-table > tbody > tr > td:nth-child(3), #listing-table > tbody > tr > td:nth-child(4), #listing-table > tbody > tr > td:nth-child(5),
-        #listing-table > tbody > tr > td:nth-child(6), #listing-table > tbody > tr > td:nth-child(7), #listing-table > tbody > tr > td:nth-child(9) { display: none; }
-            #s4 { margin: 0 0 14px; }
-        #s4 .s4-step { border: 1px solid #d6e0ea; border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: #fff; }
-        #s4 .s4-h { background: #1f4e78; color: #fff; padding: 7px 14px; font-weight: 700; font-size: 14px; }
-        #s4 .s4-b { padding: 10px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
-        #s4 .s4-q { flex: 1 1 320px; font-weight: 600; color: #222; }
-        #s4 .s4-q small { display: block; font-weight: 400; color: #6c7a8a; font-size: 12.5px; margin-top: 2px; }
-        #s4 input.s4-in { width: 120px; text-align: right; font-weight: 700; padding: 6px 10px; border: 1px solid #b9c7d6; border-radius: 6px; font-size: 15px; }
-        #s4 .s4-pre button { font-size: 13px; margin-left: 4px; padding: 4px 9px; border: 1px solid #b9c7d6; border-radius: 6px; background: #fff; cursor: pointer; }
-        #s4 .s4-ans { font-weight: 700; color: #1f4e78; }
-        #s4 .s4-res { background: #f4f8fc; }
-        #s4 .s4-big { font-size: 26px; font-weight: 800; }
-        #s4 .s4-note { color: #1f4e78; font-size: 13.5px; margin-top: 6px; }
-        #s4 .s4-prod select { margin: 2px 6px 2px 0; }
-        #s4-details-btn { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid #d6e0ea; border-radius: 8px; padding: 9px 14px; color: #1f4e78; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
-        .am-cap { font-size: 12px; color: #6c7a8a; margin-bottom: 2px; }
             .result-hero .rh-sub {
                 font-size: 16px;
                 font-weight: 600;
@@ -1043,7 +1018,7 @@
 
 
                     <div class="table-responsive">
-                        <table class="components-table" id="listing-table" style="width:100%;">
+                        <table class="components-table" style="width:100%;">
                             <thead>
                                 <tr>
                                     <th style="width:45px; text-align:center;">#</th>
@@ -1053,7 +1028,7 @@
                                     <th>Производительность оборудования</th>
                                     <th>Количество персонала</th>
                                     <th>Зарплата</th>
-                                    <th>Люди и роботы: сколько делают и сколько зарабатывают</th>
+                                    <th>Доход предпринимателя</th>
                                     <th>Стоимость изделия, изготовленного внутри страны с помощью АСУИР, и импортируемого</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
@@ -1099,28 +1074,6 @@
 
             <!-- РАБОЧИЙ КАЛЬКУЛЯТОР (ВИДЕН ТОЛЬКО В РЕЖИМЕ АДМИНИСТРАТОРА) -->
             <div id="upload-admin-content" class="matrix-card-box" style="display: none;">
-                <!-- АСУИР, 4 ШАГА: главное наверху, подробности ниже -->
-                <div id="s4">
-                    <div class="s4-step"><div class="s4-h">Изделие и страна</div><div class="s4-b s4-prod" id="s4-prod"></div></div>
-                    <div class="s4-step"><div class="s4-h">Шаг 1. Сбыт</div><div class="s4-b">
-                        <div class="s4-q">Сколько изделий в день вы сможете продать?<small>Зависит от рекламы, масштаба и каналов продаж — подставьте свою цифру.</small><small id="s4-mkt"></small></div>
-                        <div><input id="s4-sales" class="s4-in" type="number" min="1" step="1"> шт.</div></div></div>
-                    <div class="s4-step"><div class="s4-h">Шаг 2. Что нужно под этот сбыт</div><div class="s4-b">
-                        <div class="s4-q">Сколько людей заменяет одна единица вашего оборудования?<small>Производительность = сколько делает один человек × это число. 1 — работа вручную, 5–10 — обычное оборудование, 50 и больше — роботизированный комплекс.</small><small id="s4-cap"></small></div>
-                        <div><input id="s4-repl" class="s4-in" type="number" min="1" step="1" value="50"> чел.
-                        <span class="s4-pre"><button type="button" data-k="1">1</button><button type="button" data-k="5">5</button><button type="button" data-k="10">10</button><button type="button" data-k="50">50</button></span></div></div>
-                        <div class="s4-b" style="padding-top:0"><div class="s4-ans" id="s4-need"></div></div></div>
-                    <div class="s4-step"><div class="s4-h">Шаг 3. Цена</div><div class="s4-b">
-                        <div class="s4-q">По какой цене вы продаёте одно изделие?<small id="s4-landed"></small></div>
-                        <div>$ <input id="s4-price" class="s4-in" type="number" min="0" step="0.01"></div></div></div>
-                    <div class="s4-step s4-res"><div class="s4-h">Шаг 4. Что вы получаете</div><div class="s4-b" style="display:block">
-                        <div><b>Вы, предприниматель:</b> <span class="s4-big" id="s4-profit"></span> в месяц</div>
-                        <div style="margin-top:4px"><b>Каждый работник на линии:</b> <b>$10 000 в месяц</b> — уровень Швейцарии и округа Колумбия</div>
-                        <div class="s4-note" id="s4-cover"></div>
-                        <div style="margin-top:10px; overflow-x:auto;" id="s4-mini"></div></div></div>
-                    <button type="button" id="s4-details-btn">▶ ⚙️ Подробности и настройки: оборудование, детали, цех, пошлины (обычно менять не нужно)</button>
-                </div>
-                <div id="s4-details" style="display:none;">
                 <!-- ТАБЫ ШАГОВ КАЛЬКУЛЯТОРА -->
                 <div class="matrix-tab-bar" id="tabHeaders">
                     <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Прямые затраты бизнеса</a>
@@ -1223,8 +1176,8 @@
                                 </tr>
 
                                 <tr style="background:#f4f8fc; border-left:4px dashed #1f4e78;">
-                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Настройки роботов (обычно менять не нужно)</span></span></td>
-                                    <td class="right"><label style="cursor:pointer; font-weight:600; color:#1f4e78;"><input type="checkbox" id="robot-mode" onchange="calculateAll()"> показать</label></td>
+                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Перспектива через 3–5 лет: роботы вместо рабочих</span></span></td>
+                                    <td class="right"><label style="cursor:pointer; font-weight:600; color:#1f4e78;"><input type="checkbox" id="robot-mode" onchange="calculateAll()"> включить</label></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
                                     <td style="padding-left:28px;">Роботов на линии, шт.<br><span style="font-size:12px; color:#6c7a8a;">пусто — сколько нужно под сбыт; если сбыт не задан — как рабочих</span></td>
@@ -1378,7 +1331,7 @@
                                     <td class="right"><span id="fitted-salary-display" style="background:#007600; color:#fff; padding:5px 11px; border-radius:4px; font-size:15px; font-weight:700;">$10 000 / мес</span></td>
                                 </tr>
                                 <tr>
-                                    <td>Сколько вы продаете в день из <span id="sales-of">—</span><span class="res-small">Не знаете — оставьте пустым: посчитаем, что продаётся всё, что выпускает оборудование.</span></td>
+                                    <td>Сколько изделий в день вы продаёте<span class="res-small">Не знаете — оставьте пустым: посчитаем, что продаётся всё, что выпускает оборудование.</span></td>
                                     <td class="right"><input type="number" id="sales-input" class="input-field input-field-sm" min="0" step="1" placeholder="все" style="font-weight:700; color:#c65911;"> шт.</td>
                                 </tr>
                                 <tr>
@@ -1451,7 +1404,6 @@
                     </div>
 
                 </div>
-                </div><!-- /s4-details -->
             </div>
         </div>
 
@@ -2141,10 +2093,12 @@ Thank you!
                                                                         classes: {
                                                                             'knit': {
                                                                                 label: '👕 Трикотаж (футболки, худи)',
-                                                                                eq: '18000', mkt: '2.16', perf: '120', staff: '3', q: 'Мини-цех пошива футболок',
+                                                                                eq: '18000', mkt: '35', perf: '120', staff: '3', q: 'Мини-цех пошива трикотажа',
                                                                                 c: [
-                                                                                    ['Хлопковое джерси 160 г/м² (0,19 кг на футболку, ₹410/кг)', 0.19, 4.71, 'https://m.indiamart.com/impcat/jersey-fabric.html'],
-['Рибана, нитки, этикетка, пакет', 1, 0.15, '']
+                                                                                    ['Трикотажное полотно кулирка/футер (1.2 м)', 1.2, 4.0, ''],
+                                                                                    ['Рибана для горловины и манжет (0.2 м)', 0.2, 3.0, ''],
+                                                                                    ['Нитки', 1, 0.3, ''],
+                                                                                    ['Бирки, этикетки, упаковка', 1, 0.6, '']
                                                                                 ],
                                                                                 exp: [
                                                                                     ['Аренда швейного бокса 50 кв.м', 1, 30.0, ''],
@@ -2635,13 +2589,13 @@ Thank you!
                                                                     const salary = 10000;
 
                                                                     const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
-                                                                    const robotShow = !!document.getElementById('robot-mode')?.checked; const robotMode = false;
-                                                                    document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotShow ? '' : 'none');
+                                                                    const robotMode = !!document.getElementById('robot-mode')?.checked;
+                                                                    document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
                                                                     const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
                                                                     const basePerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
                                                                     const rHours = Math.min(Math.max(rNum('robot-hours', 16), 1), 24);
                                                                     const rSpeed = Math.max(rNum('robot-speed', 50), 1);
-                                                                    const rStaff = parseFloat(document.getElementById('val-staff')?.value) || 1; const rSalesRaw = parseFloat(document.getElementById('sales-input')?.value); const rAutoUsed = isNaN(parseFloat(document.getElementById('robot-count')?.value)) && rSalesRaw > 0; const rCount = rNum('robot-count', rAutoUsed ? Math.max(1, Math.ceil(rStaff * rSalesRaw / (basePerf * rSpeed * rHours / 8))) : rStaff);
+                                                                    const rStaff = parseFloat(document.getElementById('val-staff')?.value) || 1; const rSalesRaw = parseFloat(document.getElementById('sales-input')?.value); const rAutoUsed = robotMode && isNaN(parseFloat(document.getElementById('robot-count')?.value)) && rSalesRaw > 0; const rCount = rNum('robot-count', rAutoUsed ? Math.max(1, Math.ceil(rStaff * rSalesRaw / (basePerf * rSpeed * rHours / 8))) : rStaff);
                                                                     const rPrice = rNum('robot-price', 30000), rLife = Math.max(rNum('robot-life', 5), 1), rSvc = rNum('robot-svc', 10), rHumans = rNum('robot-humans', 1);
                                                                     const actualPerf = robotMode ? Math.round(basePerf * (rCount / rStaff) * rSpeed * rHours / 8) : basePerf;
 
@@ -2703,7 +2657,7 @@ Thank you!
                                                                                 const f2 = n => n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                                                 const soldR = rSalesRaw > 0 ? Math.min(rSalesRaw, actualPerf) : actualPerf; const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf; const robotCostSold = rawCost + (overhead + totalOtherCosts) / soldR; const peopleCost = rawCost + (amort + peopleSalaryDay + totalOtherCosts) / soldP;
                                                                                 rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: изделие с роботами — $${f2(robotCostSold)}, с людьми — $${f2(peopleCost)}</div>` +
-                                                                                    `<div class="rh-sub">Ваша прибыль в месяц: с роботами — $${f0(soldR * (market - robotCostSold) * 30)}, с людьми — $${f0(soldP * (market - peopleCost) * 30)}.${rSalesRaw > 0 ? ` Расчёт по сбыту ${rSalesRaw} шт. в день: продать больше нельзя.` : ' Сбыт не задан: считается, что продаётся весь выпуск — введите, сколько изделий в день вы продаёте, в поле «Сколько вы продаете в день из …».'}</div>` +
+                                                                                    `<div class="rh-sub">Ваша прибыль в месяц: с роботами — $${f0(soldR * (market - robotCostSold) * 30)}, с людьми — $${f0(soldP * (market - peopleCost) * 30)}.${rSalesRaw > 0 ? ` Расчёт по сбыту ${rSalesRaw} шт. в день: продать больше нельзя.` : ' Сбыт не задан: считается, что продаётся весь выпуск — введите, сколько изделий в день вы продаёте, в поле «Сколько изделий в день вы продаёте».'}</div>` +
                                                                                     `<div class="rh-note">Зарплата рабочих — $${f0(peopleSalaryDay)} в день — заменена роботами: $${f0(robotPerDay)} в день на амортизацию и обслуживание. Линия работает ${rHours} ч в сутки, роботы в ${rSpeed} раз быстрее рабочих, и выпускает ${actualPerf} шт. в день вместо ${basePerf}.</div>` +
                                                                                     `<div class="rh-note">Роботов: ${rCount} шт.${rAutoUsed ? ` (подобрано под сбыт ${rSalesRaw} шт. в день)` : ''} по $${f0(rPrice)}, срок службы ${rLife} лет, обслуживание ${rSvc}% в год. Людей на линии: ${rHumans}. С людьми — ${staff} рабочих по $10 000 в месяц, 8 часов в сутки.</div>`;
                                                                                 rcEl.style.display = '';
@@ -2748,7 +2702,7 @@ Thank you!
                                                                     const tariffPct = parseFloat(document.getElementById('tariff-input')?.value) || 0;
                                                                     const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
                                                                     const landed = importLandedPrice(market, freightPct, tariffPct);
-                                                                    const landedNoTariff = importLandedPrice(market, freightPct, 0); if (window.s4Render) { const _mk = document.getElementById('market-country'); const _mKey = (_mk && _mk.value) || (MARKET_DATA[currentCountry] ? currentCountry : 'us'); window.s4Render({ perf: basePerf, staff: staff, cost: equip, bom: rawCost, other: totalOtherCosts, landed: landed, robot: { hours: rHours, price: rPrice, life: rLife, svc: rSvc, ops: rHumans }, marketEntry: getMarketEntry(_mKey, findCatalogKeyByTitle(currentTopicTitle), currentClassKey) }); }
+                                                                    const landedNoTariff = importLandedPrice(market, freightPct, 0);
                                                                     if (document.getElementById('import-landed')) document.getElementById('import-landed').textContent = landed.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                                     const advEl = document.getElementById('import-advantage');
                                                                     if (advEl) {
@@ -2761,7 +2715,7 @@ Thank you!
                                                                     // РЕАЛЬНЫЙ СБЫТ: себестоимость, прибыль и запас прочности при фактических продажах.
                                                                     {
                                                                         const salesRaw = parseFloat(document.getElementById('sales-input')?.value);
-                                                                        const sales = (salesRaw > 0) ? salesRaw : actualPerf; { const so = document.getElementById('sales-of'); if (so) so.textContent = Math.round(basePerf).toLocaleString('ru-RU') + ' (люди) или ' + Math.round(basePerf * (rCount / rStaff) * rSpeed * rHours / 8).toLocaleString('ru-RU') + ' (роботы)'; }
+                                                                        const sales = (salesRaw > 0) ? salesRaw : actualPerf;
                                                                         const fmt = (v, d) => v.toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                         const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
                                                                         const sCost = rawCost + totalFixedPerDay / sales;
@@ -2777,7 +2731,7 @@ Thank you!
                                                                             const pName = currentModuleName || (currentTopicTitle + (cl ? ' — ' + cl.label.replace(/^\S+\s/, '') : ''));
                                                                             const where = (currentCountry && currentCountry !== 'base') ? COUNTRIES[currentCountry].label + ': ' : '';
                                                                             const imported = landed > market + 0.001;
-                                                                            if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">Если сравнить стоимость изделия, изготовленного на своем оборудовании она, как правило, намного дешевле импортированного.</div><div style="margin-top:8px; overflow-x:auto;">${window.s4Last ? asuirMiniFrom(window.s4Last) : ''}</div>`;
+                                                                            if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">Если сравнить стоимость изделия, изготовленного на своем оборудовании она, как правило, намного дешевле импортированного.</div>`;
                                                                             else hEl.textContent = '—';
                                                                           } }
                                                                         const sb = document.getElementById('sales-safety-badge');
@@ -2940,7 +2894,7 @@ Thank you!
                                                                 // ======================================================
                                                                 // ЭТАЛОННЫЙ ПРИМЕР В ЛИСТИНГЕ: сборка часов (автомат уровня Seiko) — общий случай, Евросоюз, США
                                                                 // ======================================================
-                                                                const REF_TOPIC = 'clothes', REF_CLASS = 'knit', REF_COUNTRIES = ['base', 'eu', 'us'];
+                                                                const REF_TOPIC = 'watch', REF_CLASS = 'automatic', REF_COUNTRIES = ['base', 'eu', 'us'];
                                                                 function buildReferenceLines() {
                                                                     const d = resolveCatalogData(REF_TOPIC, REF_CLASS);
                                                                     return REF_COUNTRIES.map(cc => ({
@@ -2953,39 +2907,7 @@ Thank you!
                                                                         topic_title: d.title, class_key: REF_CLASS, country_key: cc
                                                                     }));
                                                                 }
-                                                                // ДВЕ СТРОКИ: ЛЮДИ И РОБОТЫ — сколько делают в день, во что обходится изделие, прибыль в месяц.
-// АСУИР, 4 ШАГА: сбыт → оборудование (сколько людей заменяет единица) → цена → результат.
-const ROBOT_DEFAULTS = { speed: 50, hours: 16, price: 30000, life: 5, svc: 10, ops: 1 };
-function asuirModel(o) {
-const R = Object.assign({}, ROBOT_DEFAULTS, o.robot || {});
-const wage = 10000, staff = Math.max(o.staff || 1, 1), perf = Math.max(o.perf || 1, 0.0001);
-const perW = perf / staff;                                   // сколько делает один человек за смену (8 ч)
-const capU = Math.max(perW * Math.max(R.speed, 1) * R.hours / 8, 0.0001); // одна единица оборудования в день
-const S = o.sales > 0 ? o.sales : Math.round(capU);          // сбыт: введённый или одна единица на полную загрузку
-const price = o.price > 0 ? o.price : (o.landed || 0) * 0.98;
-const shop = o.other || 0, parts = o.bom || 0;
-const units = Math.ceil(S / capU), people = Math.max(1, Math.ceil(units * (R.ops || 1)));
-const fixR = units * R.price * (1 / R.life + R.svc / 100) / 365 + people * wage / 30 + shop;
-const costR = parts + fixR / S, profR = Math.round((price - costR) * S * 30);
-const nP = Math.ceil(S / perW);
-const fixP = nP * wage / 30 + Math.ceil(nP / staff) * (o.cost || 0) / 5 / 365 + shop;
-const costP = parts + fixP / S, profP = Math.round((price - costP) * S * 30);
-return { S, price, capU, units, people, costR, profR, nP, costP, profP, N: R.speed, hours: R.hours, landed: o.landed || 0,
-wR: people * wage / 30 / S, wP: nP * wage / 30 / S };
-}
-const ASUIR_T = { loc: 'ru-RU', people: 'Людей на линии', unit: 'Одно изделие обходится', profit: 'Прибыль в месяц', imp: 'Привезённое из-за границы', manual: '👷 Вручную (заменяет 1 чел.)', equip: '🤖 Оборудование, заменяет {n} чел.', cap: 'При сбыте {s} в день и цене ${p}', h_title: 'Генератор производств: 4 шага', step0: 'Изделие и страна', step1: 'Шаг 1. Сбыт', q1: 'Сколько изделий в день вы сможете продать?', q1s: 'Зависит от рекламы, масштаба и каналов продаж — подставьте свою цифру.', mkt: '{c} ввозит около <b>{q}</b> {u} в день (UN Comtrade {y}). {s} в день — это <b>{pc}%</b> этого рынка.', mkt_none: 'Данных о ввозе этого изделия для выбранной страны нет.', step2: 'Шаг 2. Что нужно под этот сбыт', q2: 'Сколько людей заменяет одна единица вашего оборудования?', q2s: 'Производительность = сколько делает один человек × это число. 1 — работа вручную, 5–10 — обычное оборудование, 50 и больше — роботизированный комплекс.', cap2: 'Одна единица делает до {c} шт. в день ({h} ч).', need: 'Нужно: {u} ед. оборудования, людей на линии: {p}', step3: 'Шаг 3. Цена', q3: 'По какой цене вы продаёте одно изделие?', q3s: 'Такое же, привезённое из-за границы, обходится покупателю в <b>${l}</b>.', step4: 'Шаг 4. Что вы получаете', you: 'Вы, предприниматель:', permonth: 'в месяц', worker: 'Каждый работник на линии:', wagetxt: '<b>$10 000 в месяц</b> — уровень Швейцарии и округа Колумбия', cover: 'Как алгоритм покрывает эту зарплату: она уже входит в цену одного изделия (${c}). Зарплата делится на {s} изделий в день, и на каждое приходится всего <b>${w}</b>. Вручную понадобилось бы {n} чел., и на каждое изделие приходилось бы ${wp} зарплаты{over}.', over: ' — больше, чем цена продажи', det: '⚙️ Подробности и настройки: оборудование, детали, цех, пошлины (обычно менять не нужно)', pcs: 'шт.', ppl: 'чел.' };
-const aN0 = v => Math.round(v).toLocaleString(ASUIR_T.loc), aN2 = v => v.toLocaleString(ASUIR_T.loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const aPf = v => `<b style="color:${v >= 0 ? '#007600' : '#c40000'};">${v < 0 ? '−' : ''}$${aN0(Math.abs(v))}</b>`;
-function asuirMiniFrom(m) {
-const L = ASUIR_T;
-return `<div class="am-cap">${L.cap.replace('{s}', aN0(m.S)).replace('{p}', aN2(m.price))}</div>` +
-`<table class="asuir-mini"><tr><th></th><th>${L.people}</th><th>${L.unit}</th><th>${L.profit}</th></tr>` +
-`<tr class="am-imp"><td>${L.imp}</td><td>—</td><td>$${aN2(m.landed)}</td><td>—</td></tr>` +
-`<tr><td>${L.manual}</td><td>${aN0(m.nP)}</td><td>$${aN2(m.costP)}</td><td>${aPf(m.profP)}</td></tr>` +
-`<tr class="am-rob"><td>${L.equip.replace('{n}', aN0(m.N))}</td><td>${aN0(m.people)}</td><td>$${aN2(m.costR)}</td><td>${aPf(m.profR)}</td></tr></table>`;
-}
-function asuirMini(o) { return asuirMiniFrom(asuirModel(o)); }
-function referenceEconomics(line, baseSalary) {
+                                                                function referenceEconomics(line, baseSalary) {
                                                                     const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
                                                                     const r = lineRates(line);
                                                                     const bom = line.components.reduce((s, c) => s + c.qty * c.price, 0) * (1 + r.ct / 100);
@@ -2998,7 +2920,7 @@ function referenceEconomics(line, baseSalary) {
                                                                 function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
                                                                     const head = document.createElement('tr');
                                                                     head.style.background = '#fff6e0';
-                                                                    head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 ЭТАЛОННЫЙ ПРИМЕР: ФУТБОЛКА — цены проверены (ввоз: UN Comtrade 2024, ткань: IndiaMART) — общий случай, Евросоюз и США, стартовые ставки доставки и пошлин</td>`;
+                                                                    head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 ЭТАЛОННЫЙ ПРИМЕР: СБОРКА ЧАСОВ (АВТОМАТ УРОВНЯ SEIKO) — общий случай, Евросоюз и США, стартовые ставки доставки и пошлин</td>`;
                                                                     container.appendChild(head);
                                                                     buildReferenceLines().forEach(line => {
                                                                         const e = referenceEconomics(line, baseSalary);
@@ -3014,7 +2936,7 @@ function referenceEconomics(line, baseSalary) {
                                                                             <td>${line.perf} шт/день</td>
                                                                             <td>${line.staff} чел</td>
                                                                             <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
-                                                                            <td>${asuirMini({ perf: parseFloat(line.perf), staff: parseFloat(line.staff), cost: parseFloat(line.cost), bom: line.components.reduce((x, c) => x + c.qty * c.price, 0) * (1 + lineRates(line).ct / 100), other: getLineOtherCosts(line), market: getTopicBenchmarkPrice(line.topic_title, line.class_key), landed: e.landed })}</td>
+                                                                            <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b></td>
                                                                             <td style="font-weight:600; color:#007600;">${ruNum(plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line)))}</td>
                                                                             ${showAdminCol ? '<td></td>' : ''}`;
                                                                         container.appendChild(tr);
@@ -3465,7 +3387,7 @@ function referenceEconomics(line, baseSalary) {
                                                                                             <td>${line.perf} шт/день</td>
                                                                                             <td>${line.staff || 1} чел</td>
                                                                                             <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
-                                                                                            <td>${(() => { const r = lineRates(line); const mk = parseFloat(line.market_price) || topicBenchmarkPrice; return asuirMini({ perf: parseFloat(line.perf) || 1, staff: parseFloat(line.staff) || 1, cost: parseFloat(line.cost) || 0, bom: ((compList.reduce((x, c) => x + (c.qty * c.price), 0)) || topicBenchmarkBom) * (1 + r.ct / 100), other: getLineOtherCosts(line), market: mk, landed: importLandedPrice(mk, r.f, r.t), sales: parseFloat(line.sales_per_day) || 0 }); })()}</td>
+                                                                                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
                                                                                             <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                             ${adminDeleteCell}
                                                                                         `;
@@ -3523,39 +3445,5 @@ function referenceEconomics(line, baseSalary) {
                                                                     updateAdminLockUI();
                                                                     loadCatalogTemplate('drone');
                                                                 });
-    
-// ---- 4 ШАГА: связь с полями генератора ----
-window.s4Render = function (o) {
-const L = ASUIR_T, $ = id => document.getElementById(id);
-if (!$('s4')) return;
-const salesEl = $('s4-sales'), priceEl = $('s4-price'), replEl = $('s4-repl');
-const N = Math.max(parseFloat(replEl.value) || 50, 1);
-const sRaw = parseFloat(salesEl.value), pRaw = parseFloat(priceEl.value);
-const m = asuirModel(Object.assign({}, o, { sales: sRaw > 0 ? sRaw : 0, price: pRaw > 0 ? pRaw : 0, robot: Object.assign({}, o.robot, { speed: N }) }));
-if (!(sRaw > 0)) salesEl.placeholder = aN0(m.S);
-if (!(pRaw > 0)) priceEl.placeholder = aN2(m.price);
-$('s4-landed').innerHTML = L.q3s.replace('{l}', aN2(o.landed));
-$('s4-cap').textContent = L.cap2.replace('{c}', aN0(m.capU)).replace('{h}', aN0(m.hours));
-$('s4-need').textContent = L.need.replace('{u}', aN0(m.units)).replace('{p}', aN0(m.people));
-$('s4-profit').innerHTML = aPf(m.profR);
-$('s4-cover').innerHTML = L.cover.replace('{c}', aN2(m.costR)).replace('{s}', aN0(m.S)).replace('{w}', aN2(m.wR)).replace('{n}', aN0(m.nP)).replace('{wp}', aN2(m.wP)).replace('{over}', m.wP > m.price ? L.over : '');
-$('s4-mini').innerHTML = asuirMiniFrom(m);
-const me = o.marketEntry;
-if (me && !me.empty && me.unit && me.qty > 0) {
-const day = me.qty / 360, unitTxt = me.unit === 'kg' ? (L.loc === 'ru-RU' ? 'кг' : 'kg') : (L.loc === 'ru-RU' ? 'шт.' : 'items');
-const qTxt = day >= 1e6 ? (day / 1e6).toLocaleString(L.loc, { maximumFractionDigits: 1 }) + (L.loc === 'ru-RU' ? ' млн' : ' million') : aN0(day);
-$('s4-mkt').innerHTML = L.mkt.replace('{c}', me.country[L.loc === 'ru-RU' ? 'ru' : 'en']).replace('{q}', qTxt).replace('{u}', unitTxt).replace('{y}', me.year).replace('{s}', aN0(m.S)).replace('{pc}', (m.S / day * 100).toLocaleString(L.loc, { maximumFractionDigits: 3 }));
-} else $('s4-mkt').textContent = L.mkt_none;
-window.s4Last = m;
-};
-(function () {
-const $ = id => document.getElementById(id);
-if (!$('s4')) return;
-const prod = $('s4-prod');
-['topic-selector-dropdown', 'class-selector-dropdown', 'country-selector'].forEach(id => { const el = $(id); if (el) prod.appendChild(el); });
-['s4-sales', 's4-price', 's4-repl'].forEach(id => $(id).addEventListener('input', () => { if (typeof window.calculateAll === 'function') window.calculateAll(); }));
-document.querySelectorAll('#s4 .s4-pre button').forEach(b => b.addEventListener('click', () => { $('s4-repl').value = b.dataset.k; window.calculateAll && window.calculateAll(); }));
-$('s4-details-btn').addEventListener('click', () => { const d = $('s4-details'), open = d.style.display === 'none'; d.style.display = open ? '' : 'none'; $('s4-details-btn').textContent = (open ? '▼ ' : '▶ ') + $('s4-details-btn').textContent.slice(2); });
-})();
-</script>
+    </script>
 </body>
