@@ -65,7 +65,7 @@ hospital profit per month   = (payment without the drug − direct costs per pro
 chair capacity per day      = chairs × working hours / (procedure + chair preparation)
 ```
 
-The drug is not a direct cost: it is the "component" of the procedure. In the US its price is set by the manufacturer and the FDA, so the full cost of a procedure tends to the local price of the drug.
+The drug is not a direct cost: it is the "component" of the procedure. In the US its price is set by the manufacturer (the drug must be approved by the FDA), so the full cost of a procedure tends to the local price of the drug.
 
 ## 5. Data stored in the database
 

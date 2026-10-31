@@ -2,7 +2,7 @@
 
 **Live site:** https://asuir.org · **Русская версия:** https://asuir.org/index_ru.html
 
-Welcome to ASUIR — a technology that levels the standard of living across all countries by ensuring production costs are at the same level as in Bangladesh and wages are at the same level as in the US or higher.
+Welcome to ASUIR — a technology for creating production and bringing industry back, while improving and leveling the standard of living across all countries, by ensuring production costs at the level of Bangladesh and wages at the level of the US or higher — above all under aggressive imports, when domestic industry has to be protected (closing the market, sanctions, tariff quotas, limits, embargoes and licensing, standards and certification, subsidies and grants to domestic business, low-interest loans and tax breaks, government procurement).
 
 The economic algorithms of the ASUIR platform are identical everywhere, enabling production systems to be created for any country that ensure:
 
@@ -16,7 +16,7 @@ The same algorithm works for services, with robotic complexes as the equipment. 
 
 1. The hospital's profit grows from $0.81 million to $1.04 million a month with the same 100 procedures a day, and to $2.19 million when robotic complexes let the same 80 chairs be fully used (200 procedures a day).
 2. Hospital direct costs per procedure (rent, doctors, nurses, equipment) fall from $211 to $108 (−49%) and to $83 (−61%): robotic complexes do the nurses' work.
-3. The full cost of a procedure including the drug falls by only 3–4%: about 90% of it is the drug, whose price in the US is set by the maker and the FDA. The cost of a medical service therefore tends to the local price of drugs.
+3. The full cost of a procedure including the drug falls by only 3–4%: about 90% of it is the drug, whose price in the US is set by its maker (the drug must be approved by the FDA). The cost of a medical service therefore tends to the local price of drugs.
 
 Changeover modules for services will be added in a future update.
 
@@ -90,4 +90,4 @@ Contact: AnatoliDolgov@outlook.com
 
 ## Кратко по-русски
 
-АСУИР — бесплатный открытый генератор производств и услуг. Он выравнивает уровень жизни во всех странах: себестоимость продукции на уровне Бангладеш, зарплаты наёмных работников на уровне США и выше. Сайт: https://asuir.org/index_ru.html. Код — лицензия MIT, тексты и методика — CC BY 4.0. Автор: Анатолий Долгов, AnatoliDolgov@outlook.com.
+АСУИР — бесплатный открытый генератор производств и услуг. Он создаёт производства и возвращает промышленность, одновременно выравнивая уровень жизни во всех странах: себестоимость продукции на уровне Бангладеш, зарплаты наёмных работников на уровне США и выше, прежде всего в условиях агрессивного импорта и необходимости защиты собственной промышленности. Сайт: https://asuir.org/index_ru.html. Код — лицензия MIT, тексты и методика — CC BY 4.0. Автор: Анатолий Долгов, AnatoliDolgov@outlook.com.
