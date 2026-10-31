@@ -542,6 +542,16 @@
                 color: #1f4e78;
             }
 
+            .asuir-mini { border-collapse: collapse; font-size: 13px; min-width: 330px; }
+        .asuir-mini th { font-size: 11px; font-weight: 600; color: #6c7a8a; text-align: right; padding: 2px 6px; border: none; background: none; }
+        .asuir-mini td { padding: 3px 6px; text-align: right; border-top: 1px solid #e3e9ef; white-space: nowrap; }
+        .asuir-mini td:first-child, .asuir-mini th:first-child { text-align: left; }
+        .asuir-mini tr.am-imp td { color: #6c7a8a; }
+        .asuir-mini tr.am-rob td { background: #f0f7ec; font-weight: 600; }
+        #listing-table > thead > tr > th:nth-child(3), #listing-table > thead > tr > th:nth-child(4), #listing-table > thead > tr > th:nth-child(5),
+        #listing-table > thead > tr > th:nth-child(6), #listing-table > thead > tr > th:nth-child(7), #listing-table > thead > tr > th:nth-child(9),
+        #listing-table > tbody > tr > td:nth-child(3), #listing-table > tbody > tr > td:nth-child(4), #listing-table > tbody > tr > td:nth-child(5),
+        #listing-table > tbody > tr > td:nth-child(6), #listing-table > tbody > tr > td:nth-child(7), #listing-table > tbody > tr > td:nth-child(9) { display: none; }
             .result-hero .rh-sub {
                 font-size: 16px;
                 font-weight: 600;
@@ -977,7 +987,7 @@
 
 
                     <div class="table-responsive">
-                        <table class="components-table" style="width:100%;">
+                        <table class="components-table" id="listing-table" style="width:100%;">
                             <thead>
                                 <tr>
                                     <th style="width:45px; text-align:center;">#</th>
@@ -987,7 +997,7 @@
                                     <th>Equipment capacity</th>
                                     <th>Number of staff</th>
                                     <th>Salary</th>
-                                    <th>Entrepreneur Income</th>
+                                    <th>People and robots: how much they make and earn</th>
                                     <th>Cost of a product made domestically with ASUIR and imported</th>
                                     <th id="admin-col-header" style="display:none; text-align:center; width:50px; color:#c40000;">🗑️</th>
                                 </tr>
@@ -1135,8 +1145,8 @@
                                 </tr>
 
                                 <tr style="background:#f4f8fc; border-left:4px dashed #1f4e78;">
-                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Outlook in 3–5 years: robots instead of workers</span></span></td>
-                                    <td class="right"><label style="cursor:pointer; font-weight:600; color:#1f4e78;"><input type="checkbox" id="robot-mode" onchange="calculateAll()"> turn on</label></td>
+                                    <td><span class="icon-text"><span class="ico">🤖</span> <span style="font-weight:600; color:#1f4e78;">Robot settings (usually no need to change)</span></span></td>
+                                    <td class="right"><label style="cursor:pointer; font-weight:600; color:#1f4e78;"><input type="checkbox" id="robot-mode" onchange="calculateAll()"> show</label></td>
                                 </tr>
                                 <tr class="robot-row" style="display:none; background:#f4f8fc;">
                                     <td style="padding-left:28px;">Robots on the line, units<br><span style="font-size:12px; color:#6c7a8a;">empty — as many as sales need; if no sales set — as many as workers</span></td>
@@ -1290,7 +1300,7 @@
                                     <td class="right"><span id="fitted-salary-display" style="background:#007600; color:#fff; padding:5px 11px; border-radius:4px; font-size:15px; font-weight:700;">$10,000 / month</span></td>
                                 </tr>
                                 <tr>
-                                    <td>How many items you sell per day<span class="res-small">Don't know? Leave it empty: we assume everything the equipment makes is sold.</span></td>
+                                    <td>How many of the <span id="sales-of">—</span> do you sell per day<span class="res-small">Don't know? Leave it empty: we assume everything the equipment makes is sold.</span></td>
                                     <td class="right"><input type="number" id="sales-input" class="input-field input-field-sm" min="0" step="1" placeholder="all" style="font-weight:700; color:#c65911;"> pcs</td>
                                 </tr>
                                 <tr>
@@ -2543,13 +2553,13 @@ Thank you!
                                                             const salary = 10000;
 
                                                             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
-                                                            const robotMode = !!document.getElementById('robot-mode')?.checked;
-                                                            document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
+                                                            const robotShow = !!document.getElementById('robot-mode')?.checked; const robotMode = false;
+                                                            document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotShow ? '' : 'none');
                                                             const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
                                                             const basePerf = parseFloat(document.getElementById('val-actual-perf')?.value) || 1;
                                                             const rHours = Math.min(Math.max(rNum('robot-hours', 16), 1), 24);
                                                             const rSpeed = Math.max(rNum('robot-speed', 50), 1);
-                                                            const rStaff = parseFloat(document.getElementById('val-staff')?.value) || 1; const rSalesRaw = parseFloat(document.getElementById('sales-input')?.value); const rAutoUsed = robotMode && isNaN(parseFloat(document.getElementById('robot-count')?.value)) && rSalesRaw > 0; const rCount = rNum('robot-count', rAutoUsed ? Math.max(1, Math.ceil(rStaff * rSalesRaw / (basePerf * rSpeed * rHours / 8))) : rStaff);
+                                                            const rStaff = parseFloat(document.getElementById('val-staff')?.value) || 1; const rSalesRaw = parseFloat(document.getElementById('sales-input')?.value); const rAutoUsed = isNaN(parseFloat(document.getElementById('robot-count')?.value)) && rSalesRaw > 0; const rCount = rNum('robot-count', rAutoUsed ? Math.max(1, Math.ceil(rStaff * rSalesRaw / (basePerf * rSpeed * rHours / 8))) : rStaff);
                                                             const rPrice = rNum('robot-price', 30000), rLife = Math.max(rNum('robot-life', 5), 1), rSvc = rNum('robot-svc', 10), rHumans = rNum('robot-humans', 1);
                                                             const actualPerf = robotMode ? Math.round(basePerf * (rCount / rStaff) * rSpeed * rHours / 8) : basePerf;
 
@@ -2611,7 +2621,7 @@ Thank you!
                                                                         const f2 = n => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                                         const soldR = rSalesRaw > 0 ? Math.min(rSalesRaw, actualPerf) : actualPerf; const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf; const robotCostSold = rawCost + (overhead + totalOtherCosts) / soldR; const peopleCost = rawCost + (amort + peopleSalaryDay + totalOtherCosts) / soldP;
                                                                         rcEl.innerHTML = `<div class="rh-head">Outlook in 3–5 years: item made with robots — $${f2(robotCostSold)}, with people — $${f2(peopleCost)}</div>` +
-                                                                            `<div class="rh-sub">Your profit per month: with robots — $${f0(soldR * (market - robotCostSold) * 30)}, with people — $${f0(soldP * (market - peopleCost) * 30)}.${rSalesRaw > 0 ? ` Calculated for sales of ${rSalesRaw} a day: no more can be sold.` : ' No sales set: the whole output is assumed sold — enter it in the field “How many items you sell per day”.'}</div>` +
+                                                                            `<div class="rh-sub">Your profit per month: with robots — $${f0(soldR * (market - robotCostSold) * 30)}, with people — $${f0(soldP * (market - peopleCost) * 30)}.${rSalesRaw > 0 ? ` Calculated for sales of ${rSalesRaw} a day: no more can be sold.` : ' No sales set: the whole output is assumed sold — enter it in the field “How many of the … do you sell per day”.'}</div>` +
                                                                             `<div class="rh-note">Workers' wages — $${f0(peopleSalaryDay)} a day — are replaced by robots: $${f0(robotPerDay)} a day for depreciation and maintenance. The line runs ${rHours} hours a day, robots work ${rSpeed} times faster than workers, and it makes ${actualPerf} items a day instead of ${basePerf}.</div>` +
                                                                             `<div class="rh-note">Robots: ${rCount}${rAutoUsed ? ` (matched to sales of ${rSalesRaw} a day)` : ''} at $${f0(rPrice)}, service life ${rLife} years, maintenance ${rSvc}% a year. People on the line: ${rHumans}. With people — ${staff} workers at $10,000 a month, 8 hours a day.</div>`;
                                                                         rcEl.style.display = '';
@@ -2669,7 +2679,7 @@ Thank you!
                                                             // РЕАЛЬНЫЙ СБЫТ: себестоимость, прибыль и запас прочности при фактических продажах.
                                                             {
                                                                 const salesRaw = parseFloat(document.getElementById('sales-input')?.value);
-                                                                const sales = (salesRaw > 0) ? salesRaw : actualPerf;
+                                                                const sales = (salesRaw > 0) ? salesRaw : actualPerf; { const so = document.getElementById('sales-of'); if (so) so.textContent = Math.round(basePerf).toLocaleString('en-US') + ' (people) or ' + Math.round(basePerf * (rCount / rStaff) * rSpeed * rHours / 8).toLocaleString('en-US') + ' (robots)'; }
                                                                 const fmt = (v, d) => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                 const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
                                                                 const sCost = rawCost + totalFixedPerDay / sales;
@@ -2685,7 +2695,7 @@ Thank you!
                                                                     const pName = currentModuleName || (currentTopicTitle + (cl ? ' — ' + cl.label.replace(/^\S+\s/, '') : ''));
                                                                     const where = (currentCountry && currentCountry !== 'base') ? COUNTRIES[currentCountry].label + ': ' : '';
                                                                     const imported = landed > market + 0.001;
-                                                                    if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">If you compare the cost of an item made on your own equipment, it is, as a rule, much cheaper than the imported one.</div>`;
+                                                                    if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">If you compare the cost of an item made on your own equipment, it is, as a rule, much cheaper than the imported one.</div><div style="margin-top:8px; overflow-x:auto;">${asuirMini({ perf: basePerf, staff: rStaff, cost: equip, bom: rawCost, other: totalOtherCosts, market: market, landed: landed, sales: rSalesRaw, robot: { speed: rSpeed, hours: rHours, price: rPrice, life: rLife, svc: rSvc, ops: rHumans, count: rCount } })}</div>`;
                                                                     else hEl.textContent = '—';
                                                                   } }
                                                                 const sb = document.getElementById('sales-safety-badge');
@@ -2861,7 +2871,28 @@ Thank you!
                                                                 topic_title: d.title, class_key: REF_CLASS, country_key: cc
                                                             }));
                                                         }
-                                                        function referenceEconomics(line, baseSalary) {
+                                                        // ДВЕ СТРОКИ: ЛЮДИ И РОБОТЫ — сколько делают в день, во что обходится изделие, прибыль в месяц.
+const ROBOT_DEFAULTS = { speed: 50, hours: 16, price: 30000, life: 5, svc: 10, ops: 1 };
+function asuirMini(o) {
+const R = Object.assign({}, ROBOT_DEFAULTS, o.robot || {});
+const sal = 10000, staff = o.staff || 1, perf = o.perf || 1, sales = o.sales > 0 ? o.sales : 0;
+const amort = (o.cost || 0) / 5 / 365, other = o.other || 0;
+const soldP = sales ? Math.min(sales, perf) : perf;
+const costP = o.bom + (amort + sal * staff / 30 + other) / soldP;
+const profitP = Math.round((o.market - costP) * soldP * 30);
+const robots = R.count > 0 ? R.count : staff;
+const perfR = perf * (robots / staff) * R.speed * R.hours / 8;
+const soldR = sales ? Math.min(sales, perfR) : perfR;
+const costR = o.bom + (amort + sal * R.ops / 30 + robots * R.price * (1 / R.life + R.svc / 100) / 365 + other) / soldR;
+const profitR = Math.round((o.market - costR) * soldR * 30);
+const L = { loc: 'en-US', made: 'Made per day', unit: 'One item costs', profit: 'Profit per month', imp: 'Brought from abroad', people: 'People', robots: 'Robots' }, n0 = v => Math.round(v).toLocaleString(L.loc), n2 = v => v.toLocaleString(L.loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pf = v => `<b style="color:${v >= 0 ? '#007600' : '#c40000'};">${v < 0 ? '−' : ''}$${n0(Math.abs(v))}</b>`;
+return `<table class="asuir-mini"><tr><th></th><th>${L.made}</th><th>${L.unit}</th><th>${L.profit}</th></tr>` +
+`<tr class="am-imp"><td>${L.imp}</td><td>—</td><td>$${n2(o.landed)}</td><td>—</td></tr>` +
+`<tr><td>👷 ${L.people}</td><td>${n0(soldP)}</td><td>$${n2(costP)}</td><td>${pf(profitP)}</td></tr>` +
+`<tr class="am-rob"><td>🤖 ${L.robots}</td><td>${n0(soldR)}</td><td>$${n2(costR)}</td><td>${pf(profitR)}</td></tr></table>`;
+}
+function referenceEconomics(line, baseSalary) {
                                                             const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
                                                             const r = lineRates(line);
                                                             const bom = line.components.reduce((s, c) => s + c.qty * c.price, 0) * (1 + r.ct / 100);
@@ -2890,7 +2921,7 @@ Thank you!
                                                                     <td>${line.perf} pcs/day</td>
                                                                     <td>${line.staff} staff</td>
                                                                     <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
-                                                                    <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('en-US') : '0'} / mo</b></td>
+                                                                    <td>${asuirMini({ perf: parseFloat(line.perf), staff: parseFloat(line.staff), cost: parseFloat(line.cost), bom: line.components.reduce((x, c) => x + c.qty * c.price, 0) * (1 + lineRates(line).ct / 100), other: getLineOtherCosts(line), market: getTopicBenchmarkPrice(line.topic_title, line.class_key), landed: e.landed })}</td>
                                                                     <td style="font-weight:600; color:#007600;">${plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line))}</td>
                                                                     ${showAdminCol ? '<td></td>' : ''}`;
                                                                 container.appendChild(tr);
@@ -3343,7 +3374,7 @@ Thank you!
                                                                                         <td>${line.perf} pcs/day</td>
                                                                                         <td>${line.staff || 1} staff</td>
                                                                                         <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
-                                                                                        <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                                                                                        <td>${(() => { const r = lineRates(line); const mk = parseFloat(line.market_price) || topicBenchmarkPrice; return asuirMini({ perf: parseFloat(line.perf) || 1, staff: parseFloat(line.staff) || 1, cost: parseFloat(line.cost) || 0, bom: ((compList.reduce((x, c) => x + (c.qty * c.price), 0)) || topicBenchmarkBom) * (1 + r.ct / 100), other: getLineOtherCosts(line), market: mk, landed: importLandedPrice(mk, r.f, r.t), sales: parseFloat(line.sales_per_day) || 0 }); })()}</td>
                                                                                     <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                         ${adminDeleteCell}
                                                                                     `;
