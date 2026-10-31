@@ -2,8 +2,6 @@
 
 **Live site:** https://asuir.org · **Русская версия:** https://asuir.org/index_ru.html
 
-Products manufactured in the US are at least 2.5 times cheaper than those made in China, and there is no need to protect the market with tariffs and duties.
-
 Welcome to ASUIR — a technology that levels the standard of living across all countries by ensuring production costs are at the same level as in Bangladesh and wages are at the same level as in the US or higher.
 
 The economic algorithms of the ASUIR platform are identical everywhere, enabling production systems to be created for any country that ensure:
@@ -92,4 +90,4 @@ Contact: AnatoliDolgov@outlook.com
 
 ## Кратко по-русски
 
-АСУИР — бесплатный открытый генератор производств и услуг. Он выравнивает уровень жизни во всех странах: себестоимость продукции на уровне Бангладеш, зарплаты наёмных работников на уровне США и выше, без необходимости защищать рынок тарифами и пошлинами. Сайт: https://asuir.org/index_ru.html. Код — лицензия MIT, тексты и методика — CC BY 4.0. Автор: Анатолий Долгов, AnatoliDolgov@outlook.com.
+АСУИР — бесплатный открытый генератор производств и услуг. Он выравнивает уровень жизни во всех странах: себестоимость продукции на уровне Бангладеш, зарплаты наёмных работников на уровне США и выше. Сайт: https://asuir.org/index_ru.html. Код — лицензия MIT, тексты и методика — CC BY 4.0. Автор: Анатолий Долгов, AnatoliDolgov@outlook.com.
