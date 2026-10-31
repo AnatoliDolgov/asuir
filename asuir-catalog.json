@@ -582,31 +582,21 @@
   "classes": {
    "knit": {
     "class_name": "Knitwear (T-shirts, hoodies)",
-    "equipment": "Knitwear Sewing Mini-Shop",
+    "equipment": "T-shirt Sewing Mini-Shop",
     "equipment_price_usd": 18000,
     "output_per_day": 120,
     "workers": 3,
-    "price_same_product_factory_abroad_usd": 35,
+    "price_same_product_factory_abroad_usd": 2.16,
     "parts_per_piece": [
      {
-      "name": "Jersey / fleece knit fabric (1.2 m)",
-      "qty": 1.2,
-      "price_usd": 4
+      "name": "Cotton jersey 160 g/m2 (0.19 kg per T-shirt, INR 410/kg, IndiaMART)",
+      "qty": 0.19,
+      "price_usd": 4.71
      },
      {
-      "name": "Rib knit for collar and cuffs (0.2 m)",
-      "qty": 0.2,
-      "price_usd": 3
-     },
-     {
-      "name": "Threads",
+      "name": "Rib, thread, label, polybag",
       "qty": 1,
-      "price_usd": 0.3
-     },
-     {
-      "name": "Tags, labels, packaging",
-      "qty": 1,
-      "price_usd": 0.6
+      "price_usd": 0.15
      }
     ],
     "shop_costs_per_day": [
@@ -630,7 +620,11 @@
       "qty": 1,
       "price_usd_per_day": 14
      }
-    ]
+    ],
+    "sources": {
+     "price_same_product_factory_abroad_usd": "UN Comtrade 2024, US imports HS 6109: 3,204,078,876 pcs, $6,905,229,520 (avg $2.16)",
+     "fabric": "https://m.indiamart.com/impcat/jersey-fabric.html"
+    }
    },
    "outer": {
     "class_name": "Outerwear (jackets: membrane, insulation)",
