@@ -552,6 +552,21 @@
         #listing-table > thead > tr > th:nth-child(6), #listing-table > thead > tr > th:nth-child(7), #listing-table > thead > tr > th:nth-child(9),
         #listing-table > tbody > tr > td:nth-child(3), #listing-table > tbody > tr > td:nth-child(4), #listing-table > tbody > tr > td:nth-child(5),
         #listing-table > tbody > tr > td:nth-child(6), #listing-table > tbody > tr > td:nth-child(7), #listing-table > tbody > tr > td:nth-child(9) { display: none; }
+            #s4 { margin: 0 0 14px; }
+        #s4 .s4-step { border: 1px solid #d6e0ea; border-radius: 8px; margin-bottom: 10px; overflow: hidden; background: #fff; }
+        #s4 .s4-h { background: #1f4e78; color: #fff; padding: 7px 14px; font-weight: 700; font-size: 14px; }
+        #s4 .s4-b { padding: 10px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+        #s4 .s4-q { flex: 1 1 320px; font-weight: 600; color: #222; }
+        #s4 .s4-q small { display: block; font-weight: 400; color: #6c7a8a; font-size: 12.5px; margin-top: 2px; }
+        #s4 input.s4-in { width: 120px; text-align: right; font-weight: 700; padding: 6px 10px; border: 1px solid #b9c7d6; border-radius: 6px; font-size: 15px; }
+        #s4 .s4-pre button { font-size: 13px; margin-left: 4px; padding: 4px 9px; border: 1px solid #b9c7d6; border-radius: 6px; background: #fff; cursor: pointer; }
+        #s4 .s4-ans { font-weight: 700; color: #1f4e78; }
+        #s4 .s4-res { background: #f4f8fc; }
+        #s4 .s4-big { font-size: 26px; font-weight: 800; }
+        #s4 .s4-note { color: #1f4e78; font-size: 13.5px; margin-top: 6px; }
+        #s4 .s4-prod select { margin: 2px 6px 2px 0; }
+        #s4-details-btn { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid #d6e0ea; border-radius: 8px; padding: 9px 14px; color: #1f4e78; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
+        .am-cap { font-size: 12px; color: #6c7a8a; margin-bottom: 2px; }
             .result-hero .rh-sub {
                 font-size: 16px;
                 font-weight: 600;
@@ -1043,6 +1058,28 @@
 
             <!-- WORKSPACE CALCULATOR (VISIBLE ONLY IN ADMIN MODE) -->
             <div id="upload-admin-content" class="matrix-card-box" style="display: none;">
+                <!-- АСУИР, 4 ШАГА: главное наверху, подробности ниже -->
+                <div id="s4">
+                    <div class="s4-step"><div class="s4-h">Product and country</div><div class="s4-b s4-prod" id="s4-prod"></div></div>
+                    <div class="s4-step"><div class="s4-h">Step 1. Sales</div><div class="s4-b">
+                        <div class="s4-q">How many items a day can you sell?<small>It depends on advertising, scale and sales channels — enter your own figure.</small><small id="s4-mkt"></small></div>
+                        <div><input id="s4-sales" class="s4-in" type="number" min="1" step="1"> pcs</div></div></div>
+                    <div class="s4-step"><div class="s4-h">Step 2. What these sales need</div><div class="s4-b">
+                        <div class="s4-q">How many people does one unit of your equipment replace?<small>Output = what one person makes × this number. 1 — work by hand, 5–10 — ordinary equipment, 50 and more — a robotic complex.</small><small id="s4-cap"></small></div>
+                        <div><input id="s4-repl" class="s4-in" type="number" min="1" step="1" value="50"> people
+                        <span class="s4-pre"><button type="button" data-k="1">1</button><button type="button" data-k="5">5</button><button type="button" data-k="10">10</button><button type="button" data-k="50">50</button></span></div></div>
+                        <div class="s4-b" style="padding-top:0"><div class="s4-ans" id="s4-need"></div></div></div>
+                    <div class="s4-step"><div class="s4-h">Step 3. Price</div><div class="s4-b">
+                        <div class="s4-q">At what price do you sell one item?<small id="s4-landed"></small></div>
+                        <div>$ <input id="s4-price" class="s4-in" type="number" min="0" step="0.01"></div></div></div>
+                    <div class="s4-step s4-res"><div class="s4-h">Step 4. What you get</div><div class="s4-b" style="display:block">
+                        <div><b>You, the entrepreneur:</b> <span class="s4-big" id="s4-profit"></span> a month</div>
+                        <div style="margin-top:4px"><b>Each worker on the line:</b> <b>$10,000 a month</b> — the level of Switzerland and Washington, D.C.</div>
+                        <div class="s4-note" id="s4-cover"></div>
+                        <div style="margin-top:10px; overflow-x:auto;" id="s4-mini"></div></div></div>
+                    <button type="button" id="s4-details-btn">▶ ⚙️ Details and settings: equipment, parts, shop, duties (usually no need to change)</button>
+                </div>
+                <div id="s4-details" style="display:none;">
                 <!-- CALCULATOR WORKFLOW STEP TABS -->
                 <div class="matrix-tab-bar" id="tabHeaders">
                     <a href="#" class="matrix-tab-item active" data-tab="tab1">💰 1. Direct Business Costs</a>
@@ -1373,6 +1410,7 @@
                     </div>
 
                 </div>
+                </div><!-- /s4-details -->
             </div>
         </div>
 
@@ -2061,12 +2099,10 @@ Thank you!
                                                                 classes: {
                                                                     'knit': {
                                                                         label: '👕 Knitwear (T-shirts, hoodies)',
-                                                                        eq: '18000', mkt: '35', perf: '120', staff: '3', q: 'Knitwear Sewing Mini-Shop',
+                                                                        eq: '18000', mkt: '2.16', perf: '120', staff: '3', q: 'T-shirt Sewing Mini-Shop',
                                                                         c: [
-                                                                            ['Jersey / fleece knit fabric (1.2 m)', 1.2, 4.0, ''],
-                                                                            ['Rib knit for collar and cuffs (0.2 m)', 0.2, 3.0, ''],
-                                                                            ['Threads', 1, 0.3, ''],
-                                                                            ['Tags, labels, packaging', 1, 0.6, '']
+                                                                            ['Cotton jersey 160 g/m² (0.19 kg per T-shirt, ₹410/kg)', 0.19, 4.71, 'https://m.indiamart.com/impcat/jersey-fabric.html'],
+['Rib, thread, label, polybag', 1, 0.15, '']
                                                                         ],
                                                                         exp: [
                                                                             ['Sewing workshop rent 50 sq.m', 1, 30.0, ''],
@@ -2666,7 +2702,7 @@ Thank you!
                                                             const tariffPct = parseFloat(document.getElementById('tariff-input')?.value) || 0;
                                                             const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
                                                             const landed = importLandedPrice(market, freightPct, tariffPct);
-                                                            const landedNoTariff = importLandedPrice(market, freightPct, 0);
+                                                            const landedNoTariff = importLandedPrice(market, freightPct, 0); if (window.s4Render) { const _mk = document.getElementById('market-country'); const _mKey = (_mk && _mk.value) || (MARKET_DATA[currentCountry] ? currentCountry : 'us'); window.s4Render({ perf: basePerf, staff: staff, cost: equip, bom: rawCost, other: totalOtherCosts, landed: landed, robot: { hours: rHours, price: rPrice, life: rLife, svc: rSvc, ops: rHumans }, marketEntry: getMarketEntry(_mKey, findCatalogKeyByTitle(currentTopicTitle), currentClassKey) }); }
                                                             if (document.getElementById('import-landed')) document.getElementById('import-landed').textContent = landed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                             const advEl = document.getElementById('import-advantage');
                                                             if (advEl) {
@@ -2695,7 +2731,7 @@ Thank you!
                                                                     const pName = currentModuleName || (currentTopicTitle + (cl ? ' — ' + cl.label.replace(/^\S+\s/, '') : ''));
                                                                     const where = (currentCountry && currentCountry !== 'base') ? COUNTRIES[currentCountry].label + ': ' : '';
                                                                     const imported = landed > market + 0.001;
-                                                                    if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">If you compare the cost of an item made on your own equipment, it is, as a rule, much cheaper than the imported one.</div><div style="margin-top:8px; overflow-x:auto;">${asuirMini({ perf: basePerf, staff: rStaff, cost: equip, bom: rawCost, other: totalOtherCosts, market: market, landed: landed, sales: rSalesRaw, robot: { speed: rSpeed, hours: rHours, price: rPrice, life: rLife, svc: rSvc, ops: rHumans, count: rCount } })}</div>`;
+                                                                    if (sCost > 0 && landed > 0) hEl.innerHTML = `<div class="rh-head">If you compare the cost of an item made on your own equipment, it is, as a rule, much cheaper than the imported one.</div><div style="margin-top:8px; overflow-x:auto;">${window.s4Last ? asuirMiniFrom(window.s4Last) : ''}</div>`;
                                                                     else hEl.textContent = '—';
                                                                   } }
                                                                 const sb = document.getElementById('sales-safety-badge');
@@ -2858,7 +2894,7 @@ Thank you!
                                                         // ======================================================
                                                         // PINNED REFERENCE EXAMPLE IN THE LISTING: watch assembly (Seiko-level automatic) — general case, EU, USA
                                                         // ======================================================
-                                                        const REF_TOPIC = 'watch', REF_CLASS = 'automatic', REF_COUNTRIES = ['base', 'eu', 'us'];
+                                                        const REF_TOPIC = 'clothes', REF_CLASS = 'knit', REF_COUNTRIES = ['base', 'eu', 'us'];
                                                         function buildReferenceLines() {
                                                             const d = resolveCatalogData(REF_TOPIC, REF_CLASS);
                                                             return REF_COUNTRIES.map(cc => ({
@@ -2872,26 +2908,37 @@ Thank you!
                                                             }));
                                                         }
                                                         // ДВЕ СТРОКИ: ЛЮДИ И РОБОТЫ — сколько делают в день, во что обходится изделие, прибыль в месяц.
+// АСУИР, 4 ШАГА: сбыт → оборудование (сколько людей заменяет единица) → цена → результат.
 const ROBOT_DEFAULTS = { speed: 50, hours: 16, price: 30000, life: 5, svc: 10, ops: 1 };
-function asuirMini(o) {
+function asuirModel(o) {
 const R = Object.assign({}, ROBOT_DEFAULTS, o.robot || {});
-const sal = 10000, staff = o.staff || 1, perf = o.perf || 1, sales = o.sales > 0 ? o.sales : 0;
-const amort = (o.cost || 0) / 5 / 365, other = o.other || 0;
-const soldP = sales ? Math.min(sales, perf) : perf;
-const costP = o.bom + (amort + sal * staff / 30 + other) / soldP;
-const profitP = Math.round((o.market - costP) * soldP * 30);
-const robots = R.count > 0 ? R.count : staff;
-const perfR = perf * (robots / staff) * R.speed * R.hours / 8;
-const soldR = sales ? Math.min(sales, perfR) : perfR;
-const costR = o.bom + (amort + sal * R.ops / 30 + robots * R.price * (1 / R.life + R.svc / 100) / 365 + other) / soldR;
-const profitR = Math.round((o.market - costR) * soldR * 30);
-const L = { loc: 'en-US', made: 'Made per day', unit: 'One item costs', profit: 'Profit per month', imp: 'Brought from abroad', people: 'People', robots: 'Robots' }, n0 = v => Math.round(v).toLocaleString(L.loc), n2 = v => v.toLocaleString(L.loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const pf = v => `<b style="color:${v >= 0 ? '#007600' : '#c40000'};">${v < 0 ? '−' : ''}$${n0(Math.abs(v))}</b>`;
-return `<table class="asuir-mini"><tr><th></th><th>${L.made}</th><th>${L.unit}</th><th>${L.profit}</th></tr>` +
-`<tr class="am-imp"><td>${L.imp}</td><td>—</td><td>$${n2(o.landed)}</td><td>—</td></tr>` +
-`<tr><td>👷 ${L.people}</td><td>${n0(soldP)}</td><td>$${n2(costP)}</td><td>${pf(profitP)}</td></tr>` +
-`<tr class="am-rob"><td>🤖 ${L.robots}</td><td>${n0(soldR)}</td><td>$${n2(costR)}</td><td>${pf(profitR)}</td></tr></table>`;
+const wage = 10000, staff = Math.max(o.staff || 1, 1), perf = Math.max(o.perf || 1, 0.0001);
+const perW = perf / staff;                                   // сколько делает один человек за смену (8 ч)
+const capU = Math.max(perW * Math.max(R.speed, 1) * R.hours / 8, 0.0001); // одна единица оборудования в день
+const S = o.sales > 0 ? o.sales : Math.round(capU);          // сбыт: введённый или одна единица на полную загрузку
+const price = o.price > 0 ? o.price : (o.landed || 0) * 0.98;
+const shop = o.other || 0, parts = o.bom || 0;
+const units = Math.ceil(S / capU), people = Math.max(1, Math.ceil(units * (R.ops || 1)));
+const fixR = units * R.price * (1 / R.life + R.svc / 100) / 365 + people * wage / 30 + shop;
+const costR = parts + fixR / S, profR = Math.round((price - costR) * S * 30);
+const nP = Math.ceil(S / perW);
+const fixP = nP * wage / 30 + Math.ceil(nP / staff) * (o.cost || 0) / 5 / 365 + shop;
+const costP = parts + fixP / S, profP = Math.round((price - costP) * S * 30);
+return { S, price, capU, units, people, costR, profR, nP, costP, profP, N: R.speed, hours: R.hours, landed: o.landed || 0,
+wR: people * wage / 30 / S, wP: nP * wage / 30 / S };
 }
+const ASUIR_T = { loc: 'en-US', people: 'People on the line', unit: 'One item costs', profit: 'Profit per month', imp: 'Brought from abroad', manual: '👷 By hand (replaces 1 person)', equip: '🤖 Equipment replacing {n} people', cap: 'At sales of {s} a day and a price of ${p}', h_title: 'Production generator: 4 steps', step0: 'Product and country', step1: 'Step 1. Sales', q1: 'How many items a day can you sell?', q1s: 'It depends on advertising, scale and sales channels — enter your own figure.', mkt: '{c} imports about <b>{q}</b> {u} a day (UN Comtrade {y}). {s} a day is <b>{pc}%</b> of this market.', mkt_none: 'There is no import data for this item in the selected country.', step2: 'Step 2. What these sales need', q2: 'How many people does one unit of your equipment replace?', q2s: 'Output = what one person makes × this number. 1 — work by hand, 5–10 — ordinary equipment, 50 and more — a robotic complex.', cap2: 'One unit makes up to {c} items a day ({h} h).', need: 'Needed: {u} unit(s) of equipment, people on the line: {p}', step3: 'Step 3. Price', q3: 'At what price do you sell one item?', q3s: 'The same item brought from abroad costs the buyer <b>${l}</b>.', step4: 'Step 4. What you get', you: 'You, the entrepreneur:', permonth: 'a month', worker: 'Each worker on the line:', wagetxt: '<b>$10,000 a month</b> — the level of Switzerland and Washington, D.C.', cover: 'How the algorithm covers this wage: it is already in the cost of one item (${c}). The wage is shared by {s} items a day, so each carries only <b>${w}</b>. By hand you would need {n} people, and each item would carry ${wp} of wages{over}.', over: ' — more than the selling price', det: '⚙️ Details and settings: equipment, parts, shop, duties (usually no need to change)', pcs: 'pcs', ppl: 'people' };
+const aN0 = v => Math.round(v).toLocaleString(ASUIR_T.loc), aN2 = v => v.toLocaleString(ASUIR_T.loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const aPf = v => `<b style="color:${v >= 0 ? '#007600' : '#c40000'};">${v < 0 ? '−' : ''}$${aN0(Math.abs(v))}</b>`;
+function asuirMiniFrom(m) {
+const L = ASUIR_T;
+return `<div class="am-cap">${L.cap.replace('{s}', aN0(m.S)).replace('{p}', aN2(m.price))}</div>` +
+`<table class="asuir-mini"><tr><th></th><th>${L.people}</th><th>${L.unit}</th><th>${L.profit}</th></tr>` +
+`<tr class="am-imp"><td>${L.imp}</td><td>—</td><td>$${aN2(m.landed)}</td><td>—</td></tr>` +
+`<tr><td>${L.manual}</td><td>${aN0(m.nP)}</td><td>$${aN2(m.costP)}</td><td>${aPf(m.profP)}</td></tr>` +
+`<tr class="am-rob"><td>${L.equip.replace('{n}', aN0(m.N))}</td><td>${aN0(m.people)}</td><td>$${aN2(m.costR)}</td><td>${aPf(m.profR)}</td></tr></table>`;
+}
+function asuirMini(o) { return asuirMiniFrom(asuirModel(o)); }
 function referenceEconomics(line, baseSalary) {
                                                             const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
                                                             const r = lineRates(line);
@@ -2905,7 +2952,7 @@ function referenceEconomics(line, baseSalary) {
                                                         function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
                                                             const head = document.createElement('tr');
                                                             head.style.background = '#fff6e0';
-                                                            head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 REFERENCE EXAMPLE: WATCH ASSEMBLY (SEIKO-LEVEL AUTOMATIC) — general case, European Union and USA, starting freight and tariff rates</td>`;
+                                                            head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 REFERENCE EXAMPLE: T-SHIRT — prices checked (imports: UN Comtrade 2024, fabric: IndiaMART) — general case, European Union and USA, starting freight and tariff rates</td>`;
                                                             container.appendChild(head);
                                                             buildReferenceLines().forEach(line => {
                                                                 const e = referenceEconomics(line, baseSalary);
@@ -3432,6 +3479,40 @@ function referenceEconomics(line, baseSalary) {
                                                             updateAdminLockUI();
                                                             loadCatalogTemplate('drone');
                                                         });
-    </script>
+    
+// ---- 4 ШАГА: связь с полями генератора ----
+window.s4Render = function (o) {
+const L = ASUIR_T, $ = id => document.getElementById(id);
+if (!$('s4')) return;
+const salesEl = $('s4-sales'), priceEl = $('s4-price'), replEl = $('s4-repl');
+const N = Math.max(parseFloat(replEl.value) || 50, 1);
+const sRaw = parseFloat(salesEl.value), pRaw = parseFloat(priceEl.value);
+const m = asuirModel(Object.assign({}, o, { sales: sRaw > 0 ? sRaw : 0, price: pRaw > 0 ? pRaw : 0, robot: Object.assign({}, o.robot, { speed: N }) }));
+if (!(sRaw > 0)) salesEl.placeholder = aN0(m.S);
+if (!(pRaw > 0)) priceEl.placeholder = aN2(m.price);
+$('s4-landed').innerHTML = L.q3s.replace('{l}', aN2(o.landed));
+$('s4-cap').textContent = L.cap2.replace('{c}', aN0(m.capU)).replace('{h}', aN0(m.hours));
+$('s4-need').textContent = L.need.replace('{u}', aN0(m.units)).replace('{p}', aN0(m.people));
+$('s4-profit').innerHTML = aPf(m.profR);
+$('s4-cover').innerHTML = L.cover.replace('{c}', aN2(m.costR)).replace('{s}', aN0(m.S)).replace('{w}', aN2(m.wR)).replace('{n}', aN0(m.nP)).replace('{wp}', aN2(m.wP)).replace('{over}', m.wP > m.price ? L.over : '');
+$('s4-mini').innerHTML = asuirMiniFrom(m);
+const me = o.marketEntry;
+if (me && !me.empty && me.unit && me.qty > 0) {
+const day = me.qty / 360, unitTxt = me.unit === 'kg' ? (L.loc === 'ru-RU' ? 'кг' : 'kg') : (L.loc === 'ru-RU' ? 'шт.' : 'items');
+const qTxt = day >= 1e6 ? (day / 1e6).toLocaleString(L.loc, { maximumFractionDigits: 1 }) + (L.loc === 'ru-RU' ? ' млн' : ' million') : aN0(day);
+$('s4-mkt').innerHTML = L.mkt.replace('{c}', me.country[L.loc === 'ru-RU' ? 'ru' : 'en']).replace('{q}', qTxt).replace('{u}', unitTxt).replace('{y}', me.year).replace('{s}', aN0(m.S)).replace('{pc}', (m.S / day * 100).toLocaleString(L.loc, { maximumFractionDigits: 3 }));
+} else $('s4-mkt').textContent = L.mkt_none;
+window.s4Last = m;
+};
+(function () {
+const $ = id => document.getElementById(id);
+if (!$('s4')) return;
+const prod = $('s4-prod');
+['topic-selector-dropdown', 'class-selector-dropdown', 'country-selector'].forEach(id => { const el = $(id); if (el) prod.appendChild(el); });
+['s4-sales', 's4-price', 's4-repl'].forEach(id => $(id).addEventListener('input', () => { if (typeof window.calculateAll === 'function') window.calculateAll(); }));
+document.querySelectorAll('#s4 .s4-pre button').forEach(b => b.addEventListener('click', () => { $('s4-repl').value = b.dataset.k; window.calculateAll && window.calculateAll(); }));
+$('s4-details-btn').addEventListener('click', () => { const d = $('s4-details'), open = d.style.display === 'none'; d.style.display = open ? '' : 'none'; $('s4-details-btn').textContent = (open ? '▼ ' : '▶ ') + $('s4-details-btn').textContent.slice(2); });
+})();
+</script>
 </body>
 </html>
