@@ -880,9 +880,9 @@
                     '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">No</button>';
                 b.addEventListener('click', function (e) {
                     var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
-                    set(v); b.remove(); if (v === 'yes') loadGA();
+                    set(v); b.remove(); document.body.style.paddingBottom = ''; if (v === 'yes') loadGA();
                 });
-                document.body.appendChild(b);
+                document.body.appendChild(b); var padGA = function () { if (b.isConnected) document.body.style.paddingBottom = b.offsetHeight + 'px'; }; padGA(); window.addEventListener('resize', padGA);
             });
         })();
     </script>
