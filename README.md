@@ -2,6 +2,8 @@
 
 **Live site:** https://asuir.org · **Русская версия:** https://asuir.org/index_ru.html
 
+**Archived at Software Heritage:** https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/AnatoliDolgov/asuir
+
 Welcome to ASUIR — a technology for creating production and bringing industry back, while improving and leveling the standard of living across all countries, by ensuring production costs at the level of Bangladesh and wages at the level of the US or higher — above all under aggressive imports, when domestic industry has to be protected (closing the market, sanctions, tariff quotas, limits, embargoes and licensing, standards and certification, subsidies and grants to domestic business, low-interest loans and tax breaks, government procurement).
 
 The economic algorithms of the ASUIR platform are identical everywhere, enabling production systems to be created for any country that ensure:
@@ -90,4 +92,4 @@ Contact: AnatoliDolgov@outlook.com
 
 ## Кратко по-русски
 
-АСУИР — бесплатный открытый генератор производств и услуг. Он создаёт производства и возвращает промышленность, одновременно выравнивая уровень жизни во всех странах: себестоимость продукции на уровне Бангладеш, зарплаты наёмных работников на уровне США и выше, прежде всего в условиях агрессивного импорта и необходимости защиты собственной промышленности. Сайт: https://asuir.org/index_ru.html. Код — лицензия MIT, тексты и методика — CC BY 4.0. Автор: Анатолий Долгов, AnatoliDolgov@outlook.com.
+АСУИР — бесплатный открытый генератор производств и услуг. Он создаёт производства и возвращает промышленность, одновременно выравнивая уровень жизни во всех странах: себестоимость продукции на уровне Бангладеш, зарплаты наёмных работников на уровне США и выше, прежде всего в условиях агрессивного импорта и необходимости защиты собственной промышленности. Сайт: https://asuir.org/index_ru.html. Код — лицензия MIT, тексты и методика — CC BY 4.0. Автор: Анатолий Долгов, AnatoliDolgov@outlook.com. Код сохранён в архиве Software Heritage: https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/AnatoliDolgov/asuir
