@@ -2986,6 +2986,26 @@ const VERIFIED_LINES = [{
         ['Паяльные станции Hakko FX-888DX: 9 × $129.95', 'https://www.sparkfun.com/hakko-fx-888dx-soldering-station.html'],
         ['Не учтены — ссылка не найдена: аренда, электричество, приёмник, пропеллеры', '']
     ]
+    }, {
+    id: 'v-watch-us', topic: 'watch', cls: 'automatic', country_key: 'us', checked: '2026-11-01',
+    name: 'Сборка механических часов на механизме NH35',
+    url: 'https://www.ming.watch/journal/on-assembling-a-watch',
+    cost: 3643.00, perf: 160, staff: 5, factory: 140, sale: 279.00,
+    comps: [
+        ['Механизм NH35 (продавец из Гуанчжоу)', 1, 85.00, 'https://www.ebay.com/itm/184953907153'],
+        ['Корпус 40 мм, сапфировое стекло (продавец из Гуанчжоу)', 1, 28.80, 'https://www.ebay.com/itm/186366299268'],
+        ['Циферблат и стрелки (продавец из Гуанчжоу)', 1, 10.00, 'https://www.ebay.de/itm/145500527875'],
+        ['Кожаный ремешок 20 мм (продавец из Шэньчжэня)', 1, 12.50, 'https://www.ebay.com/itm/175323033103']
+    ],
+    src: [
+        ['Цена продажи таких же часов в США: $279 (Islander ISL-54: NH35, 40 мм, сапфир)', 'https://longislandwatch.com/collections/islander/products/islander-automatic-pilot-style-watch-isl-54'],
+        ['Цена таких же часов на заводе в Китае: $90–140 (Alibaba, сапфир и сталь 316L), в расчёте $140', 'https://smartbuy.alibaba.com/buyingguides/seiko-nh35-watch-private-label'],
+        ['Сборка часов с тремя стрелками на фабрике: около 15 минут (статья MING)', 'https://www.ming.watch/journal/on-assembling-a-watch'],
+        ['160 часов в день — оценка: 5 сборщиков × 32 часа за 8-часовую смену; число сборщиков выбрано', ''],
+        ['Рабочие столы ESD: 5 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
+        ['Наборы инструмента часовщика (36 предметов, с прессом): 5 × $32.98', 'https://ebay.com/itm/226074257480'],
+        ['Не учтены — ссылка не найдена: аренда, электричество, пресс для стрелок, проверка хода', '']
+    ]
 }];
 function verifiedEconomics(v) {
     const r = lineRates(v);
@@ -3035,7 +3055,7 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
 window.openVerifiedLine = function (id) {
     const v = VERIFIED_LINES.find(x => x.id === id); if (!v) return;
     if (!isAdminMode) toggleAdminMode();
-    loadCatalogTemplate(v.topic);
+    loadCatalogTemplate(v.topic, v.cls);
     const sel = document.getElementById('country-selector');
     if (sel) sel.value = v.country_key;
     onCountryChange();
