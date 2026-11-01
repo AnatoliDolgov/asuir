@@ -700,7 +700,7 @@
         <!-- ВКЛАДКА 1: ЛИСТИНГ УСЛУГ -->
         <div class="main-tab-content-panel active" id="main-tab-1">
             <div class="matrix-card-box" style="padding:24px;">
-                <div class="table-responsive"><table><tr><th style="width:40px; text-align:center;">#</th><th>Услуга и вариант</th><th class="num" style="color:#1f4e78;">Прибыль больницы в месяц</th><th class="num">Процедур в день</th><th class="num">Прямые расходы больницы в день</th><th class="num">Прямые расходы на одну процедуру</th><th class="num">Снижение прямых расходов к варианту 1</th><th class="num">Полная стоимость процедуры</th></tr><tbody id="svc-listing-rows"></tbody></table></div>
+                <div class="table-responsive"><table><tr><th style="width:40px; text-align:center;">#</th><th>Услуга и вариант</th><th class="num" style="color:#1f4e78;">Прибыль больницы в месяц</th><th class="num">Процедур в день</th><th class="num">Прямые расходы в месяц</th><th class="num">10% стоимости процедуры</th><th class="num">Нужно процедур в день</th><th class="num">Стоимость процедуры</th></tr><tbody id="svc-listing-rows"></tbody></table></div>
                 <div style="text-align:center; margin-top:12px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
             </div>
         </div>
@@ -741,7 +741,7 @@
                             <tr><td>Срок службы оборудования кресел, лет</td><td class="num" colspan="3"><input type="number" id="equipLife" value="5"></td></tr>
                             <tr><td>Рабочих дней в году</td><td class="num" colspan="3"><input type="number" id="days" value="260"></td></tr>
                             <tr><td>Рабочих дней в месяце</td><td class="num" colspan="3"><input type="number" id="daysM" value="22"></td></tr>
-                            <tr><td>Допустимая доля прямых расходов, % от стоимости лекарства</td><td class="num" colspan="3"><input type="number" id="target" value="10"></td></tr>
+                            <tr><td>Доля стоимости процедуры (обслуживание, без лекарства), в которую укладываются все прямые расходы, %</td><td class="num" colspan="3"><input type="number" id="target" value="10"></td></tr>
                             <tr class="group"><td colspan="4">Процедура</td></tr>
                             <tr><td>Часов работы отделения в день</td><td class="num" colspan="3"><input type="number" id="hoursDay" value="12"></td></tr>
                             <tr><td>Длительность процедуры, часов</td><td class="num" colspan="3"><input type="number" id="procH" value="4.5" step="0.5"></td></tr>
@@ -779,11 +779,12 @@
                             <tr><td>Роботизированные комплексы в день (амортизация и обслуживание)</td><td class="num" id="robots-a"></td><td class="num" id="robots-b"></td><td class="num hyp" id="robots-c"></td></tr>
                             <tr><td>Оборудование кресел в день (амортизация)</td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
                             <tr class=total><td><b>Прямые расходы больницы в день</b></td><td class="num" id="direct-a"></td><td class="num" id="direct-b"></td><td class="num hyp" id="direct-c"></td></tr>
-                            <tr><td><b>Прямые расходы на одну процедуру</b></td><td class="num" id="per-a"></td><td class="num" id="per-b"></td><td class="num hyp" id="per-c"></td></tr>
-                            <tr><td>Доля прямых расходов в полной стоимости процедуры</td><td class="num" id="share-a"></td><td class="num" id="share-b"></td><td class="num hyp" id="share-c"></td></tr>
-                            <tr class=total><td><b>Полная стоимость процедуры: лекарство + прямые расходы</b></td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
+                            <tr class=total><td><b>Прямые расходы больницы в месяц</b></td><td class="num" id="directM-a"></td><td class="num" id="directM-b"></td><td class="num hyp" id="directM-c"></td></tr>
+                            <tr><td><b>Стоимость процедуры: обслуживание (лекарство не считается)</b></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                            <tr><td>10% стоимости процедуры — в них укладываются все прямые расходы</td><td class="num" id="ten-a"></td><td class="num" id="ten-b"></td><td class="num hyp" id="ten-c"></td></tr>
                             <tr><td>Сколько процедур в день вмещают кресла</td><td class="num" id="cap-a"></td><td class="num" id="cap-b"></td><td class="num hyp" id="cap-c"></td></tr>
-                            <tr><td>Минимум процедур в день, чтобы прямые расходы уложились в допустимую долю</td><td class="num" id="minN-a"></td><td class="num" id="minN-b"></td><td class="num hyp" id="minN-c"></td></tr>
+                            <tr class=total><td><b>Нужно процедур в месяц: прямые расходы в месяц ÷ 10% стоимости процедуры</b></td><td class="num" id="needM-a"></td><td class="num" id="needM-b"></td><td class="num hyp" id="needM-c"></td></tr>
+                            <tr><td>Нужно процедур в день</td><td class="num" id="needD-a"></td><td class="num" id="needD-b"></td><td class="num hyp" id="needD-c"></td></tr>
                         </table>
                     </div>
                 </div>
@@ -794,8 +795,8 @@
                             <tr><th></th><th class="num">1. Сегодня: медсёстры</th><th class="num">2. Роботизированные комплексы — те же процедуры</th><th class="num hyp">3. Роботизированные комплексы — кресла загружены полностью</th></tr>
                             <tr><td><b>Прибыль больницы в месяц</b></td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
                             <tr><td>Прибыль больницы в год</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
-                            <tr><td>Снижение прямых расходов на одну процедуру к варианту 1</td><td class="num" id="saveD-a"></td><td class="num" id="saveD-b"></td><td class="num hyp" id="saveD-c"></td></tr>
-                            <tr><td>Снижение полной стоимости процедуры (с лекарством) к варианту 1</td><td class="num" id="saveF-a"></td><td class="num" id="saveF-b"></td><td class="num hyp" id="saveF-c"></td></tr>
+                            <tr><td>Процедур в месяц (проводит отделение)</td><td class="num" id="procM-a"></td><td class="num" id="procM-b"></td><td class="num hyp" id="procM-c"></td></tr>
+                            <tr><td><b>Нужно процедур в месяц, чтобы покрыть все прямые расходы</b></td><td class="num" id="needR-a"></td><td class="num" id="needR-b"></td><td class="num hyp" id="needR-c"></td></tr>
                             <tr><td>Покупка роботизированных комплексов</td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
                         </table>
                     </div>
@@ -806,7 +807,7 @@
     </div>
     <div class="card">
         <h3 style="margin-top:0;">Для инженера: как считается</h3>
-        <p style="font-size:14px;">Прямые расходы больницы в день = аренда + врачи + медсёстры + роботизированные комплексы + оборудование кресел. Лекарство в прямые расходы не входит: его оплачивает пациент, это «комплектующая» процедуры.</p><p style="font-size:14px;">Аренда и оборудование — в год ÷ рабочих дней в году; зарплаты — в месяц ÷ рабочих дней в месяце.</p><p style="font-size:14px;">Врачей и медсестёр — пропорционально числу процедур в день. Роботизированных комплексов = процедур в день × минут на пациента ÷ (часов приёма × 60), с округлением вверх.</p><p style="font-size:14px;">Прямые расходы на одну процедуру = прямые расходы в день ÷ процедур в день. Полная стоимость процедуры = лекарство + прямые расходы на одну процедуру.</p><p style="font-size:14px;">Прибыль больницы в месяц = (оплата процедуры без лекарства − прямые расходы на одну процедуру) × процедур в день × рабочих дней в месяце.</p><p style="font-size:14px;">Минимум процедур в день: допустимая доля × стоимость лекарства — это сколько прямых расходов может приходиться на одну процедуру; постоянные расходы в день (аренда, оборудование, комплексы) делятся на эту сумму за вычетом расходов на врачей и медсестёр на одну процедуру.</p>
+        <p style="font-size:14px;">Прямые расходы больницы в день = аренда + врачи + медсёстры + роботизированные комплексы + оборудование кресел. Лекарство в прямые расходы не входит: его оплачивает пациент, это «комплектующая» процедуры.</p><p style="font-size:14px;">Аренда и оборудование — в год ÷ рабочих дней в году; зарплаты — в месяц ÷ рабочих дней в месяце. Прямые расходы в месяц = прямые расходы в день × рабочих дней в месяце.</p><p style="font-size:14px;">Врачей и медсестёр — пропорционально числу процедур в день. Роботизированных комплексов = процедур в день × минут на пациента ÷ (часов приёма × 60), с округлением вверх.</p><p style="font-size:14px;">Стоимость процедуры = оплата обслуживания процедуры (без лекарства); лекарство в расчёт не входит. Все прямые расходы укладываются в 10% стоимости каждой процедуры — на число процедур они не делятся.</p><p style="font-size:14px;">Нужно процедур в месяц = прямые расходы больницы в месяц ÷ 10% стоимости процедуры; в день — это число ÷ рабочих дней в месяце.</p><p style="font-size:14px;">Прибыль больницы в месяц = оплата обслуживания одной процедуры × процедур в день × рабочих дней в месяце.</p>
         <div class="sources">Источники: аренда — <a href="https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf" target="_blank">CBRE, медицинские помещения Greater Los Angeles, I кв. 2026</a> ($5,44 за кв. фут в месяц в West LA); площадь на одно кресло — <a href="https://hga.com/researching-successful-infusion-centers/" target="_blank">HGA</a> (153–260 кв. футов).</div>
         <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
     </div>
@@ -820,7 +821,7 @@
     </div>
 
     <script>
-const D = {"loc": "ru-RU", "mln": " млн", "lst_head": ["#", "Услуга и вариант", "Прибыль больницы в месяц", "Процедур в день", "Прямые расходы больницы в день", "Прямые расходы на одну процедуру", "Снижение прямых расходов к варианту 1", "Полная стоимость процедуры"], "var": ["1. Сегодня: медсёстры", "2. Роботизированные комплексы — те же процедуры", "3. Роботизированные комплексы — кресла загружены полностью"], "topic": "Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел)", "tabs": ["📥 1. Исходные данные", "👷 2. Три варианта", "📊 3. Расчёт прямых расходов", "🎯 4. Результаты"], "g_common": "Общие для всех вариантов", "g_proc": "Процедура", "g_staff": "Врачи и медсёстры", "g_rob": "Роботизированные комплексы", "v_proc": "Процедур в день", "v_nurse": "Медсестёр на каждые 100 процедур в день|сегодня — около 60; роботизированные комплексы заменяют медсестёр полностью", "r_rows": [["rent", "Аренда помещения и кресел в день"], ["docs", "Врачи в день"], ["nurses", "Медсёстры в день"], ["robots", "Роботизированные комплексы в день (амортизация и обслуживание)"], ["equip", "Оборудование кресел в день (амортизация)"], ["direct", "Прямые расходы больницы в день"], ["per", "Прямые расходы на одну процедуру"], ["share", "Доля прямых расходов в полной стоимости процедуры"], ["full", "Полная стоимость процедуры: лекарство + прямые расходы"], ["cap", "Сколько процедур в день вмещают кресла"], ["minN", "Минимум процедур в день, чтобы прямые расходы уложились в допустимую долю"]], "res_rows": [["prof", "Прибыль больницы в месяц"], ["profy", "Прибыль больницы в год"], ["saveD", "Снижение прямых расходов на одну процедуру к варианту 1"], ["saveF", "Снижение полной стоимости процедуры (с лекарством) к варианту 1"], ["buy", "Покупка роботизированных комплексов"]], "no": "—", "not_possible": "не уложиться", "how": {"rent": "{prem} в год ÷ {days} дней", "docs": "{d} врачей × {w} ÷ {dm} дней", "nurses": "{n} медсестёр × {w} ÷ {dm} дней", "robots": "{r} комплексов × {p} × ({life}-летний срок + {svc}% в год) ÷ {days} дней", "robots_n": "{n} пациентов × {m} мин ÷ ({h} ч × 60) → {r} комплексов", "equip": "{c} кресел × {cc} ÷ {l} лет ÷ {days} дней", "per": "{d} ÷ {n} процедур", "full": "лекарство {drug} + прямые расходы {per}", "cap": "{c} кресел × {h} ч ÷ ({p} ч процедура + {t} ч подготовка)", "prof": "({pay} − {per}) × {n} процедур × {dm} дней", "over": "больше, чем вмещают кресла"}, "hero1": "Прибыль больницы в месяц: {a} → {b} → {c}", "hero2": "Прямые расходы больницы на одну процедуру снижаются с {pa} до {pb} — на {sb}% при тех же {na} процедурах в день, и до {pc} — на {sc}% при полной загрузке кресел. Это экономия на медсёстрах: их работу выполняют роботизированные комплексы.", "hero3": "Полная стоимость процедуры вместе с лекарством снижается всего на {fb}–{fc}%: {fa} → {fbv} → {fcv}. Около {dp}% её составляет лекарство, а его цену в США определяет производитель (лекарство должно быть разрешено FDA) — на неё ни больница, ни роботизированные комплексы повлиять не могут. Стоимость процедуры всегда стремится к местной цене лекарства.", "note": "Все цифры можно менять — расчёт пересчитывается сразу. Число медсестёр и пациентов в день, задержки начала процедур — наблюдения пациента отделения; аренда — по ставке медицинских помещений West Los Angeles (CBRE, I кв. 2026); цена роботизированного комплекса — оценка.", "eng_title": "Для инженера: как считается", "eng": ["Прямые расходы больницы в день = аренда + врачи + медсёстры + роботизированные комплексы + оборудование кресел. Лекарство в прямые расходы не входит: его оплачивает пациент, это «комплектующая» процедуры.", "Аренда и оборудование — в год ÷ рабочих дней в году; зарплаты — в месяц ÷ рабочих дней в месяце.", "Врачей и медсестёр — пропорционально числу процедур в день. Роботизированных комплексов = процедур в день × минут на пациента ÷ (часов приёма × 60), с округлением вверх.", "Прямые расходы на одну процедуру = прямые расходы в день ÷ процедур в день. Полная стоимость процедуры = лекарство + прямые расходы на одну процедуру.", "Прибыль больницы в месяц = (оплата процедуры без лекарства − прямые расходы на одну процедуру) × процедур в день × рабочих дней в месяце.", "Минимум процедур в день: допустимая доля × стоимость лекарства — это сколько прямых расходов может приходиться на одну процедуру; постоянные расходы в день (аренда, оборудование, комплексы) делятся на эту сумму за вычетом расходов на врачей и медсестёр на одну процедуру."], "src": "Источники: аренда — <a href=\"https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf\" target=\"_blank\">CBRE, медицинские помещения Greater Los Angeles, I кв. 2026</a> ($5,44 за кв. фут в месяц в West LA); площадь на одно кресло — <a href=\"https://hga.com/researching-successful-infusion-centers/\" target=\"_blank\">HGA</a> (153–260 кв. футов).", "print": "🖨️ Распечатать / Сохранить PDF", "base": "основной вариант", "mine_none": "📁 МОИ ВАРИАНТЫ: сохранённых вариантов пока нет. Откройте «⚙️ Генератор услуг», введите свои цифры и нажмите «💾 Сохранить мой вариант».", "mine_head": "📁 МОЙ ВАРИАНТ: {name} (сохранён {d}; лекарство {drug}, оплата процедуры {pay})", "del_btn": "🗑️ Удалить", "open_btn": "📥 Открыть в генераторе услуг", "lst_topic": "📂 МЕДИЦИНА — ПРОЦЕДУРНОЕ ОТДЕЛЕНИЕ: крупная больница Лос-Анджелеса, {c} кресел (лекарство — {drug}, оплата процедуры страховой компанией без лекарства — {pay}) — основной вариант", "noname": "без названия", "myvar": "Мой вариант ", "mvq": "мой вариант «{n}»", "st_base": "Возвращены цифры основного варианта.", "st_wait": "⚠️ База ещё не подключилась — подождите несколько секунд и нажмите снова.", "st_saved": "✓ Вариант «{n}» сохранён. Он появился в листинге услуг в блоке «Мои варианты».", "st_fail": "⚠️ Не удалось сохранить: ", "del_q": "Удалить вариант «{n}»? Основной вариант останется.", "del_fail": "Не удалось удалить: ", "drug_lbl": "лекарство", "direct_lbl": "прямые"};
+const D = {"loc": "ru-RU", "mln": " млн", "lst_head": ["#", "Услуга и вариант", "Прибыль больницы в месяц", "Процедур в день", "Прямые расходы в месяц", "10% стоимости процедуры", "Нужно процедур в день", "Стоимость процедуры"], "var": ["1. Сегодня: медсёстры", "2. Роботизированные комплексы — те же процедуры", "3. Роботизированные комплексы — кресла загружены полностью"], "topic": "Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел)", "tabs": ["📥 1. Исходные данные", "👷 2. Три варианта", "📊 3. Расчёт прямых расходов", "🎯 4. Результаты"], "g_common": "Общие для всех вариантов", "g_proc": "Процедура", "g_staff": "Врачи и медсёстры", "g_rob": "Роботизированные комплексы", "v_proc": "Процедур в день", "v_nurse": "Медсестёр на каждые 100 процедур в день|сегодня — около 60; роботизированные комплексы заменяют медсестёр полностью", "r_rows": [["rent", "Аренда помещения и кресел в день"], ["docs", "Врачи в день"], ["nurses", "Медсёстры в день"], ["robots", "Роботизированные комплексы в день (амортизация и обслуживание)"], ["equip", "Оборудование кресел в день (амортизация)"], ["direct", "Прямые расходы больницы в день"], ["directM", "Прямые расходы в месяц"], ["cost", "Стоимость процедуры: обслуживание (лекарство не считается)"], ["ten", "10% стоимости процедуры — в них укладываются все прямые расходы"], ["cap", "Сколько процедур в день вмещают кресла"], ["needM", "Нужно процедур в месяц: прямые расходы в месяц ÷ 10% стоимости процедуры"], ["needD", "Нужно процедур в день"]], "res_rows": [["prof", "Прибыль больницы в месяц"], ["profy", "Прибыль больницы в год"], ["procM", "Процедур в месяц (проводит отделение)"], ["needR", "Нужно процедур в месяц, чтобы покрыть все прямые расходы"], ["buy", "Покупка роботизированных комплексов"]], "no": "—", "not_possible": "не уложиться", "how": {"rent": "{prem} в год ÷ {days} дней", "docs": "{d} врачей × {w} ÷ {dm} дней", "nurses": "{n} медсестёр × {w} ÷ {dm} дней", "robots": "{r} комплексов × {p} × ({life}-летний срок + {svc}% в год) ÷ {days} дней", "robots_n": "{n} пациентов × {m} мин ÷ ({h} ч × 60) → {r} комплексов", "equip": "{c} кресел × {cc} ÷ {l} лет ÷ {days} дней", "cap": "{c} кресел × {h} ч ÷ ({p} ч процедура + {t} ч подготовка)", "over": "больше, чем вмещают кресла", "directM": "{d} в день × {dm} дней", "cost": "оплата обслуживания одной процедуры", "ten": "{c} × {t}%", "needM": "{m} ÷ {t}", "needD": "{m} ÷ {dm} дней", "procM": "{n} × {dm} дней", "prof": "{pay} × {n} процедур × {dm} дней", "short": "меньше, чем нужно для покрытия прямых расходов"}, "hero1": "Прибыль больницы в месяц: {a} → {b} → {c}", "hero2": "Все прямые расходы больницы (зарплата врачей и медсестёр, аренда, оборудование, роботизированные комплексы) покрываются 10% стоимости процедуры. Для этого нужно процедур в день: {na} → {nb} → {nc}; отделение проводит: {pa} → {pb} → {pc}.", "hero3": "", "note": "Все цифры можно менять — расчёт пересчитывается сразу. Число медсестёр и пациентов в день, задержки начала процедур — наблюдения пациента отделения; аренда — по ставке медицинских помещений West Los Angeles (CBRE, I кв. 2026); цена роботизированного комплекса — оценка.", "eng_title": "Для инженера: как считается", "eng": ["Прямые расходы больницы в день = аренда + врачи + медсёстры + роботизированные комплексы + оборудование кресел. Лекарство в прямые расходы не входит: его оплачивает пациент, это «комплектующая» процедуры.", "Аренда и оборудование — в год ÷ рабочих дней в году; зарплаты — в месяц ÷ рабочих дней в месяце. Прямые расходы в месяц = прямые расходы в день × рабочих дней в месяце.", "Врачей и медсестёр — пропорционально числу процедур в день. Роботизированных комплексов = процедур в день × минут на пациента ÷ (часов приёма × 60), с округлением вверх.", "Стоимость процедуры = оплата обслуживания процедуры (без лекарства); лекарство в расчёт не входит. Все прямые расходы укладываются в 10% стоимости каждой процедуры — на число процедур они не делятся.", "Нужно процедур в месяц = прямые расходы больницы в месяц ÷ 10% стоимости процедуры; в день — это число ÷ рабочих дней в месяце.", "Прибыль больницы в месяц = оплата обслуживания одной процедуры × процедур в день × рабочих дней в месяце."], "src": "Источники: аренда — <a href=\"https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf\" target=\"_blank\">CBRE, медицинские помещения Greater Los Angeles, I кв. 2026</a> ($5,44 за кв. фут в месяц в West LA); площадь на одно кресло — <a href=\"https://hga.com/researching-successful-infusion-centers/\" target=\"_blank\">HGA</a> (153–260 кв. футов).", "print": "🖨️ Распечатать / Сохранить PDF", "base": "основной вариант", "mine_none": "📁 МОИ ВАРИАНТЫ: сохранённых вариантов пока нет. Откройте «⚙️ Генератор услуг», введите свои цифры и нажмите «💾 Сохранить мой вариант».", "mine_head": "📁 МОЙ ВАРИАНТ: {name} (сохранён {d}; лекарство {drug}, оплата процедуры {pay})", "del_btn": "🗑️ Удалить", "open_btn": "📥 Открыть в генераторе услуг", "lst_topic": "📂 МЕДИЦИНА — ПРОЦЕДУРНОЕ ОТДЕЛЕНИЕ: крупная больница Лос-Анджелеса, {c} кресел (лекарство — {drug}, оплата процедуры страховой компанией без лекарства — {pay}) — основной вариант", "noname": "без названия", "myvar": "Мой вариант ", "mvq": "мой вариант «{n}»", "st_base": "Возвращены цифры основного варианта.", "st_wait": "⚠️ База ещё не подключилась — подождите несколько секунд и нажмите снова.", "st_saved": "✓ Вариант «{n}» сохранён. Он появился в листинге услуг в блоке «Мои варианты».", "st_fail": "⚠️ Не удалось сохранить: ", "del_q": "Удалить вариант «{n}»? Основной вариант останется.", "del_fail": "Не удалось удалить: ", "srv_lbl": "обслуживание, без лекарства"};
 const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
 const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
 const fmt = (n, d = 0) => (isFinite(n) ? n : 0).toLocaleString(D.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -846,24 +847,28 @@ let baseRows = null, baseInfo = null, lastRows = null, lastInfo = null;
 window.myVariants = [];
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 function rowsHtml(rows, info, openBtn) {
-          if (!rows || !rows.a || rows.a.perDay === undefined) return '';
-          return K.map((k, i) => { const r = rows[k];
+          if (!rows || !rows.a || rows.a.directM === undefined) return '';
+          return K.map((k, i) => { const r = rows[k], low = r.needD !== null && r.n < r.needD;
             return `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
             <td><b>${D.var[i]}</b><br>${openBtn}</td><td class="num"><b style="color:#1f4e78; font-size:15px;">${usd(r.prof)}</b></td>
-            <td class="num">${fmt(r.n)}</td><td class="num">${usd(r.perDay)}</td><td class="num"><b>${usd(r.per)}</b></td>
-            <td class="num">${k === 'a' ? D.no : fmt(r.saveD) + '%'}</td>
-            <td class="num"><b>${usd(r.full)}</b><span class="small">${D.drug_lbl} ${usd(info.drug)} + ${D.direct_lbl} ${usd(r.per)}</span></td></tr>`; }).join('');
+            <td class="num">${fmt(r.n)}</td><td class="num">${usd(r.directM)}</td><td class="num">${usd(r.ten)}</td>
+            <td class="num"><b${low ? ' style="color:#c0392b;"' : ''}>${r.needD === null ? D.no : fmt(r.needD)}</b>${low ? '<span class="small" style="color:#c0392b;">' + D.how.short + '</span>' : ''}</td>
+            <td class="num"><b>${usd(r.cost)}</b><span class="small">${D.srv_lbl}</span></td></tr>`; }).join('');
 }
+function rowsFromInputs(inputs) { const g = id => { const x = (inputs && inputs[id] !== undefined) ? inputs[id] : BASE_INPUTS[id]; return parseFloat(x) || 0; };
+          const M = model(g); return { rows: M.rows, info: M.info }; }
 window.renderServiceListing = function () {
           const tb = document.getElementById('svc-listing-rows'); if (!tb || !baseRows) return;
           let html = `<tr class="lst-topic"><td colspan="8">${fill(D.lst_topic, { c: fmt(baseInfo.chairs), drug: usd(baseInfo.drug), pay: usd(baseInfo.pay) })}</td></tr>`;
           html += rowsHtml(baseRows, baseInfo, `<button class="btn-open" onclick="openBase()">${D.open_btn}</button>`) + exampleHtml() + presetHtml();
           const mine = window.myVariants || [];
           if (!mine.length) html += `<tr class="lst-mine"><td colspan="8">${D.mine_none}</td></tr>`;
-          mine.forEach(m => { if (!m.rows || !m.info) return;
+          mine.forEach(m => { if (!m.inputs && (!m.rows || !m.info)) return;
             const d = m.created ? new Date(m.created).toLocaleDateString(D.loc) : '';
-            html += `<tr class="lst-mine"><td colspan="8">${fill(D.mine_head, { name: esc(m.name || D.noname), d, drug: usd(m.info.drug), pay: usd(m.info.pay) })} &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">${D.del_btn}</button></td></tr>`;
-            html += rowsHtml(m.rows, m.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">${D.open_btn}</button>`); });
+            const mi = m.inputs ? rowsFromInputs(m.inputs).info : m.info;
+            html += `<tr class="lst-mine"><td colspan="8">${fill(D.mine_head, { name: esc(m.name || D.noname), d, drug: usd(mi.drug), pay: usd(mi.pay) })} &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">${D.del_btn}</button></td></tr>`;
+            const rc = m.inputs ? rowsFromInputs(m.inputs) : { rows: m.rows, info: m.info };
+            html += rowsHtml(rc.rows, rc.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">${D.open_btn}</button>`); });
           tb.innerHTML = html;
 };
 function applyInputs(vals) { for (const id in vals) { const el = document.getElementById(id); if (el) el.value = vals[id]; } calc(); }
@@ -908,52 +913,53 @@ function initPreset() { if (!PRESET_KEY || !PRESETS[PRESET_KEY]) return;
           applyInputs(presetInputs()); presetRows = lastRows; presetInfo = lastInfo; applyInputs(BASE_INPUTS);
           const tr = document.querySelector('#main-tab-1 .table-responsive'); if (tr) { const n = document.createElement('div'); n.className = 'info-hint'; n.id = 'preset-note';
             n.innerHTML = PRESETS[PRESET_KEY].head + '<span class="small" style="margin-top:6px;">' + PRESETS[PRESET_KEY].src + '</span>'; tr.parentNode.insertBefore(n, tr); } }
-function calc() {
-          const H = D.how, drug = v('drug'), pay = v('pay'), days = Math.max(v('days'), 1), dm = Math.max(v('daysM'), 1);
-          const rentDay = v('premises') / days, chairs = v('chairs'), equipDay = chairs * v('chairCost') / Math.max(v('equipLife'), 1) / days;
-          const docDay1 = v('docWage') / dm, nurseDay1 = v('wage') / dm;
-          const robRate = 1 / Math.max(v('robotLife'), 1) + v('robotSvc') / 100, robDay1 = v('robotPrice') * robRate / days;
-          const cycle = v('procH') + v('turn'), cap = cycle > 0 ? chairs * v('hoursDay') / cycle : 0;
-          const allowed = drug * v('target') / 100, perRobotPatients = v('hoursRecv') * 60 / Math.max(v('robotMin'), 1);
+function model(g) {
+          const drug = g('drug'), pay = g('pay'), days = Math.max(g('days'), 1), dm = Math.max(g('daysM'), 1);
+          const rentDay = g('premises') / days, chairs = g('chairs'), equipDay = chairs * g('chairCost') / Math.max(g('equipLife'), 1) / days;
+          const docDay1 = g('docWage') / dm, nurseDay1 = g('wage') / dm;
+          const robRate = 1 / Math.max(g('robotLife'), 1) + g('robotSvc') / 100, robDay1 = g('robotPrice') * robRate / days;
+          const cycle = g('procH') + g('turn'), cap = cycle > 0 ? chairs * g('hoursDay') / cycle : 0;
+          const cost = pay, ten = cost * g('target') / 100, perRobotPatients = g('hoursRecv') * 60 / Math.max(g('robotMin'), 1);
           const R = {};
           for (const k of K) {
-            const n = Math.max(v('proc-in-' + k), 0);
-            const docs = v('docPer100') * n / 100, nurses = v('nurse100-' + k) * n / 100;
+            const n = Math.max(g('proc-in-' + k), 0);
+            const docs = g('docPer100') * n / 100, nurses = g('nurse100-' + k) * n / 100;
             const robots = k === 'a' ? 0 : Math.ceil(n / perRobotPatients);
             const docsDay = docs * docDay1, nursesDay = nurses * nurseDay1, robDay = robots * robDay1;
-            const perDay = rentDay + docsDay + nursesDay + robDay + equipDay;
-            const per = n > 0 ? perDay / n : 0, full = drug + per, share = full > 0 ? per / full * 100 : 0;
-            const varPer = n > 0 ? (docsDay + nursesDay) / n : 0, fixed = rentDay + equipDay + robDay;
-            const minN = allowed > varPer ? Math.ceil(fixed / (allowed - varPer)) : null;
-            const prof = (pay - per) * n * dm;
-            R[k] = { n, docs, nurses, robots, docsDay, nursesDay, robDay, perDay, per, full, share, minN, prof, buy: robots * v('robotPrice') };
-            set('robn-' + k, k === 'a' ? D.no : fmt(robots));
-            const r = R[k];
-            cell('rent-' + k, usd(rentDay), fill(H.rent, { prem: usd(v('premises')), days: fmt(days) }));
-            cell('docs-' + k, usd(docsDay), fill(H.docs, { d: fmt(docs, docs % 1 ? 1 : 0), w: usd(v('docWage')), dm: fmt(dm) }));
-            cell('nurses-' + k, nurses ? usd(nursesDay) : D.no, nurses ? fill(H.nurses, { n: fmt(nurses, nurses % 1 ? 1 : 0), w: usd(v('wage')), dm: fmt(dm) }) : '');
-            cell('robots-' + k, robots ? usd(robDay) : D.no, robots ? fill(H.robots_n, { n: fmt(n), m: fmt(v('robotMin')), h: fmt(v('hoursRecv')), r: fmt(robots) }) : '');
-            cell('equip-' + k, usd(equipDay), fill(H.equip, { c: fmt(chairs), cc: usd(v('chairCost')), l: fmt(v('equipLife')), days: fmt(days) }));
-            cell('direct-' + k, '<b>' + usd(perDay) + '</b>', '');
-            cell('per-' + k, '<b>' + usd(per) + '</b>', fill(H.per, { d: usd(perDay), n: fmt(n) }));
-            cell('share-' + k, fmt(share, 1) + '%', '');
-            cell('full-' + k, '<b>' + usd(full) + '</b>', fill(H.full, { drug: usd(drug), per: usd(per) }));
-            cell('cap-' + k, fmt(cap), fill(H.cap, { c: fmt(chairs), h: fmt(v('hoursDay')), p: fmt(v('procH'), 1), t: fmt(v('turn'), 2) }) + (n > cap + 0.5 ? ' — <b style="color:#c0392b;">' + H.over + '</b>' : ''));
-            cell('minN-' + k, minN === null ? D.not_possible : fmt(minN), '');
-            cell('prof-' + k, '<b>' + usd(prof) + '</b>', fill(H.prof, { pay: usd(pay), per: usd(per), n: fmt(n), dm: fmt(dm) }));
-            cell('profy-' + k, usd(prof * 12), '');
-            cell('buy-' + k, r.buy ? usd(r.buy) : D.no, r.buy ? fmt(robots) + ' × ' + usd(v('robotPrice')) : '');
+            const perDay = rentDay + docsDay + nursesDay + robDay + equipDay, directM = perDay * dm;
+            const needM = ten > 0 ? Math.ceil(directM / ten) : null, needD = needM === null ? null : Math.ceil(needM / dm);
+            R[k] = { n, docs, nurses, robots, docsDay, nursesDay, robDay, perDay, directM, needM, needD, nM: n * dm, prof: pay * n * dm, buy: robots * g('robotPrice') };
           }
-          for (const k of K) { const r = R[k];
-            r.saveD = R.a.per > 0 ? (1 - r.per / R.a.per) * 100 : 0; r.saveF = R.a.full > 0 ? (1 - r.full / R.a.full) * 100 : 0;
-            cell('saveD-' + k, k === 'a' ? D.no : fmt(r.saveD, 0) + '%', k === 'a' ? '' : usd(R.a.per) + ' → ' + usd(r.per));
-            cell('saveF-' + k, k === 'a' ? D.no : fmt(r.saveF, 1) + '%', k === 'a' ? '' : usd(R.a.full) + ' → ' + usd(r.full)); }
+          const rows = {}; for (const k of K) { const r = R[k]; rows[k] = { n: r.n, perDay: r.perDay, directM: r.directM, ten, cost, needM: r.needM, needD: r.needD, prof: r.prof }; }
+          return { R, rows, info: { chairs, pay, drug, wage: g('wage') }, drug, pay, days, dm, rentDay, equipDay, chairs, cap, cost, ten };
+}
+function calc() {
+          const H = D.how, M = model(v), R = M.R, { drug, pay, days, dm, rentDay, equipDay, chairs, cap, cost, ten } = M;
+          for (const k of K) { const r = R[k], n = r.n, low = r.needD !== null && n < r.needD;
+            set('robn-' + k, k === 'a' ? D.no : fmt(r.robots));
+            cell('rent-' + k, usd(rentDay), fill(H.rent, { prem: usd(v('premises')), days: fmt(days) }));
+            cell('docs-' + k, usd(r.docsDay), fill(H.docs, { d: fmt(r.docs, r.docs % 1 ? 1 : 0), w: usd(v('docWage')), dm: fmt(dm) }));
+            cell('nurses-' + k, r.nurses ? usd(r.nursesDay) : D.no, r.nurses ? fill(H.nurses, { n: fmt(r.nurses, r.nurses % 1 ? 1 : 0), w: usd(v('wage')), dm: fmt(dm) }) : '');
+            cell('robots-' + k, r.robots ? usd(r.robDay) : D.no, r.robots ? fill(H.robots_n, { n: fmt(n), m: fmt(v('robotMin')), h: fmt(v('hoursRecv')), r: fmt(r.robots) }) : '');
+            cell('equip-' + k, usd(equipDay), fill(H.equip, { c: fmt(chairs), cc: usd(v('chairCost')), l: fmt(v('equipLife')), days: fmt(days) }));
+            cell('direct-' + k, '<b>' + usd(r.perDay) + '</b>', '');
+            cell('directM-' + k, '<b>' + usd(r.directM) + '</b>', fill(H.directM, { d: usd(r.perDay), dm: fmt(dm) }));
+            cell('cost-' + k, '<b>' + usd(cost) + '</b>', fill(H.cost, { drug: usd(drug), pay: usd(pay) }));
+            cell('ten-' + k, usd(ten), fill(H.ten, { c: usd(cost), t: fmt(v('target')) }));
+            cell('cap-' + k, fmt(cap), fill(H.cap, { c: fmt(chairs), h: fmt(v('hoursDay')), p: fmt(v('procH'), 1), t: fmt(v('turn'), 2) }) + (n > cap + 0.5 ? ' — <b style="color:#c0392b;">' + H.over + '</b>' : ''));
+            cell('needM-' + k, r.needM === null ? D.no : '<b>' + fmt(r.needM) + '</b>', r.needM === null ? '' : fill(H.needM, { m: usd(r.directM), t: usd(ten) }));
+            cell('needD-' + k, r.needD === null ? D.no : (low ? '<b style="color:#c0392b;">' : '<b>') + fmt(r.needD) + '</b>', r.needD === null ? '' : fill(H.needD, { m: fmt(r.needM), dm: fmt(dm) }) + (low ? ' — <b style="color:#c0392b;">' + H.short + '</b>' : ''));
+            cell('prof-' + k, '<b>' + usd(r.prof) + '</b>', fill(H.prof, { pay: usd(pay), n: fmt(n), dm: fmt(dm) }));
+            cell('profy-' + k, usd(r.prof * 12), '');
+            cell('procM-' + k, fmt(r.nM), fill(H.procM, { n: fmt(n), dm: fmt(dm) }));
+            cell('needR-' + k, r.needM === null ? D.no : '<b>' + fmt(r.needM) + '</b>', '');
+            cell('buy-' + k, r.buy ? usd(r.buy) : D.no, r.buy ? fmt(r.robots) + ' × ' + usd(v('robotPrice')) : '');
+          }
           const h = document.getElementById('hero');
           if (h) h.innerHTML = '<div class="rh-head">' + fill(D.hero1, { a: big(R.a.prof), b: big(R.b.prof), c: big(R.c.prof) }) + '</div>' +
-            '<div class="rh-sub">' + fill(D.hero2, { pa: usd(R.a.per), pb: usd(R.b.per), sb: fmt(R.b.saveD, 0), na: fmt(R.b.n), pc: usd(R.c.per), sc: fmt(R.c.saveD, 0) }) + '</div>' +
-            '<div class="rh-note">' + fill(D.hero3, { fb: fmt(Math.min(R.b.saveF, R.c.saveF), 0), fc: fmt(Math.max(R.b.saveF, R.c.saveF), 0), fa: usd(R.a.full), fbv: usd(R.b.full), fcv: usd(R.c.full), dp: fmt(R.a.full > 0 ? v('drug') / R.a.full * 100 : 0, 0) }) + '</div>';
-          lastRows = {}; for (const k of K) { const r = R[k]; lastRows[k] = { n: r.n, perDay: r.perDay, per: r.per, full: r.full, prof: r.prof, saveD: r.saveD, saveF: r.saveF }; }
-          lastInfo = { chairs, pay, drug, wage: v('wage') };
+            '<div class="rh-sub">' + fill(D.hero2, { na: R.a.needD === null ? D.no : fmt(R.a.needD), nb: R.b.needD === null ? D.no : fmt(R.b.needD), nc: R.c.needD === null ? D.no : fmt(R.c.needD), pa: fmt(R.a.n), pb: fmt(R.b.n), pc: fmt(R.c.n) }) + '</div>' +
+            (D.hero3 ? '<div class="rh-note">' + D.hero3 + '</div>' : '');
+          lastRows = M.rows; lastInfo = M.info;
           if (!baseRows) { baseRows = lastRows; baseInfo = lastInfo; }
           window.renderServiceListing();
 }

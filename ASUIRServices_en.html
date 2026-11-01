@@ -698,7 +698,7 @@
         <!-- TAB 1: SERVICE LISTING -->
         <div class="main-tab-content-panel active" id="main-tab-1">
             <div class="matrix-card-box" style="padding:24px;">
-                <div class="table-responsive"><table><tr><th style="width:40px; text-align:center;">#</th><th>Service and option</th><th class="num" style="color:#1f4e78;">Hospital profit per month</th><th class="num">Procedures per day</th><th class="num">Hospital direct costs per day</th><th class="num">Direct costs per procedure</th><th class="num">Cut in direct costs vs option 1</th><th class="num">Full cost of a procedure</th></tr><tbody id="svc-listing-rows"></tbody></table></div>
+                <div class="table-responsive"><table><tr><th style="width:40px; text-align:center;">#</th><th>Service and option</th><th class="num" style="color:#1f4e78;">Hospital profit per month</th><th class="num">Procedures per day</th><th class="num">Direct costs per month</th><th class="num">10% of the procedure cost</th><th class="num">Procedures needed per day</th><th class="num">Procedure cost</th></tr><tbody id="svc-listing-rows"></tbody></table></div>
                 <div style="text-align:center; margin-top:12px;"><button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
             </div>
         </div>
@@ -739,7 +739,7 @@
                             <tr><td>Service life of chair equipment, years</td><td class="num" colspan="3"><input type="number" id="equipLife" value="5"></td></tr>
                             <tr><td>Working days per year</td><td class="num" colspan="3"><input type="number" id="days" value="260"></td></tr>
                             <tr><td>Working days per month</td><td class="num" colspan="3"><input type="number" id="daysM" value="22"></td></tr>
-                            <tr><td>Allowed share of direct costs, % of the drug cost</td><td class="num" colspan="3"><input type="number" id="target" value="10"></td></tr>
+                            <tr><td>Share of the procedure cost (servicing, without the drug) that covers all direct costs, %</td><td class="num" colspan="3"><input type="number" id="target" value="10"></td></tr>
                             <tr class="group"><td colspan="4">Procedure</td></tr>
                             <tr><td>Hours the unit works per day</td><td class="num" colspan="3"><input type="number" id="hoursDay" value="12"></td></tr>
                             <tr><td>Length of a procedure, hours</td><td class="num" colspan="3"><input type="number" id="procH" value="4.5" step="0.5"></td></tr>
@@ -777,11 +777,12 @@
                             <tr><td>Robotic complexes per day (depreciation and maintenance)</td><td class="num" id="robots-a"></td><td class="num" id="robots-b"></td><td class="num hyp" id="robots-c"></td></tr>
                             <tr><td>Chair equipment per day (depreciation)</td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
                             <tr class=total><td><b>Hospital direct costs per day</b></td><td class="num" id="direct-a"></td><td class="num" id="direct-b"></td><td class="num hyp" id="direct-c"></td></tr>
-                            <tr><td><b>Direct costs per procedure</b></td><td class="num" id="per-a"></td><td class="num" id="per-b"></td><td class="num hyp" id="per-c"></td></tr>
-                            <tr><td>Share of direct costs in the full cost of a procedure</td><td class="num" id="share-a"></td><td class="num" id="share-b"></td><td class="num hyp" id="share-c"></td></tr>
-                            <tr class=total><td><b>Full cost of a procedure: drug + direct costs</b></td><td class="num" id="full-a"></td><td class="num" id="full-b"></td><td class="num hyp" id="full-c"></td></tr>
+                            <tr class=total><td><b>Hospital direct costs per month</b></td><td class="num" id="directM-a"></td><td class="num" id="directM-b"></td><td class="num hyp" id="directM-c"></td></tr>
+                            <tr><td><b>Procedure cost: servicing (the drug is not counted)</b></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                            <tr><td>10% of the procedure cost — all direct costs fit into it</td><td class="num" id="ten-a"></td><td class="num" id="ten-b"></td><td class="num hyp" id="ten-c"></td></tr>
                             <tr><td>Procedures per day the chairs can hold</td><td class="num" id="cap-a"></td><td class="num" id="cap-b"></td><td class="num hyp" id="cap-c"></td></tr>
-                            <tr><td>Minimum procedures per day for direct costs to fit the allowed share</td><td class="num" id="minN-a"></td><td class="num" id="minN-b"></td><td class="num hyp" id="minN-c"></td></tr>
+                            <tr class=total><td><b>Procedures per month needed: direct costs per month ÷ 10% of the procedure cost</b></td><td class="num" id="needM-a"></td><td class="num" id="needM-b"></td><td class="num hyp" id="needM-c"></td></tr>
+                            <tr><td>Procedures per day needed</td><td class="num" id="needD-a"></td><td class="num" id="needD-b"></td><td class="num hyp" id="needD-c"></td></tr>
                         </table>
                     </div>
                 </div>
@@ -792,8 +793,8 @@
                             <tr><th></th><th class="num">1. Today: nurses</th><th class="num">2. Robotic complexes — same procedures</th><th class="num hyp">3. Robotic complexes — chairs fully used</th></tr>
                             <tr><td><b>Hospital profit per month</b></td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
                             <tr><td>Hospital profit per year</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
-                            <tr><td>Cut in direct costs per procedure vs option 1</td><td class="num" id="saveD-a"></td><td class="num" id="saveD-b"></td><td class="num hyp" id="saveD-c"></td></tr>
-                            <tr><td>Cut in the full cost of a procedure (with the drug) vs option 1</td><td class="num" id="saveF-a"></td><td class="num" id="saveF-b"></td><td class="num hyp" id="saveF-c"></td></tr>
+                            <tr><td>Procedures per month (done by the unit)</td><td class="num" id="procM-a"></td><td class="num" id="procM-b"></td><td class="num hyp" id="procM-c"></td></tr>
+                            <tr><td><b>Procedures per month needed to cover all direct costs</b></td><td class="num" id="needR-a"></td><td class="num" id="needR-b"></td><td class="num hyp" id="needR-c"></td></tr>
                             <tr><td>Purchase of robotic complexes</td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
                         </table>
                     </div>
@@ -804,7 +805,7 @@
     </div>
     <div class="card">
         <h3 style="margin-top:0;">For the engineer: how it is calculated</h3>
-        <p style="font-size:14px;">Hospital direct costs per day = rent + doctors + nurses + robotic complexes + chair equipment. The drug is not a direct cost: the patient pays for it; it is the "component" of the procedure.</p><p style="font-size:14px;">Rent and equipment — per year ÷ working days per year; pay — per month ÷ working days per month.</p><p style="font-size:14px;">Doctors and nurses — in proportion to procedures per day. Robotic complexes = procedures per day × minutes per patient ÷ (admitting hours × 60), rounded up.</p><p style="font-size:14px;">Direct costs per procedure = direct costs per day ÷ procedures per day. Full cost of a procedure = drug + direct costs per procedure.</p><p style="font-size:14px;">Hospital profit per month = (payment for a procedure without the drug − direct costs per procedure) × procedures per day × working days per month.</p><p style="font-size:14px;">Minimum procedures per day: the allowed share × the drug cost is how much direct cost one procedure may carry; the fixed costs per day (rent, equipment, complexes) are divided by that amount minus the doctors' and nurses' cost per procedure.</p>
+        <p style="font-size:14px;">Hospital direct costs per day = rent + doctors + nurses + robotic complexes + chair equipment. The drug is not a direct cost: the patient pays for it; it is the "component" of the procedure.</p><p style="font-size:14px;">Rent and equipment — per year ÷ working days per year; pay — per month ÷ working days per month. Direct costs per month = direct costs per day × working days per month.</p><p style="font-size:14px;">Doctors and nurses — in proportion to procedures per day. Robotic complexes = procedures per day × minutes per patient ÷ (admitting hours × 60), rounded up.</p><p style="font-size:14px;">Procedure cost = payment for servicing the procedure (without the drug); the drug is not part of the calculation. All direct costs fit into 10% of the cost of each procedure — they are not divided by the number of procedures.</p><p style="font-size:14px;">Procedures per month needed = hospital direct costs per month ÷ 10% of the procedure cost; per day — that number ÷ working days per month.</p><p style="font-size:14px;">Hospital profit per month = payment for servicing one procedure × procedures per day × working days per month.</p>
         <div class="sources">Sources: rent — <a href="https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf" target="_blank">CBRE, Greater Los Angeles medical outpatient buildings, Q1 2026</a> ($5.44 per sq ft per month in West LA); space per chair — <a href="https://hga.com/researching-successful-infusion-centers/" target="_blank">HGA</a> (153–260 sq ft).</div>
         <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
     </div>
@@ -818,7 +819,7 @@
     </div>
 
     <script>
-const D = {"loc": "en-US", "mln": " million", "lst_head": ["#", "Service and option", "Hospital profit per month", "Procedures per day", "Hospital direct costs per day", "Direct costs per procedure", "Cut in direct costs vs option 1", "Full cost of a procedure"], "var": ["1. Today: nurses", "2. Robotic complexes — same procedures", "3. Robotic complexes — chairs fully used"], "topic": "Infusion unit of a large Los Angeles hospital (IV therapy, about 80 chairs)", "tabs": ["📥 1. Input data", "👷 2. Three options", "📊 3. Direct costs", "🎯 4. Results"], "g_common": "Common to all options", "g_proc": "Procedure", "g_staff": "Doctors and nurses", "g_rob": "Robotic complexes", "v_proc": "Procedures per day", "v_nurse": "Nurses per 100 procedures a day|today about 60; robotic complexes replace the nurses fully", "r_rows": [["rent", "Rent of premises and chairs per day"], ["docs", "Doctors per day"], ["nurses", "Nurses per day"], ["robots", "Robotic complexes per day (depreciation and maintenance)"], ["equip", "Chair equipment per day (depreciation)"], ["direct", "Hospital direct costs per day"], ["per", "Direct costs per procedure"], ["share", "Share of direct costs in the full cost of a procedure"], ["full", "Full cost of a procedure: drug + direct costs"], ["cap", "Procedures per day the chairs can hold"], ["minN", "Minimum procedures per day for direct costs to fit the allowed share"]], "res_rows": [["prof", "Hospital profit per month"], ["profy", "Hospital profit per year"], ["saveD", "Cut in direct costs per procedure vs option 1"], ["saveF", "Cut in the full cost of a procedure (with the drug) vs option 1"], ["buy", "Purchase of robotic complexes"]], "no": "—", "not_possible": "cannot fit", "how": {"rent": "{prem} per year ÷ {days} days", "docs": "{d} doctors × {w} ÷ {dm} days", "nurses": "{n} nurses × {w} ÷ {dm} days", "robots": "{r} complexes × {p} × ({life}-year life + {svc}% a year) ÷ {days} days", "robots_n": "{n} patients × {m} min ÷ ({h} h × 60) → {r} complexes", "equip": "{c} chairs × {cc} ÷ {l} years ÷ {days} days", "per": "{d} ÷ {n} procedures", "full": "drug {drug} + direct costs {per}", "cap": "{c} chairs × {h} h ÷ ({p} h procedure + {t} h preparation)", "prof": "({pay} − {per}) × {n} procedures × {dm} days", "over": "more than the chairs can hold"}, "hero1": "Hospital profit per month: {a} → {b} → {c}", "hero2": "Hospital direct costs per procedure fall from {pa} to {pb} — by {sb}% with the same {na} procedures a day, and to {pc} — by {sc}% with the chairs fully used. This is the saving on nurses: robotic complexes do their work.", "hero3": "The full cost of a procedure including the drug falls by only {fb}–{fc}%: {fa} → {fbv} → {fcv}. About {dp}% of it is the drug, and in the US its price is set by the maker (the drug must be approved by the FDA) — neither the hospital nor robotic complexes can change it. The cost of a procedure always tends to the local price of the drug.", "note": "All figures can be changed — the calculation updates at once. The number of nurses and patients per day and the delays in starting procedures are a patient's own observations in the unit; rent — at the rate for medical space in West Los Angeles (CBRE, Q1 2026); the price of a robotic complex is an estimate.", "eng_title": "For the engineer: how it is calculated", "eng": ["Hospital direct costs per day = rent + doctors + nurses + robotic complexes + chair equipment. The drug is not a direct cost: the patient pays for it; it is the \"component\" of the procedure.", "Rent and equipment — per year ÷ working days per year; pay — per month ÷ working days per month.", "Doctors and nurses — in proportion to procedures per day. Robotic complexes = procedures per day × minutes per patient ÷ (admitting hours × 60), rounded up.", "Direct costs per procedure = direct costs per day ÷ procedures per day. Full cost of a procedure = drug + direct costs per procedure.", "Hospital profit per month = (payment for a procedure without the drug − direct costs per procedure) × procedures per day × working days per month.", "Minimum procedures per day: the allowed share × the drug cost is how much direct cost one procedure may carry; the fixed costs per day (rent, equipment, complexes) are divided by that amount minus the doctors' and nurses' cost per procedure."], "src": "Sources: rent — <a href=\"https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf\" target=\"_blank\">CBRE, Greater Los Angeles medical outpatient buildings, Q1 2026</a> ($5.44 per sq ft per month in West LA); space per chair — <a href=\"https://hga.com/researching-successful-infusion-centers/\" target=\"_blank\">HGA</a> (153–260 sq ft).", "print": "🖨️ Print / Save as PDF", "base": "base option", "mine_none": "📁 MY OPTIONS: no saved options yet. Open \"⚙️ Service generator\", enter your figures and click \"💾 Save my option\".", "mine_head": "📁 MY OPTION: {name} (saved {d}; drug {drug}, payment for a procedure {pay})", "del_btn": "🗑️ Delete", "open_btn": "📥 Open in the service generator", "lst_topic": "📂 MEDICINE — INFUSION UNIT: a large Los Angeles hospital, {c} chairs (drug — {drug}, payment for a procedure by the insurer without the drug — {pay}) — base option", "noname": "no name", "myvar": "My option ", "mvq": "my option \"{n}\"", "st_base": "The base option's figures are back.", "st_wait": "⚠️ The database has not connected yet — wait a few seconds and click again.", "st_saved": "✓ Option \"{n}\" saved. It now appears in the service listing under \"My options\".", "st_fail": "⚠️ Could not save: ", "del_q": "Delete option \"{n}\"? The base option stays.", "del_fail": "Could not delete: ", "drug_lbl": "drug", "direct_lbl": "direct"};
+const D = {"loc": "en-US", "mln": " million", "lst_head": ["#", "Service and option", "Hospital profit per month", "Procedures per day", "Direct costs per month", "10% of the procedure cost", "Procedures needed per day", "Procedure cost"], "var": ["1. Today: nurses", "2. Robotic complexes — same procedures", "3. Robotic complexes — chairs fully used"], "topic": "Infusion unit of a large Los Angeles hospital (IV therapy, about 80 chairs)", "tabs": ["📥 1. Input data", "👷 2. Three options", "📊 3. Direct costs", "🎯 4. Results"], "g_common": "Common to all options", "g_proc": "Procedure", "g_staff": "Doctors and nurses", "g_rob": "Robotic complexes", "v_proc": "Procedures per day", "v_nurse": "Nurses per 100 procedures a day|today about 60; robotic complexes replace the nurses fully", "r_rows": [["rent", "Rent of premises and chairs per day"], ["docs", "Doctors per day"], ["nurses", "Nurses per day"], ["robots", "Robotic complexes per day (depreciation and maintenance)"], ["equip", "Chair equipment per day (depreciation)"], ["direct", "Hospital direct costs per day"], ["directM", "Direct costs per month"], ["cost", "Procedure cost: servicing (the drug is not counted)"], ["ten", "10% of the procedure cost — all direct costs fit into it"], ["cap", "Procedures per day the chairs can hold"], ["needM", "Procedures per month needed: direct costs per month ÷ 10% of the procedure cost"], ["needD", "Procedures per day needed"]], "res_rows": [["prof", "Hospital profit per month"], ["profy", "Hospital profit per year"], ["procM", "Procedures per month (done by the unit)"], ["needR", "Procedures per month needed to cover all direct costs"], ["buy", "Purchase of robotic complexes"]], "no": "—", "not_possible": "cannot fit", "how": {"rent": "{prem} per year ÷ {days} days", "docs": "{d} doctors × {w} ÷ {dm} days", "nurses": "{n} nurses × {w} ÷ {dm} days", "robots": "{r} complexes × {p} × ({life}-year life + {svc}% a year) ÷ {days} days", "robots_n": "{n} patients × {m} min ÷ ({h} h × 60) → {r} complexes", "equip": "{c} chairs × {cc} ÷ {l} years ÷ {days} days", "cap": "{c} chairs × {h} h ÷ ({p} h procedure + {t} h preparation)", "over": "more than the chairs can hold", "directM": "{d} per day × {dm} days", "cost": "payment for servicing one procedure", "ten": "{c} × {t}%", "needM": "{m} ÷ {t}", "needD": "{m} ÷ {dm} days", "procM": "{n} × {dm} days", "prof": "{pay} × {n} procedures × {dm} days", "short": "fewer than needed to cover direct costs"}, "hero1": "Hospital profit per month: {a} → {b} → {c}", "hero2": "All hospital direct costs (doctors' and nurses' pay, rent, equipment, robotic complexes) are covered by 10% of the procedure cost. Procedures per day needed for that: {na} → {nb} → {nc}; the unit does: {pa} → {pb} → {pc}.", "hero3": "", "note": "All figures can be changed — the calculation updates at once. The number of nurses and patients per day and the delays in starting procedures are a patient's own observations in the unit; rent — at the rate for medical space in West Los Angeles (CBRE, Q1 2026); the price of a robotic complex is an estimate.", "eng_title": "For the engineer: how it is calculated", "eng": ["Hospital direct costs per day = rent + doctors + nurses + robotic complexes + chair equipment. The drug is not a direct cost: the patient pays for it; it is the \"component\" of the procedure.", "Rent and equipment — per year ÷ working days per year; pay — per month ÷ working days per month. Direct costs per month = direct costs per day × working days per month.", "Doctors and nurses — in proportion to procedures per day. Robotic complexes = procedures per day × minutes per patient ÷ (admitting hours × 60), rounded up.", "Procedure cost = payment for servicing the procedure (without the drug); the drug is not part of the calculation. All direct costs fit into 10% of the cost of each procedure — they are not divided by the number of procedures.", "Procedures per month needed = hospital direct costs per month ÷ 10% of the procedure cost; per day — that number ÷ working days per month.", "Hospital profit per month = payment for servicing one procedure × procedures per day × working days per month."], "src": "Sources: rent — <a href=\"https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf\" target=\"_blank\">CBRE, Greater Los Angeles medical outpatient buildings, Q1 2026</a> ($5.44 per sq ft per month in West LA); space per chair — <a href=\"https://hga.com/researching-successful-infusion-centers/\" target=\"_blank\">HGA</a> (153–260 sq ft).", "print": "🖨️ Print / Save as PDF", "base": "base option", "mine_none": "📁 MY OPTIONS: no saved options yet. Open \"⚙️ Service generator\", enter your figures and click \"💾 Save my option\".", "mine_head": "📁 MY OPTION: {name} (saved {d}; drug {drug}, payment for a procedure {pay})", "del_btn": "🗑️ Delete", "open_btn": "📥 Open in the service generator", "lst_topic": "📂 MEDICINE — INFUSION UNIT: a large Los Angeles hospital, {c} chairs (drug — {drug}, payment for a procedure by the insurer without the drug — {pay}) — base option", "noname": "no name", "myvar": "My option ", "mvq": "my option \"{n}\"", "st_base": "The base option's figures are back.", "st_wait": "⚠️ The database has not connected yet — wait a few seconds and click again.", "st_saved": "✓ Option \"{n}\" saved. It now appears in the service listing under \"My options\".", "st_fail": "⚠️ Could not save: ", "del_q": "Delete option \"{n}\"? The base option stays.", "del_fail": "Could not delete: ", "srv_lbl": "servicing, without the drug"};
 const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
 const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
 const fmt = (n, d = 0) => (isFinite(n) ? n : 0).toLocaleString(D.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -844,24 +845,28 @@ let baseRows = null, baseInfo = null, lastRows = null, lastInfo = null;
 window.myVariants = [];
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 function rowsHtml(rows, info, openBtn) {
-          if (!rows || !rows.a || rows.a.perDay === undefined) return '';
-          return K.map((k, i) => { const r = rows[k];
+          if (!rows || !rows.a || rows.a.directM === undefined) return '';
+          return K.map((k, i) => { const r = rows[k], low = r.needD !== null && r.n < r.needD;
             return `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
             <td><b>${D.var[i]}</b><br>${openBtn}</td><td class="num"><b style="color:#1f4e78; font-size:15px;">${usd(r.prof)}</b></td>
-            <td class="num">${fmt(r.n)}</td><td class="num">${usd(r.perDay)}</td><td class="num"><b>${usd(r.per)}</b></td>
-            <td class="num">${k === 'a' ? D.no : fmt(r.saveD) + '%'}</td>
-            <td class="num"><b>${usd(r.full)}</b><span class="small">${D.drug_lbl} ${usd(info.drug)} + ${D.direct_lbl} ${usd(r.per)}</span></td></tr>`; }).join('');
+            <td class="num">${fmt(r.n)}</td><td class="num">${usd(r.directM)}</td><td class="num">${usd(r.ten)}</td>
+            <td class="num"><b${low ? ' style="color:#c0392b;"' : ''}>${r.needD === null ? D.no : fmt(r.needD)}</b>${low ? '<span class="small" style="color:#c0392b;">' + D.how.short + '</span>' : ''}</td>
+            <td class="num"><b>${usd(r.cost)}</b><span class="small">${D.srv_lbl}</span></td></tr>`; }).join('');
 }
+function rowsFromInputs(inputs) { const g = id => { const x = (inputs && inputs[id] !== undefined) ? inputs[id] : BASE_INPUTS[id]; return parseFloat(x) || 0; };
+          const M = model(g); return { rows: M.rows, info: M.info }; }
 window.renderServiceListing = function () {
           const tb = document.getElementById('svc-listing-rows'); if (!tb || !baseRows) return;
           let html = `<tr class="lst-topic"><td colspan="8">${fill(D.lst_topic, { c: fmt(baseInfo.chairs), drug: usd(baseInfo.drug), pay: usd(baseInfo.pay) })}</td></tr>`;
           html += rowsHtml(baseRows, baseInfo, `<button class="btn-open" onclick="openBase()">${D.open_btn}</button>`) + exampleHtml() + presetHtml();
           const mine = window.myVariants || [];
           if (!mine.length) html += `<tr class="lst-mine"><td colspan="8">${D.mine_none}</td></tr>`;
-          mine.forEach(m => { if (!m.rows || !m.info) return;
+          mine.forEach(m => { if (!m.inputs && (!m.rows || !m.info)) return;
             const d = m.created ? new Date(m.created).toLocaleDateString(D.loc) : '';
-            html += `<tr class="lst-mine"><td colspan="8">${fill(D.mine_head, { name: esc(m.name || D.noname), d, drug: usd(m.info.drug), pay: usd(m.info.pay) })} &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">${D.del_btn}</button></td></tr>`;
-            html += rowsHtml(m.rows, m.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">${D.open_btn}</button>`); });
+            const mi = m.inputs ? rowsFromInputs(m.inputs).info : m.info;
+            html += `<tr class="lst-mine"><td colspan="8">${fill(D.mine_head, { name: esc(m.name || D.noname), d, drug: usd(mi.drug), pay: usd(mi.pay) })} &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">${D.del_btn}</button></td></tr>`;
+            const rc = m.inputs ? rowsFromInputs(m.inputs) : { rows: m.rows, info: m.info };
+            html += rowsHtml(rc.rows, rc.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">${D.open_btn}</button>`); });
           tb.innerHTML = html;
 };
 function applyInputs(vals) { for (const id in vals) { const el = document.getElementById(id); if (el) el.value = vals[id]; } calc(); }
@@ -906,52 +911,53 @@ function initPreset() { if (!PRESET_KEY || !PRESETS[PRESET_KEY]) return;
           applyInputs(presetInputs()); presetRows = lastRows; presetInfo = lastInfo; applyInputs(BASE_INPUTS);
           const tr = document.querySelector('#main-tab-1 .table-responsive'); if (tr) { const n = document.createElement('div'); n.className = 'info-hint'; n.id = 'preset-note';
             n.innerHTML = PRESETS[PRESET_KEY].head + '<span class="small" style="margin-top:6px;">' + PRESETS[PRESET_KEY].src + '</span>'; tr.parentNode.insertBefore(n, tr); } }
-function calc() {
-          const H = D.how, drug = v('drug'), pay = v('pay'), days = Math.max(v('days'), 1), dm = Math.max(v('daysM'), 1);
-          const rentDay = v('premises') / days, chairs = v('chairs'), equipDay = chairs * v('chairCost') / Math.max(v('equipLife'), 1) / days;
-          const docDay1 = v('docWage') / dm, nurseDay1 = v('wage') / dm;
-          const robRate = 1 / Math.max(v('robotLife'), 1) + v('robotSvc') / 100, robDay1 = v('robotPrice') * robRate / days;
-          const cycle = v('procH') + v('turn'), cap = cycle > 0 ? chairs * v('hoursDay') / cycle : 0;
-          const allowed = drug * v('target') / 100, perRobotPatients = v('hoursRecv') * 60 / Math.max(v('robotMin'), 1);
+function model(g) {
+          const drug = g('drug'), pay = g('pay'), days = Math.max(g('days'), 1), dm = Math.max(g('daysM'), 1);
+          const rentDay = g('premises') / days, chairs = g('chairs'), equipDay = chairs * g('chairCost') / Math.max(g('equipLife'), 1) / days;
+          const docDay1 = g('docWage') / dm, nurseDay1 = g('wage') / dm;
+          const robRate = 1 / Math.max(g('robotLife'), 1) + g('robotSvc') / 100, robDay1 = g('robotPrice') * robRate / days;
+          const cycle = g('procH') + g('turn'), cap = cycle > 0 ? chairs * g('hoursDay') / cycle : 0;
+          const cost = pay, ten = cost * g('target') / 100, perRobotPatients = g('hoursRecv') * 60 / Math.max(g('robotMin'), 1);
           const R = {};
           for (const k of K) {
-            const n = Math.max(v('proc-in-' + k), 0);
-            const docs = v('docPer100') * n / 100, nurses = v('nurse100-' + k) * n / 100;
+            const n = Math.max(g('proc-in-' + k), 0);
+            const docs = g('docPer100') * n / 100, nurses = g('nurse100-' + k) * n / 100;
             const robots = k === 'a' ? 0 : Math.ceil(n / perRobotPatients);
             const docsDay = docs * docDay1, nursesDay = nurses * nurseDay1, robDay = robots * robDay1;
-            const perDay = rentDay + docsDay + nursesDay + robDay + equipDay;
-            const per = n > 0 ? perDay / n : 0, full = drug + per, share = full > 0 ? per / full * 100 : 0;
-            const varPer = n > 0 ? (docsDay + nursesDay) / n : 0, fixed = rentDay + equipDay + robDay;
-            const minN = allowed > varPer ? Math.ceil(fixed / (allowed - varPer)) : null;
-            const prof = (pay - per) * n * dm;
-            R[k] = { n, docs, nurses, robots, docsDay, nursesDay, robDay, perDay, per, full, share, minN, prof, buy: robots * v('robotPrice') };
-            set('robn-' + k, k === 'a' ? D.no : fmt(robots));
-            const r = R[k];
-            cell('rent-' + k, usd(rentDay), fill(H.rent, { prem: usd(v('premises')), days: fmt(days) }));
-            cell('docs-' + k, usd(docsDay), fill(H.docs, { d: fmt(docs, docs % 1 ? 1 : 0), w: usd(v('docWage')), dm: fmt(dm) }));
-            cell('nurses-' + k, nurses ? usd(nursesDay) : D.no, nurses ? fill(H.nurses, { n: fmt(nurses, nurses % 1 ? 1 : 0), w: usd(v('wage')), dm: fmt(dm) }) : '');
-            cell('robots-' + k, robots ? usd(robDay) : D.no, robots ? fill(H.robots_n, { n: fmt(n), m: fmt(v('robotMin')), h: fmt(v('hoursRecv')), r: fmt(robots) }) : '');
-            cell('equip-' + k, usd(equipDay), fill(H.equip, { c: fmt(chairs), cc: usd(v('chairCost')), l: fmt(v('equipLife')), days: fmt(days) }));
-            cell('direct-' + k, '<b>' + usd(perDay) + '</b>', '');
-            cell('per-' + k, '<b>' + usd(per) + '</b>', fill(H.per, { d: usd(perDay), n: fmt(n) }));
-            cell('share-' + k, fmt(share, 1) + '%', '');
-            cell('full-' + k, '<b>' + usd(full) + '</b>', fill(H.full, { drug: usd(drug), per: usd(per) }));
-            cell('cap-' + k, fmt(cap), fill(H.cap, { c: fmt(chairs), h: fmt(v('hoursDay')), p: fmt(v('procH'), 1), t: fmt(v('turn'), 2) }) + (n > cap + 0.5 ? ' — <b style="color:#c0392b;">' + H.over + '</b>' : ''));
-            cell('minN-' + k, minN === null ? D.not_possible : fmt(minN), '');
-            cell('prof-' + k, '<b>' + usd(prof) + '</b>', fill(H.prof, { pay: usd(pay), per: usd(per), n: fmt(n), dm: fmt(dm) }));
-            cell('profy-' + k, usd(prof * 12), '');
-            cell('buy-' + k, r.buy ? usd(r.buy) : D.no, r.buy ? fmt(robots) + ' × ' + usd(v('robotPrice')) : '');
+            const perDay = rentDay + docsDay + nursesDay + robDay + equipDay, directM = perDay * dm;
+            const needM = ten > 0 ? Math.ceil(directM / ten) : null, needD = needM === null ? null : Math.ceil(needM / dm);
+            R[k] = { n, docs, nurses, robots, docsDay, nursesDay, robDay, perDay, directM, needM, needD, nM: n * dm, prof: pay * n * dm, buy: robots * g('robotPrice') };
           }
-          for (const k of K) { const r = R[k];
-            r.saveD = R.a.per > 0 ? (1 - r.per / R.a.per) * 100 : 0; r.saveF = R.a.full > 0 ? (1 - r.full / R.a.full) * 100 : 0;
-            cell('saveD-' + k, k === 'a' ? D.no : fmt(r.saveD, 0) + '%', k === 'a' ? '' : usd(R.a.per) + ' → ' + usd(r.per));
-            cell('saveF-' + k, k === 'a' ? D.no : fmt(r.saveF, 1) + '%', k === 'a' ? '' : usd(R.a.full) + ' → ' + usd(r.full)); }
+          const rows = {}; for (const k of K) { const r = R[k]; rows[k] = { n: r.n, perDay: r.perDay, directM: r.directM, ten, cost, needM: r.needM, needD: r.needD, prof: r.prof }; }
+          return { R, rows, info: { chairs, pay, drug, wage: g('wage') }, drug, pay, days, dm, rentDay, equipDay, chairs, cap, cost, ten };
+}
+function calc() {
+          const H = D.how, M = model(v), R = M.R, { drug, pay, days, dm, rentDay, equipDay, chairs, cap, cost, ten } = M;
+          for (const k of K) { const r = R[k], n = r.n, low = r.needD !== null && n < r.needD;
+            set('robn-' + k, k === 'a' ? D.no : fmt(r.robots));
+            cell('rent-' + k, usd(rentDay), fill(H.rent, { prem: usd(v('premises')), days: fmt(days) }));
+            cell('docs-' + k, usd(r.docsDay), fill(H.docs, { d: fmt(r.docs, r.docs % 1 ? 1 : 0), w: usd(v('docWage')), dm: fmt(dm) }));
+            cell('nurses-' + k, r.nurses ? usd(r.nursesDay) : D.no, r.nurses ? fill(H.nurses, { n: fmt(r.nurses, r.nurses % 1 ? 1 : 0), w: usd(v('wage')), dm: fmt(dm) }) : '');
+            cell('robots-' + k, r.robots ? usd(r.robDay) : D.no, r.robots ? fill(H.robots_n, { n: fmt(n), m: fmt(v('robotMin')), h: fmt(v('hoursRecv')), r: fmt(r.robots) }) : '');
+            cell('equip-' + k, usd(equipDay), fill(H.equip, { c: fmt(chairs), cc: usd(v('chairCost')), l: fmt(v('equipLife')), days: fmt(days) }));
+            cell('direct-' + k, '<b>' + usd(r.perDay) + '</b>', '');
+            cell('directM-' + k, '<b>' + usd(r.directM) + '</b>', fill(H.directM, { d: usd(r.perDay), dm: fmt(dm) }));
+            cell('cost-' + k, '<b>' + usd(cost) + '</b>', fill(H.cost, { drug: usd(drug), pay: usd(pay) }));
+            cell('ten-' + k, usd(ten), fill(H.ten, { c: usd(cost), t: fmt(v('target')) }));
+            cell('cap-' + k, fmt(cap), fill(H.cap, { c: fmt(chairs), h: fmt(v('hoursDay')), p: fmt(v('procH'), 1), t: fmt(v('turn'), 2) }) + (n > cap + 0.5 ? ' — <b style="color:#c0392b;">' + H.over + '</b>' : ''));
+            cell('needM-' + k, r.needM === null ? D.no : '<b>' + fmt(r.needM) + '</b>', r.needM === null ? '' : fill(H.needM, { m: usd(r.directM), t: usd(ten) }));
+            cell('needD-' + k, r.needD === null ? D.no : (low ? '<b style="color:#c0392b;">' : '<b>') + fmt(r.needD) + '</b>', r.needD === null ? '' : fill(H.needD, { m: fmt(r.needM), dm: fmt(dm) }) + (low ? ' — <b style="color:#c0392b;">' + H.short + '</b>' : ''));
+            cell('prof-' + k, '<b>' + usd(r.prof) + '</b>', fill(H.prof, { pay: usd(pay), n: fmt(n), dm: fmt(dm) }));
+            cell('profy-' + k, usd(r.prof * 12), '');
+            cell('procM-' + k, fmt(r.nM), fill(H.procM, { n: fmt(n), dm: fmt(dm) }));
+            cell('needR-' + k, r.needM === null ? D.no : '<b>' + fmt(r.needM) + '</b>', '');
+            cell('buy-' + k, r.buy ? usd(r.buy) : D.no, r.buy ? fmt(r.robots) + ' × ' + usd(v('robotPrice')) : '');
+          }
           const h = document.getElementById('hero');
           if (h) h.innerHTML = '<div class="rh-head">' + fill(D.hero1, { a: big(R.a.prof), b: big(R.b.prof), c: big(R.c.prof) }) + '</div>' +
-            '<div class="rh-sub">' + fill(D.hero2, { pa: usd(R.a.per), pb: usd(R.b.per), sb: fmt(R.b.saveD, 0), na: fmt(R.b.n), pc: usd(R.c.per), sc: fmt(R.c.saveD, 0) }) + '</div>' +
-            '<div class="rh-note">' + fill(D.hero3, { fb: fmt(Math.min(R.b.saveF, R.c.saveF), 0), fc: fmt(Math.max(R.b.saveF, R.c.saveF), 0), fa: usd(R.a.full), fbv: usd(R.b.full), fcv: usd(R.c.full), dp: fmt(R.a.full > 0 ? v('drug') / R.a.full * 100 : 0, 0) }) + '</div>';
-          lastRows = {}; for (const k of K) { const r = R[k]; lastRows[k] = { n: r.n, perDay: r.perDay, per: r.per, full: r.full, prof: r.prof, saveD: r.saveD, saveF: r.saveF }; }
-          lastInfo = { chairs, pay, drug, wage: v('wage') };
+            '<div class="rh-sub">' + fill(D.hero2, { na: R.a.needD === null ? D.no : fmt(R.a.needD), nb: R.b.needD === null ? D.no : fmt(R.b.needD), nc: R.c.needD === null ? D.no : fmt(R.c.needD), pa: fmt(R.a.n), pb: fmt(R.b.n), pc: fmt(R.c.n) }) + '</div>' +
+            (D.hero3 ? '<div class="rh-note">' + D.hero3 + '</div>' : '');
+          lastRows = M.rows; lastInfo = M.info;
           if (!baseRows) { baseRows = lastRows; baseInfo = lastInfo; }
           window.renderServiceListing();
 }
