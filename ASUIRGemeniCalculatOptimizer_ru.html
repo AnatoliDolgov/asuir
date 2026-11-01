@@ -1340,6 +1340,10 @@
                                 </tr>
                                 <tr class="res-group"><td colspan="2">🚢 Такое же изделие, привезённое из-за границы</td></tr>
                                 <tr>
+                                    <td><b>Цена продажи такого же изделия в стране</b></td>
+                                    <td class="right">$ <input type="number" id="sale-price-input" class="input-field input-field-sm" value="" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr>
                                     <td>Цена изделия на заводе за границей<span class="res-small">без доставки и пошлины. По этой же цене в расчёте продаёте своё изделие и вы.</span></td>
                                     <td class="right">$ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423"></td>
                                 </tr>
@@ -1709,7 +1713,7 @@ Thank you!
                                                                     const eqOld = parseFloat(eqEl?.value) || 0;
                                                                     if (eqEl) eqEl.value = Math.round(eqOld + mpEff);
                                                                     if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = perf;
-                                                                    if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = fob;
+                                                                    if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = fob; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                                     if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
                                                                     const q = document.getElementById('equip-search-query');
                                                                     if (q) q.value = L.name + ': ' + r.n;
@@ -2461,7 +2465,7 @@ Thank you!
                                                                         if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = data.eq;
                                                                         if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
                                                                         if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
-                                                                        if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
+                                                                        if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                                         if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
 
                                                                         const tbodyBom = document.getElementById('component-dynamic-rows');
@@ -2546,7 +2550,7 @@ Thank you!
                                                                     if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
                                                                     if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
                                                                     if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
-                                                                    if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
+                                                                    if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                                     if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
 
                                                                     if (document.getElementById('equip-url')) {
@@ -2589,6 +2593,8 @@ Thank you!
                                                                     const salary = 10000;
 
                                                                     const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
+                                                                    // Цена продажи в стране: по ней считаются 10% на расходы, нужный выпуск и прибыль. Пусто — цена завода за границей.
+                                                                    const sale = parseFloat(document.getElementById('sale-price-input')?.value) > 0 ? parseFloat(document.getElementById('sale-price-input').value) : market;
                                                                     const robotMode = !!document.getElementById('robot-mode')?.checked;
                                                                     document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
                                                                     const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
@@ -2641,13 +2647,17 @@ Thank you!
                                                                     const compDuty = rawCost * compTariffPct / 100;
                                                                     const rawCostRaw = rawCost;
                                                                     rawCost = rawCost + compDuty;
-                                                                    const unitMargin = market - rawCost;
-                                                                    const reqPerf = unitMargin > 0 ? Math.ceil(totalFixedPerDay / unitMargin) : Infinity;
+                                                                    const unitMargin = sale - rawCost;
+                                                                    // ПРАВИЛО 10% (алгоритм автора, версия 22.08.2026): все прямые расходы в день (зарплата, износ, аренда, прочее) должны уложиться в 10% от цены изделия.
+                                                                    const reqPerf = sale > 0 ? Math.ceil(totalFixedPerDay / (sale * 0.10)) : Infinity;
                                                                     if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = (reqPerf === Infinity) ? '∞' : reqPerf;
                                                                     if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
-                                                                    const machineShare = actualPerf > 0 ? overhead / actualPerf : 0;
-                                                                    const otherShare = actualPerf > 0 ? totalOtherCosts / actualPerf : 0;
+                                                                    // ПРАВИЛО 10%: все расходы (зарплата, износ, роботы, аренда, прочее) укладываются в 10% цены КАЖДОГО изделия,
+                                                                    // а не делятся на число изделий. 10% цены делится между строками пропорционально их доле в расходах.
+                                                                    const expShare = sale * 0.10;
+                                                                    const machineShare = totalFixedPerDay > 0 ? expShare * overhead / totalFixedPerDay : 0;
+                                                                    const otherShare = totalFixedPerDay > 0 ? expShare * totalOtherCosts / totalFixedPerDay : 0;
                                                                     const totalCost = rawCost + machineShare + otherShare;
                                                                     {
                                                                         const rcEl = document.getElementById('robot-compare');
@@ -2672,7 +2682,11 @@ Thank you!
                                                                     if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
                                                                     if (document.getElementById('fitted-salary-display')) {
-                                                                        document.getElementById('fitted-salary-display').textContent = `$${salary.toLocaleString('ru-RU')} / мес`;
+                                                                        // Максимальная зарплата по правилу 10%: фонд в день = выпуск × 10% × цена − (износ + роботы + прочие расходы)
+                                                                        const dailyProductionExpenses = actualPerf * 0.10 * sale;
+                                                                        const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - (amort + robotPerDay + totalOtherCosts));
+                                                                        const fittedMonthlySalary = Math.round(availableDailySalaryFund * 30 / ((robotMode ? rHumans : staff) || 1));
+                                                                        document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('ru-RU')} / мес`;
                                                                     }
 
                                                                     const badge = document.getElementById('feasibility-status-badge');
@@ -2691,7 +2705,7 @@ Thank you!
                                                                         }
                                                                     }
 
-                                                                    const profitPerDay = actualPerf * (market - totalCost);
+                                                                    const profitPerDay = actualPerf * (sale - totalCost);
                                                                     const monthProfit = Math.round(profitPerDay * 30);
                                                                     const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
@@ -2718,8 +2732,8 @@ Thank you!
                                                                         const sales = (salesRaw > 0) ? salesRaw : actualPerf;
                                                                         const fmt = (v, d) => v.toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                         const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-                                                                        const sCost = rawCost + totalFixedPerDay / sales;
-                                                                        const sProfit = Math.round((market - sCost) * sales * 30);
+                                                                        const sCost = rawCost + sale * 0.10; // правило 10%: расходы укладываются в 10% цены каждого изделия
+                                                                        const sProfit = Math.round((sale - sCost) * sales * 30);
                                                                         set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                                                         set('sales-unit-cost', fmt(sCost, 2));
                                                                         set('sales-profit-month', sProfit.toLocaleString('ru-RU'));
@@ -2911,11 +2925,13 @@ Thank you!
                                                                     const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
                                                                     const r = lineRates(line);
                                                                     const bom = line.components.reduce((s, c) => s + c.qty * c.price, 0) * (1 + r.ct / 100);
-                                                                    const daily = line.cost / 5 / 365 + (baseSalary * line.staff) / 30 + getLineOtherCosts(line);
-                                                                    const unit = bom + daily / line.perf;
+                                                                    const fixedNoSalary = line.cost / 5 / 365 + getLineOtherCosts(line);
+                                                                    const fitted = Math.round(Math.max(0, line.perf * 0.10 * price - fixedNoSalary) * 30 / (line.staff || 1)); // правило 10%
+                                                                    const daily = fixedNoSalary + (fitted * line.staff) / 30;
+                                                                    const unit = bom + price * 0.10; // правило 10%
                                                                     const profit = Math.round(line.perf * (price - unit) * 30);
                                                                     const k = importLandedPrice(price, r.f, r.t) / unit;
-                                                                    return { unit, profit, k, landed: importLandedPrice(price, r.f, r.t) };
+                                                                    return { unit, profit, k, fitted, landed: importLandedPrice(price, r.f, r.t) };
                                                                 }
                                                                 function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
                                                                     const head = document.createElement('tr');
@@ -2935,7 +2951,7 @@ Thank you!
                                                                             <td>$${Number(line.cost).toLocaleString()}</td>
                                                                             <td>${line.perf} шт/день</td>
                                                                             <td>${line.staff} чел</td>
-                                                                            <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
+                                                                            <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('ru-RU')}</td>
                                                                             <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b></td>
                                                                             <td style="font-weight:600; color:#007600;">${ruNum(plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line)))}</td>
                                                                             ${showAdminCol ? '<td></td>' : ''}`;
@@ -2983,7 +2999,7 @@ Thank you!
                                                                     if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
                                                                     const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
-                                                                    if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || topicBenchmarkPrice;
+                                                                    if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || topicBenchmarkPrice; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                                     currentModuleName = item.product_name || null;
                                                                     currentModuleItems = Array.isArray(item.module_items) ? item.module_items : [];
                                                                     renderModuleItemsBox();
@@ -3343,8 +3359,10 @@ Thank you!
                                                                             const compList = (line.components && line.components.length > 0) ? line.components : [];
                                                                             const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
                                                                             const lineOtherCosts = getLineOtherCosts(line);
-                                                                            const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
-                                                                            const unitCost = lineBomTotal + (totalDailyCost / perf);
+                                                                            const linePrice = parseFloat(line.market_price) || topicBenchmarkPrice;
+                                                                            line.$fittedSalary = Math.round(Math.max(0, perf * 0.10 * linePrice - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10%
+                                                                            const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
+                                                                            const unitCost = lineBomTotal + ((parseFloat(line.market_price) || topicBenchmarkPrice) * 0.10); // правило 10%
                                                                             line.$unitCost = unitCost;
                                                                             return Math.round(perf * ((parseFloat(line.market_price) || topicBenchmarkPrice) - unitCost) * 30);
                                                                         };
@@ -3386,7 +3404,7 @@ Thank you!
                                                                                             <td>$${Number(line.cost).toLocaleString()}</td>
                                                                                             <td>${line.perf} шт/день</td>
                                                                                             <td>${line.staff || 1} чел</td>
-                                                                                            <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('ru-RU')}</td>
+                                                                                            <td style="color:#6c7a8a; font-weight:600;">$${Number(line.$fittedSalary).toLocaleString('ru-RU')}</td>
                                                                                             <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
                                                                                             <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                             ${adminDeleteCell}
