@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TECHNOLOGY MATRIX — ASUIR</title>
     <style>
         * {
@@ -1299,6 +1299,10 @@
                                 </tr>
                                 <tr class="res-group"><td colspan="2">🚢 The same item, imported from abroad</td></tr>
                                 <tr>
+                                    <td><b>Selling price of the same item in your country</b></td>
+                                    <td class="right">$ <input type="number" id="sale-price-input" class="input-field input-field-sm" value="" oninput="calculateAll()"></td>
+                                </tr>
+                                <tr>
                                     <td>Price of the item at the factory abroad<span class="res-small">without shipping or duty. In the calculation you sell your own item at this same price.</span></td>
                                     <td class="right">$ <input type="number" id="market-price-input" class="input-field input-field-sm" value=""></td>
                                 </tr>
@@ -1567,7 +1571,7 @@ Thank you!
                                                             const openD = new Set([...box.querySelectorAll('details[open]')].map(d => d.dataset.d));
                                                             const st = modStore();
                                                             const topicKey = findCatalogKeyByTitle(currentTopicTitle);
-                                                            const L = null;
+                                                            const L = MODULE_LINES.find(l => l.topics.includes(topicKey));
                                                             if (!L) { box.innerHTML = '<p>No modules have been selected for this topic yet.</p>'; return; }
                                                             const loc = 'en-US';
                                                             const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
@@ -1668,7 +1672,7 @@ Thank you!
                                                             const eqOld = parseFloat(eqEl?.value) || 0;
                                                             if (eqEl) eqEl.value = Math.round(eqOld + mpEff);
                                                             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = perf;
-                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = fob;
+                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = fob; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                             if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
                                                             const q = document.getElementById('equip-search-query');
                                                             if (q) q.value = L.name + ': ' + r.n;
@@ -2093,7 +2097,7 @@ Thank you!
                                                                 if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = '';
                                                                 if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = '';
                                                                 if (document.getElementById('val-staff')) document.getElementById('val-staff').value = '';
-                                                                if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = '';
+                                                                if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = ''; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                                 if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
 
                                                                 const tbodyBom = document.getElementById('component-dynamic-rows');
@@ -2144,13 +2148,13 @@ Thank you!
                                                         // simple quartz and Seiko-level watches are each compared to their own price.
                                                         function getTopicBenchmarkPrice(topicTitle, classKey) {
                                                             const key = findCatalogKeyByTitle(topicTitle);
-                                                            if (!key) return 423;
-                                                            return parseFloat(resolveCatalogData(key, classKey).mkt) || 423;
+                                                            if (!key) return 0;
+ return parseFloat(resolveCatalogData(key, classKey).mkt) || 0;
                                                         }
 
                                                         function getTopicBenchmarkBom(topicTitle, classKey) {
                                                             const key = findCatalogKeyByTitle(topicTitle);
-                                                            if (!key) return 186;
+                                                            if (!key) return 0;
                                                             return (resolveCatalogData(key, classKey).c || []).reduce((sum, item) => sum + (item[1] * item[2]), 0);
                                                         }
 
@@ -2232,7 +2236,7 @@ Thank you!
                                                             if (document.getElementById('val-equip')) document.getElementById('val-equip').value = '';
                                                             if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = '';
                                                             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = '';
-                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = '';
+                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = ''; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                             if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
 
                                                             if (document.getElementById('equip-url')) {
@@ -2271,6 +2275,8 @@ Thank you!
                                                             const salary = 10000;
 
                                                             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
+                                                                    // Цена продажи в стране: по ней считаются 10% на расходы, нужный выпуск и прибыль. Пусто — цена завода за границей.
+                                                                    const sale = parseFloat(document.getElementById('sale-price-input')?.value) > 0 ? parseFloat(document.getElementById('sale-price-input').value) : market;
                                                             const robotMode = !!document.getElementById('robot-mode')?.checked;
                                                             document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
                                                             const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
@@ -2323,13 +2329,18 @@ Thank you!
                                                             const compDuty = rawCost * compTariffPct / 100;
                                                             const rawCostRaw = rawCost;
                                                             rawCost = rawCost + compDuty;
-                                                            const unitMargin = market - rawCost;
-                                                            const reqPerf = unitMargin > 0 ? Math.ceil(totalFixedPerDay / unitMargin) : Infinity;
+                                                            const unitMargin = sale - rawCost;
+                                                            // ПРАВИЛО 10% (алгоритм автора, версия 22.08.2026): все прямые расходы в день (зарплата, износ, аренда, прочее) должны уложиться в 10% от цены изделия.
+                                                                    // 10% берутся с себестоимости деталей вместе с пошлиной на комплектующие (указание автора 01.11.2026).
+                                                                    const reqPerf = rawCost > 0 ? Math.ceil(totalFixedPerDay / (rawCost * 0.10)) : Infinity;
                                                             if (document.getElementById('perf-val')) document.getElementById('perf-val').textContent = (reqPerf === Infinity) ? '∞' : reqPerf;
                                                             if (document.getElementById('actual-perf-val')) document.getElementById('actual-perf-val').textContent = actualPerf;
 
-                                                            const machineShare = actualPerf > 0 ? overhead / actualPerf : 0;
-                                                            const otherShare = actualPerf > 0 ? totalOtherCosts / actualPerf : 0;
+                                                            // ПРАВИЛО 10%: все расходы (зарплата, износ, роботы, аренда, прочее) укладываются в 10% себестоимости деталей (с пошлиной) КАЖДОГО изделия,
+                                                                    // а не делятся на число изделий. 10% цены делится между строками пропорционально их доле в расходах.
+                                                                    const expShare = rawCost * 0.10;
+                                                                    const machineShare = totalFixedPerDay > 0 ? expShare * overhead / totalFixedPerDay : 0;
+                                                            const otherShare = totalFixedPerDay > 0 ? expShare * totalOtherCosts / totalFixedPerDay : 0;
                                                             const totalCost = rawCost + machineShare + otherShare;
                                                             {
                                                                 const rcEl = document.getElementById('robot-compare');
@@ -2354,7 +2365,11 @@ Thank you!
                                                             if (document.getElementById('total-product-cost')) document.getElementById('total-product-cost').textContent = totalCost.toFixed(2);
 
                                                             if (document.getElementById('fitted-salary-display')) {
-                                                                document.getElementById('fitted-salary-display').textContent = `$${salary.toLocaleString('en-US')} / mo`;
+                                                                // Максимальная зарплата по правилу 10%: фонд в день = выпуск × 10% × цена − (износ + роботы + прочие расходы)
+                                                                        const dailyProductionExpenses = actualPerf * 0.10 * rawCost;
+                                                                        const availableDailySalaryFund = Math.max(0, dailyProductionExpenses - (amort + robotPerDay + totalOtherCosts));
+                                                                        const fittedMonthlySalary = Math.round(availableDailySalaryFund * 30 / ((robotMode ? rHumans : staff) || 1));
+                                                                        document.getElementById('fitted-salary-display').textContent = `$${fittedMonthlySalary.toLocaleString('en-US')} / mo`;
                                                             }
 
                                                             const badge = document.getElementById('feasibility-status-badge');
@@ -2373,7 +2388,7 @@ Thank you!
                                                                 }
                                                             }
 
-                                                            const profitPerDay = actualPerf * (market - totalCost);
+                                                            const profitPerDay = actualPerf * (sale - totalCost);
                                                             const monthProfit = Math.round(profitPerDay * 30);
                                                             const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
@@ -2400,8 +2415,8 @@ Thank you!
                                                                 const sales = (salesRaw > 0) ? salesRaw : actualPerf;
                                                                 const fmt = (v, d) => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                 const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-                                                                const sCost = rawCost + totalFixedPerDay / sales;
-                                                                const sProfit = Math.round((market - sCost) * sales * 30);
+                                                                const sCost = rawCost + rawCost * 0.10; // правило 10% от себестоимости деталей с пошлиной
+                                                                const sProfit = Math.round((sale - sCost) * sales * 30);
                                                                 set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                                                 set('sales-unit-cost', fmt(sCost, 2));
                                                                 set('sales-profit-month', sProfit.toLocaleString('en-US'));
@@ -2573,6 +2588,200 @@ Thank you!
                                                             }
                                                         };
 
+                                                        // ======================================================
+                                                        // PINNED REFERENCE EXAMPLE IN THE LISTING: watch assembly (Seiko-level automatic) — general case, EU, USA
+                                                        // ======================================================
+                                                        const REF_TOPIC = 'watch', REF_CLASS = 'automatic', REF_COUNTRIES = ['base', 'eu', 'us'];
+                                                        function buildReferenceLines() {
+                                                            const d = resolveCatalogData(REF_TOPIC, REF_CLASS);
+                                                            return REF_COUNTRIES.map(cc => ({
+                                                                id: 'ref-' + cc, cc: cc,
+                                                                name: d.q,
+                                                                url: `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(d.q)}`,
+                                                                cost: parseFloat(d.eq), perf: parseFloat(d.perf), staff: parseFloat(d.staff),
+                                                                components: d.c.map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] })),
+                                                                expenses: d.exp.map(e => ({ name: e[0], qty: e[1], price: e[2], url: e[3] })),
+                                                                topic_title: d.title, class_key: REF_CLASS, country_key: cc
+                                                            }));
+                                                        }
+                                                        function referenceEconomics(line, baseSalary) {
+                                                            const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
+                                                            const r = lineRates(line);
+                                                            const bom = line.components.reduce((s, c) => s + c.qty * c.price, 0) * (1 + r.ct / 100);
+                                                            const fixedNoSalary = line.cost / 5 / 365 + getLineOtherCosts(line);
+                                                                    const fitted = Math.round(Math.max(0, line.perf * 0.10 * bom - fixedNoSalary) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
+                                                                    const daily = fixedNoSalary + (fitted * line.staff) / 30;
+                                                            const unit = bom * 1.10; // детали с пошлиной + 10% от них
+                                                            const profit = Math.round(line.perf * (price - unit) * 30);
+                                                            const k = importLandedPrice(price, r.f, r.t) / unit;
+                                                            return { unit, profit, k, fitted, landed: importLandedPrice(price, r.f, r.t) };
+                                                        }
+                                                        function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
+                                                            const head = document.createElement('tr');
+                                                            head.style.background = '#fff6e0';
+                                                            head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 REFERENCE EXAMPLE: WATCH ASSEMBLY (SEIKO-LEVEL AUTOMATIC) — general case, European Union and USA, starting freight and tariff rates</td>`;
+                                                            container.appendChild(head);
+                                                            buildReferenceLines().forEach(line => {
+                                                                const e = referenceEconomics(line, baseSalary);
+                                                                const c = COUNTRIES[line.cc];
+                                                                const tr = document.createElement('tr');
+                                                                tr.style.background = '#fffbf0';
+                                                                tr.innerHTML = `
+                                                                    <td style="text-align:center; font-weight:700; color:#8a5a00;">📌</td>
+                                                                    <td style="padding-left:12px;"><b>${line.name}</b> — ${c.label}<br>
+                                                                        <button class="btn-bom-toggle" onclick="openReferenceLine('${line.cc}')">📥 Open in the Production Generator</button></td>
+                                                                    <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                                                                    <td>$${Number(line.cost).toLocaleString()}</td>
+                                                                    <td>${line.perf} pcs/day</td>
+                                                                    <td>${line.staff} staff</td>
+                                                                    <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('en-US')}</td>
+                                                                    <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('en-US') : '0'} / mo</b></td>
+                                                                    <td style="font-weight:600; color:#007600;">${plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line))}</td>
+                                                                    ${showAdminCol ? '<td></td>' : ''}`;
+                                                                container.appendChild(tr);
+                                                            });
+                                                        }
+                                                        // ======================================================
+// ПРОВЕРЕННЫЕ ЛИНИИ (решение автора 31.10.2026): у каждой цифры — ссылка на источник.
+// Непроверенные строки базы и эталонный пример часов СКРЫТЫ, НЕ УДАЛЕНЫ: SHOW_UNVERIFIED = true вернёт их.
+// Расчёт по правилу 10%: все расходы укладываются в 10% себестоимости деталей (с пошлиной) каждого изделия; продажа — по цене в стране.
+// ======================================================
+const SHOW_UNVERIFIED = false;
+const VERIFIED_LINES = [{
+    id: 'v-drone-us', topic: 'drone', country_key: 'us', checked: '2026-11-01',
+    name: '10-inch FPV drone assembly',
+    url: 'https://oboronka.mezha.ua/en/vyriy-pokazala-potokove-virobnictvo-fpv-droniv-311377/',
+    cost: 7430.13, perf: 160, staff: 9, factory: 223, sale: 549.99,
+    comps: [
+        ['10" carbon frame (Mark4 V2)', 1, 15.00, 'https://electronics.alibaba.com/product/7inch-fpv-frame'],
+        ['F7 flight controller + 55A ESC (iFlight BLITZ F7)', 1, 49.99, 'https://electronics.alibaba.com/product/flash-hobby-f722-stack-flight-controller'],
+        ['2807 motor', 4, 12.67, 'https://electronics.alibaba.com/product/fpv-2812-motor'],
+        ['RunCam Phoenix 2 SE V2 camera', 1, 16.99, 'https://electronics.alibaba.com/product/1000tvl-camera'],
+        ['Skyzone TX2500 video transmitter', 1, 46.50, 'https://electronics.alibaba.com/product/vtx']
+    ],
+    src: [
+        ['Selling price of the same drone in the US: $549.99 (DarwinFPV X10, no battery)', 'https://darwinfpv.com/products/darwinfpv-x10-large-load-and-long-range-10-fpv-drone'],
+        ['Price of the same drone at the factory in China: $204–223 (Alibaba, "10-inch UAV, 5 kg payload"), $223 used', 'https://electronics.alibaba.com/product/fpv-pnp'],
+        ['9 assemblers in one flow, 1 drone every 3 minutes (Vyriy Industries)', 'https://oboronka.mezha.ua/en/vyriy-pokazala-potokove-virobnictvo-fpv-droniv-311377/'],
+        ['160 drones per day — estimate: 8-hour shift (shift length not given in the source)', ''],
+        ['ESD workbenches: 9 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
+        ['Hakko FX-888DX soldering stations: 9 × $129.95', 'https://www.sparkfun.com/hakko-fx-888dx-soldering-station.html'],
+        ['Not included — no source found: rent, electricity, receiver, propellers', '']
+    ]
+    }, {
+    id: 'v-watch-us', topic: 'watch', cls: 'automatic', country_key: 'us', checked: '2026-11-01',
+    name: 'NH35 automatic watch assembly',
+    url: 'https://www.ming.watch/journals-new/on-assembling-a-watch',
+    cost: 3662.90, perf: 160, staff: 5, factory: 140, sale: 279.00,
+    comps: [
+        ['NH35 movement (seller in Guangzhou)', 1, 85.00, 'https://www.ebay.com/itm/184953907153'],
+        ['40 mm case, sapphire crystal (seller in Guangzhou)', 1, 28.80, 'https://www.ebay.com/itm/186366299268'],
+        ['Dial and hands (seller in Guangzhou)', 1, 10.00, 'https://www.ebay.de/itm/145500527875'],
+        ['20 mm leather strap (seller in Shenzhen)', 1, 12.50, 'https://www.ebay.com/itm/175323033103']
+    ],
+    src: [
+        ['Selling price of the same watch in the US: $279 (Islander ISL-54: NH35, 40 mm, sapphire)', 'https://longislandwatch.com/collections/islander/products/islander-automatic-pilot-style-watch-isl-54'],
+        ['Price of the same watch at a factory in China: $90–140 (Alibaba, sapphire and 316L steel), $140 used', 'https://smartbuy.alibaba.com/buyingguides/seiko-nh35-watch-private-label'],
+        ['Factory assembly of a three-hand watch: about 15 minutes (MING article)', 'https://www.ming.watch/journals-new/on-assembling-a-watch'],
+        ['160 watches per day — estimate: 5 assemblers × 32 watches per 8-hour shift; number of assemblers chosen', ''],
+        ['ESD workbenches: 5 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
+        ['Watchmaker tool kits (with case press): 5 × $31.98', 'https://www.ebay.com/itm/292833624065'],
+        ['Hand pressers (set of 3): 5 × $4.98 (price £3.77, converted by eBay)', 'https://www.ebay.com/itm/314320032103'],
+        ['Not included — no source found: rent, electricity, timing check', '']
+    ]
+    }, {
+    id: 'v-drone7-us', topic: 'drone', country_key: 'us', checked: '2026-11-01',
+    name: '7-inch FPV drone assembly with GPS',
+    url: 'https://pyrodrone.com/collections/analog-bnf-pnp-rtf/products/geprc-moz7-v2-analog-long-range-fpv-choose-receiver-type',
+    cost: 7430.13, perf: 160, staff: 9, factory: 269, sale: 597.99,
+    comps: [
+        ['7" carbon frame (Mark4 V2)', 1, 11.90, 'https://electronics.alibaba.com/product/7inch-fpv-frame'],
+        ['F7 flight controller + 55A ESC (iFlight BLITZ F7)', 1, 49.99, 'https://electronics.alibaba.com/product/flash-hobby-f722-stack-flight-controller'],
+        ['2807 motor', 4, 12.67, 'https://electronics.alibaba.com/product/fpv-2812-motor'],
+        ['RunCam Phoenix 2 SE V2 camera', 1, 16.99, 'https://electronics.alibaba.com/product/1000tvl-camera'],
+        ['Skyzone TX2500 video transmitter', 1, 46.50, 'https://electronics.alibaba.com/product/vtx'],
+        ['M10 GPS module with compass (HAKRC)', 1, 11.82, 'https://electronics.alibaba.com/product/gps-module-fpv']
+    ],
+    src: [
+        ['Selling price of the same drone in the US: $597.99 (GEPRC MOZ7 V2, 7", analog video, GPS, no battery)', 'https://pyrodrone.com/collections/analog-bnf-pnp-rtf/products/geprc-moz7-v2-analog-long-range-fpv-choose-receiver-type'],
+        ['Price of the same drone at a factory in China: $229–269 (Alibaba, "7-inch analog racing drone, long range"), $269 used', 'https://electronics.alibaba.com/product/fpv-pnp'],
+        ['9 assemblers in one flow, 1 drone every 3 minutes (Vyriy Industries)', 'https://oboronka.mezha.ua/en/vyriy-pokazala-potokove-virobnictvo-fpv-droniv-311377/'],
+        ['160 drones per day — estimate: 8-hour shift (shift length not given in the source)', ''],
+        ['ESD workbenches: 9 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
+        ['Hakko FX-888DX soldering stations: 9 × $129.95', 'https://www.sparkfun.com/hakko-fx-888dx-soldering-station.html'],
+        ['Not included — no source found: rent, electricity, receiver, propellers', '']
+    ]
+}];
+function verifiedEconomics(v) {
+    const r = lineRates(v);
+    const bom = v.comps.reduce((s, c) => s + c[1] * c[2], 0) * (1 + r.ct / 100);
+    const amort = v.cost / 5 / 365;
+    const share = bom * 0.10;                          // 10% от себестоимости деталей с пошлиной
+    const unit = bom + share;
+    const profit = Math.round(v.perf * (v.sale - unit) * 30);
+    const fitted = Math.round(Math.max(0, v.perf * share - amort) * 30 / (v.staff || 1));
+    const req = Math.ceil((amort + 10000 * v.staff / 30) / share);
+    return { unit, profit, fitted, req, rates: r };
+}
+function renderVerifiedBlock(container, colspan, showAdminCol) {
+    const head = document.createElement('tr');
+    head.style.background = '#e8f5e9';
+    head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#1b5e20; font-size:13px; padding:8px 12px; border-top:2px solid #43a047;">✔ VERIFIED LINES: every figure has a source link ("Sources" under the line name)</td>`;
+    container.appendChild(head);
+    VERIFIED_LINES.forEach(v => {
+        const e = verifiedEconomics(v);
+        const c = COUNTRIES[v.country_key];
+        const tr = document.createElement('tr');
+        tr.style.background = '#f4fbf4';
+        tr.innerHTML = `
+            <td style="text-align:center; font-weight:700; color:#1b5e20;">✔</td>
+            <td style="padding-left:12px;"><b>${v.name}</b> — ${c.label}<br>
+            <button class="btn-bom-toggle" onclick="openVerifiedLine('${v.id}')">📥 Open in the Production Generator</button>
+            <button class="btn-bom-toggle" onclick="const d=document.getElementById('src-${v.id}'); d.style.display = d.style.display==='none' ? '' : 'none';">📎 Sources</button></td>
+            <td><a href="${v.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Source ↗</a></td>
+            <td>$${Number(v.cost).toLocaleString('en-US')}</td>
+            <td>${v.perf} pcs/day<br><span style="font-size:11px; color:#4a5568;">needed at least ${e.req}</span></td>
+            <td>${v.staff} staff</td>
+            <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('en-US')}</td>
+            <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('en-US') : '0'} / mo</b><br><span style="font-size:11px; color:#4a5568;">selling price in the US $${v.sale.toFixed(2)}</span></td>
+            <td style="font-weight:600; color:#007600;">${plainImportCell(e.unit, v.factory, e.rates)}</td>
+            ${showAdminCol ? '<td></td>' : ''}`;
+        container.appendChild(tr);
+        const sr = document.createElement('tr');
+        sr.id = 'src-' + v.id; sr.style.display = 'none'; sr.style.background = '#fbfefb';
+        const lnk = (t, u) => u ? `<a href="${u}" target="_blank" style="color:#4a90d9;">${t}</a>` : t;
+        sr.innerHTML = `<td></td><td colspan="${colspan - 1}" style="font-size:12px; line-height:1.6; padding:8px 12px;">` +
+            v.comps.map(cp => `• ${lnk(cp[0], cp[3])}: ${cp[1]} × $${cp[2].toFixed(2)}`).join('<br>') + '<br>' +
+            v.src.map(sc => `• ${lnk(sc[0], sc[1])}`).join('<br>') +
+            `<br><span style="color:#6c7a8a;">Links checked ${v.checked}</span></td>`;
+        container.appendChild(sr);
+    });
+}
+window.openVerifiedLine = function (id) {
+    const v = VERIFIED_LINES.find(x => x.id === id); if (!v) return;
+    if (!isAdminMode) toggleAdminMode();
+    loadCatalogTemplate(v.topic, v.cls);
+    const sel = document.getElementById('country-selector');
+    if (sel) sel.value = v.country_key;
+    onCountryChange();
+    const tb = document.getElementById('component-dynamic-rows'); if (tb) tb.innerHTML = '';
+    v.comps.forEach(cp => addComponentRow(cp[0], cp[1], cp[2], cp[3]));
+    const te = document.getElementById('expense-dynamic-rows'); if (te) te.innerHTML = '';
+    const set = (i, x) => { const el = document.getElementById(i); if (el) el.value = x; };
+    set('val-equip', v.cost); set('val-staff', v.staff); set('val-actual-perf', v.perf);
+    set('market-price-input', v.factory); set('sale-price-input', v.sale);
+    calculateAll();
+    switchMainTab('main-tab-2');
+};
+window.openReferenceLine = function (cc) {
+                                                            if (!isAdminMode) toggleAdminMode(); // open the Production Generator right away
+                                                            loadCatalogTemplate(REF_TOPIC, REF_CLASS);
+                                                            const sel = document.getElementById('country-selector');
+                                                            if (sel) sel.value = COUNTRIES[cc] ? cc : 'base';
+                                                            onCountryChange();
+                                                            switchMainTab('main-tab-2');
+                                                        };
+
                                                         window.loadLineIntoWorkspace = function (itemId) {
                                                             const item = savedEquipmentList.find(x => x.id === itemId);
                                                             if (!item) return;
@@ -2605,7 +2814,7 @@ Thank you!
                                                             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
                                                             const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
-                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || '';
+                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || ''; { const _sp = document.getElementById('sale-price-input'); if (_sp) _sp.value = ''; }
                                                             currentModuleName = item.product_name || null;
                                                             currentModuleItems = Array.isArray(item.module_items) ? item.module_items : [];
                                                             renderModuleItemsBox();
@@ -2882,9 +3091,9 @@ Thank you!
 
                                                             const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
                                                             // The reference example is always pinned at the top of the listing, regardless of filters.
-                                                            
 
-                                                            const filteredList = savedEquipmentList.filter(item => {
+                                                            // Непроверенные строки базы скрыты (не удалены); свои линии клиент видит в фильтре «Мои».
+                                                                    const filteredList = savedEquipmentList.filter(item => SHOW_UNVERIFIED || filterMode === 'my').filter(item => {
                                                                 const itemOwner = item.client_id || "SYSTEM";
                                                                 const isMine = isLineMine(item);
                                                                 if (filterMode === 'my') return isMine;
@@ -2913,7 +3122,7 @@ Thank you!
                                                             renderPaginationButtons(totalPages, window.currentListingPage);
 
                                                             if (totalItems === 0) {
-                                                                container.insertAdjacentHTML('beforeend', `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">No records found for this filter.</td></tr>`);
+                                                                if (SHOW_UNVERIFIED || filterMode === 'my') container.insertAdjacentHTML('beforeend', `<tr><td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="text-align:center; color:#6c7a8a; padding:20px;">No records found for this filter.</td></tr>`);
                                                                 return;
                                                             }
 
@@ -2965,16 +3174,18 @@ Thank you!
                                                                     const perf = parseFloat(line.perf) || 1;
                                                                     const dailyAmort = (parseFloat(line.cost) || 0) / 5 / 365;
                                                                     const compList = (line.components && line.components.length > 0) ? line.components : [];
-                                                                    const lineBomTotal = compList.reduce((sum, c) => sum + (c.qty * c.price), 0) * (1 + lineRates(line).ct / 100);
+                                                                    const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
                                                                     const lineOtherCosts = getLineOtherCosts(line);
-                                                                    const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
-                                                                    const unitCost = lineBomTotal + (totalDailyCost / perf);
+                                                                    const linePrice = parseFloat(line.market_price) || topicBenchmarkPrice;
+                                                                            line.$fittedSalary = Math.round(Math.max(0, perf * 0.10 * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
+                                                                            const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
+                                                                    const unitCost = lineBomTotal * 1.10; // детали с пошлиной + 10% от них
                                                                     line.$unitCost = unitCost;
-                                                                    return Math.round(perf * ((parseFloat(line.market_price) || 0) - unitCost) * 30);
+                                                                    return Math.round(perf * ((parseFloat(line.market_price) || topicBenchmarkPrice) - unitCost) * 30);
                                                                 };
                                                                 const importAdvantage = (line) => {
                                                                     const r = lineRates(line);
-                                                                    const lp = parseFloat(line.market_price) || 0;
+                                                                    const lp = parseFloat(line.market_price) || topicBenchmarkPrice;
                                                                     const landed = importLandedPrice(lp, r.f, r.t);
                                                                     const uc = line.$unitCost;
                                                                     if (!(uc > 0) || !(landed > 0)) return '—';
@@ -3010,7 +3221,7 @@ Thank you!
                                                                                         <td>$${Number(line.cost).toLocaleString()}</td>
                                                                                         <td>${line.perf} pcs/day</td>
                                                                                         <td>${line.staff || 1} staff</td>
-                                                                                        <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
+                                                                                        <td style="color:#6c7a8a; font-weight:600;">$${Number(line.$fittedSalary).toLocaleString('en-US')}</td>
                                                                                         <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
                                                                                     <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                         ${adminDeleteCell}
