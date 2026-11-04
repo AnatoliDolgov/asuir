@@ -1340,7 +1340,7 @@
                                 </tr>
                                 <tr class="res-group"><td colspan="2">🚢 Такое же изделие, привезённое из-за границы</td></tr>
                                 <tr>
-                                    <td><b>Цена продажи такого же изделия в стране</b></td>
+                                    <td><b>Цена продажи такого же изделия в стране <span style="color:#c40000;">*</span></b><span class="res-small" style="color:#c40000;">обязательно для расчёта прибыли</span></td>
                                     <td class="right">$ <input type="number" id="sale-price-input" class="input-field input-field-sm" value="" oninput="calculateAll()"></td>
                                 </tr>
                                 <tr>
@@ -2332,7 +2332,10 @@ Thank you!
 
                                                                     const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
                                                                     // Цена продажи в стране: по ней считаются 10% на расходы, нужный выпуск и прибыль. Пусто — цена завода за границей.
-                                                                    const sale = parseFloat(document.getElementById('sale-price-input')?.value) > 0 ? parseFloat(document.getElementById('sale-price-input').value) : market;
+                                                                    const saleRaw = parseFloat(document.getElementById('sale-price-input')?.value);
+                                                                    const saleOk = saleRaw > 0; // цена в стране обязательна: без неё прибыль не считается
+                                                                    const sale = saleOk ? saleRaw : 0;
+                                                                    { const sp = document.getElementById('sale-price-input'); if (sp) sp.style.borderColor = saleOk ? '' : '#c40000'; }
                                                                     const robotMode = !!document.getElementById('robot-mode')?.checked;
                                                                     document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
                                                                     const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
@@ -2417,8 +2420,8 @@ Thank you!
                                                                                 const soldR = rSalesRaw > 0 ? Math.min(rSalesRaw, actualPerf) : actualPerf;
                                                                                 const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf;
                                                                                 const profR = (sale - unit) * soldR * 30, profP = (sale - unit) * soldP * 30;
-                                                                                rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: прибыль в месяц с роботизированными комплексами — $${f0(profR)}, с людьми — $${f0(profP)}</div>` +
-                                                                                    `<div class="rh-sub">Себестоимость изделия (детали с пошлиной) — $${f2(unit)}. Прибыль с одного изделия — $${f2(sale - unit)}.</div>` +
+                                                                                rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: прибыль в месяц с роботизированными комплексами — ${saleOk ? '$' + f0(profR) : '—'}, с людьми — ${saleOk ? '$' + f0(profP) : '—'}</div>` +
+                                                                                    `<div class="rh-sub">Себестоимость изделия (детали с пошлиной) — $${f2(unit)}. Прибыль с одного изделия — ${saleOk ? '$' + f2(sale - unit) : '—'}.</div>` +
                                                                                     `<div class="rh-note">С роботизированными комплексами: прямые расходы $${f0(expR)} в день, нужная производительность ${fq(reqR)} шт. в день, линия выпускает ${actualPerf} — ${okR}.</div>` +
                                                                                     `<div class="rh-note">С людьми: прямые расходы $${f0(expP)} в день, нужная производительность ${fq(reqP)} шт. в день, линия выпускает ${basePerf} — ${okP}.</div>` +
                                                                                     `<div class="rh-note">${rSalesRaw > 0 ? `Прибыль посчитана по сбыту ${rSalesRaw} шт. в день.` : 'Сбыт не задан: считается, что продаётся весь выпуск.'} Роботизированных комплексов: ${rCount} по $${f0(rPrice)}, срок службы ${rLife} лет, обслуживание ${rSvc}% в год, ${rHours} ч в сутки, в ${rSpeed} раз быстрее рабочих. Людей-контролёров: ${rHumans}. С людьми — ${staff} рабочих по $10 000 в месяц, 8 часов в сутки.</div>`;
@@ -2461,8 +2464,8 @@ Thank you!
                                                                     const monthProfit = Math.round(profitPerDay * 30);
                                                                     const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
-                                                                    if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
-                                                                    if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit.toLocaleString('ru-RU');
+                                                                    if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = !saleOk ? '—' : payback === Infinity ? '∞' : payback;
+                                                                    if (document.getElementById('income-month')) document.getElementById('income-month').textContent = saleOk ? monthProfit.toLocaleString('ru-RU') : '— (нет цены в стране)';
 
                                                                     // СРАВНЕНИЕ С ИМПОРТОМ: цена импорта с доставкой и пошлиной против своей себестоимости.
                                                                     const tariffPct = parseFloat(document.getElementById('tariff-input')?.value) || 0;
@@ -2488,9 +2491,9 @@ Thank you!
                                                                         const sProfit = Math.round((sale - sCost) * sales * 30);
                                                                         set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                                                         set('sales-unit-cost', fmt(sCost, 2));
-                                                                        set('sales-profit-month', sProfit.toLocaleString('ru-RU'));
+                                                                        set('sales-profit-month', saleOk ? sProfit.toLocaleString('ru-RU') : '— (нет цены в стране)');
                                                                         set('own-cost', fmt(sCost, 2));
-                                                                        set('own-profit', sProfit.toLocaleString('ru-RU'));
+                                                                        set('own-profit', saleOk ? sProfit.toLocaleString('ru-RU') : '— (нет цены в стране)');
                                                                         { const hEl = document.getElementById('import-advantage');
                                                                           if (hEl) {
                                                                             const cK = findCatalogKeyByTitle(currentTopicTitle), cl = currentClassKey && catalogDB[cK]?.classes?.[currentClassKey];
@@ -2626,6 +2629,7 @@ Thank you!
                                                                         created_at: new Date().toISOString()
                                                                     };
 
+                                                                    if (!(parseFloat(document.getElementById('sale-price-input')?.value) > 0)) { alert('Заполните поле «Цена продажи такого же изделия в стране» на вкладке «5. Результаты». Без неё линия не сохраняется.'); return; }
                                                                     if (!myUid) {
                                                                         alert("Нет соединения с базой. Подождите несколько секунд и нажмите ещё раз.");
                                                                         return;
@@ -3244,12 +3248,13 @@ window.openReferenceLine = function (cc) {
                                                                             const compList = (line.components && line.components.length > 0) ? line.components : [];
                                                                             const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
                                                                             const lineOtherCosts = getLineOtherCosts(line);
-                                                                            const linePrice = parseFloat(line.sale_price) || parseFloat(line.market_price) || topicBenchmarkPrice;
+                                                                            const linePrice = parseFloat(line.sale_price) || 0;
                                                                             line.$fittedSalary = Math.round(Math.max(0, perf * getDirectShare() * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
                                                                             const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                                                             const unitCost = lineBomTotal; // детали с пошлиной + 10% от них
                                                                             line.$unitCost = unitCost;
-                                                                            return Math.round(perf * (linePrice - unitCost) * 30);
+                                                                            line.$noSale = !(linePrice > 0);
+                                                                            return line.$noSale ? -Infinity : Math.round(perf * (linePrice - unitCost) * 30);
                                                                         };
                                                                         const importAdvantage = (line) => {
                                                                             const r = lineRates(line);
@@ -3290,7 +3295,7 @@ window.openReferenceLine = function (cc) {
                                                                                             <td>${line.perf} шт/день</td>
                                                                                             <td>${line.staff || 1} чел</td>
                                                                                             <td style="color:#6c7a8a; font-weight:600;">$${Number(line.$fittedSalary).toLocaleString('ru-RU')}</td>
-                                                                                            <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0'} / мес</b></td>
+                                                                                            <td><b style="color:#1f4e78;">${line.$noSale ? '—' : '$' + (monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0') + ' / мес'}</b></td>
                                                                                             <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                             ${adminDeleteCell}
                                                                                         `;

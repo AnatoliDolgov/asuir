@@ -1299,7 +1299,7 @@
                                 </tr>
                                 <tr class="res-group"><td colspan="2">🚢 The same item, imported from abroad</td></tr>
                                 <tr>
-                                    <td><b>Selling price of the same item in your country</b></td>
+                                    <td><b>Selling price of the same item in your country <span style="color:#c40000;">*</span></b><span class="res-small" style="color:#c40000;">required to calculate profit</span></td>
                                     <td class="right">$ <input type="number" id="sale-price-input" class="input-field input-field-sm" value="" oninput="calculateAll()"></td>
                                 </tr>
                                 <tr>
@@ -2286,7 +2286,10 @@ Thank you!
 
                                                             const market = parseFloat(document.getElementById('market-price-input')?.value) || 0;
                                                                     // Цена продажи в стране: по ней считаются 10% на расходы, нужный выпуск и прибыль. Пусто — цена завода за границей.
-                                                                    const sale = parseFloat(document.getElementById('sale-price-input')?.value) > 0 ? parseFloat(document.getElementById('sale-price-input').value) : market;
+                                                                    const saleRaw = parseFloat(document.getElementById('sale-price-input')?.value);
+                                                                    const saleOk = saleRaw > 0; // цена в стране обязательна: без неё прибыль не считается
+                                                                    const sale = saleOk ? saleRaw : 0;
+                                                                    { const sp = document.getElementById('sale-price-input'); if (sp) sp.style.borderColor = saleOk ? '' : '#c40000'; }
                                                             const robotMode = !!document.getElementById('robot-mode')?.checked;
                                                             document.querySelectorAll('.robot-row').forEach(r => r.style.display = robotMode ? '' : 'none');
                                                             const rNum = (id, d) => { const x = parseFloat(document.getElementById(id)?.value); return isNaN(x) ? d : x; };
@@ -2371,8 +2374,8 @@ Thank you!
                                                                                 const soldR = rSalesRaw > 0 ? Math.min(rSalesRaw, actualPerf) : actualPerf;
                                                                                 const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf;
                                                                                 const profR = (sale - unit) * soldR * 30, profP = (sale - unit) * soldP * 30;
-                                                                                rcEl.innerHTML = `<div class="rh-head">Outlook in 3–5 years: profit per month with robotic complexes — $${f0(profR)}, with people — $${f0(profP)}</div>` +
-                                                                            `<div class="rh-sub">Unit cost (parts with duty) — $${f2(unit)}. Profit per item — $${f2(sale - unit)}.</div>` +
+                                                                                rcEl.innerHTML = `<div class="rh-head">Outlook in 3–5 years: profit per month with robotic complexes — ${saleOk ? '$' + f0(profR) : '—'}, with people — ${saleOk ? '$' + f0(profP) : '—'}</div>` +
+                                                                            `<div class="rh-sub">Unit cost (parts with duty) — $${f2(unit)}. Profit per item — ${saleOk ? '$' + f2(sale - unit) : '—'}.</div>` +
                                                                             `<div class="rh-note">With robotic complexes: direct expenses $${f0(expR)} a day, required output ${fq(reqR)} pcs a day, the line makes ${actualPerf} — ${okR}.</div>` +
                                                                             `<div class="rh-note">With people: direct expenses $${f0(expP)} a day, required output ${fq(reqP)} pcs a day, the line makes ${basePerf} — ${okP}.</div>` +
                                                                             `<div class="rh-note">${rSalesRaw > 0 ? `Profit is calculated for sales of ${rSalesRaw} a day.` : 'No sales set: the whole output is assumed sold.'} Robotic complexes: ${rCount} at $${f0(rPrice)}, service life ${rLife} years, maintenance ${rSvc}% a year, ${rHours} h a day, ${rSpeed} times faster than workers. Human supervisors: ${rHumans}. With people — ${staff} workers at $10,000 a month, 8 hours a day.</div>`;
@@ -2415,8 +2418,8 @@ Thank you!
                                                             const monthProfit = Math.round(profitPerDay * 30);
                                                             const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
-                                                            if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = payback === Infinity ? '∞' : payback;
-                                                            if (document.getElementById('income-month')) document.getElementById('income-month').textContent = monthProfit.toLocaleString('en-US');
+                                                            if (document.getElementById('payback-days')) document.getElementById('payback-days').textContent = !saleOk ? '—' : payback === Infinity ? '∞' : payback;
+                                                            if (document.getElementById('income-month')) document.getElementById('income-month').textContent = saleOk ? monthProfit.toLocaleString('en-US') : '— (no price in your country)';
 
                                                             // IMPORT COMPARISON: landed import price vs. domestic unit cost.
                                                             const tariffPct = parseFloat(document.getElementById('tariff-input')?.value) || 0;
@@ -2442,9 +2445,9 @@ Thank you!
                                                                 const sProfit = Math.round((sale - sCost) * sales * 30);
                                                                 set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                                                 set('sales-unit-cost', fmt(sCost, 2));
-                                                                set('sales-profit-month', sProfit.toLocaleString('en-US'));
+                                                                set('sales-profit-month', saleOk ? sProfit.toLocaleString('en-US') : '— (no price in your country)');
                                                                 set('own-cost', fmt(sCost, 2));
-                                                                set('own-profit', sProfit.toLocaleString('en-US'));
+                                                                set('own-profit', saleOk ? sProfit.toLocaleString('en-US') : '— (no price in your country)');
                                                                 { const hEl = document.getElementById('import-advantage');
                                                                   if (hEl) {
                                                                     const cK = findCatalogKeyByTitle(currentTopicTitle), cl = currentClassKey && catalogDB[cK]?.classes?.[currentClassKey];
@@ -2580,7 +2583,8 @@ Thank you!
                                                                 created_at: new Date().toISOString()
                                                             };
 
-                                                            if (!myUid) {
+                                                            if (!(parseFloat(document.getElementById('sale-price-input')?.value) > 0)) { alert('Fill in “Selling price of the same item in your country” on tab “5. Results”. A line is not saved without it.'); return; }
+                                                                    if (!myUid) {
                                                                 alert("No connection to the database. Wait a few seconds and press again.");
                                                                 return;
                                                             }
@@ -3200,12 +3204,13 @@ window.openReferenceLine = function (cc) {
                                                                     const compList = (line.components && line.components.length > 0) ? line.components : [];
                                                                     const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
                                                                     const lineOtherCosts = getLineOtherCosts(line);
-                                                                    const linePrice = parseFloat(line.sale_price) || parseFloat(line.market_price) || topicBenchmarkPrice;
+                                                                    const linePrice = parseFloat(line.sale_price) || 0;
                                                                             line.$fittedSalary = Math.round(Math.max(0, perf * getDirectShare() * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
                                                                             const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                                                     const unitCost = lineBomTotal; // детали с пошлиной + 10% от них
                                                                     line.$unitCost = unitCost;
-                                                                    return Math.round(perf * (linePrice - unitCost) * 30);
+                                                                    line.$noSale = !(linePrice > 0);
+                                                                            return line.$noSale ? -Infinity : Math.round(perf * (linePrice - unitCost) * 30);
                                                                 };
                                                                 const importAdvantage = (line) => {
                                                                     const r = lineRates(line);
@@ -3246,7 +3251,7 @@ window.openReferenceLine = function (cc) {
                                                                                         <td>${line.perf} pcs/day</td>
                                                                                         <td>${line.staff || 1} staff</td>
                                                                                         <td style="color:#6c7a8a; font-weight:600;">$${Number(line.$fittedSalary).toLocaleString('en-US')}</td>
-                                                                                        <td><b style="color:#1f4e78;">$${monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0'} / mo</b></td>
+                                                                                        <td><b style="color:#1f4e78;">${line.$noSale ? '—' : '$' + (monthlyProfit > 0 ? monthlyProfit.toLocaleString('en-US') : '0') + ' / mo'}</b></td>
                                                                                     <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                         ${adminDeleteCell}
                                                                                     `;
