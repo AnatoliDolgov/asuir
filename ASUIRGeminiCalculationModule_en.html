@@ -1081,7 +1081,7 @@
                                     </td>
                                     <td class="right">
                                         <span style="font-size: 13px; color: #6c7a8a; margin-right: 5px;">Equipment Cost $</span>
-                                        <input type="number" id="val-equip" class="input-field input-field-sm" value="25000">
+                                        <input type="number" id="val-equip" class="input-field input-field-sm" value="">
                                     </td>
                                 </tr>
 
@@ -1090,7 +1090,7 @@
                                         <span class="icon-text"><span class="ico">🏷️</span> <span style="font-weight: 600;">Machine / Line Name & URL</span></span>
                                         <div style="font-size:12px; font-weight:600; color:#1f4e78; margin-top:8px;">🔍 Search for equipment at a supplier</div>
                                         <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap;">
-                                            <input type="text" id="equip-search-query" class="input-field input-sm" placeholder="Machine, line..." value="Compact ESD Drone Assembly Line" style="max-width: 280px;">
+                                            <input type="text" id="equip-search-query" class="input-field input-sm" placeholder="Machine, line..." value="" style="max-width: 280px;">
                                             <select id="equip-src" class="input-field input-sm" style="width:150px;">
                                                 <option value="alibaba">Alibaba</option>
                                                 <option value="madeinchina">Made-in-China</option>
@@ -1103,7 +1103,7 @@
                                     <td class="right">
                                         <div style="font-size:12px; font-weight:600; color:#1f4e78; margin-bottom:4px; text-align:right;">🔗 Link to the line you chose</div>
                                         <div style="display: flex; gap: 6px; align-items: center; justify-content: flex-end;">
-                                            <input type="text" id="equip-url" class="input-url input-url-sm" placeholder="🔗 Paste the link to the chosen line..." value="https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html" style="max-width: 320px; flex:1; min-width:0;">
+                                            <input type="text" id="equip-url" class="input-url input-url-sm" placeholder="🔗 Paste the link to the chosen line..." value="" style="max-width: 320px; flex:1; min-width:0;">
                                             <button class="btn btn-primary btn-sm" onclick="openExternalUrl('equip-url')" style="flex-shrink:0; white-space:nowrap;">🔗 Open the chosen line</button>
                                         </div>
                                         <div style="font-size:11px; color:#6c7a8a; margin-top:3px; text-align:right;">paste here the link to the line you have chosen</div>
@@ -1123,7 +1123,7 @@
                                                 <option value="pcs_hour">Pcs per hour</option>
                                                 <option value="sec_pc">Seconds per 1 pc</option>
                                             </select>
-                                            <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="20" style="width: 90px; font-weight:700; color:#c65911;">
+                                            <input type="number" id="val-actual-perf" class="input-field input-field-sm" value="" style="width: 90px; font-weight:700; color:#c65911;">
                                             <span style="font-size: 12px; font-weight:600; color:#6c7a8a;">pcs/day</span>
                                         </div>
                                     </td>
@@ -1131,7 +1131,7 @@
 
                                 <tr>
                                     <td><span class="icon-text"><span class="ico">👷</span> <span style="font-weight: 600;">Number of Line Operators</span></span></td>
-                                    <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="2" oninput="updateStaffInExpenseTable()"></td>
+                                    <td class="right"><input type="number" id="val-staff" class="input-field input-field-sm" value="" oninput="updateStaffInExpenseTable()"></td>
                                 </tr>
 
                                 <tr style="background:#f4f8fc; border-left:4px dashed #1f4e78;">
@@ -1202,7 +1202,7 @@
                                 <tfoot>
                                     <tr style="background:#f0f5fa;">
                                         <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Fixed Facility Expenses, Tooling & Consumables (per day):</span></span></td>
-                                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-other-costs">54.00</span></td>
+                                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-other-costs">0.00</span></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
@@ -1234,7 +1234,7 @@
                                 <tfoot>
                                     <tr style="background:#f0f5fa;">
                                         <td colspan="4"><span class="icon-text"><span class="ico">🧮</span> <span style="font-weight: 700;">Total Raw Material Cost (BOM) per 1 unit:</span></span></td>
-                                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">186.00</span></td>
+                                        <td class="right" style="color:#1f4e78; font-size:16px; font-weight:700;">$ <span id="total-bom-cost">0.00</span></td>
                                         <td></td>
                                     </tr>
                                 </tfoot>
@@ -1300,7 +1300,7 @@
                                 <tr class="res-group"><td colspan="2">🚢 The same item, imported from abroad</td></tr>
                                 <tr>
                                     <td>Price of the item at the factory abroad<span class="res-small">without shipping or duty. In the calculation you sell your own item at this same price.</span></td>
-                                    <td class="right">$ <input type="number" id="market-price-input" class="input-field input-field-sm" value="423"></td>
+                                    <td class="right">$ <input type="number" id="market-price-input" class="input-field input-field-sm" value=""></td>
                                 </tr>
                                 <tr>
                                     <td>Shipping, % of the factory price</td>
@@ -1540,7 +1540,7 @@ Thank you!
                                                             sel.addEventListener('change', () => calculateAll()); })();
                                                         // МАТРИЦА МОДУЛЕЙ: изделия, которые выпускает та же линия после покупки модуля (набора дополнений к оборудованию).
                                                         // ref — изделие из каталога (тема, класс): детали, выпуск и цена берутся из catalogDB. В mi и c третье поле — запрос для поиска у поставщика.
-                                                        const MODULE_LINES = [{"id": "electronics", "topics": ["drone", "phone", "tablet", "tv", "pc"], "name": "Electronics assembly", "core": ["ESD assembly line", "soldering stations", "glue dispenser", "display lamination press", "test benches", "firmware programmer"], "rows": [{"n": "Budget smartphone", "st": "cat", "ref": ["phone", "budget"], "mod": "", "mi": [["housing nests", "housing nests", "https://www.alibaba.com/showroom/phone-jig.html"], ["6.5\" display press jig", "6.5\" display press jig", "https://www.alibaba.com/product-detail/Qianli-Universal-Holding-Pressure-Mold-for_1600250336500.html"], ["test firmware", "test firmware", ""]], "mp": 800, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "Mid-range smartphone", "st": "cat", "ref": ["phone", "mid"], "mod": "", "mi": [["nests", "nests", "https://www.alibaba.com/showroom/phone-jig.html"], ["AMOLED press jig", "AMOLED press jig", "https://www.alibaba.com/product-detail/In-frame-mold-lcd-laminating-mold_60820337550.html"], ["test firmware", "test firmware", ""]], "mp": 900, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "10\" tablet", "st": "cat", "ref": ["tablet", null], "mod": "", "mi": [["10\" nests", "10\" nests", "https://www.alibaba.com/showroom/lcd-screen-molds.html"], ["display press jig", "display press jig", "https://www.alibaba.com/product-detail/8pcs-Mobile-Phone-screen-Bonding-Fixture_1600539814695.html"], ["test", "test", "https://www.alibaba.com/product-detail/Manufacturer-Non-Standard-Parts-Customized-Electronic_1600317029997.html"]], "mp": 900, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "15.6\" laptop", "st": "cat", "ref": ["pc", null], "mod": "", "mi": [["nests", "nests", "https://www.alibaba.com/showroom/phone-jig.html"], ["hinge jig", "hinge jig", "https://www.alibaba.com/product-detail/Laptop-Hinge-Life-Tester-Mobile-Phone_1600285922070.html"], ["test bench", "test bench", "https://www.alibaba.com/product-detail/Manufacturer-Non-Standard-Parts-Customized-Electronic_1600317029997.html"]], "mp": 1500, "ch": "6 h", "perf": 0, "fob": 0, "c": []}, {"n": "32–43\" TV", "st": "cat", "ref": ["tv", "small"], "mod": "", "mi": [["large-panel assembly table", "large-panel assembly table", "https://www.alibaba.com/product-detail/Tv-assembly-line-workbench-repair-table_1600061477808.html"], ["vacuum grippers", "vacuum grippers", "https://www.alibaba.com/product-detail/Vacuum-Sucker-Cup-Lifting-Holder-TV_1600051458802.html"], ["test-signal generator", "test-signal generator", "https://www.alibaba.com/showroom/hdmi-signal-generator.html"]], "mp": 3000, "ch": "1 shift", "perf": 0, "fob": 0, "c": []}, {"n": "Camera drone", "st": "cat", "ref": ["drone", null], "mod": "", "mi": [["frame nests", "frame nests", ""], ["calibration stand", "calibration stand", "https://www.alibaba.com/showroom/brushless-motor-test.html"], ["motor tester", "motor tester", "https://www.alibaba.com/showroom/brushless-motor-test.html"]], "mp": 1200, "ch": "4 h", "perf": 0, "fob": 0, "c": []}, {"n": "Feature phone", "st": "new", "ref": null, "mod": "", "mi": [["nests", "nests", "https://www.alibaba.com/showroom/phone-jig.html"], ["test program", "test program", ""]], "mp": 400, "ch": "2 h", "perf": 300, "fob": 18, "c": [["Board", 5, "Board", "https://www.alibaba.com/showroom/mobile-phone-motherboard-pcba.html"], ["2.4\" display", 1.5, "2.4\" display", "https://www.alibaba.com/product-detail/1-8-inch-2-4inch-tft_1600773618140.html"], ["Keypad", 0.8, "Keypad", "https://www.alibaba.com/showroom/rubber-keypad-mobile-phone.html"], ["Housing", 1.2, "Housing", "https://www.alibaba.com/showroom/custom-phone-housing.html"], ["Battery", 1, "Battery", "https://www.alibaba.com/product-detail/Factory-Wholesale-Replacement-Phone-Battery-1020mah_1600789261151.html"], ["Charger", 0.8, "Charger", "https://www.alibaba.com/product-detail/Hot-selling-usb-5V1A-5-volt_1601281809978.html"], ["Box", 0.5, "Box", "https://www.alibaba.com/showroom/packaging-box-for-cell-phone.html"]]}, {"n": "20,000 mAh power bank", "st": "new", "ref": null, "mod": "", "mi": [["cell spot-welding jig", "cell spot-welding jig", "https://www.alibaba.com/product-detail/KNOKOO-Battery-Spot-Welders-18650-Spot_60701559724.html"], ["capacity tester", "capacity tester", "https://www.alibaba.com/product-detail/EBC-X-8-Channels-18650-lithium_1600723647200.html"]], "mp": 1200, "ch": "3 h", "perf": 200, "fob": 22, "c": [["18650 cells ×6", 9, "18650 cells", "https://www.alibaba.com/product-detail/China-3-7V-3000MAH-cell-batteries_1600083209514.html"], ["Controller board", 1.5, "Controller board", "https://www.alibaba.com/showroom/22.5w-fast-charging-board.html"], ["Housing", 2, "Housing", "https://www.alibaba.com/product-detail/20000mAh-Dual-USB-Power-Bank-Case_62138630640.html"], ["Cable", 0.5, "Cable", "https://www.alibaba.com/product-detail/Wholesale-Pure-Copper-USB-C-Charging_1601561721818.html"], ["Box", 0.5, "Box", "https://www.alibaba.com/showroom/electronic-packaging-box.html"]]}, {"n": "Handheld radio", "st": "new", "ref": null, "mod": "", "mi": [["nests", "nests", "https://www.alibaba.com/showroom/phone-jig.html"], ["RF test stand", "RF test stand", "https://m.alibaba.com/product/62203951542/0-5Mhz-470Mhz-RF-Signal-Generator.html"]], "mp": 1500, "ch": "4 h", "perf": 150, "fob": 35, "c": [["Board", 9, "Board", "https://www.alibaba.com/showroom/walkie-talkie-circuit-board.html"], ["Housing", 2.5, "Housing", "https://www.alibaba.com/showroom/walkie-talkie-shell-enclosure.html"], ["Antenna", 0.8, "Antenna", "https://www.alibaba.com/product-detail/Walkie-Talkie-Antenna-SMA-F-RHD_1601286959949.html"], ["Battery", 3, "Battery", "https://www.alibaba.com/showroom/7.4v-two-way-radio-battery.html"], ["Charger", 1.5, "Charger", "https://www.alibaba.com/showroom/handheld-charging-walkie-talkie-chargers.html"], ["Box", 0.8, "Box", "https://www.alibaba.com/showroom/electronic-packaging-box.html"]]}]}, {"id": "watch", "topics": ["watch"], "name": "Watch assembly", "core": ["workstations with stereo microscope", "crystal and caseback press", "timing machine", "water-resistance tester", "ultrasonic cleaner"], "rows": [{"n": "Simple quartz", "st": "cat", "ref": ["watch", "quartz"], "mod": "", "mi": [["Miyota 2035 movement holders", "watch Miyota 2035 movement holders", "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html"], ["hand-setting tool", "watch hand-setting tool", "https://www.alibaba.com/product-detail/New-Watch-Tool-Hand-Press-Fitting_62142240189.html"], ["battery tester", "watch battery tester", "https://www.alibaba.com/product-detail/Multifunctional-Watch-Battery-Tester-watch-Quartz_1600633777455.html"]], "mp": 350, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Seiko-level automatic", "st": "cat", "ref": ["watch", "automatic"], "mod": "", "mi": [["NH35 movement holder", "watch NH35 movement holder", "https://www.alibaba.com/product-detail/Stainless-Steel-Repair-And-Assembly-Tool_1600509239089.html"], ["demagnetizer", "watch demagnetizer", "https://www.alibaba.com/product-detail/Professional-Mechanical-Wristwatch-Demagnetizer-Demagnetizing-Tool_1600511489161.html"], ["rotor tool", "watch rotor tool", "https://www.alibaba.com/showroom/watch-maker-tools.html"]], "mp": 450, "ch": "2 h", "perf": 0, "fob": 0, "c": []}, {"n": "Women's quartz", "st": "new", "ref": null, "mod": "", "mi": [["small-movement holders", "watch small-movement holders", "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html"], ["small-case mandrels", "watch small-case mandrels", ""]], "mp": 300, "ch": "1 h", "perf": 120, "fob": 45, "c": [["Miyota 1L45 movement", 3, "watch Miyota 1L45 movement", "https://www.alibaba.com/showroom/miyota-1l45.html"], ["Case", 4, "watch Case", "https://www.alibaba.com/product-detail/Watch-Case-Exquisite-316L-Stainless-Steel_1600173969046.html"], ["Crystal", 0.8, "watch Crystal", "https://www.alibaba.com/showroom/watch-glass-replacement.html"], ["Dial with crystals", 2.5, "watch Dial with crystals", "https://www.alibaba.com/showroom/watch-dial-custom.html"], ["Hands", 0.6, "watch Hands", "https://www.alibaba.com/product-detail/High-Quality-Arrow-Watch-Hands-With_60737184017.html"], ["Bracelet", 3, "watch Bracelet", "https://www.alibaba.com/product-detail/Black-Silver-Rose-Gold-18mm-20mm_62518800257.html"], ["Box", 1.5, "watch Box", "https://www.alibaba.com/showroom/paper-watch-box.html"]]}, {"n": "Quartz chronograph", "st": "new", "ref": null, "mod": "", "mi": [["VK63 movement holder", "watch VK63 movement holder", "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html"], ["pusher set", "watch pusher set", "https://www.alibaba.com/countrysearch/CN/watch-pusher.html"], ["chronograph tester", "watch chronograph tester", "https://www.alibaba.com/product-detail/Watches-maintenance-tools-Quartz-watch-tester_1600799121714.html"]], "mp": 400, "ch": "2 h", "perf": 60, "fob": 140, "c": [["Seiko VK63 movement", 9, "watch Seiko VK63 movement", "https://www.alibaba.com/showroom/vk63-movement.html"], ["316L steel case", 15, "watch 316L steel case", "https://www.alibaba.com/product-detail/38mm-Stainless-Steel-Rose-Gold-Watch_1601381429908.html"], ["Sapphire crystal", 6, "watch Sapphire crystal", "https://www.alibaba.com/showroom/watch-glass-sapphire-crystal.html"], ["Dial", 4, "watch Dial", "https://www.alibaba.com/product-detail/Custom-Classic-Blank-Watch-Dials-Face_1600979402235.html"], ["Hands ×6", 3, "watch Hands", "https://www.alibaba.com/product-detail/High-Quality-Arrow-Watch-Hands-With_60737184017.html"], ["Bracelet", 8, "watch Bracelet", "https://www.alibaba.com/product-detail/Black-Silver-Rose-Gold-18mm-20mm_62518800257.html"], ["Box", 3, "watch Box", "https://www.alibaba.com/showroom/paper-watch-box.html"]]}, {"n": "Smartwatch", "st": "new", "ref": null, "mod": "", "mi": [["jig", "watch jig", "https://www.alibaba.com/showroom/lcd-jig.html"], ["glue dispenser", "watch glue dispenser", "https://www.alibaba.com/product-detail/Desktop-glue-dispensing-machine-3-axis_1600084724719.html"], ["firmware and test stand", "watch firmware and test stand", "https://www.alibaba.com/product-detail/Manual-PCBA-test-fixture-pcb-test_62447714577.html"]], "mp": 1500, "ch": "4 h", "perf": 100, "fob": 60, "c": [["Board with display", 18, "watch Board with display", "https://www.alibaba.com/showroom/smart-watch-pcba.html"], ["Case", 4, "watch Case", "https://www.alibaba.com/product-detail/Watch-Case-Exquisite-316L-Stainless-Steel_1600173969046.html"], ["Battery", 2, "watch Battery", "https://www.alibaba.com/product-detail/Factory-Lipo-Battery-3-7V-300mAh_1601267182850.html"], ["Strap", 1.5, "watch Strap", "https://www.alibaba.com/product-detail/Leopard-Print-18-20-22mm-Quick_1601634015235.html"], ["Charging cable", 1.5, "watch Charging cable", "https://www.alibaba.com/product-detail/Wholesale-60cm-Durable-Smart-Watch-Charger_1600448855128.html"], ["Box", 1, "watch Box", "https://www.alibaba.com/showroom/paper-watch-box.html"]]}]}, {"id": "clothes", "topics": ["clothes"], "name": "Garment sewing", "core": ["lockstitch machines", "overlockers", "coverstitch machines", "cutting table and knife", "ironing table"], "rows": [{"n": "Knitwear: T-shirts, hoodies", "st": "cat", "ref": ["clothes", "knit"], "mod": "", "mi": [["size-range patterns", "sewing size-range patterns", "https://www.alibaba.com/showroom/garment-pattern-makers.html"], ["presser feet", "sewing presser feet", "https://www.alibaba.com/product-detail/25Pcs-Silver-Presser-Foot-Sewing-Machine_1600086469409.html"], ["neckline binder", "sewing neckline binder", "https://www.alibaba.com/product-detail/Industrial-sewing-machine-attachment-folder-binder_11000000517741.html"]], "mp": 250, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Insulated jackets", "st": "cat", "ref": ["clothes", "outer"], "mod": "", "mi": [["patterns", "sewing patterns", "https://www.alibaba.com/showroom/garment-pattern-makers.html"], ["zipper feet", "sewing zipper feet", "https://www.alibaba.com/showroom/invisable-zipper-foot.html"], ["snap press", "sewing snap press", "https://www.alibaba.com/product-detail/Cheap-Snap-Button-Fastening-Press-Fixing_1600810914323.html"], ["seam-taping heat press", "sewing seam-taping heat press", "https://www.alibaba.com/product-detail/Hot-air-seam-sealing-tape-hot_1600215725125.html"]], "mp": 2500, "ch": "1 shift", "perf": 0, "fob": 0, "c": []}, {"n": "Sweatpants", "st": "new", "ref": null, "mod": "", "mi": [["patterns", "sewing patterns", "https://www.alibaba.com/showroom/garment-pattern-makers.html"], ["elastic-insertion attachment", "sewing elastic-insertion attachment", "https://www.alibaba.com/showroom/attachment-sewing-machine-elastic.html"]], "mp": 200, "ch": "1 h", "perf": 100, "fob": 16, "c": [["Fleece 1.3 m", 6.5, "sewing Fleece 1.3 m", "https://www.alibaba.com/showroom/60-cotton-40-polyester-fleece-knit-fabric.html"], ["Elastic", 0.5, "sewing Elastic", "https://www.alibaba.com/showroom/pants-elastic-bands.html"], ["Drawcord", 0.3, "sewing Drawcord", "https://www.alibaba.com/showroom/round-drawcord-with-metal-tip.html"], ["Thread", 0.3, "sewing Thread", "https://www.alibaba.com/showroom/polyester-sewing-thread-40-2-5000y.html"], ["Label and bag", 0.3, "sewing Label and bag", "https://www.alibaba.com/product-detail/Low-MOQ-Custom-clothing-woven-labels_1600717043496.html"]]}, {"n": "Children's knitwear", "st": "new", "ref": null, "mod": "", "mi": [["children's patterns", "sewing children's patterns", "https://www.alibaba.com/showroom/garment-pattern-makers.html"], ["snap press with dies", "sewing snap press with dies", "https://www.alibaba.com/product-detail/Cheap-Snap-Button-Fastening-Press-Fixing_1600810914323.html"]], "mp": 350, "ch": "2 h", "perf": 150, "fob": 7, "c": [["Interlock 0.6 m", 2.4, "sewing Interlock 0.6 m", "https://www.alibaba.com/showroom/baby-cotton-interlock-knit-fabric.html"], ["Snaps", 0.3, "sewing Snaps", "https://www.alibaba.com/product-detail/100sets-Plastic-Snaps-Button-Fasteners-Buttons_1600541566375.html"], ["Thread", 0.2, "sewing Thread", "https://www.alibaba.com/showroom/polyester-sewing-thread-40-2-5000y.html"], ["Label and bag", 0.25, "sewing Label and bag", "https://www.alibaba.com/product-detail/Low-MOQ-Custom-clothing-woven-labels_1600717043496.html"]]}]}, {"id": "bakery", "topics": ["bakery"], "name": "Bakery", "core": ["oven", "spiral mixer", "proofing cabinet", "dough divider", "work tables"], "rows": [{"n": "Bread (catalog template)", "st": "cat", "ref": ["bakery", null], "mod": "", "mi": [["bread pans", "bakery bread pans", "https://www.alibaba.com/product-detail/ZJ-3061110W-food-grade-commercial-non_1600215098008.html"], ["set of 40", "bakery set of 40", "https://www.alibaba.com/showroom/bread-pans-4-strap.html"]], "mp": 400, "ch": "30 min", "perf": 0, "fob": 0, "c": []}, {"n": "Baguettes", "st": "new", "ref": null, "mod": "", "mi": [["perforated baguette trays", "bakery perforated baguette trays", "https://www.alibaba.com/product-detail/Industrial-5-wava-baguette-tray-aluminized_1601250882556.html"], ["proofing cloths", "bakery proofing cloths", "https://www.alibaba.com/product-detail/100-Pure-Cotton-Canvas-Baker-s_1600190507091.html"]], "mp": 450, "ch": "30 min", "perf": 800, "fob": 1.2, "c": [["Flour 0.2 kg", 0.11, "bakery Flour 0.2 kg", "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"], ["Yeast, salt", 0.03, "bakery Yeast, salt", "https://www.alibaba.com/product-detail/Baking-Dry-Yeast-powder-500g-Instant_1601001015505.html"], ["Bag", 0.04, "bakery Bag", "https://www.alibaba.com/product-detail/High-transparent-baguette-bread-food-plastic_1600290504012.html"]]}, {"n": "Burger buns", "st": "new", "ref": null, "mod": "", "mi": [["semi-automatic divider-rounder", "bakery semi-automatic divider-rounder", "https://www.alibaba.com/product-detail/Semi-automatic-Dough-Divider-Rounder-Machine_62024650874.html"]], "mp": 2500, "ch": "1 h", "perf": 3000, "fob": 0.35, "c": [["Flour 0.07 kg", 0.04, "bakery Flour 0.07 kg", "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"], ["Sugar, oil, sesame", 0.03, "bakery Sugar, oil, sesame", "https://www.alibaba.com/showroom/hulled-sesame-seeds.html"], ["Packaging", 0.02, "bakery Packaging", "https://www.alibaba.com/showroom/bun-packaging-bags.html"]]}, {"n": "Cookies, 100 g pack", "st": "new", "ref": null, "mod": "", "mi": [["piping nozzles", "bakery piping nozzles", "https://www.alibaba.com/product-detail/Cake-Piping-Icing-Nozzles-Tips-Stainless_62088852696.html"], ["cutters", "bakery cutters", "https://www.alibaba.com/product-detail/12Pcs-Round-Stainless-Steel-Cookie-Cutters_1601287320698.html"], ["trays", "bakery trays", "https://www.alibaba.com/product-detail/600x400-cm-Bakery-Trays-Nonstick-Pastry_1601383687727.html"]], "mp": 600, "ch": "1 h", "perf": 1500, "fob": 1.5, "c": [["Flour, sugar, butter", 0.25, "bakery Flour, sugar, butter", "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"], ["Packaging", 0.06, "bakery Packaging", "https://www.alibaba.com/showroom/biscuit-pouch-bag.html"]]}, {"n": "Croissants", "st": "new", "ref": null, "mod": "", "mi": [["dough sheeter", "bakery dough sheeter", "https://www.alibaba.com/product-detail/Hot-Selling-520mm-Industrial-Rondo-Croissant_1601198051927.html"]], "mp": 3000, "ch": "1 h", "perf": 1500, "fob": 1, "c": [["Flour 0.04 kg", 0.03, "bakery Flour 0.04 kg", "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html"], ["Butter 0.03 kg", 0.2, "bakery Butter 0.03 kg", "https://www.alibaba.com/showroom/unsalted-butter-82.html"], ["Sugar, yeast", 0.02, "bakery Sugar, yeast", "https://www.alibaba.com/showroom/sugar-icumsa-45.html"], ["Packaging", 0.03, "bakery Packaging", "https://www.alibaba.com/showroom/croissant-plastic-bag.html"]]}]}, {"id": "furniture", "topics": ["furniture"], "name": "Furniture and woodworking", "core": ["CNC router", "edge bander", "boring machine", "dust extraction"], "rows": [{"n": "Panel furniture", "st": "cat", "ref": ["furniture", "panel"], "mod": "", "mi": [["nesting programs", "furniture nesting programs", ""], ["cutters", "furniture cutters", "https://www.alibaba.com/product-detail/MDF-Plywood-Chipboard-Laminate-board-killer_1600142710336.html"], ["hinge jig", "furniture hinge jig", "https://www.alibaba.com/product-detail/35mm-Concealed-Hinge-Jig-Boring-Hole_1600155124187.html"]], "mp": 400, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Shelving unit", "st": "new", "ref": null, "mod": "", "mi": [["programs", "furniture programs", ""], ["drilling jig", "furniture drilling jig", "https://www.alibaba.com/product-detail/Woodworking-cabinet-hardware-jig-tool-drill_1601220472577.html"]], "mp": 150, "ch": "30 min", "perf": 20, "fob": 150, "c": [["Chipboard, 1.5 sheets", 68, "furniture Chipboard, 1.5 sheets", "https://www.alibaba.com/product-detail/Eco-friendly-18mm-melamine-chipboard-particle_1601367087461.html"], ["Edge banding", 4, "furniture Edge banding", "https://www.alibaba.com/product-detail/high-quality-pvc-edge-banding-tape_1601282043897.html"], ["Screws, shelf supports", 3, "furniture Screws, shelf supports", "https://www.alibaba.com/product-detail/Good-quality-Furniture-Screw-M7-50_1600993994430.html"], ["Packaging", 4, "furniture Packaging", "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"]]}, {"n": "MDF kitchen door", "st": "new", "ref": null, "mod": "", "mi": [["door cutter set", "furniture door cutter set", "https://www.alibaba.com/product-detail/8mm-Shank-Door-Panel-Cutters-Raised_1600331218888.html"], ["programs", "furniture programs", ""]], "mp": 600, "ch": "1 h", "perf": 60, "fob": 35, "c": [["MDF 0.4 m²", 6, "furniture MDF 0.4 m²", "https://www.alibaba.com/product-detail/Wholesale-1220-2440-3mm-12mm-18mm_1600680523116.html"], ["Foil or paint", 5, "furniture Foil or paint", "https://www.alibaba.com/product-detail/thermo-foil-for-membrane-vacuum-press_60652312705.html"], ["Packaging", 1, "furniture Packaging", "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"]]}, {"n": "Chest of drawers", "st": "new", "ref": null, "mod": "", "mi": [["drawer-slide jig", "furniture drawer-slide jig", "https://www.alibaba.com/product-detail/Imbot-Woodworking-Cabinet-Drawer-Mounting-Jig_1601390258695.html"], ["programs", "furniture programs", ""]], "mp": 250, "ch": "1 h", "perf": 15, "fob": 160, "c": [["Chipboard, 1.2 sheets", 54, "furniture Chipboard, 1.2 sheets", "https://www.alibaba.com/product-detail/Eco-friendly-18mm-melamine-chipboard-particle_1601367087461.html"], ["Drawer slides ×4 pairs", 12, "furniture Drawer slides", "https://www.alibaba.com/product-detail/Prompt-goods-400mm-500mm-3-fold_62455774014.html"], ["Handles", 4, "furniture Handles", "https://www.alibaba.com/product-detail/Aluminium-Cabinet-Furniture-Hardware-Gold-Black_1600074389065.html"], ["Edge banding", 4, "furniture Edge banding", "https://www.alibaba.com/product-detail/high-quality-pvc-edge-banding-tape_1601282043897.html"], ["Packaging", 5, "furniture Packaging", "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"]]}, {"n": "Children's bed", "st": "new", "ref": null, "mod": "", "mi": [["radius cutters", "furniture radius cutters", "https://www.alibaba.com/showroom/radius-router-bit.html"], ["programs", "furniture programs", ""]], "mp": 300, "ch": "1 h", "perf": 10, "fob": 200, "c": [["Chipboard and MDF", 70, "furniture Chipboard and MDF", "https://www.alibaba.com/product-detail/Eco-friendly-18mm-melamine-chipboard-particle_1601367087461.html"], ["Fasteners", 8, "furniture Fasteners", "https://www.alibaba.com/product-detail/15-9-5mm-Minifix-Furniture-Connector_1600763347085.html"], ["Edge banding", 5, "furniture Edge banding", "https://www.alibaba.com/product-detail/high-quality-pvc-edge-banding-tape_1601282043897.html"], ["Packaging", 6, "furniture Packaging", "https://www.alibaba.com/showroom/flat-pack-packaging-boxes.html"]]}]}, {"id": "jewelry", "topics": ["jewelry"], "name": "Jewelry", "core": ["vacuum casting machine", "burnout furnace", "polishing machine", "laser welder", "ultrasonic cleaner"], "rows": [{"n": "Catalog template items", "st": "cat", "ref": ["jewelry", null], "mod": "", "mi": [["rubber molds and wax patterns", "jewelry rubber molds and wax patterns", "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"]], "mp": 300, "ch": "1 h", "perf": 0, "fob": 0, "c": []}, {"n": "Rings, 925 silver", "st": "new", "ref": null, "mod": "", "mi": [["molds and wax patterns for the size range", "jewelry molds and wax patterns for the size range", "https://www.alibaba.com/showroom/jewelry-wax-models.html"]], "mp": 300, "ch": "1 h", "perf": 25, "fob": 25, "c": [["925 silver, 4 g", 4, "jewelry 925 silver, 4 g", "https://www.alibaba.com/showroom/casting-grain-silver.html"], ["CZ stone", 0.3, "jewelry CZ stone", "https://www.alibaba.com/showroom/aaaaa-cz-stone.html"], ["Packaging", 0.5, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}, {"n": "Earrings, 925 silver", "st": "new", "ref": null, "mod": "", "mi": [["molds", "jewelry molds", "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"], ["clasp tool", "jewelry clasp tool", "https://www.alibaba.com/showroom/earring-set-tool-kit.html"]], "mp": 250, "ch": "1 h", "perf": 30, "fob": 22, "c": [["925 silver, 3 g", 3, "jewelry 925 silver, 3 g", "https://www.alibaba.com/showroom/casting-grain-silver.html"], ["Clasps", 0.6, "jewelry Clasps", "https://www.alibaba.com/product-detail/S925-Sterling-Silver-Ear-Hook-Earrings_1601460913612.html"], ["Stones", 0.5, "jewelry Stones", "https://www.alibaba.com/showroom/aaaaa-cz-stone.html"], ["Packaging", 0.5, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}, {"n": "Pendants, 925 silver", "st": "new", "ref": null, "mod": "", "mi": [["molds", "jewelry molds", "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"]], "mp": 200, "ch": "30 min", "perf": 40, "fob": 18, "c": [["925 silver, 2.5 g", 2.5, "jewelry 925 silver, 2.5 g", "https://www.alibaba.com/showroom/casting-grain-silver.html"], ["Bail", 0.2, "jewelry Bail", "https://www.alibaba.com/product-detail/S925-Sterling-Silver-23mm-Pinch-Bail_1601385354302.html"], ["Stone", 0.4, "jewelry Stone", "https://www.alibaba.com/showroom/aaaaa-cz-stone.html"], ["Packaging", 0.5, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}, {"n": "Wedding bands, 14K gold", "st": "new", "ref": null, "mod": "", "mi": [["molds", "jewelry molds", "https://www.alibaba.com/showroom/jewelry-rubber-mold.html"], ["engraving templates", "jewelry engraving templates", "https://www.alibaba.com/showroom/manual-ring-engraving-machine.html"]], "mp": 500, "ch": "1 h", "perf": 15, "fob": 320, "c": [["14K gold, 3 g", 165, "jewelry 14K gold, 3 g", "https://www.alibaba.com/showroom/gold-casting-grain.html"], ["Packaging", 3, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}, {"n": "Chains", "st": "not", "ref": null, "mod": "not a module: needs a chain-making machine, about $4,000", "mi": [], "mp": 0, "ch": "—", "perf": 20, "fob": 30, "c": [["925 silver, 5 g", 5, "jewelry 925 silver, 5 g", ""], ["Clasp", 0.4, "jewelry Clasp", "https://www.alibaba.com/showroom/colored-lobster-clasps.html"], ["Packaging", 0.5, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}]}, {"id": "costume", "topics": ["costume"], "name": "Costume jewelry", "core": ["alloy casting", "tumbler", "plating line", "assembly tables"], "rows": [{"n": "Catalog template items", "st": "cat", "ref": ["costume", null], "mod": "", "mi": [["silicone molds", "jewelry silicone molds", "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"]], "mp": 150, "ch": "30 min", "perf": 0, "fob": 0, "c": []}, {"n": "Bracelets", "st": "new", "ref": null, "mod": "", "mi": [["link molds", "jewelry link molds", "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"], ["mandrels", "jewelry mandrels", "https://www.alibaba.com/product-detail/Bracelet-Mandrel-Oval-Shape-Set-of_1600180667200.html"]], "mp": 200, "ch": "30 min", "perf": 300, "fob": 4, "c": [["Links", 0.3, "jewelry Links", "https://www.alibaba.com/showroom/stainless-steel-cuban-link.html"], ["Clasp", 0.08, "jewelry Clasp", "https://www.alibaba.com/showroom/colored-lobster-clasps.html"], ["Plating", 0.12, "jewelry Plating", "https://www.alibaba.com/showroom/jewelry-small-plating-machine.html"], ["Packaging", 0.1, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}, {"n": "Keychains", "st": "new", "ref": null, "mod": "", "mi": [["molds", "jewelry molds", "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"], ["split rings", "jewelry split rings", "https://www.alibaba.com/showroom/split-ring-25mm.html"]], "mp": 150, "ch": "30 min", "perf": 400, "fob": 2.5, "c": [["Alloy", 0.2, "jewelry Alloy", "https://www.alibaba.com/showroom/zinc-zamak-3.html"], ["Enamel", 0.08, "jewelry Enamel", "https://www.alibaba.com/countrysearch/CN/paints-enamel.html"], ["Ring", 0.04, "jewelry Ring", "https://www.alibaba.com/showroom/split-ring-25mm.html"], ["Packaging", 0.05, "jewelry Packaging", "https://www.alibaba.com/showroom/ring-boxes.html"]]}, {"n": "Pins", "st": "new", "ref": null, "mod": "", "mi": [["molds", "jewelry molds", "https://www.alibaba.com/showroom/silicone-rubber-for-spin-casting.html"], ["enamel dispensers", "jewelry enamel dispensers", "https://www.alibaba.com/showroom/enamel-badge-coloring-machine.html"]], "mp": 400, "ch": "1 h", "perf": 500, "fob": 2, "c": [["Alloy", 0.12, "jewelry Alloy", "https://www.alibaba.com/showroom/zinc-zamak-3.html"], ["Enamel", 0.06, "jewelry Enamel", "https://www.alibaba.com/countrysearch/CN/paints-enamel.html"], ["Pin with clutch", 0.05, "jewelry Pin with clutch", "https://www.alibaba.com/product-detail/Badge-clutch-pin-backings-set-pvc_60812749693.html"], ["Packaging", 0.05, "jewelry Packaging", "https://www.alibaba.com/product-detail/Enamel_Pin_Backing_Cards_Custom_Pin_Badge_Custom_Metal_Brooch_Pins_60817323182.html"]]}]}, {"id": "cnc", "topics": ["cnc"], "name": "Desktop CNC machines", "core": ["assembly area", "router for own parts", "laser machine", "run-in stand"], "rows": [{"n": "CNC router (catalog template)", "st": "cat", "ref": ["cnc", null], "mod": "", "mi": [["frame assembly jig", "CNC frame assembly jig", ""], ["run-in programs", "CNC run-in programs", ""]], "mp": 500, "ch": "1 shift", "perf": 0, "fob": 0, "c": []}, {"n": "20 W laser engraver", "st": "new", "ref": null, "mod": "", "mi": [["gantry jig", "CNC gantry jig", ""], ["alignment stand", "CNC alignment stand", ""]], "mp": 300, "ch": "4 h", "perf": 6, "fob": 280, "c": [["Aluminum extrusion", 25, "CNC Aluminum extrusion", "https://www.alibaba.com/product-detail/2020-3030-4040-4080-Industrial-Extruded_1600615046597.html"], ["Laser module", 60, "CNC Laser module", "https://www.alibaba.com/product-detail/LASER-TREE-K20-20W-Optical-Power_1601048872707.html"], ["Stepper motors ×2", 20, "CNC Stepper motors", "https://www.alibaba.com/product-detail/17HS15-1704S-Casun-DC-24V-1_1600087867109.html"], ["Controller", 15, "CNC Controller", "https://www.alibaba.com/product-detail/New-32-bits-GRBL-Control-Board_1600464729169.html"], ["Power supply", 10, "CNC Power supply", "https://www.alibaba.com/product-detail/S-120-24-switching-power-supply_60022969819.html"], ["Belts and pulleys", 8, "CNC Belts and pulleys", "https://www.alibaba.com/product-detail/GT2-Timing-Belt-Tensioner-Idler-Pulley_1600598774689.html"]]}, {"n": "3D printer", "st": "new", "ref": null, "mod": "", "mi": [["frame jig", "CNC frame jig", ""], ["calibration stand", "CNC calibration stand", ""]], "mp": 400, "ch": "4 h", "perf": 6, "fob": 250, "c": [["Frame", 30, "CNC Frame", "https://www.alibaba.com/product-detail/3D-Printer-Frame-Kit-20x20-20x40_60567369181.html"], ["Extruder with hotend", 18, "CNC Extruder with hotend", "https://www.alibaba.com/product-detail/Trianglelab-DDE-V2-Orbiter-2-0_1600640457359.html"], ["Heated bed", 15, "CNC Heated bed", "https://www.alibaba.com/product-detail/24v-235-235mm-250-250mm-flexible_62020704310.html"], ["Stepper motors ×4", 28, "CNC Stepper motors", "https://www.alibaba.com/product-detail/17HS15-1704S-Casun-DC-24V-1_1600087867109.html"], ["Control board", 15, "CNC Control board", "https://www.alibaba.com/product-detail/Mellow-5-Axis-FLY-D5-V1-1601209356629.html"], ["Display", 8, "CNC Display", "https://www.alibaba.com/product-detail/Ender-3-12864-LCD-Screen-Display-1600582380469.html"], ["Power supply", 12, "CNC Power supply", "https://www.alibaba.com/product-detail/S-120-24-switching-power-supply_60022969819.html"]]}, {"n": "Cutting plotter", "st": "new", "ref": null, "mod": "", "mi": [["assembly jig", "CNC assembly jig", ""]], "mp": 250, "ch": "4 h", "perf": 8, "fob": 160, "c": [["Housing", 20, "CNC Housing", ""], ["Blade carriage", 10, "CNC Blade carriage", "https://www.alibaba.com/product-detail/Roland-Graphtec-printer-cutting-plotter-blade_1600069173085.html"], ["Stepper motors ×2", 14, "CNC Stepper motors", "https://www.alibaba.com/product-detail/17HS15-1704S-Casun-DC-24V-1_1600087867109.html"], ["Control board", 12, "CNC Control board", "https://www.alibaba.com/product-detail/Mellow-5-Axis-FLY-D5-V1-1601209356629.html"], ["Pinch rollers", 8, "CNC Pinch rollers", "https://www.alibaba.com/product-detail/10PCS-Rubber-Plotter-Pinch-Roller-Wheel_62488557673.html"], ["Power supply", 6, "CNC Power supply", "https://www.alibaba.com/product-detail/S-120-24-switching-power-supply_60022969819.html"]]}]}, {"id": "instruments", "topics": ["instruments"], "name": "Measuring instruments", "core": ["ESD assembly", "soldering stations", "calibration stand", "programmer"], "rows": [{"n": "Catalog template instrument", "st": "cat", "ref": ["instruments", null], "mod": "", "mi": [["nests", "nests", ""], ["calibrator", "calibrator", "https://www.alibaba.com/product-detail/TUNKIA-AC-DC-Digital-Multimeter-Tester_1600938968981.html"]], "mp": 800, "ch": "2 h", "perf": 0, "fob": 0, "c": []}, {"n": "Multimeter", "st": "new", "ref": null, "mod": "", "mi": [["nests", "nests", ""], ["calibrator", "calibrator", "https://www.alibaba.com/product-detail/TUNKIA-AC-DC-Digital-Multimeter-Tester_1600938968981.html"]], "mp": 800, "ch": "2 h", "perf": 80, "fob": 15, "c": [["Board", 3, "Board", "https://www.alibaba.com/showroom/pcb-for-digital-multimeter.html"], ["Display", 1, "Display", "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"], ["Housing", 1.5, "Housing", "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"], ["Test leads", 0.8, "Test leads", "https://www.alibaba.com/product-detail/Silicone-Multimeter-Test-Leads-Kit-Precision_1600106359821.html"], ["Rotary switch", 0.5, "Rotary switch", "https://www.alibaba.com/showroom/multi-position-switch.html"], ["Box", 0.4, "Box", "https://www.alibaba.com/showroom/electronic-packaging-box.html"]]}, {"n": "Infrared thermometer", "st": "new", "ref": null, "mod": "", "mi": [["reference blackbody for calibration", "reference blackbody for calibration", "https://www.alibaba.com/product-detail/CEM-BX-500-500C-932F-Portable_1600744178941.html"]], "mp": 1200, "ch": "2 h", "perf": 60, "fob": 18, "c": [["IR sensor", 2.5, "IR sensor", "https://www.alibaba.com/product-detail/Hot-Sell-Non-contact-Infrared-Temperature_1600053417361.html"], ["Board", 2, "Board", "https://www.alibaba.com/showroom/electronic-meter-pcb-assembly.html"], ["Display", 0.8, "Display", "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"], ["Laser pointer", 0.3, "Laser pointer", "https://www.alibaba.com/product-detail/Red-Dot-Focusable-3v-Laser-Diode_1600398163875.html"], ["Housing", 1.2, "Housing", "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"], ["Box", 0.4, "Box", "https://www.alibaba.com/showroom/electronic-packaging-box.html"]]}, {"n": "Laser distance meter", "st": "new", "ref": null, "mod": "", "mi": [["optical alignment stand", "optical alignment stand", ""]], "mp": 1500, "ch": "3 h", "perf": 40, "fob": 30, "c": [["Laser module", 6, "Laser module", "https://www.alibaba.com/product-detail/Automatic-Laser-Distance-Sensor-Modbus-40m_1601200375895.html"], ["Board", 3, "Board", "https://www.alibaba.com/showroom/electronic-meter-pcb-assembly.html"], ["Display", 1, "Display", "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"], ["Housing", 2, "Housing", "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"], ["Box", 0.5, "Box", "https://www.alibaba.com/showroom/electronic-packaging-box.html"]]}, {"n": "CO₂ monitor", "st": "new", "ref": null, "mod": "", "mi": [["gas calibration chamber", "gas calibration chamber", ""]], "mp": 1000, "ch": "2 h", "perf": 40, "fob": 45, "c": [["NDIR sensor", 12, "NDIR sensor", "https://www.alibaba.com/product-detail/MH-Z19-MH-Z19B-NDIR-Infrared_60664884475.html"], ["Board", 3, "Board", "https://www.alibaba.com/showroom/electronic-meter-pcb-assembly.html"], ["Display", 2, "Display", "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html"], ["Housing", 2, "Housing", "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html"], ["Box", 0.5, "Box", "https://www.alibaba.com/showroom/electronic-packaging-box.html"]]}, {"n": "Digital caliper", "st": "not", "ref": null, "mod": "not a module: needs machining and scale grinding", "mi": [], "mp": 0, "ch": "—", "perf": 0, "fob": 12, "c": [["Steel beam with slider", 4, "Steel beam with slider", ""], ["Electronic unit", 1.5, "Electronic unit", ""], ["Case", 0.8, "Case", ""]]}]}];
+                                                        const MODULE_LINES = [];
                                                         window.openSupplierSearch = function (query, url) {
                                                             if (url) { window.open(url, '_blank'); return; }
                                                             const w = window.open('', '_blank');
@@ -1567,7 +1567,7 @@ Thank you!
                                                             const openD = new Set([...box.querySelectorAll('details[open]')].map(d => d.dataset.d));
                                                             const st = modStore();
                                                             const topicKey = findCatalogKeyByTitle(currentTopicTitle);
-                                                            const L = MODULE_LINES.find(l => l.topics.includes(topicKey));
+                                                            const L = null;
                                                             if (!L) { box.innerHTML = '<p>No modules have been selected for this topic yet.</p>'; return; }
                                                             const loc = 'en-US';
                                                             const freightPct = parseFloat(document.getElementById('freight-input')?.value) || 0;
@@ -1810,427 +1810,159 @@ Thank you!
 
                                                         const catalogDB = {
                                                             'drone': {
-                                                                title: "Drones & Radioelectronics", eq: '25000', mkt: '423', perf: '20', staff: '2', q: 'Compact ESD Drone Assembly Line',
-                                                                c: [
-                                                                    ['Carbon fiber frame kit 10" (T700 Carbon Kit)', 1, 26.0, 'https://www.alibaba.com/trade/search?SearchText=Carbon%20fiber%20frame%20kit%2010%22'],
-                                                                    ['Stack: Flight Controller F7 + ESC 60A', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=Flight%20Controller%20F7%20%2B%20ESC%2060A'],
-                                                                    ['Brushless motors 2807 1300KV (4 pcs)', 1, 55.0, 'https://www.alibaba.com/trade/search?SearchText=Brushless%20motors%202807%201300KV'],
-                                                                    ['VTX 5.8GHz + FPV Camera', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=VTX%205.8GHz%20%2B%20FPV%20Camera'],
-                                                                    ['LiPo Battery 6S 5000mAh 100C', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=LiPo%20Battery%206S%205000mAh%20100C']
-                                                                ],
-                                                                exp: [
-                                                                    ['Workshop rent 50 sq.m', 1, 30.0, ''],
-                                                                    ['Soldering station & toolset (per 1 worker)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Soldering%20station%20%26%20toolset'],
-                                                                    ['Process consumables: solder, flux, bits (per 1 worker)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=solder'],
-                                                                    ['Logistics and facility utilities', 1, 15.0, '']
-                                                                ]
+                                                                title: "Drones & Radioelectronics", eq: '', mkt: '', perf: '', staff: '', q: 'Compact ESD Drone Assembly Line',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'phone': {
-                                                                title: "Smartphones & Mobile Phones", eq: '6000', mkt: '150', perf: '250', staff: '3', q: 'Smartphone Assembly Line',
-                                                                c: [
-                                                                    ['Display module 6.5" FHD+ with touchscreen', 1, 18.0, 'https://www.alibaba.com/trade/search?SearchText=Display%20module%206.5%22%20FHD%2B%20with%20touchscreen'],
-                                                                    ['SoC Motherboard (Helio G99 / 8GB / 128GB)', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=SoC%20Motherboard'],
-                                                                    ['Camera module set (Main 50MP + Front 8MP)', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Camera%20module%20set'],
-                                                                    ['Li-Polymer Battery 5000 mAh', 1, 6.0, 'https://www.alibaba.com/trade/search?SearchText=Li-Polymer%20Battery%205000%20mAh'],
-                                                                    ['Middle chassis, back cover, buttons, SIM tray', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Middle%20chassis'],
-                                                                    ['Speakers, vibration motor, sub-board Type-C, antennas', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Speakers'],
-                                                                    ['Charger 18W Type-C + cable + retail box', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Charger%2018W%20Type-C%20%2B%20cable%20%2B%20retail%20box']
-                                                                ],
-                                                                exp: [
-                                                                    ['Assembly box rent 40 sq.m', 1, 25.0, ''],
-                                                                    ['Pneumatic press & electric torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Pneumatic%20press%20%26%20electric%20torque%20drivers'],
-                                                                    ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=thermal%20tape'],
-                                                                    ['Logistics & components delivery', 1, 15.0, '']
-                                                                ],
+                                                                title: "Smartphones & Mobile Phones", eq: '', mkt: '', perf: '', staff: '', q: 'Smartphone Assembly Line',
+                                                                c: [],
+                                                                exp: [],
                                                                 // PRODUCT CLASSES: class fields override the topic fields. The topic fields above stay
                                                                 // for older records without class_key. Prices are starting estimates for manual refinement.
                                                                 defaultClass: 'budget',
                                                                 classes: {
                                                                     'budget': {
                                                                         label: '📱 Budget (Unisoc/Helio G, 4/64 GB, IPS, plastic)',
-                                                                        eq: '6000', mkt: '85', perf: '250', staff: '3', q: 'Budget Smartphone Assembly Line',
-                                                                        c: [
-                                                                            ['Display module 6.5" HD+ IPS with touchscreen', 1, 9.0, ''],
-                                                                            ['SoC Motherboard (Unisoc T606 / 4GB / 64GB)', 1, 22.0, ''],
-                                                                            ['Camera module set (Main 13MP + Front 5MP)', 1, 4.0, ''],
-                                                                            ['Li-Polymer Battery 5000 mAh', 1, 5.0, ''],
-                                                                            ['Plastic housing, buttons, SIM tray', 1, 3.0, ''],
-                                                                            ['Speaker, vibration motor, Type-C sub-board, antennas', 1, 2.5, ''],
-                                                                            ['Charger 10W + cable + retail box', 1, 2.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Assembly box rent 40 sq.m', 1, 25.0, ''],
-                                                                            ['Pneumatic press & electric torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=electric%20screwdriver%20pneumatic%20press'],
-                                                                            ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=thermal%20tape%20adhesive'],
-                                                                            ['Logistics & components delivery', 1, 15.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Budget Smartphone Assembly Line',
+                                                                        c: [],
+                                                                        exp: []
                                                                     },
                                                                     'mid': {
                                                                         label: '📱 Mid-range (Dimensity/Snapdragon 7, 8/256 GB, AMOLED, metal)',
-                                                                        eq: '9000', mkt: '240', perf: '150', staff: '3', q: 'Mid-range Smartphone Assembly Line',
-                                                                        c: [
-                                                                            ['AMOLED display module 6.7" FHD+ 120Hz', 1, 28.0, ''],
-                                                                            ['SoC Motherboard (Dimensity 7050 / 8GB / 256GB)', 1, 85.0, ''],
-                                                                            ['Camera module set (50MP OIS + 8MP ultrawide + 16MP front)', 1, 18.0, ''],
-                                                                            ['Li-Polymer Battery 5000 mAh', 1, 6.0, ''],
-                                                                            ['Metal frame, glass back panel, buttons', 1, 12.0, ''],
-                                                                            ['Stereo speakers, vibration motor, Type-C sub-board, NFC, antennas', 1, 6.0, ''],
-                                                                            ['Charger 67W + cable + retail box', 1, 6.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Assembly box rent 40 sq.m', 1, 25.0, ''],
-                                                                            ['Pneumatic press & electric torque drivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=electric%20screwdriver%20pneumatic%20press'],
-                                                                            ['Consumables: thermal tape, adhesives, wipes', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=thermal%20tape%20adhesive'],
-                                                                            ['Logistics & components delivery', 1, 15.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Mid-range Smartphone Assembly Line',
+                                                                        c: [],
+                                                                        exp: []
                                                                     }
                                                                 }
                                                             },
                                                             'tablet': {
-                                                                title: "Tablets & Mobile PCs", eq: '18000', mkt: '150', perf: '35', staff: '2', q: 'Desktop Tablet Assembly Complex',
-                                                                c: [
-                                                                    ['Display assembly (IPS/OLED 10.1")', 1, 35.0, 'https://www.alibaba.com/trade/search?SearchText=Display%20assembly'],
-                                                                    ['SoC Motherboard (ARM)', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=SoC%20Motherboard'],
-                                                                    ['Li-Polymer battery 6000mAh', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=Li-Polymer%20battery%206000mAh'],
-                                                                    ['Ultra-thin chassis & flex cables', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Ultra-thin%20chassis%20%26%20flex%20cables'],
-                                                                    ['Packaging retail box + adapter', 1, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Packaging%20retail%20box%20%2B%20adapter']
-                                                                ],
-                                                                exp: [
-                                                                    ['Clean area rent 40 sq.m', 1, 25.0, ''],
-                                                                    ['Vacuum tooling and screwdriver toolkit (per worker)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Vacuum%20tooling%20and%20screwdriver%20toolkit'],
-                                                                    ['Consumables: thermal tape, cleaners, wipes', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=thermal%20tape'],
-                                                                    ['Batch logistics & delivery', 1, 12.0, '']
-                                                                ]
+                                                                title: "Tablets & Mobile PCs", eq: '', mkt: '', perf: '', staff: '', q: 'Desktop Tablet Assembly Complex',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'tv': {
-                                                                title: "TVs & Displays", eq: '35000', mkt: '550', perf: '20', staff: '3', q: 'Smart TV Display Panel Assembly Line',
-                                                                c: [
-                                                                    ['LCD / OLED Matrix Display panel 55"', 1, 140.0, 'https://www.alibaba.com/trade/search?SearchText=LCD%20%2F%20OLED%20Matrix%20Display%20panel%2055%22'],
-                                                                    ['Smart TV Motherboard', 1, 45.0, 'https://www.alibaba.com/trade/search?SearchText=Smart%20TV%20Motherboard'],
-                                                                    ['Inverter power supply unit', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=Inverter%20power%20supply%20unit'],
-                                                                    ['LED Backlight arrays', 1, 15.0, 'https://www.alibaba.com/trade/search?SearchText=LED%20Backlight%20arrays'],
-                                                                    ['Housing chassis & stereo speakers', 1, 28.0, 'https://www.alibaba.com/trade/search?SearchText=Housing%20chassis%20%26%20stereo%20speakers']
-                                                                ],
-                                                                exp: [
-                                                                    ['Assembly workshop rent 60 sq.m', 1, 35.0, ''],
-                                                                    ['Tooling: vacuum suction lifters, power screwdrivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifters'],
-                                                                    ['Consumables: insulation, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=insulation'],
-                                                                    ['Large-screen logistics & freight', 1, 18.0, '']
-                                                                ],
+                                                                title: "TVs & Displays", eq: '', mkt: '', perf: '', staff: '', q: 'Smart TV Display Panel Assembly Line',
+                                                                c: [],
+                                                                exp: [],
                                                                 // PRODUCT CLASSES: class fields override the topic fields. The topic fields above stay
                                                                 // for older records without class_key. Prices are starting estimates for manual refinement.
                                                                 defaultClass: 'small',
                                                                 classes: {
                                                                     'small': {
                                                                         label: '📺 32–43" (HD/FHD, basic Smart board)',
-                                                                        eq: '25000', mkt: '180', perf: '40', staff: '3', q: '32–43" TV Assembly Line',
-                                                                        c: [
-                                                                            ['LCD panel 43" FHD (open cell)', 1, 55.0, ''],
-                                                                            ['Smart TV board (Android TV, 1.5/8 GB)', 1, 15.0, ''],
-                                                                            ['Power supply unit', 1, 8.0, ''],
-                                                                            ['LED backlight arrays', 1, 6.0, ''],
-                                                                            ['Plastic housing, stand, speakers', 1, 12.0, ''],
-                                                                            ['Remote control and packaging', 1, 4.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Assembly workshop rent 60 sq.m', 1, 35.0, ''],
-                                                                            ['Tooling: vacuum suction lifters, power screwdrivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifter%20screwdriver'],
-                                                                            ['Consumables: insulation, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=insulation%20tape%20fasteners'],
-                                                                            ['Large-screen logistics & freight', 1, 18.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: '32–43" TV Assembly Line',
+                                                                        c: [],
+                                                                        exp: []
                                                                     },
                                                                     'large': {
                                                                         label: '📺 55–65" (4K, powerful Smart board)',
-                                                                        eq: '35000', mkt: '550', perf: '20', staff: '3', q: '55–65" 4K TV Assembly Line',
-                                                                        c: [
-                                                                            ['LCD panel 65" 4K UHD (open cell)', 1, 190.0, ''],
-                                                                            ['4K Smart TV board (2/16 GB, HDR)', 1, 30.0, ''],
-                                                                            ['Inverter power supply unit', 1, 18.0, ''],
-                                                                            ['LED backlight arrays', 1, 15.0, ''],
-                                                                            ['Housing with metal frame & stereo speakers', 1, 28.0, ''],
-                                                                            ['Remote control and packaging', 1, 8.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Assembly workshop rent 60 sq.m', 1, 35.0, ''],
-                                                                            ['Tooling: vacuum suction lifters, power screwdrivers (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=vacuum%20suction%20lifter%20screwdriver'],
-                                                                            ['Consumables: insulation, fasteners, stickers', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=insulation%20tape%20fasteners'],
-                                                                            ['Large-screen logistics & freight', 1, 18.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: '55–65" 4K TV Assembly Line',
+                                                                        c: [],
+                                                                        exp: []
                                                                     }
                                                                 }
                                                             },
                                                             'pc': {
-                                                                title: "Telecom & Laptops", eq: '20000', mkt: '380', perf: '20', staff: '2', q: 'SKD Laptop Assembly Line',
-                                                                c: [
-                                                                    ['Barebone Chassis 15.6" (case, keyboard, battery 5000mAh)', 1, 85.0, 'https://www.alibaba.com/trade/search?SearchText=Barebone%20Chassis%2015.6%22'],
-                                                                    ['IPS Display Panel 15.6" FHD (1920x1080)', 1, 32.0, 'https://www.alibaba.com/trade/search?SearchText=IPS%20Display%20Panel%2015.6%22%20FHD'],
-                                                                    ['Intel SoC Motherboard + cooling system', 1, 68.0, 'https://www.alibaba.com/trade/search?SearchText=Intel%20SoC%20Motherboard%20%2B%20cooling%20system'],
-                                                                    ['RAM SO-DIMM 16GB DDR4/DDR5', 1, 22.0, 'https://www.alibaba.com/trade/search?SearchText=RAM%20SO-DIMM%2016GB%20DDR4%2FDDR5'],
-                                                                    ['Storage M.2 NVMe SSD 512GB', 1, 18.0, 'https://www.alibaba.com/trade/search?SearchText=Storage%20M.2%20NVMe%20SSD%20512GB'],
-                                                                    ['65W Type-C Adapter + Wi-Fi 6 module + box', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=65W%20Type-C%20Adapter%20%2B%20Wi-Fi%206%20module%20%2B%20box']
-                                                                ],
-                                                                exp: [
-                                                                    ['Assembly workshop rent 40 sq.m', 1, 25.0, ''],
-                                                                    ['BIOS programming station & torque drivers (per worker)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=BIOS%20programming%20station%20%26%20torque%20drivers'],
-                                                                    ['Thermal paste, protective film, cleaners', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Thermal%20paste'],
-                                                                    ['Batch shipping & logistics', 1, 15.0, '']
-                                                                ]
+                                                                title: "Telecom & Laptops", eq: '', mkt: '', perf: '', staff: '', q: 'SKD Laptop Assembly Line',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'furniture': {
-                                                                title: "Furniture Woodworking", eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Compact CNC Furniture Nesting Center',
-                                                                c: [
-                                                                    ['Laminated MDF / Chipboard (4 sq.m)', 4, 15.0, 'https://www.alibaba.com/trade/search?SearchText=Laminated%20MDF%20%2F%20Chipboard'],
-                                                                    ['PVC Edge banding tape 2mm', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=PVC%20Edge%20banding%20tape%202mm'],
-                                                                    ['Furniture hardware & hinges', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Furniture%20hardware%20%26%20hinges'],
-                                                                    ['Mirror / Facade panel', 1, 22.0, 'https://www.alibaba.com/trade/search?SearchText=Mirror%20%2F%20Facade%20panel'],
-                                                                    ['Corrugated cardboard packaging', 1, 6.0, 'https://www.alibaba.com/trade/search?SearchText=Corrugated%20cardboard%20packaging']
-                                                                ],
-                                                                exp: [
-                                                                    ['Workshop rent with dust extraction 80 sq.m', 1, 35.0, ''],
-                                                                    ['Carbide end mills and ISO30 collets (per worker)', 2, 6.0, 'https://www.alibaba.com/trade/search?SearchText=Carbide%20end%20mills%20and%20ISO30%20collets'],
-                                                                    ['Rail lubricant, dust filter bags, air filters', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Rail%20lubricant'],
-                                                                    ['380V Power supply and waste disposal', 1, 18.0, '']
-                                                                ],
+                                                                title: "Furniture Woodworking", eq: '', mkt: '', perf: '', staff: '', q: 'Compact CNC Furniture Nesting Center',
+                                                                c: [],
+                                                                exp: [],
                                                                 // PRODUCT CLASSES: class fields override the topic fields. The topic fields above stay
                                                                 // for older records without class_key. Prices are starting estimates for manual refinement.
                                                                 defaultClass: 'panel',
                                                                 classes: {
                                                                     'panel': {
                                                                         label: '🛋️ Panel furniture (chipboard/MDF, CNC nesting)',
-                                                                        eq: '28000', mkt: '280', perf: '15', staff: '2', q: 'Compact CNC Furniture Nesting Center',
-                                                                        c: [
-                                                                            ['Laminated MDF / Chipboard (4 sq.m)', 4, 15.0, ''],
-                                                                            ['PVC Edge banding tape 2mm', 1, 5.0, ''],
-                                                                            ['Furniture hardware & hinges', 1, 8.0, ''],
-                                                                            ['Mirror / Facade panel', 1, 22.0, ''],
-                                                                            ['Corrugated cardboard packaging', 1, 6.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Workshop rent with dust extraction 80 sq.m', 1, 35.0, ''],
-                                                                            ['Carbide end mills and ISO30 collets (per worker)', 2, 6.0, 'https://www.alibaba.com/trade/search?SearchText=carbide%20end%20mill%20ISO30%20collet'],
-                                                                            ['Rail lubricant, dust filter bags, air filters', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=linear%20rail%20lubricant%20dust%20bag'],
-                                                                            ['380V Power supply and waste disposal', 1, 18.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Compact CNC Furniture Nesting Center',
+                                                                        c: [],
+                                                                        exp: []
                                                                     },
                                                                     'solid': {
                                                                         label: '🪵 Solid wood (milling, sanding, finishing)',
-                                                                        eq: '45000', mkt: '650', perf: '6', staff: '3', q: 'Solid Wood Furniture Workshop',
-                                                                        c: [
-                                                                            ['Oak/beech furniture panel (0.12 cu.m)', 1, 110.0, ''],
-                                                                            ['Hardware and fasteners', 1, 15.0, ''],
-                                                                            ['Lacquer / finishing oil', 1, 12.0, ''],
-                                                                            ['Sanding materials', 1, 5.0, ''],
-                                                                            ['Packaging: cardboard, corners, stretch film', 1, 10.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Workshop rent with dust extraction & drying room 120 sq.m', 1, 50.0, ''],
-                                                                            ['Router bits, saw blades, planer knives (per worker)', 3, 6.0, 'https://www.alibaba.com/trade/search?SearchText=wood%20router%20bits%20saw%20blades%20planer%20knives'],
-                                                                            ['Sanding belts, dust filters (per worker)', 3, 2.5, 'https://www.alibaba.com/trade/search?SearchText=sanding%20belts%20dust%20filter'],
-                                                                            ['380V Power supply and waste disposal', 1, 25.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Solid Wood Furniture Workshop',
+                                                                        c: [],
+                                                                        exp: []
                                                                     }
                                                                 }
                                                             },
                                                             'clothes': {
-                                                                title: "Apparel Sewing", eq: '18000', mkt: '65', perf: '45', staff: '2', q: 'CNC Cutting & Sewing Mini-Shop',
-                                                                c: [
-                                                                    ['Textile / 3-thread fleece (1.8 m)', 1.8, 12.0, 'https://www.alibaba.com/trade/search?SearchText=Textile%20%2F%203-thread%20fleece'],
-                                                                    ['Soft lining / rib knit', 1.2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=Soft%20lining%20%2F%20rib%20knit'],
-                                                                    ['Threads and accessories (zippers, cords)', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Threads%20and%20accessories'],
-                                                                    ['Packaging and brand tags', 1, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Packaging%20and%20brand%20tags']
-                                                                ],
-                                                                exp: [
-                                                                    ['Sewing workshop rent 50 sq.m', 1, 30.0, ''],
-                                                                    ['CNC cutting plotter replacement blades', 2, 3.0, 'https://www.alibaba.com/trade/search?SearchText=CNC%20cutting%20plotter%20replacement%20blades'],
-                                                                    ['Machine needles, oil, presser feet', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Machine%20needles'],
-                                                                    ['Fabric delivery and scrap removal logistics', 1, 14.0, '']
-                                                                ],
+                                                                title: "Apparel Sewing", eq: '', mkt: '', perf: '', staff: '', q: 'CNC Cutting & Sewing Mini-Shop',
+                                                                c: [],
+                                                                exp: [],
                                                                 // PRODUCT CLASSES: class fields override the topic fields. The topic fields above stay
                                                                 // for older records without class_key. Prices are starting estimates for manual refinement.
                                                                 defaultClass: 'knit',
                                                                 classes: {
                                                                     'knit': {
                                                                         label: '👕 Knitwear (T-shirts, hoodies)',
-                                                                        eq: '18000', mkt: '35', perf: '120', staff: '3', q: 'Knitwear Sewing Mini-Shop',
-                                                                        c: [
-                                                                            ['Jersey / fleece knit fabric (1.2 m)', 1.2, 4.0, ''],
-                                                                            ['Rib knit for collar and cuffs (0.2 m)', 0.2, 3.0, ''],
-                                                                            ['Threads', 1, 0.3, ''],
-                                                                            ['Tags, labels, packaging', 1, 0.6, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Sewing workshop rent 50 sq.m', 1, 30.0, ''],
-                                                                            ['Needles, presser feet, machine oil (per worker)', 3, 1.5, 'https://www.alibaba.com/trade/search?SearchText=sewing%20machine%20needles%20presser%20foot'],
-                                                                            ['Cutting machine replacement blades & sharpening', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=cloth%20cutting%20machine%20blade'],
-                                                                            ['Fabric delivery and scrap removal logistics', 1, 14.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Knitwear Sewing Mini-Shop',
+                                                                        c: [],
+                                                                        exp: []
                                                                     },
                                                                     'outer': {
                                                                         label: '🧥 Outerwear (jackets: membrane, insulation)',
-                                                                        eq: '25000', mkt: '120', perf: '25', staff: '3', q: 'Jacket Sewing Mini-Shop',
-                                                                        c: [
-                                                                            ['Membrane shell fabric (2 m)', 2, 4.5, ''],
-                                                                            ['Lining fabric (1.8 m)', 1.8, 1.5, ''],
-                                                                            ['Synthetic down / Thinsulate insulation (1.5 m)', 1.5, 3.0, ''],
-                                                                            ['Zippers, snaps, drawcords', 1, 4.0, ''],
-                                                                            ['Threads and seam sealing tape', 1, 1.5, ''],
-                                                                            ['Tags, labels, packaging', 1, 1.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Sewing workshop rent 60 sq.m', 1, 35.0, ''],
-                                                                            ['Needles, presser feet, machine oil (per worker)', 3, 2.0, 'https://www.alibaba.com/trade/search?SearchText=sewing%20machine%20needles%20presser%20foot'],
-                                                                            ['Seam sealing press consumables', 1, 4.0, 'https://www.alibaba.com/trade/search?SearchText=seam%20sealing%20tape'],
-                                                                            ['Fabric delivery and scrap removal logistics', 1, 14.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Jacket Sewing Mini-Shop',
+                                                                        c: [],
+                                                                        exp: []
                                                                     }
                                                                 }
                                                             },
                                                             'jewelry': {
-                                                                title: "Fine Jewelry Casting", eq: '12000', mkt: '350', perf: '25', staff: '2', q: 'Desktop Jewelry Casting Complex',
-                                                                c: [
-                                                                    ['Gold/Silver casting granules (10g)', 10, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Gold%2FSilver%20casting%20granules'],
-                                                                    ['Stone inserts (cubic zirconia)', 2, 20.0, 'https://www.alibaba.com/trade/search?SearchText=Stone%20inserts'],
-                                                                    ['Jewelry findings', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Jewelry%20findings'],
-                                                                    ['Investment powder & consumables', 1, 20.0, 'https://www.alibaba.com/trade/search?SearchText=Investment%20powder%20%26%20consumables'],
-                                                                    ['Velvet presentation case', 1, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Velvet%20presentation%20case']
-                                                                ],
-                                                                exp: [
-                                                                    ['Workshop rent with fume exhaust 30 sq.m', 1, 25.0, ''],
-                                                                    ['Graphite crucibles & ceramic flasks (per worker)', 2, 5.0, 'https://www.alibaba.com/trade/search?SearchText=Graphite%20crucibles%20%26%20ceramic%20flasks'],
-                                                                    ['Shielding Argon gas & polishing pastes', 2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=Shielding%20Argon%20gas%20%26%20polishing%20pastes'],
-                                                                    ['Security & precious metals transport', 1, 10.0, '']
-                                                                ]
+                                                                title: "Fine Jewelry Casting", eq: '', mkt: '', perf: '', staff: '', q: 'Desktop Jewelry Casting Complex',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'cnc': {
-                                                                title: "Desktop CNC Machines", eq: '15000', mkt: '1500', perf: '4', staff: '2', q: 'Desktop CNC Modular Assembly Line',
-                                                                c: [
-                                                                    ['Aluminum frame chassis', 1, 300.0, 'https://www.alibaba.com/trade/search?SearchText=Aluminum%20frame%20chassis'],
-                                                                    ['Stepper motors kit', 1, 150.0, 'https://www.alibaba.com/trade/search?SearchText=Stepper%20motors%20kit'],
-                                                                    ['CNC Controller board', 1, 80.0, 'https://www.alibaba.com/trade/search?SearchText=CNC%20Controller%20board'],
-                                                                    ['Spindle and power supply unit', 1, 200.0, 'https://www.alibaba.com/trade/search?SearchText=Spindle%20and%20power%20supply%20unit']
-                                                                ],
-                                                                exp: [
-                                                                    ['Assembly box rent 40 sq.m', 1, 25.0, ''],
-                                                                    ['Alignment tools and hex keys (per worker)', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=Alignment%20tools%20and%20hex%20keys'],
-                                                                    ['Lubricants, M4/M5 hardware, threadlockers', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Lubricants'],
-                                                                    ['Heavy metal bedplate freight', 1, 15.0, '']
-                                                                ]
+                                                                title: "Desktop CNC Machines", eq: '', mkt: '', perf: '', staff: '', q: 'Desktop CNC Modular Assembly Line',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'bakery': {
-                                                                title: "Commercial Bakery Line", eq: '16000', mkt: '1.5', perf: '1200', staff: '2', q: 'Compact Rotary Mini-Bakery',
-                                                                c: [
-                                                                    ['Premium wheat flour (kg)', 0.6, 0.4, 'https://www.alibaba.com/trade/search?SearchText=Premium%20wheat%20flour'],
-                                                                    ['Yeast and additives', 1, 0.05, 'https://www.alibaba.com/trade/search?SearchText=Yeast%20and%20additives'],
-                                                                    ['Packaging bags', 1, 0.08, 'https://www.alibaba.com/trade/search?SearchText=Packaging%20bags']
-                                                                ],
-                                                                exp: [
-                                                                    ['Bakery premises rent 60 sq.m', 1, 35.0, ''],
-                                                                    ['Baking pans and trays (amortization)', 2, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Baking%20pans%20and%20trays'],
-                                                                    ['Detergents, gloves, parchment paper', 2, 2.5, 'https://www.alibaba.com/trade/search?SearchText=Detergents'],
-                                                                    ['Oven electric power and local delivery', 1, 20.0, '']
-                                                                ]
+                                                                title: "Commercial Bakery Line", eq: '', mkt: '', perf: '', staff: '', q: 'Compact Rotary Mini-Bakery',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'watch': {
-                                                                title: "Watch Assembly", eq: '10000', mkt: '450', perf: '30', staff: '2', q: 'Watch Assembly Mini-Line',
-                                                                c: [
-                                                                    ['Case & sapphire glass', 1, 30.0, 'https://www.alibaba.com/trade/search?SearchText=Case%20%26%20sapphire%20glass'],
-                                                                    ['Precision mechanical movement', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=Precision%20mechanical%20movement'],
-                                                                    ['Dial and hands set', 1, 10.0, 'https://www.alibaba.com/trade/search?SearchText=Dial%20and%20hands%20set'],
-                                                                    ['Strap (leather/steel)', 1, 15.0, 'https://www.alibaba.com/trade/search?SearchText=Strap'],
-                                                                    ['Gift presentation box', 1, 8.0, 'https://www.alibaba.com/trade/search?SearchText=Gift%20presentation%20box']
-                                                                ],
-                                                                exp: [
-                                                                    ['Clean dust-free room rent 30 sq.m', 1, 25.0, ''],
-                                                                    ['Precision watchmaker toolkit (per master)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Precision%20watchmaker%20toolkit'],
-                                                                    ['Watch oils (Moebius), dust blowers', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Watch%20oils'],
-                                                                    ['Insurance and courier delivery', 1, 10.0, '']
-                                                                ],
+                                                                title: "Watch Assembly", eq: '', mkt: '', perf: '', staff: '', q: 'Watch Assembly Mini-Line',
+                                                                c: [],
+                                                                exp: [],
                                                                 // PRODUCT CLASSES: class fields override the topic fields. The topic fields above stay
                                                                 // for older records without class_key. Prices are starting estimates for manual refinement.
                                                                 defaultClass: 'quartz',
                                                                 classes: {
                                                                     'quartz': {
                                                                         label: '⏱ Simple quartz (Miyota, alloy, mineral glass)',
-                                                                        eq: '5000', mkt: '35', perf: '120', staff: '2', q: 'Quartz Watch Assembly Mini-Line',
-                                                                        c: [
-                                                                            ['Miyota 2035 quartz movement', 1, 1.5, ''],
-                                                                            ['Zinc alloy case with mineral glass', 1, 3.5, ''],
-                                                                            ['Dial and hands set', 1, 1.2, ''],
-                                                                            ['Faux leather strap', 1, 1.0, ''],
-                                                                            ['SR626SW battery', 1, 0.1, ''],
-                                                                            ['Cardboard gift box', 1, 0.8, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Clean dust-free room rent 30 sq.m', 1, 25.0, ''],
-                                                                            ['Precision watchmaker toolkit (per master)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=watch%20repair%20tool%20kit'],
-                                                                            ['Consumables: finger cots, dust blowers, wipes (per worker)', 2, 1.0, 'https://www.alibaba.com/trade/search?SearchText=finger%20cots%20dust%20blower'],
-                                                                            ['Insurance and courier delivery', 1, 8.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Quartz Watch Assembly Mini-Line',
+                                                                        c: [],
+                                                                        exp: []
                                                                     },
                                                                     'automatic': {
                                                                         label: '⚙️ Seiko-level automatic (NH35, 316L steel, sapphire)',
-                                                                        eq: '12000', mkt: '220', perf: '30', staff: '2', q: 'Mechanical Watch Assembly Mini-Line (NH35)',
-                                                                        c: [
-                                                                            ['Seiko NH35A automatic movement', 1, 32.0, ''],
-                                                                            ['316L stainless steel case', 1, 18.0, ''],
-                                                                            ['Sapphire crystal', 1, 6.0, ''],
-                                                                            ['Dial and luminous hands', 1, 6.0, ''],
-                                                                            ['Steel bracelet or leather strap', 1, 8.0, ''],
-                                                                            ['Gift presentation box', 1, 5.0, '']
-                                                                        ],
-                                                                        exp: [
-                                                                            ['Clean dust-free room rent 30 sq.m', 1, 25.0, ''],
-                                                                            ['Precision watchmaker toolkit (per master)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Precision%20watchmaker%20toolkit'],
-                                                                            ['Watch oils (Moebius), dust blowers', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Watch%20oils'],
-                                                                            ['Insurance and courier delivery', 1, 10.0, '']
-                                                                        ]
+                                                                        eq: '', mkt: '', perf: '', staff: '', q: 'Mechanical Watch Assembly Mini-Line (NH35)',
+                                                                        c: [],
+                                                                        exp: []
                                                                     }
                                                                 }
                                                             },
                                                             'costume': {
-                                                                title: "Costume Jewelry Press", eq: '8000', mkt: '25', perf: '300', staff: '2', q: 'Mini Hydraulic Press for Costume Jewelry',
-                                                                c: [
-                                                                    ['Alloy casting workpiece', 1, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Alloy%20casting%20workpiece'],
-                                                                    ['Decorative rhinestones / crystals', 1, 1.0, 'https://www.alibaba.com/trade/search?SearchText=Decorative%20rhinestones%20%2F%20crystals'],
-                                                                    ['Fasteners and findings', 1, 0.5, 'https://www.alibaba.com/trade/search?SearchText=Fasteners%20and%20findings'],
-                                                                    ['Eco pouch packaging', 1, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Eco%20pouch%20packaging']
-                                                                ],
-                                                                exp: [
-                                                                    ['Workshop rent 30 sq.m', 1, 20.0, ''],
-                                                                    ['Press dies and manual assembly tools (per worker)', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=Press%20dies%20and%20manual%20assembly%20tools'],
-                                                                    ['UV-curing adhesives, clean wipes', 2, 1.5, 'https://www.alibaba.com/trade/search?SearchText=UV-curing%20adhesives'],
-                                                                    ['Dispatch and parcel shipping', 1, 8.0, '']
-                                                                ]
+                                                                title: "Costume Jewelry Press", eq: '', mkt: '', perf: '', staff: '', q: 'Mini Hydraulic Press for Costume Jewelry',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'instruments': {
-                                                                title: "Precision Instruments", eq: '22000', mkt: '450', perf: '15', staff: '2', q: 'Sensor Calibration and Assembly Bench',
-                                                                c: [
-                                                                    ['Sensor measurement module', 1, 120.0, 'https://www.alibaba.com/trade/search?SearchText=Sensor%20measurement%20module'],
-                                                                    ['Signal processing controller board', 1, 65.0, 'https://www.alibaba.com/trade/search?SearchText=Signal%20processing%20controller%20board'],
-                                                                    ['LCD Display module', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=LCD%20Display%20module'],
-                                                                    ['Shockproof enclosure IP65', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=Shockproof%20enclosure%20IP65']
-                                                                ],
-                                                                exp: [
-                                                                    ['Laboratory room rent 40 sq.m', 1, 25.0, ''],
-                                                                    ['Calibration standards & instruments (per engineer)', 2, 3.5, 'https://www.alibaba.com/trade/search?SearchText=Calibration%20standards%20%26%20instruments'],
-                                                                    ['Cables, heat shrink, solder', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Cables'],
-                                                                    ['Certification & logistics', 1, 12.0, '']
-                                                                ]
+                                                                title: "Precision Instruments", eq: '', mkt: '', perf: '', staff: '', q: 'Sensor Calibration and Assembly Bench',
+                                                                c: [],
+                                                                exp: []
                                                             },
                                                             'universal': {
-                                                                title: "Universal Project", eq: '20000', mkt: '200', perf: '25', staff: '2', q: 'Universal Production Cell',
-                                                                c: [
-                                                                    ['Primary base raw material', 1, 40.0, 'https://www.alibaba.com/trade/search?SearchText=Primary%20base%20raw%20material'],
-                                                                    ['Functional electronic/mechanical units', 1, 25.0, 'https://www.alibaba.com/trade/search?SearchText=Functional%20electronic%2Fmechanical%20units'],
-                                                                    ['Protective outer housing', 1, 12.0, 'https://www.alibaba.com/trade/search?SearchText=Protective%20outer%20housing'],
-                                                                    ['Consumer retail box', 1, 3.0, 'https://www.alibaba.com/trade/search?SearchText=Consumer%20retail%20box']
-                                                                ],
-                                                                exp: [
-                                                                    ['Workshop premises rent 40 sq.m', 1, 25.0, ''],
-                                                                    ['General tooling and workbenches (per worker)', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=General%20tooling%20and%20workbenches'],
-                                                                    ['Workplace consumables and safety gear', 2, 2.0, 'https://www.alibaba.com/trade/search?SearchText=Workplace%20consumables%20and%20safety%20gear'],
-                                                                    ['Logistics & operational communications', 1, 10.0, '']
-                                                                ]
+                                                                title: "Universal Project", eq: '', mkt: '', perf: '', staff: '', q: 'Universal Production Cell',
+                                                                c: [],
+                                                                exp: []
                                                             }
                                                         };
 
@@ -2357,22 +2089,22 @@ Thank you!
                                                                 const dropdown = document.getElementById('topic-selector-dropdown');
                                                                 if (dropdown) dropdown.value = detectedKey;
                                                                 populateClassSelector(detectedKey, currentClassKey);
-                                                                if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle || data.q;
-                                                                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = data.eq;
-                                                                if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
-                                                                if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
-                                                                if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
+                                                                if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle || '';
+                                                                if (document.getElementById('val-equip') && (!document.getElementById('val-equip').value || document.getElementById('val-equip').value == '25000')) document.getElementById('val-equip').value = '';
+                                                                if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = '';
+                                                                if (document.getElementById('val-staff')) document.getElementById('val-staff').value = '';
+                                                                if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = '';
                                                                 if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
 
                                                                 const tbodyBom = document.getElementById('component-dynamic-rows');
                                                                 if (tbodyBom) {
                                                                     tbodyBom.innerHTML = '';
-                                                                    data.c.forEach(item => addComponentRow(item[0], item[1], item[2], item[3]));
+                                                                    
                                                                 }
                                                                 const tbodyExp = document.getElementById('expense-dynamic-rows');
                                                                 if (tbodyExp && data.exp) {
                                                                     tbodyExp.innerHTML = '';
-                                                                    data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
+                                                                    
                                                                 }
                                                             } else {
                                                                 if (extractedTitle && document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = extractedTitle;
@@ -2496,31 +2228,27 @@ Thank you!
                                                             if (dropdown) dropdown.value = realKey;
                                                             populateClassSelector(realKey, currentClassKey);
 
-                                                            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = data.q;
-                                                            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = data.eq;
-                                                            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = data.perf || 20;
-                                                            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = data.staff || 2;
-                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = data.mkt;
+                                                            if (document.getElementById('equip-search-query')) document.getElementById('equip-search-query').value = '';
+                                                            if (document.getElementById('val-equip')) document.getElementById('val-equip').value = '';
+                                                            if (document.getElementById('val-actual-perf')) document.getElementById('val-actual-perf').value = '';
+                                                            if (document.getElementById('val-staff')) document.getElementById('val-staff').value = '';
+                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = '';
                                                             if (document.getElementById('sales-input')) document.getElementById('sales-input').value = '';
 
                                                             if (document.getElementById('equip-url')) {
-                                                                if (realKey === 'drone') {
-                                                                    document.getElementById('equip-url').value = "https://www.alibaba.com/product-detail/Compact-ESD-Drone-Assembly-Line_1601469365320.html";
-                                                                } else {
-                                                                    document.getElementById('equip-url').value = `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(data.q)}`;
-                                                                }
+                                                                document.getElementById('equip-url').value = '';
                                                             }
 
                                                             const tbodyBom = document.getElementById('component-dynamic-rows');
                                                             if (tbodyBom) {
                                                                 tbodyBom.innerHTML = '';
-                                                                data.c.forEach(item => addComponentRow(item[0], item[1], item[2], item[3]));
+                                                                
                                                             }
 
                                                             const tbodyExp = document.getElementById('expense-dynamic-rows');
                                                             if (tbodyExp && data.exp) {
                                                                 tbodyExp.innerHTML = '';
-                                                                data.exp.forEach(item => addExpenseRow(item[0], item[1], item[2], item[3]));
+                                                                
                                                             }
 
                                                             calculateAll();
@@ -2845,66 +2573,6 @@ Thank you!
                                                             }
                                                         };
 
-                                                        // ======================================================
-                                                        // PINNED REFERENCE EXAMPLE IN THE LISTING: watch assembly (Seiko-level automatic) — general case, EU, USA
-                                                        // ======================================================
-                                                        const REF_TOPIC = 'watch', REF_CLASS = 'automatic', REF_COUNTRIES = ['base', 'eu', 'us'];
-                                                        function buildReferenceLines() {
-                                                            const d = resolveCatalogData(REF_TOPIC, REF_CLASS);
-                                                            return REF_COUNTRIES.map(cc => ({
-                                                                id: 'ref-' + cc, cc: cc,
-                                                                name: d.q,
-                                                                url: `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(d.q)}`,
-                                                                cost: parseFloat(d.eq), perf: parseFloat(d.perf), staff: parseFloat(d.staff),
-                                                                components: d.c.map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] })),
-                                                                expenses: d.exp.map(e => ({ name: e[0], qty: e[1], price: e[2], url: e[3] })),
-                                                                topic_title: d.title, class_key: REF_CLASS, country_key: cc
-                                                            }));
-                                                        }
-                                                        function referenceEconomics(line, baseSalary) {
-                                                            const price = getTopicBenchmarkPrice(line.topic_title, line.class_key);
-                                                            const r = lineRates(line);
-                                                            const bom = line.components.reduce((s, c) => s + c.qty * c.price, 0) * (1 + r.ct / 100);
-                                                            const daily = line.cost / 5 / 365 + (baseSalary * line.staff) / 30 + getLineOtherCosts(line);
-                                                            const unit = bom + daily / line.perf;
-                                                            const profit = Math.round(line.perf * (price - unit) * 30);
-                                                            const k = importLandedPrice(price, r.f, r.t) / unit;
-                                                            return { unit, profit, k, landed: importLandedPrice(price, r.f, r.t) };
-                                                        }
-                                                        function renderReferenceBlock(container, baseSalary, colspan, showAdminCol) {
-                                                            const head = document.createElement('tr');
-                                                            head.style.background = '#fff6e0';
-                                                            head.innerHTML = `<td colspan="${colspan}" style="font-weight:700; color:#8a5a00; font-size:13px; padding:8px 12px; border-top:2px solid #e0b040;">📌 REFERENCE EXAMPLE: WATCH ASSEMBLY (SEIKO-LEVEL AUTOMATIC) — general case, European Union and USA, starting freight and tariff rates</td>`;
-                                                            container.appendChild(head);
-                                                            buildReferenceLines().forEach(line => {
-                                                                const e = referenceEconomics(line, baseSalary);
-                                                                const c = COUNTRIES[line.cc];
-                                                                const tr = document.createElement('tr');
-                                                                tr.style.background = '#fffbf0';
-                                                                tr.innerHTML = `
-                                                                    <td style="text-align:center; font-weight:700; color:#8a5a00;">📌</td>
-                                                                    <td style="padding-left:12px;"><b>${line.name}</b> — ${c.label}<br>
-                                                                        <button class="btn-bom-toggle" onclick="openReferenceLine('${line.cc}')">📥 Open in the Production Generator</button></td>
-                                                                    <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
-                                                                    <td>$${Number(line.cost).toLocaleString()}</td>
-                                                                    <td>${line.perf} pcs/day</td>
-                                                                    <td>${line.staff} staff</td>
-                                                                    <td style="color:#6c7a8a; font-weight:600;">$${Number(baseSalary).toLocaleString('en-US')}</td>
-                                                                    <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('en-US') : '0'} / mo</b></td>
-                                                                    <td style="font-weight:600; color:#007600;">${plainImportCell(e.unit, getTopicBenchmarkPrice(line.topic_title, line.class_key), lineRates(line))}</td>
-                                                                    ${showAdminCol ? '<td></td>' : ''}`;
-                                                                container.appendChild(tr);
-                                                            });
-                                                        }
-                                                        window.openReferenceLine = function (cc) {
-                                                            if (!isAdminMode) toggleAdminMode(); // open the Production Generator right away
-                                                            loadCatalogTemplate(REF_TOPIC, REF_CLASS);
-                                                            const sel = document.getElementById('country-selector');
-                                                            if (sel) sel.value = COUNTRIES[cc] ? cc : 'base';
-                                                            onCountryChange();
-                                                            switchMainTab('main-tab-2');
-                                                        };
-
                                                         window.loadLineIntoWorkspace = function (itemId) {
                                                             const item = savedEquipmentList.find(x => x.id === itemId);
                                                             if (!item) return;
@@ -2937,19 +2605,19 @@ Thank you!
                                                             if (document.getElementById('val-staff')) document.getElementById('val-staff').value = item.staff || 2;
 
                                                             const topicBenchmarkPrice = getTopicBenchmarkPrice(currentTopicTitle, currentClassKey);
-                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || topicBenchmarkPrice;
+                                                            if (document.getElementById('market-price-input')) document.getElementById('market-price-input').value = item.market_price || '';
                                                             currentModuleName = item.product_name || null;
                                                             currentModuleItems = Array.isArray(item.module_items) ? item.module_items : [];
                                                             renderModuleItemsBox();
 
-                                                            const compList = (item.components && item.components.length > 0) ? item.components : (tplData.c || []).map(c => ({ name: c[0], qty: c[1], price: c[2], url: c[3] }));
+                                                            const compList = (item.components && item.components.length > 0) ? item.components : [];
                                                             const tbodyBom = document.getElementById('component-dynamic-rows');
                                                             if (tbodyBom) {
                                                                 tbodyBom.innerHTML = '';
                                                                 compList.forEach(c => addComponentRow(c.name, c.qty, c.price, c.url));
                                                             }
 
-                                                            const expList = (item.expenses && item.expenses.length > 0) ? item.expenses : (tplData.exp || []);
+                                                            const expList = (item.expenses && item.expenses.length > 0) ? item.expenses : [];
                                                             const tbodyExp = document.getElementById('expense-dynamic-rows');
                                                             if (tbodyExp) {
                                                                 tbodyExp.innerHTML = '';
@@ -3214,7 +2882,7 @@ Thank you!
 
                                                             const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
                                                             // The reference example is always pinned at the top of the listing, regardless of filters.
-                                                            renderReferenceBlock(container, baseSalary, (isAdminMode || filterMode === 'my') ? 10 : 9, (isAdminMode || filterMode === 'my'));
+                                                            
 
                                                             const filteredList = savedEquipmentList.filter(item => {
                                                                 const itemOwner = item.client_id || "SYSTEM";
@@ -3283,7 +2951,7 @@ Thank you!
                                                                 headerTr.style.background = "#eef6ff";
                                                                 headerTr.innerHTML = `
                                                                                     <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                                                        📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''} (same item at the factory abroad: $${topicBenchmarkPrice.toFixed(2)}, parts per item: $${topicBenchmarkBom.toFixed(2)})
+                                                                                        📂 TOPIC: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''}
                                                                                     </td>
                                                                                 `;
                                                                 container.appendChild(headerTr);
@@ -3297,16 +2965,16 @@ Thank you!
                                                                     const perf = parseFloat(line.perf) || 1;
                                                                     const dailyAmort = (parseFloat(line.cost) || 0) / 5 / 365;
                                                                     const compList = (line.components && line.components.length > 0) ? line.components : [];
-                                                                    const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
+                                                                    const lineBomTotal = compList.reduce((sum, c) => sum + (c.qty * c.price), 0) * (1 + lineRates(line).ct / 100);
                                                                     const lineOtherCosts = getLineOtherCosts(line);
                                                                     const totalDailyCost = dailyAmort + ((baseSalary * (line.staff || 1)) / 30) + lineOtherCosts;
                                                                     const unitCost = lineBomTotal + (totalDailyCost / perf);
                                                                     line.$unitCost = unitCost;
-                                                                    return Math.round(perf * ((parseFloat(line.market_price) || topicBenchmarkPrice) - unitCost) * 30);
+                                                                    return Math.round(perf * ((parseFloat(line.market_price) || 0) - unitCost) * 30);
                                                                 };
                                                                 const importAdvantage = (line) => {
                                                                     const r = lineRates(line);
-                                                                    const lp = parseFloat(line.market_price) || topicBenchmarkPrice;
+                                                                    const lp = parseFloat(line.market_price) || 0;
                                                                     const landed = importLandedPrice(lp, r.f, r.t);
                                                                     const uc = line.$unitCost;
                                                                     if (!(uc > 0) || !(landed > 0)) return '—';
