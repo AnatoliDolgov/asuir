@@ -2721,81 +2721,150 @@ Thank you!
 // Расчёт по правилу 10%: все расходы укладываются в 10% себестоимости деталей (с пошлиной) каждого изделия; продажа — по цене в стране.
 // ======================================================
 const SHOW_UNVERIFIED = false;
-const VERIFIED_LINES = [{
-    id: 'v-drone-us', topic: 'drone', country_key: 'us', checked: '2026-11-01',
-    name: 'Сборка 10-дюймовых FPV-дронов',
-    url: 'https://oboronka.mezha.ua/en/vyriy-pokazala-potokove-virobnictvo-fpv-droniv-311377/',
-    cost: 7430.13, perf: 160, staff: 9, factory: 223, sale: 549.99,
-    comps: [
-        ['Рама 10" карбон (Mark4 V2)', 1, 15.00, 'https://electronics.alibaba.com/product/7inch-fpv-frame'],
-        ['Полётный контроллер F7 + регулятор 55A (iFlight BLITZ F7)', 1, 49.99, 'https://electronics.alibaba.com/product/flash-hobby-f722-stack-flight-controller'],
-        ['Мотор 2807', 4, 12.67, 'https://electronics.alibaba.com/product/fpv-2812-motor'],
-        ['Камера RunCam Phoenix 2 SE V2', 1, 16.99, 'https://electronics.alibaba.com/product/1000tvl-camera'],
-        ['Видеопередатчик Skyzone TX2500', 1, 46.50, 'https://electronics.alibaba.com/product/vtx']
-    ],
-    src: [
-        ['Цена продажи такого же дрона в США: $549.99 (DarwinFPV X10, без аккумулятора)', 'https://darwinfpv.com/products/darwinfpv-x10-large-load-and-long-range-10-fpv-drone'],
-        ['Цена такого же дрона на заводе в Китае: $204–223 (Alibaba, «10-inch UAV, 5 kg payload»), в расчёте $223', 'https://electronics.alibaba.com/product/fpv-pnp'],
-        ['9 сборщиков в потоке, 1 дрон за 3 минуты (Vyriy Industries)', 'https://oboronka.mezha.ua/en/vyriy-pokazala-potokove-virobnictvo-fpv-droniv-311377/'],
-        ['160 дронов в день — оценка: смена 8 часов (длина смены в источнике не указана)', ''],
-        ['Рабочие столы ESD: 9 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
-        ['Паяльные станции Hakko FX-888DX: 9 × $129.95', 'https://www.sparkfun.com/hakko-fx-888dx-soldering-station.html'],
-        ['Не учтены — ссылка не найдена: аренда, электричество, приёмник, пропеллеры', '']
-    ]
-    }, {
-    id: 'v-watch-us', topic: 'watch', cls: 'automatic', country_key: 'us', checked: '2026-11-01',
-    name: 'Сборка механических часов на механизме NH35',
-    url: 'https://www.ming.watch/journals-new/on-assembling-a-watch',
-    cost: 3662.90, perf: 160, staff: 5, factory: 140, sale: 279.00,
-    comps: [
-        ['Механизм NH35 (продавец из Гуанчжоу)', 1, 85.00, 'https://www.ebay.com/itm/184953907153'],
-        ['Корпус 40 мм, сапфировое стекло (продавец из Гуанчжоу)', 1, 28.80, 'https://www.ebay.com/itm/186366299268'],
-        ['Циферблат и стрелки (продавец из Гуанчжоу)', 1, 10.00, 'https://www.ebay.de/itm/145500527875'],
-        ['Кожаный ремешок 20 мм (продавец из Шэньчжэня)', 1, 12.50, 'https://www.ebay.com/itm/175323033103']
-    ],
-    src: [
-        ['Цена продажи таких же часов в США: $279 (Islander ISL-54: NH35, 40 мм, сапфир)', 'https://longislandwatch.com/collections/islander/products/islander-automatic-pilot-style-watch-isl-54'],
-        ['Цена таких же часов на заводе в Китае: $90–140 (Alibaba, сапфир и сталь 316L), в расчёте $140', 'https://smartbuy.alibaba.com/buyingguides/seiko-nh35-watch-private-label'],
-        ['Сборка часов с тремя стрелками на фабрике: около 15 минут (статья MING)', 'https://www.ming.watch/journals-new/on-assembling-a-watch'],
-        ['160 часов в день — оценка: 5 сборщиков × 32 часа за 8-часовую смену; число сборщиков выбрано', ''],
-        ['Рабочие столы ESD: 5 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
-        ['Наборы инструмента часовщика (с прессом для корпуса): 5 × $31.98', 'https://www.ebay.com/itm/292833624065'],
-        ['Прессы для стрелок (3 шт.): 5 × $4.98 (цена £3.77, пересчёт в доллары — eBay)', 'https://www.ebay.com/itm/314320032103'],
-        ['Не учтены — ссылка не найдена: аренда, электричество, проверка хода', '']
-    ]
-    }, {
-    id: 'v-drone7-us', topic: 'drone', country_key: 'us', checked: '2026-11-01',
-    name: 'Сборка 7-дюймовых FPV-дронов с GPS',
-    url: 'https://pyrodrone.com/collections/analog-bnf-pnp-rtf/products/geprc-moz7-v2-analog-long-range-fpv-choose-receiver-type',
-    cost: 7430.13, perf: 160, staff: 9, factory: 269, sale: 597.99,
-    comps: [
-        ['Рама 7" карбон (Mark4 V2)', 1, 11.90, 'https://electronics.alibaba.com/product/7inch-fpv-frame'],
-        ['Полётный контроллер F7 + регулятор 55A (iFlight BLITZ F7)', 1, 49.99, 'https://electronics.alibaba.com/product/flash-hobby-f722-stack-flight-controller'],
-        ['Мотор 2807', 4, 12.67, 'https://electronics.alibaba.com/product/fpv-2812-motor'],
-        ['Камера RunCam Phoenix 2 SE V2', 1, 16.99, 'https://electronics.alibaba.com/product/1000tvl-camera'],
-        ['Видеопередатчик Skyzone TX2500', 1, 46.50, 'https://electronics.alibaba.com/product/vtx'],
-        ['GPS-модуль M10 с компасом (HAKRC)', 1, 11.82, 'https://electronics.alibaba.com/product/gps-module-fpv']
-    ],
-    src: [
-        ['Цена продажи такого же дрона в США: $597.99 (GEPRC MOZ7 V2, 7", аналоговое видео, GPS, без аккумулятора)', 'https://pyrodrone.com/collections/analog-bnf-pnp-rtf/products/geprc-moz7-v2-analog-long-range-fpv-choose-receiver-type'],
-        ['Цена такого же дрона на заводе в Китае: $229–269 (Alibaba, «7-inch analog racing drone, long range»), в расчёте $269', 'https://electronics.alibaba.com/product/fpv-pnp'],
-        ['9 сборщиков в потоке, 1 дрон за 3 минуты (Vyriy Industries)', 'https://oboronka.mezha.ua/en/vyriy-pokazala-potokove-virobnictvo-fpv-droniv-311377/'],
-        ['160 дронов в день — оценка: смена 8 часов (длина смены в источнике не указана)', ''],
-        ['Рабочие столы ESD: 9 × $695.62', 'https://starboardtech.com/collections/esd-benches?page=4'],
-        ['Паяльные станции Hakko FX-888DX: 9 × $129.95', 'https://www.sparkfun.com/hakko-fx-888dx-soldering-station.html'],
-        ['Не учтены — ссылка не найдена: аренда, электричество, приёмник, пропеллеры', '']
-    ]
-}];
+const VERIFIED_LINES = [
+ {
+  "id": "v-drone10-us",
+  "topic": "drone",
+  "country_key": "us",
+  "checked": "2026-11-04",
+  "name": "Сборка 10-дюймовых FPV-дронов",
+  "url": "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html",
+  "cost": 199999,
+  "perf": 100,
+  "staff": 12,
+  "factory": null,
+  "sale": 423,
+  "comps": [
+   [
+    "Рама 10\" карбон (Axisflying MANTA 10 Lite)",
+    1,
+    13.7,
+    "https://russian.alibaba.com/product-detail/Axisflying-MANTA-10-Lite-10inch-FPV_1601682098431.html"
+   ],
+   [
+    "Полётный контроллер + регуляторы 60A (SpeedyBee F405 V4)",
+    1,
+    59.0,
+    "https://russian.alibaba.com/product-detail/Hot-Sell-SpeedyBee-F405-V4-60A_1600895128197.html"
+   ],
+   [
+    "Мотор 2807 1300KV (Uangel X2807)",
+    4,
+    10.5,
+    "https://russian.alibaba.com/product-detail/Uangel-X2807-2807-Motor-1300KV-6S_1600939381390.html"
+   ],
+   [
+    "Видеопередатчик 5,8 ГГц 1,6 Вт (HGLRC Zeus VTX Pro)",
+    1,
+    28.98,
+    "https://russian.alibaba.com/product-detail/HGLRC-Zeus-VTX-PRO-1-6W_1601913139943.html"
+   ],
+   [
+    "FPV-камера RunCam Phoenix 2 SP",
+    1,
+    18.29,
+    "https://russian.alibaba.com/product-detail/RunCam-Phoenix-2-SP-Fpv-Drone_1601933661170.html"
+   ],
+   [
+    "Аккумулятор LiPo 6S 5000 мА·ч 100C (HEREWIN)",
+    1,
+    38.0,
+    "https://www.alibaba.com/product-detail/HEREWIN-6S-22-2V-5000mAh-100C_1601749242871.html"
+   ]
+  ],
+  "exp": [
+   [
+    "Аренда помещения (запись автора 19.08.2025, без ссылки)",
+    1,
+    50,
+    ""
+   ],
+   [
+    "Логистика и доставка (запись автора 19.08.2025, без ссылки)",
+    1,
+    30,
+    ""
+   ],
+   [
+    "Прочие расходы (запись автора 19.08.2025, без ссылки)",
+    1,
+    20,
+    ""
+   ]
+  ],
+  "src": [
+   [
+    "Линия сборки беспилотников: $199 999, производительность 100 в день (Guangzhou Sanhok Hitech)",
+    "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html"
+   ],
+   [
+    "Цена такого же дрона в США: $549.99 (DarwinFPV X10, без аккумулятора); в расчёте конкурентная цена $423",
+    "https://darwinfpv.com/products/darwinfpv-x10-large-load-and-long-range-10-fpv-drone"
+   ],
+   [
+    "Цены деталей — для заказа от 1 000 шт.",
+    ""
+   ],
+   [
+    "Штат 12 человек — по снимку линии, уточняется у производителя",
+    ""
+   ]
+  ]
+ },
+ {
+  "id": "v-led-us",
+  "topic": "universal",
+  "country_key": "us",
+  "checked": "2026-11-04",
+  "name": "Сборка светодиодных ламп E27, 9 Вт",
+  "url": "https://russian.alibaba.com/product-detail/LED-Lamp-Bulb-E27-B22-a_1600719857867.html",
+  "cost": 10000,
+  "perf": 14400,
+  "staff": 12,
+  "factory": null,
+  "sale": 2.31,
+  "comps": [
+   [
+    "Несобранная светодиодная лампа: корпус, светодиоды, драйвер, цоколь, колба (цена для 9 Вт уточняется, взят верх $0,54)",
+    1,
+    0.54,
+    "https://russian.alibaba.com/product-detail/Whole-Sale-Unassembled-Skd-Ckd-3W_1600756666844.html"
+   ]
+  ],
+  "exp": [],
+  "src": [
+   [
+    "Линия сборки ламп E27 с участком прогона: $10 000, 1 800 шт. в час (Guangzhou Sanhok Hitech)",
+    "https://russian.alibaba.com/product-detail/LED-Lamp-Bulb-E27-B22-a_1600719857867.html"
+   ],
+   [
+    "14 400 шт. в день = 1 800 в час × 8 часов",
+    ""
+   ],
+   [
+    "Цена в США: $18.49 за 8 ламп = $2.31 за лампу (DEWENWILS, Home Depot)",
+    "https://www.homedepot.com/p/DEWENWILS-60-Watt-Equivalent-A19-Non-Dimmable-E26-Medium-LED-Light-Bulb-5000K-Daylight-Cool-White-8-Pack-HNLA19L/333289188"
+   ],
+   [
+    "Штат 12 человек — для примера, по номеру модели «-12»; уточняется у производителя",
+    ""
+   ]
+  ]
+ }
+];
 function verifiedEconomics(v) {
+    // Формула автора: себестоимость = детали с пошлиной; производительность = прямые расходы ÷ (себестоимость × d); прибыль = (цена − себестоимость) × количество изделий.
     const r = lineRates(v);
+    const d = getDirectShare();
     const bom = v.comps.reduce((s, c) => s + c[1] * c[2], 0) * (1 + r.ct / 100);
     const amort = v.cost / 5 / 365;
-    const share = bom * 0.10;                          // 10% от себестоимости деталей с пошлиной
-    const unit = bom + share;
+    const exp = (v.exp || []).reduce((s, e) => s + e[1] * e[2], 0);
+    const direct = amort + 10000 * v.staff / 30 + exp;
+    const req = bom > 0 ? Math.ceil(direct / (bom * d)) : Infinity;
+    const unit = bom;
     const profit = Math.round(v.perf * (v.sale - unit) * 30);
-    const fitted = Math.round(Math.max(0, v.perf * share - amort) * 30 / (v.staff || 1));
-    const req = Math.ceil((amort + 10000 * v.staff / 30) / share);
-    return { unit, profit, fitted, req, rates: r };
+    const fitted = Math.round(Math.max(0, v.perf * d * bom - amort - exp) * 30 / (v.staff || 1));
+    return { unit, profit, fitted, req, ok: v.perf >= req, pct: Math.round(d * 100), rates: r };
 }
 function renderVerifiedBlock(container, colspan, showAdminCol) {
     const head = document.createElement('tr');
@@ -2814,11 +2883,11 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
             <button class="btn-bom-toggle" onclick="const d=document.getElementById('src-${v.id}'); d.style.display = d.style.display==='none' ? '' : 'none';">📎 Источники</button></td>
             <td><a href="${v.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Источник ↗</a></td>
             <td>$${Number(v.cost).toLocaleString('ru-RU')}</td>
-            <td>${v.perf} шт/день<br><span style="font-size:11px; color:#4a5568;">нужно не меньше ${e.req}</span></td>
+            <td>${v.perf.toLocaleString('ru-RU')} шт/день<br><span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">нужно ${e.req.toLocaleString('ru-RU')} при d = ${e.pct}% — ${e.ok ? 'хватает' : 'не хватает'}</span></td>
             <td>${v.staff} чел</td>
             <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('ru-RU')}</td>
             <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b><br><span style="font-size:11px; color:#4a5568;">цена продажи в США $${v.sale.toFixed(2)}</span></td>
-            <td style="font-weight:600; color:#007600;">${ruNum(plainImportCell(e.unit, v.factory, e.rates))}</td>
+            <td style="font-weight:600; color:#007600;">${v.factory ? ruNum(plainImportCell(e.unit, v.factory, e.rates)) : 'Себестоимость: <b>$' + ruNum(e.unit.toFixed(2)) + '</b><br><span style="font-weight:400; font-size:11px; color:#4a5568;">цена такого же изделия на заводе за границей не указана</span>'}</td>
             ${showAdminCol ? '<td></td>' : ''}`;
         container.appendChild(tr);
         const sr = document.createElement('tr');
@@ -2841,9 +2910,10 @@ window.openVerifiedLine = function (id) {
     const tb = document.getElementById('component-dynamic-rows'); if (tb) tb.innerHTML = '';
     v.comps.forEach(cp => addComponentRow(cp[0], cp[1], cp[2], cp[3]));
     const te = document.getElementById('expense-dynamic-rows'); if (te) te.innerHTML = '';
+    (v.exp || []).forEach(e => addExpenseRow(e[0], e[1], e[2], e[3]));
     const set = (i, x) => { const el = document.getElementById(i); if (el) el.value = x; };
-    set('val-equip', v.cost); set('val-staff', v.staff); set('val-actual-perf', v.perf);
-    set('market-price-input', v.factory); set('sale-price-input', v.sale);
+    set('val-equip', v.cost); set('val-staff', v.staff); set('val-actual-perf', v.perf); set('equip-url', v.url); set('equip-search-query', v.name);
+    set('market-price-input', v.factory || ''); set('sale-price-input', v.sale);
     calculateAll();
     switchMainTab('main-tab-2');
 };
@@ -3164,6 +3234,7 @@ window.openReferenceLine = function (cc) {
                                                                     container.innerHTML = '';
 
                                                                     const filterMode = document.getElementById('listing-filter-mode')?.value || 'all';
+                                                                    renderVerifiedBlock(container, (isAdminMode || filterMode === 'my') ? 10 : 9, (isAdminMode || filterMode === 'my'));
                                                                     // Эталонный пример всегда закреплён вверху листинга, независимо от фильтров.
 
                                                                     // Непроверенные строки базы скрыты (не удалены); свои линии клиент видит в фильтре «Мои».
