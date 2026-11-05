@@ -2923,7 +2923,10 @@ function verifiedEconomics(v) {
     const unit = bom;
     const profit = Math.round(v.perf * (v.sale - unit) * 30);
     const fitted = Math.round(Math.max(0, v.perf * d * bom - amort - exp) * 30 / (v.staff || 1));
-    return { unit, profit, fitted, req, ok: v.perf >= req, pct: Math.round(d * 100), rates: r };
+    // Альтернатива: наименьшая доля d (5–40%), при которой выпуска линии хватает.
+    const dMin = bom > 0 ? Math.max(5, Math.ceil(100 * direct / (bom * v.perf))) : Infinity;
+    const reqMin = Number.isFinite(dMin) ? Math.ceil(direct / (bom * dMin / 100)) : Infinity;
+    return { unit, profit, fitted, req, ok: v.perf >= req, pct: Math.round(d * 100), dMin, reqMin, rates: r };
 }
 function renderVerifiedBlock(container, colspan, showAdminCol) {
     const head = document.createElement('tr');
@@ -2942,7 +2945,7 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
             <button class="btn-bom-toggle" onclick="const d=document.getElementById('src-${v.id}'); d.style.display = d.style.display==='none' ? '' : 'none';">📎 Sources</button></td>
             <td><a href="${v.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Source ↗</a></td>
             <td>$${Number(v.cost).toLocaleString('en-US')}</td>
-            <td>${v.perf.toLocaleString('en-US')} pcs/day<br><span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">needed ${e.req.toLocaleString('en-US')} at d = ${e.pct}% — ${e.ok ? 'enough' : 'not enough'}</span></td>
+            <td>${v.perf.toLocaleString('en-US')} pcs/day<br><span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">needed ${e.req.toLocaleString('en-US')} at d = ${e.pct}% — ${e.ok ? 'enough' : 'not enough'}</span>${e.ok ? '' : (e.dMin <= 40 ? `<br><span style="font-size:11px; color:#007600;">enough from d = ${e.dMin}% (needed ${e.reqMin.toLocaleString('en-US')})</span>` : `<br><span style="font-size:11px; color:#c40000;">not enough even at d = 40%: lower direct expenses or a higher-output line are needed</span>`)}</td>
             <td>${v.staff} staff</td>
             <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('en-US')}</td>
             <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('en-US') : '0'} / mo</b><br><span style="font-size:11px; color:#4a5568;">selling price in the US $${v.sale.toFixed(2)}</span></td>
