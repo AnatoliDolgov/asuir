@@ -3079,7 +3079,7 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
             <button class="btn-bom-toggle" onclick="const d=document.getElementById('src-${v.id}'); d.style.display = d.style.display==='none' ? '' : 'none';">📎 Источники</button></td>
             <td><a href="${v.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Источник ↗</a></td>
             <td>$${Number(v.cost).toLocaleString('ru-RU')}</td>
-            <td>${v.perf.toLocaleString('ru-RU')} шт/день<br><span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">нужно ${e.req.toLocaleString('ru-RU')} при d = ${e.pct}% — ${e.ok ? 'хватает' : 'не хватает'}</span>${e.ok ? '' : (e.dMin <= 40 ? `<br><span style="font-size:11px; color:#007600;">хватает с d = ${e.dMin}% (нужно ${e.reqMin.toLocaleString('ru-RU')})</span>` : `<br><span style="font-size:11px; color:#c40000;">не хватает и при d = 40%: нужно меньше прямых расходов или линия с большим выпуском</span>`)}</td>
+            <td>${v.perf.toLocaleString('ru-RU')} шт/день</td>
             <td>${v.staff} чел</td>
             <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('ru-RU')}</td>
             <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b><br><span style="font-size:11px; color:#4a5568;">цена продажи в США $${v.sale.toFixed(2)}</span></td>
@@ -3088,8 +3088,10 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
         container.appendChild(tr);
         const sr = document.createElement('tr');
         sr.id = 'src-' + v.id; sr.style.display = 'none'; sr.style.background = '#fbfefb';
+        const dInfo = `<span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">нужно ${e.req.toLocaleString('ru-RU')} при d = ${e.pct}% — ${e.ok ? 'хватает' : 'не хватает'}</span>${e.ok ? '' : (e.dMin <= 40 ? `<br><span style="font-size:11px; color:#007600;">хватает с d = ${e.dMin}% (нужно ${e.reqMin.toLocaleString('ru-RU')})</span>` : `<br><span style="font-size:11px; color:#c40000;">не хватает и при d = 40%: нужно меньше прямых расходов или линия с большим выпуском</span>`)}`;
         const lnk = (t, u) => u ? `<a href="${u}" target="_blank" style="color:#4a90d9;">${t}</a>` : t;
         sr.innerHTML = `<td></td><td colspan="${colspan - 1}" style="font-size:12px; line-height:1.6; padding:8px 12px;">` +
+            dInfo + '<br>' +
             v.comps.map(cp => `• ${lnk(cp[0], cp[3])}: ${cp[1]} × $${cp[2].toFixed(2)}`).join('<br>') + '<br>' +
             v.src.map(sc => `• ${lnk(sc[0], sc[1])}`).join('<br>') +
             `<br><span style="color:#6c7a8a;">Ссылки проверены ${v.checked}</span></td>`;
