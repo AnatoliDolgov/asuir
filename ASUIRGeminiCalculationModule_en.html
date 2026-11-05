@@ -1602,9 +1602,9 @@ Thank you!
                                                                 const sumC = comps.reduce((x, c) => x + c[1] * c[2], 0) * (1 + compTariffPct / 100);
                                                                 // Формула автора: себестоимость = детали с пошлиной; нужная производительность = прямые расходы ÷ (себестоимость × d); прибыль = (цена − себестоимость) × количество изделий.
                                                                         const dSh = getDirectShare();
-                                                                        const cost = sumC > 0 ? sumC : null;
+                                                                        const cost = sumC > 0 ? sumC * (1 + dSh) : null; // себестоимость = детали с пошлиной + доля d на прямые расходы
                                                                         const direct = fixedPerDay + mpEff / 5 / 365;
-                                                                        const req = cost ? Math.ceil(direct / (cost * dSh)) : Infinity;
+                                                                        const req = sumC > 0 ? Math.ceil(direct / (sumC * dSh)) : Infinity;
                                                                 const profit = (cost !== null && perf > 0 && sale > 0) ? Math.round((sale - cost) * perf * 30) : null;
                                                                 const landed = fob * (1 + (freightPct + tariffPct) / 100);
                                                                 const diff = (cost !== null && fob > 0) ? landed - cost : null;
@@ -1626,7 +1626,7 @@ Thank you!
                                                                     </tbody></table></div></details></td></tr>`;
                                                                 const btn = (r.st !== 'not' && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="reconfigureToModule('${L.id}', ${L.rows.indexOf(r)})">🔧 Reconfigure the line to this item</button>` : '';
                                                                 const impNote = landed > fob + 0.001 ? `factory $${fmt2(fob)} + shipping + duty` : 'factory price, without shipping or duty';
-                                                                const econ = r.st === 'not' ? '' : `<div style="font-size:13px; line-height:1.6; margin:4px 0 8px; color:#1a2632;">Unit cost (parts${compTariffPct ? ' with ' + compTariffPct + '% duty' : ''}): <b>${cost !== null ? money(cost) : '—'}</b> · required output at d = ${Math.round(dSh * 100)}%: <b>${Number.isFinite(req) ? req.toLocaleString(loc) : '—'}</b> a day, the line makes ${perf ? perf.toLocaleString(loc) : '—'} — <b style="color:${perf >= req ? '#007600' : '#c40000'};">${perf >= req ? 'enough' : 'not enough'}</b><br>Profit per month: <b style="color:#1f4e78;">${profit !== null ? money(profit) : '— (no US price)'}</b>${sale ? ` at US price ${r.saleUrl ? `<a href="${esc(r.saleUrl)}" target="_blank" rel="noopener">${money(sale)} ↗</a>` : money(sale)}${r.saleNote ? ' (' + esc(r.saleNote) + ')' : ''}` : ''}${r.mi.length ? `<br>Module for the equipment: <b>${mpEff ? money(mpEff) : 'price to be confirmed with the line seller'}</b>, changeover: ${esc(r.ch)}` : ''}</div>`;
+                                                                const econ = r.st === 'not' ? '' : `<div style="font-size:13px; line-height:1.6; margin:4px 0 8px; color:#1a2632;">Unit cost (parts${compTariffPct ? ' with ' + compTariffPct + '% duty' : ''} + ${Math.round(dSh * 100)}% for direct expenses): <b>${cost !== null ? money(cost) : '—'}</b> · required output at d = ${Math.round(dSh * 100)}%: <b>${Number.isFinite(req) ? req.toLocaleString(loc) : '—'}</b> a day, the line makes ${perf ? perf.toLocaleString(loc) : '—'} — <b style="color:${perf >= req ? '#007600' : '#c40000'};">${perf >= req ? 'enough' : 'not enough'}</b><br>Profit per month: <b style="color:#1f4e78;">${profit !== null ? money(profit) : '— (no US price)'}</b>${sale ? ` at US price ${r.saleUrl ? `<a href="${esc(r.saleUrl)}" target="_blank" rel="noopener">${money(sale)} ↗</a>` : money(sale)}${r.saleNote ? ' (' + esc(r.saleNote) + ')' : ''}` : ''}${r.mi.length ? `<br>Module for the equipment: <b>${mpEff ? money(mpEff) : 'price to be confirmed with the line seller'}</b>, changeover: ${esc(r.ch)}` : ''}</div>`;
                                                                 cards.push(`<div class="mod-card${isCur ? ' mod-current' : ''}"><div class="mod-card-head"><b>${esc(r.n)}</b>${isCur ? '<span class="mod-tag cur">open now</span>' : ''}${btn}</div>${econ}${r.st === 'not' ? `<p style="color:#9a3412; font-weight:600; margin:6px 0 0;">${esc(r.mod)}</p>` : `<div class="table-responsive"><table class="components-table"><thead><tr><th>Item</th><th>🔗 Link to the chosen equipment modules and components</th><th>🔍 Find at supplier</th><th>Qty</th><th>Price per pc ($)</th></tr></thead><tbody>${mis.length ? `<tr class="mod-sec"><td colspan="5">🧩 Modules for the equipment</td></tr>` + mis.map(c => linkRow(c, true)).join('') : ''}${comps.length ? `<tr class="mod-sec"><td colspan="5">📦 Components — parts of the product, bought for every item</td></tr>` + comps.map(c => linkRow(c, false)).join('') : ''}</tbody></table></div>`}</div>`);
                                                                 return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
                                                                     <td><b>${esc(r.n)}</b><br>${tags}${btn}</td><td>${modCell}</td>
@@ -2359,7 +2359,7 @@ Thank you!
                                                                     const expShare = rawCost * dShare;
                                                                     const machineShare = totalFixedPerDay > 0 ? expShare * overhead / totalFixedPerDay : 0;
                                                             const otherShare = totalFixedPerDay > 0 ? expShare * totalOtherCosts / totalFixedPerDay : 0;
-                                                            const totalCost = rawCost; // себестоимость = детали с пошлиной
+                                                            const totalCost = rawCost * (1 + dShare); // себестоимость = детали с пошлиной + доля d на прямые расходы
                                                             {
                                                                 const rcEl = document.getElementById('robot-compare');
                                                                         if (rcEl) {
@@ -2370,7 +2370,7 @@ Thank you!
                                                                                 const f2 = n => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                                                 const fq = n => Number.isFinite(n) ? n : '∞';
                                                                                 const pct = Math.round(dShare * 100);
-                                                                                const unit = rawCost;
+                                                                                const unit = rawCost * (1 + dShare);
                                                                                 const expR = amort + salaryPerDay + robotPerDay + totalOtherCosts;
                                                                                 const expP = amort + peopleSalaryDay + totalOtherCosts;
                                                                                 const reqR = rawCost > 0 ? Math.ceil(expR / (rawCost * dShare)) : Infinity;
@@ -2380,7 +2380,7 @@ Thank you!
                                                                                 const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf;
                                                                                 const profR = (sale - unit) * soldR * 30, profP = (sale - unit) * soldP * 30;
                                                                                 rcEl.innerHTML = `<div class="rh-head">Outlook in 3–5 years: profit per month with robotic complexes — ${saleOk ? '$' + f0(profR) : '—'}, with people — ${saleOk ? '$' + f0(profP) : '—'}</div>` +
-                                                                            `<div class="rh-sub">Unit cost (parts with duty) — $${f2(unit)}. Profit per item — ${saleOk ? '$' + f2(sale - unit) : '—'}.</div>` +
+                                                                            `<div class="rh-sub">Unit cost (parts with duty $${f2(rawCost)} + ${pct}% for direct expenses) — $${f2(unit)}. Profit per item — ${saleOk ? '$' + f2(sale - unit) : '—'}.</div>` +
                                                                             `<div class="rh-note">With robotic complexes: direct expenses $${f0(expR)} a day, required output ${fq(reqR)} pcs a day, the line makes ${actualPerf} — ${okR}.</div>` +
                                                                             `<div class="rh-note">With people: direct expenses $${f0(expP)} a day, required output ${fq(reqP)} pcs a day, the line makes ${basePerf} — ${okP}.</div>` +
                                                                             `<div class="rh-note">${rSalesRaw > 0 ? `Profit is calculated for sales of ${rSalesRaw} a day.` : 'No sales set: the whole output is assumed sold.'} Robotic complexes: ${rCount} at $${f0(rPrice)}, service life ${rLife} years, maintenance ${rSvc}% a year, ${rHours} h a day, ${rSpeed} times faster than workers. Human supervisors: ${rHumans}. With people — ${staff} workers at $10,000 a month, 8 hours a day.</div>`;
@@ -2446,7 +2446,7 @@ Thank you!
                                                                 const sales = (salesRaw > 0) ? salesRaw : actualPerf;
                                                                 const fmt = (v, d) => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                 const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-                                                                const sCost = rawCost; // правило 10% от себестоимости деталей с пошлиной
+                                                                const sCost = rawCost * (1 + dShare); // детали с пошлиной + доля d на прямые расходы
                                                                 const sProfit = Math.round((sale - sCost) * sales * 30);
                                                                 set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                                                 set('sales-unit-cost', fmt(sCost, 2));
@@ -3008,7 +3008,7 @@ function verifiedEconomics(v) {
     const exp = (v.exp || []).reduce((s, e) => s + e[1] * e[2], 0);
     const direct = amort + 10000 * v.staff / 30 + exp;
     const req = bom > 0 ? Math.ceil(direct / (bom * d)) : Infinity;
-    const unit = bom;
+    const unit = bom * (1 + d);
     const profit = Math.round(v.perf * (v.sale - unit) * 30);
     const fitted = Math.round(Math.max(0, v.perf * d * bom - amort - exp) * 30 / (v.staff || 1));
     // Альтернатива: наименьшая доля d (5–40%), при которой выпуска линии хватает.
@@ -3477,7 +3477,7 @@ window.openReferenceLine = function (cc) {
                                                                     const linePrice = parseFloat(line.sale_price) || 0;
                                                                             line.$fittedSalary = Math.round(Math.max(0, perf * getDirectShare() * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
                                                                             const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
-                                                                    const unitCost = lineBomTotal; // детали с пошлиной + 10% от них
+                                                                    const unitCost = lineBomTotal * (1 + getDirectShare()); // детали с пошлиной + доля d
                                                                     line.$unitCost = unitCost;
                                                                     line.$noSale = !(linePrice > 0);
                                                                             return line.$noSale ? -Infinity : Math.round(perf * (linePrice - unitCost) * 30);
