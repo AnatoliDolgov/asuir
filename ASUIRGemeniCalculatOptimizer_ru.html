@@ -1370,7 +1370,7 @@
                                 </tr>
                                 <tr class="res-eng-row">
                                     <td>Доля сжатия прямых расходов, % от себестоимости<span class="res-small">от 5 до 40%, обычно 10%</span></td>
-                                    <td class="right"><input type="number" id="asuir-direct-share" class="input-field input-field-sm" value="10" min="5" max="40" step="1"> %</td>
+                                    <td class="right"><input type="number" id="asuir-direct-share" class="input-field input-field-sm" value="10" min="5" max="40" step="1"> %<br><span id="actual-d" style="font-size:11px; color:#4a5568;"></span></td>
                                 </tr>
                                 <tr class="res-eng-row">
                                     <td>Нужная производительность оборудования, шт. в день</td>
@@ -1643,7 +1643,7 @@ Thank you!
                                                                         const sumC = comps.reduce((x, c) => x + c[1] * c[2], 0) * (1 + compTariffPct / 100);
                                                                         // Формула автора: себестоимость = детали с пошлиной; нужная производительность = прямые расходы ÷ (себестоимость × d); прибыль = (цена − себестоимость) × количество изделий.
                                                                         const dSh = getDirectShare();
-                                                                        const cost = sumC > 0 ? sumC * (1 + dSh) : null; // себестоимость = детали с пошлиной + доля d на прямые расходы
+                                                                        const cost = (sumC > 0 && perf > 0) ? sumC + (fixedPerDay + mpEff / 5 / 365) / perf : null; // детали с пошлиной + прямые расходы ÷ реальный выпуск
                                                                         const direct = fixedPerDay + mpEff / 5 / 365;
                                                                         const req = sumC > 0 ? Math.ceil(direct / (sumC * dSh)) : Infinity;
                                                                         const profit = (cost !== null && perf > 0 && sale > 0) ? Math.round((sale - cost) * perf * 30) : null;
@@ -1667,7 +1667,7 @@ Thank you!
                                                                             </tbody></table></div></details></td></tr>`;
                                                                         const btn = (r.st !== 'not' && !isCur) ? `<br><button class="btn btn-primary btn-sm" style="margin-top:4px;" onclick="reconfigureToModule('${L.id}', ${L.rows.indexOf(r)})">🔧 Перенастроить линию на это изделие</button>` : '';
                                                                         const impNote = landed > fob + 0.001 ? `завод $${fmt2(fob)} + доставка + пошлина` : 'цена завода, без доставки и пошлины';
-                                                                        const econ = r.st === 'not' ? '' : `<div style="font-size:13px; line-height:1.6; margin:4px 0 8px; color:#1a2632;">Себестоимость (детали${compTariffPct ? ' с пошлиной ' + compTariffPct + '%' : ''} + ${Math.round(dSh * 100)}% на прямые расходы): <b>${cost !== null ? money(cost) : '—'}</b> · нужная производительность при d = ${Math.round(dSh * 100)}%: <b>${Number.isFinite(req) ? req.toLocaleString(loc) : '—'}</b> в день, линия даёт ${perf ? perf.toLocaleString(loc) : '—'} — <b style="color:${perf >= req ? '#007600' : '#c40000'};">${perf >= req ? 'хватает' : 'не хватает'}</b><br>Прибыль в месяц: <b style="color:#1f4e78;">${profit !== null ? money(profit) : '— (нет цены в США)'}</b>${sale ? ` при цене в США ${r.saleUrl ? `<a href="${esc(r.saleUrl)}" target="_blank" rel="noopener">${money(sale)} ↗</a>` : money(sale)}${r.saleNote ? ' (' + esc(r.saleNote) + ')' : ''}` : ''}${r.mi.length ? `<br>Модуль к оборудованию: <b>${mpEff ? money(mpEff) : 'цена уточняется у продавца линии'}</b>, переход: ${esc(r.ch)}` : ''}</div>`;
+                                                                        const econ = r.st === 'not' ? '' : `<div style="font-size:13px; line-height:1.6; margin:4px 0 8px; color:#1a2632;">Себестоимость (детали${compTariffPct ? ' с пошлиной ' + compTariffPct + '%' : ''} + прямые расходы на одно изделие): <b>${cost !== null ? money(cost) : '—'}</b> · нужная производительность при d = ${Math.round(dSh * 100)}%: <b>${Number.isFinite(req) ? req.toLocaleString(loc) : '—'}</b> в день, линия даёт ${perf ? perf.toLocaleString(loc) : '—'} — <b style="color:${perf >= req ? '#007600' : '#c40000'};">${perf >= req ? 'хватает' : 'не хватает'}</b><br>Прибыль в месяц: <b style="color:#1f4e78;">${profit !== null ? money(profit) : '— (нет цены в США)'}</b>${sale ? ` при цене в США ${r.saleUrl ? `<a href="${esc(r.saleUrl)}" target="_blank" rel="noopener">${money(sale)} ↗</a>` : money(sale)}${r.saleNote ? ' (' + esc(r.saleNote) + ')' : ''}` : ''}${r.mi.length ? `<br>Модуль к оборудованию: <b>${mpEff ? money(mpEff) : 'цена уточняется у продавца линии'}</b>, переход: ${esc(r.ch)}` : ''}</div>`;
                                                                         cards.push(`<div class="mod-card${isCur ? ' mod-current' : ''}"><div class="mod-card-head"><b>${esc(r.n)}</b>${isCur ? '<span class="mod-tag cur">сейчас открыто</span>' : ''}${btn}</div>${econ}${r.st === 'not' ? `<p style="color:#9a3412; font-weight:600; margin:6px 0 0;">${esc(r.mod)}</p>` : `<div class="table-responsive"><table class="components-table"><thead><tr><th>Что</th><th>🔗 Ссылка на выбранные модули к оборудованию и комплектующие</th><th>🔍 Найти у поставщика</th><th>Кол-во</th><th>Цена 1 шт. ($)</th></tr></thead><tbody>${mis.length ? `<tr class="mod-sec"><td colspan="5">🧩 Модули к оборудованию</td></tr>` + mis.map(c => linkRow(c, true)).join('') : ''}${comps.length ? `<tr class="mod-sec"><td colspan="5">📦 Комплектующие — детали изделия, покупаются на каждое изделие</td></tr>` + comps.map(c => linkRow(c, false)).join('') : ''}</tbody></table></div>`}</div>`);
                                                                         return `<tr class="${isCur ? 'mod-current' : r.st === 'not' ? 'mod-not' : ''}">
                                                                             <td><b>${esc(r.n)}</b><br>${tags}${btn}</td><td>${modCell}</td>
@@ -1755,6 +1755,9 @@ Thank you!
                                                                     box.innerHTML = `<b style="color:#1f4e78;">${'🧩 Оснастка модуля для изделия «{n}»'.replace('{n}', esc(currentModuleName))}</b> <span style="font-size:12px; color:#6c7a8a;">— куплена к оборудованию один раз, входит в стоимость оборудования</span>` +
                                                                         currentModuleItems.map(m => `<div style="margin-top:4px; font-size:13px;">${m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.name)} ↗</a> ✓` : esc(m.name) + ' <span style="color:#9a3412; font-size:12px;">— ссылка не выбрана</span>'}${m.price !== null && m.price !== undefined ? ' · $' + m.price : ''}</div>`).join('');
                                                                 }
+                                                                const DEFAULT_D_BY_COUNTRY = { us: 20 }; // доля d по умолчанию: США — 20% (указание автора 05.11.2026), остальные страны — 10%
+                                                                function defaultShareFor(countryKey) { return (DEFAULT_D_BY_COUNTRY[countryKey] || 10); }
+                                                                function applyDefaultShare(countryKey) { const el = document.getElementById('asuir-direct-share'); if (el) el.value = defaultShareFor(countryKey); }
                                                                 window.onCountryChange = function () {
                                                                     const sel = document.getElementById('country-selector');
                                                                     currentCountry = (sel && COUNTRIES[sel.value]) ? sel.value : 'base';
@@ -1762,6 +1765,7 @@ Thank you!
                                                                     if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = c.tariff;
                                                                     if (document.getElementById('freight-input')) document.getElementById('freight-input').value = c.freight;
                                                                     if (document.getElementById('comp-tariff-input')) document.getElementById('comp-tariff-input').value = c.compTariff;
+                                                                    applyDefaultShare(currentCountry);
                                                                     calculateAll();
                                                                 };
                                                                 // Цена импорта с доставкой и пошлиной по цене рынка и ставкам линии/страны.
@@ -2402,10 +2406,12 @@ Thank you!
 
                                                                     // ПРАВИЛО 10%: все расходы (зарплата, износ, роботы, аренда, прочее) укладываются в 10% себестоимости деталей (с пошлиной) КАЖДОГО изделия,
                                                                     // а не делятся на число изделий. 10% цены делится между строками пропорционально их доле в расходах.
-                                                                    const expShare = rawCost * dShare;
-                                                                    const machineShare = totalFixedPerDay > 0 ? expShare * overhead / totalFixedPerDay : 0;
-                                                                    const otherShare = totalFixedPerDay > 0 ? expShare * totalOtherCosts / totalFixedPerDay : 0;
-                                                                    const totalCost = rawCost * (1 + dShare); // себестоимость = детали с пошлиной + доля d на прямые расходы
+                                                                    // Себестоимость (способ автора): детали с пошлиной + прямые расходы в день ÷ реальный выпуск. Доля d — только для контроля.
+                                                                    const perUnitDirect = actualPerf > 0 ? totalFixedPerDay / actualPerf : 0;
+                                                                    { const ad = document.getElementById('actual-d'); if (ad) ad.textContent = rawCost > 0 ? 'фактически ' + (perUnitDirect / rawCost * 100).toLocaleString('ru-RU', { maximumFractionDigits: 1 }) + '%' : ''; }
+                                                                    const machineShare = actualPerf > 0 ? overhead / actualPerf : 0;
+                                                                    const otherShare = actualPerf > 0 ? totalOtherCosts / actualPerf : 0;
+                                                                    const totalCost = rawCost + perUnitDirect; // детали с пошлиной + прямые расходы на одно изделие
                                                                     {
                                                                         const rcEl = document.getElementById('robot-compare');
                                                                         if (rcEl) {
@@ -2416,7 +2422,8 @@ Thank you!
                                                                                 const f2 = n => n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                                                                 const fq = n => Number.isFinite(n) ? n : '∞';
                                                                                 const pct = Math.round(dShare * 100);
-                                                                                const unit = rawCost * (1 + dShare);
+                                                                                const unitR = rawCost + (actualPerf > 0 ? (amort + salaryPerDay + robotPerDay + totalOtherCosts) / actualPerf : 0);
+                                                                                const unitP = rawCost + (basePerf > 0 ? (amort + peopleSalaryDay + totalOtherCosts) / basePerf : 0);
                                                                                 const expR = amort + salaryPerDay + robotPerDay + totalOtherCosts;
                                                                                 const expP = amort + peopleSalaryDay + totalOtherCosts;
                                                                                 const reqR = rawCost > 0 ? Math.ceil(expR / (rawCost * dShare)) : Infinity;
@@ -2424,9 +2431,9 @@ Thank you!
                                                                                 const okR = actualPerf >= reqR ? 'хватает' : 'не хватает', okP = basePerf >= reqP ? 'хватает' : 'не хватает';
                                                                                 const soldR = rSalesRaw > 0 ? Math.min(rSalesRaw, actualPerf) : actualPerf;
                                                                                 const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf;
-                                                                                const profR = (sale - unit) * soldR * 30, profP = (sale - unit) * soldP * 30;
+                                                                                const profR = (sale - unitR) * soldR * 30, profP = (sale - unitP) * soldP * 30;
                                                                                 rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: прибыль в месяц с роботизированными комплексами — ${saleOk ? '$' + f0(profR) : '—'}, с людьми — ${saleOk ? '$' + f0(profP) : '—'}</div>` +
-                                                                                    `<div class="rh-sub">Себестоимость изделия (детали с пошлиной $${f2(rawCost)} + ${pct}% на прямые расходы) — $${f2(unit)}. Прибыль с одного изделия — ${saleOk ? '$' + f2(sale - unit) : '—'}.</div>` +
+                                                                                    `<div class="rh-sub">Себестоимость изделия = детали с пошлиной $${f2(rawCost)} + прямые расходы на одно изделие: с роботизированными комплексами — $${f2(unitR)}, с людьми — $${f2(unitP)}.</div>` +
                                                                                     `<div class="rh-note">С роботизированными комплексами: прямые расходы $${f0(expR)} в день, нужная производительность ${fq(reqR)} шт. в день, линия выпускает ${actualPerf} — ${okR}.</div>` +
                                                                                     `<div class="rh-note">С людьми: прямые расходы $${f0(expP)} в день, нужная производительность ${fq(reqP)} шт. в день, линия выпускает ${basePerf} — ${okP}.</div>` +
                                                                                     `<div class="rh-note">${rSalesRaw > 0 ? `Прибыль посчитана по сбыту ${rSalesRaw} шт. в день.` : 'Сбыт не задан: считается, что продаётся весь выпуск.'} Роботизированных комплексов: ${rCount} по $${f0(rPrice)}, срок службы ${rLife} лет, обслуживание ${rSvc}% в год, ${rHours} ч в сутки, в ${rSpeed} раз быстрее рабочих. Людей-контролёров: ${rHumans}. С людьми — ${staff} рабочих по $10 000 в месяц, 8 часов в сутки.</div>`;
@@ -2492,7 +2499,7 @@ Thank you!
                                                                         const sales = (salesRaw > 0) ? salesRaw : actualPerf;
                                                                         const fmt = (v, d) => v.toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                         const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
-                                                                        const sCost = rawCost * (1 + dShare); // детали с пошлиной + доля d на прямые расходы
+                                                                        const sCost = rawCost + (sales > 0 ? totalFixedPerDay / sales : 0); // детали с пошлиной + прямые расходы на одно проданное изделие
                                                                         const sProfit = Math.round((sale - sCost) * sales * 30);
                                                                         set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
                                                                         set('sales-unit-cost', fmt(sCost, 2));
@@ -3048,19 +3055,20 @@ const VERIFIED_LINES = [
 function verifiedEconomics(v) {
     // Формула автора: себестоимость = детали с пошлиной; производительность = прямые расходы ÷ (себестоимость × d); прибыль = (цена − себестоимость) × количество изделий.
     const r = lineRates(v);
-    const d = getDirectShare();
+    const d = defaultShareFor(v.country_key) / 100;
     const bom = v.comps.reduce((s, c) => s + c[1] * c[2], 0) * (1 + r.ct / 100);
     const amort = v.cost / 5 / 365;
     const exp = (v.exp || []).reduce((s, e) => s + e[1] * e[2], 0);
     const direct = amort + 10000 * v.staff / 30 + exp;
     const req = bom > 0 ? Math.ceil(direct / (bom * d)) : Infinity;
-    const unit = bom * (1 + d);
+    const unit = bom + (v.perf > 0 ? direct / v.perf : 0); // детали с пошлиной + прямые расходы ÷ реальный выпуск
     const profit = Math.round(v.perf * (v.sale - unit) * 30);
     const fitted = Math.round(Math.max(0, v.perf * d * bom - amort - exp) * 30 / (v.staff || 1));
     // Альтернатива: наименьшая доля d (5–40%), при которой выпуска линии хватает.
     const dMin = bom > 0 ? Math.max(5, Math.ceil(100 * direct / (bom * v.perf))) : Infinity;
     const reqMin = Number.isFinite(dMin) ? Math.ceil(direct / (bom * dMin / 100)) : Infinity;
-    return { unit, profit, fitted, req, ok: v.perf >= req, pct: Math.round(d * 100), dMin, reqMin, rates: r };
+    const dAct = bom > 0 && v.perf > 0 ? direct / v.perf / bom * 100 : Infinity;
+    return { unit, profit, fitted, req, ok: v.perf >= req, pct: Math.round(d * 100), dMin, reqMin, dAct, rates: r };
 }
 function renderVerifiedBlock(container, colspan, showAdminCol) {
     const head = document.createElement('tr');
@@ -3088,7 +3096,7 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
         container.appendChild(tr);
         const sr = document.createElement('tr');
         sr.id = 'src-' + v.id; sr.style.display = 'none'; sr.style.background = '#fbfefb';
-        const dInfo = `<span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">нужно ${e.req.toLocaleString('ru-RU')} при d = ${e.pct}% — ${e.ok ? 'хватает' : 'не хватает'}</span>${e.ok ? '' : (e.dMin <= 40 ? `<br><span style="font-size:11px; color:#007600;">хватает с d = ${e.dMin}% (нужно ${e.reqMin.toLocaleString('ru-RU')})</span>` : `<br><span style="font-size:11px; color:#c40000;">не хватает и при d = 40%: нужно меньше прямых расходов или линия с большим выпуском</span>`)}`;
+        const dInfo = `<span style="font-size:11px; color:${e.ok ? '#007600' : '#c40000'};">нужно ${e.req.toLocaleString('ru-RU')} при d = ${e.pct}% — ${e.ok ? 'хватает' : 'не хватает'}</span>${e.ok ? '' : (e.dMin <= 40 ? `<br><span style="font-size:11px; color:#007600;">хватает с d = ${e.dMin}% (нужно ${e.reqMin.toLocaleString('ru-RU')})</span>` : `<br><span style="font-size:11px; color:#c40000;">не хватает и при d = 40%: нужно меньше прямых расходов или линия с большим выпуском</span>`)} · фактически ${e.dAct.toLocaleString('ru-RU', { maximumFractionDigits: 1 })}%`;
         const lnk = (t, u) => u ? `<a href="${u}" target="_blank" style="color:#4a90d9;">${t}</a>` : t;
         sr.innerHTML = `<td></td><td colspan="${colspan - 1}" style="font-size:12px; line-height:1.6; padding:8px 12px;">` +
             dInfo + '<br>' +
@@ -3141,7 +3149,7 @@ window.openReferenceLine = function (cc) {
                                                                     currentClassKey = (item.class_key && baseEntry && baseEntry.classes && baseEntry.classes[item.class_key]) ? item.class_key : null;
                                                                     populateClassSelector(matchedCatalogKey, currentClassKey);
                                                                     // Восстанавливаем страну и ставки сравнения с импортом.
-                                                                    currentCountry = COUNTRIES[item.country_key] ? item.country_key : 'base';
+                                                                    currentCountry = COUNTRIES[item.country_key] ? item.country_key : 'base'; applyDefaultShare(currentCountry);
                                                                     if (document.getElementById('country-selector')) document.getElementById('country-selector').value = currentCountry;
                                                                     { const r = lineRates(item);
                                                                       if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = r.t;
@@ -3521,7 +3529,7 @@ window.openReferenceLine = function (cc) {
                                                                             const linePrice = parseFloat(line.sale_price) || 0;
                                                                             line.$fittedSalary = Math.round(Math.max(0, perf * getDirectShare() * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
                                                                             const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
-                                                                            const unitCost = lineBomTotal * (1 + getDirectShare()); // детали с пошлиной + доля d
+                                                                            const unitCost = lineBomTotal + (dailyAmort + (baseSalary || 10000) * (line.staff || 1) / 30 + lineOtherCosts) / perf; // детали с пошлиной + прямые расходы ÷ реальный выпуск
                                                                             line.$unitCost = unitCost;
                                                                             line.$noSale = !(linePrice > 0);
                                                                             return line.$noSale ? -Infinity : Math.round(perf * (linePrice - unitCost) * 30);
