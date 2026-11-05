@@ -2817,6 +2817,106 @@ const VERIFIED_LINES = [
   ]
  },
  {
+  "id": "v-drone7-us",
+  "topic": "drone",
+  "country_key": "us",
+  "checked": "2026-11-04",
+  "name": "Сборка 7-дюймовых FPV-дронов с GPS (модуль к линии 10-дюймовых)",
+  "url": "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html",
+  "cost": 199999,
+  "perf": 100,
+  "staff": 12,
+  "factory": null,
+  "sale": 652.99,
+  "comps": [
+   [
+    "Рама 7\" карбон (Mark4 7\", 295 мм)",
+    1,
+    11.2,
+    "https://russian.alibaba.com/product-detail/Mark4-7inch-295mm-5mm-Arm-Quadcopter_1601937283540.html"
+   ],
+   [
+    "GPS-модуль HGLRC M100 Mini",
+    1,
+    8.59,
+    "https://russian.alibaba.com/product-detail/M100-Mini-M-Gps-Module-Rc_1601586097297.html"
+   ],
+   [
+    "Полётный контроллер + регуляторы 60A (SpeedyBee F405 V4)",
+    1,
+    59.0,
+    "https://russian.alibaba.com/product-detail/Hot-Sell-SpeedyBee-F405-V4-60A_1600895128197.html"
+   ],
+   [
+    "Мотор 2807 1300KV (Uangel X2807)",
+    4,
+    10.5,
+    "https://russian.alibaba.com/product-detail/Uangel-X2807-2807-Motor-1300KV-6S_1600939381390.html"
+   ],
+   [
+    "Видеопередатчик 5,8 ГГц 1,6 Вт (HGLRC Zeus VTX Pro)",
+    1,
+    28.98,
+    "https://russian.alibaba.com/product-detail/HGLRC-Zeus-VTX-PRO-1-6W_1601913139943.html"
+   ],
+   [
+    "FPV-камера RunCam Phoenix 2 SP",
+    1,
+    18.29,
+    "https://russian.alibaba.com/product-detail/RunCam-Phoenix-2-SP-Fpv-Drone_1601933661170.html"
+   ],
+   [
+    "Аккумулятор LiPo 6S 5000 мА·ч 100C (HEREWIN)",
+    1,
+    38.0,
+    "https://www.alibaba.com/product-detail/HEREWIN-6S-22-2V-5000mAh-100C_1601749242871.html"
+   ]
+  ],
+  "exp": [
+   [
+    "Аренда помещения (запись автора 19.08.2025, без ссылки)",
+    1,
+    50,
+    ""
+   ],
+   [
+    "Логистика и доставка (запись автора 19.08.2025, без ссылки)",
+    1,
+    30,
+    ""
+   ],
+   [
+    "Прочие расходы (запись автора 19.08.2025, без ссылки)",
+    1,
+    20,
+    ""
+   ]
+  ],
+  "src": [
+   [
+    "Та же линия сборки беспилотников: $199 999, производительность 100 в день (Guangzhou Sanhok Hitech)",
+    "https://www.alibaba.com/product-detail/Customized-Advanced-Unmanned-Aircraft-Assembly-Production_1601469365320.html"
+   ],
+   [
+    "Цена такого же дрона в США: $652.99 (GEPRC MOZ7 V2, 7\", GPS, с приёмником управления)",
+    "https://pyrodrone.com/collections/analog-bnf-pnp-rtf/products/geprc-moz7-v2-analog-long-range-fpv-choose-receiver-type"
+   ],
+   [
+    "Цена модуля (оснастки под раму 7\") и время перехода уточняются у продавца линии",
+    ""
+   ],
+   [
+    "Цены деталей — для заказа от 1 000 шт.",
+    ""
+   ],
+   [
+    "Штат 12 человек — по снимку линии, уточняется у производителя",
+    ""
+   ]
+  ],
+  "module": "7-дюймовый FPV-дрон с GPS"
+ },
+ {
   "id": "v-led-us",
   "topic": "universal",
   "country_key": "us",
@@ -2909,6 +3009,7 @@ window.openVerifiedLine = function (id) {
     const v = VERIFIED_LINES.find(x => x.id === id); if (!v) return;
     if (!isAdminMode) toggleAdminMode();
     loadCatalogTemplate(v.topic, v.cls);
+    currentModuleName = v.module || null; currentModuleItems = []; renderModuleItemsBox();
     const sel = document.getElementById('country-selector');
     if (sel) sel.value = v.country_key;
     onCountryChange();
