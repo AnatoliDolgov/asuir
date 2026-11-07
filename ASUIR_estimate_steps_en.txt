@@ -1,0 +1,33 @@
+How to make a preliminary estimate of any product: the FPV drones in a garage example
+
+Step 1. Choose a product that sells in the country
+Take something in demand — FPV drones right now. Find the price of the same item in US stores first: a 10-inch drone sells for $529–580, the competitive price of $423 is used; a 7-inch with GPS is $652.99 (GEPRC MOZ7 V2, Pyrodrone). Without the price in the country there is nothing to calculate.
+
+Step 2. Break the product into parts and find each one for sale
+From the Alibaba catalog: frame $13.70, flight controller with ESCs $59.00, 4 motors at $10.50, video transmitter $28.98, camera $18.29, battery $38.00. Total $199.97, with 20% duty — $239.96. Every part has a link.
+
+Step 3. Choose equipment for the scale
+A garage does not need a line, only workstations: assembly workbench $570, soldering station $29.75, fume extractor $98.60. Two stations — $1,396.70. A factory uses a ready-made line (for example, Sanhok for $199,999).
+
+Step 4. Set the staff and output
+The family only sells; 2 hired assemblers build. On the Sanhok line 12 people assemble 100 drones a day — about 1 hour per drone. So 2 people × 8 hours = 16 drones a day.
+
+Step 5. Calculate direct expenses per day
+Equipment $1,396.70 ÷ 5 years ÷ 365 = $0.77; wages 2 × $10,000 ÷ 30 = $666.67; rent 0 (own garage). Total $667.43 a day.
+
+Step 6. Unit cost
+Parts with duty + direct expenses ÷ output: $239.96 + $667.43 ÷ 16 = $281.68.
+
+Step 7. Profit
+(Price in the country − unit cost) × quantity: ($423 − $281.68) × 16 × 30 = $67,834 a month.
+
+Step 8. Check d
+Direct expenses per drone ($41.72) are 17.4% of the parts cost — within 5–40%, so direct expenses do not inflate the unit cost.
+
+Step 9. Module: what else can be made at the same place
+The same benches, soldering stations and people. Switch to a 7-inch frame ($11.20) and add GPS ($8.59). Unit cost $288.99, US price $652.99, profit $174,722 a month.
+
+Step 10. What to confirm before starting
+This is an estimate. Before starting, check prices and discounts with sellers, real assembly time, shipping, taxes, drone sales rules and sales channels — they are not in the calculation yet.
+
+Any product is estimated with the same steps: price in the country → parts → equipment → staff and output → direct expenses → unit cost → profit → d check.
