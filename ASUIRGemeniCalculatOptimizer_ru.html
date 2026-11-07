@@ -2819,7 +2819,22 @@ const VERIFIED_LINES = [
     "https://darwinfpv.com/products/darwinfpv-x10-large-load-and-long-range-10-fpv-drone"
    ]
   ],
-  "ref": true
+  "ref": true,
+  "links": [
+   [
+    "стол $570",
+    "https://russian.alibaba.com/product-detail/Standard-ESD-Repairing-Workbench-Watchmakers-Table_1600317669346.html"
+   ],
+   [
+    "паяльник $29,75",
+    "https://russian.alibaba.com/product-detail/OSS-T12-X-Plus-72W-Digital_1601401235335.html"
+   ],
+   [
+    "вытяжка $98,60",
+    "https://russian.alibaba.com/product-detail/ES02-AIXUN-Customizable-Strong-Suction-Efficient_1601626112050.html"
+   ]
+  ],
+  "costNote": "2 рабочих места, на каждом: стол $570 + паяльная станция $29,75 + вытяжка $98,60 = $698,35; × 2 = $1 396,70"
  },
  {
   "id": "v-garage7-us",
@@ -2917,7 +2932,22 @@ const VERIFIED_LINES = [
    ]
   ],
   "module": "7-дюймовый FPV-дрон с GPS",
-  "ref": true
+  "ref": true,
+  "links": [
+   [
+    "стол $570",
+    "https://russian.alibaba.com/product-detail/Standard-ESD-Repairing-Workbench-Watchmakers-Table_1600317669346.html"
+   ],
+   [
+    "паяльник $29,75",
+    "https://russian.alibaba.com/product-detail/OSS-T12-X-Plus-72W-Digital_1601401235335.html"
+   ],
+   [
+    "вытяжка $98,60",
+    "https://russian.alibaba.com/product-detail/ES02-AIXUN-Customizable-Strong-Suction-Efficient_1601626112050.html"
+   ]
+  ],
+  "costNote": "2 рабочих места, на каждом: стол $570 + паяльная станция $29,75 + вытяжка $98,60 = $698,35; × 2 = $1 396,70"
  },
  {
   "id": "v-drone10-us",
@@ -3281,8 +3311,8 @@ function renderVerifiedBlock(container, colspan, showAdminCol) {
             <td style="padding-left:12px;"><b>${v.name}</b> — ${c.label}<br>
             <button class="btn-bom-toggle" onclick="openVerifiedLine('${v.id}')">📥 Открыть в генераторе производств</button>
             <button class="btn-bom-toggle" onclick="const d=document.getElementById('src-${v.id}'); d.style.display = d.style.display==='none' ? '' : 'none';">📎 Источники</button></td>
-            <td><a href="${v.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Источник ↗</a></td>
-            <td>$${Number(v.cost).toLocaleString('ru-RU')}</td>
+            <td>${v.links ? v.links.map(l => `<a href="${l[1]}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none; white-space:nowrap;">🔗 ${l[0]} ↗</a>`).join('<br>') : `<a href="${v.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Источник ↗</a>`}</td>
+            <td>$${Number(v.cost).toLocaleString('ru-RU', {minimumFractionDigits: Number.isInteger(Number(v.cost)) ? 0 : 2, maximumFractionDigits: 2})}${v.costNote ? `<div style="font-size:11px; color:#666; margin-top:3px; line-height:1.35;">${v.costNote}</div>` : ''}</td>
             <td>${v.perf.toLocaleString('ru-RU')} шт/день</td>
             <td>${v.staff} чел</td>
             <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('ru-RU')}</td>
