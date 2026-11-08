@@ -1,0 +1,48 @@
+How to start a home business with possible earnings of about $60,000 a month (example)
+asuir.org/ASUIRGeminiCalculationModule_en.html
+
+1. Open the «📋 List of Ready-to-Use Production Lines» tab. At the very top, in the yellow block, find the row «Family in a garage: 10-inch FPV drone assembly».
+From the row you can see:
+• that the equipment costs $1,396.70 (2 workbenches, 2 soldering stations, 2 solder fume extractors);
+• that 2 assemblers with a maximum salary of $11,507 assemble 16 drones a day (estimate: on the Sanhok line 12 people assemble 100 drones a day, about 1 hour of work per drone; 2 assemblers × 8 hours = 16);
+• that one drone costs $281.68: parts with duty plus equipment and wages;
+• that the same drone sells for $423 in US stores;
+• that the profit is $67,834 a month.
+The family does not assemble — it only sells.
+
+2. Let us see where these figures come from: click «📥 Open in the Production Generator» in this row. All fields fill in automatically.
+The «💰 1. Direct Business Costs» tab opens. Here you can choose or adjust:
+• the type of business and the country — the «USA» switch and the «📋 Catalog» button;
+• the equipment cost: find it in the chosen catalog with the «Find» button and paste the link to the specific equipment into the line link field;
+• the actual output of the equipment;
+• the number of workers operating the equipment.
+All of this takes relatively little time.
+
+3. You can add or adjust extra tooling expenses on the «📦 2. Tooling & Facility Expenses» tab.
+
+4. The last step is to fill in or adjust the parts of the product itself on the «⚙️ 3. Raw Materials & BOM» tab. Details and filling examples are described in the «⚙️ Establishment of a New Production Line» section.
+
+5. The unit cost summary is on the «📊 4. Unit Cost Price» tab, and the main figures — costs, monthly profit and the maximum salary of each worker — on the «🎯 5. Results» tab.
+
+
+How to add a related product — a module — in the same garage and earn about $170,000 a month (example)
+asuir.org/ASUIRGeminiCalculationModule_en.html
+
+1. On the «📋 List of Ready-to-Use Production Lines» tab, find the second row in the yellow block: «Family in a garage: module — 7-inch FPV drones with GPS».
+From the row you can see:
+• that the equipment is the same — $1,396.70 (2 workbenches, 2 soldering stations, 2 solder fume extractors), nothing else to buy;
+• that the same 2 assemblers with a maximum salary of $11,858 assemble the same 16 drones a day;
+• that only the parts change: a 7-inch frame ($11.20) instead of the 10-inch one, plus a GPS module ($8.59);
+• that one drone costs $288.99;
+• that the same drone sells for $652.99 in US stores;
+• that the profit is $174,722 a month.
+The family still only sells.
+
+2. Click «📥 Open in the Production Generator» in this row. All fields fill in automatically.
+The «💰 1. Direct Business Costs» and «📦 2. Tooling & Facility Expenses» tabs are the same as for the main product.
+
+3. The «⚙️ 3. Raw Materials & BOM» tab shows how the module differs: another frame and a GPS module. The other parts are the same.
+
+4. The unit cost is on the «📊 4. Unit Cost Price» tab, the profit and the maximum salary on the «🎯 5. Results» tab.
+
+5. The «🧩 6. Modules: other items» tab shows what other products can be assembled on the same equipment.
