@@ -3701,8 +3701,10 @@ window.openReferenceLine = function (cc) {
 
                                                             const rangeDisplay = document.getElementById('page-range-display');
                                                             const totalDisplay = document.getElementById('page-total-display');
-                                                            if (rangeDisplay) rangeDisplay.textContent = totalItems > 0 ? `${startIndex + 1}–${endIndex}` : `0–0`;
-                                                            if (totalDisplay) totalDisplay.textContent = totalItems;
+                                                            // Счётчик учитывает и проверенные линии, которые закреплены вверху списка (12.11.2026).
+                                                            const nVerified = VERIFIED_LINES.filter(v => SHOW_DRONES || v.topic !== 'drone').length;
+                                                            if (rangeDisplay) rangeDisplay.textContent = (nVerified + totalItems) > 0 ? `${window.currentListingPage === 1 ? 1 : nVerified + startIndex + 1}–${nVerified + endIndex}` : `0–0`;
+                                                            if (totalDisplay) totalDisplay.textContent = nVerified + totalItems;
 
                                                             renderPaginationButtons(totalPages, window.currentListingPage);
 
