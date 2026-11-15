@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matrix Store (prototype)</title>
+<style>
+:root{--bg:#eaeded;--card:#fff;--text:#0f1111;--muted:#565959;--nav:#131921;--nav2:#232f3e;--navtext:#fff;--accent:#febd69;--link:#007185;--price:#b12704;--btn:#ffd814;--btn2:#ffa41c;--border:#d5d9d9;--tile:#f0f2f2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1316;--card:#192026;--text:#e8eaeb;--muted:#9ba6ad;--nav:#0a0e11;--nav2:#161e25;--link:#4cc3d9;--price:#ff8a65;--border:#2c363e;--tile:#232d35}}
+:root[data-theme="dark"]{--bg:#0e1316;--card:#192026;--text:#e8eaeb;--muted:#9ba6ad;--nav:#0a0e11;--nav2:#161e25;--link:#4cc3d9;--price:#ff8a65;--border:#2c363e;--tile:#232d35}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--nav);z-index:30}
+button,input,select{font:inherit;color:inherit}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--nav);color:var(--navtext)}
+.top{display:flex;gap:10px;align-items:center;padding:8px 12px;flex-wrap:wrap}
+.logo{font-weight:700;font-size:20px;letter-spacing:.5px;color:var(--navtext);text-decoration:none;margin-right:6px}
+.logo i{font-style:normal;color:var(--accent)}
+.hb{background:transparent;border:1px solid transparent;color:var(--navtext);padding:6px 10px;border-radius:3px;cursor:pointer}
+.hb:hover,.hb:focus-visible{border-color:#fff;outline:none}
+.search{display:flex;flex:1 1 320px;min-width:240px;border-radius:4px;overflow:hidden}
+.search select{background:#e6e6e6;color:#111;border:0;padding:0 6px;max-width:120px}
+.search input{flex:1;border:0;padding:9px 10px;min-width:0;background:#fff;color:#111}
+.search button{border:0;background:var(--accent);color:#111;padding:0 16px;cursor:pointer;font-weight:600}
+nav{background:var(--nav2);padding:2px 10px;display:flex;gap:2px;overflow-x:auto;white-space:nowrap}
+nav button{background:none;border:1px solid transparent;color:var(--navtext);padding:6px 10px;cursor:pointer;border-radius:3px;font-size:14px}
+nav button:hover,nav button:focus-visible{border-color:#fff;outline:none}
+#mega{position:absolute;left:0;right:0;top:100%;background:var(--card);color:var(--text);border-bottom:1px solid var(--border);box-shadow:0 8px 18px rgba(0,0,0,.25);display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:16px 20px;max-height:70vh;overflow:auto}
+#mega[hidden]{display:none}
+#mega h3{margin:0 0 8px;font-size:15px;border-bottom:1px solid var(--border);padding-bottom:6px}
+#mega .row,#mega .back{display:flex;align-items:center;gap:10px;padding:9px 6px;border-radius:4px;color:var(--text);cursor:pointer;text-decoration:none;font-size:14.5px}
+#mega .ch{margin-left:auto;color:var(--muted)}
+#mega .back{color:var(--link);font-weight:600}
+#mega .dh{font-size:17px;font-weight:600;padding:8px 6px}
+#mega .sub{padding-left:16px;color:var(--muted)}
+#mega a:hover,#mega a:focus-visible{background:var(--tile);outline:none}
+main{max-width:1280px;margin:0 auto;padding:14px 12px 30px}
+#crumb{display:flex;gap:10px;align-items:baseline;margin:2px 0 12px;color:var(--muted)}
+#crumb b{color:var(--text);font-size:18px}
+#crumb a{color:var(--link);cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.tile{height:150px;border-radius:4px;display:grid;place-items:center;font-size:64px;background:var(--tile)}
+.card h4{margin:0;font-size:14px;font-weight:500;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.st{color:var(--btn2);letter-spacing:1px}
+.st s{text-decoration:none;color:var(--border)}
+.meta{color:var(--muted);font-size:12.5px}
+.pr{font-size:21px;font-weight:600;color:var(--price)}
+.add{margin-top:auto;border:0;background:var(--btn);color:#111;padding:8px;border-radius:18px;cursor:pointer}
+.add:hover,.add:focus-visible{background:var(--btn2);outline:none}
+.empty{background:var(--card);border:1px dashed var(--border);border-radius:6px;padding:28px;text-align:center;color:var(--muted);grid-column:1/-1}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(380px,100%);background:var(--card);border-left:1px solid var(--border);z-index:40;transform:translateX(105%);transition:transform .2s;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+#drawer.open{transform:none;box-shadow:-8px 0 24px rgba(0,0,0,.3)}
+#drawer header{position:static;background:none;color:var(--text);display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border)}
+#drawer header button{background:none;border:0;font-size:22px;cursor:pointer}
+#lines{flex:1;overflow:auto;padding:6px 14px}
+.ln{display:grid;grid-template-columns:44px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-items:center}
+.ln .tile{height:44px;font-size:24px}
+.q{display:flex;gap:6px;align-items:center;margin-top:4px}
+.q button{width:24px;height:24px;border:1px solid var(--border);background:var(--tile);border-radius:50%;cursor:pointer;line-height:1}
+#tot{padding:12px 14px;border-top:1px solid var(--border)}
+#tot div{display:flex;justify-content:space-between;margin:2px 0}
+#tot .t{font-weight:700;font-size:17px}
+.pay{display:grid;gap:8px;margin-top:10px}
+.pay button{border:0;border-radius:4px;padding:9px;font-weight:600;cursor:pointer}
+.pp{background:#ffc439;color:#111}.sp{background:#635bff;color:#fff}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+footer{text-align:center;color:var(--muted);padding:18px;font-size:13px}
+.modes{display:flex;gap:2px;border-left:1px solid var(--border);margin-left:8px;padding-left:8px}
+.modes button.on{border-bottom:2px solid var(--accent)}
+.acts{margin-top:auto;display:grid;gap:6px}
+.acts .add{margin-top:0}
+.quote{border:1px solid var(--link);background:none;color:var(--link);padding:8px;border-radius:18px;cursor:pointer}
+.quote:disabled{opacity:.6;cursor:default}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:grid;place-items:center;padding:16px}
+.ov[hidden]{display:none}
+.md{background:var(--card);border-radius:8px;max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:18px}
+.md h2{margin:0 0 6px;font-size:19px}
+.md table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.md th,.md td{border-bottom:1px solid var(--border);padding:6px;text-align:left;vertical-align:top}
+.rc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.rc input{width:100%;padding:7px;border:1px solid var(--border);border-radius:4px;background:var(--bg)}
+.md .row2{display:flex;gap:8px;flex-wrap:wrap}
+.md .row2 button{padding:8px 16px}
+[hidden]{display:none!important}
+[data-pg]{cursor:pointer}
+.bk{color:var(--link);cursor:pointer}
+.dg{display:grid;grid-template-columns:minmax(0,280px) 1fr 230px;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px}
+.dg h1{font-size:21px;font-weight:500;margin:0 0 6px}
+.tile.big{height:260px;font-size:110px}
+.buy{border:1px solid var(--border);border-radius:6px;padding:12px;align-self:start;display:grid;gap:8px}
+.tb{display:flex;gap:4px;margin:14px 0 0;border-bottom:1px solid var(--border);overflow-x:auto}
+.tb button{background:none;border:0;border-bottom:3px solid transparent;padding:9px 12px;cursor:pointer;white-space:nowrap}
+.tb button.on{border-color:var(--accent);font-weight:600}
+#tc{background:var(--card);border:1px solid var(--border);border-top:0;padding:14px;margin-bottom:16px}
+#tc table{width:100%;border-collapse:collapse;font-size:13.5px}
+#tc th,#tc td{border-bottom:1px solid var(--border);padding:6px;text-align:left;vertical-align:top}
+@media (max-width:800px){.dg{grid-template-columns:1fr}}
+.lay{display:flex;gap:14px;align-items:flex-start}
+.lay .grid{flex:1;min-width:0}
+#side{flex:0 0 230px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;font-size:13.5px}
+#side[hidden]{display:none}
+#side h5{margin:0 0 6px;font-size:14px}
+#side h5+a{margin-top:0}
+#side a{display:block;padding:3px 0;cursor:pointer;color:var(--text)}
+#side a:hover,#side a.on{color:var(--link);font-weight:600}
+@media (max-width:700px){.lay{flex-direction:column}#side{flex:none;width:100%}}
+@media (max-width:900px){#mega{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){#mega{grid-template-columns:1fr}.search select{display:none}}
+@media (prefers-reduced-motion:reduce){#drawer{transition:none}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  
+  <a class="logo" href="#" id="home">MATRIX <i>STORE</i></a>
+  <div class="search"><select id="sel" aria-label="Department"></select><input id="q" placeholder="Search Matrix Store" aria-label="Search"><button id="go">Search</button></div>
+  <button class="hb" id="cartb" aria-label="Open cart">🛒 Cart <b id="cc">0</b></button>
+ </div>
+ <nav><button id="allb" aria-expanded="false">Products ▾</button><span class="modes" id="modes"></span><span id="dn"></span></nav>
+ <div id="mega" hidden></div>
+</header>
+<main>
+ <div id="crumb"></div>
+ <div class="lay"><aside id="side" hidden></aside><div class="grid" id="grid"></div></div>
+ <div id="dv" hidden></div>
+</main>
+<footer>Matrix Store prototype: equipment, modules and production lines. The product catalog is a separate store.</footer>
+<aside id="drawer" aria-label="Shopping cart">
+ <header><b>Shopping cart</b><button id="cx" aria-label="Close cart">×</button></header>
+ <div id="lines"></div>
+ <div id="tot"></div>
+</aside>
+<div class="ov" id="ov" hidden><div class="md" id="md"></div></div>
+<script>
+const MENU={
+"Office products":{"Electronics":["Televisions","Projectors","Cellular Phones","MP3 Audio","Other Electronics"],
+"Computers":["Desktop PC","Laptops","PDAs","Monitors","Cases","Burners","Hard Drives","Keyboards","Mice","Memory","Motherboards","Video Cards","Sound Cards","Speakers","Printers","Scanners","Software","Other Computers"],
+"Cameras":[],"Camcorders":[]},
+"Home etc":{"For Home":["Building and Hardware","Living Room Furniture","Dining Room & Bar Furniture","Bedroom Furniture","Home Office Furniture","Kids Furniture","Gardening and Plants"],
+"Sports":["Outdoors","Men’s Sport Clothing","Golf Equipment","Collectibles","Recreation Room","Sports & Fitness","Toys & Hobbies","Winter Sports","Women’s Sport Clothing"],
+"Books":["Arts & Photography","Humor & Games","Children’s Books","Fiction & Literature","Mind, Body & Soul","House & Home","Non-Fiction"],
+"Arts and Glass":["Drawings","Folk Arts","Paintings","Photographic","Posters","Prints","Sculpture","Animals","Animation Arts","Autographs","Barware","Casino","Clocks","Comics","Fantasy","History","Art Glass","Art Pottery","Men’s Glasses","Women’s Glasses","Reading Glasses","Sunglasses","Other"]},
+"Clothing, Jewelry":{"Clothing":["Bikini","Babydoll","Bustier","Out Dresses","Long Skirts","Long Dresses","Corsets","Intimates","Jackets","Sweaters","Accessories","Stockings","Pantyhose","Swimwear","Boys","Girls","Mens","Womens","Other Clothing"],
+"Shoes":["Men’s Shoes","Women’s Shoes","Girl’s Shoes","Boy’s Shoes"],
+"Jewelry":["Rings","Earrings","Necklaces","Bracelets","Brooches","Pendants","Anklets","Gemstones","Other"],"Watches":[]},
+"Popular":{"Games":[],"Movies":[],"Music":[],"Apple":[]}};
+const P=[
+["HP 8300 Elite Small Form Factor Desktop, Intel Core i5-3470, 8GB RAM, 500GB SATA (Certified Refurbished)",186.99,"Computers","Desktop PC","🖥️",3],
+["SkyTech Shadow Gaming Computer Desktop PC, Ryzen 1200, GTX 1050 Ti, 8GB DDR4",531.99,"Computers","Desktop PC","🖥️",2],
+["CYBERPOWERPC Gamer Master Gaming PC, Ryzen 7 2700, 16GB DDR4, RTX 2070",698.99,"Computers","Desktop PC","🖥️",3],
+["ASUS ROG Strix X370-F Gaming AMD AM4 DDR4 HDMI ATX Motherboard",45.99,"Computers","Motherboards","🔌",3],
+["Sony KDL48W650D 48-inch 1080p Smart LED TV",496.99,"Electronics","Televisions","📺",2],
+["Samsung UN55NU8000FXZA Flat 55-inch 4K UHD 8 Series Smart LED TV",238.99,"Electronics","Televisions","📺",2],
+["Toshiba 32LF221U19 32-inch 720p Smart LED TV, Fire TV Edition",549.99,"Electronics","Televisions","📺",3],
+["Pierre Auguste Renoir ‘Near the Lake’, Hand Painted Framed Canvas Art",219.99,"Arts and Glass","Paintings","🖼️",3],
+["Under Armour Men’s Raid 10-inch Shorts",19.99,"Sports","Men’s Sport Clothing","🩳",2],
+["A Man Called Horse (DVD), Big Discounts on Precision Series Westerns",10.99,"Movies","","🎬",3],
+["Little Big Man (DVD), Big Discounts on Paramount Studios Westerns",11.99,"Movies","","🎬",3],
+["Paint Your Wagon (DVD), Big Discounts on Musicals/Performing Arts",8.99,"Movies","","🎬",3]
+].map((a,i)=>({id:i,k:"product",t:a[0],p:a[1],d:a[2],c:a[3],e:a[4],r:a[5]}));
+[["equipment","Equipment for assembling computers",2500,"🏭"],
+["equipment","Equipment for assembling monitors",1000,"🏭",1],
+["equipment","Equipment for assembling TVs",2500,"🏭"],
+["equipment","Equipment for assembling servers",2500,"🏭"],
+["equipment","Equipment for assembling mobile phones",1500,"🏭"],
+["equipment","Equipment for assembling gaming notebooks (ASUS G750JH-DB71)",3000,"🏭"],
+["module","Production modules for retooling equipment to assemble monitors (Cougar Panzer Max Ultimate Full Tower)",0,"🧩",1],
+["module","Production modules for retooling equipment to assemble computers",0,"🧩"],
+["bundle","Monitor assembly equipment with retooling modules",3000,"🏭",1]
+].forEach(a=>P.push({id:P.length,k:a[0],t:a[1],p:a[2],e:a[3],r:4,d:"",c:"",m:a[4]}));
+const KN={product:"Product",equipment:"Equipment",module:"Module",bundle:"Equipment and modules"},KT={product:"All products",equipment:"Equipment",module:"Modules",bundle:"Equipment and modules"};
+let K="equipment";
+const $=s=>document.querySelector(s),money=n=>"$"+n.toFixed(2),TAX=.0725;
+let cart={},f={d:"",c:"",q:""};
+const DEPTS=[];Object.values(MENU).forEach(g=>Object.keys(g).forEach(d=>DEPTS.push(d)));
+
+$("#sel").innerHTML='<option value="">All</option>'+DEPTS.map(d=>`<option>${d}</option>`).join("");
+$("#dn").innerHTML=["Electronics","Computers","For Home","Sports","Books","Clothing","Shoes","Jewelry","Watches","Games","Movies","Music"].map(d=>`<button data-d="${d}">${d}</button>`).join("");
+const SUB=Object.fromEntries(Object.entries({"Televisions":"DLP TV|LCD TV|LED TV|Plasma TV|3D TV|TVs By Size|TV Finder|TV/DVD Combos|Portable TV|TV Accessories|Audio Video Cables|DirecTV|Home Audio|Home Video|TV Sizer|Digital Converter Box|Installation Services|Recertified TVs","Projectors":"SVGA Projectors|XGA Projectors|XGA Widescreen|Home Theater 16:9|Accessories|Projector Cables|Projector Screens|Lamp Finder|All-In-One DVD Projector","Desktop PC":"New Desktop PCs|Refurbished Desktops|All-In-One PCs|Desktop Bundles|Barebone PC Kits|Build To Order|Gaming PCs|Home Servers|Media Center PCs|HDMI Desktops|Mini PCs|No OS Systems|Server PCs|Workstations|Computer Terminals","Laptops":"New Laptops|Refurbished Laptops|Build To Order|Ultra Thin Laptops|Gaming Laptops|Desktop Replacement|Netbook|Tablet PCs|64bit OS Laptops|Laptop Accessories","Monitors":"LED Backlit|LCD under 20 in|LCD 20 to 29 in|LCD 40 to 49 in|Samsung LCD|Asus LCD|Dell LCD|HP LCD|Large Format Displays|3D Monitors|HDMI Monitors|LCDs with TV Tuner|Touch Screen Displays|Refurbished Monitors|Monitor Accessories|Monitor Cables","Hard Drives":"External Hard Drives|Drive Enclosures|Internal IDE PATA|Internal Serial ATA|Internal Solid State|2.5-inch Mobile Hard Drives|2TB Hard Drive|Hard Drive Duplicators|Hard Drive Mounts|Network Attached Storage","Memory":"PC Memory|Apple Memory|DDR RAM|DDR 1333 mhz|DDR - Laptop Memory|DDR2 RAM|DDR2 Dual Channel|DDR2 - Laptop Memory|DDR3 RAM|DDR4 RAM|DDR5 RAM|Laptop Memory|DDR3 Tri Channel|ECC Memory|Flash Memory|SDRAM|Memory Cooling","Printers":"InkJet Printers|Laser Printers|Wireless Printers|Dot Matrix Printers|Label Printers|Printer Accessories|Ink / Toner Supplies|Copiers|Fax Machines|Shredders|Ink & Toner Finder|Other Printers"}).map(([k,v])=>[k,v.split("|")]));
+const IC={"Electronics":"📺","Computers":"💻","Cameras":"📷","Camcorders":"📼","For Home":"🏠","Sports":"🏅","Books":"📖","Arts and Glass":"🎁","Clothing":"🎩","Shoes":"👣","Jewelry":"💎","Watches":"⌚","Games":"♟️","Movies":"🎥","Music":"🎵","Apple":"🍎"},mg={},mg2={};
+function drawMega(){
+ $("#mega").innerHTML=Object.entries(MENU).map(([g,ds])=>{
+  const o=mg[g],c2=mg2[g];
+  const body=c2?`<a class="back" tabindex="0" data-back2="${g}">‹ Back to ${o}</a><div class="dh">${c2}</div><a class="row" tabindex="0" data-d="${o}" data-c="${c2}"><span>All in ${c2}</span></a>`+SUB[c2].map(s=>`<a class="row sub" tabindex="0" data-d="${o}" data-c="${c2}" data-s="${s}"><span>${s}</span></a>`).join(""):o?`<a class="back" tabindex="0" data-back="${g}">‹ Back to parent</a><div class="dh">${IC[o]} ${o}</div><a class="row" tabindex="0" data-d="${o}"><span>All in ${o}</span></a>`+ds[o].map(c=>SUB[c]?`<a class="row sub" tabindex="0" data-open2="${g}|${c}"><span>${c}</span><span class="ch">›</span></a>`:`<a class="row sub" tabindex="0" data-d="${o}" data-c="${c}"><span>${c}</span></a>`).join("")
+  :Object.entries(ds).map(([d,cs])=>cs.length?`<a class="row" tabindex="0" data-open="${g}|${d}"><span>${IC[d]}</span><span>${d}</span><span class="ch">›</span></a>`:`<a class="row" tabindex="0" data-d="${d}"><span>${IC[d]}</span><span>${d}</span></a>`).join("");
+  return `<div><h3>${g}</h3>${body}</div>`}).join("");
+}
+drawMega();
+
+function show(){
+ const q=f.q.toLowerCase();
+ const list=P.filter(x=>x.k===K&&(K!=="product"||((!f.d||x.d===f.d)&&(!f.c||x.c===f.c)))&&(!f.s||x.t.toLowerCase().includes(f.s.toLowerCase().replace(/s$/,"")))&&(!f.r||x.r>=f.r)&&(!f.pr||(x.p>=PR[f.pr][0]&&x.p<PR[f.pr][1]))&&(!q||x.t.toLowerCase().includes(q)));drawSide();
+ const cr=$("#crumb");cr.innerHTML="";
+ const b=document.createElement("b");b.textContent=f.s||f.c||f.d||(q?"Search results":KT[K]);cr.append(b);
+ const n=document.createElement("span");n.textContent=list.length+" items";cr.append(n);
+ if(f.d||f.c||q){const a=document.createElement("a");a.textContent="Clear filter";a.onclick=()=>{f={d:"",c:"",q:""};$("#q").value="";$("#sel").value="";show()};cr.append(a)}
+ $("#grid").innerHTML=list.length?list.map(x=>`<div class="card"><div class="tile" data-pg="${x.id}">${x.e}</div><h4 data-pg="${x.id}">${x.t}</h4><div class="st">${"★".repeat(x.r)}<s>${"★".repeat(5-x.r)}</s></div><div class="meta">${x.c||x.d||KN[x.k]}</div><div class="pr">${x.p?money(x.p):"Quote on request"}</div><div class="acts">${x.p?`<button class="add" data-add="${x.id}">Add to cart</button>`:`<button class="quote" data-quote="${x.id}">Request quote</button>`}${x.k!=="product"?`<button class="quote" data-det="${x.id}">Details and economics</button>`:""}</div></div>`).join(""):`<div class="empty">No products in this category yet. The original store has items here; they can be imported next.</div>`;
+}
+function draw(){
+ const ids=Object.keys(cart);let sub=0,cnt=0;
+ $("#lines").innerHTML=ids.length?ids.map(i=>{const x=P[i],n=cart[i];sub+=x.p*n;cnt+=n;return `<div class="ln"><div class="tile">${x.e}</div><div><div>${x.t.split(",")[0]}</div><div class="q"><button data-m="${i}" aria-label="Less">−</button>${n}<button data-p="${i}" aria-label="More">+</button></div></div><b>${money(x.p*n)}</b></div>`}).join(""):'<p class="meta">Your cart is empty.</p>';
+ $("#cc").textContent=cnt;
+ $("#tot").innerHTML=ids.length?`<div><span>Subtotal</span><span>${money(sub)}</span></div><div><span>Shipping</span><span>$0.00</span></div><div><span>Tax (7.25%)</span><span>${money(sub*TAX)}</span></div><div class="t"><span>Total</span><span>${money(sub*(1+TAX))}</span></div><div class="pay"><button class="pp" disabled>PayPal Checkout</button><button class="sp" disabled>Stripe Checkout</button></div><p class="note">Demo: payment buttons are not connected.</p>`:"";
+}
+const mega=$("#mega");
+function closeMega(){mega.hidden=true;$("#allb").setAttribute("aria-expanded","false");for(const k in mg)delete mg[k];for(const k in mg2)delete mg2[k];drawMega()}
+document.addEventListener("click",e=>{
+ const o=e.target.closest("[data-open],[data-back],[data-open2],[data-back2]");
+ if(o){const D=o.dataset;if(D.open){const [g,d]=D.open.split("|");mg[g]=d}else if(D.open2){const [g,c]=D.open2.split("|");mg2[g]=c}else if(D.back2)delete mg2[D.back2];else delete mg[D.back];drawMega();return}
+ const km=e.target.closest("[data-k]");
+ if(km){setMode(km.dataset.k);return}
+ const dt=e.target.closest("[data-det],[data-pg]");
+ if(dt){location.hash="p"+(dt.dataset.det||dt.dataset.pg);return}
+ const qt=e.target.closest("[data-quote]");
+ if(qt){qt.textContent="Quote requested";qt.disabled=true;return}
+ if(e.target.id==="ov"||e.target.closest("[data-closeov]")){$("#ov").hidden=true;return}
+ const tb=e.target.closest("[data-tab]");
+ if(tb){setTab(+tb.dataset.tab);return}
+ const rr=e.target.closest("[data-r],[data-pr]");
+ if(rr){if(rr.dataset.r){const n=+rr.dataset.r;f.r=f.r===n?0:n}else{const n=+rr.dataset.pr;f.pr=f.pr===n?0:n}show();return}
+ const t=e.target.closest("[data-d],[data-add],[data-m],[data-p]");
+ if(e.target.closest("#allb")){mega.hidden=!mega.hidden;$("#allb").setAttribute("aria-expanded",String(!mega.hidden));return}
+ if(!t){if(!e.target.closest("#mega"))closeMega();return}
+ if(t.dataset.add!==undefined){const i=t.dataset.add;cart[i]=(cart[i]||0)+1;draw();$("#drawer").classList.add("open");return}
+ if(t.dataset.m!==undefined){const i=t.dataset.m;if(--cart[i]<=0)delete cart[i];draw();return}
+ if(t.dataset.p!==undefined){cart[t.dataset.p]++;draw();return}
+ hideDet();if(location.hash)location.hash="";K="product";syncMode();f={d:t.dataset.d,c:t.dataset.c||"",s:t.dataset.s||"",q:""};$("#q").value="";closeMega();show();scrollTo(0,0);
+});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){closeMega();$("#drawer").classList.remove("open");$("#ov").hidden=true}
+ if(e.key==="Enter"&&e.target.matches("#mega a")){e.target.click()}
+ if(e.key==="Enter"&&e.target.id==="q")search();
+});
+function search(){hideDet();if(location.hash)location.hash="";f={d:$("#sel").value,c:"",q:$("#q").value.trim()};show()}
+$("#go").onclick=search;
+$("#home").onclick=e=>{e.preventDefault();f={d:"",c:"",q:""};$("#q").value="";show()};
+$("#cartb").onclick=()=>$("#drawer").classList.add("open");
+$("#cx").onclick=()=>$("#drawer").classList.remove("open");
+$("#modes").innerHTML=[["equipment","Equipment"],["module","Modules"],["bundle","Equipment & Modules"]].map(a=>`<button data-k="${a[0]}">${a[1]}</button>`).join("");
+function syncMode(){document.querySelectorAll("#modes button").forEach(b=>b.classList.toggle("on",b.dataset.k===K));$("#dn").style.display="none";$("#sel").style.display="none"}
+function setMode(k){hideDet();if(location.hash)location.hash="";K=k;f={d:"",c:"",q:""};$("#q").value="";syncMode();show();scrollTo(0,0)}
+function openDet(i){const x=P[i],m=x.m;
+ $("#md").innerHTML=`<h2>${x.t}</h2><div class="meta">${KN[x.k]}, ${x.p?money(x.p):"quote on request"}</div><table><tr><th>Equipment</th><th>Modules</th><th>Products</th><th>Status</th><th>Max salary</th></tr><tr><td>${x.k==="module"?"—":x.t.split(" (")[0]}</td><td>${m?"Production modules for retooling to assemble monitors":"—"}</td><td>${m?"Monitors":"—"}</td><td>${m?10:"—"}</td><td>${m?"$783.00":"—"}</td></tr></table><b>Recalculation of project efficiency</b><div class="rc"><input id="r1" type="number" min="0" placeholder="Cost of the project object"><input id="r2" type="number" min="0" placeholder="Cost or rental of equipment"><input id="r3" type="number" min="0" placeholder="Cost or rental of modules"><input id="r4" type="number" min="0" placeholder="Other expenses"></div><p class="meta" id="rs">Enter costs to see the total. The efficiency formula belongs to the Matrix engine and is not connected yet.</p><div class="row2"><button class="add" id="rb">Re-calculate</button><button class="quote" data-closeov>Close</button></div>`;
+ $("#ov").hidden=false;
+ $("#rb").onclick=()=>{const s=[1,2,3,4].reduce((a,n)=>a+(+$("#r"+n).value||0),0);$("#rs").textContent="Total project cost: "+money(s)+(m?", max salary: $783.00":"")};
+}
+const SPEC={0:[["Model","dc7900 SFF"],["Included items","Computer system, keyboard, mouse, power cord"],["Dimensions","3.95 inches high x 13.3 inches wide x 14.9 inches deep"],["Weight","18.75 pounds"],["Operating system","Microsoft Windows 7 Professional (32 bit)"],["Processor","Intel Core 2 Duo 3.00GHz"],["Memory","2GB DDR2"],["Hard drive","160GB"],["Optical drive","CD-RW/DVD"]],7:[["Artist","Pierre Auguste Renoir"],["Title","Near the Lake"],["Type","Hand-painted art"],["Subject","People"],["Format","Horizontal"],["Style","Traditional"],["Image dimensions","20 inches high x 24 inches long"],["Outside dimensions","30 inches high x 34 inches long x 2 inches deep"]]};
+let cur=0;
+function hideDet(){const d=$("#dv");if(d.hidden)return;d.hidden=true;$("#crumb").hidden=false;document.querySelector(".lay").hidden=false}
+function route(){const m=location.hash.match(/^#p(\d+)$/);m&&P[+m[1]]?showDet(+m[1]):hideDet()}
+function econ(x){const m=x.m;return `${linkTable(linksFor(x))}<p><b>Recalculation of project efficiency</b></p><div class="rc"><input id="r1" type="number" min="0" placeholder="Premises rent per month, $"><input id="r2" type="number" min="0" placeholder="Equipment depreciation per month, $"><input id="r3" type="number" min="0" placeholder="Salaries per month, $"><input id="r4" type="number" min="0" placeholder="Cost price per unit, $"></div><div class="rc"><input id="r5" type="number" min="0" placeholder="Market price per unit, $"><input id="r6" type="number" min="5" max="30" placeholder="Share for direct costs, % (5 to 30, default 10)"><input id="r7" type="number" min="0" placeholder="Workers"><input id="r8" type="number" min="0" placeholder="Productivity, units per month (optional)"></div><div id="rs"></div><p class="meta">ASUIR formula: productivity = direct costs / (cost price x share), share 5 to 30%, default 10%. Profit per unit = market price - cost price. Total profit = productivity x profit per unit. Max salary per worker is derived: (productivity x cost price x share - rent - depreciation) / workers. Empty fields count as zero, so results are approximate until actual data is entered.</p><button class="add" id="rb">Re-calculate</button>`}
+function tabHtml(x,n){
+ if(x.k!=="product")return n===0?econ(x):`<p class="meta">${n===1?"Documentation is attached to the project record.":"Readiness and warehouse data is not entered yet."}</p>`;
+ if(n===4)return linkTable(linksFor(x));
+ if(n===0){const s=SPEC[x.id];return s?`<table>${s.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("")}</table>`:`<p class="meta">The specification for this item is not entered in the prototype yet.</p>`}
+ return `<p class="meta">${["","No reviews yet. Current rating: "+x.r+" of 5.","No questions yet.","Warranty and refund terms are set by the seller."][n]}</p>`}
+function setTab(n){const x=P[cur];document.querySelectorAll(".tb button").forEach((b,i)=>b.classList.toggle("on",i===n));$("#tc").innerHTML=tabHtml(x,n);if($("#rb"))calcInit2(x)}
+function showDet(i){const x=P[i];cur=i;closeMega();
+ $("#crumb").hidden=true;document.querySelector(".lay").hidden=true;$("#dv").hidden=false;
+ const tabs=x.k!=="product"?["Project economics","Documentation","Readiness and warehouses"]:["Details and specification","Member reviews","Q&A","Warranties and refunds","Equipment and modules"];
+ const more=P.filter(y=>y.k===x.k&&y.id!==i).slice(0,6);
+ $("#dv").innerHTML=`<p><a class="bk" href="#">\u2039 Back to results</a></p><div class="dg"><div class="tile big">${x.e}</div><div><h1>${x.t}</h1><div class="st">${"\u2605".repeat(x.r)}<s>${"\u2605".repeat(5-x.r)}</s></div><p class="meta">${KN[x.k]}${x.c?", "+x.c:""}</p></div><div class="buy"><div class="pr">${x.p?money(x.p):"Quote on request"}</div>${x.p?`<button class="add" data-add="${i}">Add to cart</button>`:`<button class="quote" data-quote="${i}">Request quote</button>`}</div></div><div class="tb">${tabs.map((t,n)=>`<button data-tab="${n}">${t}</button>`).join("")}</div><div id="tc"></div><h3>Customers also interested in</h3><div class="grid">${more.map(y=>`<div class="card"><div class="tile" data-pg="${y.id}">${y.e}</div><h4 data-pg="${y.id}">${y.t}</h4><div class="pr">${y.p?money(y.p):"Quote on request"}</div></div>`).join("")}</div>`;
+ setTab(0);scrollTo(0,0)}
+const LINKS=[{e:13,m:18,pc:["Computers","Monitors"],st:10,sal:"$783.00"},{e:12,m:19,pc:["Computers","Desktop PC"]},{e:14,pc:["Electronics","Televisions"]}];
+function linksFor(x){return LINKS.filter(r=>x.k==="equipment"?r.e===x.id:x.k==="module"?r.m===x.id:x.k==="bundle"?r.e===13:r.pc[1]===x.c)}
+function linkTable(rows){return rows.length?`<table><tr><th>Equipment</th><th>Modules</th><th>Products</th><th>Status</th><th>Max salary</th></tr>`+rows.map(r=>`<tr><td><a class="bk" data-pg="${r.e}">${P[r.e].t}</a></td><td>${r.m!=null?`<a class="bk" data-pg="${r.m}">${P[r.m].t.split(" (")[0]}</a>`:"\u2014"}</td><td><a class="bk" data-d="${r.pc[0]}" data-c="${r.pc[1]}">${r.pc[1]}</a></td><td>${r.st??"\u2014"}</td><td>${r.sal??"\u2014"}</td></tr>`).join("")+`</table>`:`<p class="meta">No linked equipment, modules or products yet.</p>`}
+function calcInit(x){const g=n=>+$("#r"+n).value||0;
+ const run=()=>{const fixed=g(1)+g(2)+g(3)+g(4),rev=g(5)*g(6),mg=g(8),wk=g(7),avail=rev*(1-mg/100)-fixed;
+  $("#rs").innerHTML=`<table><tr><th>Revenue per month</th><td>${money(rev)}</td></tr><tr><th>Costs without salaries</th><td>${money(fixed)}</td></tr><tr><th>Left for salaries at ${mg}% profit</th><td>${money(avail)}</td></tr><tr><th>Max salary per worker</th><td>${wk>0&&avail>0?money(avail/wk):"\u2014"}</td></tr></table>`};
+ for(let n=1;n<=8;n++)$("#r"+n).oninput=run;$("#rb").onclick=run;run()}
+function calcInit2(x){const g=n=>+$("#r"+n).value||0;
+ const run=()=>{const R=g(1),A=g(2),S=g(3),C=g(4),M=g(5),W=g(7),s=(g(6)||10)/100;
+  const D=R+A+S,P=g(8)||(C>0?D/(C*s):0),allow=P*C*s,fund=allow-R-A;
+  $("#rs").innerHTML=`<table><tr><th>Direct costs per month</th><td>${money(D)}</td></tr><tr><th>Productivity, units per month</th><td>${P?Math.round(P).toLocaleString("en-US"):"\u2014"}${g(8)?"":" (calculated)"}</td></tr><tr><th>Direct costs allowed (${Math.round(s*100)}% of cost price)</th><td>${money(allow)}</td></tr><tr><th>Max salary per worker</th><td>${W>0&&fund>0?money(fund/W):"\u2014"}</td></tr><tr><th>Profit per unit</th><td>${money(M-C)}</td></tr><tr><th>Total profit per month</th><td>${money(P*(M-C))}</td></tr></table>`};
+ for(let n=1;n<=8;n++)$("#r"+n).oninput=run;$("#rb").onclick=run;run()}
+const PR=[0,[0,25],[25,100],[100,500],[500,1e9]];
+function drawSide(){const s=$("#side");if(K!=="product"){s.hidden=true;return}
+ s.hidden=false;const sub=SUB[f.c];let h="";
+ if(sub)h+=`<h5>Categories</h5><a data-d="${f.d}" data-c="${f.c}">All ${f.c}</a>`+sub.map(x=>`<a class="${f.s===x?"on":""}" data-d="${f.d}" data-c="${f.c}" data-s="${x}">${x}</a>`).join("");
+ h+=`<h5 style="margin-top:12px">Customer review</h5>`+[4,3,2,1].map(n=>`<a class="${f.r===n?"on":""}" data-r="${n}"><span class="st">${"★".repeat(n)}<s>${"★".repeat(5-n)}</s></span> and up</a>`).join("");
+ h+=`<h5 style="margin-top:12px">Price</h5>`+["Under $25","$25 to $100","$100 to $500","$500 and above"].map((t,i)=>`<a class="${f.pr===i+1?"on":""}" data-pr="${i+1}">${t}</a>`).join("");
+ s.innerHTML=h}
+syncMode();show();draw();route();addEventListener("hashchange",route);
+</script>
+</body>
+</html>
