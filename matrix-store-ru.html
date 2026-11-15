@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matrix Store (прототип)</title>
+<style>
+:root{--bg:#eaeded;--card:#fff;--text:#0f1111;--muted:#565959;--nav:#131921;--nav2:#232f3e;--navtext:#fff;--accent:#febd69;--link:#007185;--price:#b12704;--btn:#ffd814;--btn2:#ffa41c;--border:#d5d9d9;--tile:#f0f2f2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1316;--card:#192026;--text:#e8eaeb;--muted:#9ba6ad;--nav:#0a0e11;--nav2:#161e25;--link:#4cc3d9;--price:#ff8a65;--border:#2c363e;--tile:#232d35}}
+:root[data-theme="dark"]{--bg:#0e1316;--card:#192026;--text:#e8eaeb;--muted:#9ba6ad;--nav:#0a0e11;--nav2:#161e25;--link:#4cc3d9;--price:#ff8a65;--border:#2c363e;--tile:#232d35}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--nav);z-index:30}
+button,input,select{font:inherit;color:inherit}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--nav);color:var(--navtext)}
+.top{display:flex;gap:10px;align-позиций:center;padding:8px 12px;flex-wrap:wrap}
+.logo{font-weight:700;font-size:20px;letter-spacing:.5px;color:var(--navtext);text-decoration:none;margin-right:6px}
+.logo i{font-style:normal;color:var(--accent)}
+.hb{background:transparent;border:1px solid transparent;color:var(--navtext);padding:6px 10px;border-radius:3px;cursor:pointer}
+.hb:hover,.hb:focus-visible{border-color:#fff;outline:none}
+.search{display:flex;flex:1 1 320px;min-width:240px;border-radius:4px;overflow:hidden}
+.search select{background:#e6e6e6;color:#111;border:0;padding:0 6px;max-width:120px}
+.search input{flex:1;border:0;padding:9px 10px;min-width:0;background:#fff;color:#111}
+.search button{border:0;background:var(--accent);color:#111;padding:0 16px;cursor:pointer;font-weight:600}
+nav{background:var(--nav2);padding:2px 10px;display:flex;gap:2px;overflow-x:auto;white-space:nowrap}
+nav button{background:none;border:1px solid transparent;color:var(--navtext);padding:6px 10px;cursor:pointer;border-radius:3px;font-size:14px}
+nav button:hover,nav button:focus-visible{border-color:#fff;outline:none}
+#mega{position:absolute;left:0;right:0;top:100%;background:var(--card);color:var(--text);border-bottom:1px solid var(--border);box-shadow:0 8px 18px rgba(0,0,0,.25);display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:16px 20px;max-height:70vh;overflow:auto}
+#mega[hidden]{display:none}
+#mega h3{margin:0 0 8px;font-size:15px;border-bottom:1px solid var(--border);padding-bottom:6px}
+#mega .row,#mega .back{display:flex;align-позиций:center;gap:10px;padding:9px 6px;border-radius:4px;color:var(--text);cursor:pointer;text-decoration:none;font-size:14.5px}
+#mega .ch{margin-left:auto;color:var(--muted)}
+#mega .back{color:var(--link);font-weight:600}
+#mega .dh{font-size:17px;font-weight:600;padding:8px 6px}
+#mega .sub{padding-left:16px;color:var(--muted)}
+#mega a:hover,#mega a:focus-visible{background:var(--tile);outline:none}
+main{max-width:1280px;margin:0 auto;padding:14px 12px 30px}
+#crumb{display:flex;gap:10px;align-позиций:baseline;margin:2px 0 12px;color:var(--muted)}
+#crumb b{color:var(--text);font-size:18px}
+#crumb a{color:var(--link);cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.tile{height:150px;border-radius:4px;display:grid;place-позиций:center;font-size:64px;background:var(--tile)}
+.card h4{margin:0;font-size:14px;font-weight:500;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.st{color:var(--btn2);letter-spacing:1px}
+.st s{text-decoration:none;color:var(--border)}
+.meta{color:var(--muted);font-size:12.5px}
+.pr{font-size:21px;font-weight:600;color:var(--price)}
+.add{margin-top:auto;border:0;background:var(--btn);color:#111;padding:8px;border-radius:18px;cursor:pointer}
+.add:hover,.add:focus-visible{background:var(--btn2);outline:none}
+.empty{background:var(--card);border:1px dashed var(--border);border-radius:6px;padding:28px;text-align:center;color:var(--muted);grid-column:1/-1}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(380px,100%);background:var(--card);border-left:1px solid var(--border);z-index:40;transform:translateX(105%);transition:transform .2s;display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+#drawer.open{transform:none;box-shadow:-8px 0 24px rgba(0,0,0,.3)}
+#drawer header{position:static;background:none;color:var(--text);display:flex;justify-content:space-between;align-позиций:center;padding:12px 14px;border-bottom:1px solid var(--border)}
+#drawer header button{background:none;border:0;font-size:22px;cursor:pointer}
+#lines{flex:1;overflow:auto;padding:6px 14px}
+.ln{display:grid;grid-template-columns:44px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-позиций:center}
+.ln .tile{height:44px;font-size:24px}
+.q{display:flex;gap:6px;align-позиций:center;margin-top:4px}
+.q button{width:24px;height:24px;border:1px solid var(--border);background:var(--tile);border-radius:50%;cursor:pointer;line-height:1}
+#tot{padding:12px 14px;border-top:1px solid var(--border)}
+#tot div{display:flex;justify-content:space-between;margin:2px 0}
+#tot .t{font-weight:700;font-size:17px}
+.pay{display:grid;gap:8px;margin-top:10px}
+.pay button{border:0;border-radius:4px;padding:9px;font-weight:600;cursor:pointer}
+.pp{background:#ffc439;color:#111}.sp{background:#635bff;color:#fff}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+footer{text-align:center;color:var(--muted);padding:18px;font-size:13px}
+.modes{display:flex;gap:2px;border-left:1px solid var(--border);margin-left:8px;padding-left:8px}
+.modes button.on{border-bottom:2px solid var(--accent)}
+.acts{margin-top:auto;display:grid;gap:6px}
+.acts .add{margin-top:0}
+.quote{border:1px solid var(--link);background:none;color:var(--link);padding:8px;border-radius:18px;cursor:pointer}
+.quote:disabled{opacity:.6;cursor:default}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:grid;place-позиций:center;padding:16px}
+.ov[hidden]{display:none}
+.md{background:var(--card);border-radius:8px;max-width:680px;width:100%;max-height:90vh;overflow:auto;padding:18px}
+.md h2{margin:0 0 6px;font-size:19px}
+.md table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.md th,.md td{border-bottom:1px solid var(--border);padding:6px;text-align:left;vertical-align:top}
+.rc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.rc input{width:100%;padding:7px;border:1px solid var(--border);border-radius:4px;background:var(--bg)}
+.md .row2{display:flex;gap:8px;flex-wrap:wrap}
+.md .row2 button{padding:8px 16px}
+[hidden]{display:none!important}
+[data-pg]{cursor:pointer}
+.bk{color:var(--link);cursor:pointer}
+.dg{display:grid;grid-template-columns:minmax(0,280px) 1fr 230px;gap:18px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:16px}
+.dg h1{font-size:21px;font-weight:500;margin:0 0 6px}
+.tile.big{height:260px;font-size:110px}
+.buy{border:1px solid var(--border);border-radius:6px;padding:12px;align-self:start;display:grid;gap:8px}
+.tb{display:flex;gap:4px;margin:14px 0 0;border-bottom:1px solid var(--border);overflow-x:auto}
+.tb button{background:none;border:0;border-bottom:3px solid transparent;padding:9px 12px;cursor:pointer;white-space:nowrap}
+.tb button.on{border-color:var(--accent);font-weight:600}
+#tc{background:var(--card);border:1px solid var(--border);border-top:0;padding:14px;margin-bottom:16px}
+#tc table{width:100%;border-collapse:collapse;font-size:13.5px}
+#tc th,#tc td{border-bottom:1px solid var(--border);padding:6px;text-align:left;vertical-align:top}
+@media (max-width:800px){.dg{grid-template-columns:1fr}}
+.lay{display:flex;gap:14px;align-позиций:flex-start}
+.lay .grid{flex:1;min-width:0}
+#side{flex:0 0 230px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px;font-size:13.5px}
+#side[hidden]{display:none}
+#side h5{margin:0 0 6px;font-size:14px}
+#side h5+a{margin-top:0}
+#side a{display:block;padding:3px 0;cursor:pointer;color:var(--text)}
+#side a:hover,#side a.on{color:var(--link);font-weight:600}
+@media (max-width:700px){.lay{flex-direction:column}#side{flex:none;width:100%}}
+@media (max-width:900px){#mega{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){#mega{grid-template-columns:1fr}.search select{display:none}}
+@media (prefers-reduced-motion:reduce){#drawer{transition:none}}
+</style>
+</head>
+<body>
+<header>
+ <div class="top">
+  
+  <a class="logo" href="#" id="home">MATRIX <i>STORE</i></a>
+  <div class="search"><select id="sel" aria-label="Раздел"></select><input id="q" placeholder="Поиск в Matrix Store" aria-label="Найти"><button id="go">Найти</button></div>
+  <button class="hb" id="cartb" aria-label="Открыть корзину">🛒 Корзина <b id="cc">0</b></button>
+ </div>
+ <nav><button id="allb" aria-expanded="false">Продукция ▾</button><span class="modes" id="modes"></span><span id="dn"></span></nav>
+ <div id="mega" hidden></div>
+</header>
+<main>
+ <div id="crumb"></div>
+ <div class="lay"><aside id="side" hidden></aside><div class="grid" id="grid"></div></div>
+ <div id="dv" hidden></div>
+</main>
+<footer>Прототип Matrix Store: оборудование, модули и производственные линии. Каталог продукции — отдельный магазин.</footer>
+<aside id="drawer" aria-label="Корзина">
+ <header><b>Корзина</b><button id="cx" aria-label="Закрыть корзину">×</button></header>
+ <div id="lines"></div>
+ <div id="tot"></div>
+</aside>
+<div class="ov" id="ov" hidden><div class="md" id="md"></div></div>
+<script>
+const MENU={
+"Офис и техника":{"Электроника":["Телевизоры","Проекторы","Мобильные телефоны","MP3-аудио","Другая электроника"],
+"Компьютеры":["Настольные ПК","Ноутбуки","КПК","Мониторы","Корпуса","Приводы записи","Жёсткие диски","Клавиатуры","Мыши","Память","Материнские платы","Видеокарты","Звуковые карты","Колонки","Принтеры","Сканеры","Программы","Другие компьютеры"],
+"Фотоаппараты":[],"Видеокамеры":[]},
+"Дом и другое":{"Для дома":["Стройматериалы и инструменты","Мебель для гостиной","Мебель для столовой и бара","Мебель для спальни","Мебель для домашнего офиса","Детская мебель","Сад и растения"],
+"Спорт":["Туризм и отдых","Мужская спортивная одежда","Снаряжение для гольфа","Коллекционные предметы","Игровая комната","Спорт и фитнес","Игрушки и хобби","Зимние виды спорта","Женская спортивная одежда"],
+"Книги":["Искусство и фотография","Юмор и игры","Детские книги","Проза и литература","Разум, тело и душа","Дом и быт","Нехудожественная литература"],
+"Искусство и стекло":["Рисунки","Народное искусство","Картины","Фотографии","Постеры","Гравюры","Скульптура","Животные","Анимация","Автографы","Барная посуда","Казино","Часы настенные","Комиксы","Фэнтези","История","Художественное стекло","Художественная керамика","Мужские очки","Женские очки","Очки для чтения","Солнцезащитные очки","Другое"]},
+"Одежда, украшения":{"Одежда":["Бикини","Бебидолл","Бюстье","Вечерние платья","Длинные юбки","Длинные платья","Корсеты","Бельё","Куртки","Свитера","Аксессуары","Чулки","Колготки","Купальники","Для мальчиков","Для девочек","Мужская","Женская","Другая одежда"],
+"Обувь":["Мужская обувь","Женская обувь","Обувь для девочек","Обувь для мальчиков"],
+"Украшения":["Кольца","Серьги","Ожерелья","Браслеты","Броши","Подвески","Браслеты на ногу","Драгоценные камни","Другое"],"Часы":[]},
+"Популярное":{"Игры":[],"Фильмы":[],"Музыка":[],"Apple":[]}};
+const P=[
+["HP 8300 Elite компактный настольный ПК, Intel Core i5-3470, 8GB RAM, 500GB SATA (восстановленный, сертифицирован)",186.99,"Компьютеры","Настольные ПК","🖥️",3],
+["SkyTech Shadow игровой настольный компьютер, Ryzen 1200, GTX 1050 Ti, 8GB DDR4",531.99,"Компьютеры","Настольные ПК","🖥️",2],
+["CYBERPOWERPC игровой ПК, Ryzen 7 2700, 16GB DDR4, RTX 2070",698.99,"Компьютеры","Настольные ПК","🖥️",3],
+["ASUS ROG Strix X370-F игровая материнская плата AMD AM4 DDR4 HDMI ATX",45.99,"Компьютеры","Материнские платы","🔌",3],
+["Sony KDL48W650D умный LED-телевизор 48 дюймов, 1080p",496.99,"Электроника","Телевизоры","📺",2],
+["Samsung UN55NU8000FXZA плоский умный LED-телевизор 55 дюймов, 4K UHD, серия 8",238.99,"Электроника","Телевизоры","📺",2],
+["Toshiba 32LF221U19 умный LED-телевизор 32 дюйма, 720p, Fire TV",549.99,"Электроника","Телевизоры","📺",3],
+["Пьер Огюст Ренуар ‘«У озера»’, картина маслом в раме, ручная работа",219.99,"Искусство и стекло","Картины","🖼️",3],
+["Under Armour мужские шорты Raid, 10 дюймов",19.99,"Спорт","Мужская спортивная одежда","🩳",2],
+["A Man Called Horse (DVD), большие скидки, серия вестернов Precision",10.99,"Фильмы","","🎬",3],
+["Little Big Man (DVD), большие скидки, вестерны Paramount Studios",11.99,"Фильмы","","🎬",3],
+["Paint Your Wagon (DVD), большие скидки, мюзиклы и сценические искусства",8.99,"Фильмы","","🎬",3]
+].map((a,i)=>({id:i,k:"product",t:a[0],p:a[1],d:a[2],c:a[3],e:a[4],r:a[5]}));
+[["equipment","Оборудование для сборки компьютеров",2500,"🏭"],
+["equipment","Оборудование для сборки мониторов",1000,"🏭",1],
+["equipment","Оборудование для сборки телевизоров",2500,"🏭"],
+["equipment","Оборудование для сборки серверов",2500,"🏭"],
+["equipment","Оборудование для сборки мобильных телефонов",1500,"🏭"],
+["equipment","Оборудование для сборки игровых ноутбуков (ASUS G750JH-DB71)",3000,"🏭"],
+["module","Производственные модули для переналадки оборудования на сборку мониторов (Cougar Panzer Max Ultimate Full Tower)",0,"🧩",1],
+["module","Производственные модули для переналадки оборудования на сборку компьютеров",0,"🧩"],
+["bundle","Оборудование для сборки мониторов с модулями переналадки",3000,"🏭",1]
+].forEach(a=>P.push({id:P.length,k:a[0],t:a[1],p:a[2],e:a[3],r:4,d:"",c:"",m:a[4]}));
+const KN={product:"Продукт",equipment:"Оборудование",module:"Модуль",bundle:"Оборудование и модули"},KT={product:"Вся продукция",equipment:"Оборудование",module:"Модули",bundle:"Оборудование и модули"};
+let K="equipment";
+const $=s=>document.querySelector(s),money=n=>"$"+n.toFixed(2),TAX=.0725;
+let cart={},f={d:"",c:"",q:""};
+const DEPTS=[];Object.values(MENU).forEach(g=>Object.keys(g).forEach(d=>DEPTS.push(d)));
+
+$("#sel").innerHTML='<option value="">Все</option>'+DEPTS.map(d=>`<option>${d}</option>`).join("");
+$("#dn").innerHTML=["Электроника","Компьютеры","Для дома","Спорт","Книги","Одежда","Обувь","Украшения","Часы","Игры","Фильмы","Музыка"].map(d=>`<button data-d="${d}">${d}</button>`).join("");
+const SUB=Object.fromEntries(Object.entries({"Телевизоры":"DLP-телевизоры|ЖК-телевизоры|LED-телевизоры|Плазменные телевизоры|3D-телевизоры|Телевизоры по размеру|Подбор телевизора|Телевизор + DVD|Портативные телевизоры|Аксессуары для ТВ|Аудио- и видеокабели|DirecTV|Домашнее аудио|Домашнее видео|Подбор по размеру|Цифровые приставки|Услуги установки|Восстановленные телевизоры","Проекторы":"SVGA-проекторы|XGA-проекторы|XGA широкоформатные|Домашний кинотеатр 16:9|Аксессуары|Кабели для проекторов|Экраны для проекторов|Подбор ламп|Проектор с DVD","Настольные ПК":"Новые настольные ПК|Восстановленные настольные ПК|Моноблоки|Комплекты ПК|Платформы barebone|Сборка под заказ|Игровые ПК|Домашние серверы|Медиацентры|ПК с HDMI|Мини-ПК|Без операционной системы|Серверы|Рабочие станции|Терминалы","Ноутбуки":"Новые ноутбуки|Восстановленные ноутбуки|Сборка под заказ|Ультратонкие ноутбуки|Игровые ноутбуки|Замена настольного ПК|Нетбуки|Планшетные ПК|Ноутбуки с 64-бит ОС|Аксессуары для ноутбуков","Мониторы":"LED-подсветка|ЖК до 20 дюймов|ЖК 20–29 дюймов|ЖК 40–49 дюймов|ЖК Samsung|ЖК Asus|ЖК Dell|ЖК HP|Большие дисплеи|3D-мониторы|Мониторы с HDMI|ЖК с ТВ-тюнером|Сенсорные дисплеи|Восстановленные мониторы|Аксессуары для мониторов|Кабели для мониторов","Жёсткие диски":"Внешние жёсткие диски|Корпуса для дисков|Внутренние IDE PATA|Внутренние Serial ATA|Внутренние SSD|Мобильные диски 2,5 дюйма|Диски 2 ТБ|Дубликаторы дисков|Крепления для дисков|Сетевые хранилища","Память":"Память для ПК|Память для Apple|Память DDR|DDR 1333 МГц|DDR для ноутбуков|Память DDR2|DDR2 двухканальная|DDR2 для ноутбуков|Память DDR3|Память DDR4|Память DDR5|Память для ноутбуков|DDR3 трёхканальная|Память ECC|Флеш-память|SDRAM|Охлаждение памяти","Принтеры":"Струйные принтеры|Лазерные принтеры|Беспроводные принтеры|Матричные принтеры|Принтеры этикеток|Аксессуары для принтеров|Чернила и тонеры|Копиры|Факсы|Шредеры|Подбор чернил и тонера|Другие принтеры"}).map(([k,v])=>[k,v.split("|")]));
+const IC={"Электроника":"📺","Компьютеры":"💻","Фотоаппараты":"📷","Видеокамеры":"📼","Для дома":"🏠","Спорт":"🏅","Книги":"📖","Искусство и стекло":"🎁","Одежда":"🎩","Обувь":"👣","Украшения":"💎","Часы":"⌚","Игры":"♟️","Фильмы":"🎥","Музыка":"🎵","Apple":"🍎"},mg={},mg2={};
+function drawMega(){
+ $("#mega").innerHTML=Object.entries(MENU).map(([g,ds])=>{
+  const o=mg[g],c2=mg2[g];
+  const body=c2?`<a class="back" tabindex="0" data-back2="${g}">‹ Назад в ${o}</a><div class="dh">${c2}</div><a class="row" tabindex="0" data-d="${o}" data-c="${c2}"><span>Все в ${c2}</span></a>`+SUB[c2].map(s=>`<a class="row sub" tabindex="0" data-d="${o}" data-c="${c2}" data-s="${s}"><span>${s}</span></a>`).join(""):o?`<a class="back" tabindex="0" data-back="${g}">‹ Назад</a><div class="dh">${IC[o]} ${o}</div><a class="row" tabindex="0" data-d="${o}"><span>Все в ${o}</span></a>`+ds[o].map(c=>SUB[c]?`<a class="row sub" tabindex="0" data-open2="${g}|${c}"><span>${c}</span><span class="ch">›</span></a>`:`<a class="row sub" tabindex="0" data-d="${o}" data-c="${c}"><span>${c}</span></a>`).join("")
+  :Object.entries(ds).map(([d,cs])=>cs.length?`<a class="row" tabindex="0" data-open="${g}|${d}"><span>${IC[d]}</span><span>${d}</span><span class="ch">›</span></a>`:`<a class="row" tabindex="0" data-d="${d}"><span>${IC[d]}</span><span>${d}</span></a>`).join("");
+  return `<div><h3>${g}</h3>${body}</div>`}).join("");
+}
+drawMega();
+
+function show(){
+ const q=f.q.toLowerCase();
+ const list=P.filter(x=>x.k===K&&(K!=="product"||((!f.d||x.d===f.d)&&(!f.c||x.c===f.c)))&&(!f.s||x.t.toLowerCase().includes(f.s.toLowerCase().replace(/s$/,"")))&&(!f.r||x.r>=f.r)&&(!f.pr||(x.p>=PR[f.pr][0]&&x.p<PR[f.pr][1]))&&(!q||x.t.toLowerCase().includes(q)));drawSide();
+ const cr=$("#crumb");cr.innerHTML="";
+ const b=document.createElement("b");b.textContent=f.s||f.c||f.d||(q?"Результаты поиска":KT[K]);cr.append(b);
+ const n=document.createElement("span");n.textContent=list.length+" позиций";cr.append(n);
+ if(f.d||f.c||q){const a=document.createElement("a");a.textContent="Сбросить фильтр";a.onclick=()=>{f={d:"",c:"",q:""};$("#q").value="";$("#sel").value="";show()};cr.append(a)}
+ $("#grid").innerHTML=list.length?list.map(x=>`<div class="card"><div class="tile" data-pg="${x.id}">${x.e}</div><h4 data-pg="${x.id}">${x.t}</h4><div class="st">${"★".repeat(x.r)}<s>${"★".repeat(5-x.r)}</s></div><div class="meta">${x.c||x.d||KN[x.k]}</div><div class="pr">${x.p?money(x.p):"Цена по запросу"}</div><div class="acts">${x.p?`<button class="add" data-add="${x.id}">В корзину</button>`:`<button class="quote" data-quote="${x.id}">Запросить цену</button>`}${x.k!=="product"?`<button class="quote" data-det="${x.id}">Детали и экономика</button>`:""}</div></div>`).join(""):`<div class="empty">В этой категории пока нет товаров. В прежнем магазине они есть, их можно импортировать следующим шагом.</div>`;
+}
+function draw(){
+ const ids=Object.keys(cart);let sub=0,cnt=0;
+ $("#lines").innerHTML=ids.length?ids.map(i=>{const x=P[i],n=cart[i];sub+=x.p*n;cnt+=n;return `<div class="ln"><div class="tile">${x.e}</div><div><div>${x.t.split(",")[0]}</div><div class="q"><button data-m="${i}" aria-label="Меньше">−</button>${n}<button data-p="${i}" aria-label="Больше">+</button></div></div><b>${money(x.p*n)}</b></div>`}).join(""):'<p class="meta">Корзина пуста.</p>';
+ $("#cc").textContent=cnt;
+ $("#tot").innerHTML=ids.length?`<div><span>Сумма</span><span>${money(sub)}</span></div><div><span>Доставка</span><span>$0.00</span></div><div><span>Налог (7,25%)</span><span>${money(sub*TAX)}</span></div><div class="t"><span>Итого</span><span>${money(sub*(1+TAX))}</span></div><div class="pay"><button class="pp" disabled>Оплата через PayPal</button><button class="sp" disabled>Оплата через Stripe</button></div><p class="note">Демо: кнопки оплаты не подключены.</p>`:"";
+}
+const mega=$("#mega");
+function closeMega(){mega.hidden=true;$("#allb").setAttribute("aria-expanded","false");for(const k in mg)delete mg[k];for(const k in mg2)delete mg2[k];drawMega()}
+document.addEventListener("click",e=>{
+ const o=e.target.closest("[data-open],[data-back],[data-open2],[data-back2]");
+ if(o){const D=o.dataset;if(D.open){const [g,d]=D.open.split("|");mg[g]=d}else if(D.open2){const [g,c]=D.open2.split("|");mg2[g]=c}else if(D.back2)delete mg2[D.back2];else delete mg[D.back];drawMega();return}
+ const km=e.target.closest("[data-k]");
+ if(km){setMode(km.dataset.k);return}
+ const dt=e.target.closest("[data-det],[data-pg]");
+ if(dt){location.hash="p"+(dt.dataset.det||dt.dataset.pg);return}
+ const qt=e.target.closest("[data-quote]");
+ if(qt){qt.textContent="Запрос отправлен";qt.disabled=true;return}
+ if(e.target.id==="ov"||e.target.closest("[data-closeov]")){$("#ov").hidden=true;return}
+ const tb=e.target.closest("[data-tab]");
+ if(tb){setTab(+tb.dataset.tab);return}
+ const rr=e.target.closest("[data-r],[data-pr]");
+ if(rr){if(rr.dataset.r){const n=+rr.dataset.r;f.r=f.r===n?0:n}else{const n=+rr.dataset.pr;f.pr=f.pr===n?0:n}show();return}
+ const t=e.target.closest("[data-d],[data-add],[data-m],[data-p]");
+ if(e.target.closest("#allb")){mega.hidden=!mega.hidden;$("#allb").setAttribute("aria-expanded",String(!mega.hidden));return}
+ if(!t){if(!e.target.closest("#mega"))closeMega();return}
+ if(t.dataset.add!==undefined){const i=t.dataset.add;cart[i]=(cart[i]||0)+1;draw();$("#drawer").classList.add("open");return}
+ if(t.dataset.m!==undefined){const i=t.dataset.m;if(--cart[i]<=0)delete cart[i];draw();return}
+ if(t.dataset.p!==undefined){cart[t.dataset.p]++;draw();return}
+ hideDet();if(location.hash)location.hash="";K="product";syncMode();f={d:t.dataset.d,c:t.dataset.c||"",s:t.dataset.s||"",q:""};$("#q").value="";closeMega();show();scrollTo(0,0);
+});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){closeMega();$("#drawer").classList.remove("open");$("#ov").hidden=true}
+ if(e.key==="Enter"&&e.target.matches("#mega a")){e.target.click()}
+ if(e.key==="Enter"&&e.target.id==="q")search();
+});
+function search(){hideDet();if(location.hash)location.hash="";f={d:$("#sel").value,c:"",q:$("#q").value.trim()};show()}
+$("#go").onclick=search;
+$("#home").onclick=e=>{e.preventDefault();f={d:"",c:"",q:""};$("#q").value="";show()};
+$("#cartb").onclick=()=>$("#drawer").classList.add("open");
+$("#cx").onclick=()=>$("#drawer").classList.remove("open");
+$("#modes").innerHTML=[["equipment","Оборудование"],["module","Модули"],["bundle","Оборудование и модули"]].map(a=>`<button data-k="${a[0]}">${a[1]}</button>`).join("");
+function syncMode(){document.querySelectorAll("#modes button").forEach(b=>b.classList.toggle("on",b.dataset.k===K));$("#dn").style.display="none";$("#sel").style.display="none"}
+function setMode(k){hideDet();if(location.hash)location.hash="";K=k;f={d:"",c:"",q:""};$("#q").value="";syncMode();show();scrollTo(0,0)}
+function openDet(i){const x=P[i],m=x.m;
+ $("#md").innerHTML=`<h2>${x.t}</h2><div class="meta">${KN[x.k]}, ${x.p?money(x.p):"quote on request"}</div><table><tr><th>Оборудование</th><th>Модули</th><th>Продукция</th><th>Статус</th><th>Макс. зарплата</th></tr><tr><td>${x.k==="module"?"—":x.t.split(" (")[0]}</td><td>${m?"Производственные модули для переналадки на сборку мониторов":"—"}</td><td>${m?"Мониторы":"—"}</td><td>${m?10:"—"}</td><td>${m?"$783.00":"—"}</td></tr></table><b>Пересчёт эффективности проекта</b><div class="rc"><input id="r1" type="number" min="0" placeholder="Cost of the project object"><input id="r2" type="number" min="0" placeholder="Cost or rental of equipment"><input id="r3" type="number" min="0" placeholder="Cost or rental of modules"><input id="r4" type="number" min="0" placeholder="Другое expenses"></div><p class="meta" id="rs">Enter costs to see the total. The efficiency formula belongs to the Matrix engine and is not connected yet.</p><div class="row2"><button class="add" id="rb">Пересчитать</button><button class="quote" data-closeov>Закрыть</button></div>`;
+ $("#ov").hidden=false;
+ $("#rb").onclick=()=>{const s=[1,2,3,4].reduce((a,n)=>a+(+$("#r"+n).value||0),0);$("#rs").textContent="Итого project cost: "+money(s)+(m?", max salary: $783.00":"")};
+}
+const SPEC={0:[["Модель","dc7900 SFF"],["Комплектация","Компьютер, клавиатура, мышь, шнур питания"],["Размеры","3.95 inches high x 13.3 inches wide x 14.9 inches deep"],["Вес","18.75 pounds"],["Операционная система","Microsoft Windows 7 Professional (32 bit)"],["Процессор","Intel Core 2 Duo 3.00GHz"],["Память","2GB DDR2"],["Жёсткий диск","160GB"],["Оптический привод","CD-RW/DVD"]],7:[["Художник","Пьер Огюст Ренуар"],["Название","«У озера»"],["Тип","Картина, ручная работа"],["Сюжет","Люди"],["Формат","Горизонтальный"],["Стиль","Традиционный"],["Размер изображения","20 inches high x 24 inches long"],["Габаритные размеры","30 inches high x 34 inches long x 2 inches deep"]]};
+let cur=0;
+function hideDet(){const d=$("#dv");if(d.hidden)return;d.hidden=true;$("#crumb").hidden=false;document.querySelector(".lay").hidden=false}
+function route(){const m=location.hash.match(/^#p(\d+)$/);m&&P[+m[1]]?showDet(+m[1]):hideDet()}
+function econ(x){const m=x.m;return `${linkTable(linksFor(x))}<p><b>Пересчёт эффективности проекта</b></p><div class="rc"><input id="r1" type="number" min="0" placeholder="Аренда помещения в месяц, $"><input id="r2" type="number" min="0" placeholder="Амортизация оборудования в месяц, $"><input id="r3" type="number" min="0" placeholder="Зарплаты в месяц, $"><input id="r4" type="number" min="0" placeholder="Себестоимость единицы, $"></div><div class="rc"><input id="r5" type="number" min="0" placeholder="Рыночная цена единицы, $"><input id="r6" type="number" min="5" max="30" placeholder="Доля прямых затрат, % (от 5 до 30, по умолчанию 10)"><input id="r7" type="number" min="0" placeholder="Работников"><input id="r8" type="number" min="0" placeholder="Производительность, ед. в месяц (необязательно)"></div><div id="rs"></div><p class="meta">Формула АСУИР: производительность = прямые затраты ÷ (себестоимость × доля), доля от 5 до 30%, по умолчанию 10%. Прибыль с единицы = рыночная цена − себестоимость. Общая прибыль = производительность × прибыль с единицы. Максимальная зарплата на работника рассчитана дополнительно: (производительность × себестоимость × доля − аренда − амортизация) ÷ работников. Пустые поля считаются нулём, поэтому результат приблизительный, пока не введены реальные данные.</p><button class="add" id="rb">Пересчитать</button>`}
+function tabHtml(x,n){
+ if(x.k!=="product")return n===0?econ(x):`<p class="meta">${n===1?"Документация прикрепляется к записи проекта.":"Данные о готовности и складах пока не внесены."}</p>`;
+ if(n===4)return linkTable(linksFor(x));
+ if(n===0){const s=SPEC[x.id];return s?`<table>${s.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join("")}</table>`:`<p class="meta">Характеристики этой позиции в прототипе пока не внесены.</p>`}
+ return `<p class="meta">${["","Отзывов пока нет. Текущий рейтинг: "+x.r+" из 5.","Вопросов пока нет.","Условия гарантии и возврата устанавливает продавец."][n]}</p>`}
+function setTab(n){const x=P[cur];document.querySelectorAll(".tb button").forEach((b,i)=>b.classList.toggle("on",i===n));$("#tc").innerHTML=tabHtml(x,n);if($("#rb"))calcInit2(x)}
+function showDet(i){const x=P[i];cur=i;closeMega();
+ $("#crumb").hidden=true;document.querySelector(".lay").hidden=true;$("#dv").hidden=false;
+ const tabs=x.k!=="product"?["Экономика проекта","Документация","Готовность и склады"]:["Описание и характеристики","Отзывы","Вопросы и ответы","Гарантия и возврат","Оборудование и модули"];
+ const more=P.filter(y=>y.k===x.k&&y.id!==i).slice(0,6);
+ $("#dv").innerHTML=`<p><a class="bk" href="#">\u2039 Назад к результатам</a></p><div class="dg"><div class="tile big">${x.e}</div><div><h1>${x.t}</h1><div class="st">${"\u2605".repeat(x.r)}<s>${"\u2605".repeat(5-x.r)}</s></div><p class="meta">${KN[x.k]}${x.c?", "+x.c:""}</p></div><div class="buy"><div class="pr">${x.p?money(x.p):"Цена по запросу"}</div>${x.p?`<button class="add" data-add="${i}">В корзину</button>`:`<button class="quote" data-quote="${i}">Запросить цену</button>`}</div></div><div class="tb">${tabs.map((t,n)=>`<button data-tab="${n}">${t}</button>`).join("")}</div><div id="tc"></div><h3>Покупатели также интересуются</h3><div class="grid">${more.map(y=>`<div class="card"><div class="tile" data-pg="${y.id}">${y.e}</div><h4 data-pg="${y.id}">${y.t}</h4><div class="pr">${y.p?money(y.p):"Цена по запросу"}</div></div>`).join("")}</div>`;
+ setTab(0);scrollTo(0,0)}
+const LINKS=[{e:13,m:18,pc:["Компьютеры","Мониторы"],st:10,sal:"$783.00"},{e:12,m:19,pc:["Компьютеры","Настольные ПК"]},{e:14,pc:["Электроника","Телевизоры"]}];
+function linksFor(x){return LINKS.filter(r=>x.k==="equipment"?r.e===x.id:x.k==="module"?r.m===x.id:x.k==="bundle"?r.e===13:r.pc[1]===x.c)}
+function linkTable(rows){return rows.length?`<table><tr><th>Оборудование</th><th>Модули</th><th>Продукция</th><th>Статус</th><th>Макс. зарплата</th></tr>`+rows.map(r=>`<tr><td><a class="bk" data-pg="${r.e}">${P[r.e].t}</a></td><td>${r.m!=null?`<a class="bk" data-pg="${r.m}">${P[r.m].t.split(" (")[0]}</a>`:"\u2014"}</td><td><a class="bk" data-d="${r.pc[0]}" data-c="${r.pc[1]}">${r.pc[1]}</a></td><td>${r.st??"\u2014"}</td><td>${r.sal??"\u2014"}</td></tr>`).join("")+`</table>`:`<p class="meta">Связанного оборудования, модулей и продукции пока нет.</p>`}
+function calcInit(x){const g=n=>+$("#r"+n).value||0;
+ const run=()=>{const fixed=g(1)+g(2)+g(3)+g(4),rev=g(5)*g(6),mg=g(8),wk=g(7),avail=rev*(1-mg/100)-fixed;
+  $("#rs").innerHTML=`<table><tr><th>Revenue per month</th><td>${money(rev)}</td></tr><tr><th>Costs without salaries</th><td>${money(fixed)}</td></tr><tr><th>Left for salaries at ${mg}% profit</th><td>${money(avail)}</td></tr><tr><th>Максимальная зарплата на работника</th><td>${wk>0&&avail>0?money(avail/wk):"\u2014"}</td></tr></table>`};
+ for(let n=1;n<=8;n++)$("#r"+n).oninput=run;$("#rb").onclick=run;run()}
+function calcInit2(x){const g=n=>+$("#r"+n).value||0;
+ const run=()=>{const R=g(1),A=g(2),S=g(3),C=g(4),M=g(5),W=g(7),s=(g(6)||10)/100;
+  const D=R+A+S,P=g(8)||(C>0?D/(C*s):0),allow=P*C*s,fund=allow-R-A;
+  $("#rs").innerHTML=`<table><tr><th>Прямые затраты в месяц</th><td>${money(D)}</td></tr><tr><th>Производительность, ед. в месяц</th><td>${P?Math.round(P).toLocaleString("ru-RU"):"\u2014"}${g(8)?"":" (расчётная)"}</td></tr><tr><th>Допустимые прямые затраты (${Math.round(s*100)}% от себестоимости)</th><td>${money(allow)}</td></tr><tr><th>Максимальная зарплата на работника</th><td>${W>0&&fund>0?money(fund/W):"\u2014"}</td></tr><tr><th>Прибыль с единицы</th><td>${money(M-C)}</td></tr><tr><th>Общая прибыль в месяц</th><td>${money(P*(M-C))}</td></tr></table>`};
+ for(let n=1;n<=8;n++)$("#r"+n).oninput=run;$("#rb").onclick=run;run()}
+const PR=[0,[0,25],[25,100],[100,500],[500,1e9]];
+function drawSide(){const s=$("#side");if(K!=="product"){s.hidden=true;return}
+ s.hidden=false;const sub=SUB[f.c];let h="";
+ if(sub)h+=`<h5>Категории</h5><a data-d="${f.d}" data-c="${f.c}">Все ${f.c}</a>`+sub.map(x=>`<a class="${f.s===x?"on":""}" data-d="${f.d}" data-c="${f.c}" data-s="${x}">${x}</a>`).join("");
+ h+=`<h5 style="margin-top:12px">Оценка покупателей</h5>`+[4,3,2,1].map(n=>`<a class="${f.r===n?"on":""}" data-r="${n}"><span class="st">${"★".repeat(n)}<s>${"★".repeat(5-n)}</s></span> и выше</a>`).join("");
+ h+=`<h5 style="margin-top:12px">Цена</h5>`+["До $25","От $25 до $100","От $100 до $500","От $500"].map((t,i)=>`<a class="${f.pr===i+1?"on":""}" data-pr="${i+1}">${t}</a>`).join("");
+ s.innerHTML=h}
+syncMode();show();draw();route();addEventListener("hashchange",route);
+</script>
+</body>
+</html>
