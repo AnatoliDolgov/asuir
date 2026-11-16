@@ -2571,6 +2571,16 @@ Thank you!
                                                                         savedEquipmentList = [];
                                                                     }
                                                                     calculateAll();
+         // Переход из «Каталога»: ?line=ID открывает эту линию во вкладке создания. Чужую линию можно менять, но сохранится она как новая.
+         if (!window.__lineFromUrlDone) {
+             try {
+                 const wanted = new URLSearchParams(location.search).get('line');
+                 if (wanted && savedEquipmentList.some(x => x.id === wanted)) {
+                     window.__lineFromUrlDone = true;
+                     window.loadLineIntoWorkspace(wanted);
+                 }
+             } catch (e) { console.error(e); }
+         }
                                                                 });
 
                                                                 window.saveCurrentEquipmentToDatabase = function () {
