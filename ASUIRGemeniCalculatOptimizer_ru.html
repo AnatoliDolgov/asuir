@@ -3686,7 +3686,7 @@ window.openReferenceLine = function (cc) {
                                                                     // Эталонный пример всегда закреплён вверху листинга, независимо от фильтров.
 
                                                                     // Непроверенные строки базы скрыты (не удалены); свои линии клиент видит в фильтре «Мои».
-                                                                    const filteredList = savedEquipmentList.filter(item => SHOW_UNVERIFIED || filterMode === 'my').filter(item => {
+                                                                    const filteredList = savedEquipmentList.filter(item => SHOW_UNVERIFIED || filterMode === 'my' || String(item.id||'').indexOf('matrix_ex') === 0).filter(item => {
                                                                         const itemOwner = item.client_id || "SYSTEM";
                                                                         const isMine = isLineMine(item);
                                                                         if (filterMode === 'my') return isMine;
