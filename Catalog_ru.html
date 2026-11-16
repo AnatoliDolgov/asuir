@@ -37,7 +37,7 @@ details summary{cursor:pointer;color:#1f4e78}
 .live{margin-top:20px}
 footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
 @media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
-</style></head>
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}</style></head>
 <body><div class="main-wrapper">
 <div class="top-utility-bar"><div style="cursor:pointer;font-weight:600;" onclick="window.location.href='index.html'">Languages ⌵</div></div>
 <div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
@@ -76,6 +76,7 @@ function findLine(r){if(!LIVE)return undefined;
   const prod=norm(l.product_name);
   if(r.src==="new")return sameCls&&prod&&(prod.includes(norm(r.en))||norm(r.en).includes(prod));
   return sameCls&&(norm(l.topic_title)===norm(r.en)||norm(l.topic_title).includes(norm(r.topic)))&&!prod||sameCls&&norm(l.topic_title)===norm(r.en)}) || null}
+function tl(r,tab,text,cls){const l=findLine(r);const q=(l?"line="+encodeURIComponent(l.id)+"&":"")+"tab="+tab;return `<a class="${cls||"tl"}" href="${GEN_URL}?${q}" target="_blank" rel="noopener" title="Открыть в генераторе">${text}</a>`}
 function goBtn(r){const l=findLine(r);
  if(l)return `<a class="go" href="${GEN_URL}?line=${encodeURIComponent(l.id)}" target="_blank" rel="noopener">Открыть линию в генераторе</a>`;
  if(l===null)return `<span class="go off">Линия с модулем ещё не создана</span>`;
@@ -86,9 +87,9 @@ function draw(){
  L.sort((a,b)=>k==="product"?a.product.localeCompare(b.product,"ru"):(b[k]??-1e12)-(a[k]??-1e12));
  $("#cnt").textContent=L.length+" позиций";
  $("#tb").innerHTML=L.map(r=>{
-  const m=r.mod&&r.mod.length?`<details><summary>${fm(r.modPrice)}, переналадка ${chg(r.chg)}</summary><div class="m">${r.mod.join(", ")}</div></details>`:(r.src==="needs"?`<span class="tag">нужно другое оборудование</span><div class="m">${r.note||""}</div>`:'<span class="m">—</span>');
+  const m=r.mod&&r.mod.length?`<details><summary>${fm(r.modPrice)}, переналадка ${chg(r.chg)}</summary><div class="m">${r.mod.join(", ")}</div><div class="m">${tl(r,'tab6','Открыть вкладку «Модули»')}</div></details>`:(r.src==="needs"?`<span class="tag">нужно другое оборудование</span><div class="m">${r.note||""}</div>`:'<span class="m">—</span>');
   const pr=r.profit==null?"—":`<span class="${r.profit<0?"neg":"profit"}">${fm(r.profit)}</span>`;
-  return `<tr><td><b>${r.product}</b><div><span class="tag">${r.group}</span>${r.src==="new"?' <span class="tag">новая продукция</span>':""}</div></td><td>${r.eq}<div class="m">${fm(r.eqPrice)}</div></td><td>${m}</td><td class="n">${r.perf??"—"}</td><td class="n">${r.staff}</td><td class="n">${f2(r.unit)}</td><td class="n">${f2(r.price)}</td><td class="n">${pr}</td><td class="n">${r.sal==null?"—":fm(r.sal)}</td><td>${goBtn(r)}</td></tr>`}).join("")||'<tr><td colspan="10" class="m">Ничего не найдено.</td></tr>';
+  return `<tr><td><b>${tl(r,'tab5',r.product)}</b><div><span class="tag">${r.group}</span>${r.src==="new"?' <span class="tag">новая продукция</span>':""}</div></td><td>${tl(r,'tab1',r.eq)}<div class="m">${fm(r.eqPrice)}</div></td><td>${m}</td><td class="n">${r.perf??"—"}</td><td class="n">${r.staff}</td><td class="n">${f2(r.unit)}</td><td class="n">${f2(r.price)}</td><td class="n">${pr}</td><td class="n">${r.sal==null?"—":fm(r.sal)}</td><td>${goBtn(r)}</td></tr>`}).join("")||'<tr><td colspan="10" class="m">Ничего не найдено.</td></tr>';
 }
 $("#tabs").innerHTML=groups.map(g=>`<button data-g="${g}" class="${g===G?"on":""}">${g}</button>`).join("");
 $("#tabs").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;G=b.dataset.g;document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));draw()};

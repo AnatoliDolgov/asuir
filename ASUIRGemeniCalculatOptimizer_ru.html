@@ -2578,6 +2578,10 @@ Thank you!
                  if (wanted && savedEquipmentList.some(x => x.id === wanted)) {
                      window.__lineFromUrlDone = true;
                      window.loadLineIntoWorkspace(wanted);
+                     window.openTabFromUrl();
+                 } else if (wanted && data) {
+                     window.__lineFromUrlDone = true;
+                     alert('Линия с кодом "' + wanted + '" в базе не найдена. Откройте её из списка вручную.');
                  }
              } catch (e) { console.error(e); }
          }
@@ -3493,7 +3497,20 @@ window.openReferenceLine = function (cc) {
                                                                     });
                                                                 });
 
-                                                                window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
+                                                                // ?tab=tab1..tab6 — открыть нужную вкладку (ссылки из «Каталога»); работает и вместе с ?line=ID.
+     window.openTabFromUrl = function () {
+         try {
+             const t = new URLSearchParams(location.search).get('tab');
+             if (!/^tab[1-6]$/.test(t || '')) return;
+             switchMainTab('main-tab-2');
+             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.toggle('active', l.dataset.tab === t));
+             document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+             const el = document.getElementById(t); if (el) el.classList.add('active');
+         } catch (e) { console.error(e); }
+     };
+     window.openTabFromUrl();
+
+     window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
                                                                 window.closeModal = function (id) { document.getElementById(id).style.display = 'none'; };
                                                                 window.openAlibabaInquiryModal = function () { openModal('inquiry-modal'); };
                                                                 window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; };
