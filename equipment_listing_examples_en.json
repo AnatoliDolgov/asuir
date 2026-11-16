@@ -1,0 +1,994 @@
+{
+ "matrix_ex01": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Smartphones & Mobile Phones",
+  "class_key": "budget",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Budget smartphone",
+  "module_items": [
+   {
+    "name": "housing nests",
+    "url": "https://www.alibaba.com/showroom/phone-jig.html",
+    "price": null,
+    "query": "housing nests"
+   },
+   {
+    "name": "6.5\" display press jig",
+    "url": "https://www.alibaba.com/product-detail/Qianli-Universal-Holding-Pressure-Mold-for_1600250336500.html",
+    "price": null,
+    "query": "6.5\" display press jig"
+   },
+   {
+    "name": "test firmware",
+    "url": "",
+    "price": null,
+    "query": "test firmware"
+   }
+  ],
+  "market_price": 85,
+  "sale_price": 85,
+  "name": "Budget Smartphone Assembly Line + module: Budget smartphone",
+  "url": "",
+  "cost": 6800,
+  "perf": 250,
+  "staff": 3,
+  "components": [
+   {
+    "name": "Display module 6.5\" HD+ IPS with touchscreen",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Display+module+6.5\"+HD++IPS+with+touchscreen",
+    "qty": 1,
+    "price": 9
+   },
+   {
+    "name": "SoC Motherboard (Unisoc T606 / 4GB / 64GB)",
+    "url": "https://www.alibaba.com/trade/search?SearchText=SoC+Motherboard+(Unisoc+T606+/+4GB+/+64GB)",
+    "qty": 1,
+    "price": 22
+   },
+   {
+    "name": "Camera module set (Main 13MP + Front 5MP)",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Camera+module+set+(Main+13MP+++Front+5MP)",
+    "qty": 1,
+    "price": 4
+   },
+   {
+    "name": "Li-Polymer Battery 5000 mAh",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Li-Polymer+Battery+5000+mAh",
+    "qty": 1,
+    "price": 5
+   },
+   {
+    "name": "Plastic housing, buttons, SIM tray",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Plastic+housing,+buttons,+SIM+tray",
+    "qty": 1,
+    "price": 3
+   },
+   {
+    "name": "Speaker, vibration motor, Type-C sub-board, antennas",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Speaker,+vibration+motor,+Type-C+sub-board,+antennas",
+    "qty": 1,
+    "price": 2.5
+   },
+   {
+    "name": "Charger 10W + cable + retail box",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Charger+10W+++cable+++retail+box",
+    "qty": 1,
+    "price": 2
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Assembly box rent 40 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Pneumatic press & electric torque drivers (per worker)",
+    "url": "",
+    "qty": 3,
+    "price": 2
+   },
+   {
+    "name": "Consumables: thermal tape, adhesives, wipes",
+    "url": "",
+    "qty": 3,
+    "price": 1.5
+   },
+   {
+    "name": "Logistics & components delivery",
+    "url": "",
+    "qty": 1,
+    "price": 15
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex02": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Smartphones & Mobile Phones",
+  "class_key": "mid",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Mid-range smartphone",
+  "module_items": [
+   {
+    "name": "nests",
+    "url": "https://www.alibaba.com/showroom/phone-jig.html",
+    "price": null,
+    "query": "nests"
+   },
+   {
+    "name": "AMOLED press jig",
+    "url": "https://www.alibaba.com/product-detail/In-frame-mold-lcd-laminating-mold_60820337550.html",
+    "price": null,
+    "query": "AMOLED press jig"
+   },
+   {
+    "name": "test firmware",
+    "url": "",
+    "price": null,
+    "query": "test firmware"
+   }
+  ],
+  "market_price": 240,
+  "sale_price": 240,
+  "name": "Mid-range Smartphone Assembly Line + module: Mid-range smartphone",
+  "url": "",
+  "cost": 9900,
+  "perf": 150,
+  "staff": 3,
+  "components": [
+   {
+    "name": "AMOLED display module 6.7\" FHD+ 120Hz",
+    "url": "https://www.alibaba.com/trade/search?SearchText=AMOLED+display+module+6.7\"+FHD++120Hz",
+    "qty": 1,
+    "price": 28
+   },
+   {
+    "name": "SoC Motherboard (Dimensity 7050 / 8GB / 256GB)",
+    "url": "https://www.alibaba.com/trade/search?SearchText=SoC+Motherboard+(Dimensity+7050+/+8GB+/+256GB)",
+    "qty": 1,
+    "price": 85
+   },
+   {
+    "name": "Camera module set (50MP OIS + 8MP ultrawide + 16MP front)",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Camera+module+set+(50MP+OIS+++8MP+ultrawide+++16MP+front)",
+    "qty": 1,
+    "price": 18
+   },
+   {
+    "name": "Li-Polymer Battery 5000 mAh",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Li-Polymer+Battery+5000+mAh",
+    "qty": 1,
+    "price": 6
+   },
+   {
+    "name": "Metal frame, glass back panel, buttons",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Metal+frame,+glass+back+panel,+buttons",
+    "qty": 1,
+    "price": 12
+   },
+   {
+    "name": "Stereo speakers, vibration motor, Type-C sub-board, NFC, antennas",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Stereo+speakers,+vibration+motor,+Type-C+sub-board,+NFC,+antennas",
+    "qty": 1,
+    "price": 6
+   },
+   {
+    "name": "Charger 67W + cable + retail box",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Charger+67W+++cable+++retail+box",
+    "qty": 1,
+    "price": 6
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Assembly box rent 40 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Pneumatic press & electric torque drivers (per worker)",
+    "url": "",
+    "qty": 3,
+    "price": 2
+   },
+   {
+    "name": "Consumables: thermal tape, adhesives, wipes",
+    "url": "",
+    "qty": 3,
+    "price": 1.5
+   },
+   {
+    "name": "Logistics & components delivery",
+    "url": "",
+    "qty": 1,
+    "price": 15
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex03": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Watch Assembly",
+  "class_key": "quartz",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Simple quartz",
+  "module_items": [
+   {
+    "name": "Miyota 2035 movement holders",
+    "url": "https://www.alibaba.com/product-detail/Universal-Watch-Movement-Holder-Anti-Scratch_1601016985132.html",
+    "price": null,
+    "query": "watch Miyota 2035 movement holders"
+   },
+   {
+    "name": "hand-setting tool",
+    "url": "https://www.alibaba.com/product-detail/New-Watch-Tool-Hand-Press-Fitting_62142240189.html",
+    "price": null,
+    "query": "watch hand-setting tool"
+   },
+   {
+    "name": "battery tester",
+    "url": "https://www.alibaba.com/product-detail/Multifunctional-Watch-Battery-Tester-watch-Quartz_1600633777455.html",
+    "price": null,
+    "query": "watch battery tester"
+   }
+  ],
+  "market_price": 35,
+  "sale_price": 35,
+  "name": "Quartz Watch Assembly Mini-Line + module: Simple quartz",
+  "url": "",
+  "cost": 5350,
+  "perf": 120,
+  "staff": 2,
+  "components": [
+   {
+    "name": "Miyota 2035 quartz movement",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Miyota+2035+quartz+movement",
+    "qty": 1,
+    "price": 1.5
+   },
+   {
+    "name": "Zinc alloy case with mineral glass",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Zinc+alloy+case+with+mineral+glass",
+    "qty": 1,
+    "price": 3.5
+   },
+   {
+    "name": "Dial and hands set",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Dial+and+hands+set",
+    "qty": 1,
+    "price": 1.2
+   },
+   {
+    "name": "Faux leather strap",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Faux+leather+strap",
+    "qty": 1,
+    "price": 1
+   },
+   {
+    "name": "SR626SW battery",
+    "url": "https://www.alibaba.com/trade/search?SearchText=SR626SW+battery",
+    "qty": 1,
+    "price": 0.1
+   },
+   {
+    "name": "Cardboard gift box",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Cardboard+gift+box",
+    "qty": 1,
+    "price": 0.8
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Clean dust-free room rent 30 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Precision watchmaker toolkit (per master)",
+    "url": "",
+    "qty": 2,
+    "price": 1.5
+   },
+   {
+    "name": "Consumables: finger cots, dust blowers, wipes (per worker)",
+    "url": "",
+    "qty": 2,
+    "price": 1
+   },
+   {
+    "name": "Insurance and courier delivery",
+    "url": "",
+    "qty": 1,
+    "price": 8
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex04": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Watch Assembly",
+  "class_key": "automatic",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Seiko-level automatic",
+  "module_items": [
+   {
+    "name": "NH35 movement holder",
+    "url": "https://www.alibaba.com/product-detail/Stainless-Steel-Repair-And-Assembly-Tool_1600509239089.html",
+    "price": null,
+    "query": "watch NH35 movement holder"
+   },
+   {
+    "name": "demagnetizer",
+    "url": "https://www.alibaba.com/product-detail/Professional-Mechanical-Wristwatch-Demagnetizer-Demagnetizing-Tool_1600511489161.html",
+    "price": null,
+    "query": "watch demagnetizer"
+   },
+   {
+    "name": "rotor tool",
+    "url": "https://www.alibaba.com/showroom/watch-maker-tools.html",
+    "price": null,
+    "query": "watch rotor tool"
+   }
+  ],
+  "market_price": 220,
+  "sale_price": 220,
+  "name": "Mechanical Watch Assembly Mini-Line (NH35) + module: Seiko-level automatic",
+  "url": "",
+  "cost": 12450,
+  "perf": 30,
+  "staff": 2,
+  "components": [
+   {
+    "name": "Seiko NH35A automatic movement",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Seiko+NH35A+automatic+movement",
+    "qty": 1,
+    "price": 32
+   },
+   {
+    "name": "316L stainless steel case",
+    "url": "https://www.alibaba.com/trade/search?SearchText=316L+stainless+steel+case",
+    "qty": 1,
+    "price": 18
+   },
+   {
+    "name": "Sapphire crystal",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Sapphire+crystal",
+    "qty": 1,
+    "price": 6
+   },
+   {
+    "name": "Dial and luminous hands",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Dial+and+luminous+hands",
+    "qty": 1,
+    "price": 6
+   },
+   {
+    "name": "Steel bracelet or leather strap",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Steel+bracelet+or+leather+strap",
+    "qty": 1,
+    "price": 8
+   },
+   {
+    "name": "Gift presentation box",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Gift+presentation+box",
+    "qty": 1,
+    "price": 5
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Clean dust-free room rent 30 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Precision watchmaker toolkit (per master)",
+    "url": "",
+    "qty": 2,
+    "price": 2
+   },
+   {
+    "name": "Watch oils (Moebius), dust blowers",
+    "url": "",
+    "qty": 2,
+    "price": 1.5
+   },
+   {
+    "name": "Insurance and courier delivery",
+    "url": "",
+    "qty": 1,
+    "price": 10
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex05": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Apparel Sewing",
+  "class_key": "knit",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Knitwear: T-shirts, hoodies",
+  "module_items": [
+   {
+    "name": "size-range patterns",
+    "url": "https://www.alibaba.com/showroom/garment-pattern-makers.html",
+    "price": null,
+    "query": "sewing size-range patterns"
+   },
+   {
+    "name": "presser feet",
+    "url": "https://www.alibaba.com/product-detail/25Pcs-Silver-Presser-Foot-Sewing-Machine_1600086469409.html",
+    "price": null,
+    "query": "sewing presser feet"
+   },
+   {
+    "name": "neckline binder",
+    "url": "https://www.alibaba.com/product-detail/Industrial-sewing-machine-attachment-folder-binder_11000000517741.html",
+    "price": null,
+    "query": "sewing neckline binder"
+   }
+  ],
+  "market_price": 35,
+  "sale_price": 35,
+  "name": "Knitwear Sewing Mini-Shop + module: Knitwear: T-shirts, hoodies",
+  "url": "",
+  "cost": 18250,
+  "perf": 120,
+  "staff": 3,
+  "components": [
+   {
+    "name": "Jersey / fleece knit fabric (1.2 m)",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Jersey+/+fleece+knit+fabric+(1.2+m)",
+    "qty": 1.2,
+    "price": 4
+   },
+   {
+    "name": "Rib knit for collar and cuffs (0.2 m)",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Rib+knit+for+collar+and+cuffs+(0.2+m)",
+    "qty": 0.2,
+    "price": 3
+   },
+   {
+    "name": "Threads",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Threads",
+    "qty": 1,
+    "price": 0.3
+   },
+   {
+    "name": "Tags, labels, packaging",
+    "url": "https://www.alibaba.com/trade/search?SearchText=Tags,+labels,+packaging",
+    "qty": 1,
+    "price": 0.6
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Sewing workshop rent 50 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 30
+   },
+   {
+    "name": "Needles, presser feet, machine oil (per worker)",
+    "url": "",
+    "qty": 3,
+    "price": 1.5
+   },
+   {
+    "name": "Cutting machine replacement blades & sharpening",
+    "url": "",
+    "qty": 1,
+    "price": 3
+   },
+   {
+    "name": "Fabric delivery and scrap removal logistics",
+    "url": "",
+    "qty": 1,
+    "price": 14
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex06": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Smartphones & Mobile Phones",
+  "class_key": "budget",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Handheld radio",
+  "module_items": [
+   {
+    "name": "nests",
+    "url": "https://www.alibaba.com/showroom/phone-jig.html",
+    "price": null,
+    "query": "nests"
+   },
+   {
+    "name": "RF test stand",
+    "url": "https://m.alibaba.com/product/62203951542/0-5Mhz-470Mhz-RF-Signal-Generator.html",
+    "price": null,
+    "query": "RF test stand"
+   }
+  ],
+  "market_price": 35,
+  "sale_price": 35,
+  "name": "Budget Smartphone Assembly Line + module: Handheld radio",
+  "url": "",
+  "cost": 7500,
+  "perf": 150,
+  "staff": 3,
+  "components": [
+   {
+    "name": "Board",
+    "url": "https://www.alibaba.com/showroom/walkie-talkie-circuit-board.html",
+    "qty": 1,
+    "price": 9
+   },
+   {
+    "name": "Housing",
+    "url": "https://www.alibaba.com/showroom/walkie-talkie-shell-enclosure.html",
+    "qty": 1,
+    "price": 2.5
+   },
+   {
+    "name": "Antenna",
+    "url": "https://www.alibaba.com/product-detail/Walkie-Talkie-Antenna-SMA-F-RHD_1601286959949.html",
+    "qty": 1,
+    "price": 0.8
+   },
+   {
+    "name": "Battery",
+    "url": "https://www.alibaba.com/showroom/7.4v-two-way-radio-battery.html",
+    "qty": 1,
+    "price": 3
+   },
+   {
+    "name": "Charger",
+    "url": "https://www.alibaba.com/showroom/handheld-charging-walkie-talkie-chargers.html",
+    "qty": 1,
+    "price": 1.5
+   },
+   {
+    "name": "Box",
+    "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html",
+    "qty": 1,
+    "price": 0.8
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Assembly box rent 40 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Pneumatic press & electric torque drivers (per worker)",
+    "url": "",
+    "qty": 3,
+    "price": 2
+   },
+   {
+    "name": "Consumables: thermal tape, adhesives, wipes",
+    "url": "",
+    "qty": 3,
+    "price": 1.5
+   },
+   {
+    "name": "Logistics & components delivery",
+    "url": "",
+    "qty": 1,
+    "price": 15
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex07": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Smartphones & Mobile Phones",
+  "class_key": "budget",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "20,000 mAh power bank",
+  "module_items": [
+   {
+    "name": "cell spot-welding jig",
+    "url": "https://www.alibaba.com/product-detail/KNOKOO-Battery-Spot-Welders-18650-Spot_60701559724.html",
+    "price": null,
+    "query": "cell spot-welding jig"
+   },
+   {
+    "name": "capacity tester",
+    "url": "https://www.alibaba.com/product-detail/EBC-X-8-Channels-18650-lithium_1600723647200.html",
+    "price": null,
+    "query": "capacity tester"
+   }
+  ],
+  "market_price": 22,
+  "sale_price": 22,
+  "name": "Budget Smartphone Assembly Line + module: 20,000 mAh power bank",
+  "url": "",
+  "cost": 7200,
+  "perf": 200,
+  "staff": 3,
+  "components": [
+   {
+    "name": "18650 cells ×6",
+    "url": "https://www.alibaba.com/product-detail/China-3-7V-3000MAH-cell-batteries_1600083209514.html",
+    "qty": 1,
+    "price": 9
+   },
+   {
+    "name": "Controller board",
+    "url": "https://www.alibaba.com/showroom/22.5w-fast-charging-board.html",
+    "qty": 1,
+    "price": 1.5
+   },
+   {
+    "name": "Housing",
+    "url": "https://www.alibaba.com/product-detail/20000mAh-Dual-USB-Power-Bank-Case_62138630640.html",
+    "qty": 1,
+    "price": 2
+   },
+   {
+    "name": "Cable",
+    "url": "https://www.alibaba.com/product-detail/Wholesale-Pure-Copper-USB-C-Charging_1601561721818.html",
+    "qty": 1,
+    "price": 0.5
+   },
+   {
+    "name": "Box",
+    "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html",
+    "qty": 1,
+    "price": 0.5
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Assembly box rent 40 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Pneumatic press & electric torque drivers (per worker)",
+    "url": "",
+    "qty": 3,
+    "price": 2
+   },
+   {
+    "name": "Consumables: thermal tape, adhesives, wipes",
+    "url": "",
+    "qty": 3,
+    "price": 1.5
+   },
+   {
+    "name": "Logistics & components delivery",
+    "url": "",
+    "qty": 1,
+    "price": 15
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex08": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Watch Assembly",
+  "class_key": "quartz",
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Smartwatch",
+  "module_items": [
+   {
+    "name": "jig",
+    "url": "https://www.alibaba.com/showroom/lcd-jig.html",
+    "price": null,
+    "query": "watch jig"
+   },
+   {
+    "name": "glue dispenser",
+    "url": "https://www.alibaba.com/product-detail/Desktop-glue-dispensing-machine-3-axis_1600084724719.html",
+    "price": null,
+    "query": "watch glue dispenser"
+   },
+   {
+    "name": "firmware and test stand",
+    "url": "https://www.alibaba.com/product-detail/Manual-PCBA-test-fixture-pcb-test_62447714577.html",
+    "price": null,
+    "query": "watch firmware and test stand"
+   }
+  ],
+  "market_price": 60,
+  "sale_price": 60,
+  "name": "Quartz Watch Assembly Mini-Line + module: Smartwatch",
+  "url": "",
+  "cost": 6500,
+  "perf": 100,
+  "staff": 2,
+  "components": [
+   {
+    "name": "Board with display",
+    "url": "https://www.alibaba.com/showroom/smart-watch-pcba.html",
+    "qty": 1,
+    "price": 18
+   },
+   {
+    "name": "Case",
+    "url": "https://www.alibaba.com/product-detail/Watch-Case-Exquisite-316L-Stainless-Steel_1600173969046.html",
+    "qty": 1,
+    "price": 4
+   },
+   {
+    "name": "Battery",
+    "url": "https://www.alibaba.com/product-detail/Factory-Lipo-Battery-3-7V-300mAh_1601267182850.html",
+    "qty": 1,
+    "price": 2
+   },
+   {
+    "name": "Strap",
+    "url": "https://www.alibaba.com/product-detail/Leopard-Print-18-20-22mm-Quick_1601634015235.html",
+    "qty": 1,
+    "price": 1.5
+   },
+   {
+    "name": "Charging cable",
+    "url": "https://www.alibaba.com/product-detail/Wholesale-60cm-Durable-Smart-Watch-Charger_1600448855128.html",
+    "qty": 1,
+    "price": 1.5
+   },
+   {
+    "name": "Box",
+    "url": "https://www.alibaba.com/showroom/paper-watch-box.html",
+    "qty": 1,
+    "price": 1
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Clean dust-free room rent 30 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Precision watchmaker toolkit (per master)",
+    "url": "",
+    "qty": 2,
+    "price": 1.5
+   },
+   {
+    "name": "Consumables: finger cots, dust blowers, wipes (per worker)",
+    "url": "",
+    "qty": 2,
+    "price": 1
+   },
+   {
+    "name": "Insurance and courier delivery",
+    "url": "",
+    "qty": 1,
+    "price": 8
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex09": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Precision Instruments",
+  "class_key": null,
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Multimeter",
+  "module_items": [
+   {
+    "name": "nests",
+    "url": "",
+    "price": null,
+    "query": "nests"
+   },
+   {
+    "name": "calibrator",
+    "url": "https://www.alibaba.com/product-detail/TUNKIA-AC-DC-Digital-Multimeter-Tester_1600938968981.html",
+    "price": null,
+    "query": "calibrator"
+   }
+  ],
+  "market_price": 15,
+  "sale_price": 15,
+  "name": "Sensor Calibration and Assembly Bench + module: Multimeter",
+  "url": "",
+  "cost": 22800,
+  "perf": 80,
+  "staff": 2,
+  "components": [
+   {
+    "name": "Board",
+    "url": "https://www.alibaba.com/showroom/pcb-for-digital-multimeter.html",
+    "qty": 1,
+    "price": 3
+   },
+   {
+    "name": "Display",
+    "url": "https://www.alibaba.com/product-detail/Custom-Segment-TN-STN-LCD-Panel-1600993401164.html",
+    "qty": 1,
+    "price": 1
+   },
+   {
+    "name": "Housing",
+    "url": "https://www.alibaba.com/product-detail/Handheld-Remote-Control-Electronics-Instrument-Enclosure_60596906577.html",
+    "qty": 1,
+    "price": 1.5
+   },
+   {
+    "name": "Test leads",
+    "url": "https://www.alibaba.com/product-detail/Silicone-Multimeter-Test-Leads-Kit-Precision_1600106359821.html",
+    "qty": 1,
+    "price": 0.8
+   },
+   {
+    "name": "Rotary switch",
+    "url": "https://www.alibaba.com/showroom/multi-position-switch.html",
+    "qty": 1,
+    "price": 0.5
+   },
+   {
+    "name": "Box",
+    "url": "https://www.alibaba.com/showroom/electronic-packaging-box.html",
+    "qty": 1,
+    "price": 0.4
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Laboratory room rent 40 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 25
+   },
+   {
+    "name": "Calibration standards & instruments (per engineer)",
+    "url": "",
+    "qty": 2,
+    "price": 3.5
+   },
+   {
+    "name": "Cables, heat shrink, solder",
+    "url": "",
+    "qty": 2,
+    "price": 2
+   },
+   {
+    "name": "Certification & logistics",
+    "url": "",
+    "qty": 1,
+    "price": 12
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ },
+ "matrix_ex10": {
+  "client_id": "SYSTEM",
+  "owner_uid": "SYSTEM",
+  "topic_title": "Commercial Bakery Line",
+  "class_key": null,
+  "country_key": "base",
+  "tariff": 0,
+  "freight": 0,
+  "comp_tariff": 0,
+  "sales_per_day": null,
+  "product_name": "Baguettes",
+  "module_items": [
+   {
+    "name": "perforated baguette trays",
+    "url": "https://www.alibaba.com/product-detail/Industrial-5-wava-baguette-tray-aluminized_1601250882556.html",
+    "price": null,
+    "query": "bakery perforated baguette trays"
+   },
+   {
+    "name": "proofing cloths",
+    "url": "https://www.alibaba.com/product-detail/100-Pure-Cotton-Canvas-Baker-s_1600190507091.html",
+    "price": null,
+    "query": "bakery proofing cloths"
+   }
+  ],
+  "market_price": 1.2,
+  "sale_price": 1.2,
+  "name": "Compact Rotary Mini-Bakery + module: Baguettes",
+  "url": "",
+  "cost": 16450,
+  "perf": 800,
+  "staff": 2,
+  "components": [
+   {
+    "name": "Flour 0.2 kg",
+    "url": "https://www.alibaba.com/showroom/25-kg-bag-wheat-flour.html",
+    "qty": 1,
+    "price": 0.11
+   },
+   {
+    "name": "Yeast, salt",
+    "url": "https://www.alibaba.com/product-detail/Baking-Dry-Yeast-powder-500g-Instant_1601001015505.html",
+    "qty": 1,
+    "price": 0.03
+   },
+   {
+    "name": "Bag",
+    "url": "https://www.alibaba.com/product-detail/High-transparent-baguette-bread-food-plastic_1600290504012.html",
+    "qty": 1,
+    "price": 0.04
+   }
+  ],
+  "expenses": [
+   {
+    "name": "Bakery premises rent 60 sq.m",
+    "url": "",
+    "qty": 1,
+    "price": 35
+   },
+   {
+    "name": "Baking pans and trays (amortization)",
+    "url": "",
+    "qty": 2,
+    "price": 3
+   },
+   {
+    "name": "Detergents, gloves, parchment paper",
+    "url": "",
+    "qty": 2,
+    "price": 2.5
+   },
+   {
+    "name": "Oven electric power and local delivery",
+    "url": "",
+    "qty": 1,
+    "price": 20
+   }
+  ],
+  "created_at": "2026-11-15T00:00:00.000Z"
+ }
+}
