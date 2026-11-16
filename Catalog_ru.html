@@ -37,7 +37,7 @@ details summary{cursor:pointer;color:#1f4e78}
 .live{margin-top:20px}
 footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
 @media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
-.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}</style></head>
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}</style></head>
 <body><div class="main-wrapper">
 <div class="top-utility-bar"><div style="cursor:pointer;font-weight:600;" onclick="window.location.href='index.html'">Languages ⌵</div></div>
 <div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
@@ -53,7 +53,7 @@ footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-heigh
 <div class="card">
 <h1>Каталог производственных линий</h1>
 <p class="sub">Готовые линии из генератора АСУИР: оборудование, модуль, выпуск, работники, прибыль и максимальная зарплата. Нажмите название линии или модуля, чтобы открыть её в генераторе; чужую линию можно изменить, она сохранится как новая.</p>
-<div class="nav-tabs2" id="views"><button data-view="eq" class="on">Оборудование → Продукция → Модули</button><button data-view="prod">Продукция → Модули → Оборудование</button><button data-view="mod">Модули → Оборудование → Продукция</button></div><div id="crumb" class="m" style="margin:0 0 10px"></div><div class="bar"><input id="q" placeholder="Поиск по оборудованию, модулю, продукции"><select id="sort"><option value="profit">Сортировка: прибыль в месяц</option><option value="sal">Сортировка: максимальная зарплата</option><option value="staff">Сортировка: работников</option></select><span class="m" id="cnt"></span></div><div class="wrap"><table><thead><tr id="h3"></tr><tr id="h-rest" style="display:none"><th class="n">Выпуск, шт/день</th><th class="n">Работников</th><th class="n">Себестоимость</th><th class="n">Цена</th><th class="n">Прибыль, $/мес</th><th class="n">Макс. зарплата</th><th></th></tr></thead><tbody id="tb"><tr><td colspan="10" class="m">Загрузка из базы…</td></tr></tbody></table></div>
+<div class="nav-tabs2" id="views"><button data-view="eq" class="on">Оборудование → Продукция → Модули</button><button data-view="prod">Продукция → Модули → Оборудование</button><button data-view="mod">Модули → Оборудование → Продукция</button></div><div id="crumb" class="m" style="margin:0 0 10px"></div><div class="bar"><span style="position:relative"><input id="q" autocomplete="off" placeholder="Поиск: название или SKU"><div id="sug" style="display:none;position:absolute;z-index:5;left:0;top:100%;min-width:320px;max-height:320px;overflow:auto;background:#fff;border:1px solid #d0d7dd;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.12)"></div></span><select id="sort"><option value="profit">Сортировка: прибыль в месяц</option><option value="sal">Сортировка: максимальная зарплата</option><option value="staff">Сортировка: работников</option></select><span class="m" id="cnt"></span></div><div class="wrap"><table><thead><tr id="h3"></tr><tr id="h-rest" style="display:none"><th class="n">Выпуск, шт/день</th><th class="n">Работников</th><th class="n">Себестоимость</th><th class="n">Цена</th><th class="n">Прибыль, $/мес</th><th class="n">Макс. зарплата</th><th></th></tr></thead><tbody id="tb"><tr><td colspan="10" class="m">Загрузка из базы…</td></tr></tbody></table></div>
 </div>
 <footer>© 2025 АСУИР. Материалы сайта являются интеллектуальной собственностью автора. Разработчик: Долгов Анатолий Владимирович<br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).<br><a href="/privacy.html#ru" style="color:#6c7a8a;">Политика конфиденциальности</a></footer>
 </div>
@@ -68,11 +68,19 @@ function build(id,v){
  const ex=exps.reduce((s,e)=>s+(+e.qty||0)*(+(e.price??e.price_per_day)||0),0);
  const cost=+v.cost||0,perf=+v.perf||0,staff=+v.staff||1,price=+v.sale_price||0,unit=bom*1.10,fixed=cost/5/365+ex;
  const full=String(v.name||""),k=full.indexOf(" + module:"),eq=(k>0?full.slice(0,k):full).trim();
- const prod=(v.product_name||"").trim()||String(v.topic_title||"");
- return {id,eq,prod,topic:v.topic_title||"",hasMod:!!(v.product_name||mods.length),modPrice:mods.reduce((s,m)=>s+(+m.price||0),0),nMods:mods.length,perf,staff,unit,price,
+ const modName=(v.product_name||"").trim(),prod=(v.product_label||v.product_name||v.topic_title||"").trim();
+ return {id,eq,prod,modName,topic:v.topic_title||"",hasMod:!!(v.product_name||mods.length),modPrice:mods.reduce((s,m)=>s+(+m.price||0),0),nMods:mods.length,perf,staff,unit,price,
   profit:price?Math.round(perf*(price-unit)*30):null,sal:Math.round(Math.max(0,perf*0.10*bom-fixed)*30/staff)};
 }
+const SKU={eq:{},prod:{},mod:{}},PRE={eq:"EQ",prod:"PR",mod:"MD"};
+function h5(s){let h=2166136261;for(const ch of s.toLowerCase().trim()){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)>>>0}return 10000+h%90000}
+function mkSku(){["eq","prod","mod"].forEach(k=>{const names=[...new Set(LINES.map(r=>k==="eq"?r.eq:k==="mod"?r.modName:r.prod).filter(Boolean))].sort(),used=new Set();
+ names.forEach(n=>{let x=h5(n);while(used.has(x))x=x>=99999?10000:x+1;used.add(x);SKU[k][n]=PRE[k]+"-"+x})})}
+const sku=(k,n)=>(SKU[k]&&SKU[k][n])||"";
+const FIRST={eq:{},prod:{}};
+function canon(kind,val,id){const m=FIRST[kind==="eq"?"eq":"prod"];return m[val]||id}
 function lnk(id,tab,kind,val,text,title){
+ id=canon(kind,val,id);
  return `<a class="tl" href="#" data-k="${kind}" data-v="${esc(val)}" title="Показать все связки">${esc(text)}</a> <a class="arr" target="_blank" rel="noopener" href="${GEN}?line=${encodeURIComponent(id)}&tab=${tab}" title="${title}">↗</a>`;
 }
 const REST='<th class="n">Выпуск, шт/день</th><th class="n">Работников</th><th class="n">Себестоимость</th><th class="n">Цена</th><th class="n">Прибыль, $/мес</th><th class="n">Макс. зарплата</th><th></th>';
@@ -80,20 +88,21 @@ let V="eq";
 const TH={eq:"Оборудование",mod:"Модуль переналадки",prod:"Продукция"};
 const ORD={eq:["eq","prod","mod"],prod:["prod","mod","eq"],mod:["mod","eq","prod"]};
 function cell(r,k){
- if(k==="eq")return lnk(r.id,"tab1","eq",r.eq,r.eq,"Открыть вкладку «Прямые затраты» в генераторе")+`<div><span class="tag">${esc(r.topic)}</span></div>`;
- if(k==="prod")return lnk(r.id,"tab3","prod",r.prod,r.prod,"Открыть вкладку «Сырьё и комплектующие» в генераторе");
- return r.hasMod?`${lnk(r.id,"tab6","mod",r.prod,"Модуль: "+r.prod,"Открыть вкладку «Модули» в генераторе")}<div class="m">${r.nMods?r.nMods+" поз.":""}${r.modPrice?", "+fm(r.modPrice):""}</div>`:'<span class="m">—</span>';
+ if(k==="eq")return lnk(r.id,"tab1","eq",r.eq,r.eq,"Открыть вкладку «Прямые затраты» в генераторе")+`<div class="m">${sku("eq",r.eq)} <span class="tag">${esc(r.topic)}</span></div>`;
+ if(k==="prod")return lnk(r.id,"tab3","prod",r.prod,r.prod,"Открыть вкладку «Сырьё и комплектующие» в генераторе")+`<div class="m">${sku("prod",r.prod)}</div>`;
+ return r.hasMod?`${lnk(r.id,"tab6","mod",r.modName,"Модуль: "+r.modName,"Открыть вкладку «Модули» в генераторе")}<div class="m">${sku("mod",r.modName)} ${r.nMods?r.nMods+" поз.":""}${r.modPrice?", "+fm(r.modPrice):""}</div>`:'<span class="m">—</span>';
 }
-const key=(r,k)=>k==="eq"?r.eq:r.prod;
+const key=(r,k)=>k==="eq"?r.eq:k==="mod"?r.modName:r.prod;
 function draw(){
  const q=$("#q").value.toLowerCase(),sk=$("#sort").value,o=ORD[V];
  $("#h3").innerHTML=o.map(k=>`<th>${TH[k]}</th>`).join("")+REST;
- let L=LINES.filter(r=>(!F||(F.kind==="eq"&&r.eq===F.val)||((F.kind==="mod"||F.kind==="prod")&&r.prod===F.val))&&(!q||(r.eq+" "+r.prod+" "+r.topic).toLowerCase().includes(q)));
+ let L=LINES.filter(r=>(!F||(F.kind==="eq"&&r.eq===F.val)||(F.kind==="mod"&&r.modName===F.val)||(F.kind==="prod"&&r.prod===F.val))&&(!q||(r.eq+" "+r.prod+" "+r.modName+" "+r.topic+" "+sku("eq",r.eq)+" "+sku("prod",r.prod)+" "+sku("mod",r.modName)).toLowerCase().includes(q)));
  L.sort((a,b)=>key(a,o[0]).localeCompare(key(b,o[0]),"ru")||(b[sk]??-1e12)-(a[sk]??-1e12));
  $("#cnt").textContent=L.length+" "+(L.length===1?"связка":"связок");
  const names={eq:"оборудования",mod:"модуля",prod:"продукции"};
  document.querySelectorAll("#views button").forEach(b=>b.classList.toggle("on",b.dataset.view===V));
- $("#crumb").innerHTML=F?`Матрица для ${names[F.kind]} «<b>${esc(F.val)}</b>» · <a href="#" id="all">показать все</a>`:"Показаны все линии. Нажмите название — увидите все связки.";
+ const chips=(kind,lab)=>{const s=[...new Set(L.map(r=>kind==="eq"?r.eq:kind==="mod"?r.modName:r.prod))],pre=kind==="mod"?"Модуль: ":"";return s.length?`<div style="margin-top:4px">${lab}: ${s.map(v=>`<a class="chip" href="#" data-k="${kind}" data-v="${esc(v)}">${pre}${esc(v)}</a>`).join(" ")}</div>`:""};
+ $("#crumb").innerHTML=F?`Матрица для ${names[F.kind]} «<b>${esc(F.val)}</b>» · <a href="#" id="all">показать все</a>`+(F.kind!=="eq"?chips("eq","Оборудование"):"")+(F.kind!=="prod"?chips("prod","Продукция"):"")+(F.kind!=="mod"?chips("mod","Модули"):""):"Показаны все линии. Нажмите название — увидите все связки.";
  let prev=null;
  $("#tb").innerHTML=L.map(r=>{
   const pr=r.profit==null?"—":`<span class="${r.profit<0?"neg":"profit"}">${fm(r.profit)}</span>`;
@@ -103,11 +112,20 @@ function draw(){
 }
 $("#views").onclick=e=>{const b=e.target.closest("[data-view]");if(!b)return;V=b.dataset.view;F=null;draw()};
 document.addEventListener("click",e=>{
- const a=e.target.closest("a[data-k]");if(a){e.preventDefault();F={kind:a.dataset.k,val:a.dataset.v};draw();window.scrollTo(0,0);return}
+ const a=e.target.closest("a[data-k]");if(a){e.preventDefault();V=a.dataset.k;F={kind:a.dataset.k,val:a.dataset.v};$("#q").value="";$("#sug").style.display="none";draw();window.scrollTo(0,0);return}
  if(e.target.id==="all"){e.preventDefault();F=null;draw()}});
+function suggest(){const q=$("#q").value.trim().toLowerCase(),box=$("#sug");
+ if(!q){box.style.display="none";return}
+ const out=[];const add=(k,lab,vals)=>[...new Set(vals)].filter(v=>v.toLowerCase().includes(q)||sku(k,v).toLowerCase().includes(q)).slice(0,6).forEach(v=>out.push({k,lab,v}));
+ add("prod","Продукция",LINES.map(r=>r.prod));add("eq","Оборудование",LINES.map(r=>r.eq));add("mod","Модуль",LINES.map(r=>r.modName));
+ box.innerHTML=out.length?out.map(o=>`<a href="#" class="sg" data-k="${o.k}" data-v="${esc(o.v)}"><span class="tag">${o.lab}</span> ${esc(o.v)} <span class="m">${sku(o.k,o.v)}</span></a>`).join(""):'<div class="m" style="padding:8px">Ничего не найдено</div>';
+ box.style.display="block"}
+$("#q").addEventListener("input",suggest);
+$("#q").addEventListener("keydown",e=>{if(e.key==="Enter"){const f=document.querySelector("#sug .sg");if(f)f.click()}});
+document.addEventListener("click",e=>{if(!e.target.closest("#sug,#q")){$("#sug").style.display="none"}});
 $("#q").oninput=draw;$("#sort").onchange=draw;
 (async()=>{try{
  const r=await fetch("https://asuir-gemini-default-rtdb.firebaseio.com/equipment_listing.json");const d=await r.json();
- LINES=Object.entries(d||{}).map(([id,v])=>v&&v.name&&+v.perf>0?build(id,v):null).filter(Boolean);draw();
+ LINES=Object.entries(d||{}).map(([id,v])=>v&&v.name&&+v.perf>0?build(id,v):null).filter(Boolean).sort((x,y)=>x.id<y.id?-1:1);mkSku();LINES.forEach(r=>{if(!FIRST.eq[r.eq])FIRST.eq[r.eq]=r.id;if(!FIRST.prod[r.prod])FIRST.prod[r.prod]=r.id});draw();
 }catch(e){$("#tb").innerHTML='<tr><td colspan="10" class="m">Не удалось загрузить данные из базы.</td></tr>'}})();
 </script></body></html>
