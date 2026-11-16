@@ -3500,7 +3500,13 @@ window.openReferenceLine = function (cc) {
                                                                 // ?tab=tab1..tab6 — открыть нужную вкладку (ссылки из «Каталога»); работает и вместе с ?line=ID.
      window.openTabFromUrl = function () {
          try {
-             const t = new URLSearchParams(location.search).get('tab');
+             const P = new URLSearchParams(location.search);
+             // ?topic=КЛЮЧ&class=КЛАСС без ?line= — новая линия из шаблона темы (ссылки из «Каталога» для позиций без готовой линии).
+             const tk = P.get('topic');
+             if (!P.get('line') && tk && catalogDB[tk]) {
+                 loadCatalogTemplate(tk, P.get('class'));
+             }
+             const t = P.get('tab');
              if (!/^tab[1-6]$/.test(t || '')) return;
              switchMainTab('main-tab-2');
              document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.toggle('active', l.dataset.tab === t));

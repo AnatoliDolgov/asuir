@@ -76,7 +76,7 @@ function findLine(r){if(!LIVE)return undefined;
   const prod=norm(l.product_name);
   if(r.src==="new")return sameCls&&prod&&(prod.includes(norm(r.en))||norm(r.en).includes(prod));
   return sameCls&&(norm(l.topic_title)===norm(r.en)||norm(l.topic_title).includes(norm(r.topic)))&&!prod||sameCls&&norm(l.topic_title)===norm(r.en)}) || null}
-function tl(r,tab,text,cls){const l=findLine(r);const q=(l?"line="+encodeURIComponent(l.id)+"&":"")+"tab="+tab;return `<a class="${cls||"tl"}" href="${GEN_URL}?${q}" target="_blank" rel="noopener" title="Открыть в генераторе">${text}</a>`}
+function tl(r,tab,text,cls){const l=findLine(r);const q=(l?"line="+encodeURIComponent(l.id)+"&":"topic="+encodeURIComponent(r.topic)+"&class="+encodeURIComponent(r.cls||"")+"&")+"tab="+tab;return `<a class="${cls||"tl"}" href="${GEN_URL}?${q}" target="_blank" rel="noopener" title="Открыть в генераторе">${text}</a>`}
 function goBtn(r){const l=findLine(r);
  if(l)return `<a class="go" href="${GEN_URL}?line=${encodeURIComponent(l.id)}" target="_blank" rel="noopener">Открыть линию в генераторе</a>`;
  if(l===null)return `<span class="go off">Линия с модулем ещё не создана</span>`;
