@@ -92,7 +92,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 24px;
             padding: 8px 0 12px 0;
         }
 
@@ -971,6 +971,11 @@
             <a href="ASUIRServices_en.html" class="nav-global-link">
                 <span class="main-label">ASUIR — SERVICES</span>
                 <span class="sub-label">driver of ultra-efficient services</span>
+            </a>
+
+            <a href="Catalog_en.html" class="nav-global-link">
+                <span class="main-label">CATALOG</span>
+                <span class="sub-label">equipment, modules and products</span>
             </a>
 
             <a href="Help_en.html" class="nav-global-link">
@@ -2563,6 +2568,20 @@ Thank you!
                                                                 savedEquipmentList = [];
                                                             }
                                                             calculateAll();
+         // From the Catalog: ?line=ID opens that line in the create tab. Someone else's line can be edited, but it is saved as a new line.
+         if (!window.__lineFromUrlDone) {
+             try {
+                 const wanted = new URLSearchParams(location.search).get('line');
+                 if (wanted && savedEquipmentList.some(x => x.id === wanted)) {
+                     window.__lineFromUrlDone = true;
+                     window.loadLineIntoWorkspace(wanted);
+                     window.openTabFromUrl();
+                 } else if (wanted && data) {
+                     window.__lineFromUrlDone = true;
+                     alert('Line "' + wanted + '" was not found in the database. Open it from the list manually.');
+                 }
+             } catch (e) { console.error(e); }
+         }
                                                         });
 
                                                         window.saveCurrentEquipmentToDatabase = function () {
@@ -3475,7 +3494,23 @@ window.openReferenceLine = function (cc) {
                                                             });
                                                         });
 
-                                                        window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
+                                                        // ?tab=tab1..tab6 and ?topic=KEY&class=CLASS (links from the Catalog)
+     window.openTabFromUrl = function () {
+         try {
+             const P = new URLSearchParams(location.search);
+             const tk = P.get('topic');
+             if (!P.get('line') && tk && catalogDB[tk]) { loadCatalogTemplate(tk, P.get('class')); }
+             const t = P.get('tab');
+             if (!/^tab[1-6]$/.test(t || '')) return;
+             switchMainTab('main-tab-2');
+             document.querySelectorAll('#tabHeaders a').forEach(l => l.classList.toggle('active', l.dataset.tab === t));
+             document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+             const el = document.getElementById(t); if (el) el.classList.add('active');
+         } catch (e) { console.error(e); }
+     };
+     window.openTabFromUrl();
+
+     window.openModal = function (id) { document.getElementById(id).style.display = 'block'; };
                                                         window.closeModal = function (id) { document.getElementById(id).style.display = 'none'; };
                                                         window.openAlibabaInquiryModal = function () { openModal('inquiry-modal'); };
                                                         window.onclick = function (event) { if (event.target.classList.contains('modal')) event.target.style.display = 'none'; };
@@ -3678,7 +3713,7 @@ window.openReferenceLine = function (cc) {
                                                             // The reference example is always pinned at the top of the listing, regardless of filters.
 
                                                             // Непроверенные строки базы скрыты (не удалены); свои линии клиент видит в фильтре «Мои».
-                                                                    const filteredList = savedEquipmentList.filter(item => SHOW_UNVERIFIED || filterMode === 'my').filter(item => {
+                                                                    const filteredList = savedEquipmentList.filter(item => SHOW_UNVERIFIED || filterMode === 'my' || String(item.id||'').indexOf('matrix_ex') === 0).filter(item => {
                                                                 const itemOwner = item.client_id || "SYSTEM";
                                                                 const isMine = isLineMine(item);
                                                                 if (filterMode === 'my') return isMine;
