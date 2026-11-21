@@ -1518,6 +1518,19 @@ Thank you!
 
                                                                 const app = initializeApp(firebaseConfig);
                                                                 const db = getDatabase(app);
+    // ASUIR 2026-11-21: prevent saved user content from becoming executable HTML.
+    function asuirEscapeHtml(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[ch]));
+    }
+    function asuirSafeUrl(value) {
+        try {
+            const u = new URL(String(value || '').trim());
+            return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : '';
+        } catch (_) { return ''; }
+    }
+
                                                                 // АНОНИМНЫЙ ВХОД FIREBASE: каждый браузер автоматически получает постоянный номер (uid). Правила базы разрешают менять и удалять линию только её владельцу.
                                                                 const auth = getAuth(app);
                                                                 let myUid = null;
@@ -1762,7 +1775,7 @@ Thank you!
                                                                     const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
                                                                     box.style.display = '';
                                                                     box.innerHTML = `<b style="color:#1f4e78;">${'🧩 Оснастка модуля для изделия «{n}»'.replace('{n}', esc(currentModuleName))}</b> <span style="font-size:12px; color:#6c7a8a;">— куплена к оборудованию один раз, входит в стоимость оборудования</span>` +
-                                                                        currentModuleItems.map(m => `<div style="margin-top:4px; font-size:13px;">${m.url ? `<a href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.name)} ↗</a> ✓` : esc(m.name) + ' <span style="color:#9a3412; font-size:12px;">— ссылка не выбрана</span>'}${m.price !== null && m.price !== undefined ? ' · $' + m.price : ''}</div>`).join('');
+                                                                        currentModuleItems.map(m => `<div style="margin-top:4px; font-size:13px;">${m.url ? `<a href="${asuirEscapeHtml(asuirSafeUrl(m.url) || '#')}" target="_blank" rel="noopener">${esc(m.name)} ↗</a> ✓` : esc(m.name) + ' <span style="color:#9a3412; font-size:12px;">— ссылка не выбрана</span>'}${m.price !== null && m.price !== undefined ? ' · $' + m.price : ''}</div>`).join('');
                                                                 }
                                                                 const DEFAULT_D_BY_COUNTRY = { us: 20 }; // доля d по умолчанию: США — 20% (указание автора 05.11.2026), остальные страны — 10%
                                                                 function defaultShareFor(countryKey) { return (DEFAULT_D_BY_COUNTRY[countryKey] || 10); }
@@ -1790,7 +1803,7 @@ Thank you!
                                                                         : `${where}дороже ${imported ? 'ввезённого из Китая' : 'цены китайского завода'}`;
                                                                     return `<div style="font-size:20px; font-weight:700; color:#1f4e78;">${head}</div>` +
                                                                         `<div style="font-size:16px; font-weight:600; margin-top:4px;">Наше изделие: $${unit.toFixed(2)} — ${imported ? 'ввезённое' : 'у китайского завода'}: $${landed.toFixed(2)}</div>` +
-                                                                        `<div style="font-size:13px; color:#4a5568; margin-top:6px;">«${productName}». Наше — сделано на линии АСУИР при зарплате рабочих $10 000 в месяц. ` +
+                                                                        `<div style="font-size:13px; color:#4a5568; margin-top:6px;">«${asuirEscapeHtml(productName)}». Наше — сделано на линии АСУИР при зарплате рабочих $10 000 в месяц. ` +
                                                                         (imported ? `Ввезённое — цена китайского завода $${price.toFixed(2)} + доставка $${fr.toFixed(2)} + пошлина $${tr.toFixed(2)}.` : `Без доставки и пошлин.`) + `</div>`;
                                                                 }
                                                                 function plainImportCell(unit, price, r) {
@@ -2107,10 +2120,10 @@ Thank you!
                                                                     const isService = !defaultUrl && (name || '').trim().length > 0;
 
                                                                     tr.innerHTML = `
-                                                                                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Статья расходов / Оснастка..."></td>
+                                                                                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${asuirEscapeHtml(name)}" placeholder="Статья расходов / Оснастка..."></td>
                                                                                     <td>
                                                                                         <div style="display:flex; align-items:center; gap:4px;">
-                                                                                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="${isService ? '📄 Договор / контакт арендодателя, поставщика услуги...' : '🔗 Ссылка Alibaba / Договор...'}">
+                                                                                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${asuirEscapeHtml(defaultUrl)}" placeholder="${isService ? '📄 Договор / контакт арендодателя, поставщика услуги...' : '🔗 Ссылка Alibaba / Договор...'}">
                                                                                             ${defaultUrl ? `<button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти">🔗</button>` : ''}
                                                                                         </div>
                                                                                     </td>
@@ -2128,10 +2141,10 @@ Thank you!
                                                                                             <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск у выбранного источника">🔍</button>
                                                                                         </div>`}
                                                                                     </td>
-                                                                                    <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${qty}" style="width:80px; text-align:center;"></td>
+                                                                                    <td><input type="number" step="1" class="input-field input-sm exp-qty-input" value="${asuirEscapeHtml(qty)}" style="width:80px; text-align:center;"></td>
                                                                                     <td>
                                                                                         <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                                                                            <input type="number" step="0.1" class="input-field input-sm exp-price-input" id="${rowId}-price" value="${price}" style="width:100px;">
+                                                                                            <input type="number" step="0.1" class="input-field input-sm exp-price-input" id="${rowId}-price" value="${asuirEscapeHtml(price)}" style="width:100px;">
                                                                                         </div>
                                                                                     </td>
                                                                                     <td class="row-delete">
@@ -2440,7 +2453,7 @@ Thank you!
                                                                                 const okR = actualPerf >= reqR ? 'хватает' : 'не хватает', okP = basePerf >= reqP ? 'хватает' : 'не хватает';
                                                                                 const soldR = rSalesRaw > 0 ? Math.min(rSalesRaw, actualPerf) : actualPerf;
                                                                                 const soldP = rSalesRaw > 0 ? Math.min(rSalesRaw, basePerf) : basePerf;
-                                                                                const profR = (sale - unitR) * soldR * 30, profP = (sale - unitP) * soldP * 30;
+                                                                                const profR = ((sale - rawCost) * soldR - expR) * 30, profP = ((sale - rawCost) * soldP - expP) * 30;
                                                                                 rcEl.innerHTML = `<div class="rh-head">Перспектива через 3–5 лет: прибыль в месяц с роботизированными комплексами — ${saleOk ? '$' + f0(profR) : '—'}, с людьми — ${saleOk ? '$' + f0(profP) : '—'}</div>` +
                                                                                     `<div class="rh-sub">Себестоимость изделия = детали с пошлиной $${f2(rawCost)} + прямые расходы на одно изделие: с роботизированными комплексами — $${f2(unitR)}, с людьми — $${f2(unitP)}.</div>` +
                                                                                     `<div class="rh-note">С роботизированными комплексами: прямые расходы $${f0(expR)} в день, нужная производительность ${fq(reqR)} шт. в день, линия выпускает ${actualPerf} — ${okR}.</div>` +
@@ -2481,7 +2494,9 @@ Thank you!
                                                                         }
                                                                     }
 
-                                                                    const profitPerDay = actualPerf * (sale - totalCost);
+                                                                    const requestedSales = parseFloat(document.getElementById('sales-input')?.value);
+                                                                    const soldPerDay = requestedSales > 0 ? Math.min(requestedSales, actualPerf) : actualPerf;
+                                                                    const profitPerDay = soldPerDay * (sale - rawCost) - totalFixedPerDay;
                                                                     const monthProfit = Math.round(profitPerDay * 30);
                                                                     const payback = profitPerDay > 0 ? Math.ceil(equip / profitPerDay) : Infinity;
 
@@ -2505,12 +2520,12 @@ Thank you!
                                                                     // РЕАЛЬНЫЙ СБЫТ: себестоимость, прибыль и запас прочности при фактических продажах.
                                                                     {
                                                                         const salesRaw = parseFloat(document.getElementById('sales-input')?.value);
-                                                                        const sales = (salesRaw > 0) ? salesRaw : actualPerf;
+                                                                        const sales = (salesRaw > 0) ? Math.min(salesRaw, actualPerf) : actualPerf;
                                                                         const fmt = (v, d) => v.toLocaleString('ru-RU', { minimumFractionDigits: d, maximumFractionDigits: d });
                                                                         const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
                                                                         const sCost = rawCost + (sales > 0 ? totalFixedPerDay / sales : 0); // детали с пошлиной + прямые расходы на одно проданное изделие
                                                                         const sProfit = Math.round((sale - sCost) * sales * 30);
-                                                                        set('sales-load', fmt(sales / actualPerf * 100, 0) + '%');
+                                                                        set('sales-load', fmt(sales / actualPerf * 100, 0) + '%' + (salesRaw > actualPerf ? ' (запрос выше мощности линии; учтено не больше выпуска)' : ''));
                                                                         set('sales-unit-cost', fmt(sCost, 2));
                                                                         set('sales-profit-month', saleOk ? sProfit.toLocaleString('ru-RU') : '— (нет цены в стране)');
                                                                         set('own-cost', fmt(sCost, 2));
@@ -2589,7 +2604,7 @@ Thank you!
 
                                                                 window.saveCurrentEquipmentToDatabase = function () {
                                                                     const urlInput = document.getElementById('equip-url');
-                                                                    const url = (urlInput && urlInput.value.trim()) ? urlInput.value.trim() : "https://www.alibaba.com/";
+                                                                    const url = (urlInput && urlInput.value.trim()) ? asuirSafeUrl(urlInput.value) : "";
                                                                     const queryInput = document.getElementById('equip-search-query');
                                                                     let query = (queryInput && queryInput.value.trim()) ? queryInput.value.trim() : "Станок производства";
                                                                     const cost = parseFloat(document.getElementById('val-equip')?.value) || 0;
@@ -2646,6 +2661,7 @@ Thank you!
                                                                         topic_title: finalTopic,
                                                                         class_key: classKeyToSave,
                                                                         country_key: currentCountry,
+                                                                        direct_share_pct: getDirectShare() * 100,
                                                                         tariff: parseFloat(document.getElementById('tariff-input')?.value) || 0,
                                                                         freight: parseFloat(document.getElementById('freight-input')?.value) || 0,
                                                                         comp_tariff: parseFloat(document.getElementById('comp-tariff-input')?.value) || 0,
@@ -2741,7 +2757,7 @@ Thank you!
                                                                                 <button class="btn-bom-toggle" onclick="openReferenceLine('${line.cc}')">📥 Открыть в генераторе производств</button></td>
                                                                             <td><a href="${line.url}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
                                                                             <td>$${Number(line.cost).toLocaleString()}</td>
-                                                                            <td>${line.perf} шт/день</td>
+                                                                            <td>${Number(line.perf) || 0} шт/день</td>
                                                                             <td>${line.staff} чел</td>
                                                                             <td style="color:#6c7a8a; font-weight:600;">$${Number(e.fitted).toLocaleString('ru-RU')}</td>
                                                                             <td><b style="color:#1f4e78;">$${e.profit > 0 ? e.profit.toLocaleString('ru-RU') : '0'} / мес</b></td>
@@ -3405,6 +3421,7 @@ window.openReferenceLine = function (cc) {
                                                                     populateClassSelector(matchedCatalogKey, currentClassKey);
                                                                     // Восстанавливаем страну и ставки сравнения с импортом.
                                                                     currentCountry = COUNTRIES[item.country_key] ? item.country_key : 'base'; applyDefaultShare(currentCountry);
+                                                                    { const shareInput = document.getElementById('asuir-direct-share'); const savedShare = Number(item.direct_share_pct); if (shareInput && item.direct_share_pct != null && Number.isFinite(savedShare)) shareInput.value = Math.min(40, Math.max(5, savedShare)); }
                                                                     if (document.getElementById('country-selector')) document.getElementById('country-selector').value = currentCountry;
                                                                     { const r = lineRates(item);
                                                                       if (document.getElementById('tariff-input')) document.getElementById('tariff-input').value = r.t;
@@ -3525,8 +3542,10 @@ window.openReferenceLine = function (cc) {
                                                                     const input = document.getElementById(inputId);
                                                                     let url = input ? input.value.trim() : '';
                                                                     if (!url) return alert("Пожалуйста, вставьте ссылку на товар с сайта Alibaba.");
-                                                                    if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
-                                                                    window.open(url, '_blank');
+                                                                    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+                                                                    url = asuirSafeUrl(url);
+                                                                    if (!url) return alert('Invalid supplier URL');
+                                                                    window.open(url, '_blank', 'noopener,noreferrer');
                                                                 };
 
                                                                 // Убирает пояснения в скобках и берёт самый конкретный кусок названия
@@ -3633,10 +3652,10 @@ window.openReferenceLine = function (cc) {
                                                                     const defaultUrl = url || `https://www.alibaba.com/trade/search?SearchText=${encodeURIComponent(simplifySearchQuery(name))}`;
 
                                                                     tr.innerHTML = `
-                                                                                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${name}" placeholder="Название детали..."></td>
+                                                                                    <td><input type="text" id="${rowId}-name" class="input-field input-sm" value="${asuirEscapeHtml(name)}" placeholder="Название детали..."></td>
                                                                                     <td>
                                                                                         <div style="display:flex; align-items:center; gap:4px;">
-                                                                                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${defaultUrl}" placeholder="🔗 Вставьте ссылку...">
+                                                                                            <input type="text" id="${rowId}-url" class="input-url input-url-sm" value="${asuirEscapeHtml(defaultUrl)}" placeholder="🔗 Вставьте ссылку...">
                                                                                             <button class="btn-icon btn-icon-sm" onclick="openExternalUrl('${rowId}-url')" title="Перейти по ссылке на Alibaba">🔗</button>
                                                                                         </div>
                                                                                     </td>
@@ -3653,10 +3672,10 @@ window.openReferenceLine = function (cc) {
                                                                                             <button class="btn-icon btn-icon-sm" onclick="searchAlibaba('${rowId}')" title="Поиск у выбранного источника">🔍</button>
                                                                                         </div>
                                                                                     </td>
-                                                                                    <td><input type="number" step="0.1" class="input-field input-sm" value="${qty}" style="width:80px;"></td>
+                                                                                    <td><input type="number" step="0.1" class="input-field input-sm" value="${asuirEscapeHtml(qty)}" style="width:80px;"></td>
                                                                                     <td>
                                                                                         <div style="display:flex; align-items:center; gap:4px; justify-content:flex-end;">
-                                                                                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${price}" style="width:100px;">
+                                                                                            <input type="number" step="0.0001" class="input-field input-sm" id="${rowId}-price" value="${asuirEscapeHtml(price)}" style="width:100px;">
                                                                                             <button class="btn-icon btn-icon-sm" onclick="openBulkCalc('${rowId}')" title="Расчет оптовой партии">🧮</button>
                                                                                         </div>
                                                                                     </td>
@@ -3788,7 +3807,7 @@ window.openReferenceLine = function (cc) {
                                                                         headerTr.style.background = "#eef6ff";
                                                                         headerTr.innerHTML = `
                                                                                         <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="font-weight:700; color:#1f4e78; font-size:13px; padding:8px 12px;">
-                                                                                            📂 ТЕМА: ${topic.toUpperCase()}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''}
+                                                                                            📂 ТЕМА: ${asuirEscapeHtml(topic.toUpperCase())}${classLabel ? ` — <span style="color:#c65911;">${classLabel}</span>` : ''}${group.country !== 'base' ? ` — ${COUNTRIES[group.country].label}` : ''}
                                                                                         </td>
                                                                                     `;
                                                                         container.appendChild(headerTr);
@@ -3803,12 +3822,17 @@ window.openReferenceLine = function (cc) {
                                                                             const lineBomTotal = (compList.reduce((sum, c) => sum + (c.qty * c.price), 0) || topicBenchmarkBom) * (1 + lineRates(line).ct / 100);
                                                                             const lineOtherCosts = getLineOtherCosts(line);
                                                                             const linePrice = parseFloat(line.sale_price) || 0;
-                                                                            line.$fittedSalary = Math.round(Math.max(0, perf * getDirectShare() * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
+                                                                            const savedSales = parseFloat(line.sales_per_day);
+                                                                            const sold = savedSales > 0 ? Math.min(savedSales, perf) : perf;
+                                                                            const ownShare = (line.direct_share_pct != null && Number.isFinite(Number(line.direct_share_pct)))
+                                                                                ? Math.min(40, Math.max(5, Number(line.direct_share_pct))) / 100
+                                                                                : defaultShareFor(line.country_key) / 100;
+                                                                            line.$fittedSalary = Math.round(Math.max(0, sold * ownShare * lineBomTotal - (dailyAmort + lineOtherCosts)) * 30 / (line.staff || 1)); // правило 10% от себестоимости деталей с пошлиной
                                                                             const totalDailyCost = dailyAmort + ((line.$fittedSalary * (line.staff || 1)) / 30) + lineOtherCosts;
-                                                                            const unitCost = lineBomTotal + (dailyAmort + (baseSalary || 10000) * (line.staff || 1) / 30 + lineOtherCosts) / perf; // детали с пошлиной + прямые расходы ÷ реальный выпуск
+                                                                            const unitCost = lineBomTotal + (dailyAmort + (baseSalary || 10000) * (line.staff || 1) / 30 + lineOtherCosts) / sold; // детали с пошлиной + прямые расходы ÷ реальный выпуск
                                                                             line.$unitCost = unitCost;
                                                                             line.$noSale = !(linePrice > 0);
-                                                                            return line.$noSale ? -Infinity : Math.round(perf * (linePrice - unitCost) * 30);
+                                                                            return line.$noSale ? -Infinity : Math.round(sold * (linePrice - unitCost) * 30);
                                                                         };
                                                                         const importAdvantage = (line) => {
                                                                             const r = lineRates(line);
@@ -3827,11 +3851,11 @@ window.openReferenceLine = function (cc) {
                                                                             const itemOwner = line.client_id || "SYSTEM";
                                                                             const isMine = isLineMine(line);
 
-                                                                            const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Моё</span>` : `<span class="owner-badge owner-others">${itemOwner}</span>`) : '';
+                                                                            const ownerTag = (filterMode === 'all') ? (isMine ? `<span class="owner-badge owner-mine">Моё</span>` : `<span class="owner-badge owner-others">${asuirEscapeHtml(itemOwner)}</span>`) : '';
                                                                             const showDeleteBtn = canDeleteLine(line);
                                                                             const adminDeleteCell = (isAdminMode || filterMode === 'my') ? `
                                                                                             <td style="text-align:center;">
-                                                                                                ${showDeleteBtn ? `<button class="btn-delete-icon" onclick="deleteItemFromLiveDatabase('${line.id}', '${line.name.replace(/'/g, "\\'")}', '${itemOwner}')" title="Удалить запись">🗑️</button>` : ''}
+                                                                                                ${showDeleteBtn ? `<button class="btn-delete-icon asuir-delete-line" title="Удалить запись">🗑️</button>` : ''}
                                                                                             </td>
                                                                                         ` : '';
 
@@ -3839,17 +3863,17 @@ window.openReferenceLine = function (cc) {
                                                                             tr.innerHTML = `
                                                                                             <td style="text-align:center; font-weight:700; color:#1f4e78;">${lineIndexNumber}</td>
                                                                                             <td style="padding-left:12px;">
-                                                                                                <b>${line.name}</b> ${ownerTag}<br>
-                                                                                                <button id="btn-bom-${line.id}" class="btn-bom-toggle" onclick="toggleBomDetails('${line.id}')">
+                                                                                                <b>${asuirEscapeHtml(line.name)}</b> ${ownerTag}<br>
+                                                                                                <button id="btn-bom-${asuirEscapeHtml(line.id)}" class="btn-bom-toggle">
                                                                                                     ▶ 📦 Спецификация ▾
                                                                                                 </button>
                                                                                             </td>
-                                                                                            <td><a href="${line.url || '#'}" target="_blank" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a></td>
+                                                                                            <td>${asuirSafeUrl(line.url) ? `<a href="${asuirEscapeHtml(asuirSafeUrl(line.url))}" target="_blank" rel="noopener noreferrer" style="color:#4a90d9; font-weight:600; text-decoration:none;">🔗 Alibaba ↗</a>` : '— (нет ссылки поставщика)'}</td>
                                                                                             <td>$${Number(line.cost).toLocaleString()}</td>
-                                                                                            <td>${line.perf} шт/день</td>
-                                                                                            <td>${line.staff || 1} чел</td>
+                                                                                            <td>${Number(line.perf) || 0} шт/день</td>
+                                                                                            <td>${Number(line.staff) || 1} чел</td>
                                                                                             <td style="color:#6c7a8a; font-weight:600;">$${Number(line.$fittedSalary).toLocaleString('ru-RU')}</td>
-                                                                                            <td><b style="color:#1f4e78;">${line.$noSale ? '—' : '$' + (monthlyProfit > 0 ? monthlyProfit.toLocaleString('ru-RU') : '0') + ' / мес'}</b></td>
+                                                                                            <td><b style="color:#1f4e78;">${line.$noSale ? '—' : (monthlyProfit < 0 ? '-$' + Math.abs(monthlyProfit).toLocaleString('ru-RU') : '$' + monthlyProfit.toLocaleString('ru-RU')) + ' / мес'}</b></td>
                                                                                             <td style="font-weight:600; color:#007600;">${importAdvantage(line)}</td>
                                                                                             ${adminDeleteCell}
                                                                                         `;
@@ -3867,12 +3891,12 @@ window.openReferenceLine = function (cc) {
                                                                                 compRowsHtml += `
                                                                                                 <tr>
                                                                                                     <td style="width:30px; color:#6c7a8a;">${idx + 1}.</td>
-                                                                                                    <td><b>${name}</b></td>
+                                                                                                    <td><b>${asuirEscapeHtml(name)}</b></td>
                                                                                                     <td style="text-align:center;">${qty}</td>
                                                                                                     <td style="text-align:right;">$${Number(price).toFixed(2)}</td>
                                                                                                     <td style="text-align:right; font-weight:600;">$${sum}</td>
                                                                                                     <td style="text-align:center;">
-                                                                                                        <a href="${url}" target="_blank" style="color:#1f4e78; text-decoration:none; font-weight:600;">🔗 Alibaba ↗</a>
+                                                                                                        <a href="${asuirEscapeHtml(asuirSafeUrl(url) || '#')}" target="_blank" rel="noopener noreferrer" style="color:#1f4e78; text-decoration:none; font-weight:600;">🔗 Alibaba ↗</a>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             `;
@@ -3885,7 +3909,7 @@ window.openReferenceLine = function (cc) {
                                                                             subTr.innerHTML = `
                                                                                             <td colspan="${(isAdminMode || filterMode === 'my') ? 10 : 9}" style="padding:10px 20px 14px 35px; border-top:1px dashed #b8daff;">
                                                                                                 <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:6px;">
-                                                                                                    <button class="btn btn-primary btn-sm" onclick="loadLineIntoWorkspace('${line.id}')" title="Загрузить производственную линию в генератор производств">
+                                                                                                    <button class="btn btn-primary btn-sm asuir-load-line" title="Загрузить производственную линию в генератор производств">
                                                                                                         📥 Загрузить производственную линию в генератор производств
                                                                                                     </button>
                                                                                                 </div>
@@ -3897,6 +3921,9 @@ window.openReferenceLine = function (cc) {
                                                                                             </td>
                                                                                         `;
                                                                             container.appendChild(subTr);
+                                                                            tr.querySelector('.btn-bom-toggle')?.addEventListener('click', () => window.toggleBomDetails(line.id));
+                                                                            tr.querySelector('.asuir-delete-line')?.addEventListener('click', () => window.deleteItemFromLiveDatabase(line.id, line.name, itemOwner));
+                                                                            subTr.querySelector('.asuir-load-line')?.addEventListener('click', () => window.loadLineIntoWorkspace(line.id));
                                                                         });
                                                                     }
                                                                 }
