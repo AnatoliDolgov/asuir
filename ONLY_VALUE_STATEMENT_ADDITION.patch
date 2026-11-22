@@ -1,0 +1,48 @@
+--- a/ASUIRGemeniCalculatOptimizer_ru.html
++++ b/ASUIRGemeniCalculatOptimizer_ru.html
+@@ -930,9 +930,10 @@
+ /* Краткое описание экономической цели АСУИР под основным заголовком. */
+ .asuir-value-proposition {max-width:1080px; margin:-6px auto 22px; padding:13px 24px; text-align:center; background:#f5f8fc; border-top:2px solid #b9cbdc; border-bottom:1px solid #d6e1eb; border-radius:5px; line-height:1.5;}
+ .asuir-value-proposition p {margin:0; color:#21486c; font-size:18px; font-weight:500;}
++.asuir-value-proposition .asuir-value-explanation {margin:10px auto 0; max-width:970px; color:#3d5268; font-size:15px; font-weight:400; line-height:1.45;}
+ .asuir-value-proposition strong {font-weight:750;}
+ .asuir-value-proposition .asuir-value-note {display:block; margin-top:7px; font-size:12px; color:#6a7886; line-height:1.35;}
+-@media (max-width:768px) {.asuir-value-proposition {margin:0 auto 17px; padding:13px 12px}.asuir-value-proposition p {font-size:15px}.asuir-value-proposition .asuir-value-note{font-size:11px}}
++@media (max-width:768px) {.asuir-value-proposition {margin:0 auto 17px; padding:13px 12px}.asuir-value-proposition p {font-size:15px}.asuir-value-proposition .asuir-value-explanation {font-size:13px; margin-top:9px}.asuir-value-proposition .asuir-value-note{font-size:11px}}
+ </style>
+ 
+     <!-- Счётчик GoatCounter ОТКЛЮЧЁН, НЕ УДАЛЁН (12.11.2026, на время рассмотрения заявки DPGA). Чтобы вернуть, снимите этот комментарий.
+@@ -994,7 +995,8 @@
+ 
+         <!-- КРАТКОЕ ОБЪЯСНЕНИЕ ПРЕИМУЩЕСТВ АСУИР: сразу под TECHNOLOGY MATRIX -->
+         <section class="asuir-value-proposition" aria-label="Цели экономической модели АСУИР">
+-            <p>При параметрах производства, подобранных с помощью <strong>АСУИР</strong>, обеспечиваются <strong>себестоимость единицы продукции на уровне Бангладеш</strong>, <strong>заработная плата на уровне США и выше</strong>, а также <strong>максимально высокий предпринимательский доход</strong>.</p>
++            <p class="asuir-value-primary">При параметрах производства, выбранных с помощью <strong>АСУИР</strong>, обеспечиваются <strong>себестоимость единицы продукции на уровне Бангладеш</strong>, <strong>заработная плата на уровне США и выше</strong>, а также <strong>максимально высокий предпринимательский доход</strong>.</p>
++            <p class="asuir-value-explanation">АСУИР не просто рассчитывает себестоимость существующего производства — система определяет необходимые параметры производства, при которых высокая заработная плата, амортизация оборудования и другие расходы занимают экономически приемлемую долю себестоимости продукции.</p>
+             <span class="asuir-value-note">Целевые показатели модели АСУИР. Фактические результаты зависят от стоимости комплектующих, производительности оборудования и реального сбыта.</span>
+         </section>
+ 
+--- a/ASUIRGeminiCalculationModule_en.html
++++ b/ASUIRGeminiCalculationModule_en.html
+@@ -930,9 +930,10 @@
+ /* Краткое описание экономической цели АСУИР под основным заголовком. */
+ .asuir-value-proposition {max-width:1080px; margin:-6px auto 22px; padding:13px 24px; text-align:center; background:#f5f8fc; border-top:2px solid #b9cbdc; border-bottom:1px solid #d6e1eb; border-radius:5px; line-height:1.5;}
+ .asuir-value-proposition p {margin:0; color:#21486c; font-size:18px; font-weight:500;}
++.asuir-value-proposition .asuir-value-explanation {margin:10px auto 0; max-width:970px; color:#3d5268; font-size:15px; font-weight:400; line-height:1.45;}
+ .asuir-value-proposition strong {font-weight:750;}
+ .asuir-value-proposition .asuir-value-note {display:block; margin-top:7px; font-size:12px; color:#6a7886; line-height:1.35;}
+-@media (max-width:768px) {.asuir-value-proposition {margin:0 auto 17px; padding:13px 12px}.asuir-value-proposition p {font-size:15px}.asuir-value-proposition .asuir-value-note{font-size:11px}}
++@media (max-width:768px) {.asuir-value-proposition {margin:0 auto 17px; padding:13px 12px}.asuir-value-proposition p {font-size:15px}.asuir-value-proposition .asuir-value-explanation {font-size:13px; margin-top:9px}.asuir-value-proposition .asuir-value-note{font-size:11px}}
+ </style>
+ 
+     <!-- Счётчик GoatCounter ОТКЛЮЧЁН, НЕ УДАЛЁН (12.11.2026, на время рассмотрения заявки DPGA). Чтобы вернуть, снимите этот комментарий.
+@@ -993,7 +994,8 @@
+ 
+         <!-- ASUIR ECONOMIC VALUE PROPOSITION: directly below TECHNOLOGY MATRIX -->
+         <section class="asuir-value-proposition" aria-label="ASUIR economic objectives">
+-            <p>With production parameters selected using <strong>ASUIR</strong>, the model seeks to achieve <strong>unit production costs comparable to Bangladesh</strong>, <strong>wages at US levels or higher</strong>, and <strong>the highest attainable income for the business owner</strong>.</p>
++            <p class="asuir-value-primary">With production parameters selected using <strong>ASUIR</strong>, the model seeks to achieve <strong>unit production costs comparable to Bangladesh</strong>, <strong>wages at US levels or higher</strong>, and <strong>the highest attainable income for the business owner</strong>.</p>
++            <p class="asuir-value-explanation">ASUIR does more than calculate the unit cost of an existing production line: it determines the production parameters needed for high wages, equipment depreciation and other expenses to make up an economically acceptable share of the cost per product.</p>
+             <span class="asuir-value-note">These are ASUIR model targets. Actual results depend on component prices, equipment productivity and real sales.</span>
+         </section>
+ 
