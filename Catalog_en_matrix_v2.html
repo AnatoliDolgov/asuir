@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASUIR — Catalog: equipment, modules and products</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#222;padding:20px 40px 60px}
+.main-wrapper{max-width:1400px;margin:0 auto}
+.top-utility-bar{display:flex;justify-content:flex-end;font-size:13px;margin-bottom:10px}
+.brand-title-block{text-align:center;margin:20px 0 15px}
+.brand-title-text{font-family:'Times New Roman',Times,Georgia,serif;font-size:52px;font-weight:400;letter-spacing:2px;color:#555;text-transform:uppercase;line-height:1}
+.nav-global-menu{display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 12px;flex-wrap:wrap}
+.nav-global-link{text-decoration:none;text-align:center}
+.nav-global-link .main-label{display:block;font-size:13px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.5px}
+.nav-global-link .sub-label{display:block;font-size:11.5px;color:#666;margin-top:2px}
+.nav-global-link:hover .main-label,.nav-global-link.active .main-label{color:#1f4e78}
+.divider{margin:10px 0 25px}.divider .thin{height:1px;background:#d0d7dd;margin-bottom:4px}.divider .thick{height:4px;background:#a0a8b0}
+.card{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:24px;margin-bottom:20px}
+h1{font-size:20px;color:#1f4e78;margin-bottom:8px}
+.sub{color:#555;margin:0 0 12px;font-size:14px;line-height:1.5}
+.nav-tabs2{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.nav-tabs2 button{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px;color:#444}
+.nav-tabs2 button.on{background:#1f4e78;color:#fff;border-color:#1f4e78}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.bar input,.bar select{padding:7px 9px;border:1px solid #d0d7dd;border-radius:4px;background:#fff;color:#222;font:inherit;font-size:14px}
+.m{color:#666;font-size:12.5px}
+.wrap{border:1px solid #d0d7dd;border-radius:4px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid #e3e8ec;text-align:left;vertical-align:top}
+th{background:#f2f5f8;color:#1f4e78;font-size:12.5px;line-height:1.25}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.profit{color:#2e7d32;font-weight:700}.neg{color:#b12704;font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:#eef2f5;color:#666}
+.go{display:inline-block;background:#1f4e78;color:#fff;text-decoration:none;padding:6px 10px;border-radius:4px;font-size:12.5px;text-align:center;line-height:1.25}
+.go:hover{background:#2b5b84}.go.off{background:#f2f5f8;color:#777;border:1px dashed #c3ccd3;pointer-events:none}
+details summary{cursor:pointer;color:#1f4e78}
+.note{margin:12px 0 0;color:#666;font-size:13px;line-height:1.5}
+.live{margin-top:20px}
+footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
+@media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}
+/* One demonstration matrix row in each of the two alternative views */
+.matrix-demo td{background:#f4f8fc;border-top:2px solid #86a4c1;border-bottom:2px solid #86a4c1;line-height:1.4}
+.matrix-demo-title{font-weight:700;color:#1f4e78;display:block;margin-bottom:6px}
+.matrix-demo-list{display:flex;flex-direction:column;gap:5px}
+.matrix-demo-item{padding:3px 0;border-bottom:1px dotted #c9d4df}
+.matrix-demo-num{display:inline-block;min-width:18px;color:#1f4e78;font-weight:700}
+.matrix-sku{display:inline-block;font:600 11px/1.5 monospace;color:#35627f;background:#e5eef7;border-radius:3px;padding:0 4px;margin-left:4px}
+.matrix-demo-summary{font-size:12px;color:#435363}
+.matrix-demo-summary a{display:inline-block;margin-top:7px}
+.matrix-demo-foot{margin-top:5px;font-size:12px}
+.matrix-provisional{font-weight:800;color:#a05b0d}.matrix-demo td{background:#f4f8fc}.matrix-demo-foot{line-height:1.5}</style></head>
+<body><div class="main-wrapper">
+<div class="top-utility-bar"><div style="cursor:pointer;font-weight:600;" onclick="window.location.href='index.html'">Languages ⌵</div></div>
+<div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">TECHNOLOGY MATRIX</h1></div>
+<div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
+<nav class="nav-global-menu">
+<a href="index.html" class="nav-global-link"><span class="main-label">ABOUT</span><span class="sub-label">automated management system</span></a>
+<a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link"><span class="main-label">ASUIR</span><span class="sub-label">driver of ultra-efficient production</span></a>
+<a href="ASUIRServices_en.html" class="nav-global-link"><span class="main-label">ASUIR — SERVICES</span><span class="sub-label">driver of ultra-efficient services</span></a>
+<a href="Catalog_en.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">CATALOG</span><span class="sub-label">equipment, modules and products</span></a>
+<a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">reference and formulas</span></a>
+</nav>
+<div class="divider"><div class="thin"></div><div class="thick"></div></div>
+<div class="card">
+<h1>Catalog of production lines</h1>
+<p class="sub">Technology matrix: equipment, products, modules, and distinct SKUs with output, unit costs, wages, and profit. Legacy inferred IDs are marked *. Click a name for related combinations; ↗ opens that exact saved line.</p>
+<div class="nav-tabs2" id="views"><button data-view="eq" class="on">Equipment → Products → Modules</button><button data-view="prod">Products → Equipment → Modules</button><button data-view="mod">Modules → Products → Equipment</button></div><div id="crumb" class="m" style="margin:0 0 10px"></div><div class="bar"><span style="position:relative"><input id="q" autocomplete="off" placeholder="Search: name or SKU"><div id="sug" style="display:none;position:absolute;z-index:5;left:0;top:100%;min-width:320px;max-height:320px;overflow:auto;background:#fff;border:1px solid #d0d7dd;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.12)"></div></span><select id="sort"><option value="profit">Sort: monthly profit</option><option value="sal">Sort: maximum salary</option><option value="staff">Sort: workers</option></select><span class="m" id="cnt"></span></div><div class="wrap"><table><thead><tr id="h3"></tr><tr id="h-rest" style="display:none"><th class="n">Output, pcs/day</th><th class="n">Workers</th><th class="n">Unit cost</th><th class="n">Price</th><th class="n">Profit, $/month</th><th class="n">Max salary</th><th></th></tr></thead><tbody id="tb"><tr><td colspan="10" class="m">Loading from the database…</td></tr></tbody></table></div>
+<p class="note">Unit cost includes depreciation, $10,000 monthly salary per worker, and workshop costs allocated across sold units. If planned sales are missing, all output is assumed sold. Maximum salary is a separate calculation based on the direct-expense share rule. Legacy records use provisional IDs inferred from names or module contents; they require confirmation.</p></div>
+<footer>© Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.<br>Developed with technical support from the AI assistant Claude (Anthropic).<br><a href="/privacy.html" style="color:#6c7a8a;">Privacy Policy</a></footer>
+</div>
+<script>
+// ASUIR MATRIX v2 — keeps old Firebase format readable and uses the generator's economic model.
+const LANG = 'en';
+const TX = {"GEN":"ASUIRGeminiCalculationModule_en_matrix_v2.html","loading":"Loading from database…","notFound":"Nothing found.","err":"Could not load data from the database.","countone":"combination","countmore":"combinations","showAll":"show all","intro":"Saved production lines. Click a name to see related combinations.","matrixFor":"Matrix for","labels":{"eq":"equipment","prod":"product","mod":"module"},"kinds":{"eq":"Equipment","prod":"Products","mod":"Changeover module"},"openLine":"Open line","showPairs":"Show combinations","module":"Module: ","noModule":"— no module","unverified":"provisional SKU","verified":"saved SKU","piece":"items","demoTitle":"Actual combinations in database","demoNo":"There are not two distinct combinations in this selection meeting the demonstration criteria. No fabricated pairs are shown.","demoShort":"Matching numbers indicate the same saved production combination.","demoNote":"SKUs find candidate matches; physical compatibility based on module contents needs engineering confirmation.","found":"Found","pairs":"combinations","distinct":"different","sSales":"Sales","sOutput":"Output","perDay":"pcs/day","cost":"Cost / sold unit","price":"Price","profit":"Profit, $/month","salary":"Max. salary","staff":"Workers","required":"Required","capacityBad":"Output below target","noSale":"No selling price provided","helpText":"Unit cost includes depreciation, $10,000 monthly salary per worker, and workshop costs allocated across sold units. If planned sales are missing, all output is assumed sold. Maximum salary is a separate calculation based on the direct-expense share rule.","fallbackGroup":"Legacy records use provisional IDs inferred from names or module contents; they require confirmation.","demo":"Matrix demonstration"};
+const GEN = TX.GEN;
+const DATA_URL = 'https://asuir-gemini-default-rtdb.firebaseio.com/' + (LANG === 'ru' ? 'equipment_listing' : 'equipment_listing_en') + '.json';
+const $ = s => document.querySelector(s);
+const fmtInt = n => n == null || !Number.isFinite(Number(n)) ? '—' : '$' + Math.round(n).toLocaleString(LANG === 'ru' ? 'ru-RU' : 'en-US');
+const fmtMoney = n => n == null || !Number.isFinite(Number(n)) ? '—' : '$' + Number(n).toFixed(2);
+const esc = s => String(s == null ? '' : s).replace(/[&<>\"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const norm = s => String(s == null ? '' : s).trim().toLocaleLowerCase().replace(/\s+/g, ' ');
+const numeric = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+function provisionalSku(prefix, value) {
+ if (!value) return '';
+ let h = 2166136261;
+ for (const ch of prefix + '|' + norm(value)) {h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0;}
+ return prefix + '-' + h.toString(16).toUpperCase().padStart(8,'0');
+}
+function modSignature(items) {
+ return items.filter(m => m && norm(m.name)).map(m => norm(m.name) + '×' + (numeric(m.qty) > 0 ? numeric(m.qty) : 1)).sort().join('|');
+}
+const presentName = r => r.name || r.eq || r.prod;
+function build(id,v) {
+ const comps = Array.isArray(v.components) ? v.components : [], exps = Array.isArray(v.expenses) ? v.expenses : [], mods = Array.isArray(v.module_items) ? v.module_items : [];
+ const baseBOM = comps.reduce((sum,c) => sum + numeric(c.qty)*numeric(c.price),0);
+ const bom = baseBOM * (1 + numeric(v.comp_tariff)/100);
+ const expenses = exps.reduce((sum,e) => sum + numeric(e.qty)*numeric(e.price ?? e.price_per_day),0);
+ const perf = numeric(v.perf), workers = numeric(v.staff)>0 ? numeric(v.staff) : 1;
+ const equipmentCost = numeric(v.cost), amort = equipmentCost/5/365;
+ const fixed = amort + workers*10000/30 + expenses;
+ const rawSales = numeric(v.sales_per_day);
+ const sales = rawSales>0 ? Math.min(rawSales,perf) : perf;
+ const sellingPrice = numeric(v.sale_price)>0 ? numeric(v.sale_price) : null;
+ const countryShare = v.country_key === 'us' ? 20 : 10;
+ const sharePct = v.direct_share_pct != null && Number.isFinite(Number(v.direct_share_pct)) ? Math.min(40,Math.max(5,numeric(v.direct_share_pct))) : countryShare;
+ const d = sharePct/100;
+ const unit = sales>0 && comps.length ? bom + fixed/sales : null;
+ const profit = sellingPrice!=null && sales>0 && comps.length ? Math.round((sellingPrice-bom)*sales*30-fixed*30) : null;
+ const salary = bom>0 ? Math.round(Math.max(0,perf*d*bom - (amort+expenses))*30/workers) : null;
+ const required = bom>0 ? Math.ceil(fixed/(bom*d)) : null;
+ const prodName = String(v.product_label || v.product_name || [v.topic_title,v.class_key].filter(Boolean).join(' / ') || v.name || '').trim();
+ const fullName = String(v.name || '').trim();
+ const trailing = v.product_name && fullName.endsWith(': ' + v.product_name) ? ': ' + v.product_name : '';
+ const oldEq = trailing ? fullName.slice(0,-trailing.length).trim() : fullName.split(' + module:')[0].trim();
+ const eqName = String(v.equipment_name || oldEq || fullName).trim();
+ const signature = String(v.module_signature || modSignature(mods)).trim();
+ const modName = signature ? String(v.module_name || mods.map(m=>m.name).filter(Boolean).join(' + ') || '').trim() : '';
+ const eqSku = v.equipment_sku || provisionalSku('EQ',eqName);
+ const prodSku = v.product_sku || provisionalSku('PR',prodName);
+ const modSku = signature ? (v.module_sku || provisionalSku('MD',signature)) : '';
+ const isExplicit = Number(v.matrix_schema_version) >= 2 && !!v.equipment_sku && !!v.product_sku;
+ return {id,name:fullName,eq:eqName,prod:prodName,modName,eqSku,prodSku,modSku,signature,
+   eqKnown:isExplicit,prodKnown:isExplicit && v.product_identity_scope==='specific',modKnown:isExplicit && !!v.module_sku,
+   topic:v.topic_title||'',perf,workers,unit,profit,salary,sales,price:sellingPrice,required,sharePct,
+   modulePrice:mods.reduce((s,m)=>s+numeric(m.price)*(numeric(m.qty)>0?numeric(m.qty):1),0),numModItems:mods.length,
+   scope:v.product_identity_scope || (v.product_name?'specific':'class'), country:v.country_key||'base'};
+}
+const getName = (r,k) => k==='eq'?r.eq:k==='prod'?r.prod:r.modName;
+const getSku = (r,k) => k==='eq'?r.eqSku:k==='prod'?r.prodSku:r.modSku;
+const hasExplicit = (r,k) => k==='eq'?r.eqKnown:k==='prod'?r.prodKnown:r.modKnown;
+const key = (r,k) => getSku(r,k) || ('[missing]'+k+r.id);
+let LINES=[], FILTER=null, VIEW='eq';
+const ORDER={eq:['eq','prod','mod'],prod:['prod','eq','mod'],mod:['mod','prod','eq']};
+function link(r,k) {
+ if(k==='mod'&&!r.modSku)return `<span class="m">${esc(TX.noModule)}</span>`;
+ const title=(k==='mod'?TX.module:'')+getName(r,k), sku=getSku(r,k);
+ return `<a class="tl" href="#" data-k="${k}" data-sku="${esc(sku)}" title="${esc(TX.showPairs)}">${esc(title)}</a> <a class="arr" target="_blank" rel="noopener" href="${GEN}?line=${encodeURIComponent(r.id)}&tab=${k==='eq'?'tab1':k==='prod'?'tab3':'tab6'}" title="${esc(TX.openLine)}">↗</a>`+
+   `<div class="m">${esc(sku)}${!hasExplicit(r,k)?` <span class="matrix-provisional" title="${esc(TX.fallbackGroup)}">*</span>`:''}${k==='eq'?` <span class="tag">${esc(r.topic)}</span>`:''}${k==='mod'&&r.numModItems?` · ${r.numModItems} ${TX.piece}`:''}</div>`;
+}
+function renderDemo(rows) {
+ if(VIEW==='eq' || !rows.length)return '';
+ const other = ORDER[VIEW].slice(1), by=new Map();
+ for(const r of rows){if(VIEW==='mod'&&!r.modSku)continue;const k=key(r,VIEW);if(!by.has(k))by.set(k,[]);by.get(k).push(r)}
+ const eligible=[];
+ for (const same of by.values()) {
+  const pairs=[],seen=new Set();
+  for(const r of same){const sig=other.map(k=>key(r,k)).join('|');if(!seen.has(sig)){seen.add(sig);pairs.push(r)}}
+  if(pairs.length<2)continue;
+  // A class of products is not evidence of the *same exact product*.
+  if(pairs.some(r=>r.scope!=='specific'))continue;
+  // Product view needs genuinely different equipment. Module view needs different equipment AND product.
+  if(new Set(pairs.map(r=>r.eqSku)).size<2)continue;
+  if(VIEW==='mod'&&new Set(pairs.map(r=>r.prodSku)).size<2)continue;
+  eligible.push(pairs);
+ }
+ eligible.sort((a,b)=>b.length-a.length);
+ if(!eligible.length)return `<tr class="matrix-demo"><td colspan="10"><strong>${esc(TX.demo)}</strong> — ${esc(TX.demoNo)}</td></tr>`;
+ const group=eligible[0],shown=group.slice(0,4),unique=group.length;
+ const item=(r,k,i)=>`<div class="matrix-demo-item"><span class="matrix-demo-num">${i+1}.</span><a href="#" class="tl" data-k="${k}" data-sku="${esc(getSku(r,k))}">${esc(getName(r,k))}</a><span class="matrix-sku">${esc(getSku(r,k))}</span>${!hasExplicit(r,k)?' *':''}</div>`;
+ const primary=`<span class="matrix-demo-title">${esc(TX.demoTitle)}</span>${link(group[0],VIEW)}`;
+ const middle=shown.map((r,i)=>item(r,other[0],i)).join('');
+ const last=shown.map((r,i)=>item(r,other[1],i)).join('');
+ const details=`<strong>${unique} ${esc(TX.pairs)}</strong><div class="matrix-demo-foot">${esc(TX.demoShort)}</div><div class="matrix-demo-foot">${esc(TX.demoNote)}</div><a class="chip" href="#" data-k="${VIEW}" data-sku="${esc(getSku(group[0],VIEW))}">${esc(TX.showPairs)}</a>`;
+ return `<tr class="matrix-demo"><td>${primary}</td><td>${middle}</td><td>${last}</td><td colspan="7" class="matrix-demo-summary">${details}</td></tr>`;
+}
+function render() {
+ const q=$('#q').value.trim().toLowerCase(),sorting=$('#sort').value,ord=ORDER[VIEW];
+ $('#h3').innerHTML = ord.map(k=>`<th>${TX.kinds[k]}</th>`).join('')+`<th class="n">${TX.sOutput} / ${TX.sSales}, ${TX.perDay}</th><th class="n">${TX.staff}</th><th class="n">${TX.cost}</th><th class="n">${TX.price}</th><th class="n">${TX.profit}</th><th class="n">${TX.salary}</th><th></th>`;
+ let rows=LINES.filter(r=>(!FILTER||getSku(r,FILTER.kind)===FILTER.sku)&&(!q||([r.eq,r.prod,r.modName,r.eqSku,r.prodSku,r.modSku,r.topic,r.name].join(' ').toLowerCase().includes(q))));
+ rows.sort((a,b)=>(FILTER ? 0 : (getName(a,ord[0])||'').localeCompare(getName(b,ord[0])||'',LANG==='ru'?'ru':'en')) || (sorting==='staff'?a.workers-b.workers:(b[sorting]??-Infinity)-(a[sorting]??-Infinity)));
+ const n=rows.length; $('#cnt').textContent=n+' '+(n===1?TX.countone:TX.countmore);
+ document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('on',b.dataset.view===VIEW));
+ const sample=rows.find(r=>FILTER&&getSku(r,FILTER.kind)===FILTER.sku);
+ $('#crumb').innerHTML=FILTER?`${esc(TX.matrixFor)} ${esc(TX.labels[FILTER.kind])} <b>${esc(sample?getName(sample,FILTER.kind):FILTER.sku)}</b> (${esc(FILTER.sku)}) · <a href="#" id="all">${esc(TX.showAll)}</a>`:esc(TX.intro);
+ let prior=null;
+ const body=rows.map(r=>{
+  const first=prior!==key(r,ord[0]);prior=key(r,ord[0]);
+  const cells=ord.map((k,i)=>`<td>${i===0&&!first?'<span class="m">″</span>':link(r,k)}</td>`).join('');
+  const money=r.profit==null?'—':`<span class="${r.profit<0?'neg':'profit'}">${fmtInt(r.profit)}</span>`;
+  const cap=r.required!=null && r.perf<r.required?`<div class="m" title="${esc(TX.capacityBad)}">${esc(TX.required)} ${r.required}</div>`:'';
+  return `<tr${first?' style="border-top:2px solid #c3ccd3"':''}>${cells}<td class="n">${r.perf} / ${r.sales}${cap}</td><td class="n">${r.workers}</td><td class="n">${fmtMoney(r.unit)}</td><td class="n">${fmtMoney(r.price)}</td><td class="n">${money}</td><td class="n">${fmtInt(r.salary)}</td><td><a class="go" target="_blank" rel="noopener" href="${GEN}?line=${encodeURIComponent(r.id)}&tab=tab5">${esc(TX.openLine)}</a><div class="m">${esc(r.eqSku)} / ${esc(r.prodSku)} / ${esc(r.modSku||'—')}</div></td></tr>`;
+ }).join('');
+ $('#tb').innerHTML=renderDemo(rows)+(body||`<tr><td colspan="10" class="m">${esc(TX.notFound)}</td></tr>`);
+}
+function choose(k,sku) {VIEW=k;FILTER={kind:k,sku};$('#q').value='';$('#sug').style.display='none';render();window.scrollTo(0,0)}
+$('#views').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b){VIEW=b.dataset.view;FILTER=null;render()}});
+document.addEventListener('click',e=>{const l=e.target.closest('a[data-k][data-sku]');if(l){e.preventDefault();choose(l.dataset.k,l.dataset.sku);return}if(e.target.id==='all'){e.preventDefault();FILTER=null;render()}});
+function suggest() {
+ const q=$('#q').value.trim().toLowerCase(),box=$('#sug');if(!q){box.style.display='none';return}
+ const results=[],seen=new Set();
+ for(const k of ['prod','eq','mod'])for(const r of LINES){if(k==='mod'&&!r.modSku)continue;const sku=getSku(r,k),name=getName(r,k),ks=k+'|'+sku;
+  if(seen.has(ks))continue;seen.add(ks);if(name.toLowerCase().includes(q)||sku.toLowerCase().includes(q))results.push({k,sku,name});}
+ box.innerHTML=results.length?results.slice(0,12).map(a=>`<a href="#" class="sg" data-k="${a.k}" data-sku="${esc(a.sku)}"><span class="tag">${esc(TX.kinds[a.k])}</span> ${esc(a.name)} <span class="m">${esc(a.sku)}</span></a>`).join(''):`<div class="m" style="padding:8px">${esc(TX.notFound)}</div>`;
+ box.style.display='block';
+}
+$('#q').addEventListener('input',()=>{suggest();render()});
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const first=$('#sug .sg');if(first)first.click()}});
+document.addEventListener('click',e=>{if(!e.target.closest('#sug,#q'))$('#sug').style.display='none'});
+$('#sort').addEventListener('change',render);
+(async()=>{try{
+ const resp=await fetch(DATA_URL);if(!resp.ok)throw new Error('HTTP '+resp.status);
+ const data=await resp.json();LINES=Object.entries(data||{}).map(([id,v])=>v&&v.name&&numeric(v.perf)>0?build(id,v):null).filter(Boolean);
+ render();
+} catch(e) {$('#tb').innerHTML=`<tr><td colspan="10" class="m">${esc(TX.err)}</td></tr>`;}})();
+</script></body></html>
