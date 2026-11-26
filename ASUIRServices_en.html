@@ -598,6 +598,112 @@
         #main-tab-2 .section table td:first-child {
             min-width: 220px;
         }
+    
+        /* 2026-11-26: responsive tables; keep headings and numerical results visible. */
+        .main-wrapper, .card, .matrix-card-box,
+        .main-tab-content-panel, .matrix-content-body, .section,
+        .table-responsive { min-width: 0; max-width: 100%; }
+
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+            -webkit-overflow-scrolling: touch;
+        }
+        .table-responsive table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+        .table-responsive th, .table-responsive td {
+            overflow-wrap: anywhere;
+            word-break: normal;
+            vertical-align: top;
+            line-height: 1.4;
+        }
+        .table-responsive th.num, .table-responsive td.num {
+            white-space: normal;
+        }
+        .table-responsive td.num b,
+        .table-responsive td.num strong,
+        .table-responsive td.num input {
+            white-space: nowrap;
+        }
+        .table-responsive td .small {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            line-height: 1.35;
+        }
+        #main-tab-1 .table-responsive table { min-width: 0; font-size: 12px; }
+        #main-tab-1 .table-responsive th,
+        #main-tab-1 .table-responsive td { padding: 8px 6px; }
+        #main-tab-1 .table-responsive th:nth-child(1),
+        #main-tab-1 .table-responsive td:nth-child(1) { width: 4%; }
+        #main-tab-1 .table-responsive th:nth-child(2),
+        #main-tab-1 .table-responsive td:nth-child(2) { width: 21%; }
+        #main-tab-1 .table-responsive th:nth-child(3),
+        #main-tab-1 .table-responsive td:nth-child(3) { width: 12%; }
+        #main-tab-1 .table-responsive th:nth-child(4),
+        #main-tab-1 .table-responsive td:nth-child(4) { width: 8%; }
+        #main-tab-1 .table-responsive th:nth-child(5),
+        #main-tab-1 .table-responsive td:nth-child(5) { width: 12%; }
+        #main-tab-1 .table-responsive th:nth-child(6),
+        #main-tab-1 .table-responsive td:nth-child(6) { width: 12%; }
+        #main-tab-1 .table-responsive th:nth-child(7),
+        #main-tab-1 .table-responsive td:nth-child(7) { width: 16%; }
+        #main-tab-1 .table-responsive th:nth-child(8),
+        #main-tab-1 .table-responsive td:nth-child(8) { width: 15%; }
+        #main-tab-1 .table-responsive td[colspan="8"] { width: auto; }
+        #main-tab-2 .section table { width: 100%; table-layout: fixed; }
+        #main-tab-2 .section table tr > :first-child { width: 37%; min-width: 0; }
+        #main-tab-2 .section table tr > :not(:first-child) { width: 21%; min-width: 0; }
+        #main-tab-2 .section table th.num { min-width: 0; }
+        #main-tab-2 .section table td:first-child { min-width: 0; }
+        #main-tab-2 .section table td,
+        #main-tab-2 .section table th { padding: 9px 8px; }
+        #main-tab-2 .section table input[type="number"] { max-width: 100%; }
+        .result-hero, .info-hint, .sources { overflow-wrap: anywhere; }
+        @media (max-width: 860px) {
+            #main-tab-1 .table-responsive table { min-width: 930px; }
+            #main-tab-1 .table-responsive::before {
+                content: 'Scroll the table horizontally to view all columns →';
+                display: block;
+                position: sticky;
+                left: 0;
+                max-width: 500px;
+                padding-bottom: 7px;
+                color: #486581;
+                font-size: 12px;
+            }
+        }
+        @media (max-width: 780px) {
+            .card, .matrix-content-body { padding: 15px; }
+            .matrix-tab-bar { max-width: 100%; }
+            #main-tab-2 .section table { min-width: 790px; }
+            #main-tab-2 .section .table-responsive::before {
+                content: 'Scroll horizontally to see all columns →';
+                display: block;
+                position: sticky;
+                left: 0;
+                max-width: 500px;
+                padding-bottom: 7px;
+                color: #486581;
+                font-size: 12px;
+            }
+            .svc-select { width: 100%; min-width: 0; }
+            .svc-save-box input[type="text"] { min-width: 0; width: 100%; }
+        }
+        @media print {
+            .table-responsive { overflow: visible; }
+            .table-responsive table { min-width: 0 !important; }
+            #main-tab-1 .table-responsive table { font-size: 9px; }
+            #main-tab-1 .table-responsive th,
+            #main-tab-1 .table-responsive td { padding: 4px 3px; }
+            #main-tab-2 .section table { font-size: 10px; }
+        }
+
     </style>
 
     <!-- Счётчик GoatCounter ОТКЛЮЧЁН, НЕ УДАЛЁН (12.11.2026, на время рассмотрения заявки DPGA). Чтобы вернуть, снимите этот комментарий.
