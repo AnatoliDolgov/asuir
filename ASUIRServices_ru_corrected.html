@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АСУИР — генератор сверхэффективных услуг</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #fff;
+            color: #222;
+            padding: 20px 40px 60px;
+        }
+
+        .main-wrapper {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .top-utility-bar {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .brand-title-block {
+            text-align: center;
+            margin: 20px 0 15px;
+        }
+
+        .brand-title-text {
+            font-family: 'Times New Roman', Times, Georgia, serif;
+            font-size: 52px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #555;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .nav-global-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            padding: 8px 0 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-global-link {
+            text-decoration: none;
+            text-align: center;
+        }
+
+            .nav-global-link .main-label {
+                display: block;
+                font-size: 13px;
+                font-weight: 700;
+                color: #222;
+                text-transform: uppercase;
+                letter-spacing: .5px;
+            }
+
+            .nav-global-link .sub-label {
+                display: block;
+                font-size: 12px;
+                color: #666;
+                margin-top: 2px;
+            }
+
+            .nav-global-link:hover .main-label {
+                color: #1f4e78;
+            }
+
+        .divider {
+            margin: 10px 0 25px;
+        }
+
+            .divider .thin {
+                height: 1px;
+                background: #d0d7dd;
+                margin-bottom: 4px;
+            }
+
+            .divider .thick {
+                height: 4px;
+                background: #a0a8b0;
+            }
+
+        .card {
+            background: #fff;
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #1f4e78;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 16px;
+            color: #1f4e78;
+            margin: 18px 0 8px;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .result-hero {
+            background: #eef6ff;
+            border-left: 5px solid #1f4e78;
+            border-radius: 6px;
+            padding: 16px 18px;
+            margin-bottom: 16px;
+            line-height: 1.55;
+        }
+
+        .rh-head {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f4e78;
+        }
+
+        .rh-sub {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .rh-note {
+            font-size: 13px;
+            color: #4a5568;
+            margin-top: 6px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 10px 0 6px;
+        }
+
+        .step {
+            border: 1px solid #d5dde6;
+            border-radius: 6px;
+            padding: 14px;
+            background: #f9fbfe;
+        }
+
+            .step b {
+                display: block;
+                color: #1f4e78;
+                font-size: 15px;
+                margin-bottom: 6px;
+            }
+
+            .step span {
+                font-size: 14px;
+                line-height: 1.5;
+                color: #333;
+            }
+
+            .step.hyp {
+                border-style: dashed;
+            }
+
+        .catalog {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .cat-item {
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #f7f9fa;
+            color: #4a5568;
+        }
+
+            .cat-item.active {
+                background: #1f4e78;
+                color: #fff;
+                border-color: #1f4e78;
+            }
+
+            .cat-item small {
+                display: block;
+                font-weight: 400;
+                font-size: 11px;
+                opacity: .8;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 9px 12px;
+            border: 1px solid #e0e4e8;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+            th.hyp, td.hyp {
+                border-left: 2px dashed #1f4e78;
+            }
+
+            td.num, th.num {
+                text-align: right;
+                white-space: nowrap;
+            }
+
+                td.num .small {
+                    white-space: normal;
+                    text-align: right;
+                }
+
+        tr.subgroup td {
+            background: #e9eff6;
+            color: #1f4e78;
+            font-weight: 700;
+        }
+
+        td.na {
+            text-align: right;
+            color: #9aa5b1;
+        }
+
+        tr.total td {
+            background: #f0f5fa;
+            font-weight: 700;
+            color: #1f4e78;
+            font-size: 16px;
+        }
+
+        tr.group td {
+            background: #1f4e78;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 12px;
+        }
+
+        input[type=number] {
+            width: 110px;
+            height: 34px;
+            padding: 4px 8px;
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 14px;
+            background: #fcfcfc;
+        }
+
+            input[type=number]:focus {
+                outline: none;
+                border-color: #1f4e78;
+            }
+
+        input.qty {
+            width: 70px;
+        }
+
+        .small {
+            display: block;
+            font-size: 12px;
+            color: #6c7a8a;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 10px;
+            border: 1px solid #c9d3de;
+            color: #4a5568;
+            background: #f7f9fa;
+            white-space: nowrap;
+        }
+
+            .tag.ok {
+                border-color: #1f4e78;
+                color: #1f4e78;
+            }
+
+            .tag.hyp {
+                border-style: dashed;
+            }
+
+        .info-hint {
+            background: #f0f5fa;
+            padding: 12px 16px;
+            border-left: 4px solid #1f4e78;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #3a4a5a;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        a {
+            color: #4a90d9;
+        }
+
+        .sources {
+            font-size: 12px;
+            color: #6c7a8a;
+            line-height: 1.6;
+        }
+
+        .footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e8ecf0;
+            font-size: 12px;
+            color: #6c7a8a;
+            text-align: center;
+        }
+
+            .footer a {
+                color: #6c7a8a;
+            }
+
+        .btn {
+            display: inline-block;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 18px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px 16px;
+            }
+
+            .brand-title-text {
+                font-size: 34px;
+            }
+
+            .nav-global-menu {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            .btn, .top-utility-bar {
+                display: none;
+            }
+
+            input[type=number] {
+                border: none;
+            }
+        }
+        /* ИНТЕРФЕЙС КАК В ГЕНЕРАТОРЕ ПРОИЗВОДСТВ */
+        .main-two-tabs-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .main-two-tab-btn {
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #4a5568;
+            background: #edf2f7;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+        }
+
+            .main-two-tab-btn:hover {
+                background: #e2e8f0;
+                color: #111;
+            }
+
+            .main-two-tab-btn.active {
+                background: #1f4e78;
+                color: #fff;
+                border-color: #1f4e78;
+            }
+
+        .main-tab-content-panel {
+            display: none;
+        }
+
+            .main-tab-content-panel.active {
+                display: block;
+            }
+
+        .matrix-card-box {
+            background: #fff;
+            border: 1px solid #d0d7dd;
+            border-radius: 3px;
+            margin-bottom: 20px;
+        }
+
+        .matrix-tab-bar {
+            display: flex;
+            background: #fbfbfb;
+            border-bottom: 1px solid #d0d7dd;
+            padding: 0 6px;
+            overflow-x: auto;
+        }
+
+        .matrix-tab-item {
+            padding: 13px 18px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5568;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -1px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+            .matrix-tab-item:hover {
+                color: #111;
+                background: #f0f2f5;
+            }
+
+            .matrix-tab-item.active {
+                color: #111;
+                font-weight: 700;
+                border-bottom: 3px solid #d53f8c;
+                background: #fff;
+            }
+
+        .matrix-content-body {
+            padding: 24px 24px 30px;
+        }
+
+        .section {
+            display: none;
+        }
+
+            .section.active {
+                display: block;
+            }
+
+        .svc-select {
+            max-width: 100%;
+            height: 38px;
+            padding: 6px 10px;
+            border: 1px solid #d0d7dd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f4e78;
+            background: #fcfcfc;
+            min-width: 340px;
+        }
+
+        tr.lst-topic td {
+            background: #eef6ff;
+            color: #1f4e78;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .btn-open {
+            background: #f0f5fa;
+            border: 1px solid #c9daf8;
+            color: #1f4e78;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .svc-save-box {
+            margin: 14px 0 4px;
+            padding: 12px 14px;
+            background: #f0f5fa;
+            border: 1px solid #c9daf8;
+            border-radius: 4px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+            .svc-save-box input[type=text] {
+                height: 34px;
+                padding: 4px 8px;
+                border: 1px solid #d0d7dd;
+                border-radius: 4px;
+                font-size: 14px;
+                min-width: 300px;
+                flex: 1;
+            }
+
+        .btn-save {
+            background: #1f4e78;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-light {
+            background: #fff;
+            color: #1f4e78;
+            border: 1px solid #c9daf8;
+            border-radius: 4px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-del {
+            background: #fff5f5;
+            border: 1px solid #f5c2c2;
+            color: #b42318;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        tr.lst-mine td {
+            background: #f3f9f1;
+            color: #2f5d1f;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        @media print {
+            .svc-save-box, .btn-open, .btn-del {
+                display: none;
+            }
+
+            .main-two-tabs-nav, .matrix-tab-bar {
+                display: none;
+            }
+
+            .main-tab-content-panel, .section {
+                display: block !important;
+            }
+        }
+
+        #main-tab-2 th.num {
+            white-space: normal;
+            min-width: 120px;
+        }
+
+        #main-tab-2 .section table td:first-child {
+            min-width: 220px;
+        }
+    </style>
+
+    <!-- Счётчик GoatCounter ОТКЛЮЧЁН, НЕ УДАЛЁН (12.11.2026, на время рассмотрения заявки DPGA). Чтобы вернуть, снимите этот комментарий.
+    <script data-goatcounter="https://anatolidolgov.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    -->
+
+    <!-- Google Analytics: включается только после согласия посетителя («Согласен»); выбор хранится в браузере (asuir_ga_consent) -->
+    <script>
+                        (function () {
+                            var KEY = 'asuir_ga_consent', ID = 'G-SCZYX0Z5VX';
+                            function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+                            function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { } }
+                            function loadGA() {
+                                var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID; document.head.appendChild(s);
+                                window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+                                gtag('js', new Date()); gtag('config', ID);
+                            }
+                            if (get() === 'yes') { loadGA(); return; }
+                            if (get() === 'no') return;
+                            document.addEventListener('DOMContentLoaded', function () {
+                                var b = document.createElement('div');
+                                b.id = 'ga-consent';
+                                b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;font:14px/1.4 -apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;box-shadow:0 -2px 8px rgba(0,0,0,.2);';
+                                b.innerHTML = '<span>Сайт считает посещения с помощью Google Analytics. Разрешить? <a href="/privacy.html#ru" style="color:#cfe3f7;">Подробнее</a></span>' +
+                                    '<button type="button" data-v="yes" style="background:#fff;color:#1f4e78;border:0;border-radius:4px;padding:6px 16px;font-weight:700;cursor:pointer;">Согласен</button>' +
+                                    '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">Нет</button>';
+                                b.addEventListener('click', function (e) {
+                                    var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
+                                    set(v); b.remove(); document.body.style.paddingBottom = ''; if (v === 'yes') loadGA();
+                                });
+                                document.body.appendChild(b); var padGA = function () { if (b.isConnected) document.body.style.paddingBottom = b.offsetHeight + 'px'; }; padGA(); window.addEventListener('resize', padGA);
+                            });
+                        })();
+    </script>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="top-utility-bar">
+            <div style="cursor:pointer; font-weight:600;" onclick="window.location.href='ASUIRServices_en.html'">Languages ⌵</div>
+        </div>
+
+        <div class="brand-title-block"><h1 class="brand-title-text">TECHNOLOGY MATRIX</h1></div>
+        <div style="height:1px; background:#d0d7dd; margin:15px 0 10px;"></div>
+
+        <nav class="nav-global-menu">
+            <a href="index_ru.html" class="nav-global-link"><span class="main-label">О ПРОЕКТЕ</span><span class="sub-label">автоматизированная система управления</span></a>
+            <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link"><span class="main-label">АСУИР</span><span class="sub-label">генератор сверхэффективных производств</span></a>
+            <a href="ASUIRServices_ru.html" class="nav-global-link"><span class="main-label" style="color:#1f4e78;">АСУИР — УСЛУГИ</span><span class="sub-label">генератор сверхэффективных услуг</span></a>
+            <a href="Catalog_ru.html" class="nav-global-link"><span class="main-label">КАТАЛОГ</span><span class="sub-label">оборудование, модули и продукция</span></a>
+            <a href="HelpServices.html?lang=ru" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">справка и формулы</span></a>
+        </nav>
+        <div class="divider"><div class="thin"></div><div class="thick"></div></div>
+
+        <!-- ВВЕДЕНИЕ -->
+        <div class="card">
+            <div class="result-hero">
+                <div class="rh-head">Услуга дешевеет за счёт использования автоматов, а не интенсификации работы обслуживающего персонала.</div>
+            </div>
+
+            <p>
+                Принципы АСУИР и АСУИР - сервис схожи:  <b>зарплата персонала — на уровне США и выше, а себестоимость услуги (в больнице это процедура) — как в Бангладеш</b> - в одной из самых дешёвых стран мира,
+                с зарплатой персонала как в США (здесь $10,000).
+            </p>
+            <p>
+                При этом рост производительности АСУИР сервис - генератора услуг осуществляется не за счет интенсификации работы обслуживающего персонала, а за счёт автоматизации производства - использования
+                робототехнологических комплексов
+                </b>
+            </p>
+
+            <h3>Автоматизация шаг за шагом - от ручного производства услуг до производства их в основном робототехнологическими устройствами</h3>
+            <div class="steps">
+                <div class="step"><b>1. Люди:</b><span> Всё делается людьми.</span></div>
+                <div class="step">
+                    <b>2. Люди + готовые устройства</b><span>
+                        - приобретение некоторых устройств уже используемых в больницах: имеются ввиду- электронная очередь, автоматы, где пациенты сами меряют давление и температуру, насосы для капельниц с общим пультом -с итоговым уменьшением при этом обслуживающего персонала.
+                    </span>
+                </div>
+                <div class="step hyp">
+                    <b>3. Будущее: робототехнологические устройства</b><span>
+                        - робототехнологические устройства, с работой в две смены, без выходных. Станет возможным, когда будет получено разрешение по использованию роботов при работе с пациентами.
+                    </span>
+                </div>
+            </div>
+            <p style="font-size:14px; color:#4a5568;">
+                Оценка эффективности того или иного варианта производится аналогично АСУИР - генераторе производств. Оборудование, здание и зарплаты всех работников, включая врача рассматриваются в качестве
+                прямых затрат больницы - они нивелируются в себестоимости услуги. Лекарство входит в себестоимость услуги - его величина идентична для всех вариантов.
+            </p>
+
+            <h3>Каталог отраслей</h3>
+            <div class="catalog">
+                <div class="cat-item active">🏥 Медицина — процедурное отделение<small>пример ниже</small></div>
+                <div class="cat-item">🏥 Медицина — КТ, МРТ<small>скоро</small></div>
+                <div class="cat-item">🧪 Лаборатории<small>скоро</small></div>
+                <div class="cat-item">🦷 Стоматология<small>скоро</small></div>
+                <div class="cat-item">🏨 Гостиницы, прачечные<small>скоро</small></div>
+            </div>
+        </div>
+
+
+        <!-- ДВЕ ГЛАВНЫЕ ВКЛАДКИ, КАК В ГЕНЕРАТОРЕ ПРОИЗВОДСТВ -->
+        <div class="main-two-tabs-nav">
+            <button class="main-two-tab-btn active" id="btn-main-listing" onclick="switchMainTab('main-tab-1')">📋 Листинг услуг</button>
+            <button class="main-two-tab-btn" id="btn-main-gen" onclick="switchMainTab('main-tab-2')">⚙️ Генератор услуг</button>
+        </div>
+
+        <!-- ВКЛАДКА 1: ЛИСТИНГ УСЛУГ -->
+        <div class="main-tab-content-panel active" id="main-tab-1">
+            <div class="matrix-card-box" style="padding:24px;">
+                <div class="table-responsive"><table><tr><th style="width:40px; text-align:center;">#</th><th>Услуга и вариант</th><th class="num" style="color:#1f4e78;">Прибыль больницы в месяц</th><th class="num">Процедур в день</th><th class="num">Прямые расходы в месяц</th><th class="num">Себестоимость процедуры</th><th class="num">Доля прямых расходов в стоимости процедуры</th><th class="num">Стоимость процедуры</th></tr><tbody id="svc-listing-rows"></tbody></table></div>
+                <div style="text-align:center; margin-top:12px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
+            </div>
+        </div>
+        <div class="main-tab-content-panel" id="main-tab-2">
+            <div class="matrix-card-box">
+                <div style="padding:18px 24px 0;">
+                    <label style="font-size:13px; font-weight:700; color:#1f4e78;">⚙️ Отрасль услуг / Категория</label><br>
+                    <select id="svc-topic" class="svc-select" style="margin-top:6px;" onchange="this.value='infusion'">
+                        <option value="infusion" selected>🏥 Медицина — процедурное отделение</option>
+                        <option disabled>🏥 Медицина — КТ, МРТ (скоро)</option>
+                        <option disabled>🏥 Медицина — реабилитационный центр (скоро)</option>
+                        <option disabled>🧪 Лаборатории (скоро)</option>
+                        <option disabled>🦷 Стоматология (скоро)</option>
+                        <option disabled>🏨 Гостиницы, прачечные (скоро)</option>
+                    </select>
+                    <h2 style="margin-top:14px;">Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел)</h2>
+                    <div class="svc-save-box">
+                        <span style="font-size:13px; font-weight:700; color:#1f4e78;">Сейчас в генераторе: <span id="svc-current">основной вариант</span></span>
+                        <input type="text" id="svc-name" placeholder="Название вашего варианта, например: наша больница, 2026">
+                        <button class="btn-save" onclick="saveMyVariant()">💾 Сохранить мой вариант</button>
+                        <button class="btn-light" onclick="resetToBase()">↩ Вернуть основной вариант</button>
+                        <span id="svc-status" style="font-size:12px; color:#4a5568; width:100%;">Ваши варианты сохраняются в базе и видны только вам — в этом браузере. Основной вариант не меняется.</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="matrix-tab-bar" id="svcTabs"><a class="matrix-tab-item active" data-tab="sv1">📥 1. Исходные данные</a><a class="matrix-tab-item" data-tab="sv2">👷 2. Три варианта</a><a class="matrix-tab-item" data-tab="sv3">📊 3. Расчёт прямых расходов</a><a class="matrix-tab-item" data-tab="sv4">🎯 4. Результаты</a></div>
+            <div class="matrix-content-body">
+                <div class="section active" id="sv1">
+                    <div class=table-responsive>
+                        <table>
+                            <tr class="group"><td colspan="4">Общие для всех вариантов</td></tr>
+                            <tr><td>Стоимость лекарства на одну процедуру, $<span class=small>оплачивает пациент (страховая); в США цену лекарства определяет производитель (лекарство должно быть разрешено FDA), а не больница</span></td><td class="num" colspan="3"><input type="number" id="drug" value="3000"></td></tr>
+                            <tr><td>Оплата процедуры страховой компанией без лекарства, $</td><td class="num" colspan="3"><input type="number" id="pay" value="580"></td></tr>
+                            <tr><td>Аренда помещения и кресел, $ в год<span class=small>по ставке медицинских помещений West Los Angeles</span></td><td class="num" colspan="3"><input type="number" id="premises" value="1200000"></td></tr>
+                            <tr><td>Кресел в отделении</td><td class="num" colspan="3"><input type="number" id="chairs" value="80"></td></tr>
+                            <tr><td>Оборудование одного кресла (кресло, стойка, насос), $</td><td class="num" colspan="3"><input type="number" id="chairCost" value="2000"></td></tr>
+                            <tr><td>Срок службы оборудования кресел, лет</td><td class="num" colspan="3"><input type="number" id="equipLife" value="5"></td></tr>
+                            <tr><td>Рабочих дней в году</td><td class="num" colspan="3"><input type="number" id="days" value="260"></td></tr>
+                            <tr><td>Рабочих дней в месяце</td><td class="num" colspan="3"><input type="number" id="daysM" value="22"></td></tr>
+                            <tr><td>Доля стоимости процедуры (обслуживание, без лекарства), в которую укладываются все прямые расходы, %</td><td class="num" colspan="3"><input type="number" id="target" value="10"></td></tr>
+                            <tr class="group"><td colspan="4">Процедура</td></tr>
+                            <tr><td>Часов работы отделения в день</td><td class="num" colspan="3"><input type="number" id="hoursDay" value="12"></td></tr>
+                            <tr><td>Длительность процедуры, часов</td><td class="num" colspan="3"><input type="number" id="procH" value="4.5" step="0.5"></td></tr>
+                            <tr><td>Подготовка кресла между пациентами, часов</td><td class="num" colspan="3"><input type="number" id="turn" value="0.17" step="0.01"></td></tr>
+                            <tr class="group"><td colspan="4">Врачи и медсёстры</td></tr>
+                            <tr><td>Зарплата врача, $ в месяц</td><td class="num" colspan="3"><input type="number" id="docWage" value="40000"></td></tr>
+                            <tr><td>Врачей на каждые 100 процедур в день</td><td class="num" colspan="3"><input type="number" id="docPer100" value="3"></td></tr>
+                            <tr><td>Зарплата медсестры, $ в месяц</td><td class="num" colspan="3"><input type="number" id="wage" value="4000"></td></tr>
+                            <tr class="group"><td colspan="4">Роботизированные комплексы</td></tr>
+                            <tr><td>Цена покупки одного роботизированного комплекса, $<span class=small>предварительная оценка</span></td><td class="num" colspan="3"><input type="number" id="robotPrice" value="150000"></td></tr>
+                            <tr><td>Срок службы комплекса, лет</td><td class="num" colspan="3"><input type="number" id="robotLife" value="5"></td></tr>
+                            <tr><td>Ремонт и обслуживание комплекса в год, % от цены</td><td class="num" colspan="3"><input type="number" id="robotSvc" value="15"></td></tr>
+                            <tr><td>Минут работы комплекса на одного пациента<span class=small>получить лекарство, повесить, заменить через 2 часа, снять</span></td><td class="num" colspan="3"><input type="number" id="robotMin" value="10"></td></tr>
+                            <tr><td>Часов приёма новых пациентов в день<span class=small>рабочий день минус время процедуры последнего пациента</span></td><td class="num" colspan="3"><input type="number" id="hoursRecv" value="7"></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="section" id="sv2">
+                    <div class=table-responsive>
+                        <table>
+                            <tr><th></th><th class="num">1. Сегодня: медсёстры</th><th class="num">2. Роботизированные комплексы — те же процедуры</th><th class="num hyp">3. Роботизированные комплексы — кресла загружены полностью</th></tr>
+                            <tr><td>План: процедур в день</td><td class="num"><input type="number" id="proc-in-a" value="100" min="0" step="1"><span class="small" id="actual-note-a"></span></td><td class="num"><input type="number" id="proc-in-b" value="100" min="0" step="1"><span class="small" id="actual-note-b"></span></td><td class="num hyp"><input type="number" id="proc-in-c" value="200" min="0" step="1"><span class="small" id="actual-note-c"></span></td></tr>
+                            <tr><td><b>Фактически выполнимо в день (для расчёта)</b></td><td class="num" id="actual-a"></td><td class="num" id="actual-b"></td><td class="num hyp" id="actual-c"></td></tr>
+                            <tr><td>Медсестёр на каждые 100 процедур в день<span class="small">сегодня — около 60; роботизированные комплексы заменяют медсестёр полностью</span></td><td class="num"><input type="number" id="nurse100-a" value="60"></td><td class="num"><input type="number" id="nurse100-b" value="0"></td><td class="num hyp"><input type="number" id="nurse100-c" value="0"></td></tr>
+                            <tr><td>Роботизированные комплексы в день, шт.</td><td class="num" id="robn-a"></td><td class="num" id="robn-b"></td><td class="num hyp" id="robn-c"></td></tr>
+                        </table>
+                    </div>
+                    <div class="info-hint" id="capacity-warning" role="status"></div>
+                </div>
+                <div class="section" id="sv3">
+                    <div class=table-responsive>
+                        <table>
+                            <tr><th></th><th class="num">1. Сегодня: медсёстры</th><th class="num">2. Роботизированные комплексы — те же процедуры</th><th class="num hyp">3. Роботизированные комплексы — кресла загружены полностью</th></tr>
+                            <tr><td>Аренда помещения и кресел в день</td><td class="num" id="rent-a"></td><td class="num" id="rent-b"></td><td class="num hyp" id="rent-c"></td></tr>
+                            <tr><td>Врачи в день</td><td class="num" id="docs-a"></td><td class="num" id="docs-b"></td><td class="num hyp" id="docs-c"></td></tr>
+                            <tr><td>Медсёстры в день</td><td class="num" id="nurses-a"></td><td class="num" id="nurses-b"></td><td class="num hyp" id="nurses-c"></td></tr>
+                            <tr><td>Роботизированные комплексы в день (амортизация и обслуживание)</td><td class="num" id="robots-a"></td><td class="num" id="robots-b"></td><td class="num hyp" id="robots-c"></td></tr>
+                            <tr><td>Оборудование кресел в день (амортизация)</td><td class="num" id="equip-a"></td><td class="num" id="equip-b"></td><td class="num hyp" id="equip-c"></td></tr>
+                            <tr class=total><td><b>Прямые расходы больницы в день</b></td><td class="num" id="direct-a"></td><td class="num" id="direct-b"></td><td class="num hyp" id="direct-c"></td></tr>
+                            <tr class=total><td><b>Прямые расходы больницы в месяц</b></td><td class="num" id="directM-a"></td><td class="num" id="directM-b"></td><td class="num hyp" id="directM-c"></td></tr>
+                            <tr><td><b>Стоимость процедуры: обслуживание (лекарство не считается)</b></td><td class="num" id="cost-a"></td><td class="num" id="cost-b"></td><td class="num hyp" id="cost-c"></td></tr>
+                            <tr class=total><td><b>Себестоимость процедуры: прямые расходы в день ÷ процедур в день</b></td><td class="num" id="unit-a"></td><td class="num" id="unit-b"></td><td class="num hyp" id="unit-c"></td></tr>
+                            <tr><td>Доля прямых расходов в стоимости процедуры</td><td class="num" id="share-a"></td><td class="num" id="share-b"></td><td class="num hyp" id="share-c"></td></tr>
+                            <tr><td>Проверка: целевая доля стоимости процедуры</td><td class="num" id="ten-a"></td><td class="num" id="ten-b"></td><td class="num hyp" id="ten-c"></td></tr>
+                            <tr><td>Сколько процедур в день вмещают кресла</td><td class="num" id="cap-a"></td><td class="num" id="cap-b"></td><td class="num hyp" id="cap-c"></td></tr>
+                            <tr><td>Минимум процедур в месяц для целевой доли прямых расходов (если достижимо)</td><td class="num" id="needM-a"></td><td class="num" id="needM-b"></td><td class="num hyp" id="needM-c"></td></tr>
+                            <tr><td>Минимум процедур в день для целевой доли (если достижимо)</td><td class="num" id="needD-a"></td><td class="num" id="needD-b"></td><td class="num hyp" id="needD-c"></td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="section" id="sv4">
+                    <div id="hero" class="result-hero">—</div>
+                    <div class="info-hint" id="capacity-warning-result" role="status"></div>
+                    <div class="table-responsive">
+                        <table>
+                            <tr><th></th><th class="num">1. Сегодня: медсёстры</th><th class="num">2. Роботизированные комплексы — те же процедуры</th><th class="num hyp">3. Роботизированные комплексы — кресла загружены полностью</th></tr>
+                            <tr><td><b>Прибыль больницы в месяц</b></td><td class="num" id="prof-a"></td><td class="num" id="prof-b"></td><td class="num hyp" id="prof-c"></td></tr>
+                            <tr><td>Прибыль больницы в год</td><td class="num" id="profy-a"></td><td class="num" id="profy-b"></td><td class="num hyp" id="profy-c"></td></tr>
+                            <tr><td>Процедур в месяц (проводит отделение)</td><td class="num" id="procM-a"></td><td class="num" id="procM-b"></td><td class="num hyp" id="procM-c"></td></tr>
+                            <tr><td><b>Себестоимость процедуры: прямые расходы на одну процедуру</b></td><td class="num" id="needR-a"></td><td class="num" id="needR-b"></td><td class="num hyp" id="needR-c"></td></tr>
+                            <tr><td>Покупка роботизированных комплексов</td><td class="num" id="buy-a"></td><td class="num" id="buy-b"></td><td class="num hyp" id="buy-c"></td></tr>
+                        </table>
+                    </div>
+                    <div class="info-hint">Все цифры можно менять — расчёт пересчитывается сразу. Число медсестёр и пациентов в день, задержки начала процедур — наблюдения пациента отделения; аренда — по ставке медицинских помещений West Los Angeles (CBRE, I кв. 2026); цена роботизированного комплекса — оценка.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h3 style="margin-top:0;">Для инженера: как считается</h3>
+        <p style="font-size:14px;">Прямые расходы больницы в день = аренда + врачи + медсёстры + роботизированные комплексы + оборудование кресел. Лекарство в прямые расходы не входит: его оплачивает пациент, это «комплектующая» процедуры.</p><p style="font-size:14px;">Аренда и оборудование — в год ÷ рабочих дней в году; зарплаты — в месяц ÷ рабочих дней в месяце. Прямые расходы в месяц = прямые расходы в день × рабочих дней в месяце.</p><p style="font-size:14px;">Врачей и медсестёр — пропорционально числу процедур в день. Роботизированных комплексов = процедур в день × минут на пациента ÷ (часов приёма × 60), с округлением вверх. Вместимость кресел = число кресел × целое число полностью завершённых процедур на одном кресле за рабочий день (подготовка только между пациентами).</p><p style="font-size:14px;">Стоимость процедуры = оплата обслуживания процедуры (без лекарства); лекарство в расчёт не входит. Себестоимость процедуры = прямые расходы больницы в день ÷ процедур в день.</p><p style="font-size:14px;">Проверка: доля прямых расходов в стоимости процедуры = себестоимость процедуры ÷ стоимость процедуры; необходимый объём определяется с повторным пересчётом расходов на врачей, медсестёр и роботов для каждого объёма и с учётом вместимости кресел.</p><p style="font-size:14px;">Прибыль больницы в месяц = (оплата обслуживания одной процедуры − себестоимость процедуры) × процедур в день × рабочих дней в месяце.</p>
+        <div class="sources">Источники: аренда — <a href="https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf" target="_blank">CBRE, медицинские помещения Greater Los Angeles, I кв. 2026</a> ($5,44 за кв. фут в месяц в West LA); площадь на одно кресло — <a href="https://hga.com/researching-successful-infusion-centers/" target="_blank">HGA</a> (153–260 кв. футов).</div>
+        <div style="text-align:center; margin-top:16px;"><button class="btn" onclick="window.print()">🖨️ Распечатать / Сохранить PDF</button></div>
+    </div>
+    <div class="footer">
+        © Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.
+        <br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).
+        <a href="https://doi.org/10.5281/zenodo.23789163"><img src="https://zenodo.org/badge/1325356812.svg" alt="DOI"></a>
+        <br>Код — <a href="https://opensource.org/licenses/MIT" target="_blank">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank">CC BY 4.0</a>.
+        <br><a href="/privacy.html#ru">Политика конфиденциальности</a>
+    </div>
+    </div>
+
+    <script>
+const D = {"loc": "ru-RU", "mln": " млн", "lst_head": ["#", "Услуга и вариант", "Прибыль больницы в месяц", "Процедур в день", "Прямые расходы в месяц", "Себестоимость процедуры", "Доля прямых расходов в стоимости процедуры", "Стоимость процедуры"], "var": ["1. Сегодня: медсёстры", "2. Роботизированные комплексы — те же процедуры", "3. Роботизированные комплексы — кресла загружены полностью"], "topic": "Процедурное отделение крупной больницы Лос-Анджелеса (капельничная терапия, около 80 кресел)", "tabs": ["📥 1. Исходные данные", "👷 2. Три варианта", "📊 3. Расчёт прямых расходов", "🎯 4. Результаты"], "g_common": "Общие для всех вариантов", "g_proc": "Процедура", "g_staff": "Врачи и медсёстры", "g_rob": "Роботизированные комплексы", "v_proc": "Процедур в день", "v_nurse": "Медсестёр на каждые 100 процедур в день|сегодня — около 60; роботизированные комплексы заменяют медсестёр полностью", "r_rows": [["rent", "Аренда помещения и кресел в день"], ["docs", "Врачи в день"], ["nurses", "Медсёстры в день"], ["robots", "Роботизированные комплексы в день (амортизация и обслуживание)"], ["equip", "Оборудование кресел в день (амортизация)"], ["direct", "Прямые расходы больницы в день"], ["directM", "Прямые расходы в месяц"], ["cost", "Стоимость процедуры: обслуживание (лекарство не считается)"], ["ten", "10% стоимости процедуры — в них укладываются все прямые расходы"], ["cap", "Сколько процедур в день вмещают кресла"], ["needM", "Нужно процедур в месяц: прямые расходы в месяц ÷ 10% стоимости процедуры"], ["needD", "Нужно процедур в день"]], "res_rows": [["prof", "Прибыль больницы в месяц"], ["profy", "Прибыль больницы в год"], ["procM", "Процедур в месяц (проводит отделение)"], ["needR", "Нужно процедур в месяц, чтобы покрыть все прямые расходы"], ["buy", "Покупка роботизированных комплексов"]], "no": "—", "not_possible": "не уложиться", "how": {"rent": "{prem} в год ÷ {days} дней", "docs": "{d} врачей × {w} ÷ {dm} дней", "nurses": "{n} медсестёр × {w} ÷ {dm} дней", "robots": "{r} комплексов × {p} × ({life}-летний срок + {svc}% в год) ÷ {days} дней", "robots_n": "{n} пациентов × {m} мин ÷ ({h} ч × 60) → {r} комплексов", "equip": "{c} кресел × {cc} ÷ {l} лет ÷ {days} дней", "cap": "{c} кресел × {h} ч ÷ ({p} ч процедура + {t} ч подготовка)", "over": "больше, чем вмещают кресла", "directM": "{d} в день × {dm} дней", "cost": "оплата обслуживания одной процедуры", "ten": "{c} × {t}%", "needM": "{m} ÷ {t}", "needD": "{m} ÷ {dm} дней", "procM": "{n} × {dm} дней", "prof": "({pay} − {u} себестоимость процедуры) × {n} процедур × {dm} дней", "short": "меньше, чем нужно для покрытия прямых расходов", "unit": "{d} в день ÷ {n} процедур", "share": "{u} ÷ {pay}"}, "hero1": "Прибыль больницы в месяц: {a} → {b} → {c}", "hero2": "Себестоимость процедуры (прямые расходы больницы на одну процедуру): {ua} → {ub} → {uc} при оплате обслуживания {pay}. Отделение проводит процедур в день: {pa} → {pb} → {pc}.", "hero3": "", "note": "Все цифры можно менять — расчёт пересчитывается сразу. Число медсестёр и пациентов в день, задержки начала процедур — наблюдения пациента отделения; аренда — по ставке медицинских помещений West Los Angeles (CBRE, I кв. 2026); цена роботизированного комплекса — оценка.", "eng_title": "Для инженера: как считается", "eng": ["Прямые расходы больницы в день = аренда + врачи + медсёстры + роботизированные комплексы + оборудование кресел. Лекарство в прямые расходы не входит: его оплачивает пациент, это «комплектующая» процедуры.", "Аренда и оборудование — в год ÷ рабочих дней в году; зарплаты — в месяц ÷ рабочих дней в месяце. Прямые расходы в месяц = прямые расходы в день × рабочих дней в месяце.", "Врачей и медсестёр — пропорционально числу процедур в день. Роботизированных комплексов = процедур в день × минут на пациента ÷ (часов приёма × 60), с округлением вверх. Вместимость кресел = число кресел × целое число полностью завершённых процедур на одном кресле за рабочий день (подготовка только между пациентами).", "Стоимость процедуры = оплата обслуживания процедуры (без лекарства); лекарство в расчёт не входит. Себестоимость процедуры = прямые расходы больницы в день ÷ процедур в день.", "Проверка: доля прямых расходов в стоимости процедуры = себестоимость процедуры ÷ стоимость процедуры; необходимый объём определяется с повторным пересчётом расходов на врачей, медсестёр и роботов для каждого объёма и с учётом вместимости кресел.", "Прибыль больницы в месяц = (оплата обслуживания одной процедуры − себестоимость процедуры) × процедур в день × рабочих дней в месяце."], "src": "Источники: аренда — <a href=\"https://mktgdocs.cbre.com/2299/5edaa5b3-edef-410d-80c6-279d280b6930-1210503138/GLA_Medical_Outpatient_Buildin.pdf\" target=\"_blank\">CBRE, медицинские помещения Greater Los Angeles, I кв. 2026</a> ($5,44 за кв. фут в месяц в West LA); площадь на одно кресло — <a href=\"https://hga.com/researching-successful-infusion-centers/\" target=\"_blank\">HGA</a> (153–260 кв. футов).", "print": "🖨️ Распечатать / Сохранить PDF", "base": "основной вариант", "mine_none": "📁 МОИ ВАРИАНТЫ: сохранённых вариантов пока нет. Откройте «⚙️ Генератор услуг», введите свои цифры и нажмите «💾 Сохранить мой вариант».", "mine_head": "📁 МОЙ ВАРИАНТ: {name} (сохранён {d}; лекарство {drug}, оплата процедуры {pay})", "del_btn": "🗑️ Удалить", "open_btn": "📥 Открыть в генераторе услуг", "lst_topic": "📂 МЕДИЦИНА — ПРОЦЕДУРНОЕ ОТДЕЛЕНИЕ: крупная больница Лос-Анджелеса, {c} кресел (лекарство — {drug}, оплата процедуры страховой компанией без лекарства — {pay}) — основной вариант", "noname": "без названия", "myvar": "Мой вариант ", "mvq": "мой вариант «{n}»", "st_base": "Возвращены цифры основного варианта.", "st_wait": "⚠️ База ещё не подключилась — подождите несколько секунд и нажмите снова.", "st_saved": "✓ Вариант «{n}» сохранён. Он появился в листинге услуг в блоке «Мои варианты».", "st_fail": "⚠️ Не удалось сохранить: ", "del_q": "Удалить вариант «{n}»? Основной вариант останется.", "del_fail": "Не удалось удалить: ", "srv_lbl": "обслуживание, без лекарства"};
+const FIX = {"requested": "Задано процедур в день", "actual": "Фактически выполнимо в день (для расчёта)", "notpossible": "недостижимо при этих параметрах", "caplabel": "Максимум полных процедур в день на всех креслах", "over": "План {requested} превышает мощность: учитываем {actual} процедур в день.", "warning": "Важно: при {chairs} креслах, {hours} ч работы, {procedure} ч процедуры и {turn} ч подготовки получается {slots} завершённые процедуры на кресло, всего не более {cap} в день. Превышение плана не включается в выручку или расходы на персонал.", "nolimit": "Расчёт ограничен количеством процедур, завершаемых в рабочее время.", "zero": "При нулевом количестве процедур выручка равна нулю, но постоянные расходы сохраняются.", "rob_invalid": "Роботизированные варианты требуют положительных значений времени работы робота и времени приёма.", "targetmsg": "Цель {pct}%: вычисляется с учётом роста расходов на врачей, медсестёр и роботокомплексы. Если при текущей мощности цель недостижима, это указано явно.", "capformula": "{chairs} кресел × floor(({hours} ч + {turn} ч) ÷ ({procedure} ч + {turn} ч)) = {cap}. Подготовка только между процедурами.", "infeasible": "недостижимо", "needHow": "Минимальный выполнимый объём с перерасчётом персонала и роботов для каждого объёма (не выше {cap} процедур в день)", "method": "Проверка целевой доли расходов: ищется наименьшее целое число процедур в день в пределах мощности кресел, при котором пересчитанные расходы на аренду, оборудование, персонал и роботов не превышают заданный процент от выручки за обслуживание. Если цель недостижима, выводится предупреждение.", "status": "Расчётные прибыли не являются полной чистой прибылью больницы: не учтены все косвенные расходы, налоги и регуляторные требования. Во 2-м и 3-м вариантах ноль медсестёр — только гипотетическое условие, не подтверждение допустимости такой организации ухода.", "requestedShort": "План {requested}; рассчитано {actual}"};
+const v = id => { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; };
+const set = (id, t) => { const el = document.getElementById(id); if (el) el.textContent = t; };
+const fmt = (n, d = 0) => (isFinite(n) ? n : 0).toLocaleString(D.loc, { minimumFractionDigits: d, maximumFractionDigits: d });
+const usd = n => '$' + fmt(Math.round(n));
+const big = n => Math.abs(n) >= 1e6 ? '$' + fmt(n / 1e6, 2) + D.mln : usd(n);
+const fill = (s, o) => s.replace(/\{(\w+)\}/g, (_, k) => o[k]);
+const cell = (id, main, how) => { const el = document.getElementById(id); if (el) el.innerHTML = main + (how ? '<span class="small">' + how + '</span>' : ''); };
+const K = ['a', 'b', 'c'];
+window.switchMainTab = function (id) {
+          document.querySelectorAll('.main-tab-content-panel').forEach(p => p.classList.toggle('active', p.id === id));
+          const l = document.getElementById('btn-main-listing'), g = document.getElementById('btn-main-gen');
+          if (l) l.classList.toggle('active', id === 'main-tab-1'); if (g) g.classList.toggle('active', id === 'main-tab-2');
+};
+window.openSvcTab = function (tab) {
+          document.querySelectorAll('#svcTabs a').forEach(a => a.classList.toggle('active', a.dataset.tab === tab));
+          document.querySelectorAll('#main-tab-2 .section').forEach(s => s.classList.toggle('active', s.id === tab));
+};
+document.querySelectorAll('#svcTabs a').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openSvcTab(a.dataset.tab); }));
+window.openInGenerator = function (tab) { switchMainTab('main-tab-2'); openSvcTab(tab || 'sv4'); window.scrollTo(0, 0); };
+const BASE_INPUTS = {};
+document.querySelectorAll('#main-tab-2 input[type=number]').forEach(i => { BASE_INPUTS[i.id] = i.defaultValue; });
+let baseRows = null, baseInfo = null, lastRows = null, lastInfo = null;
+window.myVariants = [];
+const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function rowsHtml(rows, info, openBtn) {
+          if (!rows || !rows.a || rows.a.directM === undefined) return '';
+          return K.map((k, i) => { const r = rows[k];
+            return `<tr${k === 'c' ? ' style="background:#f7fafd;"' : ''}><td style="text-align:center; font-weight:700; color:#1f4e78;">${i + 1}</td>
+            <td><b>${D.var[i]}</b><br>${openBtn}</td><td class="num"><b style="color:#1f4e78; font-size:15px;">${usd(r.prof)}</b></td>
+            <td class="num">${fmt(r.n)}${r.requested !== undefined && r.requested > r.n ? `<span class="small" style="color:#b42318;">${fill(FIX.requestedShort, {requested:fmt(r.requested),actual:fmt(r.n)})}</span>` : ""}</td><td class="num">${usd(r.directM)}</td><td class="num">${r.unit === undefined || r.unit === null ? D.no : usd2(r.unit)}</td>
+            <td class="num">${r.share === undefined || r.share === null ? D.no : fmtPct(r.share)}</td>
+            <td class="num"><b>${usd(r.cost)}</b><span class="small">${D.srv_lbl}</span></td></tr>`; }).join('');
+}
+function rowsFromInputs(inputs) { const g = id => { const x = (inputs && inputs[id] !== undefined) ? inputs[id] : BASE_INPUTS[id]; return parseFloat(x) || 0; };
+          const M = model(g); return { rows: M.rows, info: M.info }; }
+window.renderServiceListing = function () {
+          const tb = document.getElementById('svc-listing-rows'); if (!tb || !baseRows) return;
+          let html = `<tr class="lst-topic"><td colspan="8">${fill(D.lst_topic, { c: fmt(baseInfo.chairs), drug: usd(baseInfo.drug), pay: usd(baseInfo.pay) })}</td></tr>`;
+          html += rowsHtml(baseRows, baseInfo, `<button class="btn-open" onclick="openBase()">${D.open_btn}</button>`) + exampleHtml() + presetHtml();
+          const mine = window.myVariants || [];
+          if (!mine.length) html += `<tr class="lst-mine"><td colspan="8">${D.mine_none}</td></tr>`;
+          mine.forEach(m => { if (!m.inputs && (!m.rows || !m.info)) return;
+            const d = m.created ? new Date(m.created).toLocaleDateString(D.loc) : '';
+            const mi = m.inputs ? rowsFromInputs(m.inputs).info : m.info;
+            html += `<tr class="lst-mine"><td colspan="8">${fill(D.mine_head, { name: esc(m.name || D.noname), d, drug: usd(mi.drug), pay: usd(mi.pay) })} &nbsp;<button class="btn-del" onclick="deleteMyVariant('${m.id}')">${D.del_btn}</button></td></tr>`;
+            const rc = m.inputs ? rowsFromInputs(m.inputs) : { rows: m.rows, info: m.info };
+            html += rowsHtml(rc.rows, rc.info, `<button class="btn-open" onclick="openMyVariant('${m.id}')">${D.open_btn}</button>`); });
+          tb.innerHTML = html;
+};
+function applyInputs(vals) { for (const id in vals) { const el = document.getElementById(id); if (el) el.value = vals[id]; } calc(); }
+const svcStatus = t => set('svc-status', t), svcCurrent = t => set('svc-current', t);
+window.openBase = function () { applyInputs(BASE_INPUTS); svcCurrent(D.base); openInGenerator('sv4'); };
+window.resetToBase = function () { applyInputs(BASE_INPUTS); svcCurrent(D.base); svcStatus(D.st_base); };
+window.openMyVariant = function (id) { const m = (window.myVariants || []).find(x => x.id === id); if (!m) return;
+          applyInputs(m.inputs || {}); svcCurrent(fill(D.mvq, { n: m.name || D.noname })); const nm = document.getElementById('svc-name'); if (nm) nm.value = m.name || ''; openInGenerator('sv4'); };
+window.saveMyVariant = async function () {
+          const nm = document.getElementById('svc-name'); const name = (nm && nm.value.trim()) || (D.myvar + new Date().toLocaleDateString(D.loc));
+          const inputs = {}; document.querySelectorAll('#main-tab-2 input[type=number]').forEach(i => { inputs[i.id] = i.value; });
+          if (typeof window.svcSaveToDb !== 'function') { svcStatus(D.st_wait); return; }
+          try { await window.svcSaveToDb({ name, created: Date.now(), inputs, rows: lastRows, info: lastInfo }); svcCurrent(fill(D.mvq, { n: name })); svcStatus(fill(D.st_saved, { n: name })); }
+          catch (e) { svcStatus(D.st_fail + e.message); }
+};
+window.deleteMyVariant = async function (id) { const m = (window.myVariants || []).find(x => x.id === id);
+          if (!confirm(fill(D.del_q, { n: (m && m.name) || '' }))) return; try { await window.svcDeleteFromDb(id); } catch (e) { alert(D.del_fail + e.message); } };
+const PRESETS = {
+                                                                                                                moscow: { short: "📌 МОСКВА, ЧАСТНАЯ КЛИНИКА — оценка, суммы в долларах по курсу ЦБ РФ 82,85 ₽ за $1 (исходные цифры и источники — над таблицей)", cur: 'Москва, частная клиника', head: '📌 МОСКВА, ЧАСТНАЯ КЛИНИКА — оценка, суммы в долларах по курсу ЦБ РФ 82,85 ₽ за $1 (20.10.2026): зарплата медсестры 118 000 ₽ ≈ $1 424 в месяц, врача 200 000 ₽ ≈ $2 414 в месяц, оплата процедуры без лекарства 15 000 ₽ ≈ $181, лекарство на процедуру ≈ 100 000 ₽ ≈ $1 207, аренда 1 500 м² × 23 900 ₽ в год ≈ $432 700 в год. Устройства и комплексы — по тем же ценам покупки, что в основном варианте.', src: 'Источники: зарплата медсестры — вакансия медсестры врача-онколога, клиника «Медицина», Москва (<a href="https://hh.ru/vacancy/135856022" target="_blank">hh.ru</a>); врача — вакансия онколога «РЖД-Медицина», Москва, от 150 000 ₽ (<a href="https://hh.ru/vacancy/135918421" target="_blank">hh.ru</a>), в расчёте 200 000 ₽ — оценка; оплата процедуры — цены на введение химиотерапии без препарата: «АСС Медикал», Москва, 9 000–14 000 ₽ (<a href="https://accmedical.ru/skolko-stoit-kurs-himioterapii/" target="_blank">accmedical.ru</a>), «СМ-Клиника» 18 110 ₽ (<a href="https://www.smclinic-spb.ru/uslugi/khimioterapiya" target="_blank">smclinic-spb.ru</a>); аренда — офисы класса B, I кв. 2026, IBC Real Estate (<a href="https://realty.rbc.ru/news/6a03841a9a794767d6278185" target="_blank">РБК Недвижимость</a>), площадь 1 500 м² — оценка; лекарство — оценка.',
+                                                                                                                    inputs: { wage: '1424', docWage: '2414', pay: '181', drug: '1207', premises: '432700' } },
+                                                                                                                uk: { short: "📌 ВЕЛИКОБРИТАНИЯ (NHS) — оценка, суммы в долларах по курсу 1,335 $ за £1 (исходные цифры и источники — над таблицей)", cur: "Великобритания (NHS)", head: "📌 ВЕЛИКОБРИТАНИЯ (NHS) — оценка, суммы в долларах по курсу ЦБ РФ 1,335 $ за £1 (20.10.2026): зарплата медсестры (Band 5, середина шкалы) £34 592 в год ≈ $3 849 в месяц, врача-консультанта £119 490 в год ≈ $13 296 в месяц, оплата процедуры без лекарства ≈ £300 ≈ $401, аренда 1 500 м² (16 146 кв. футов) × £28 в год ≈ $603 700 в год. Лекарство, устройства и комплексы — как в основном варианте.", src: "Источники: медсестра — шкала NHS Agenda for Change 2026/27, Band 5 £32 073–39 043 (<a href=\"https://salarytax.uk/professions/nhs-band-5-nurse\" target=\"_blank\">salarytax.uk</a>); консультант — £109 725–145 478 в 2026/27 (<a href=\"https://nhstakehomepaycalculator.co.uk/guides/nhs-consultant-salary-2026-27/\" target=\"_blank\">nhstakehomepaycalculator.co.uk</a>); оплата процедуры — оценка: тариф NHS за простую химиотерапию (SB12Z) в открытых источниках не найден, для сравнения — сложная химиотерапия (SB14Z) £473 по тарифу 2015/16 (<a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/379571/S118_Annex_4A_NTCN1516.pdf\" target=\"_blank\">gov.uk</a>); аренда — офисы во внешнем Лондоне £25–30 за кв. фут в год (<a href=\"https://londonofficespace.com/buzz/comparing-office-space-cost-central-london-vs-outer-london/\" target=\"_blank\">londonofficespace.com</a>, 2024), площадь — оценка.",
+                                                                                                                    inputs: { wage: '3849', docWage: '13296', pay: '401', premises: '603700' } },
+                                                                                                                germany: { short: "📌 ГЕРМАНИЯ — оценка, суммы в долларах по курсу 1,125 $ за €1 (исходные цифры и источники — над таблицей)", cur: "Германия", head: "📌 ГЕРМАНИЯ — оценка, суммы в долларах по курсу ЦБ РФ 1,125 $ за €1 (20.10.2026): зарплата медсестры (TVöD-P, P8, ступень 4) €4 076 в месяц ≈ $4 586, врача-специалиста (TV-Ärzte/VKA, группа II) €8 185 ≈ $9 211 в месяц, оплата процедуры без лекарства ≈ €150 ≈ $169, аренда 1 500 м² × €20 в месяц ≈ $405 100 в год. Лекарство, устройства и комплексы — как в основном варианте.", src: "Источники: медсестра — таблица TVöD-P с 01.05.2026 (<a href=\"https://www.medi-karriere.de/magazin/tvoed-2026/\" target=\"_blank\">medi-karriere.de</a>); врач — таблица TV-Ärzte/VKA с 01.06.2026, группа II €7 552–9 699 (<a href=\"https://www.haufe.de/oeffentlicher-dienst/personal-tarifrecht/entgelttabellen/entgelttabelle-tv-aerztevka_144_519958.html\" target=\"_blank\">haufe.de</a>); оплата процедуры — оценка: в Германии амбулаторная химиотерапия оплачивается не за каждое введение, а пакетами за квартал; €150 — пересчёт примера DGHO (около €3 582 врачебных доходов в год на курс даратумумаба, около 23 введений) (<a href=\"https://germanoncology.de/wp-content/uploads/2022/10/V278-DGHO-2022-Vortrag-Lipp-Kosten-SC-Therapien.pdf\" target=\"_blank\">DGHO</a>); аренда и площадь — оценка.",
+                                                                                                                    inputs: { wage: '4586', docWage: '9211', pay: '169', premises: '405100' } },
+                                                                                                                france: { short: "📌 ФРАНЦИЯ — оценка, суммы в долларах по курсу 1,125 $ за €1 (исходные цифры и источники — над таблицей)", cur: "Франция", head: "📌 ФРАНЦИЯ — оценка, суммы в долларах по курсу ЦБ РФ 1,125 $ за €1 (20.10.2026): зарплата медсестры (середина карьеры) €2 950 в месяц ≈ $3 320, врача больницы €6 000 ≈ $6 752 в месяц, оплата процедуры без лекарства — тариф GHS 9606 «химиотерапия, сеансы» €461 ≈ $519, аренда 1 500 м² × €445 в год ≈ $751 100 в год. Лекарство, устройства и комплексы — как в основном варианте.", src: "Источники: медсестра — €2 800–3 100 брутто в середине карьеры, врач больницы — от €4 100 в начале до €8 000 в конце карьеры, в расчёте середина (<a href=\"https://salairebrut-en-net.fr/blog/salaire-sante-infirmier-aide-soignant-2026.html\" target=\"_blank\">salairebrut-en-net.fr</a>); оплата процедуры — тариф GHS 9606 (GHM 28Z07Z) для государственных больниц, 2024 год (<a href=\"https://www.aideaucodage.fr/ghm-28z07z\" target=\"_blank\">aideaucodage.fr</a>); аренда — средняя ставка офисов Иль-де-Франс, I кв. 2026 (<a href=\"https://www.arthur-loyd.com/media/file/7afe8363-l-indispensable-t1-2026-1.pdf\" target=\"_blank\">Arthur Loyd</a>), площадь — оценка.",
+                                                                                                                    inputs: { wage: '3320', docWage: '6752', pay: '519', premises: '751100' } },
+                                                                                                                india: { short: "📌 ИНДИЯ, ЧАСТНАЯ КЛИНИКА — оценка, суммы в долларах по курсу 94,8 рупии за $1 (исходные цифры и источники — над таблицей)", cur: "Индия, частная клиника", head: "📌 ИНДИЯ, ЧАСТНАЯ КЛИНИКА — оценка, суммы в долларах по кросс-курсу ЦБ РФ 94,8 рупии за $1 (20.10.2026): зарплата медсестры ₹40 000 в месяц ≈ $422, врача-онколога ₹1 600 000 в год ≈ $1 407 в месяц, оплата процедуры без лекарства ₹10 000 ≈ $106, лекарство ≈ ₹40 000 ≈ $422, аренда 1 500 м² (16 146 кв. футов) × ₹100,6 в месяц ≈ $205 700 в год (Бангалор). Устройства и комплексы — как в основном варианте.", src: "Источники: медсестра — Бангалор ₹28 000–50 000 в месяц (<a href=\"https://www.vedantu.com/neet/nurse-salary-in-india-government-hospital-vs-private\" target=\"_blank\">vedantu.com</a>); онколог — средняя ₹1 600 000 в год (<a href=\"https://www.payscale.com/research/IN/Job=Physician_%2F_Doctor%2C_Oncologist/Salary\" target=\"_blank\">PayScale</a>), в крупных частных сетях выше; оплата процедуры — дневной стационар ₹5 000–20 000 за сеанс без лекарства (<a href=\"https://www.impactguru.com/info/chemotherapy-cost-in-india/\" target=\"_blank\">impactguru.com</a>); лекарство — оценка; аренда — средняя ставка офисов Бангалора, I кв. 2026, Knight Frank (<a href=\"https://www.propnewz.com/blog/knight-frank-q1-2026-bengaluru-office-residential-buyer-2026-06-07\" target=\"_blank\">propnewz.com</a>), площадь — оценка.",
+                                                                                                                    inputs: { wage: '422', docWage: '1407', pay: '106', drug: '422', premises: '205700' } }
+                                                                                                            };
+const EXAMPLE = { inputs: { drug: '7800', pay: '300' }, short: "📌 ПРИМЕР 2. СХЕМА С ТАРГЕТНЫМ ПРЕПАРАТОМ, ТАРИФЫ MEDICARE 2026: лекарство ≈ $7 800 за процедуру (таргетный препарат ≈ $7 700 — $183 за 10 мг при дозе около 420 мг — плюс химиопрепараты-дженерики ≈ $100); оплата работы больницы ≈ $300 (введение химиотерапии: первый час $133, каждый следующий час $28, подключение помпы $133). <span class=\"small\">Источники: <a href=\"https://buyandbill.com/vectibix-j9303/\" target=\"_blank\">тариф Medicare на панитумумаб, IV кв. 2026</a>; <a href=\"https://buyandbill.com/chemotherapy-administration-96413/\" target=\"_blank\">96413</a>, <a href=\"https://buyandbill.com/chemotherapy-administration-96415/\" target=\"_blank\">96415</a>, <a href=\"https://buyandbill.com/chemotherapy-administration-96416/\" target=\"_blank\">96416</a> — тарифы Medicare 2026.</span>", cur: "пример 2: таргетный препарат, тарифы Medicare" };
+let exRows = null, exInfo = null;
+window.openExample = function () { applyInputs(Object.assign({}, BASE_INPUTS, EXAMPLE.inputs)); svcCurrent(EXAMPLE.cur); openInGenerator('sv4'); };
+function exampleHtml() { if (!exRows) return ''; return `<tr class="lst-topic"><td colspan="8">${EXAMPLE.short}</td></tr>` + rowsHtml(exRows, exInfo, `<button class="btn-open" onclick="openExample()">${D.open_btn}</button>`); }
+function initExample() { applyInputs(Object.assign({}, BASE_INPUTS, EXAMPLE.inputs)); exRows = lastRows; exInfo = lastInfo; applyInputs(BASE_INPUTS); }
+const PRESET_KEY = (() => { try { return new URLSearchParams(location.search).get('v'); } catch (e) { return null; } })();
+let presetRows = null, presetInfo = null;
+function presetInputs() { return Object.assign({}, BASE_INPUTS, PRESETS[PRESET_KEY].inputs); }
+window.openPreset = function () { applyInputs(presetInputs()); svcCurrent(PRESETS[PRESET_KEY].cur); openInGenerator('sv4'); };
+function presetHtml() { if (!presetRows) return ''; const p = PRESETS[PRESET_KEY];
+          return `<tr class="lst-topic"><td colspan="8">${p.short}</td></tr>` + rowsHtml(presetRows, presetInfo, `<button class="btn-open" onclick="openPreset()">${D.open_btn}</button>`); }
+function initPreset() { if (!PRESET_KEY || !PRESETS[PRESET_KEY]) return;
+          applyInputs(presetInputs()); presetRows = lastRows; presetInfo = lastInfo; applyInputs(BASE_INPUTS);
+          const tr = document.querySelector('#main-tab-1 .table-responsive'); if (tr) { const n = document.createElement('div'); n.className = 'info-hint'; n.id = 'preset-note';
+            n.innerHTML = PRESETS[PRESET_KEY].head + '<span class="small" style="margin-top:6px;">' + PRESETS[PRESET_KEY].src + '</span>'; tr.parentNode.insertBefore(n, tr); } }
+function usd2(x) { return '$' + Number(x).toLocaleString(D.loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtPct(x) { return Number(x).toLocaleString(D.loc, { maximumFractionDigits: 1 }) + '%'; }
+function model(g) {
+          const nonneg = id => { const x = Number(g(id)); return Number.isFinite(x) ? Math.max(0, x) : 0; };
+          const drug = nonneg('drug'), pay = nonneg('pay');
+          const days = Math.max(nonneg('days'), 1), dm = Math.max(nonneg('daysM'), 1);
+          const chairs = Math.floor(nonneg('chairs'));
+          const procH = nonneg('procH'), turn = nonneg('turn'), hoursDay = nonneg('hoursDay');
+          // Setup time is needed BETWEEN patients only, not after the last patient.
+          const slots = procH > 0 && hoursDay >= procH
+            ? Math.max(0, Math.floor((hoursDay + turn + 1e-9) / (procH + turn))) : 0;
+          const cap = chairs * slots;
+          const rentDay = nonneg('premises') / days;
+          const equipDay = chairs * nonneg('chairCost') / Math.max(nonneg('equipLife'), 1) / days;
+          const fixedDay = rentDay + equipDay;
+          const doctorCostPerPatient = nonneg('docPer100') / 100 * nonneg('docWage') / dm;
+          const robDay1 = nonneg('robotPrice') * (1 / Math.max(nonneg('robotLife'), 1) + nonneg('robotSvc') / 100) / days;
+          const robotMin = nonneg('robotMin'), hoursRecv = nonneg('hoursRecv');
+          const perRobotPatients = robotMin > 0 && hoursRecv > 0 ? hoursRecv * 60 / robotMin : 0;
+          const targetPct = Math.min(nonneg('target'), 100);
+          const ten = pay * targetPct / 100, R = {};
+          const robotCount = (n, k) => k === 'a' || n === 0 ? 0 :
+            (perRobotPatients > 0 ? Math.ceil(n / perRobotPatients - 1e-10) : 0);
+          // Find minimum volume for target share INCLUDING variable staff costs and
+          // robot purchase/maintenance steps; do not treat current direct costs as fixed.
+          function targetVolume(k, perPatientStaff, maxCapacity) {
+            if (ten <= 0 || maxCapacity < 1) return null;
+            const margin = ten - perPatientStaff;
+            if (margin <= 0) return null;
+            if (k === 'a') {
+              const n = Math.max(1, Math.ceil((fixedDay - 1e-9) / margin));
+              return n <= maxCapacity ? n : null;
+            }
+            if (perRobotPatients <= 0) return null;
+            const maxRobots = Math.ceil(maxCapacity / perRobotPatients);
+            for (let r = 1; r <= maxRobots; r++) {
+              const low = Math.max(1, Math.floor((r - 1) * perRobotPatients + 1e-8) + 1);
+              const high = Math.min(maxCapacity, Math.floor(r * perRobotPatients + 1e-8));
+              if (low > high) continue;
+              const candidate = Math.max(low, Math.ceil((fixedDay + r * robDay1 - 1e-9) / margin));
+              if (candidate <= high) return candidate;
+            }
+            return null;
+          }
+          for (const k of K) {
+            const requested = Math.floor(nonneg('proc-in-' + k));
+            const maxCapacity = k !== 'a' && perRobotPatients <= 0 ? 0 : cap;
+            const n = Math.min(requested, maxCapacity);
+            const docs = nonneg('docPer100') * n / 100;
+            const nurses = nonneg('nurse100-' + k) * n / 100;
+            const robots = robotCount(n, k);
+            const docsDay = docs * nonneg('docWage') / dm;
+            const nursesDay = nurses * nonneg('wage') / dm;
+            const robDay = robots * robDay1;
+            const perDay = fixedDay + docsDay + nursesDay + robDay;
+            const directM = perDay * dm;
+            const unit = n > 0 ? perDay / n : null;
+            const share = unit !== null && pay > 0 ? unit / pay * 100 : null;
+            const perPatientStaff = doctorCostPerPatient + nonneg('nurse100-' + k) / 100 * nonneg('wage') / dm;
+            const needD = targetVolume(k, perPatientStaff, maxCapacity);
+            const needM = needD === null ? null : needD * dm;
+            R[k] = {
+              requested, n, maxCapacity, docs, nurses, robots, docsDay, nursesDay,
+              robDay, perDay, directM, needM, needD, unit, share, nM: n * dm,
+              prof: pay * n * dm - directM, buy: robots * nonneg('robotPrice')
+            };
+          }
+          const rows = {};
+          for (const k of K) {
+            const r = R[k];
+            rows[k] = {
+              requested: r.requested, n: r.n, cap: r.maxCapacity, perDay: r.perDay,
+              directM: r.directM, ten, cost: pay, needM: r.needM, needD: r.needD,
+              unit: r.unit, share: r.share, prof: r.prof
+            };
+          }
+          return {
+            R, rows, info: { chairs, pay, drug, wage: nonneg('wage') }, drug,
+            pay, days, dm, rentDay, equipDay, chairs, cap, slots, cost: pay,
+            ten, targetPct, procH, hoursDay, turn, perRobotPatients
+          };
+}
+function calc() {
+          const H = D.how, M = model(v), R = M.R;
+          const { drug, pay, days, dm, rentDay, equipDay, chairs, cap, cost, ten } = M;
+          const capacityWarning = fill(FIX.warning, {
+            chairs: fmt(chairs), hours: fmt(M.hoursDay, 2), procedure: fmt(M.procH, 2),
+            turn: fmt(M.turn, 2), slots: fmt(M.slots), cap: fmt(cap)
+          });
+          const overNotes = [];
+          for (const k of K) {
+            const r = R[k], n = r.n;
+            const clipped = r.requested > n;
+            const aboveCapacity = r.requested > r.maxCapacity;
+            set('actual-' + k, fmt(n) + (clipped ? ' ⚠' : ''));
+            const annotation = document.getElementById('actual-note-' + k);
+            if (annotation) {
+              annotation.textContent = clipped ? fill(FIX.requestedShort, { requested: fmt(r.requested), actual: fmt(n) }) : '';
+              annotation.style.color = clipped ? '#b42318' : '#64748b';
+            }
+            if (aboveCapacity) overNotes.push(fill(FIX.over, { requested: fmt(r.requested), actual: fmt(n) }));
+            set('robn-' + k, k === 'a' ? D.no : fmt(r.robots));
+            cell('rent-' + k, usd(rentDay), fill(H.rent, { prem: usd(v('premises')), days: fmt(days) }));
+            cell('docs-' + k, usd(r.docsDay), fill(H.docs, { d: fmt(r.docs, r.docs % 1 ? 1 : 0), w: usd(v('docWage')), dm: fmt(dm) }));
+            cell('nurses-' + k, r.nurses ? usd(r.nursesDay) : D.no,
+              r.nurses ? fill(H.nurses, { n: fmt(r.nurses, r.nurses % 1 ? 1 : 0), w: usd(v('wage')), dm: fmt(dm) }) : '');
+            cell('robots-' + k, r.robots ? usd(r.robDay) : D.no,
+              r.robots ? fill(H.robots_n, { n: fmt(n), m: fmt(v('robotMin')), h: fmt(v('hoursRecv')), r: fmt(r.robots) }) : '');
+            cell('equip-' + k, usd(equipDay), fill(H.equip, { c: fmt(chairs), cc: usd(v('chairCost')), l: fmt(v('equipLife')), days: fmt(days) }));
+            cell('direct-' + k, '<b>' + usd(r.perDay) + '</b>', '');
+            cell('directM-' + k, '<b>' + usd(r.directM) + '</b>', fill(H.directM, { d: usd(r.perDay), dm: fmt(dm) }));
+            cell('cost-' + k, '<b>' + usd(cost) + '</b>', fill(H.cost, { drug: usd(drug), pay: usd(pay) }));
+            cell('ten-' + k, usd(ten), fill(H.ten, { c: usd(cost), t: fmt(M.targetPct) }));
+            cell('cap-' + k, fmt(cap), fill(FIX.capformula, {
+              chairs: fmt(chairs), hours: fmt(M.hoursDay, 2), procedure: fmt(M.procH, 2),
+              turn: fmt(M.turn, 2), cap: fmt(cap)
+            }) + (aboveCapacity ? ' — <b style="color:#c0392b;">' + H.over + '</b>' : ''));
+            cell('needM-' + k, r.needM === null ? '<b style="color:#c0392b;">' + FIX.infeasible + '</b>' : '<b>' + fmt(r.needM) + '</b>',
+              fill(FIX.needHow, { cap: fmt(r.maxCapacity) }));
+            cell('needD-' + k, r.needD === null ? '<b style="color:#c0392b;">' + FIX.infeasible + '</b>' : '<b>' + fmt(r.needD) + '</b>',
+              fill(FIX.needHow, { cap: fmt(r.maxCapacity) }));
+            cell('prof-' + k, '<b>' + usd(r.prof) + '</b>', n > 0
+              ? fill(H.prof, { pay: usd(pay), u: usd2(r.unit), n: fmt(n), dm: fmt(dm) })
+              : FIX.zero);
+            cell('unit-' + k, r.unit === null ? D.no : '<b>' + usd2(r.unit) + '</b>',
+              r.unit === null ? FIX.zero : fill(H.unit, { d: usd(r.perDay), n: fmt(n) }));
+            cell('share-' + k, r.share === null ? D.no : fmtPct(r.share),
+              r.share === null ? '' : fill(H.share, { u: usd2(r.unit), pay: usd(pay) }));
+            cell('profy-' + k, usd(r.prof * 12), '');
+            cell('procM-' + k, fmt(r.nM), fill(H.procM, { n: fmt(n), dm: fmt(dm) }));
+            cell('needR-' + k, r.unit === null ? D.no : '<b>' + usd2(r.unit) + '</b>', '');
+            cell('buy-' + k, r.buy ? usd(r.buy) : D.no,
+              r.buy ? fmt(r.robots) + ' × ' + usd(v('robotPrice')) : '');
+          }
+          const h = document.getElementById('hero');
+          if (h) h.innerHTML = '<div class="rh-head">' + fill(D.hero1, { a: big(R.a.prof), b: big(R.b.prof), c: big(R.c.prof) }) + '</div>' +
+            '<div class="rh-sub">' + fill(D.hero2, {
+              ua: R.a.unit === null ? D.no : usd2(R.a.unit),
+              ub: R.b.unit === null ? D.no : usd2(R.b.unit),
+              uc: R.c.unit === null ? D.no : usd2(R.c.unit),
+              pay: usd(pay), pa: fmt(R.a.n), pb: fmt(R.b.n), pc: fmt(R.c.n)
+            }) + '</div>' + (D.hero3 ? '<div class="rh-note">' + D.hero3 + '</div>' : '');
+          const text = [capacityWarning, ...overNotes, fill(FIX.targetmsg, { pct: fmt(M.targetPct) }), FIX.status].join(' ');
+          set('capacity-warning', text);
+          set('capacity-warning-result', text);
+          lastRows = M.rows; lastInfo = M.info;
+          if (!baseRows) { baseRows = lastRows; baseInfo = lastInfo; }
+          window.renderServiceListing();
+}
+document.addEventListener('input', e => { if (e.target && e.target.closest && e.target.closest('#main-tab-2')) calc(); });
+calc();
+initExample();
+initPreset();
+    </script>
+
+    <!-- FIREBASE: МОИ ВАРИАНТЫ — у каждого браузера свой анонимный номер (uid); правила базы показывают варианты только их владельцу -->
+    <script type="module">
+                                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+                                import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+                                import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+                                const firebaseConfig = {
+                                    apiKey: "AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",
+                                    authDomain: "asuir-gemini.firebaseapp.com",
+                                    projectId: "asuir-gemini",
+                                    storageBucket: "asuir-gemini.firebasestorage.app",
+                                    messagingSenderId: "53572749601",
+                                    appId: "1:53572749601:web:e3c33578afd4bdac309660",
+                                    databaseURL: "https://asuir-gemini-default-rtdb.firebaseio.com"
+                                };
+                                const app = initializeApp(firebaseConfig);
+                                const db = getDatabase(app);
+                                const auth = getAuth(app);
+                                let uid = null;
+                                onAuthStateChanged(auth, (user) => {
+                                    if (!user) return;
+                                    uid = user.uid;
+                                    onValue(ref(db, 'service_variants/' + uid), (snap) => {
+                                        const val = snap.val() || {};
+                                        window.myVariants = Object.entries(val).map(([id, x]) => ({ id, ...x })).sort((p, q) => (q.created || 0) - (p.created || 0));
+                                        if (typeof window.renderServiceListing === 'function') window.renderServiceListing();
+                                    }, (err) => console.error('service_variants read failed:', err));
+                                });
+                                signInAnonymously(auth).catch(err => console.error('Anonymous sign-in failed:', err));
+                                window.svcSaveToDb = async (data) => {
+                                    if (!uid) throw new Error('нет входа в базу, обновите страницу');
+                                    await push(ref(db, 'service_variants/' + uid), data);
+                                };
+                                window.svcDeleteFromDb = async (id) => {
+                                    if (!uid) throw new Error('нет входа в базу, обновите страницу');
+                                    await remove(ref(db, 'service_variants/' + uid + '/' + id));
+                                };
+    </script>
+</body>
+</html>
