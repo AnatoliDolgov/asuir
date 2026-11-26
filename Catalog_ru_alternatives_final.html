@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АСУИР — каталог: оборудование, модули и продукция</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#222;padding:20px 40px 60px}
+.main-wrapper{max-width:1400px;margin:0 auto}
+.top-utility-bar{display:flex;justify-content:flex-end;font-size:13px;margin-bottom:10px}
+.brand-title-block{text-align:center;margin:20px 0 15px}
+.brand-title-text{font-family:'Times New Roman',Times,Georgia,serif;font-size:52px;font-weight:400;letter-spacing:2px;color:#555;text-transform:uppercase;line-height:1}
+.nav-global-menu{display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 12px;flex-wrap:wrap}
+.nav-global-link{text-decoration:none;text-align:center}
+.nav-global-link .main-label{display:block;font-size:13px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.5px}
+.nav-global-link .sub-label{display:block;font-size:11.5px;color:#666;margin-top:2px}
+.nav-global-link:hover .main-label,.nav-global-link.active .main-label{color:#1f4e78}
+.divider{margin:10px 0 25px}.divider .thin{height:1px;background:#d0d7dd;margin-bottom:4px}.divider .thick{height:4px;background:#a0a8b0}
+.card{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:24px;margin-bottom:20px}
+h1{font-size:20px;color:#1f4e78;margin-bottom:8px}
+.sub{color:#555;margin:0 0 12px;font-size:14px;line-height:1.5}
+.nav-tabs2{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.nav-tabs2 button{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px;color:#444}
+.nav-tabs2 button.on{background:#1f4e78;color:#fff;border-color:#1f4e78}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.bar input,.bar select{padding:7px 9px;border:1px solid #d0d7dd;border-radius:4px;background:#fff;color:#222;font:inherit;font-size:14px}
+.m{color:#666;font-size:12.5px}
+.wrap{border:1px solid #d0d7dd;border-radius:4px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid #e3e8ec;text-align:left;vertical-align:top}
+th{background:#f2f5f8;color:#1f4e78;font-size:12.5px;line-height:1.25}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.profit{color:#2e7d32;font-weight:700}.neg{color:#b12704;font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:#eef2f5;color:#666}
+.go{display:inline-block;background:#1f4e78;color:#fff;text-decoration:none;padding:6px 10px;border-radius:4px;font-size:12.5px;text-align:center;line-height:1.25}
+.go:hover{background:#2b5b84}.go.off{background:#f2f5f8;color:#777;border:1px dashed #c3ccd3;pointer-events:none}
+details summary{cursor:pointer;color:#1f4e78}
+.note{margin:12px 0 0;color:#666;font-size:13px;line-height:1.5}
+.live{margin-top:20px}
+footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
+@media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}
+#json-file{max-width:240px;font-size:12px;padding:5px;background:#f7fafc}
+#source-status{flex-basis:100%;font-size:12px}
+/* One demonstration matrix row in each of the two alternative views */
+.matrix-demo td{background:#f4f8fc;border-top:2px solid #86a4c1;border-bottom:2px solid #86a4c1;line-height:1.4}
+.matrix-demo-title{font-weight:700;color:#1f4e78;display:block;margin-bottom:6px}
+.matrix-demo-list{display:flex;flex-direction:column;gap:5px}
+.matrix-demo-item{padding:3px 0;border-bottom:1px dotted #c9d4df}
+.matrix-demo-num{display:inline-block;min-width:18px;color:#1f4e78;font-weight:700}
+.matrix-sku{display:inline-block;font:600 11px/1.5 monospace;color:#35627f;background:#e5eef7;border-radius:3px;padding:0 4px;margin-left:4px}
+.matrix-demo-summary{font-size:12px;color:#435363}
+.matrix-demo-summary a{display:inline-block;margin-top:7px}
+.matrix-demo-foot{margin-top:5px;font-size:12px}
+.matrix-provisional{font-weight:800;color:#a05b0d}.matrix-demo td{background:#f4f8fc}.matrix-demo-foot{line-height:1.5}
+/* Read-only matrix diagnostics: records in the Firebase listing, not engineering validation */
+.matrix-audit{border:1px solid #d3dee8;background:#f7fafc;border-radius:6px;padding:12px 15px;margin:0 0 14px;color:#244053;font-size:13px;line-height:1.5}
+.matrix-audit strong{color:#1f4e78}
+.matrix-audit-grid{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr));gap:8px;margin:9px 0 10px}
+.matrix-audit-cell{background:#fff;border:1px solid #dae3eb;padding:9px;border-radius:5px}
+.matrix-audit-cell b{font-size:20px;display:block;color:#1f4e78}
+.matrix-audit-cell span{font-size:11px;color:#526574}
+.matrix-audit-note{margin:5px 0 0;font-size:12px;color:#536674}
+@media(max-width:780px){.matrix-audit-grid{grid-template-columns:repeat(2,minmax(110px,1fr))}}
+
+/* Proposal register v6: completely separate from saved production rows */
+.alt-panel{background:#fff;border:1px solid #c7d6e4;border-left:4px solid #54748f;border-radius:5px;margin:0 0 14px;padding:15px 17px;line-height:1.5}
+.alt-panel h2{font-size:16px;color:#1f4e78;margin-bottom:6px}
+.alt-panel h3{font-size:14px;color:#2a536f;margin-bottom:7px}
+.alt-panel p{font-size:13px;margin:6px 0}
+.alt-status{display:inline-block;font-size:11px;color:#8a520f;background:#fff4db;padding:3px 8px;border-radius:5px;margin-bottom:7px}
+.alt-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:10px 0}
+.alt-card{background:#fafcff;border:1px solid #dbe5ec;border-radius:5px;padding:12px}
+.alt-card.proposal{border-style:dashed}
+.alt-card strong{display:block;font-size:13px;color:#24465f}
+.alt-card .m{margin-top:4px;line-height:1.45}
+.alt-sources a{display:inline-block;color:#1f4e78;margin-right:14px;margin-top:5px}
+.alt-caution{font-size:12px;color:#785511}
+@media(max-width:650px){.alt-grid{grid-template-columns:1fr}}
+
+/* V7: self-contained reference and scenario explorer */
+.alt-entry{background:#eaf2f8;border:1px solid #c4d5e3;padding:10px 14px;border-radius:5px;margin:0 0 12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px}
+.alt-entry button{font-size:12px;border:1px solid #265b80;color:#174a6d;background:#fff;border-radius:4px;padding:8px 10px;cursor:pointer;font-weight:700}
+.alt-entry button:hover{background:#dfeef7}
+.alt-calc{background:#f7fbff;border:1px solid #c5d9e9;border-radius:5px;padding:14px;margin-top:13px}
+.alt-calc h3{font-size:15px;margin:0 0 5px;color:#164768}
+.alt-calc-grid{display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:10px 15px;margin:12px 0}
+.alt-calc-grid label{display:flex;flex-direction:column;font-size:12px;font-weight:650;color:#294b62;gap:5px}
+.alt-calc-grid input{width:100%;padding:8px;border:1px solid #8daec3;border-radius:4px;font-size:14px;color:#1b3444;background:white}
+.alt-calc-output{border-top:1px solid #cedee8;padding-top:12px;margin-top:8px;font-size:13px}
+.alt-calc-result{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px;margin:8px 0}
+.alt-calc-result div{background:#fff;border:1px solid #dee7ee;border-radius:4px;padding:9px}
+.alt-calc-result small{display:block;color:#536879;font-size:11px}
+.alt-calc-result b{font-size:17px;color:#214f70}
+.alt-check{display:flex;align-items:flex-start;gap:9px;margin:7px 0;padding:7px;background:#f9fafb;border-radius:4px;font-size:13px}
+.alt-check span{font-size:16px}
+.alt-caution,.alt-small-note{line-height:1.5}
+@media(max-width:620px){.alt-calc-grid,.alt-calc-result{grid-template-columns:1fr}}
+</style></head>
+<body><div class="main-wrapper">
+<div class="top-utility-bar"><div style="cursor:pointer;font-weight:600;" onclick="window.location.href='index.html'">Languages ⌵</div></div>
+<div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
+<div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
+<nav class="nav-global-menu">
+<a href="index_ru.html" class="nav-global-link"><span class="main-label">О ПРОЕКТЕ</span><span class="sub-label">автоматизированная система управления</span></a>
+<a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link"><span class="main-label">АСУИР</span><span class="sub-label">генератор сверхэффективных производств</span></a>
+<a href="ASUIRServices_ru.html" class="nav-global-link"><span class="main-label">АСУИР — УСЛУГИ</span><span class="sub-label">генератор сверхэффективных услуг</span></a>
+<a href="Catalog_ru.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">КАТАЛОГ</span><span class="sub-label">оборудование, модули и продукция</span></a>
+<a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">справка и формулы</span></a>
+</nav>
+<div class="divider"><div class="thin"></div><div class="thick"></div></div>
+<div class="card">
+<h1>Каталог производственных линий</h1>
+<p class="sub">Технологическая матрица: оборудование, продукция и модули с отдельными SKU, выпуском, себестоимостью, зарплатой и прибылью. Совпадения старых записей помечены *. Нажмите название для связанных комбинаций; ↗ открывает конкретную линию.</p>
+<div class="alt-entry" id="alt-shortcuts"><strong>Рассмотреть проектные альтернативы</strong> <button type="button" data-alt-view="prod">Сравнить другое оборудование</button> <button type="button" data-alt-view="mod">Проверить общий инструмент</button></div><section id="matrix-audit" class="matrix-audit" aria-live="polite"></section><section id="alt-proposals" aria-live="polite"></section>
+<div class="nav-tabs2" id="views"><button data-view="eq" class="on">Оборудование → Продукция → Модули</button><button data-view="prod">Продукция → Оборудование → Модули</button><button data-view="mod">Модули → Продукция → Оборудование</button></div><div id="crumb" class="m" style="margin:0 0 10px"></div><div class="bar"><span style="position:relative"><input id="q" autocomplete="off" placeholder="Поиск: название или SKU"><div id="sug" style="display:none;position:absolute;z-index:5;left:0;top:100%;min-width:320px;max-height:320px;overflow:auto;background:#fff;border:1px solid #d0d7dd;border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.12)"></div></span><select id="sort"><option value="profit">Сортировка: прибыль в месяц</option><option value="salary">Сортировка: максимальная зарплата</option><option value="staff">Сортировка: работников</option></select><span class="m" id="cnt"></span><label class="m" for="json-file">JSON базы:</label><input id="json-file" type="file" accept=".json,application/json" title="Загрузить выгрузку Firebase equipment_listing.json"><span id="source-status" class="m" aria-live="polite">Проверяется соединение с базой…</span></div><div class="wrap"><table><thead><tr id="h3"></tr><tr id="h-rest" style="display:none"><th class="n">Выпуск, шт/день</th><th class="n">Работников</th><th class="n">Себестоимость</th><th class="n">Цена</th><th class="n">Прибыль, $/мес</th><th class="n">Макс. зарплата</th><th></th></tr></thead><tbody id="tb"><tr><td colspan="10" class="m">Загрузка из базы…</td></tr></tbody></table></div>
+<p class="note">Себестоимость учитывает амортизацию, зарплату $10 000 на человека и расходы цеха, распределённые на проданные изделия. При отсутствии плановых продаж считается реализация всего выпуска. Максимальная зарплата вычисляется отдельно по нормативу доли прямых расходов. Для старых записей идентификаторы выведены из названия или состава и требуют подтверждения.</p><p class="note">Встроенные исходные данные — сводная справочная копия публичных системных примеров, не полноценный экспорт Firebase и не доказательство совместимости. Для расчёта использованы опубликованные суммы.</p></div>
+<footer>© 2025 АСУИР. Материалы сайта являются интеллектуальной собственностью автора. Разработчик: Долгов Анатолий Владимирович<br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).<br><a href="/privacy.html#ru" style="color:#6c7a8a;">Политика конфиденциальности</a></footer>
+</div>
+<script>
+// ASUIR MATRIX v7 — documented research alternatives; legacy equipment suffix repaired, read-only audit and economic model.
+const LANG = 'ru';
+const TX = {"GEN":"ASUIRGemeniCalculatOptimizer_ru.html","loading":"Загрузка из базы…","notFound":"Ничего не найдено.","err":"Не удалось загрузить данные из базы.","countone":"связка","countmore":"связок","showAll":"показать все","intro":"Показаны сохранённые линии. Нажмите название — увидите связанные комбинации.","matrixFor":"Матрица для","labels":{"eq":"оборудования","prod":"продукции","mod":"модуля"},"kinds":{"eq":"Оборудование","prod":"Продукция","mod":"Модуль переналадки"},"openLine":"Открыть линию","showPairs":"Показать связки","module":"Модуль: ","noModule":"— без модуля","unverified":"предварительный SKU","verified":"SKU сохранён","piece":"поз.","demoTitle":"Реальные связки из базы","demoNo":"В этой выборке нет двух различных связок, отвечающих условиям демонстрации. Не создаём вымышленные пары.","demoShort":"Пары по номерам соответствуют одной и той же сохранённой комбинации.","demoNote":"SKU помогают искать совпадения; физическая совместимость по составу модуля требует инженерного подтверждения.","found":"Найдено","pairs":"связок","distinct":"различных","sSales":"Продажи","sOutput":"Выпуск","perDay":"шт./день","cost":"Себестоимость / проданное изд.","price":"Цена","profit":"Прибыль, $/мес","salary":"Макс. зарплата","staff":"Работников","required":"Нужно","capacityBad":"Недостаточный выпуск по нормативу","noSale":"Не указана цена продажи","helpText":"Себестоимость учитывает амортизацию, зарплату $10 000 на человека и расходы цеха, распределённые на проданные изделия. При отсутствии плановых продаж считается реализация всего выпуска. Максимальная зарплата вычисляется отдельно по нормативу доли прямых расходов.","fallbackGroup":"Для старых записей идентификаторы выведены из названия или состава и требуют подтверждения.","demo":"Демонстрация матрицы"};
+const GEN = TX.GEN;
+const AUDIT = {"title": "Автоматическая проверка сохранённых записей", "loading": "Проверка связей выполняется после загрузки базы…", "lines": "Записей в базе", "eq": "Групп по оборудованию", "prod": "Один продукт, разное оборудование", "mod": "Один модуль, разные продукты и оборудование", "groups": "Найденные группы оборудования", "none": "нет", "provisional": "Группы построены по названиям или предварительным SKU. Это не инженерное подтверждение совместимости.", "engineering": "Совпадение SKU подтверждает совпадение сохранённого обозначения, но не гарантирует техническую совместимость.", "system": "Системных примеров", "legacy": "Записей без явно сохранённых SKU", "norm": "Выполняют собственный норматив доли прямых расходов", "no_norm": "не выполняют", "cannot": "нельзя рассчитать", "financial": "Экономические выводы основаны на введённых ценах, расходах и предположении о сбыте, а не на независимой проверке поставщиков или спроса.", "candidate": "Пары по предварительным идентификаторам", "demoTitle": "Пары по сохранённым идентификаторам", "eqList": "строки"};
+const DATA_URL = 'https://asuir-gemini-default-rtdb.firebaseio.com/' + (LANG === 'ru' ? 'equipment_listing' : 'equipment_listing_en') + '.json';
+const $ = s => document.querySelector(s);
+const fmtInt = n => n == null || !Number.isFinite(Number(n)) ? '—' : '$' + Math.round(n).toLocaleString(LANG === 'ru' ? 'ru-RU' : 'en-US');
+const fmtMoney = n => n == null || !Number.isFinite(Number(n)) ? '—' : '$' + Number(n).toFixed(2);
+const esc = s => String(s == null ? '' : s).replace(/[&<>\"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const norm = s => String(s == null ? '' : s).trim().toLocaleLowerCase().replace(/\s+/g, ' ');
+const numeric = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+function provisionalSku(prefix, value) {
+ if (!value) return '';
+ let h = 2166136261;
+ for (const ch of prefix + '|' + norm(value)) {h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0;}
+ return prefix + '-' + h.toString(16).toUpperCase().padStart(8,'0');
+}
+function modSignature(items) {
+ return items.filter(m => m && norm(m.name)).map(m => norm(m.name) + '×' + (numeric(m.qty) > 0 ? numeric(m.qty) : 1)).sort().join('|');
+}
+const presentName = r => r.name || r.eq || r.prod;
+function build(id,v) {
+ const comps = Array.isArray(v.components) ? v.components : [], exps = Array.isArray(v.expenses) ? v.expenses : [], mods = Array.isArray(v.module_items) ? v.module_items : [];
+ const baseBOM = comps.reduce((sum,c) => sum + numeric(c.qty)*numeric(c.price),0);
+ const bom = baseBOM * (1 + numeric(v.comp_tariff)/100);
+ const expenses = exps.reduce((sum,e) => sum + numeric(e.qty)*numeric(e.price ?? e.price_per_day),0);
+ const perf = numeric(v.perf), workers = numeric(v.staff)>0 ? numeric(v.staff) : 1;
+ const equipmentCost = numeric(v.cost), amort = equipmentCost/5/365;
+ const fixed = amort + workers*10000/30 + expenses;
+ const rawSales = numeric(v.sales_per_day);
+ const sales = rawSales>0 ? Math.min(rawSales,perf) : perf;
+ const sellingPrice = numeric(v.sale_price)>0 ? numeric(v.sale_price) : null;
+ const countryShare = v.country_key === 'us' ? 20 : 10;
+ const sharePct = v.direct_share_pct != null && Number.isFinite(Number(v.direct_share_pct)) ? Math.min(40,Math.max(5,numeric(v.direct_share_pct))) : countryShare;
+ const d = sharePct/100;
+ const unit = sales>0 && comps.length ? bom + fixed/sales : null;
+ const profit = sellingPrice!=null && sales>0 && comps.length ? Math.round((sellingPrice-bom)*sales*30-fixed*30) : null;
+ const salary = bom>0 ? Math.round(Math.max(0,perf*d*bom - (amort+expenses))*30/workers) : null;
+ const required = bom>0 ? Math.ceil(fixed/(bom*d)) : null;
+ const prodName = String(v.product_label || v.product_name || [v.topic_title,v.class_key].filter(Boolean).join(' / ') || v.name || '').trim();
+ const fullName = String(v.name || '').trim();
+ // The legacy name 'Base machine + module: New product' denotes the BASE machine.
+ // Earlier code removed just ': New product' and accidentally kept ' + module'.
+ const oldEq = fullName.replace(/\s*\+\s*module\s*:\s*.*$/i,'').trim();
+ const storedEqName = String(v.equipment_name || oldEq || fullName).trim();
+ // Fix also version-2 records saved with the same suffix error, without writing to Firebase.
+ const eqName = storedEqName.replace(/\s*\+\s*module(?:\s*:\s*.*)?$/i,'').trim() || oldEq || fullName;
+ const recoveredEq = norm(eqName) !== norm(storedEqName);
+ const signature = String(v.module_signature || modSignature(mods)).trim();
+ const modName = signature ? String(v.module_name || mods.map(m=>m.name).filter(Boolean).join(' + ') || '').trim() : '';
+ // A SKU derived from the malformed equipment label must not be treated as verified.
+ const eqSku = (!recoveredEq && v.equipment_sku) || provisionalSku('EQ',eqName);
+ const prodSku = v.product_sku || provisionalSku('PR',prodName);
+ const modSku = signature ? (v.module_sku || provisionalSku('MD',signature)) : '';
+ const isExplicit = Number(v.matrix_schema_version) >= 2 && !!v.equipment_sku && !!v.product_sku;
+ return {id,name:fullName,eq:eqName,prod:prodName,modName,eqSku,prodSku,modSku,signature,
+   eqKnown:isExplicit && !recoveredEq,prodKnown:isExplicit && v.product_identity_scope==='specific',modKnown:isExplicit && !!v.module_sku,
+   topic:v.topic_title||'',perf,workers,unit,profit,salary,sales,price:sellingPrice,required,sharePct,bom,fixed,
+   modulePrice:mods.reduce((s,m)=>s+numeric(m.price)*(numeric(m.qty)>0?numeric(m.qty):1),0),numModItems:mods.length,
+   scope:v.product_identity_scope || (v.product_name?'specific':'class'), country:v.country_key||'base', system: v.client_id==='SYSTEM'};
+}
+const getName = (r,k) => k==='eq'?r.eq:k==='prod'?r.prod:r.modName;
+const getSku = (r,k) => k==='eq'?r.eqSku:k==='prod'?r.prodSku:r.modSku;
+const hasExplicit = (r,k) => k==='eq'?r.eqKnown:k==='prod'?r.prodKnown:r.modKnown;
+const key = (r,k) => getSku(r,k) || ('[missing]'+k+r.id);
+let LINES=[], FILTER=null, VIEW='eq';
+const ORDER={eq:['eq','prod','mod'],prod:['prod','eq','mod'],mod:['mod','prod','eq']};
+function link(r,k) {
+ if(k==='mod'&&!r.modSku)return `<span class="m">${esc(TX.noModule)}</span>`;
+ const title=(k==='mod'?TX.module:'')+getName(r,k), sku=getSku(r,k);
+ return `<a class="tl" href="#" data-k="${k}" data-sku="${esc(sku)}" title="${esc(TX.showPairs)}">${esc(title)}</a> <a class="arr" target="_blank" rel="noopener" href="${GEN}?line=${encodeURIComponent(r.id)}&tab=${k==='eq'?'tab1':k==='prod'?'tab3':'tab6'}" title="${esc(TX.openLine)}">↗</a>`+
+   `<div class="m">${esc(sku)}${!hasExplicit(r,k)?` <span class="matrix-provisional" title="${esc(TX.fallbackGroup)}">*</span>`:''}${k==='eq'?` <span class="tag">${esc(r.topic)}</span>`:''}${k==='mod'&&r.numModItems?` · ${r.numModItems} ${TX.piece}`:''}</div>`;
+}
+function renderDemo(rows) {
+ if(VIEW==='eq' || !rows.length)return '';
+ const other = ORDER[VIEW].slice(1), by=new Map();
+ for(const r of rows){if(VIEW==='mod'&&!r.modSku)continue;const k=key(r,VIEW);if(!by.has(k))by.set(k,[]);by.get(k).push(r)}
+ const eligible=[];
+ for (const same of by.values()) {
+  const pairs=[],seen=new Set();
+  for(const r of same){const sig=other.map(k=>key(r,k)).join('|');if(!seen.has(sig)){seen.add(sig);pairs.push(r)}}
+  if(pairs.length<2)continue;
+  // A class of products is not evidence of the *same exact product*.
+  if(pairs.some(r=>r.scope!=='specific'))continue;
+  // Product view needs genuinely different equipment. Module view needs different equipment AND product.
+  if(new Set(pairs.map(r=>r.eqSku)).size<2)continue;
+  if(VIEW==='mod'&&new Set(pairs.map(r=>r.prodSku)).size<2)continue;
+  eligible.push(pairs);
+ }
+ eligible.sort((a,b)=>b.length-a.length);
+ if(!eligible.length)return `<tr class="matrix-demo"><td colspan="10"><strong>${esc(TX.demo)}</strong> — ${esc(TX.demoNo)}</td></tr>`;
+ const group=eligible[0],shown=group.slice(0,4),unique=group.length;
+ const item=(r,k,i)=>`<div class="matrix-demo-item"><span class="matrix-demo-num">${i+1}.</span><a href="#" class="tl" data-k="${k}" data-sku="${esc(getSku(r,k))}">${esc(getName(r,k))}</a><span class="matrix-sku">${esc(getSku(r,k))}</span>${!hasExplicit(r,k)?' *':''}</div>`;
+ const primary=`<span class="matrix-demo-title">${esc(group.some(r=>!r.eqKnown||!r.prodKnown||(VIEW==='mod'&&!r.modKnown))?AUDIT.candidate:AUDIT.demoTitle)}</span>${link(group[0],VIEW)}`;
+ const middle=shown.map((r,i)=>item(r,other[0],i)).join('');
+ const last=shown.map((r,i)=>item(r,other[1],i)).join('');
+ const details=`<strong>${unique} ${esc(TX.pairs)}</strong><div class="matrix-demo-foot">${esc(TX.demoShort)}</div><div class="matrix-demo-foot">${esc(TX.demoNote)}</div><a class="chip" href="#" data-k="${VIEW}" data-sku="${esc(getSku(group[0],VIEW))}">${esc(TX.showPairs)}</a>`;
+ return `<tr class="matrix-demo"><td>${primary}</td><td>${middle}</td><td>${last}</td><td colspan="7" class="matrix-demo-summary">${details}</td></tr>`;
+}
+function auditGroup(kind) {
+ const by=new Map();
+ for (const r of LINES) {
+  if(kind==='mod'&&!r.modSku)continue;
+  const k=key(r,kind);
+  if(!by.has(k))by.set(k,[]);
+  by.get(k).push(r);
+ }
+ const arr=[];
+ for(const rows of by.values()) {
+  if(kind==='eq' && new Set(rows.map(r=>r.prodSku)).size>1)arr.push(rows);
+  if(kind==='prod' && rows.every(r=>r.scope==='specific') && new Set(rows.map(r=>r.eqSku)).size>1)arr.push(rows);
+  if(kind==='mod' && rows.every(r=>r.scope==='specific') && new Set(rows.map(r=>r.eqSku)).size>1 && new Set(rows.map(r=>r.prodSku)).size>1)arr.push(rows);
+ }
+ return arr;
+}
+function renderAudit() {
+ const root=$('#matrix-audit'); if(!root)return;
+ if(!LINES.length){root.textContent=AUDIT.loading;return;}
+ const eqGroups=auditGroup('eq'),prodGroups=auditGroup('prod'),modGroups=auditGroup('mod');
+ const pass=LINES.filter(r=>r.required!==null&&r.perf>=r.required).length;
+ const failed=LINES.filter(r=>r.required!==null&&r.perf<r.required).length;
+ const missing=LINES.length-pass-failed;
+ const old=LINES.filter(r=>!r.eqKnown||!r.prodKnown).length;
+ const examples=LINES.filter(r=>r.system).length;
+ const smallGroupText=eqGroups.slice(0,4).map(rows=>esc(rows[0].eq)+' ('+rows.length+' '+esc(AUDIT.eqList)+')').join('; ') || AUDIT.none;
+ const cell=(n,title)=>`<div class="matrix-audit-cell"><b>${n}</b><span>${esc(title)}</span></div>`;
+ root.innerHTML=`<strong>${esc(AUDIT.title)}</strong>`+
+  `<div class="matrix-audit-grid">${cell(LINES.length,AUDIT.lines)}${cell(eqGroups.length,AUDIT.eq)}${cell(prodGroups.length,AUDIT.prod)}${cell(modGroups.length,AUDIT.mod)}</div>`+
+  `<div><strong>${esc(AUDIT.groups)}:</strong> ${smallGroupText}</div>`+
+  `<div class="matrix-audit-note">${esc(AUDIT.system)}: ${examples}. ${esc(AUDIT.legacy)}: ${old}.</div>`+
+  `<div class="matrix-audit-note">${esc(AUDIT.norm)}: ${pass}; ${esc(AUDIT.no_norm)}: ${failed}; ${esc(AUDIT.cannot)}: ${missing}.</div>`+
+  `<div class="matrix-audit-note">${esc(AUDIT.provisional)} ${esc(AUDIT.engineering)}</div>`+
+  `<div class="matrix-audit-note">${esc(AUDIT.financial)}</div>`;
+}
+function render() {
+ renderAudit();
+ renderAlternatives();
+ const q=$('#q').value.trim().toLowerCase(),sorting=$('#sort').value,ord=ORDER[VIEW];
+ $('#h3').innerHTML = ord.map(k=>`<th>${TX.kinds[k]}</th>`).join('')+`<th class="n">${TX.sOutput} / ${TX.sSales}, ${TX.perDay}</th><th class="n">${TX.staff}</th><th class="n">${TX.cost}</th><th class="n">${TX.price}</th><th class="n">${TX.profit}</th><th class="n">${TX.salary}</th><th></th>`;
+ let rows=LINES.filter(r=>(!FILTER||getSku(r,FILTER.kind)===FILTER.sku)&&(!q||([r.eq,r.prod,r.modName,r.eqSku,r.prodSku,r.modSku,r.topic,r.name].join(' ').toLowerCase().includes(q))));
+ rows.sort((a,b)=>(FILTER ? 0 : (getName(a,ord[0])||'').localeCompare(getName(b,ord[0])||'',LANG==='ru'?'ru':'en')) || (sorting==='staff'?a.workers-b.workers:(b[sorting]??-Infinity)-(a[sorting]??-Infinity)));
+ const n=rows.length; $('#cnt').textContent=n+' '+(n===1?TX.countone:TX.countmore);
+ document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('on',b.dataset.view===VIEW));
+ const sample=rows.find(r=>FILTER&&getSku(r,FILTER.kind)===FILTER.sku);
+ $('#crumb').innerHTML=FILTER?`${esc(TX.matrixFor)} ${esc(TX.labels[FILTER.kind])} <b>${esc(sample?getName(sample,FILTER.kind):FILTER.sku)}</b> (${esc(FILTER.sku)}) · <a href="#" id="all">${esc(TX.showAll)}</a>`:esc(TX.intro);
+ let prior=null;
+ const body=rows.map(r=>{
+  const first=prior!==key(r,ord[0]);prior=key(r,ord[0]);
+  const cells=ord.map((k,i)=>`<td>${i===0&&!first?'<span class="m">″</span>':link(r,k)}</td>`).join('');
+  const money=r.profit==null?'—':`<span class="${r.profit<0?'neg':'profit'}">${fmtInt(r.profit)}</span>`;
+  const cap=r.required!=null && r.perf<r.required?`<div class="m" title="${esc(TX.capacityBad)}">${esc(TX.required)} ${r.required}</div>`:'';
+  return `<tr${first?' style="border-top:2px solid #c3ccd3"':''}>${cells}<td class="n">${r.perf} / ${r.sales}${cap}</td><td class="n">${r.workers}</td><td class="n">${fmtMoney(r.unit)}</td><td class="n">${fmtMoney(r.price)}</td><td class="n">${money}</td><td class="n">${fmtInt(r.salary)}</td><td><a class="go" target="_blank" rel="noopener" href="${GEN}?line=${encodeURIComponent(r.id)}&tab=tab5">${esc(TX.openLine)}</a><div class="m">${esc(r.eqSku)} / ${esc(r.prodSku)} / ${esc(r.modSku||'—')}</div></td></tr>`;
+ }).join('');
+ $('#tb').innerHTML=renderDemo(rows)+(body||`<tr><td colspan="10" class="m">${esc(TX.notFound)}</td></tr>`);
+}
+function choose(k,sku) {VIEW=k;FILTER={kind:k,sku};$('#q').value='';$('#sug').style.display='none';render();window.scrollTo(0,0)}
+$('#views').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b){VIEW=b.dataset.view;FILTER=null;render()}});
+document.addEventListener('click',e=>{const l=e.target.closest('a[data-k][data-sku]');if(l){e.preventDefault();choose(l.dataset.k,l.dataset.sku);return}if(e.target.id==='all'){e.preventDefault();FILTER=null;render()}});
+function suggest() {
+ const q=$('#q').value.trim().toLowerCase(),box=$('#sug');if(!q){box.style.display='none';return}
+ const results=[],seen=new Set();
+ for(const k of ['prod','eq','mod'])for(const r of LINES){if(k==='mod'&&!r.modSku)continue;const sku=getSku(r,k),name=getName(r,k),ks=k+'|'+sku;
+  if(seen.has(ks))continue;seen.add(ks);if(name.toLowerCase().includes(q)||sku.toLowerCase().includes(q))results.push({k,sku,name});}
+ box.innerHTML=results.length?results.slice(0,12).map(a=>`<a href="#" class="sg" data-k="${a.k}" data-sku="${esc(a.sku)}"><span class="tag">${esc(TX.kinds[a.k])}</span> ${esc(a.name)} <span class="m">${esc(a.sku)}</span></a>`).join(''):`<div class="m" style="padding:8px">${esc(TX.notFound)}</div>`;
+ box.style.display='block';
+}
+$('#q').addEventListener('input',()=>{suggest();render()});
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter'){const first=$('#sug .sg');if(first)first.click()}});
+document.addEventListener('click',e=>{if(!e.target.closest('#sug,#q'))$('#sug').style.display='none'});
+$('#sort').addEventListener('change',render);
+
+// v6 candidate register, never combined with LINES or persisted to Firebase.
+const ALT_TX={"head":"Проекты технологических альтернатив — отдельно от Firebase","sub":"Ниже показаны два предметных варианта для дальнейшей инженерной проверки. Они не являются сохранёнными производственными линиями, не меняют Firebase, не учитываются в статистике матрицы и не получают расчётную прибыль без исходных данных.","no":"Для этих проектов нужны исходные часовые линии. В текущем наборе данных они не найдены.","prodTitle":"Альтернатива № 1 — одно изделие, другое оборудование","modTitle":"Альтернатива № 2 — общая оснастка для разных изделий","status":"Проект; технологическая совместимость и производительность ещё не подтверждены","original":"Имеющаяся линия","candidate":"Возможная альтернатива","watchCell":"Сборочная ячейка на профессиональном часовом верстаке","watchCellDesc":"Компоненты для изучения: верстак часовщика, держатель механизма, пресс установки стрелок, пресс закрытия корпуса, проверка готового изделия. Наличие отдельных инструментов у поставщика не доказывает готовность полной линии.","module":"Универсальный инструмент установки стрелок (кандидат функционального модуля)","moduleDesc":"Поставщик указывает применение инструмента для кварцевых и механических часов. В существующей кварцевой записи инструмент есть; в механической записи полный идентичный модуль не сохранён. Поэтому это пока кандидат на общий узел оснастки, а не доказанный общий комплект переналадки.","sourceBench":"Поставщик верстаков","sourcePress":"Инструмент установки стрелок","sourceCase":"Пресс корпуса","source":"Источники","qLabel":"Простые кварцевые часы","mechLabel":"Механические часы","eqRate":"Выпуск","eqPrice":"Себестоимость","eqProfit":"Прибыль/мес","unknown":"Не рассчитано: нет подтверждённых данных о стоимости полной ячейки, производительности, персонале и расходах.","requirements":"Для экономического сравнения потребуются спецификация альтернативной линии, стоимость и производительность оборудования, персонал, расходы и подтверждение одинакового изделия.","sharedReq":"Для включения в третью таблицу как подтверждённого общего модуля необходимо удостовериться, что состав и артикулы полного комплекта совпадают и подходят к обеим линиям.","open":"Открыть сохранённую линию","codeNote":"Временные номера ALT-EQ-01 и ALT-MD-01 обозначают проекты, а не действующие SKU.","baseline":"Существующие записи для сравнения","proposed":"Проектное решение; в действующую матрицу не добавлено"};
+const ALT_SOURCES={bench:"https://www.ernst-friends.com/en/watchmaking/",press:"https://www.esslinger.com/watch-hand-tool-press-for-inserting-installing-wristwatch-hands/",case:"https://www.esslinger.com/watch-tool-crystal-press-and-case-back-press-with-nylon-dies/"};
+function altSource(label,url) {return `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} ↗</a>`}
+function altLine(r) {
+ if(!r)return '—';
+ return `<strong>${esc(r.prod)}</strong><div class="m">${esc(r.eq)} · ${esc(r.eqSku)} / ${esc(r.prodSku)}</div>`+
+ `<div class="m">${esc(ALT_TX.eqRate)}: ${r.perf}/day · ${esc(ALT_TX.eqPrice)}: ${fmtMoney(r.unit)} · ${esc(ALT_TX.eqProfit)}: ${r.profit==null?'—':fmtInt(r.profit)}</div>`+
+ `<div class="m"><a href="${GEN}?line=${encodeURIComponent(r.id)}&tab=tab5" target="_blank" rel="noopener">${esc(ALT_TX.open)} ↗</a></div>`;
+}
+function renderAlternatives() {
+ const p=$('#alt-proposals');if(!p)return;
+ if(VIEW==='eq'){p.innerHTML='';return;}
+ // Anchor by known live Firebase example IDs AND meaningful names; never re-label unrelated uploaded datasets.
+ const quartz=LINES.find(r=>r.id==='matrix_ex03' && /quartz|кварц/i.test(r.prod+' '+r.eq));
+ const mechanical=LINES.find(r=>r.id==='matrix_ex04' && /automatic|mechanical|механич/i.test(r.prod+' '+r.eq));
+ if(!quartz){p.innerHTML='';return;}
+ if(FILTER && (VIEW==='prod' && FILTER.sku!==quartz.prodSku || VIEW==='mod')){p.innerHTML='';return;}
+ const header=`<h2>${esc(ALT_TX.head)}</h2><p>${esc(ALT_TX.sub)}</p>`;
+ let content='';
+ if(VIEW==='prod'){
+ content=`<h3>${esc(ALT_TX.prodTitle)}</h3><span class="alt-status">${esc(ALT_TX.status)}</span>`+
+ `<div class="alt-grid"><div class="alt-card"><strong>${esc(ALT_TX.original)}</strong>${altLine(quartz)}</div>`+
+ `<div class="alt-card proposal"><strong>${esc(ALT_TX.candidate)} · ALT-EQ-01</strong><p>${esc(ALT_TX.watchCell)}</p><p class="m">${esc(ALT_TX.watchCellDesc)}</p><p class="alt-caution">${esc(ALT_TX.unknown)}</p></div></div>`+
+ `<p>${esc(ALT_TX.requirements)}</p><div class="alt-sources">${altSource(ALT_TX.sourceBench,ALT_SOURCES.bench)}${altSource(ALT_TX.sourcePress,ALT_SOURCES.press)}${altSource(ALT_TX.sourceCase,ALT_SOURCES.case)}</div>`;
+ } else if (VIEW==='mod' && mechanical) {
+ content=`<h3>${esc(ALT_TX.modTitle)}</h3><span class="alt-status">${esc(ALT_TX.status)}</span>`+
+ `<div class="alt-card proposal"><strong>ALT-MD-01 · ${esc(ALT_TX.module)}</strong><p>${esc(ALT_TX.moduleDesc)}</p></div>`+
+ `<p><strong>${esc(ALT_TX.baseline)}:</strong></p><div class="alt-grid"><div class="alt-card">${altLine(quartz)}</div><div class="alt-card">${altLine(mechanical)}</div></div>`+
+ `<p class="alt-caution">${esc(ALT_TX.sharedReq)}</p><div class="alt-sources">${altSource(ALT_TX.sourcePress,ALT_SOURCES.press)}</div>`;
+ } else {p.innerHTML='';return;}
+ p.innerHTML=`<div class="alt-panel">${header}${content}`+
+   (VIEW==='prod'?altCalcHTML(quartz):(VIEW==='mod'?altToolVerification():''))+
+   `<p class="alt-caution">${esc(ALT_TX.codeNote)} ${esc(ASUIR_V7_TEXT.refund)}</p></div>`;
+}
+
+
+// v7: verified public *aggregates*, copied from the 2026-11-26 Firebase JSON public example records.
+// Never upload these reduced summaries as authoritative manufacturing specifications.
+const ASUIR_REFERENCE={"matrix_ex01":{"name":"Budget Smartphone Assembly Line + module: Budget smartphone","product_name":"Budget smartphone","cost":6800,"perf":250,"staff":3,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":47.5}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":50.5}],"module_items":[{"name":"housing nests"},{"name":"6.5\" display press jig"},{"name":"test firmware"}],"sale_price":85,"topic_title":"Смартфоны и Телефоны","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex02":{"name":"Mid-range Smartphone Assembly Line + module: Mid-range smartphone","product_name":"Mid-range smartphone","cost":9900,"perf":150,"staff":3,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":161}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":50.5}],"module_items":[{"name":"nests"},{"name":"AMOLED press jig"},{"name":"test firmware"}],"sale_price":240,"topic_title":"Смартфоны и Телефоны","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex03":{"name":"Quartz Watch Assembly Mini-Line + module: Simple quartz","product_name":"Simple quartz","cost":5350,"perf":120,"staff":2,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":8.1}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":38}],"module_items":[{"name":"Miyota 2035 movement holders"},{"name":"hand-setting tool"},{"name":"battery tester"}],"sale_price":35,"topic_title":"Сборка Часов","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex04":{"name":"Mechanical Watch Assembly Mini-Line (NH35) + module: Seiko-level automatic","product_name":"Seiko-level automatic","cost":12450,"perf":30,"staff":2,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":75}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":42}],"module_items":[{"name":"NH35 movement holder"},{"name":"demagnetizer"},{"name":"rotor tool"}],"sale_price":220,"topic_title":"Сборка Часов","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex05":{"name":"Knitwear Sewing Mini-Shop + module: Knitwear: T-shirts, hoodies","product_name":"Knitwear: T-shirts, hoodies","cost":18250,"perf":120,"staff":3,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":6.3}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":51.5}],"module_items":[{"name":"size-range patterns"},{"name":"presser feet"},{"name":"neckline binder"}],"sale_price":35,"topic_title":"Пошив Одежды","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex06":{"name":"Budget Smartphone Assembly Line + module: Handheld radio","product_name":"Handheld radio","cost":7500,"perf":150,"staff":3,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":17.6}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":50.5}],"module_items":[{"name":"nests"},{"name":"RF test stand"}],"sale_price":35,"topic_title":"Смартфоны и Телефоны","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex07":{"name":"Budget Smartphone Assembly Line + module: 20,000 mAh power bank","product_name":"20,000 mAh power bank","cost":7200,"perf":200,"staff":3,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":13.5}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":50.5}],"module_items":[{"name":"cell spot-welding jig"},{"name":"capacity tester"}],"sale_price":22,"topic_title":"Смартфоны и Телефоны","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex08":{"name":"Quartz Watch Assembly Mini-Line + module: Smartwatch","product_name":"Smartwatch","cost":6500,"perf":100,"staff":2,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":28}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":38}],"module_items":[{"name":"jig"},{"name":"glue dispenser"},{"name":"firmware and test stand"}],"sale_price":60,"topic_title":"Сборка Часов","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex09":{"name":"Sensor Calibration and Assembly Bench + module: Multimeter","product_name":"Multimeter","cost":22800,"perf":80,"staff":2,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":7.2}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":48}],"module_items":[{"name":"nests"},{"name":"calibrator"}],"sale_price":15,"topic_title":"Измерительные Приборы","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10},"matrix_ex10":{"name":"Compact Rotary Mini-Bakery + module: Baguettes","product_name":"Baguettes","cost":16450,"perf":800,"staff":2,"components":[{"name":"Aggregate of source BOM / Сумма комплектующих из исходной записи","qty":1,"price":0.18}],"expenses":[{"name":"Aggregate daily expenses / Сумма цеховых расходов за день","qty":1,"price":66}],"module_items":[{"name":"perforated baguette trays"},{"name":"proofing cloths"}],"sale_price":1.2,"topic_title":"Хлебопекарная Линия","client_id":"SYSTEM","comp_tariff":0,"country_key":"base","direct_share_pct":10}};
+const ASUIR_V7_TEXT={"offline":"Сводка 10 публичных системных примеров на 26.11.2026 (сокращённые исходные данные). При подключении к Firebase заменится актуальными записями.","onlinelabel":"Актуальная база Firebase","proposals":"Рассмотреть проектные альтернативы","buttons":["Сравнить другое оборудование","Проверить общий инструмент"],"scenarioHeader":"Расчёт альтернативной сборочной ячейки — только после указания её собственных параметров","scenarioIntro":"Одинаковое изделие: простые кварцевые часы. Стоимость деталей и цена продажи взяты из исходной записи; параметры другого оборудования не подтверждены. Пустые поля не означают ноль.","fieldLabels":["Стоимость всей новой ячейки ($)","Выпуск изделий в день","Число работников","Прочие расходы в день ($)","План продаж, шт./день (необязательно)"],"fieldPlaceholders":["Стоимость оборудования и всей оснастки","Подтверждённая производительность","Фактические работники","Аренда, содержание и доставка","По умолчанию весь выпуск"],"missing":"Чтобы получить экономический расчёт альтернативы, нужны цена полного комплекта, выпуск, численность персонала и дневные расходы. Эти показатели не подтверждены поставщиками.","base":"Исходная сохранённая линия","target":"Альтернативный проект (не подтверждён)","norm":"Норматив прямых расходов","required":"Нужный выпуск по нормативу","capacity":"Выпуск новой ячейки","unit":"Себестоимость","profit":"Прибыль за месяц","sold":"Продажи за день","compare":"Разница прибыли с исходной линией","passes":"Выпуск достаточен по нормативу","fails":"Выпуск ниже норматива","impossible":"При цене продажи не выше цены деталей прибыль невозможна в этой модели","scenCaution":"Расчёт сценария — математический, не подтверждает возможность изготовить идентичное изделие, сроки поставки, цены и объём продаж.","toolTitle":"Проверка общего инструмента и полного модуля","confirmedTool":"Поставщик прямо указывает применение пресса установки стрелок для кварцевых и механических часов.","inQuartz":"В исходной кварцевой записи указан инструмент установки стрелок.","notMechanical":"В исходной механической записи такого же инструмента нет: перечислены держатель NH35, размагничиватель и инструмент ротора.","notSame":"Полные составы модулей различаются; идентичность общего модуля не подтверждена.","conditional":"Вывод: инструмент подходит для изучения как общий компонент, но присваивать ему SKU общего подтверждённого модуля пока нельзя.","snapshotWarning":"Встроенные исходные данные — сводная справочная копия публичных системных примеров, не полноценный экспорт Firebase и не доказательство совместимости. Для расчёта использованы опубликованные суммы.","refund":"Никаких данных в Firebase эта страница не записывает.","postStatus":"Критерий завершения: весь расчёт и интерфейс готовы; недостающие факты о новом оборудовании нельзя добросовестно заполнять без спецификации и измерений.","needed":"Проверка исходных спецификаций обязательна до использования этих сценариев для инвестиционных решений."};
+const ALT_SCENARIO={investment:'',output:'',staff:'',overhead:'',sales:''};
+const ALT_FIELDS=[['investment','0.01'],['output','1'],['staff','1'],['overhead','0'],['sales','0']];
+function altNumeric(key) {
+ const raw=ALT_SCENARIO[key];if(raw===null||raw===undefined||String(raw).trim()==='')return null;
+ const num=Number(raw);return Number.isFinite(num)&&num>=0?num:null;
+}
+function altScenarioMetrics(base) {
+ const investment=altNumeric('investment'),output=altNumeric('output'),staff=altNumeric('staff'),overhead=altNumeric('overhead'),salesRaw=altNumeric('sales');
+ if(investment===null||investment<=0||output===null||output<=0||staff===null||staff<=0||overhead===null)return null;
+ // In v7, alternative BOM and sale price must be exactly the baseline product.
+ const bom=base.bom,price=base.price;
+ const sold=Math.min(output,salesRaw!==null&&salesRaw>0?salesRaw:output);
+ const fixed=investment/5/365+staff*10000/30+overhead;
+ const share=base.sharePct/100;
+ const required=bom>0&&share>0?Math.ceil(fixed/(bom*share)):null;
+ const unit=bom+fixed/sold;
+ const profit=price==null?null:Math.round(((price-bom)*sold-fixed)*30);
+ return {investment,output,staff,overhead,sold,fixed,required,unit,profit,share};
+}
+function altInput(label,key,placeholder,required) {
+ const raw=ALT_SCENARIO[key]||'';
+ return `<label>${esc(label)}${!required?'':''}<input type="number" min="0" step="any" inputmode="decimal" data-alt-input="${key}" value="${esc(raw)}" placeholder="${esc(placeholder)}" aria-label="${esc(label)}"></label>`;
+}
+function altCalcHTML(base) {
+ if(!base)return '';
+ const tx=ASUIR_V7_TEXT;
+ const metrics=altScenarioMetrics(base);
+ const labels=tx.fieldLabels;const holders=tx.fieldPlaceholders;
+ const inputs=['investment','output','staff','overhead','sales'].map((k,i)=>altInput(labels[i],k,holders[i],i<4)).join('');
+ const baseView=`<div class="m"><strong>${esc(tx.base)}:</strong> ${esc(base.eq)}<br>${esc(tx.norm)}: ${base.sharePct}% · ${esc(tx.required)}: ${base.required}/day · ${esc(tx.profit)}: ${base.profit==null?'—':fmtInt(base.profit)}</div>`;
+ let result=`<p class="alt-caution" id="alt-await">${esc(tx.missing)}</p>`;
+ if(metrics) {
+  const {} = {};
+  const vals=[
+   [tx.capacity,metrics.output],
+   [tx.sold,metrics.sold],
+   [tx.required,metrics.required==null?'—':metrics.required],
+   [tx.unit,fmtMoney(metrics.unit)],
+   [tx.profit,metrics.profit==null?'—':fmtInt(metrics.profit)],
+   [tx.compare,metrics.profit==null||base.profit==null?'—':fmtInt(metrics.profit-base.profit)],
+  ];
+  result=`<div class="alt-calc-result">${vals.map(v=>`<div><small>${esc(v[0])}</small><b>${esc(v[1])}</b></div>`).join('')}</div>`+
+  `<p class="${metrics.required!=null&&metrics.output>=metrics.required?'profit':'neg'}">${esc(metrics.required!=null&&metrics.output>=metrics.required?tx.passes:tx.fails)}</p>`+
+  `<p class="alt-caution">${esc(tx.scenCaution)}</p>`;
+ }
+ return `<div class="alt-calc"><h3>${esc(tx.scenarioHeader)}</h3><p>${esc(tx.scenarioIntro)}</p>${baseView}`+
+ `<div class="alt-calc-grid">${inputs}</div><div class="alt-calc-output" id="alt-calc-output">${result}</div>`+
+ `<p class="alt-small-note">${esc(tx.needed)}</p></div>`;
+}
+function altToolVerification() {
+ const tx=ASUIR_V7_TEXT;
+ return `<div class="alt-calc"><h3>${esc(tx.toolTitle)}</h3>`+
+ `<div class="alt-check"><span>✓</span>${esc(tx.confirmedTool)}</div>`+
+ `<div class="alt-check"><span>✓</span>${esc(tx.inQuartz)}</div>`+
+ `<div class="alt-check"><span>?</span>${esc(tx.notMechanical)}</div>`+
+ `<div class="alt-check"><span>✕</span>${esc(tx.notSame)}</div>`+
+ `<p class="alt-caution"><strong>${esc(tx.conditional)}</strong></p></div>`;
+}
+document.getElementById('alt-shortcuts').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-alt-view]');if(!btn)return;
+ VIEW=btn.dataset.altView;FILTER=null;document.getElementById('q').value='';render();
+ document.getElementById('alt-proposals').scrollIntoView({behavior:'instant',block:'start'});
+});
+document.getElementById('alt-proposals').addEventListener('input',e=>{
+ const input=e.target.closest('[data-alt-input]');if(!input)return;
+ ALT_SCENARIO[input.dataset.altInput]=input.value;
+ // In-place update; preserve focus during typing.
+ const quartz=LINES.find(r=>r.id==='matrix_ex03'&&/quartz|кварц/i.test(r.prod+' '+r.eq));
+ const target=document.getElementById('alt-calc-output');if(!quartz||!target)return;
+ const metrics=altScenarioMetrics(quartz),tx=ASUIR_V7_TEXT;
+ if(!metrics){target.innerHTML=`<p class="alt-caution" id="alt-await">${esc(tx.missing)}</p>`;return;}
+ const vals=[[tx.capacity,metrics.output],[tx.sold,metrics.sold],[tx.required,metrics.required==null?'—':metrics.required],[tx.unit,fmtMoney(metrics.unit)],[tx.profit,metrics.profit==null?'—':fmtInt(metrics.profit)],[tx.compare,metrics.profit==null||quartz.profit==null?'—':fmtInt(metrics.profit-quartz.profit)]];
+ target.innerHTML=`<div class="alt-calc-result">${vals.map(v=>`<div><small>${esc(v[0])}</small><b>${esc(v[1])}</b></div>`).join('')}</div>`+
+ `<p class="${metrics.required!=null&&metrics.output>=metrics.required?'profit':'neg'}">${esc(metrics.required!=null&&metrics.output>=metrics.required?tx.passes:tx.fails)}</p>`+
+ `<p class="alt-caution">${esc(tx.scenCaution)}</p>`;
+});
+
+function normalizeFirebaseExport(data) {
+ if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error(STR_PARSE);
+ const branch = LANG === 'ru' ? 'equipment_listing' : 'equipment_listing_en';
+ // Accept either the branch export or a full Firebase root export.
+ const source = data[branch] && typeof data[branch] === 'object' ? data[branch] : data;
+ if (!source || typeof source !== 'object' || Array.isArray(source)) throw new Error(STR_PARSE);
+ const records=Object.entries(source).filter(([id,v])=>v && typeof v==='object' && !Array.isArray(v) && typeof v.name==='string' && v.name.trim() && numeric(v.perf)>0 && Array.isArray(v.components));
+ if(!records.length)throw new Error(STR_INVALID);
+ return records.map(([id,v])=>build(id,v));
+}
+const STR_BASE = "Данные: Firebase. Линий: ";
+const STR_FILE = "Данные из файла: ";
+const STR_FAILED = "База Firebase недоступна. Для проверки выберите JSON-выгрузку equipment_listing.";
+const STR_INVALID = "Нет записей производственных линий с name, perf и components. Файл шаблонов asuir-catalog.json сюда не подходит; требуется выгрузка equipment_listing.";
+const STR_PARSE = "Неверный формат: ожидается объект записей Firebase.";
+const STR_ERROR = "Ошибка загрузки JSON: ";
+let manualDataChosen=false;
+const setStatus = s => {const el=$('#source-status');if(el)el.textContent=s;};
+$('#json-file').addEventListener('change',async e=>{
+ const f=e.target.files&&e.target.files[0];if(!f)return;
+ try{
+  const parsed=JSON.parse(await f.text());
+  const loaded=normalizeFirebaseExport(parsed);
+  manualDataChosen=true;
+  LINES=loaded; FILTER=null;$('#q').value='';$('#sug').style.display='none';
+  setStatus(STR_FILE+f.name+' · '+loaded.length);
+  render();
+ }catch(err){setStatus(STR_ERROR+(err && err.message || String(err)))}
+});
+// Immediate read-only offline reference: the user never needs to download a Firebase JSON file.
+LINES=normalizeFirebaseExport(ASUIR_REFERENCE);
+render();setStatus(ASUIR_V7_TEXT.offline);
+(async()=>{try{
+ const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),6000);
+ let resp;try{resp=await fetch(DATA_URL,{signal:controller.signal})}finally{clearTimeout(timeout)}
+ if(!resp.ok)throw new Error('HTTP '+resp.status);
+ const data=await resp.json();const loaded=normalizeFirebaseExport(data);
+ if(!manualDataChosen){LINES=loaded;render();setStatus(ASUIR_V7_TEXT.onlinelabel+': '+LINES.length)}
+} catch(e) {
+ // Retain the immediately usable reference and disclose the source in the status.
+ if(!manualDataChosen)setStatus(ASUIR_V7_TEXT.offline);
+}})();
+</script></body></html>
