@@ -4204,20 +4204,20 @@ window.openReferenceLine = function (cc) {
 })();
 </script>
 
-<script>
+<script type="module">
 // Доля сжатия, переданная из Каталога (?d=5|10|20|40)
 (function(){
   const d=parseFloat(new URLSearchParams(location.search).get('d'));
   if(![5,10,20,40].includes(d))return;
-  const orig=window.loadLineIntoWorkspace;
-  if(typeof orig!=='function')return;
-  window.loadLineIntoWorkspace=function(){
-    const r=orig.apply(this,arguments);
+  const wrap=f=>function(){
+    const r=f.apply(this,arguments);
     const set=()=>{const el=document.getElementById('asuir-direct-share');
       if(el){el.value=d;if(typeof window.calculateAll==='function')window.calculateAll();}};
     Promise.resolve(r).then(()=>setTimeout(set,0));
     return r;
   };
+  if(typeof window.loadLineIntoWorkspace==='function'){window.loadLineIntoWorkspace=wrap(window.loadLineIntoWorkspace);}
+  else{let v;Object.defineProperty(window,'loadLineIntoWorkspace',{configurable:true,get(){return v},set(f){v=typeof f==='function'?wrap(f):f;}});}
 })();
 </script>
 </body>
