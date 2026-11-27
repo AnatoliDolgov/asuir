@@ -421,4 +421,25 @@ window.stChild=()=>{const S=window.__AR.SOL(),sel=(window.__AR.BEST()||[]).filte
  location.href=location.pathname+"?parent="+encodeURIComponent(CUR)+"&link=refine&prob="+encodeURIComponent(sel.map(o=>o.solution).join("; "))};
 authUI();info();
 </script>
+<div id="nextBox" class="no-print" style="position:fixed;right:18px;bottom:18px;width:340px;background:#fff;border:2px solid #1f4e78;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 14px;z-index:999;font-size:14px;line-height:1.45">
+<div style="font-weight:600;color:#1f4e78;margin-bottom:4px">Следующий шаг</div>
+<div id="nextText"></div>
+<div style="margin-top:8px"><button class="btn" id="nextBtn" style="margin:0"></button></div>
+<div id="nextNote" class="okk" style="margin-top:6px;font-size:13px"></div>
+</div>
+<script>
+function nextStep(){const C=typeof CMP!=="undefined"?CMP:null,prob=(document.getElementById("prob").value||"").trim();
+ const ch=C&&C.checks||[],ok=ch.filter(c=>/подтв/i.test(c.verdict||"")).length;
+ if(!prob)return{t:"Впишите задачу в поле «1. Задача» вверху страницы — или нажмите кнопку, чтобы загрузить пример.",b:"Загрузить пример",go:"prob",act:()=>loadExample()};
+ if(!C)return{t:"Скопируйте запрос и вставьте его в ИИ (Claude, ChatGPT или Gemini). Ответ ИИ вставьте в подсвеченное поле и нажмите «Разобрать ответ».",b:"Скопировать запрос для ИИ",go:"answer",act:()=>copyPrompt()};
+ if(!ch.length&&!C.skipCheck)return{t:(C.version>1?`Анализ исправлен (версия ${C.version}). Лучше проверить его ещё раз другим ИИ — или нажмите «Пропустить», чтобы перейти к решениям.`:"Анализ получен. Проверьте его ДРУГИМ ИИ.")+" Скопируйте запрос, вставьте в другой ИИ, ответ — в подсвеченное поле, затем «Разобрать проверку».",b:"Скопировать запрос на проверку",go:"check",act:()=>copyCheck(),skip:()=>{C.skipCheck=true;save(true);showNext()}};
+ if(ch.length&&!C.fixDone&&ok<ch.length)return{t:`Проверка: подтверждено ${ok} из ${ch.length}. Исправьте анализ: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле шага 2 (вместо старого текста), затем «Разобрать ответ». Если исправлять не нужно — «Пропустить».`,b:"Скопировать запрос на исправление",go:"answer",act:()=>copyFix(),skip:()=>{C.fixDone=true;save(true);showNext()}};
+ if(!C.maneuvers)return{t:"Выводы проверены. Теперь выведите решения от проверенных выводов: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле, затем «Разобрать решения».",b:"Скопировать запрос на манёвры",go:"manAns",act:()=>copyMan()};
+ return{t:"Решения выведены. Отметьте ✓ нужные решения в разделе 4, затем сохраните задачу в хранилище (внизу страницы).",b:"Перейти к сохранению",go:"stCard",act:()=>{}}}
+function showNext(){const s=nextStep();document.getElementById("nextText").textContent=s.t;const b=document.getElementById("nextBtn");b.textContent=s.b;
+ b.onclick=async()=>{await s.act();const el=document.getElementById(s.go);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.style.outline="3px solid #e8a000";el.style.outlineOffset="2px";setTimeout(()=>el.style.outline="",6000);if(el.tagName==="TEXTAREA")el.focus()}
+  document.getElementById("nextNote").textContent=/Скопировать/.test(s.b)?"✓ Запрос скопирован — вставьте его в ИИ (Ctrl+V). Подсвеченное оранжевым поле — куда вставить ответ.":"";setTimeout(showNext,500)};
+ let sk=document.getElementById("nextSkip");if(s.skip){if(!sk){sk=document.createElement("button");sk.id="nextSkip";sk.className="btn alt";sk.style.margin="0 0 0 6px";sk.textContent="Пропустить";b.after(sk)}sk.onclick=s.skip}else if(sk)sk.remove()}
+setInterval(showNext,1500);setTimeout(showNext,300);
+</script>
 </body></html>
