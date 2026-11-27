@@ -1,918 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNOLOGY MATRIX — FlowSolve (4-D Socrates Engine)</title>
-    <style>
-        /* ================================================================
-           TECHNOLOGY MATRIX DESIGN (1:1 AUTHENTIC PORTAL STYLE)
-           ================================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #ffffff;
-            color: #222222;
-            padding: 20px 40px 60px;
-        }
-
-        .main-wrapper {
-            max-width: 1240px;
-            margin: 0 auto;
-        }
-
-        /* TOP UTILITY BAR: LANGUAGES ONLY */
-        .top-utility-bar {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 13px;
-            color: #333333;
-            margin-bottom: 10px;
-        }
-
-        .lang-switch {
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-            color: #333333;
-        }
-
-            .lang-switch:hover {
-                color: #1f4e78;
-            }
-
-        /* BRAND HEADER */
-        .brand-title-block {
-            text-align: center;
-            margin: 20px 0 15px;
-        }
-
-        .brand-title-text {
-            font-family: 'Times New Roman', Times, 'Georgia', serif;
-            font-size: 52px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            color: #555555;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-
-        /* 1. THIN TOP DIVIDER */
-        .matrix-divider-single {
-            height: 1px;
-            background-color: #d0d7dd;
-            margin: 15px 0 10px 0;
-            width: 100%;
-        }
-
-        /* 2. GLOBAL MENU 1ST LEVEL */
-        .nav-global-menu {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            padding: 8px 0 12px 0;
-        }
-
-        .nav-global-link {
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            transition: 0.15s;
-        }
-
-            .nav-global-link .main-label {
-                display: block;
-                font-size: 13px;
-                font-weight: 700;
-                color: #222222;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .nav-global-link .sub-label {
-                display: block;
-                font-size: 12px;
-                color: #666666;
-                margin-top: 2px;
-                font-weight: 400;
-            }
-
-            .nav-global-link:hover .main-label,
-            .nav-global-link.active .main-label {
-                color: #1f4e78;
-            }
-
-        /* 3. SATURATED DOUBLE GRAY DIVIDER */
-        .matrix-divider-double-box {
-            margin: 10px 0 25px 0;
-            width: 100%;
-        }
-
-            .matrix-divider-double-box .thin-line {
-                height: 1px;
-                background-color: #d0d7dd;
-                margin-bottom: 4px;
-                width: 100%;
-            }
-
-            .matrix-divider-double-box .thick-line {
-                height: 4px;
-                background-color: #a0a8b0;
-                width: 100%;
-            }
-
-        /* 4. MAIN WORKSPACE CARD */
-        .matrix-card-box {
-            background: #ffffff;
-            border: 1px solid #d0d7dd;
-            border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            margin-bottom: 30px;
-        }
-
-        /* STRATEGY INPUT CONTAINER */
-        .strategy-input-container {
-            background: #fafbfc;
-            border-bottom: 1px solid #d0d7dd;
-            padding: 24px 28px;
-        }
-
-        .strategy-title-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #1f4e78;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .input-group-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .input-flow-text {
-            flex: 1;
-            padding: 10px 14px;
-            font-size: 14px;
-            border: 1px solid #b8daff;
-            border-radius: 4px;
-            color: #1a2632;
-            background: #ffffff;
-            outline: none;
-            transition: 0.15s;
-            height: 42px;
-        }
-
-            .input-flow-text:focus {
-                border-color: #1f4e78;
-                box-shadow: 0 0 0 3px rgba(31,78,120,0.1);
-            }
-
-        .btn-start-flow {
-            background-color: #1f4e78;
-            color: #ffffff;
-            border: none;
-            padding: 0 24px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-            white-space: nowrap;
-            height: 42px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: 0.15s;
-        }
-
-            .btn-start-flow:hover {
-                background-color: #163755;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            }
-
-        /* RESULTS SUBTABS WITH MAGENTA ACCENT UNDERLINE */
-        .matrix-tab-bar {
-            display: flex;
-            background: #fbfbfb;
-            border-bottom: 1px solid #d0d7dd;
-            padding: 0 6px;
-            overflow-x: auto;
-        }
-
-        .matrix-tab-item {
-            padding: 13px 20px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4a5568;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -1px;
-            transition: all 0.15s ease;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-            .matrix-tab-item:hover {
-                color: #111111;
-                background: #f0f2f5;
-            }
-
-            .matrix-tab-item.active {
-                color: #111111;
-                font-weight: 700;
-                border-bottom: 3px solid #d53f8c;
-                background: #ffffff;
-            }
-
-        .matrix-content-body {
-            padding: 24px 28px;
-        }
-
-        /* LOADING SIMULATION / SPINNER */
-        #loading-view {
-            display: none;
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .spinner {
-            border: 3px solid #e0e4e8;
-            border-left-color: #1f4e78;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 16px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        #loading-text {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1f4e78;
-        }
-
-        .loading-subtext {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 6px;
-        }
-
-        /* ACCORDION SOLUTIONS */
-        .solution-item {
-            background: #ffffff;
-            border: 1px solid #d0d7dd;
-            border-radius: 4px;
-            margin-bottom: 14px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            transition: 0.2s;
-        }
-
-        .solution-header {
-            padding: 14px 18px;
-            background: #f8fafc;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.15s;
-        }
-
-            .solution-header:hover {
-                background: #f1f5f9;
-            }
-
-        .solution-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1f4e78;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .solution-score {
-            background: #e2efda;
-            color: #007600;
-            padding: 3px 8px;
-            font-size: 11px;
-            border-radius: 12px;
-            font-weight: 700;
-            border: 1px solid #bcd1a9;
-        }
-
-        .solution-maneuver-tag {
-            font-size: 11px;
-            background: #edf2f7;
-            color: #1f4e78;
-            padding: 2px 8px;
-            border-radius: 3px;
-            border: 1px solid #cbd5e0;
-            font-weight: 600;
-        }
-
-        .solution-toggle {
-            font-size: 12px;
-            color: #6c7a8a;
-            transition: transform 0.2s;
-        }
-
-        .solution-item.expanded .solution-header {
-            border-bottom: 1px solid #e2e8f0;
-            background: #ffffff;
-        }
-
-        .solution-item.expanded .solution-toggle {
-            transform: rotate(180deg);
-            color: #d53f8c;
-        }
-
-        .solution-body {
-            display: none;
-            padding: 18px 20px;
-            background: #ffffff;
-        }
-
-        .solution-item.expanded .solution-body {
-            display: block;
-        }
-
-        .s-block {
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #edf2f7;
-        }
-
-            .s-block:last-of-type {
-                border-bottom: none;
-            }
-
-        .s-block-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #c65911;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .s-text {
-            font-size: 13.5px;
-            line-height: 1.6;
-            color: #333333;
-        }
-
-        .btn-select-solution {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #007600;
-            color: #ffffff;
-            border: none;
-            padding: 10px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.15s;
-            text-decoration: none;
-        }
-
-            .btn-select-solution:hover {
-                background: #005a00;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            }
-
-        /* COMPARISON MATRIX TABLE */
-        .compare-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-            .compare-table th, .compare-table td {
-                border: 1px solid #d0d7dd;
-                padding: 10px 14px;
-                text-align: left;
-                vertical-align: middle;
-            }
-
-            .compare-table th {
-                background: #1f4e78;
-                color: #ffffff;
-                font-weight: 600;
-            }
-
-            .compare-table tr:nth-child(even) {
-                background-color: #fcfcfc;
-            }
-
-            .compare-table td:first-child {
-                font-weight: 700;
-                color: #1f4e78;
-                background: #f8fafc;
-                width: 25%;
-            }
-
-        .best-val {
-            background: #e2efda;
-            color: #007600;
-            font-weight: 700;
-            border-radius: 3px;
-            padding: 2px 6px;
-            border: 1px solid #bcd1a9;
-            display: inline-block;
-        }
-
-        .footer {
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e8ecf0;
-            font-size: 12px;
-            color: #6c7a8a;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .nav-global-menu {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .top-utility-bar {
-                justify-content: center;
-            }
-
-            .input-group-row {
-                flex-direction: column;
-            }
-
-            .btn-start-flow {
-                width: 100%;
-            }
-        }
-    </style>
-
-    <!-- Google Analytics: включается только после согласия посетителя; выбор хранится в браузере (asuir_ga_consent) -->
-    <script>
-        (function () {
-            var KEY = 'asuir_ga_consent', ID = 'G-KWFQ8P31GG';
-            function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-            function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { } }
-            function loadGA() {
-                var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID; document.head.appendChild(s);
-                window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
-                gtag('js', new Date()); gtag('config', ID);
-            }
-            if (get() === 'yes') { loadGA(); return; }
-            if (get() === 'no') return;
-            document.addEventListener('DOMContentLoaded', function () {
-                var L = 'en';
-                var TX = { ru: ["Сайт считает посещения с помощью Google Analytics. Разрешить?", "Согласен", "Нет", "Подробнее", "/privacy.html#ru"], en: ["This site counts visits with Google Analytics. Allow it?", "Agree", "No", "Details", "/privacy.html"] }[L];
-                var b = document.createElement('div');
-                b.id = 'ga-consent';
-                b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;font:14px/1.4 -apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;box-shadow:0 -2px 8px rgba(0,0,0,.2);';
-                b.innerHTML = '<span>' + TX[0] + ' <a href="' + TX[4] + '" style="color:#cfe3f7;">' + TX[3] + '</a></span>' +
-                    '<button type="button" data-v="yes" style="background:#fff;color:#1f4e78;border:0;border-radius:4px;padding:6px 16px;font-weight:700;cursor:pointer;">' + TX[1] + '</button>' +
-                    '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">' + TX[2] + '</button>';
-                b.addEventListener('click', function (e) {
-                    var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
-                    set(v); b.remove(); document.body.style.paddingBottom = ''; if (v === 'yes') loadGA();
-                });
-                document.body.appendChild(b); var padGA = function () { if (b.isConnected) document.body.style.paddingBottom = b.offsetHeight + 'px'; }; padGA(); window.addEventListener('resize', padGA);
-            });
-        })();
-    </script>
-</head>
-<body>
-
-    <div class="main-wrapper">
-
-        <!-- TOP UTILITY BAR (LANGUAGES ONLY) -->
-        <div class="top-utility-bar">
-            <a href="flowsolve.html" class="lang-switch">Languages ⌵</a>
-        </div>
-
-        <!-- BRAND TITLE BLOCK -->
-        <div class="brand-title-block">
-            <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
-        </div>
-
-        <!-- 1. THIN TOP DIVIDER -->
-        <div class="matrix-divider-single"></div>
-
-        <!-- 2. GLOBAL MENU 1ST LEVEL -->
-        <nav class="nav-global-menu">
-            <a href="index.html" class="nav-global-link">
-                <span class="main-label">ABOUT THE PROJECT</span>
-                <span class="sub-label">automated control system</span>
-            </a>
-            <a href="flowsolve_en.html" class="nav-global-link active">
-                <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
-                <span class="sub-label">process analysis andoptimization</span>
-            </a>
-            <a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link">
-                <span class="main-label">ASUIR</span>
-                <span class="sub-label">efficiency generator</span>
-            </a>
-            <a href="Help_en.html" class="nav-global-link">
-                <span class="main-label">Help</span>
-                <span class="sub-label">documentation & formulas</span>
-            </a>
-        </nav>
-
-        <!-- 3. SATURATED DOUBLE GRAY DIVIDER -->
-        <div class="matrix-divider-double-box">
-            <div class="thin-line"></div>
-            <div class="thick-line"></div>
-        </div>
-
-        <!-- 4. MAIN WORKSPACE CARD -->
-        <div class="matrix-card-box">
-
-
-            <!-- STRATEGY INPUT CONTAINER -->
-            <div class="strategy-input-container">
-                <div class="strategy-title-label">🧠 Problem → IFR → Search for paths to achieve it (recursively)</div>
-                <div class="input-group-row">
-                    <input type="text" id="flow-input" class="input-flow-text"
-                           value="How to set up batch drone assembly with non-engineer personnel?"
-                           placeholder="Describe a technical barrier, manufacturing challenge, or product idea...">
-                    <button class="btn-start-flow" onclick="startFlowSolve()">🧠 Synthesize Solutions</button>
-                </div>
-            </div>
-
-            <div id="loading-view" style="display:none;"></div>
-
-            <!-- RESULTS VIEW: RECURSIVE TREE Problem → IFR → Principles → Sub-problem -->
-            <div id="results-view" style="display:none;">
-                <div class="matrix-content-body">
-                    <div id="tree-root"></div>
-                    <div id="compare-panel" style="display:none; margin-top:22px; padding-top:18px; border-top:1px solid #d0d7dd;"></div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            © Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.
-        </div>
-    </div>
-
-    <script>
-        /* ==========================================================================
-           FLOWSOLVE — REAL RECURSIVE SEARCH THROUGH THE IDEAL FINAL RESULT (IFR)
-           (an AI call on every single step)
-           Scheme: Problem → Ideal Final Result (IFR) → either a concrete solution,
-           or a split into concrete sub-problems → the same scheme applied to each.
-           No fixed catalog of techniques anywhere — at every step the model
-           searches for the ideal solution again, fresh, for that specific wording.
-           ========================================================================== */
-
-        const SYSTEM_PROMPT = `You are an expert problem-solver using the IFR method (Ideal Final Result), the classical TRIZ/ASUIR scheme: Problem → IFR → Search for paths to achieve it, applied recursively to every sub-problem that arises.
-
-You are given a problem statement (this may be the original problem, or a sub-problem produced at a previous step). Do three things:
-
-1. Formulate the IFR for THIS SPECIFIC problem: what would the situation look like if the system ITSELF, with no new device introduced and no added cost, eliminated the problem and performed the needed function, while keeping all useful properties and creating no harmful effects. If the problem involves a parameter that can be mentally pushed to a limiting value (zero or infinity — scale, production volume, speed, time, etc.), look first at what happens at that limit: the ideal is often visible there directly, in a single step, with no need to split into sub-problems, and the remaining work becomes finding a practically achievable point between the extremes rather than searching for new paths.
-
-2. Check for two cases where the problem is already practically solved:
-       a) the IFR statement is itself a precise, testable condition or operating principle that removes the problem directly — for example: "the pedestrian does not move while there is a probability of a vehicle colliding with them" is already A solution: it can be implemented by different technical means, but the essence of the problem has been found in this statement itself, not in a specific device;
-       b) the IFR statement points to a concrete, real, existing physical, technical, or organizational mechanism that can solve the problem.
-       If either is true — that is the solution: state it concretely (as the precise condition/principle in case (a), or the name of the mechanism in case (b)), never abstractly.
-
-3. If there is no unambiguous ready solution — split the path to the IFR into 2-4 concrete, narrower sub-problems. Each sub-problem must be such that this same scheme can be applied to it in turn (formulate its own IFR, etc). The sub-problems must be substantively DIFFERENT paths toward the goal, not a rewording of the same one.
-
-4. If a solution was found (resolved=true) — additionally judge whether this solution's wording EXACTLY and fully coincides in substance with the stated IFR (i.e. this is the ideal fully achieved, nothing further to refine), or whether it is only an approximation to the ideal — a real, working solution, but one that can itself be reformulated as a new problem and refined further. Return this as a boolean field "idealMatch".
-
-IMPORTANT: do not apply any pre-made techniques, templates, or classifications (for example, the list of 40 TRIZ principles) — no such ready-made rule set exists. Reason fresh every time, from the physical, technical, or practical essence of THIS SPECIFIC problem statement, not from an abstract methodology.
-
-Respond STRICTLY as JSON with no explanation outside the JSON, in exactly this format:
-{"ikr": "the IFR statement for this problem", "resolved": true or false, "solution": "the concrete solution if resolved=true, otherwise null", "idealMatch": true or false (only meaningful when resolved=true; otherwise false), "subProblems": ["sub-problem 1", "sub-problem 2"] (empty array if resolved=true)}`;
-
-        const MAX_DEPTH = 6;
-
-        /* Proxy on a free Cloudflare Worker, which calls Gemini with the site
-           owner's key server-side. No visitor needs their own key — it never
-           leaves the server. Replace with the real address after deploying the
-           worker (see worker.js and the deployment notes). */
-        const PROXY_URL = "https://REPLACE-WITH-YOUR-WORKER-URL.workers.dev/";
-
-        /* One model call per tree node. */
-        async function callAI(problemText) {
-            const body = {
-                contents: [{ parts: [{ text: `${SYSTEM_PROMPT}\n\nProblem: ${problemText}` }] }],
-                generationConfig: { responseMimeType: "application/json", temperature: 0.4 }
-            };
-            const res = await fetch(PROXY_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            if (!res.ok) {
-                const errText = await res.text().catch(() => '');
-                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
-            }
-            const data = await res.json();
-            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) throw new Error('EMPTY_RESPONSE');
-            let parsed;
-            try {
-                parsed = JSON.parse(text);
-            } catch (e) {
-                throw new Error('BAD_JSON: ' + text.slice(0, 300));
-            }
-            if (typeof parsed.ikr !== 'string' || typeof parsed.resolved !== 'boolean') {
-                throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
-            }
-            return {
-                problem: problemText,
-                ikr: parsed.ikr,
-                resolved: !!parsed.resolved,
-                solution: parsed.solution || null,
-                idealMatch: !!parsed.resolved && !!parsed.idealMatch,
-                subProblems: Array.isArray(parsed.subProblems) ? parsed.subProblems.slice(0, 4) : []
-            };
-        }
-
-        /* Once several branches of the tree have each produced a solution, the last
-           step is to compare them and decide which one is closest to the ideal
-           final result of the original problem. A separate AI call, a separate
-           (simpler) response contract. */
-        const COMPARE_PROMPT = `Below are several solutions found for related sub-problems of the same original problem, using the IFR method. Each has its own IFR statement and is marked as to whether it was flagged as an exact match to the ideal.
-
-Compare all the solutions and decide which one is closest to the ideal final result of the original problem overall — i.e. the most effective, least costly, requiring the fewest compromises, and most fully solving the original problem.
-
-Respond STRICTLY as JSON with no explanation outside the JSON:
-{"bestIndex": <index of the best solution, starting from 0>, "reasoning": "a brief justification: why this solution beats the others"}`;
-
-        async function callCompareAI(solutions) {
-            const list = solutions.map((s, i) =>
-                `${i}. Problem: ${s.problem}\n   IFR: ${s.ikr}\n   Solution: ${s.solution}\n   Exact match to IFR: ${s.idealMatch ? 'yes' : 'no (approximation)'}`
-            ).join('\n\n');
-            const body = {
-                contents: [{ parts: [{ text: `${COMPARE_PROMPT}\n\n${list}` }] }],
-                generationConfig: { responseMimeType: "application/json", temperature: 0.3 }
-            };
-            const res = await fetch(PROXY_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            if (!res.ok) {
-                const errText = await res.text().catch(() => '');
-                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
-            }
-            const data = await res.json();
-            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) throw new Error('EMPTY_RESPONSE');
-            let parsed;
-            try {
-                parsed = JSON.parse(text);
-            } catch (e) {
-                throw new Error('BAD_JSON: ' + text.slice(0, 300));
-            }
-            if (typeof parsed.bestIndex !== 'number') throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
-            return { bestIndex: parsed.bestIndex, reasoning: parsed.reasoning || '' };
-        }
-
-        /* ==========================================================================
-           UI: recursive tree driven by real AI calls
-           ========================================================================== */
-
-        let __nodeCounter = 0;
-        let __foundSolutions = [];
-
-        function escapeHtml(s) {
-            return String(s).replace(/[&<>"']/g, c => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            }[c]));
-        }
-
-        function renderError(err) {
-            if (String(err.message).includes('ORIGIN_NOT_ALLOWED')) {
-                return `⚠️ The server rejected this request's origin. Contact the site owner — this domain needs to be added to the proxy's allow-list.`;
-            }
-            if (String(err.message).includes('SERVER_NOT_CONFIGURED')) {
-                return `⚠️ The service isn't configured yet (no server-side key set). Please try again later.`;
-            }
-            if (String(err.message).startsWith('API_ERROR_')) {
-                return `⚠️ Error calling the FlowSolve server: ${escapeHtml(err.message)}. Please try again shortly.`;
-            }
-            return `⚠️ Could not parse the model's response: ${escapeHtml(err.message)}`;
-        }
-
-        async function renderNode(problem, depth, container, chainDepth) {
-            if (chainDepth === undefined) chainDepth = 0;
-            const nodeId = 'n' + (++__nodeCounter);
-            container.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Searching for the Ideal Final Result for: "${escapeHtml(problem)}"...</div>`;
-
-            let data;
-            try {
-                data = await callAI(problem);
-            } catch (err) {
-                container.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
-                return;
-            }
-
-            let html = `<div class="s-block">
-            <div class="s-block-title">🎯 IFR — level ${depth + 1}</div>
-            <div class="s-text">${escapeHtml(data.ikr)}</div>
-        </div>`;
-
-            const atMaxDepth = depth + 1 >= MAX_DEPTH;
-
-            if (data.resolved) {
-                // A solution was found — but no node is ever a dead end: per your
-                // own practice, the solution itself can be turned into a new
-                // problem and carried one step further. In practice, a
-                // goal-directed search like this usually converges on a solution
-                // that exactly matches the IFR within about 3 such steps.
-                __foundSolutions.push({ problem, ikr: data.ikr, solution: data.solution, idealMatch: data.idealMatch });
-                updateComparePanel();
-                const pid = nodeId + '_sol';
-                if (data.idealMatch) {
-                    html += `<div class="solution-item expanded" style="border-color:#4caf7d;">
-                    <div class="solution-header" style="background:#eaf7f0;">
-                        <div class="solution-title">🎯 Exact solution — fully matches the IFR</div>
-                    </div>
-                    <div class="solution-body" style="display:block;">
-                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
-                } else {
-                    html += `<div class="solution-item expanded">
-                    <div class="solution-header">
-                        <div class="solution-title">✅ Solution found (approximation to the ideal, refinement step ${chainDepth + 1})</div>
-                    </div>
-                    <div class="solution-body" style="display:block;">
-                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
-                }
-                if (!atMaxDepth) {
-                    html += `<div style="margin-top:12px;">
-                        <button class="btn-start-flow" onclick="deepenFromSolution('${pid}', ${escapeHtml(JSON.stringify(data.solution))}, ${depth + 1}, ${chainDepth + 1})">🔁 Turn this solution into a new problem</button>
-                        <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
-                    </div>`;
-                    if (!data.idealMatch && chainDepth + 1 >= 3) {
-                        html += `<div class="s-text" style="color:#c65911; font-size:12px; margin-top:8px;">
-                        ⚠️ A goal-directed search like this usually reaches a solution that exactly matches the IFR within 3 such steps. If the system hasn't found it by this depth, something in how the problem is framed is off — go back and restate the original problem rather than continuing further down this same path.
-                    </div>`;
-                    }
-                }
-                html += `</div></div>`;
-                container.innerHTML = html;
-                return;
-            }
-
-            if (atMaxDepth) {
-                html += `<div class="s-text" style="color:#6c7a8a; font-size:12px;">
-                Reached the practical recursion depth (${MAX_DEPTH} levels) without converging on a solution.
-                Formulate the next step as a new problem in the input field at the top of the page to continue manually.
-            </div>`;
-                container.innerHTML = html;
-                return;
-            }
-
-            data.subProblems.forEach((sp, idx) => {
-                const pid = nodeId + '_p' + idx;
-                html += `<div class="solution-item" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">${String.fromCharCode(97 + idx)}) ${escapeHtml(sp)}</div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div id="${pid}_child"></div>
-                </div>
-            </div>`;
-            });
-
-            container.innerHTML = html;
-
-            // Recursively (and in parallel) analyze every next-level sub-problem as
-            // soon as its block is rendered into the DOM.
-            data.subProblems.forEach((sp, idx) => {
-                const pid = nodeId + '_p' + idx;
-                const childContainer = document.getElementById(pid + '_child');
-                if (childContainer) renderNode(sp, depth + 1, childContainer, 0);
-            });
-        }
-
-        /* A solution is deliberately turned back into a new problem — per your own
-           practice, a found solution has no "final" status; it can become the next
-           step. chainDepth counts exactly these consecutive solution-to-problem
-           conversions (not overall branching depth) — in practice, no more than
-           about 3 of them before reaching an exact IFR match. */
-        function deepenFromSolution(pid, solutionText, depth, chainDepth) {
-            const childContainer = document.getElementById(pid + '_child');
-            if (!childContainer) return;
-            renderNode(solutionText, depth, childContainer, chainDepth || 0);
-        }
-
-        function startFlowSolve() {
-            const input = document.getElementById('flow-input').value.trim();
-            if (!input) return alert("Please enter a problem, technical barrier, or product idea.");
-
-            document.getElementById('results-view').style.display = 'block';
-            document.getElementById('loading-view').style.display = 'none';
-            __nodeCounter = 0;
-            __foundSolutions = [];
-            const panel = document.getElementById('compare-panel');
-            if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
-            renderNode(input, 0, document.getElementById('tree-root'));
-        }
-
-        /* Once at least two solutions have been found (in different branches of the
-           tree), the final step of your practice becomes meaningful: compare them
-           and pick the most successful one. The comparison panel appears
-           automatically once there are enough solutions, and updates as more are
-           found. */
-        function updateComparePanel() {
-            const panel = document.getElementById('compare-panel');
-            if (!panel) return;
-            if (__foundSolutions.length < 2) {
-                panel.style.display = 'none';
-                return;
-            }
-            panel.style.display = 'block';
-            panel.innerHTML = `<button class="btn-start-flow" onclick="compareSolutions()">🏆 Compare the solutions found (${__foundSolutions.length}) and pick the best one</button>
-            <div id="compare-result" style="margin-top:14px;"></div>`;
-        }
-
-        async function compareSolutions() {
-            const resultBox = document.getElementById('compare-result');
-            const solutions = __foundSolutions.slice();
-            resultBox.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Comparing ${solutions.length} solution(s) found...</div>`;
-            let cmp;
-            try {
-                cmp = await callCompareAI(solutions);
-            } catch (err) {
-                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
-                return;
-            }
-            const best = solutions[cmp.bestIndex];
-            if (!best) {
-                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">⚠️ Could not resolve a solution index from the model's response.</div>`;
-                return;
-            }
-            resultBox.innerHTML = `<div class="solution-item expanded" style="border-color:#d53f8c;">
-            <div class="solution-header" style="background:#fdf1f7;">
-                <div class="solution-title">🏆 Most successful solution</div>
-            </div>
-            <div class="solution-body" style="display:block;">
-                <div class="s-text" style="margin-bottom:8px;"><b>Problem:</b> ${escapeHtml(best.problem)}</div>
-                <div class="s-text" style="margin-bottom:8px;"><b>IFR:</b> ${escapeHtml(best.ikr)}</div>
-                <div class="s-text" style="margin-bottom:8px;"><b>Solution:</b> ${escapeHtml(best.solution)}</div>
-                <div class="s-text" style="color:#6c7a8a;"><b>Why:</b> ${escapeHtml(cmp.reasoning)}</div>
-            </div>
-        </div>`;
-        }
-
-        function toggleAccordion(element) {
-            element.classList.toggle('expanded');
-        }
-
-        window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const q = urlParams.get('query');
-            if (q) {
-                document.getElementById('flow-input').value = q;
-                startFlowSolve();
-            }
-        };
-
-    </script>
-</body>
-</html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASUIR — FlowSolve: solution generator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#222;padding:20px 40px 60px}
+.main-wrapper{max-width:1400px;margin:0 auto}
+.top-utility-bar{display:flex;justify-content:flex-end;font-size:13px;margin-bottom:10px}
+.brand-title-block{text-align:center;margin:20px 0 15px}
+.brand-title-text{font-family:'Times New Roman',Times,Georgia,serif;font-size:52px;font-weight:400;letter-spacing:2px;color:#555;text-transform:uppercase;line-height:1}
+.nav-global-menu{display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 12px;flex-wrap:wrap}
+.nav-global-link{text-decoration:none;text-align:center}
+.nav-global-link .main-label{display:block;font-size:13px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.5px}
+.nav-global-link .sub-label{display:block;font-size:11.5px;color:#666;margin-top:2px}
+.nav-global-link:hover .main-label,.nav-global-link.active .main-label{color:#1f4e78}
+.divider{margin:10px 0 25px}.divider .thin{height:1px;background:#d0d7dd;margin-bottom:4px}.divider .thick{height:4px;background:#a0a8b0}
+.card{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:24px;margin-bottom:20px}
+h1{font-size:20px;color:#1f4e78;margin-bottom:8px}
+.sub{color:#555;margin:0 0 12px;font-size:14px;line-height:1.5}
+.nav-tabs2{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.nav-tabs2 button{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px;color:#444}
+.nav-tabs2 button.on{background:#1f4e78;color:#fff;border-color:#1f4e78}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.bar input,.bar select{padding:7px 9px;border:1px solid #d0d7dd;border-radius:4px;background:#fff;color:#222;font:inherit;font-size:14px}
+.m{color:#666;font-size:12.5px}
+.wrap{border:1px solid #d0d7dd;border-radius:4px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid #e3e8ec;text-align:left;vertical-align:top}
+th{background:#f2f5f8;color:#1f4e78;font-size:12.5px;line-height:1.25}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.profit{color:#2e7d32;font-weight:700}.neg{color:#b12704;font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:#eef2f5;color:#666}
+.go{display:inline-block;background:#1f4e78;color:#fff;text-decoration:none;padding:6px 10px;border-radius:4px;font-size:12.5px;text-align:center;line-height:1.25}
+.go:hover{background:#2b5b84}.go.off{background:#f2f5f8;color:#777;border:1px dashed #c3ccd3;pointer-events:none}
+details summary{cursor:pointer;color:#1f4e78}
+.note{margin:12px 0 0;color:#666;font-size:13px;line-height:1.5}
+.live{margin-top:20px}
+footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
+@media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}</style>
+<style>
+.nav-global-menu{gap:18px}
+.steps{counter-reset:st}
+.step{border:1px solid #e3e8ec;border-radius:4px;padding:14px 16px;margin:0 0 12px;background:#fff}
+.step h3{font-size:14px;color:#1f4e78;margin:0 0 4px}
+.step .hint{color:#666;font-size:12.5px;margin:0 0 8px;line-height:1.45}
+.step textarea,.step input[type=text]{width:100%;padding:8px 10px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:14px;color:#222;background:#fff}
+.step textarea{min-height:54px;resize:vertical}
+.lv{border-left:3px solid #c3ccd3;padding:6px 0 6px 12px;margin:8px 0}
+.lv b{display:block;font-size:13px;color:#1f4e78;margin-bottom:4px}
+.lv label{display:block;font-size:12.5px;color:#555;margin:6px 0 2px}
+#infl td input{width:100%;padding:6px 8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13px}
+#infl select{padding:5px 6px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13px;background:#fff}
+#infl tr.lever td{background:#e2efda}
+.del{background:none;border:0;color:#b12704;cursor:pointer;font-size:15px}
+.btn{display:inline-block;background:#1f4e78;color:#fff;border:0;border-radius:4px;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer;margin:0 6px 6px 0}
+.btn:hover{background:#2b5b84}.btn.alt{background:#fff;color:#1f4e78;border:1px solid #1f4e78}.btn.alt:hover{background:#eef6ff}
+.ok{color:#2e7d32;font-size:12.5px;margin-left:6px}
+.tree{display:flex;flex-direction:column;align-items:center;padding:10px 0}
+.nd{max-width:560px;width:100%;text-align:center;font-size:13.5px;line-height:1.4;padding:10px 14px}
+.nd .k{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#555;margin-bottom:3px}
+.pr{background:#fbe1d0;border:1px solid #e3b79b}
+.id{background:#c6e0b4;border:1px solid #9fc58a;border-radius:50%/40%;max-width:460px;padding:14px 26px}
+.sol{background:#1f4e78;color:#fff;border-radius:4px}.sol .k{color:#cfe3f7}
+.why{font-size:12px;color:#666;max-width:520px;text-align:center;margin:4px 0 0}
+.ar{width:2px;height:18px;background:#888;position:relative;margin:2px 0}
+.ar:after{content:"";position:absolute;left:-4px;bottom:-2px;border:5px solid transparent;border-top-color:#888}
+.lvtag{font-size:11.5px;color:#1f4e78;font-weight:700;margin-top:6px}
+.lib{border:1px solid #d0d7dd;border-radius:4px;padding:12px 14px;margin:0 0 10px}
+.lib h4{font-size:14px;color:#1f4e78;margin:0 0 6px}
+.lib p,.lib li{font-size:13px;line-height:1.5;color:#333}
+.lib table{border-collapse:collapse;margin:6px 0;font-size:12.5px}.lib th,.lib td{border:1px solid #d0d7dd;padding:4px 8px}
+.crit li{font-size:13.5px;line-height:1.55;margin:0 0 4px}
+.crit{padding-left:20px;margin:0 0 8px}
+#saved a{color:#1f4e78}
+@media print{.nav-global-menu,.top-utility-bar,.no-print{display:none}}
+</style></head>
+<body><div class="main-wrapper">
+<div class="top-utility-bar"><a href="flowsolve.html" style="cursor:pointer;font-weight:600;color:#333;text-decoration:none">Languages ⌵</a></div>
+<div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">TECHNOLOGY MATRIX</h1></div>
+<div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
+<nav class="nav-global-menu">
+<a href="index.html" class="nav-global-link"><span class="main-label">ABOUT</span><span class="sub-label">automated management system</span></a>
+<a href="flowsolve_en.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">FLOWSOLVE</span><span class="sub-label">solution generator</span></a>
+<a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link"><span class="main-label">ASUIR</span><span class="sub-label">driver of ultra-efficient production</span></a>
+<a href="ASUIRServices_en.html" class="nav-global-link"><span class="main-label">ASUIR — SERVICES</span><span class="sub-label">driver of ultra-efficient services</span></a>
+<a href="Catalog_en.html" class="nav-global-link"><span class="main-label">CATALOG</span><span class="sub-label">equipment, modules and products</span></a>
+<a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">reference and formulas</span></a>
+</nav>
+<div class="divider"><div class="thin"></div><div class="thick"></div></div>
+
+<div class="card">
+<h1>FlowSolve — a recursive problem-solving method</h1>
+<p class="sub">FlowSolve is a problem-solving method the author has applied in practice for about 45 years: problem → ideal solution → the path to it; where needed, the solution found becomes a new problem with its own ideal solution. It differs from enumeration in that a branch is chosen before it is unfolded: first one establishes what affects the event, which factors are controllable and which already exist as means; the lever lies where these meet. A standard problem is then solved within three levels.</p>
+<p class="sub">In the ASUIR system FlowSolve is the first link. A problem that existing means can solve goes to the efficiency generator; a problem that needs new technology goes to the technology generator “Aristotle” (in development) and then to the efficiency generator.</p>
+<h2 style="font-size:16px;color:#1f4e78;margin:18px 0 6px">Branch selection rules</h2>
+<ol class="crit"><li>An existing means is not discarded on a general feature: first check whether a small refinement makes it reach the ideal solution.</li><li>If a participant is uncontrollable, act through a controllable participant.</li><li>Of the branches leading to the ideal solution, choose the one requiring the least change.</li></ol>
+<p class="note">Not allowed: going down the tree without an influence table; listing every possible branch “for completeness”; turning to new or expensive technology when refining what already exists is enough.</p>
+</div>
+
+<div class="card">
+<h1>Solution template</h1>
+<p class="sub">Fill in the steps in order; the influence table comes before any branch is chosen. Rows where a factor is controllable and already exists as a means are highlighted in green: these are lever candidates. Saved problems are kept only in this browser.</p>
+<div class="no-print" style="margin:0 0 12px">
+<button class="btn alt" onclick="loadExample()">Load the example: crossing</button>
+<button class="btn alt" onclick="clearAll()">Clear</button>
+<span id="saved" class="m"></span>
+</div>
+<div class="steps">
+<div class="step"><h3>0. Problem</h3><p class="hint">How the problem was first stated.</p><textarea id="task"></textarea></div>
+<div class="step"><h3>1. Exact statement</h3><p class="hint">What precisely is prohibited or required. Narrow it to the essence: for example, what is prohibited is not paths crossing, but a real simultaneous crossing.</p><textarea id="stmt"></textarea></div>
+<div class="step"><h3>2. Ideal solution</h3><p class="hint">A result achieved regardless of uncontrollable participants and chance.</p><textarea id="ideal"></textarea></div>
+<div class="step"><h3>3. Influence table</h3><p class="hint">Everything that affects the event. For each factor: is it controllable, and does it already exist as a means? Filled in before a branch is chosen.</p>
+<div class="wrap"><table id="infl"><thead><tr><th>What affects</th><th style="width:150px">Controllable?</th><th style="width:150px">Already exists as a means?</th><th style="width:30px"></th></tr></thead><tbody></tbody></table></div>
+<button class="btn alt no-print" style="margin-top:8px" onclick="addRow()">+ row</button></div>
+<div class="step"><h3>4. Lever</h3><p class="hint">A factor that is controllable and already exists. If there is none, the factor needing the smallest addition.</p><input type="text" id="lever"> <button class="btn alt no-print" style="margin-top:6px" onclick="pickLever()">Take from the table</button></div>
+<div class="step"><h3>5. One branch — no deeper than three levels</h3><p class="hint">From the lever to the ideal solution. At each level: the problem, its ideal solution and one sentence on why this branch was chosen. A second branch is opened only if the first does not reach the ideal solution.</p><div id="levels"></div></div>
+<div class="step"><h3>6. Check</h3><p class="hint">Is the ideal solution reached under the worst behaviour of the uncontrollable participants?</p><textarea id="check"></textarea></div>
+<div class="step"><h3>7. Solution</h3><p class="hint">In one sentence.</p><textarea id="sol"></textarea></div>
+</div>
+<div class="no-print">
+<button class="btn" onclick="drawTree()">Build the tree</button>
+<button class="btn" onclick="copyPrompt()">Copy the request for AI</button>
+<button class="btn alt" onclick="saveCase()">Save in browser</button>
+<button class="btn alt" onclick="window.print()">Print / PDF</button>
+<span id="msg" class="ok"></span>
+</div>
+<p class="note no-print">“Copy the request for AI” copies the problem together with the rules of the method. Paste it into Claude, ChatGPT or Gemini — the answer comes back in the form of this template. A person checks the branch the AI proposes: AI tends to enumerate branches rather than choose them.</p>
+</div>
+
+<div class="card" id="treeCard" style="display:none">
+<h1>Solution tree</h1>
+<div id="tree" class="tree"></div>
+</div>
+
+<div class="card">
+<h1>Label library</h1>
+<p class="sub">Solved problems in template form. Before solving a new problem, check whether one of them has the same statement.</p>
+<div id="lib"></div>
+</div>
+
+<footer>© Anatoli Dolgov, Los Angeles, California, USA. Free Use for Humanity.<br>Developed with technical support from the AI assistant Claude (Anthropic).<br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">MIT License</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.<br><a href="/privacy.html" style="color:#6c7a8a;">Privacy Policy</a></footer>
+</div>
+<script>
+const L={"lang": "en", "level": "Level", "optional": "(if needed)", "lvP": "Problem", "lvI": "Ideal solution", "lvW": "Why this branch", "yes": "yes", "no": "no", "part": "partly", "del": "Delete", "noLever": "The table has no factor that is controllable and already exists as a means", "needTask": "Fill in the problem or the statement first", "nProblem": "Problem", "nIdeal": "Ideal solution", "nLever": "Lever", "nWhy": "Why this branch", "nSol": "Solution", "nCheck": "Check", "copied": "Request copied — paste it into the AI", "copyFail": "Could not copy", "savedOk": "Saved in this browser", "saveFail": "The browser did not allow saving", "mine": "My problems", "taskPh": "[your problem]", "prompt": "Solve this problem with the FlowSolve method (author: A. Dolgov). Rule: do NOT enumerate branches. First find the lever, then follow ONE branch, no deeper than 3 levels.\n\nOrder (do not skip or reorder steps):\n1. Exact statement: what precisely is prohibited or required; narrow it to the essence.\n2. Ideal solution: a result achieved regardless of uncontrollable participants and chance.\n3. Influence table — BEFORE any branching: everything that affects the event; for each, whether it is controllable and whether it already exists as a means.\n4. Lever: the factor where \"controllable\" and \"already exists\" meet. If there is none, the one that needs the smallest addition.\n5. One branch from the lever to the ideal solution, no deeper than 3 levels; at each level the problem, its ideal solution and one sentence on why this branch was chosen. Open a second branch only if the first does not reach the ideal solution.\n6. Check: is the ideal solution reached under the worst behaviour of the uncontrollable participants?\n7. Solution in one sentence.\n\nBranch selection criteria:\n— do not discard an existing means on a general feature; first check whether a small refinement makes it reach the ideal solution;\n— if a participant is uncontrollable, act through a controllable one;\n— of the branches that lead to the ideal solution, take the one needing the least change.\nProhibited: going down the tree without an influence table; listing all branches \"for completeness\"; turning to new or expensive technology when refining what exists is enough.\n\nExample (label \"Crossing\"): statement — a real simultaneous crossing of a car and a pedestrian is prohibited; ideal solution — no collision whatever the driver's state; influence table: driver — uncontrollable, car — partly, pedestrian — controllable, traffic light — controllable and already exists; lever — the traffic light acting on the pedestrian; solution — a speed sensor in the traffic light judges whether the approaching car will cross; if so, the pedestrian gets red. Typical AI error: discarding the traffic light as \"informing the driver\" without checking that it also controls the pedestrian.\n\nAnswer strictly in this form:\nSTATEMENT: ...\nIDEAL SOLUTION: ...\nINFLUENCE TABLE:\n| What affects | Controllable? | Already exists as a means? |\nLEVER: ... (why)\nBRANCH:\n  Level 1: problem → ideal solution → why this branch\n  Level 2: ...\n  Level 3: ... (if needed)\nCHECK: ...\nSOLUTION: ...\n\nProblem: {{TASK}}", "example": {"task": "Prevent a collision between a pedestrian and a car at a crossing where their paths meet at 90°", "stmt": "A real simultaneous crossing of a car and a pedestrian is prohibited", "ideal": "No collision whatever the driver's state (drunk, on drugs, distracted)", "infl": [{"f": "Driver", "c": "no", "e": "no"}, {"f": "Car (braking systems)", "c": "part", "e": "part"}, {"f": "Pedestrian", "c": "yes", "e": "no"}, {"f": "Traffic light", "c": "yes", "e": "yes"}], "lever": "The traffic light — it acts on the pedestrian, who is controllable", "lv": [{"p": "How to rule out a collision if the driver is uncontrollable?", "i": "Act through the controllable participant — the pedestrian — with the existing traffic light", "w": "The traffic light already exists and controls the pedestrian; neither the driver nor the car gives a guarantee"}, {"p": "How can the traffic light tell that the car will not stop?", "i": "The traffic light itself judges whether the approaching car will cross", "w": "The smallest addition to an existing means — one sensor"}, {}], "check": "Yes: even with a drunk driver the pedestrian does not step out — the light is red for them while the car may cross", "sol": "A speed sensor in the traffic light judges whether the approaching car will cross; if so, the pedestrian gets red"}, "lib": "<div class=\"lib\"><h4>Label 1. Crossing</h4>\n<p><b>Statement:</b> a real simultaneous crossing of a car and a pedestrian whose paths meet at 90° is prohibited.<br><b>Ideal solution:</b> no collision whatever the driver's state.</p>\n<table><tr><th>What affects</th><th>Controllable?</th><th>Already exists as a means?</th></tr><tr><td>Driver</td><td>no</td><td>—</td></tr><tr><td>Car</td><td>only if it has the system</td><td>not in every car</td></tr><tr><td>Pedestrian</td><td>yes, obeys the signal</td><td>—</td></tr><tr><td><b>Traffic light</b></td><td><b>yes</b></td><td><b>yes</b></td></tr></table>\n<p><b>Lever:</b> the traffic light acting on the pedestrian.<br><b>Solution:</b> a speed sensor in the traffic light judges whether the approaching car will cross; if so, the pedestrian gets red.<br><b>Why other branches are worse:</b> “help the driver” (signals, automatic braking, car-to-road links) depends on the driver or on a particular car's equipment; “stop the car physically” (barriers, grade-separated crossings) is costly and excessive.<br><b>Typical AI error:</b> the traffic light is discarded as “informing the driver” without checking that it also controls the pedestrian.</p>\n<button class=\"btn alt no-print\" onclick=\"loadExample()\">Open in the template</button></div>"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const KEY="asuir_flowsolve_"+L.lang;
+function lvHtml(i){return `<div class="lv"><b>${L.level} ${i+1}${i===2?" "+L.optional:""}</b><label>${L.lvP}</label><textarea id="lp${i}"></textarea><label>${L.lvI}</label><textarea id="li${i}"></textarea><label>${L.lvW}</label><textarea id="lw${i}"></textarea></div>`}
+$("#levels").innerHTML=[0,1,2].map(lvHtml).join("");
+function yn(v){return `<option value="yes"${v==="yes"?" selected":""}>${L.yes}</option><option value="no"${v==="no"?" selected":""}>${L.no}</option><option value="part"${v==="part"?" selected":""}>${L.part}</option>`}
+function addRow(f,c,e){const tr=document.createElement("tr");tr.innerHTML=`<td><input value="${esc(f||"")}"></td><td><select>${yn(c||"no")}</select></td><td><select>${yn(e||"no")}</select></td><td><button class="del" title="${L.del}">✕</button></td>`;
+ tr.querySelector(".del").onclick=()=>{tr.remove();mark()};tr.querySelectorAll("select").forEach(s=>s.onchange=mark);$("#infl tbody").appendChild(tr);mark()}
+function rows(){return [...document.querySelectorAll("#infl tbody tr")].map(tr=>({f:tr.querySelector("input").value.trim(),c:tr.querySelectorAll("select")[0].value,e:tr.querySelectorAll("select")[1].value}))}
+function mark(){document.querySelectorAll("#infl tbody tr").forEach(tr=>{const s=tr.querySelectorAll("select");tr.classList.toggle("lever",s[0].value==="yes"&&s[1].value==="yes")})}
+function pickLever(){const r=rows().filter(x=>x.f&&x.c==="yes"&&x.e==="yes");$("#lever").value=r.length?r.map(x=>x.f).join("; "):"";msg(r.length?"":L.noLever)}
+function state(){return {task:$("#task").value,stmt:$("#stmt").value,ideal:$("#ideal").value,infl:rows(),lever:$("#lever").value,lv:[0,1,2].map(i=>({p:$("#lp"+i).value,i:$("#li"+i).value,w:$("#lw"+i).value})),check:$("#check").value,sol:$("#sol").value}}
+function setState(s){s=s||{};$("#task").value=s.task||"";$("#stmt").value=s.stmt||"";$("#ideal").value=s.ideal||"";$("#infl tbody").innerHTML="";(s.infl&&s.infl.length?s.infl:[{},{},{}]).forEach(r=>addRow(r.f,r.c,r.e));$("#lever").value=s.lever||"";
+ [0,1,2].forEach(i=>{const v=(s.lv||[])[i]||{};$("#lp"+i).value=v.p||"";$("#li"+i).value=v.i||"";$("#lw"+i).value=v.w||""});$("#check").value=s.check||"";$("#sol").value=s.sol||""}
+function msg(t){$("#msg").textContent=t||"";if(t)setTimeout(()=>{if($("#msg").textContent===t)$("#msg").textContent=""},4000)}
+function loadExample(){setState(L.example);drawTree();window.scrollTo({top:$("#task").offsetTop-80,behavior:"smooth"})}
+function clearAll(){setState({});$("#treeCard").style.display="none"}
+function drawTree(){const s=state(),out=[];const ar='<div class="ar"></div>';
+ if(!s.task.trim()&&!s.stmt.trim()){msg(L.needTask);return}
+ out.push(`<div class="nd pr"><span class="k">${L.nProblem}</span>${esc(s.stmt||s.task)}</div>`);
+ if(s.ideal.trim())out.push(ar,`<div class="nd id"><span class="k">${L.nIdeal}</span>${esc(s.ideal)}</div>`);
+ if(s.lever.trim())out.push(`<div class="why"><b>${L.nLever}:</b> ${esc(s.lever)}</div>`);
+ s.lv.forEach((v,i)=>{if(!(v.p.trim()||v.i.trim()))return;out.push(ar,`<div class="lvtag">${L.level} ${i+1}</div>`);
+  if(v.p.trim())out.push(`<div class="nd pr"><span class="k">${L.nProblem}</span>${esc(v.p)}</div>`);
+  if(v.i.trim())out.push(ar,`<div class="nd id"><span class="k">${L.nIdeal}</span>${esc(v.i)}</div>`);
+  if(v.w.trim())out.push(`<div class="why"><b>${L.nWhy}:</b> ${esc(v.w)}</div>`)});
+ if(s.sol.trim())out.push(ar,`<div class="nd sol"><span class="k">${L.nSol}</span>${esc(s.sol)}</div>`);
+ if(s.check.trim())out.push(`<div class="why"><b>${L.nCheck}:</b> ${esc(s.check)}</div>`);
+ $("#tree").innerHTML=out.join("");$("#treeCard").style.display="block";$("#treeCard").scrollIntoView({behavior:"smooth"})}
+function mkPrompt(){const t=$("#task").value.trim()||$("#stmt").value.trim();return L.prompt.replace("{{TASK}}",t||L.taskPh)}
+async function copyPrompt(){const p=mkPrompt();try{await navigator.clipboard.writeText(p);msg(L.copied)}catch(e){const ta=document.createElement("textarea");ta.value=p;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");msg(L.copied)}catch(_){msg(L.copyFail)}ta.remove()}}
+function getSaved(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return []}}
+function putSaved(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){return false}}
+function saveCase(){const s=state();if(!s.task.trim()&&!s.stmt.trim()){msg(L.needTask);return}const a=getSaved().filter(x=>x.task!==s.task);a.unshift(s);msg(putSaved(a.slice(0,30))?L.savedOk:L.saveFail);showSaved()}
+function showSaved(){const a=getSaved();$("#saved").innerHTML=a.length?L.mine+": "+a.map((x,i)=>`<a href="#" data-i="${i}">${esc((x.task||x.stmt).slice(0,40))}</a> <a href="#" data-d="${i}" title="${L.del}" style="color:#b12704">✕</a>`).join(" · "):""}
+$("#saved").onclick=e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const s=getSaved();if(a.dataset.i!=null){setState(s[+a.dataset.i]);drawTree()}else if(a.dataset.d!=null){s.splice(+a.dataset.d,1);putSaved(s);showSaved()}};
+$("#lib").innerHTML=L.lib;
+setState({});showSaved();
+</script>
+</body></html>

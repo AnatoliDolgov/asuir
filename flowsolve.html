@@ -1,915 +1,185 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHNOLOGY MATRIX — FlowSolve (4-D Socrates Engine)</title>
-    <style>
-        /* ================================================================
-           ДИЗАЙН 1:1 С ПОРТАЛА TECHNOLOGY MATRIX
-           ================================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #ffffff;
-            color: #222222;
-            padding: 20px 40px 60px;
-        }
-
-        .main-wrapper {
-            max-width: 1240px;
-            margin: 0 auto;
-        }
-
-        /* ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА: ТОЛЬКО ЯЗЫКИ */
-        .top-utility-bar {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 13px;
-            color: #333333;
-            margin-bottom: 10px;
-        }
-
-        .lang-switch {
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-            color: #333333;
-        }
-
-            .lang-switch:hover {
-                color: #1f4e78;
-            }
-
-        /* ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX */
-        .brand-title-block {
-            text-align: center;
-            margin: 20px 0 15px;
-        }
-
-        .brand-title-text {
-            font-family: 'Times New Roman', Times, 'Georgia', serif;
-            font-size: 52px;
-            font-weight: 400;
-            letter-spacing: 2px;
-            color: #555555;
-            text-transform: uppercase;
-            line-height: 1;
-        }
-
-        /* 1. ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ */
-        .matrix-divider-single {
-            height: 1px;
-            background-color: #d0d7dd;
-            margin: 15px 0 10px 0;
-            width: 100%;
-        }
-
-        /* 2. ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ */
-        .nav-global-menu {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            padding: 8px 0 12px 0;
-        }
-
-        .nav-global-link {
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-            transition: 0.15s;
-        }
-
-            .nav-global-link .main-label {
-                display: block;
-                font-size: 13px;
-                font-weight: 700;
-                color: #222222;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-
-            .nav-global-link .sub-label {
-                display: block;
-                font-size: 12px;
-                color: #666666;
-                margin-top: 2px;
-                font-weight: 400;
-            }
-
-            .nav-global-link:hover .main-label,
-            .nav-global-link.active .main-label {
-                color: #1f4e78;
-            }
-
-        /* 3. ТОЧНАЯ НАСЫЩЕННАЯ ДВОЙНАЯ СЕРАЯ ПОЛОСА (1:1) */
-        .matrix-divider-double-box {
-            margin: 10px 0 25px 0;
-            width: 100%;
-        }
-
-            .matrix-divider-double-box .thin-line {
-                height: 1px;
-                background-color: #d0d7dd;
-                margin-bottom: 4px;
-                width: 100%;
-            }
-
-            .matrix-divider-double-box .thick-line {
-                height: 4px;
-                background-color: #a0a8b0;
-                width: 100%;
-            }
-
-        /* 4. ОСНОВНАЯ КАРТОЧКА РАБОЧЕГО ПРОСТРАНСТВА */
-        .matrix-card-box {
-            background: #ffffff;
-            border: 1px solid #d0d7dd;
-            border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            margin-bottom: 30px;
-        }
-
-        /* БЛОК ВВОДА ПРОБЛЕМЫ ИЛИ ИДЕИ */
-        .strategy-input-container {
-            background: #fafbfc;
-            border-bottom: 1px solid #d0d7dd;
-            padding: 24px 28px;
-        }
-
-        .strategy-title-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #1f4e78;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .input-group-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .input-flow-text {
-            flex: 1;
-            padding: 10px 14px;
-            font-size: 14px;
-            border: 1px solid #b8daff;
-            border-radius: 4px;
-            color: #1a2632;
-            background: #ffffff;
-            outline: none;
-            transition: 0.15s;
-            height: 42px;
-        }
-
-            .input-flow-text:focus {
-                border-color: #1f4e78;
-                box-shadow: 0 0 0 3px rgba(31,78,120,0.1);
-            }
-
-        .btn-start-flow {
-            background-color: #1f4e78;
-            color: #ffffff;
-            border: none;
-            padding: 0 24px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-            white-space: nowrap;
-            height: 42px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: 0.15s;
-        }
-
-            .btn-start-flow:hover {
-                background-color: #163755;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            }
-
-        /* ТАБЫ ВЫВОДА РЕЗУЛЬТАТОВ (С МАЛИНОВЫМ ПОДЧЕРКИВАНИЕМ) */
-        .matrix-tab-bar {
-            display: flex;
-            background: #fbfbfb;
-            border-bottom: 1px solid #d0d7dd;
-            padding: 0 6px;
-            overflow-x: auto;
-        }
-
-        .matrix-tab-item {
-            padding: 13px 20px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            color: #4a5568;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -1px;
-            transition: all 0.15s ease;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-            .matrix-tab-item:hover {
-                color: #111111;
-                background: #f0f2f5;
-            }
-
-            .matrix-tab-item.active {
-                color: #111111;
-                font-weight: 700;
-                border-bottom: 3px solid #d53f8c;
-                background: #ffffff;
-            }
-
-        .matrix-content-body {
-            padding: 24px 28px;
-        }
-
-        /* ИМИТАЦИЯ ПОИСКА / СПИННЕР */
-        #loading-view {
-            display: none;
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .spinner {
-            border: 3px solid #e0e4e8;
-            border-left-color: #1f4e78;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 16px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        #loading-text {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1f4e78;
-        }
-
-        .loading-subtext {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 6px;
-        }
-
-        /* АККОРДЕОН РЕШЕНИЙ */
-        .solution-item {
-            background: #ffffff;
-            border: 1px solid #d0d7dd;
-            border-radius: 4px;
-            margin-bottom: 14px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            transition: 0.2s;
-        }
-
-        .solution-header {
-            padding: 14px 18px;
-            background: #f8fafc;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.15s;
-        }
-
-            .solution-header:hover {
-                background: #f1f5f9;
-            }
-
-        .solution-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1f4e78;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .solution-score {
-            background: #e2efda;
-            color: #007600;
-            padding: 3px 8px;
-            font-size: 11px;
-            border-radius: 12px;
-            font-weight: 700;
-            border: 1px solid #bcd1a9;
-        }
-
-        .solution-maneuver-tag {
-            font-size: 11px;
-            background: #edf2f7;
-            color: #1f4e78;
-            padding: 2px 8px;
-            border-radius: 3px;
-            border: 1px solid #cbd5e0;
-            font-weight: 600;
-        }
-
-        .solution-toggle {
-            font-size: 12px;
-            color: #6c7a8a;
-            transition: transform 0.2s;
-        }
-
-        .solution-item.expanded .solution-header {
-            border-bottom: 1px solid #e2e8f0;
-            background: #ffffff;
-        }
-
-        .solution-item.expanded .solution-toggle {
-            transform: rotate(180deg);
-            color: #d53f8c;
-        }
-
-        .solution-body {
-            display: none;
-            padding: 18px 20px;
-            background: #ffffff;
-        }
-
-        .solution-item.expanded .solution-body {
-            display: block;
-        }
-
-        .s-block {
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #edf2f7;
-        }
-
-            .s-block:last-of-type {
-                border-bottom: none;
-            }
-
-        .s-block-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #c65911;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .s-text {
-            font-size: 13.5px;
-            line-height: 1.6;
-            color: #333333;
-        }
-
-        .btn-select-solution {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: #007600;
-            color: #ffffff;
-            border: none;
-            padding: 10px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.15s;
-            text-decoration: none;
-        }
-
-            .btn-select-solution:hover {
-                background: #005a00;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            }
-
-        /* МАТРИЦА СРАВНЕНИЯ */
-        .compare-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-            .compare-table th, .compare-table td {
-                border: 1px solid #d0d7dd;
-                padding: 10px 14px;
-                text-align: left;
-                vertical-align: middle;
-            }
-
-            .compare-table th {
-                background: #1f4e78;
-                color: #ffffff;
-                font-weight: 600;
-            }
-
-            .compare-table tr:nth-child(even) {
-                background-color: #fcfcfc;
-            }
-
-            .compare-table td:first-child {
-                font-weight: 700;
-                color: #1f4e78;
-                background: #f8fafc;
-                width: 25%;
-            }
-
-        .best-val {
-            background: #e2efda;
-            color: #007600;
-            font-weight: 700;
-            border-radius: 3px;
-            padding: 2px 6px;
-            border: 1px solid #bcd1a9;
-            display: inline-block;
-        }
-
-        .footer {
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #e8ecf0;
-            font-size: 12px;
-            color: #6c7a8a;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .nav-global-menu {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .top-utility-bar {
-                justify-content: center;
-            }
-
-            .input-group-row {
-                flex-direction: column;
-            }
-
-            .btn-start-flow {
-                width: 100%;
-            }
-        }
-    </style>
-
-    <!-- Google Analytics: включается только после согласия посетителя; выбор хранится в браузере (asuir_ga_consent) -->
-    <script>
-        (function () {
-            var KEY = 'asuir_ga_consent', ID = 'G-SCZYX0Z5VX';
-            function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-            function set(v) { try { localStorage.setItem(KEY, v); } catch (e) { } }
-            function loadGA() {
-                var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID; document.head.appendChild(s);
-                window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
-                gtag('js', new Date()); gtag('config', ID);
-            }
-            if (get() === 'yes') { loadGA(); return; }
-            if (get() === 'no') return;
-            document.addEventListener('DOMContentLoaded', function () {
-                var L = 'ru';
-                var TX = { ru: ["Сайт считает посещения с помощью Google Analytics. Разрешить?", "Согласен", "Нет", "Подробнее", "/privacy.html#ru"], en: ["This site counts visits with Google Analytics. Allow it?", "Agree", "No", "Details", "/privacy.html"] }[L];
-                var b = document.createElement('div');
-                b.id = 'ga-consent';
-                b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;font:14px/1.4 -apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;box-shadow:0 -2px 8px rgba(0,0,0,.2);';
-                b.innerHTML = '<span>' + TX[0] + ' <a href="' + TX[4] + '" style="color:#cfe3f7;">' + TX[3] + '</a></span>' +
-                    '<button type="button" data-v="yes" style="background:#fff;color:#1f4e78;border:0;border-radius:4px;padding:6px 16px;font-weight:700;cursor:pointer;">' + TX[1] + '</button>' +
-                    '<button type="button" data-v="no" style="background:transparent;color:#fff;border:1px solid #cfe3f7;border-radius:4px;padding:6px 16px;cursor:pointer;">' + TX[2] + '</button>';
-                b.addEventListener('click', function (e) {
-                    var v = e.target.getAttribute && e.target.getAttribute('data-v'); if (!v) return;
-                    set(v); b.remove(); document.body.style.paddingBottom = ''; if (v === 'yes') loadGA();
-                });
-                document.body.appendChild(b); var padGA = function () { if (b.isConnected) document.body.style.paddingBottom = b.offsetHeight + 'px'; }; padGA(); window.addEventListener('resize', padGA);
-            });
-        })();
-    </script>
-</head>
-<body>
-
-    <div class="main-wrapper">
-
-        <!-- ВЕРХНЯЯ СЛУЖЕБНАЯ СТРОКА: ТОЛЬКО ЯЗЫКИ -->
-        <div class="top-utility-bar">
-            <a href="flowsolve_en.html" class="lang-switch">Languages ⌵</a>
-        </div>
-
-        <!-- ГЛАВНЫЙ ЗАГОЛОВОК TECHNOLOGY MATRIX -->
-        <div class="brand-title-block">
-            <h1 class="brand-title-text">TECHNOLOGY MATRIX</h1>
-        </div>
-
-        <!-- 1. ТОНКИЙ ВЕРХНИЙ РАЗДЕЛИТЕЛЬ -->
-        <div class="matrix-divider-single"></div>
-
-        <!-- 2. ГЛОБАЛЬНОЕ МЕНЮ 1-ГО УРОВНЯ -->
-        <nav class="nav-global-menu">
-            <a href="index_ru.html" class="nav-global-link">
-                <span class="main-label">О ПРОЕКТЕ</span>
-                <span class="sub-label">автоматизированная система управления</span>
-            </a>
-            <a href="flowsolve.html" class="nav-global-link active">
-                <span class="main-label" style="color:#1f4e78;">FlowSolve</span>
-                <span class="sub-label">анализ и оптимизации процессов</span>
-            </a>
-            <a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link">
-                <span class="main-label">АСУИР</span>
-                <span class="sub-label">генератор эффективности</span>
-            </a>
-            <a href="Help_en.html" class="nav-global-link">
-                <span class="main-label">Help</span>
-                <span class="sub-label">справка и формулы</span>
-            </a>
-        </nav>
-
-        <!-- 3. ТОЧНАЯ НАСЫЩЕННАЯ ДВОЙНАЯ СЕРАЯ ПОЛОСА (1:1) -->
-        <div class="matrix-divider-double-box">
-            <div class="thin-line"></div>
-            <div class="thick-line"></div>
-        </div>
-
-        <!-- 4. ОСНОВНАЯ КАРТОЧКА РАБОЧЕГО ПРОСТРАНСТВА -->
-        <div class="matrix-card-box">
-
-            <!-- ВВОД ИДЕИ ИЛИ ПРОБЛЕМЫ -->
-            <div class="strategy-input-container">
-                <div class="strategy-title-label">🧠 Проблема → ИКР → Поиск путей достижения (рекурсивно)</div>
-                <div class="input-group-row">
-                    <input type="text" id="flow-input" class="input-flow-text"
-                           value="как добиться исключения несчастных случаев при пересечении пешеходного перехода"
-                           placeholder="Опишите проблему, идею или целевой продукт...">
-                    <button class="btn-start-flow" onclick="startFlowSolve()">🧠 Синтезировать решения</button>
-                </div>
-            </div>
-
-            <div id="loading-view" style="display:none;"></div>
-
-            <!-- ЭКРАН РЕЗУЛЬТАТОВ: РЕКУРСИВНОЕ ДЕРЕВО Проблема → ИКР → Приёмы → Подзадача -->
-            <div id="results-view" style="display:none;">
-                <div class="matrix-content-body">
-                    <div id="tree-root"></div>
-                    <div id="compare-panel" style="display:none; margin-top:22px; padding-top:18px; border-top:1px solid #d0d7dd;"></div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="footer">
-            © Анатолий Долгов, Лос-Анджелес, Калифорния, США. Свободное использование для человечества.
-        </div>
-    </div>
-
-    <script>
-        /* ==========================================================================
-           FLOWSOLVE — РЕАЛЬНЫЙ РЕКУРСИВНЫЙ ПОИСК ЧЕРЕЗ ИКР (вызов ИИ на каждом шаге)
-           Схема: Проблема → Идеальный Конечный Результат (ИКР) → либо готовое
-           решение, либо разбиение на конкретные подзадачи → та же схема для каждой.
-           Никакого фиксированного каталога приёмов — на каждом шаге модель ищет
-           идеальное решение заново, для конкретной формулировки.
-           ========================================================================== */
-
-        const SYSTEM_PROMPT = `Ты — эксперт по решению задач методом ИКР (Идеальный Конечный Результат), классическая схема ТРИЗ/АСУИР: Проблема → ИКР → Поиск путей достижения, применяется рекурсивно к каждой возникающей подзадаче.
-
-Тебе дана формулировка задачи (это может быть исходная проблема или подзадача, порождённая на предыдущем шаге). Выполни три действия:
-
-1. Сформулируй ИКР для ЭТОЙ КОНКРЕТНОЙ задачи: как выглядела бы ситуация, если бы система САМА, без введения нового устройства и без дополнительных затрат, устраняла проблему и выполняла нужную функцию, сохраняя все полезные свойства и не создавая вредных эффектов. Если в задаче есть параметр, который можно мысленно довести до предельного значения (нуля или бесконечности — масштаб, объём производства, скорость, время и т.п.), сначала посмотри, что происходит именно на этом пределе: часто идеал виден там сразу, за один шаг, без дробления на подзадачи, а дальнейшая работа сводится не к поиску новых путей, а к нахождению практически достижимой точки между крайностями.
-
-2. Проверь два случая, при которых задача уже практически решена:
-       а) формулировка ИКР сама по себе является точным, проверяемым условием или принципом действия, который снимает проблему напрямую — например: «пешеход не двигается, пока существует вероятность столкновения транспорта с пешеходом» уже И ЕСТЬ решение: реализовать его можно разными техническими способами, но суть задачи найдена именно в этой формулировке, а не в конкретном устройстве;
-       б) формулировка ИКР указывает на конкретный, реально существующий физический, технический или организационный механизм, которым эту задачу можно решить.
-       Если верно хотя бы одно из двух — это и есть решение: сформулируй его конкретно (как точное условие/принцип в случае (а), или как название механизма в случае (б)), а не абстрактно.
-
-3. Если однозначного готового решения нет — раздели путь к ИКР на 2–4 конкретные, более узкие подзадачи. Каждая подзадача должна быть такой, чтобы к ней саму можно было применить эту же схему (сформулировать свой ИКР и т.д.). Подзадачи должны быть содержательно РАЗНЫМИ путями к цели, а не переформулировкой одного и того же.
-
-4. Если решение найдено (resolved=true) — дополнительно оцени: формулировка этого решения ТОЧНО и полностью совпадает по сути с сформулированным ИКР (то есть это предельно достигнутый идеал, дальше уточнять нечего), или это лишь приближение к идеалу — реальное, работающее решение, но само может быть переформулировано как новая задача и уточнено ещё точнее. Верни это как булево поле "idealMatch".
-
-ВАЖНО: не применяй заранее готовые приёмы, шаблоны или классификации (например, список из 40 приёмов ТРИЗ) — таких готовых правил не существует. Каждый раз рассуждай заново, исходя из физической, технической или практической сути именно ЭТОЙ формулировки задачи, а не из абстрактной методики.
-
-Отвечай СТРОГО в виде JSON без каких-либо пояснений вне JSON, в следующем формате:
-{"ikr": "формулировка ИКР для этой задачи", "resolved": true или false, "solution": "конкретное решение, если resolved=true, иначе null", "idealMatch": true или false (только имеет смысл при resolved=true; иначе false), "subProblems": ["подзадача 1", "подзадача 2"] (пустой массив, если resolved=true)}`;
-
-        const MAX_DEPTH = 6;
-
-        /* Прокси на бесплатном Cloudflare Worker, вызывающий Gemini с ключом
-           владельца сайта на стороне сервера. Посетителю не нужен собственный
-           ключ — ключ никогда не покидает сервер. Замените на реальный адрес
-           после развёртывания воркера (см. worker.js и инструкцию в чате). */
-        const PROXY_URL = "https://REPLACE-WITH-YOUR-WORKER-URL.workers.dev/";
-
-        /* Один вызов модели на один узел дерева. */
-        async function callAI(problemText) {
-            const body = {
-                contents: [{ parts: [{ text: `${SYSTEM_PROMPT}\n\nЗадача: ${problemText}` }] }],
-                generationConfig: { responseMimeType: "application/json", temperature: 0.4 }
-            };
-            const res = await fetch(PROXY_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            if (!res.ok) {
-                const errText = await res.text().catch(() => '');
-                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
-            }
-            const data = await res.json();
-            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) throw new Error('EMPTY_RESPONSE');
-            let parsed;
-            try {
-                parsed = JSON.parse(text);
-            } catch (e) {
-                throw new Error('BAD_JSON: ' + text.slice(0, 300));
-            }
-            if (typeof parsed.ikr !== 'string' || typeof parsed.resolved !== 'boolean') {
-                throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
-            }
-            return {
-                problem: problemText,
-                ikr: parsed.ikr,
-                resolved: !!parsed.resolved,
-                solution: parsed.solution || null,
-                idealMatch: !!parsed.resolved && !!parsed.idealMatch,
-                subProblems: Array.isArray(parsed.subProblems) ? parsed.subProblems.slice(0, 4) : []
-            };
-        }
-
-        /* Когда в разных ветвях дерева найдено несколько решений, последний шаг —
-           сравнить их и определить, какое ближе всего к идеальному конечному
-           результату исходной задачи. Отдельный вызов ИИ, отдельный (более простой)
-           контракт ответа. */
-        const COMPARE_PROMPT = `Ниже перечислены несколько решений, найденных для связанных подзадач одной и той же исходной проблемы методом ИКР. У каждого решения есть своя формулировка ИКР и указано, было ли оно отмечено как точно совпадающее с идеалом.
-
-Сравни все решения и определи, какое из них ближе всего к идеальному конечному результату исходной задачи в целом — то есть наиболее эффективное, наименее затратное, требующее меньше всего компромиссов и полнее всего решающее исходную проблему.
-
-Отвечай СТРОГО в виде JSON без пояснений вне JSON:
-{"bestIndex": <номер наилучшего решения, начиная с 0>, "reasoning": "краткое обоснование выбора: почему это решение лучше остальных"}`;
-
-        async function callCompareAI(solutions) {
-            const list = solutions.map((s, i) =>
-                `${i}. Задача: ${s.problem}\n   ИКР: ${s.ikr}\n   Решение: ${s.solution}\n   Точное совпадение с ИКР: ${s.idealMatch ? 'да' : 'нет (приближение)'}`
-            ).join('\n\n');
-            const body = {
-                contents: [{ parts: [{ text: `${COMPARE_PROMPT}\n\n${list}` }] }],
-                generationConfig: { responseMimeType: "application/json", temperature: 0.3 }
-            };
-            const res = await fetch(PROXY_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-            if (!res.ok) {
-                const errText = await res.text().catch(() => '');
-                throw new Error(`API_ERROR_${res.status}: ${errText.slice(0, 300)}`);
-            }
-            const data = await res.json();
-            const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (!text) throw new Error('EMPTY_RESPONSE');
-            let parsed;
-            try {
-                parsed = JSON.parse(text);
-            } catch (e) {
-                throw new Error('BAD_JSON: ' + text.slice(0, 300));
-            }
-            if (typeof parsed.bestIndex !== 'number') throw new Error('BAD_SHAPE: ' + text.slice(0, 300));
-            return { bestIndex: parsed.bestIndex, reasoning: parsed.reasoning || '' };
-        }
-
-        /* ==========================================================================
-           UI: рекурсивное дерево на реальных вызовах ИИ
-           ========================================================================== */
-
-        let __nodeCounter = 0;
-        let __foundSolutions = [];
-
-        function escapeHtml(s) {
-            return String(s).replace(/[&<>"']/g, c => ({
-                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-            }[c]));
-        }
-
-        function renderError(err) {
-            if (String(err.message).includes('ORIGIN_NOT_ALLOWED')) {
-                return `⚠️ Сервер отклонил запрос с этого адреса. Обратитесь к владельцу сайта — нужно добавить этот домен в список разрешённых у прокси.`;
-            }
-            if (String(err.message).includes('SERVER_NOT_CONFIGURED')) {
-                return `⚠️ Сервис временно не настроен (не задан ключ на сервере). Попробуйте позже.`;
-            }
-            if (String(err.message).startsWith('API_ERROR_')) {
-                return `⚠️ Ошибка обращения к серверу FlowSolve: ${escapeHtml(err.message)}. Попробуйте ещё раз чуть позже.`;
-            }
-            return `⚠️ Не удалось разобрать ответ модели: ${escapeHtml(err.message)}`;
-        }
-
-        async function renderNode(problem, depth, container, chainDepth) {
-            if (chainDepth === undefined) chainDepth = 0;
-            const nodeId = 'n' + (++__nodeCounter);
-            container.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Ищу Идеальный Конечный Результат для: «${escapeHtml(problem)}»...</div>`;
-
-            let data;
-            try {
-                data = await callAI(problem);
-            } catch (err) {
-                container.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
-                return;
-            }
-
-            let html = `<div class="s-block">
-            <div class="s-block-title">🎯 ИКР — уровень ${depth + 1}</div>
-            <div class="s-text">${escapeHtml(data.ikr)}</div>
-        </div>`;
-
-            const atMaxDepth = depth + 1 >= MAX_DEPTH;
-
-            if (data.resolved) {
-                // Решение найдено — но ни один узел не терминален: само решение
-                // можно, по вашей практике, превратить в новую задачу и пойти дальше.
-                // По наблюдению из практики: при целенаправленном поиске точное
-                // решение, полностью совпадающее с ИКР, обычно находится не более
-                // чем за 3 таких шага (превращений решения в задачу подряд).
-                __foundSolutions.push({ problem, ikr: data.ikr, solution: data.solution, idealMatch: data.idealMatch });
-                updateComparePanel();
-                const pid = nodeId + '_sol';
-                if (data.idealMatch) {
-                    html += `<div class="solution-item expanded" style="border-color:#4caf7d;">
-                    <div class="solution-header" style="background:#eaf7f0;">
-                        <div class="solution-title">🎯 Точное решение — полностью соответствует ИКР</div>
-                    </div>
-                    <div class="solution-body" style="display:block;">
-                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
-                } else {
-                    html += `<div class="solution-item expanded">
-                    <div class="solution-header">
-                        <div class="solution-title">✅ Найдено решение (приближение к идеалу, шаг уточнения ${chainDepth + 1})</div>
-                    </div>
-                    <div class="solution-body" style="display:block;">
-                        <div class="s-text"><b>${escapeHtml(data.solution)}</b></div>`;
-                }
-                if (!atMaxDepth) {
-                    html += `<div style="margin-top:12px;">
-                        <button class="btn-start-flow" onclick="deepenFromSolution('${pid}', ${escapeHtml(JSON.stringify(data.solution))}, ${depth + 1}, ${chainDepth + 1})">🔁 Превратить это решение в новую задачу</button>
-                        <div id="${pid}_child" style="margin-top:14px; padding-left:18px; border-left:2px solid #d0d7dd;"></div>
-                    </div>`;
-                    if (!data.idealMatch && chainDepth + 1 >= 3) {
-                        html += `<div class="s-text" style="color:#c65911; font-size:12px; margin-top:8px;">
-                        ⚠️ Целенаправленный поиск, как правило, даёт точное решение, совпадающее с ИКР, не более чем за 3 таких шага. Если система не находит его на этой глубине — значит, что-то в формулировке задачи сделано не так: вернитесь и переформулируйте исходную задачу заново, а не продолжайте углубляться в этом же направлении.
-                    </div>`;
-                    }
-                }
-                html += `</div></div>`;
-                container.innerHTML = html;
-                return;
-            }
-
-            if (atMaxDepth) {
-                html += `<div class="s-text" style="color:#6c7a8a; font-size:12px;">
-                Достигнута практическая глубина рекурсии (${MAX_DEPTH} уровней) без явного схождения к решению.
-                Сформулируйте следующий шаг как новую задачу в поле ввода вверху, чтобы продолжить вручную.
-            </div>`;
-                container.innerHTML = html;
-                return;
-            }
-
-            data.subProblems.forEach((sp, idx) => {
-                const pid = nodeId + '_p' + idx;
-                html += `<div class="solution-item" onclick="toggleAccordion(this)">
-                <div class="solution-header">
-                    <div class="solution-title">${String.fromCharCode(97 + idx)}) ${escapeHtml(sp)}</div>
-                    <div class="solution-toggle">▼</div>
-                </div>
-                <div class="solution-body" onclick="event.stopPropagation()">
-                    <div id="${pid}_child"></div>
-                </div>
-            </div>`;
-            });
-
-            container.innerHTML = html;
-
-            // Рекурсивно (и параллельно) анализируем каждую подзадачу следующего уровня,
-            // как только соответствующий блок отрисован в DOM.
-            data.subProblems.forEach((sp, idx) => {
-                const pid = nodeId + '_p' + idx;
-                const childContainer = document.getElementById(pid + '_child');
-                if (childContainer) renderNode(sp, depth + 1, childContainer, 0);
-            });
-        }
-
-        /* Решение осознанно превращается в новую проблему — по вашей практике: у
-           найденного решения нет статуса "финал", оно может стать следующим шагом.
-           chainDepth считает именно такие последовательные превращения решения в
-           задачу (а не глубину ветвления вообще) — по практике их обычно не больше
-           трёх до точного совпадения с ИКР. */
-        function deepenFromSolution(pid, solutionText, depth, chainDepth) {
-            const childContainer = document.getElementById(pid + '_child');
-            if (!childContainer) return;
-            renderNode(solutionText, depth, childContainer, chainDepth || 0);
-        }
-
-        function startFlowSolve() {
-            const input = document.getElementById('flow-input').value.trim();
-            if (!input) return alert("Пожалуйста, введите проблему, технологический барьер или идею.");
-
-            document.getElementById('results-view').style.display = 'block';
-            document.getElementById('loading-view').style.display = 'none';
-            __nodeCounter = 0;
-            __foundSolutions = [];
-            const panel = document.getElementById('compare-panel');
-            if (panel) { panel.style.display = 'none'; panel.innerHTML = ''; }
-            renderNode(input, 0, document.getElementById('tree-root'));
-        }
-
-        /* Когда найдено хотя бы два решения (в разных ветвях дерева), становится
-           осмысленным последний шаг вашей практики: сравнить их и выбрать самое
-           удачное. Панель сравнения появляется автоматически, как только решений
-           становится достаточно, и обновляется по мере появления новых. */
-        function updateComparePanel() {
-            const panel = document.getElementById('compare-panel');
-            if (!panel) return;
-            if (__foundSolutions.length < 2) {
-                panel.style.display = 'none';
-                return;
-            }
-            panel.style.display = 'block';
-            panel.innerHTML = `<button class="btn-start-flow" onclick="compareSolutions()">🏆 Сравнить найденные решения (${__foundSolutions.length}) и выбрать самое удачное</button>
-            <div id="compare-result" style="margin-top:14px;"></div>`;
-        }
-
-        async function compareSolutions() {
-            const resultBox = document.getElementById('compare-result');
-            const solutions = __foundSolutions.slice();
-            resultBox.innerHTML = `<div class="s-text" style="color:#6c7a8a;">⏳ Сравниваю ${solutions.length} найденных решения(й)...</div>`;
-            let cmp;
-            try {
-                cmp = await callCompareAI(solutions);
-            } catch (err) {
-                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">${renderError(err)}</div>`;
-                return;
-            }
-            const best = solutions[cmp.bestIndex];
-            if (!best) {
-                resultBox.innerHTML = `<div class="s-text" style="color:#c65911;">⚠️ Не удалось определить номер решения в ответе модели.</div>`;
-                return;
-            }
-            resultBox.innerHTML = `<div class="solution-item expanded" style="border-color:#d53f8c;">
-            <div class="solution-header" style="background:#fdf1f7;">
-                <div class="solution-title">🏆 Самое удачное решение</div>
-            </div>
-            <div class="solution-body" style="display:block;">
-                <div class="s-text" style="margin-bottom:8px;"><b>Задача:</b> ${escapeHtml(best.problem)}</div>
-                <div class="s-text" style="margin-bottom:8px;"><b>ИКР:</b> ${escapeHtml(best.ikr)}</div>
-                <div class="s-text" style="margin-bottom:8px;"><b>Решение:</b> ${escapeHtml(best.solution)}</div>
-                <div class="s-text" style="color:#6c7a8a;"><b>Почему:</b> ${escapeHtml(cmp.reasoning)}</div>
-            </div>
-        </div>`;
-        }
-
-        function toggleAccordion(element) {
-            element.classList.toggle('expanded');
-        }
-
-        window.onload = function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const q = urlParams.get('query');
-            if (q) {
-                document.getElementById('flow-input').value = q;
-                startFlowSolve();
-            }
-        };
-
-    </script>
-</body>
-</html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АСУИР — FlowSolve: генератор решений</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#222;padding:20px 40px 60px}
+.main-wrapper{max-width:1400px;margin:0 auto}
+.top-utility-bar{display:flex;justify-content:flex-end;font-size:13px;margin-bottom:10px}
+.brand-title-block{text-align:center;margin:20px 0 15px}
+.brand-title-text{font-family:'Times New Roman',Times,Georgia,serif;font-size:52px;font-weight:400;letter-spacing:2px;color:#555;text-transform:uppercase;line-height:1}
+.nav-global-menu{display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 12px;flex-wrap:wrap}
+.nav-global-link{text-decoration:none;text-align:center}
+.nav-global-link .main-label{display:block;font-size:13px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.5px}
+.nav-global-link .sub-label{display:block;font-size:11.5px;color:#666;margin-top:2px}
+.nav-global-link:hover .main-label,.nav-global-link.active .main-label{color:#1f4e78}
+.divider{margin:10px 0 25px}.divider .thin{height:1px;background:#d0d7dd;margin-bottom:4px}.divider .thick{height:4px;background:#a0a8b0}
+.card{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:24px;margin-bottom:20px}
+h1{font-size:20px;color:#1f4e78;margin-bottom:8px}
+.sub{color:#555;margin:0 0 12px;font-size:14px;line-height:1.5}
+.nav-tabs2{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.nav-tabs2 button{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px;color:#444}
+.nav-tabs2 button.on{background:#1f4e78;color:#fff;border-color:#1f4e78}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.bar input,.bar select{padding:7px 9px;border:1px solid #d0d7dd;border-radius:4px;background:#fff;color:#222;font:inherit;font-size:14px}
+.m{color:#666;font-size:12.5px}
+.wrap{border:1px solid #d0d7dd;border-radius:4px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid #e3e8ec;text-align:left;vertical-align:top}
+th{background:#f2f5f8;color:#1f4e78;font-size:12.5px;line-height:1.25}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.profit{color:#2e7d32;font-weight:700}.neg{color:#b12704;font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:#eef2f5;color:#666}
+.go{display:inline-block;background:#1f4e78;color:#fff;text-decoration:none;padding:6px 10px;border-radius:4px;font-size:12.5px;text-align:center;line-height:1.25}
+.go:hover{background:#2b5b84}.go.off{background:#f2f5f8;color:#777;border:1px dashed #c3ccd3;pointer-events:none}
+details summary{cursor:pointer;color:#1f4e78}
+.note{margin:12px 0 0;color:#666;font-size:13px;line-height:1.5}
+.live{margin-top:20px}
+footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
+@media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}</style>
+<style>
+.nav-global-menu{gap:18px}
+.steps{counter-reset:st}
+.step{border:1px solid #e3e8ec;border-radius:4px;padding:14px 16px;margin:0 0 12px;background:#fff}
+.step h3{font-size:14px;color:#1f4e78;margin:0 0 4px}
+.step .hint{color:#666;font-size:12.5px;margin:0 0 8px;line-height:1.45}
+.step textarea,.step input[type=text]{width:100%;padding:8px 10px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:14px;color:#222;background:#fff}
+.step textarea{min-height:54px;resize:vertical}
+.lv{border-left:3px solid #c3ccd3;padding:6px 0 6px 12px;margin:8px 0}
+.lv b{display:block;font-size:13px;color:#1f4e78;margin-bottom:4px}
+.lv label{display:block;font-size:12.5px;color:#555;margin:6px 0 2px}
+#infl td input{width:100%;padding:6px 8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13px}
+#infl select{padding:5px 6px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13px;background:#fff}
+#infl tr.lever td{background:#e2efda}
+.del{background:none;border:0;color:#b12704;cursor:pointer;font-size:15px}
+.btn{display:inline-block;background:#1f4e78;color:#fff;border:0;border-radius:4px;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer;margin:0 6px 6px 0}
+.btn:hover{background:#2b5b84}.btn.alt{background:#fff;color:#1f4e78;border:1px solid #1f4e78}.btn.alt:hover{background:#eef6ff}
+.ok{color:#2e7d32;font-size:12.5px;margin-left:6px}
+.tree{display:flex;flex-direction:column;align-items:center;padding:10px 0}
+.nd{max-width:560px;width:100%;text-align:center;font-size:13.5px;line-height:1.4;padding:10px 14px}
+.nd .k{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:#555;margin-bottom:3px}
+.pr{background:#fbe1d0;border:1px solid #e3b79b}
+.id{background:#c6e0b4;border:1px solid #9fc58a;border-radius:50%/40%;max-width:460px;padding:14px 26px}
+.sol{background:#1f4e78;color:#fff;border-radius:4px}.sol .k{color:#cfe3f7}
+.why{font-size:12px;color:#666;max-width:520px;text-align:center;margin:4px 0 0}
+.ar{width:2px;height:18px;background:#888;position:relative;margin:2px 0}
+.ar:after{content:"";position:absolute;left:-4px;bottom:-2px;border:5px solid transparent;border-top-color:#888}
+.lvtag{font-size:11.5px;color:#1f4e78;font-weight:700;margin-top:6px}
+.lib{border:1px solid #d0d7dd;border-radius:4px;padding:12px 14px;margin:0 0 10px}
+.lib h4{font-size:14px;color:#1f4e78;margin:0 0 6px}
+.lib p,.lib li{font-size:13px;line-height:1.5;color:#333}
+.lib table{border-collapse:collapse;margin:6px 0;font-size:12.5px}.lib th,.lib td{border:1px solid #d0d7dd;padding:4px 8px}
+.crit li{font-size:13.5px;line-height:1.55;margin:0 0 4px}
+.crit{padding-left:20px;margin:0 0 8px}
+#saved a{color:#1f4e78}
+@media print{.nav-global-menu,.top-utility-bar,.no-print{display:none}}
+</style></head>
+<body><div class="main-wrapper">
+<div class="top-utility-bar"><a href="flowsolve_en.html" style="cursor:pointer;font-weight:600;color:#333;text-decoration:none">Languages ⌵</a></div>
+<div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
+<div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
+<nav class="nav-global-menu">
+<a href="index_ru.html" class="nav-global-link"><span class="main-label">О ПРОЕКТЕ</span><span class="sub-label">автоматизированная система управления</span></a>
+<a href="flowsolve.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">FLOWSOLVE</span><span class="sub-label">генератор решений</span></a>
+<a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link"><span class="main-label">АСУИР</span><span class="sub-label">генератор сверхэффективных производств</span></a>
+<a href="ASUIRServices_ru.html" class="nav-global-link"><span class="main-label">АСУИР — УСЛУГИ</span><span class="sub-label">генератор сверхэффективных услуг</span></a>
+<a href="Catalog_ru.html" class="nav-global-link"><span class="main-label">КАТАЛОГ</span><span class="sub-label">оборудование, модули и продукция</span></a>
+<a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">справка и формулы</span></a>
+</nav>
+<div class="divider"><div class="thin"></div><div class="thick"></div></div>
+
+<div class="card">
+<h1>FlowSolve — рекурсивный метод решения задач</h1>
+<p class="sub">FlowSolve — метод решения задач, применяемый автором на практике около 45 лет: проблема → идеальное решение → путь его достижения; найденное решение при необходимости становится новой проблемой со своим идеальным решением. От перебора метод отличается тем, что ветвь выбирается до её развёртывания: сначала устанавливается, что влияет на событие, какие из факторов управляемы и какие уже существуют как средства; рычаг находится на их пересечении. Стандартная задача при этом решается не глубже трёх уровней.</p>
+<p class="sub">В системе АСУИР FlowSolve — первое звено. Задача, решаемая имеющимися средствами, передаётся в генератор эффективности; задача, требующая новой технологии, — в генератор технологий «Аристотель» (в разработке), а затем в генератор эффективности.</p>
+<h2 style="font-size:16px;color:#1f4e78;margin:18px 0 6px">Правила выбора ветви</h2>
+<ol class="crit"><li>Существующее средство не отбрасывается по общему признаку: сначала проверяется, не достигает ли оно идеального решения при небольшой доработке.</li><li>Если участник неуправляем, действие направляется на управляемого участника.</li><li>Из ветвей, ведущих к идеальному решению, выбирается требующая наименьшего изменения.</li></ol>
+<p class="note">Не допускается: спускаться по дереву, не составив таблицы влияний; перечислять все возможные ветви «для полноты»; переходить к новым или дорогим технологиям, когда достаточно доработки существующего.</p>
+</div>
+
+<div class="card">
+<h1>Шаблон решения</h1>
+<p class="sub">Шаги заполняются по порядку; таблица влияний — до выбора ветви. Строки, где фактор управляем и уже существует как средство, выделяются зелёным: это кандидаты в рычаг. Сохранённые задачи хранятся только в этом браузере.</p>
+<div class="no-print" style="margin:0 0 12px">
+<button class="btn alt" onclick="loadExample()">Загрузить пример: перекрёсток</button>
+<button class="btn alt" onclick="clearAll()">Очистить</button>
+<span id="saved" class="m"></span>
+</div>
+<div class="steps">
+<div class="step"><h3>0. Задача</h3><p class="hint">Как задача сформулирована изначально.</p><textarea id="task"></textarea></div>
+<div class="step"><h3>1. Точная постановка</h3><p class="hint">Что именно запрещено или требуется. Сузьте до сути: например, запрещено не пересечение путей, а реальное одновременное пересечение.</p><textarea id="stmt"></textarea></div>
+<div class="step"><h3>2. Идеальное решение</h3><p class="hint">Результат, который достигается независимо от неуправляемых участников и случайностей.</p><textarea id="ideal"></textarea></div>
+<div class="step"><h3>3. Таблица влияний</h3><p class="hint">Всё, что влияет на событие. Для каждого фактора: управляем ли он и существует ли уже как средство. Заполняется до выбора ветви.</p>
+<div class="wrap"><table id="infl"><thead><tr><th>Что влияет</th><th style="width:150px">Управляемо?</th><th style="width:150px">Уже есть как средство?</th><th style="width:30px"></th></tr></thead><tbody></tbody></table></div>
+<button class="btn alt no-print" style="margin-top:8px" onclick="addRow()">+ строка</button></div>
+<div class="step"><h3>4. Рычаг</h3><p class="hint">Фактор, который управляем и уже существует. Если такого нет — фактор, требующий наименьшего добавления.</p><input type="text" id="lever"> <button class="btn alt no-print" style="margin-top:6px" onclick="pickLever()">Взять из таблицы</button></div>
+<div class="step"><h3>5. Одна ветвь — не глубже трёх уровней</h3><p class="hint">От рычага к идеальному решению. На каждом уровне — проблема, её идеальное решение и одна фраза о том, почему выбрана именно эта ветвь. Вторая ветвь открывается, только если первая не достигает идеального решения.</p><div id="levels"></div></div>
+<div class="step"><h3>6. Проверка</h3><p class="hint">Достигается ли идеальное решение при наихудшем поведении неуправляемых участников?</p><textarea id="check"></textarea></div>
+<div class="step"><h3>7. Решение</h3><p class="hint">Одной фразой.</p><textarea id="sol"></textarea></div>
+</div>
+<div class="no-print">
+<button class="btn" onclick="drawTree()">Построить дерево</button>
+<button class="btn" onclick="copyPrompt()">Скопировать запрос для ИИ</button>
+<button class="btn alt" onclick="saveCase()">Сохранить в браузере</button>
+<button class="btn alt" onclick="window.print()">Печать / PDF</button>
+<span id="msg" class="ok"></span>
+</div>
+<p class="note no-print">«Скопировать запрос для ИИ» копирует задачу вместе с правилами метода. Вставьте текст в Claude, ChatGPT или Gemini — ответ придёт в форме этого шаблона. Ветвь, предложенную ИИ, проверяет человек: ИИ склонен перебирать ветви, а не выбирать их.</p>
+</div>
+
+<div class="card" id="treeCard" style="display:none">
+<h1>Дерево решения</h1>
+<div id="tree" class="tree"></div>
+</div>
+
+<div class="card">
+<h1>Библиотека меток</h1>
+<p class="sub">Решённые задачи в форме шаблона. Перед решением новой задачи проверьте, нет ли среди них задачи с той же постановкой.</p>
+<div id="lib"></div>
+</div>
+
+<footer>© 2025 АСУИР. Материалы сайта являются интеллектуальной собственностью автора. Разработчик: Долгов Анатолий Владимирович<br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).<br>Код — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.<br><a href="/privacy.html#ru" style="color:#6c7a8a;">Политика конфиденциальности</a></footer>
+</div>
+<script>
+const L={"lang": "ru", "level": "Уровень", "optional": "(при необходимости)", "lvP": "Проблема", "lvI": "Идеальное решение", "lvW": "Почему именно эта ветвь", "yes": "да", "no": "нет", "part": "частично", "del": "Удалить", "noLever": "В таблице нет фактора, который управляем и уже существует как средство", "needTask": "Сначала заполните задачу или постановку", "nProblem": "Проблема", "nIdeal": "Идеальное решение", "nLever": "Рычаг", "nWhy": "Почему эта ветвь", "nSol": "Решение", "nCheck": "Проверка", "copied": "Запрос скопирован — вставьте его в ИИ", "copyFail": "Не удалось скопировать", "savedOk": "Сохранено в этом браузере", "saveFail": "Браузер не разрешил сохранение", "mine": "Мои задачи", "taskPh": "[ваша задача]", "prompt": "Реши задачу методом FlowSolve (автор — А. Долгов). Правило: НЕ перебирать ветви. Сначала найти рычаг, потом идти ОДНОЙ ветвью, не глубже 3 уровней.\n\nПорядок (шаги не пропускать и не менять местами):\n1. Точная постановка: что именно запрещено или требуется; сузить до сути.\n2. Идеальное решение: результат, достигаемый независимо от неуправляемых участников и случайностей.\n3. Таблица влияний — ДО любого ветвления: всё, что влияет на событие; для каждого — управляемо ли, существует ли уже как средство.\n4. Рычаг: фактор на пересечении «управляемо» и «уже есть». Если такого нет — требующий наименьшего добавления.\n5. Одна ветвь от рычага к идеальному решению, не глубже 3 уровней; на каждом уровне — проблема, идеальное решение и одна фраза, почему выбрана эта ветвь. Вторую ветвь открывать, только если первая не достигает идеального решения.\n6. Проверка: достигается ли идеальное решение при наихудшем поведении неуправляемых участников?\n7. Решение одной фразой.\n\nКритерии выбора ветви:\n— не отбрасывать существующее средство по общему признаку; сначала проверить, не достигает ли оно идеального решения при небольшой доработке;\n— если участник неуправляем, действовать через управляемого;\n— из ветвей, ведущих к идеальному решению, брать требующую наименьшего изменения.\nЗапрещено: спускаться по дереву без таблицы влияний; перечислять все ветви «для полноты»; уходить в новые или дорогие технологии, когда достаточно доработки существующего.\n\nПример (метка «Перекрёсток»): постановка — запрещено реальное одновременное пересечение машины и пешехода; идеальное решение — столкновения нет при любом состоянии водителя; таблица влияний: водитель — неуправляем, машина — частично, пешеход — управляем, светофор — управляем и уже есть; рычаг — светофор, действующий на пешехода; решение — датчик скорости в светофоре оценивает, пересечёт ли машина переход; если да — пешеходу горит красный. Типичная ошибка ИИ: отбросить светофор как «сообщающий водителю», не проверив, что он управляет и пешеходом.\n\nОтвет дай строго в этой форме:\nПОСТАНОВКА: ...\nИДЕАЛЬНОЕ РЕШЕНИЕ: ...\nТАБЛИЦА ВЛИЯНИЙ:\n| Что влияет | Управляемо? | Уже есть как средство? |\nРЫЧАГ: ... (почему)\nВЕТВЬ:\n  Уровень 1: проблема → идеальное решение → почему эта ветвь\n  Уровень 2: ...\n  Уровень 3: ... (если нужен)\nПРОВЕРКА: ...\nРЕШЕНИЕ: ...\n\nЗадача: {{TASK}}", "example": {"task": "Не допустить столкновения пешехода и машины на переходе, пути которых пересекаются под 90°", "stmt": "Запрещено реальное одновременное пересечение машины и пешехода", "ideal": "Столкновения нет при любом состоянии водителя (пьян, под наркотиками, отвлёкся)", "infl": [{"f": "Водитель", "c": "no", "e": "no"}, {"f": "Машина (системы торможения)", "c": "part", "e": "part"}, {"f": "Пешеход", "c": "yes", "e": "no"}, {"f": "Светофор", "c": "yes", "e": "yes"}], "lever": "Светофор — действует на пешехода, который управляем", "lv": [{"p": "Как исключить столкновение, если водитель неуправляем?", "i": "Действовать через управляемого участника — пешехода — существующим светофором", "w": "Светофор уже есть и управляет пешеходом; водитель и машина гарантии не дают"}, {"p": "Как светофору определить, что машина не остановится?", "i": "Светофор сам оценивает, пересечёт ли приближающаяся машина переход", "w": "Наименьшее добавление к существующему средству — один датчик"}, {}], "check": "Да: даже при пьяном водителе пешеход не выходит на переход — ему горит красный, пока машина может пересечь переход", "sol": "Датчик скорости в светофоре оценивает, пересечёт ли приближающаяся машина переход; если да — пешеходу горит красный"}, "lib": "<div class=\"lib\"><h4>Метка 1. Перекрёсток</h4>\n<p><b>Постановка:</b> запрещено реальное одновременное пересечение машины и пешехода, пути которых пересекаются под 90°.<br><b>Идеальное решение:</b> столкновения нет при любом состоянии водителя.</p>\n<table><tr><th>Что влияет</th><th>Управляемо?</th><th>Уже есть как средство?</th></tr><tr><td>Водитель</td><td>нет</td><td>—</td></tr><tr><td>Машина</td><td>только при наличии системы</td><td>не у всех</td></tr><tr><td>Пешеход</td><td>да, подчиняется сигналу</td><td>—</td></tr><tr><td><b>Светофор</b></td><td><b>да</b></td><td><b>да</b></td></tr></table>\n<p><b>Рычаг:</b> светофор, действующий на пешехода.<br><b>Решение:</b> датчик скорости в светофоре оценивает, пересечёт ли приближающаяся машина переход; если да — пешеходу горит красный.<br><b>Почему другие ветви хуже:</b> «помочь водителю» (сигналы, автоторможение, связь машин с дорогой) зависит от водителя или от оборудования конкретной машины; «физически остановить машину» (ограждения, разноуровневые переходы) — дорого и избыточно.<br><b>Типичная ошибка ИИ:</b> светофор отбрасывается как «сообщающий водителю» без проверки того, что он управляет и пешеходом.</p>\n<button class=\"btn alt no-print\" onclick=\"loadExample()\">Открыть в шаблоне</button></div>"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const KEY="asuir_flowsolve_"+L.lang;
+function lvHtml(i){return `<div class="lv"><b>${L.level} ${i+1}${i===2?" "+L.optional:""}</b><label>${L.lvP}</label><textarea id="lp${i}"></textarea><label>${L.lvI}</label><textarea id="li${i}"></textarea><label>${L.lvW}</label><textarea id="lw${i}"></textarea></div>`}
+$("#levels").innerHTML=[0,1,2].map(lvHtml).join("");
+function yn(v){return `<option value="yes"${v==="yes"?" selected":""}>${L.yes}</option><option value="no"${v==="no"?" selected":""}>${L.no}</option><option value="part"${v==="part"?" selected":""}>${L.part}</option>`}
+function addRow(f,c,e){const tr=document.createElement("tr");tr.innerHTML=`<td><input value="${esc(f||"")}"></td><td><select>${yn(c||"no")}</select></td><td><select>${yn(e||"no")}</select></td><td><button class="del" title="${L.del}">✕</button></td>`;
+ tr.querySelector(".del").onclick=()=>{tr.remove();mark()};tr.querySelectorAll("select").forEach(s=>s.onchange=mark);$("#infl tbody").appendChild(tr);mark()}
+function rows(){return [...document.querySelectorAll("#infl tbody tr")].map(tr=>({f:tr.querySelector("input").value.trim(),c:tr.querySelectorAll("select")[0].value,e:tr.querySelectorAll("select")[1].value}))}
+function mark(){document.querySelectorAll("#infl tbody tr").forEach(tr=>{const s=tr.querySelectorAll("select");tr.classList.toggle("lever",s[0].value==="yes"&&s[1].value==="yes")})}
+function pickLever(){const r=rows().filter(x=>x.f&&x.c==="yes"&&x.e==="yes");$("#lever").value=r.length?r.map(x=>x.f).join("; "):"";msg(r.length?"":L.noLever)}
+function state(){return {task:$("#task").value,stmt:$("#stmt").value,ideal:$("#ideal").value,infl:rows(),lever:$("#lever").value,lv:[0,1,2].map(i=>({p:$("#lp"+i).value,i:$("#li"+i).value,w:$("#lw"+i).value})),check:$("#check").value,sol:$("#sol").value}}
+function setState(s){s=s||{};$("#task").value=s.task||"";$("#stmt").value=s.stmt||"";$("#ideal").value=s.ideal||"";$("#infl tbody").innerHTML="";(s.infl&&s.infl.length?s.infl:[{},{},{}]).forEach(r=>addRow(r.f,r.c,r.e));$("#lever").value=s.lever||"";
+ [0,1,2].forEach(i=>{const v=(s.lv||[])[i]||{};$("#lp"+i).value=v.p||"";$("#li"+i).value=v.i||"";$("#lw"+i).value=v.w||""});$("#check").value=s.check||"";$("#sol").value=s.sol||""}
+function msg(t){$("#msg").textContent=t||"";if(t)setTimeout(()=>{if($("#msg").textContent===t)$("#msg").textContent=""},4000)}
+function loadExample(){setState(L.example);drawTree();window.scrollTo({top:$("#task").offsetTop-80,behavior:"smooth"})}
+function clearAll(){setState({});$("#treeCard").style.display="none"}
+function drawTree(){const s=state(),out=[];const ar='<div class="ar"></div>';
+ if(!s.task.trim()&&!s.stmt.trim()){msg(L.needTask);return}
+ out.push(`<div class="nd pr"><span class="k">${L.nProblem}</span>${esc(s.stmt||s.task)}</div>`);
+ if(s.ideal.trim())out.push(ar,`<div class="nd id"><span class="k">${L.nIdeal}</span>${esc(s.ideal)}</div>`);
+ if(s.lever.trim())out.push(`<div class="why"><b>${L.nLever}:</b> ${esc(s.lever)}</div>`);
+ s.lv.forEach((v,i)=>{if(!(v.p.trim()||v.i.trim()))return;out.push(ar,`<div class="lvtag">${L.level} ${i+1}</div>`);
+  if(v.p.trim())out.push(`<div class="nd pr"><span class="k">${L.nProblem}</span>${esc(v.p)}</div>`);
+  if(v.i.trim())out.push(ar,`<div class="nd id"><span class="k">${L.nIdeal}</span>${esc(v.i)}</div>`);
+  if(v.w.trim())out.push(`<div class="why"><b>${L.nWhy}:</b> ${esc(v.w)}</div>`)});
+ if(s.sol.trim())out.push(ar,`<div class="nd sol"><span class="k">${L.nSol}</span>${esc(s.sol)}</div>`);
+ if(s.check.trim())out.push(`<div class="why"><b>${L.nCheck}:</b> ${esc(s.check)}</div>`);
+ $("#tree").innerHTML=out.join("");$("#treeCard").style.display="block";$("#treeCard").scrollIntoView({behavior:"smooth"})}
+function mkPrompt(){const t=$("#task").value.trim()||$("#stmt").value.trim();return L.prompt.replace("{{TASK}}",t||L.taskPh)}
+async function copyPrompt(){const p=mkPrompt();try{await navigator.clipboard.writeText(p);msg(L.copied)}catch(e){const ta=document.createElement("textarea");ta.value=p;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");msg(L.copied)}catch(_){msg(L.copyFail)}ta.remove()}}
+function getSaved(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return []}}
+function putSaved(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){return false}}
+function saveCase(){const s=state();if(!s.task.trim()&&!s.stmt.trim()){msg(L.needTask);return}const a=getSaved().filter(x=>x.task!==s.task);a.unshift(s);msg(putSaved(a.slice(0,30))?L.savedOk:L.saveFail);showSaved()}
+function showSaved(){const a=getSaved();$("#saved").innerHTML=a.length?L.mine+": "+a.map((x,i)=>`<a href="#" data-i="${i}">${esc((x.task||x.stmt).slice(0,40))}</a> <a href="#" data-d="${i}" title="${L.del}" style="color:#b12704">✕</a>`).join(" · "):""}
+$("#saved").onclick=e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const s=getSaved();if(a.dataset.i!=null){setState(s[+a.dataset.i]);drawTree()}else if(a.dataset.d!=null){s.splice(+a.dataset.d,1);putSaved(s);showSaved()}};
+$("#lib").innerHTML=L.lib;
+setState({});showSaved();
+</script>
+</body></html>
