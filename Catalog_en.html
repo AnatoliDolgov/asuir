@@ -70,8 +70,8 @@ const T={gen:"ASUIRGeminiCalculationModule_en.html",db:"https://asuir-gemini-def
  crumb:(k,v)=>`Matrix for ${({eq:"equipment",mod:"module",prod:"product"})[k]} “<b>${v}</b>” · <a href="#" id="all">show all</a>`,
  allShown:"All lines shown. Click a name to see its combinations."};
 const GEN=T.gen,DB=T.db,W=10000; // W — target wage, $ per worker per month
-const HIDDEN=new Set(["matrix_ex10"]); // hidden from the catalog (not deleted): baguettes — the line does not pass in any compression mode
-const $=s=>document.querySelector(s),fm=n=>n==null||isNaN(n)?"—":"$"+Math.round(n).toLocaleString("ru-RU"),f2=n=>n==null||isNaN(n)?"—":"$"+Number(n).toFixed(2);
+const HIDDEN=new Set(["matrix_ex10","matrix_ex09"]); // hidden from the catalog (not deleted): baguettes (does not pass in any mode), multimeter (loss at a $10,000 wage)
+const $=s=>document.querySelector(s),fm=n=>n==null||isNaN(n)?"—":(n<0?"−$":"$")+Math.abs(Math.round(n)).toLocaleString("ru-RU"),f2=n=>n==null||isNaN(n)?"—":"$"+Number(n).toFixed(2);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 let LINES=[],F=null; // F={kind:'eq'|'mod'|'prod',val:'...'}
 let SH=(()=>{const d=parseFloat(new URLSearchParams(location.search).get("d"));return [5,10,20].includes(d)?d:10})(); // compression share, %
