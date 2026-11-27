@@ -227,6 +227,7 @@ function mkFix(){const C=CMP||{};const Rv=(C.reviews||[]);
 3. Пересмотри выводы (conclusions) с учётом исправлений: если «незанятая технология» оказалась занятой — скажи это прямо.
 4. Пересмотри ветви (branches) и лучшие решения (best), которые опирались на ошибочные утверждения. Решения, переставшие быть верными, убери или замени.
 5. Не меняй то, что проверка подтвердила.
+7. Цель анализа не меняется: найти, где возможно ТЕХНОЛОГИЧЕСКОЕ ПРЕИМУЩЕСТВО над конкурентами. Не заменяй её осторожной сборкой из готовых покупных решений — это не даёт преимущества. Если основное поле оказалось занятым, ищи преимущество уровнем ниже: в узлах и составляющих изделия, где у конкурентов слабые места.
 6. У каждой технологии — sources (организация или издание и год).
 
 ЗАДАЧА: ${$("#prob").value.trim()}
@@ -352,8 +353,10 @@ function record(){const S=window.__AR.SOL(),br={},sel=[];Object.entries(S).forEa
 const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const pathOf=(id,pub)=>(pub?PUB:PRIV(U.uid))+"/"+id;
 window.stSave=async()=>{if(!U){sm("Войдите через Google, чтобы сохранить.");return}const r=record();if(!r.task.trim()){sm("Сначала заполните проблему.");return}
+ let joined=false;if(!CUR){const A=(await all()).filter(([id,x])=>x.owner_uid===U.uid&&String(x.task||"").trim()===r.task.trim());
+  if(A.length){const par=new Set((await all()).map(([i,x])=>x.parent_id).filter(Boolean));A.sort((a,b)=>(par.has(b[0])-par.has(a[0]))||String(b[1].updated_at||"").localeCompare(String(a[1].updated_at||"")));CUR=A[0][0];CUR_PUB=A[0][2];if(!r.parent_id&&A[0][1].parent_id){r.parent_id=A[0][1].parent_id;r.link=A[0][1].link||null;PARENT=r.parent_id;LINKT=r.link}joined=true}}
  if(!CUR){CUR=newId();CUR_PUB=false;r.created_at=r.updated_at}else{const old=await get(child(ref(db),pathOf(CUR,CUR_PUB))).catch(()=>null);r.created_at=old&&old.exists()?old.val().created_at:r.updated_at}
- try{await set(ref(db,pathOf(CUR,CUR_PUB)),r);sm("Сохранено ("+(CUR_PUB?"опубликовано":"закрыто")+").");info()}catch(e){sm("Хранилище отклонило запись: "+(e.code||e.message)+". Проверьте правило доступа в консоли Firebase.")}};
+ try{await set(ref(db,pathOf(CUR,CUR_PUB)),r);sm((joined?"Обновлена ваша существующая запись с той же задачей — ":"Сохранено ")+"("+(CUR_PUB?"опубликовано":"закрыто")+").");info()}catch(e){const c=String(e.code||e.message);sm("Хранилище отклонило запись: "+c+(/permission/i.test(c)?". Проверьте вход через Google и правило доступа в консоли Firebase.":""))}};
 window.stPublish=async(pub)=>{if(!U){sm("Войдите через Google.");return}if(!CUR){await window.stSave();if(!CUR)return}if(CUR_PUB===pub){sm(pub?"Уже опубликовано.":"Уже закрыто.");return}
  const r=record();try{const old=await get(child(ref(db),pathOf(CUR,CUR_PUB)));r.created_at=old.exists()?old.val().created_at:r.updated_at;await set(ref(db,pathOf(CUR,pub)),r);await remove(ref(db,pathOf(CUR,!pub)));CUR_PUB=pub;sm(pub?"Опубликовано: запись видят все.":"Снято с публикации: запись видит только автор.");info()}catch(e){sm("Не удалось: "+(e.code||e.message))}};
 window.stNew=()=>{location.href=location.pathname};
