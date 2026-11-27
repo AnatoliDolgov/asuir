@@ -295,7 +295,7 @@ function record(){const S=window.__AR.SOL(),br={},sel=[];Object.entries(S).forEa
  return {task:v("#prob").slice(0,3000),competitors:v("#comp").slice(0,3000),resources:v("#own").slice(0,3000),ideal:v("#ideal").slice(0,3000),
   status:v("#st_status")||"announced",exit:v("#st_exit")||"",
   result:{technology:v("#lm_tech"),maneuvers:v("#lm_man"),sources:v("#lm_src"),barriers:v("#lm_bar"),symbiosis:v("#lm_sym"),selected:sel},
-  branches:br,comparison:window.__AR.CMP()||null,best:(window.__AR.BEST()||[]).map(b=>({title:b.title||"",why:b.why||"",response:b.response||"",cost:b.cost||"",branches:b.branches||[],selected:!!b._sel})),plan:window.__AR.PLAN()||null,parent_id:PARENT,link:LINKT,owner_uid:U.uid,author:U.displayName||U.email||"",updated_at:now}}
+  branches:br,comparison:window.__AR.CMP()?JSON.stringify(window.__AR.CMP()):null,best:(window.__AR.BEST()||[]).map(b=>({title:b.title||"",why:b.why||"",response:b.response||"",cost:b.cost||"",branches:b.branches||[],selected:!!b._sel})),plan:window.__AR.PLAN()?JSON.stringify(window.__AR.PLAN()):null,parent_id:PARENT,link:LINKT,owner_uid:U.uid,author:U.displayName||U.email||"",updated_at:now}}
 const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
 const pathOf=(id,pub)=>(pub?PUB:PRIV(U.uid))+"/"+id;
 window.stSave=async()=>{if(!U){sm("Войдите через Google, чтобы сохранить.");return}const r=record();if(!r.task.trim()){sm("Сначала заполните проблему.");return}
@@ -322,7 +322,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-open]");if
  const setv=(s,v)=>{if($(s))$(s).value=v||""};setv("#prob",r.task);setv("#comp",r.competitors);setv("#own",r.resources);setv("#ideal",r.ideal);setv("#st_status",r.status||"announced");setv("#st_exit",r.exit||"");
  const R=r.result||{};setv("#lm_tech",R.technology);setv("#lm_man",R.maneuvers);setv("#lm_src",R.sources);setv("#lm_bar",R.barriers);setv("#lm_sym",R.symbiosis);
  const S={};Object.entries(r.branches||{}).forEach(([k,o])=>{const id2=k.replace("_",".");S[id2]=Object.assign({id:id2},o,{_sel:!!o.selected})});
- window.__AR.load(S,r.plan||null,r.comparison||null,(r.best||[]).map(b=>Object.assign({},b,{_sel:!!b.selected})));PARENT=r.parent_id||null;LINKT=r.link||null;
+ const J=v=>{if(!v)return null;if(typeof v==='string'){try{return JSON.parse(v)}catch(e){return null}}return v};window.__AR.load(S,J(r.plan),J(r.comparison),(r.best||[]).map(b=>Object.assign({},b,{_sel:!!b.selected})));PARENT=r.parent_id||null;LINKT=r.link||null;
  if(U&&r.owner_uid===U.uid){CUR=id;CUR_PUB=pub;sm("Открыта ваша задача: изменения сохранятся в неё.")}else{CUR=null;CUR_PUB=false;sm("Открыта чужая задача: при сохранении будет создана ваша копия.")}info();window.scrollTo(0,0)});
 window.stParts=async()=>{if(!U){sm("Войдите через Google.");return}if(!CUR){sm("Сначала сохраните исходную задачу.");return}
  const lines=$("#parts").value.split("\n").map(s=>s.replace(/^[\s\-•*\d.)]+/,"").trim()).filter(Boolean);if(!lines.length){sm("Впишите составляющие, по одной на строку.");return}
