@@ -372,7 +372,7 @@ function save(q){const s={SOL,PLAN,CMP,BEST};document.querySelectorAll("input,se
 function restore(){let s;try{s=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}if(!s)return;Object.entries(s).forEach(([k,v])=>{if(k==="SOL"||k==="CMP"||k==="BEST"||k==="PLAN")return;const e=document.getElementById(k);if(e){if(e.type==="checkbox")e.checked=v;else e.value=v}});SOL=s.SOL||{};PLAN=s.PLAN||null;CMP=s.CMP||null;BEST=s.BEST||[];if(Object.keys(SOL).length)render();renderCmp();renderBest();drawPlan()}
 $("#onlyFound").onchange=render;$("#ord").onchange=render;
 restore();if(!Object.keys(SOL).length)render();
-window.__AR={SOL:()=>SOL,PLAN:()=>PLAN,CMP:()=>CMP,BEST:()=>BEST,load:(S,P,C,B)=>{SOL=S;PLAN=P;CMP=C||null;BEST=B||[];render();renderCmp();renderBest();drawPlan();save(true)}};
+window.__AR={SOL:()=>SOL,PLAN:()=>PLAN,CMP:()=>CMP,BEST:()=>BEST,load:(S,P,C,B)=>{SOL=S;PLAN=P;try{$("#plan").value=P?JSON.stringify(P):""}catch(e){}CMP=C||null;BEST=B||[];render();renderCmp();renderBest();drawPlan();save(true)}};
 (()=>{const q=new URLSearchParams(location.search);if(q.get('prob')){$('#prob').value=q.get('prob');$('#ideal').value=q.get('ideal')||'';msg('Задача перенесена из FlowSolve')}})();
 </script>
 
@@ -463,8 +463,9 @@ async function aiStep(kind){const note=t=>{const n=document.getElementById("next
  catch(e){note("Ошибка ИИ: "+e.message+". Проверьте ключ и название модели в разделе «Подключение ИИ».")}
  finally{if(b)b.disabled=false;setTimeout(showNext,300)}}
 </script>
+<div id="nextMini" class="no-print" onclick="nbHide(0)" style="display:none;position:fixed;right:18px;bottom:18px;background:#1f4e78;color:#fff;border-radius:6px;padding:6px 12px;cursor:pointer;z-index:999;font-size:13.5px">Подсказка ▸</div>
 <div id="nextBox" class="no-print" style="position:fixed;right:18px;bottom:18px;width:340px;background:#fff;border:2px solid #1f4e78;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 14px;z-index:999;font-size:14px;line-height:1.45">
-<div style="font-weight:600;color:#1f4e78;margin-bottom:4px">Следующий шаг</div>
+<div style="font-weight:600;color:#1f4e78;margin-bottom:4px">Следующий шаг<span onclick="nbHide(1)" title="Свернуть" style="float:right;cursor:pointer;font-size:18px;line-height:1;color:#666;padding:0 2px">✕</span></div>
 <div id="nextText"></div>
 <div style="margin-top:8px"><button class="btn" id="nextAuto" style="margin:0 6px 6px 0;display:none">Выполнить автоматически</button><button class="btn" id="nextBtn" style="margin:0"></button></div>
 <div id="nextNote" class="okk" style="margin-top:6px;font-size:13px"></div>
@@ -479,7 +480,9 @@ function nextStep(){const C=typeof CMP!=="undefined"?CMP:null,prob=(document.get
  if(!C.maneuvers)return{t:"Выводы проверены. Теперь выведите решения от проверенных выводов: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле, затем «Разобрать решения».",b:"Скопировать запрос на манёвры",go:"manAns",act:()=>copyMan(),k:"man"};
 if(!PLAN||!PLAN.paths)return{t:"Решения выведены. Теперь раздел 5: выбор пути (своё изделие, поставщик узла или лицензия), смежники, этапы и данные для производства. Скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле, затем «Разобрать план».",b:"Скопировать запрос на план",go:"plan",act:()=>copyPlan(),k:"plan"};
  return{t:"Решения выведены. Отметьте ✓ нужные решения в разделе 4, затем сохраните задачу в хранилище (внизу страницы).",b:"Перейти к сохранению",go:"stCard",act:()=>{}}}
-function showNext(){const s=nextStep();const au=document.getElementById("nextAuto");if(au){if(s.k&&aiReady()){au.style.display="";au.onclick=()=>aiStep(s.k)}else au.style.display="none"}document.getElementById("nextText").textContent=s.t;const b=document.getElementById("nextBtn");b.textContent=s.b;
+function nbHide(x){try{localStorage.setItem("asuir_nb_hidden",x?"1":"0")}catch(e){}nbApply()}
+function nbApply(){let x="1";try{x=localStorage.getItem("asuir_nb_hidden")||"1"}catch(e){}document.getElementById("nextBox").style.display=x==="1"?"none":"";document.getElementById("nextMini").style.display=x==="1"?"":"none"}
+function showNext(){nbApply();const s=nextStep();const au=document.getElementById("nextAuto");if(au){if(s.k&&aiReady()){au.style.display="";au.onclick=()=>aiStep(s.k)}else au.style.display="none"}document.getElementById("nextText").textContent=s.t;const b=document.getElementById("nextBtn");b.textContent=s.b;
  b.onclick=async()=>{await s.act();const el=document.getElementById(s.go);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.style.outline="3px solid #e8a000";el.style.outlineOffset="2px";setTimeout(()=>el.style.outline="",6000);if(el.tagName==="TEXTAREA")el.focus()}
   document.getElementById("nextNote").textContent=/Скопировать/.test(s.b)?"✓ Запрос скопирован — вставьте его в ИИ (Ctrl+V). Подсвеченное оранжевым поле — куда вставить ответ.":"";setTimeout(showNext,500)};
  let sk=document.getElementById("nextSkip");if(s.skip){if(!sk){sk=document.createElement("button");sk.id="nextSkip";sk.className="btn alt";sk.style.margin="0 0 0 6px";sk.textContent="Пропустить";b.after(sk)}sk.onclick=s.skip}else if(sk)sk.remove()}
