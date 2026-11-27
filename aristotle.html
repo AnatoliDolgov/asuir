@@ -122,6 +122,14 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <p class="note">Кнопка открывает АСУИР Производство с уже заполненными полями: изделие, оборудование, выпуск, работники, цеховые расходы, комплектующие, цена. Сохранить линию в Каталог можно там же кнопкой генератора.</p>
 </div>
 
+<details class="card no-print" id="aiCard"><summary style="cursor:pointer;font-weight:600;color:#1f4e78">Подключение ИИ — чтобы шаги выполнялись одной кнопкой, без копирования</summary>
+<p class="hint">Ключи доступа (API key) хранятся только в этом браузере и отправляются только напрямую в Anthropic и OpenAI. Оплата — по тарифу вашего ключа. Если подключить оба ИИ, анализ делает один, а проверку — другой.</p>
+<div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+<div><label>Ключ Anthropic (Claude)</label><input id="aiAk" type="password" placeholder="sk-ant-…" style="width:100%"><label>Модель Claude</label><input id="aiAm" style="width:100%"></div>
+<div><label>Ключ OpenAI (ChatGPT)</label><input id="aiOk" type="password" placeholder="sk-…" style="width:100%"><label>Модель ChatGPT</label><input id="aiOm" style="width:100%"></div></div>
+<label>Анализ делает</label><select id="aiMain"><option value="anthropic">Claude (проверку — ChatGPT)</option><option value="openai">ChatGPT (проверку — Claude)</option></select>
+<div style="margin-top:8px"><button class="btn" onclick="aiSave()">Сохранить подключение</button> <span id="aiState" class="m"></span></div>
+</details>
 <div class="card" id="stCard">
 <h1>6. Хранилище задач и решений</h1>
 <p class="sub">Задачи и решения накапливаются в хранилище. Запись по умолчанию закрыта — её видит только автор; после публикации её видят все. Сложная задача раскладывается на составляющие; найденное решение можно превратить в новую задачу. Так в хранилище растёт дерево задач.</p>
@@ -251,7 +259,7 @@ ${Rv.map(r=>`Оценка (${r.reviewer}): ${r.summary}\nУпущено: ${r.mis
 {"criteria":[],"competitors":[],"technologies":[{"name":"","users":{},"levels":{},"strengths":"","weaknesses":"","sources":""}],"conclusions":{"weak":"","crowded":"","free":"","base":""},"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 или null,"response":"","cost":"","source":""}],"best":[{"title":"","why":"","response":"","cost":"","branches":[]}],"changes":"кратко: что исправлено"}`}
 async function copyFix(){const fm=t=>{$("#fixMsg").textContent=t};if(!CMP||!(CMP.checks||[]).length){fm("Сначала разберите ответ проверки");return}const p=mkFix();try{await navigator.clipboard.writeText(p);fm("✓ Запрос на исправление скопирован. Вставьте его в ИИ (Ctrl+V); исправленный ответ вставьте в шаг 2 и нажмите «Разобрать ответ».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");fm("✓ Запрос скопирован. Исправленный ответ — в шаг 2, «Разобрать ответ».")}catch(_){fm("Не удалось скопировать")}t.remove()}}
 function renderHist(){const H=(CMP&&CMP.history)||[];$("#histOut").innerHTML=H.length?`<h3 class="ln">Версии анализа</h3><div class="wrap"><table class="res"><tr><th>Версия</th><th>Проверки</th><th>Подтверждено</th><th>Что исправлено</th></tr>${H.map(x=>`<tr><td>${x.version}</td><td>${esc(x.reviewers||"—")}</td><td>${x.ok} из ${x.total}</td><td>${esc(x.changes||"")}</td></tr>`).join("")}<tr><td><b>${(CMP.version||1)}</b> (текущая)</td><td colspan="3">${(CMP.checks||[]).length?((CMP.checks||[]).filter(c=>/подтв/i.test(c.verdict||"")).length+" из "+CMP.checks.length+" подтверждено"):"ещё не проверена"}${CMP.changes?" · "+esc(CMP.changes):""}</td></tr></table></div>`:""}
-function mkMan(){const C=CMP||{};return `Ты работаешь как генератор технологий «Аристотель» (методика технологического превосходства «Сократ», М. Секора). Сравнение технологий и выводы уже выполнены, проверены независимым ИИ и исправлены. Принимай их как установленные данные и НЕ меняй. Твоя работа — только этапы 4 и 5.
+function mkMan(kids){const C=CMP||{};kids=kids||[];return `Ты работаешь как генератор технологий «Аристотель» (методика технологического превосходства «Сократ», М. Секора). Сравнение технологий и выводы уже выполнены, проверены независимым ИИ и исправлены. Принимай их как установленные данные и НЕ меняй. Твоя работа — только этапы 4 и 5.
 
 ЗАДАЧА: ${$("#prob").value.trim()}
 ЧТО ЕСТЬ У НАС: ${$("#own").value.trim()||"не указано"}
@@ -260,7 +268,10 @@ function mkMan(){const C=CMP||{};return `Ты работаешь как гене
 ПРОВЕРЕННОЕ СРАВНЕНИЕ И ВЫВОДЫ:
 ${JSON.stringify({criteria:C.criteria,competitors:C.competitors,technologies:(C.technologies||[]).map(t=>({name:t.name,users:t.users,levels:t.levels,strengths:t.strengths,weaknesses:t.weaknesses})),conclusions:C.conclusions})}
 
-ЦЕЛЬ: технологическое преимущество над конкурентами. Сборка из готовых покупных решений преимущества не даёт и решением не считается.
+${kids.length?`РЕШЕНИЯ СОСТАВЛЯЮЩИХ (найдены отдельным анализом узлов этой задачи — преимущество изделия складывается из преимуществ узлов; используй их):
+${JSON.stringify(kids)}
+
+`:""}ЦЕЛЬ: технологическое преимущество над конкурентами. Сборка из готовых покупных решений преимущества не даёт и решением не считается.
 ЕСЛИ ОСНОВНОЕ ПОЛЕ ЗАНЯТО: ищи преимущество уровнем ниже — в узлах и составляющих изделия, где у конкурентов слабые места (см. weaknesses), а также в том, чего ни у кого нет в серии.
 СИМБИОЗ: рассматривай не только борьбу с конкурентами, но и союз с ними — стать поставщиком узла, который решает их слабость. Оцени, что выгоднее.
 
@@ -274,7 +285,7 @@ ${brLines()}
 {"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 или null,"response":"","cost":"","source":""}],
  "best":[{"title":"","why":"","response":"","cost":"","branches":["S.FLA"]}],
  "rationale":"1–2 предложения: почему выбраны именно эти решения"}`}
-async function copyMan(){const mm=t=>{$("#manMsg").textContent=t};if(!CMP){mm("Сначала разберите ответ ИИ (шаг 2)");return}const p=mkMan();try{await navigator.clipboard.writeText(p);mm("✓ Запрос скопирован. Вставьте его в ИИ (Ctrl+V); ответ — в поле ниже, затем «Разобрать решения».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");mm("✓ Запрос скопирован.")}catch(_){mm("Не удалось скопировать")}t.remove()}}
+async function copyMan(){const mm=t=>{$("#manMsg").textContent=t};if(!CMP){mm("Сначала разберите ответ ИИ (шаг 2)");return}let kids=[];try{if(window.stChildBest)kids=await window.stChildBest()}catch(e){}const p=mkMan(kids);try{await navigator.clipboard.writeText(p);mm("✓ Запрос скопирован"+(kids.length?" (с решениями "+kids.length+" составляющих)":"")+". Вставьте его в ИИ (Ctrl+V); ответ — в поле ниже, затем «Разобрать решения».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");mm("✓ Запрос скопирован.")}catch(_){mm("Не удалось скопировать")}t.remove()}}
 function parseMan(){const t=$("#manAns").value,a=t.indexOf("{"),z=t.lastIndexOf("}");let o=null;try{o=JSON.parse(t.slice(a,z+1))}catch(e){$("#manMsg").textContent="Ответ не читается как JSON";return}
  SOL={};(o.branches||[]).forEach(b=>{if(b&&b.id)SOL[String(b.id).trim()]=b});BEST=(o.best||[]).map(b=>Object.assign({_sel:false},b));
  CMP.maneuvers=(CMP.maneuvers||0)+1;CMP.man_rationale=o.rationale||"";$("#manAns").value="";$("#manMsg").textContent="Решения выведены заново от проверенных выводов"+(o.rationale?": "+o.rationale:"");render();renderBest();renderCmp();save(true);$("#bestCard").scrollIntoView({behavior:"smooth"})}
@@ -402,6 +413,7 @@ function list(rows,title){rows.forEach(([id,r,pub])=>CACHE[id]=[r,pub]);
  $("#stList").innerHTML=rows.length?`<h3 class="ln">${title}</h3><div class="wrap"><table class="res"><tr><th>Задача</th><th>Статус · выход</th><th>Связь</th><th>Автор</th><th>Дата</th><th></th></tr>${rows.map(([id,r,pub,s])=>`<tr><td>${esc(r.task).slice(0,180)}${s!=null?`<div class="m">сходство ${Math.round(s*100)}%</div>`:""}</td><td>${STAT[r.status]||""}${r.exit?" · "+EXIT[r.exit]:""}<div class="m">${pub?"опубликована":"закрыта"}</div></td><td>${r.parent_id?(LINK[r.link]||"")+" задачи "+esc(r.parent_id):"—"}</td><td>${esc(r.author)}</td><td>${esc((r.updated_at||"").slice(0,10))}</td><td><a href="#" data-open="${esc(id)}">открыть</a></td></tr>`).join("")}</table></div>`:`<p class="m">${title}: ничего не найдено.</p>`}
 window.stFind=async()=>{const a=await all(),t=toks($("#prob").value+" "+$("#ideal").value);list(a.map(([id,r,p])=>[id,r,p,sim(t,toks(r.task+" "+r.ideal))]).filter(x=>x[3]>0&&x[0]!==CUR).sort((x,y)=>y[3]-x[3]).slice(0,8),"Похожие задачи")};
 window.stMine=async()=>{if(!U){sm("Войдите через Google.");return}const a=await all();list(a.filter(([id,r])=>r.owner_uid===U.uid).sort((x,y)=>(y[1].updated_at||"").localeCompare(x[1].updated_at||"")),"Мои задачи")};
+window.stChildBest=async()=>{if(!CUR||!U)return[];const a=await all();return a.filter(([id,r])=>r.parent_id===CUR).map(([id,r])=>({part:r.task,status:r.status||"",best:(r.best||[]).map(b=>({title:b.title,why:b.why}))})).filter(x=>x.best.length)};
 window.stTree=async()=>{if(!CUR){sm("Сначала сохраните задачу.");return}const a=await all(),by={};a.forEach(([id,r,p])=>{CACHE[id]=[r,p];(by[r.parent_id]=by[r.parent_id]||[]).push([id,r,p])});
  let root=CUR;for(let i=0;i<20;i++){const r=CACHE[root]&&CACHE[root][0];if(!r||!r.parent_id||!CACHE[r.parent_id])break;root=r.parent_id}
  const node=(id,d)=>{const r=CACHE[id][0],kids=by[id]||[],parts=kids.filter(k=>k[1].link==="part"),done=parts.filter(k=>k[1].status==="solved").length;
@@ -421,25 +433,50 @@ window.stChild=()=>{const S=window.__AR.SOL(),sel=(window.__AR.BEST()||[]).filte
  location.href=location.pathname+"?parent="+encodeURIComponent(CUR)+"&link=refine&prob="+encodeURIComponent(sel.map(o=>o.solution).join("; "))};
 authUI();info();
 </script>
+<script>
+// ===== Прямое подключение ИИ (ключи хранятся только в этом браузере) =====
+const AIK="asuir_ai_keys";
+function aiCfg(){try{return JSON.parse(localStorage.getItem(AIK)||"{}")}catch(e){return{}}}
+function aiSave(){const c={ak:$("#aiAk").value.trim(),am:$("#aiAm").value.trim()||"claude-sonnet-5-5",ok:$("#aiOk").value.trim(),om:$("#aiOm").value.trim()||"gpt-5",main:$("#aiMain").value};try{localStorage.setItem(AIK,JSON.stringify(c))}catch(e){}aiShow();showNext()}
+function aiShow(){const c=aiCfg();$("#aiAk").value=c.ak||"";$("#aiAm").value=c.am||"claude-sonnet-5-5";$("#aiOk").value=c.ok||"";$("#aiOm").value=c.om||"gpt-5";$("#aiMain").value=c.main||"anthropic";
+ const n=(c.ak?1:0)+(c.ok?1:0);$("#aiState").textContent=n===2?"Подключены оба ИИ: анализ — "+(c.main==="openai"?"ChatGPT":"Claude")+", проверка — "+(c.main==="openai"?"Claude":"ChatGPT")+".":n===1?"Подключён один ИИ: анализ и проверку будет делать он (проверка другим ИИ надёжнее).":"ИИ не подключён — шаги выполняются через копирование запроса."}
+function aiReady(){const c=aiCfg();return !!(c.ak||c.ok)}
+function aiWho(role){const c=aiCfg();const main=c.main==="openai"?"openai":"anthropic";let p=role==="check"?(main==="openai"?"anthropic":"openai"):main;if(p==="anthropic"&&!c.ak)p="openai";if(p==="openai"&&!c.ok)p="anthropic";return p}
+async function aiCall(role,prompt,onTick){const c=aiCfg(),who=aiWho(role);const t0=Date.now();const tk=setInterval(()=>onTick&&onTick(Math.round((Date.now()-t0)/1000),who),1000);
+ try{if(who==="anthropic"){const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"content-type":"application/json","x-api-key":c.ak,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:c.am||"claude-sonnet-5-5",max_tokens:32000,messages:[{role:"user",content:prompt}]})});
+   const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return{text:(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join(""),who:"Claude ("+(c.am||"")+")"}}
+  else{const r=await fetch("https://api.openai.com/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json","authorization":"Bearer "+c.ok},body:JSON.stringify({model:c.om||"gpt-5",messages:[{role:"user",content:prompt}],max_completion_tokens:32000})});
+   const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return{text:(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||"",who:"ChatGPT ("+(c.om||"")+")"}}}
+ finally{clearInterval(tk)}}
+// выполнить шаг автоматически: role, prompt builder, target field, parser
+async function aiStep(kind){const note=t=>{const n=document.getElementById("nextNote");if(n)n.textContent=t};
+ const map={analysis:["main",()=>mkPrompt(),"answer",()=>parseAnswer()],check:["check",()=>mkCheck(),"check",()=>parseCheck()],fix:["main",()=>mkFix(),"answer",()=>parseAnswer()],man:["main",()=>mkMan(window.__kids||[]),"manAns",()=>parseMan()]};
+ const m=map[kind];if(!m)return;if(kind==="man"){try{window.__kids=window.stChildBest?await window.stChildBest():[]}catch(e){window.__kids=[]}}const b=document.getElementById("nextAuto");if(b)b.disabled=true;
+ try{const res=await aiCall(m[0],m[1](),(s,w)=>note(`ИИ (${w==="openai"?"ChatGPT":"Claude"}) работает… ${s} с. Полный ответ может занять несколько минут.`));
+  let txt=res.text;if(kind==="check"){try{const a=txt.indexOf("{"),z=txt.lastIndexOf("}");const o=JSON.parse(txt.slice(a,z+1));if(!o.reviewer)o.reviewer=res.who;txt=JSON.stringify(o)}catch(e){}}
+  document.getElementById(m[2]).value=txt;m[3]();note("✓ Готово: "+res.who+". Смотрите результат на странице.")}
+ catch(e){note("Ошибка ИИ: "+e.message+". Проверьте ключ и название модели в разделе «Подключение ИИ».")}
+ finally{if(b)b.disabled=false;setTimeout(showNext,300)}}
+</script>
 <div id="nextBox" class="no-print" style="position:fixed;right:18px;bottom:18px;width:340px;background:#fff;border:2px solid #1f4e78;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:12px 14px;z-index:999;font-size:14px;line-height:1.45">
 <div style="font-weight:600;color:#1f4e78;margin-bottom:4px">Следующий шаг</div>
 <div id="nextText"></div>
-<div style="margin-top:8px"><button class="btn" id="nextBtn" style="margin:0"></button></div>
+<div style="margin-top:8px"><button class="btn" id="nextAuto" style="margin:0 6px 6px 0;display:none">Выполнить автоматически</button><button class="btn" id="nextBtn" style="margin:0"></button></div>
 <div id="nextNote" class="okk" style="margin-top:6px;font-size:13px"></div>
 </div>
 <script>
 function nextStep(){const C=typeof CMP!=="undefined"?CMP:null,prob=(document.getElementById("prob").value||"").trim();
  const ch=C&&C.checks||[],ok=ch.filter(c=>/подтв/i.test(c.verdict||"")).length;
  if(!prob)return{t:"Впишите задачу в поле «1. Задача» вверху страницы — или нажмите кнопку, чтобы загрузить пример.",b:"Загрузить пример",go:"prob",act:()=>loadExample()};
- if(!C)return{t:"Скопируйте запрос и вставьте его в ИИ (Claude, ChatGPT или Gemini). Ответ ИИ вставьте в подсвеченное поле и нажмите «Разобрать ответ».",b:"Скопировать запрос для ИИ",go:"answer",act:()=>copyPrompt()};
- if(!ch.length&&!C.skipCheck)return{t:(C.version>1?`Анализ исправлен (версия ${C.version}). Лучше проверить его ещё раз другим ИИ — или нажмите «Пропустить», чтобы перейти к решениям.`:"Анализ получен. Проверьте его ДРУГИМ ИИ.")+" Скопируйте запрос, вставьте в другой ИИ, ответ — в подсвеченное поле, затем «Разобрать проверку».",b:"Скопировать запрос на проверку",go:"check",act:()=>copyCheck(),skip:()=>{C.skipCheck=true;save(true);showNext()}};
- if(ch.length&&!C.fixDone&&ok<ch.length)return{t:`Проверка: подтверждено ${ok} из ${ch.length}. Исправьте анализ: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле шага 2 (вместо старого текста), затем «Разобрать ответ». Если исправлять не нужно — «Пропустить».`,b:"Скопировать запрос на исправление",go:"answer",act:()=>copyFix(),skip:()=>{C.fixDone=true;save(true);showNext()}};
- if(!C.maneuvers)return{t:"Выводы проверены. Теперь выведите решения от проверенных выводов: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле, затем «Разобрать решения».",b:"Скопировать запрос на манёвры",go:"manAns",act:()=>copyMan()};
+ if(!C)return{t:"Скопируйте запрос и вставьте его в ИИ (Claude, ChatGPT или Gemini). Ответ ИИ вставьте в подсвеченное поле и нажмите «Разобрать ответ».",b:"Скопировать запрос для ИИ",go:"answer",act:()=>copyPrompt(),k:"analysis"};
+ if(!ch.length&&!C.skipCheck)return{t:(C.version>1?`Анализ исправлен (версия ${C.version}). Лучше проверить его ещё раз другим ИИ — или нажмите «Пропустить», чтобы перейти к решениям.`:"Анализ получен. Проверьте его ДРУГИМ ИИ.")+" Скопируйте запрос, вставьте в другой ИИ, ответ — в подсвеченное поле, затем «Разобрать проверку».",b:"Скопировать запрос на проверку",go:"check",act:()=>copyCheck(),k:"check",skip:()=>{C.skipCheck=true;save(true);showNext()}};
+ if(ch.length&&!C.fixDone&&ok<ch.length)return{t:`Проверка: подтверждено ${ok} из ${ch.length}. Исправьте анализ: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле шага 2 (вместо старого текста), затем «Разобрать ответ». Если исправлять не нужно — «Пропустить».`,b:"Скопировать запрос на исправление",go:"answer",act:()=>copyFix(),k:"fix",skip:()=>{C.fixDone=true;save(true);showNext()}};
+ if(!C.maneuvers)return{t:"Выводы проверены. Теперь выведите решения от проверенных выводов: скопируйте запрос, вставьте в ИИ, ответ — в подсвеченное поле, затем «Разобрать решения».",b:"Скопировать запрос на манёвры",go:"manAns",act:()=>copyMan(),k:"man"};
  return{t:"Решения выведены. Отметьте ✓ нужные решения в разделе 4, затем сохраните задачу в хранилище (внизу страницы).",b:"Перейти к сохранению",go:"stCard",act:()=>{}}}
-function showNext(){const s=nextStep();document.getElementById("nextText").textContent=s.t;const b=document.getElementById("nextBtn");b.textContent=s.b;
+function showNext(){const s=nextStep();const au=document.getElementById("nextAuto");if(au){if(s.k&&aiReady()){au.style.display="";au.onclick=()=>aiStep(s.k)}else au.style.display="none"}document.getElementById("nextText").textContent=s.t;const b=document.getElementById("nextBtn");b.textContent=s.b;
  b.onclick=async()=>{await s.act();const el=document.getElementById(s.go);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.style.outline="3px solid #e8a000";el.style.outlineOffset="2px";setTimeout(()=>el.style.outline="",6000);if(el.tagName==="TEXTAREA")el.focus()}
   document.getElementById("nextNote").textContent=/Скопировать/.test(s.b)?"✓ Запрос скопирован — вставьте его в ИИ (Ctrl+V). Подсвеченное оранжевым поле — куда вставить ответ.":"";setTimeout(showNext,500)};
  let sk=document.getElementById("nextSkip");if(s.skip){if(!sk){sk=document.createElement("button");sk.id="nextSkip";sk.className="btn alt";sk.style.margin="0 0 0 6px";sk.textContent="Пропустить";b.after(sk)}sk.onclick=s.skip}else if(sk)sk.remove()}
-setInterval(showNext,1500);setTimeout(showNext,300);
+setInterval(showNext,1500);setTimeout(()=>{try{aiShow()}catch(e){}showNext()},300);
 </script>
 </body></html>
