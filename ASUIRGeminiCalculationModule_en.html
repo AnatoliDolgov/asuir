@@ -4220,5 +4220,23 @@ window.openReferenceLine = function (cc) {
   Object.defineProperty(window,'loadLineIntoWorkspace',{configurable:true,get(){return v},set(f){v=wrap(f);}});
 })();
 </script>
+<script type="module">
+// Приём данных из Аристотеля: ...#handoff=<JSON>
+(function(){
+  const m=location.hash.match(/^#handoff=(.+)$/);if(!m)return;let H;try{H=JSON.parse(decodeURIComponent(m[1]))}catch(e){return}
+  const EN=document.documentElement.lang==="en";
+  const go=(n)=>{if(typeof window.addComponentRow!=="function"||typeof window.addExpenseRow!=="function"||typeof window.calculateAll!=="function"){if(n<40)setTimeout(()=>go(n+1),300);return}
+    const set=(id,v)=>{const e=document.getElementById(id);if(e&&v!=null&&v!=="")e.value=v};
+    if(typeof window.switchMainTab==="function")window.switchMainTab("main-tab-2");
+    set("equip-search-query",(H.equipment||"")+(H.product?" + module: "+H.product:""));set("val-equip",H.equipment_cost);set("val-actual-perf",H.perf);set("val-staff",H.staff);
+    set("sale-price-input",H.price);set("market-price-input",H.price);
+    const cb=document.getElementById("component-dynamic-rows");if(cb&&Array.isArray(H.components)){cb.innerHTML="";H.components.forEach(c=>window.addComponentRow(c.name,c.qty,c.price,c.url||""))}
+    const eb=document.getElementById("expense-dynamic-rows");if(eb&&H.shop_cost_per_day!=null){eb.innerHTML="";window.addExpenseRow(EN?"Shop expenses (from Aristotle)":"Цеховые расходы (из Аристотеля)",1,H.shop_cost_per_day,"")}
+    window.calculateAll();history.replaceState(null,"",location.pathname+location.search);
+    const b=document.createElement("div");b.style.cssText="position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:9999;background:#1f4e78;color:#fff;padding:10px 16px;border-radius:6px;font:14px Segoe UI,Arial;box-shadow:0 4px 12px rgba(0,0,0,.2)";
+    b.textContent=(EN?"Data received from Aristotle: ":"Данные переданы из Аристотеля: ")+(H.product||"");document.body.appendChild(b);setTimeout(()=>b.remove(),6000)};
+  window.addEventListener("load",()=>setTimeout(()=>go(0),800));
+})();
+</script>
 </body>
 </html>

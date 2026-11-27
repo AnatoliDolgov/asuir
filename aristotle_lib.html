@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АСУИР — Аристотель: библиотека манёвров</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#222;padding:20px 40px 60px}
+.main-wrapper{max-width:1400px;margin:0 auto}
+.top-utility-bar{display:flex;justify-content:flex-end;font-size:13px;margin-bottom:10px}
+.brand-title-block{text-align:center;margin:20px 0 15px}
+.brand-title-text{font-family:'Times New Roman',Times,Georgia,serif;font-size:52px;font-weight:400;letter-spacing:2px;color:#555;text-transform:uppercase;line-height:1}
+.nav-global-menu{display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 12px;flex-wrap:wrap}
+.nav-global-link{text-decoration:none;text-align:center}
+.nav-global-link .main-label{display:block;font-size:13px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.5px}
+.nav-global-link .sub-label{display:block;font-size:11.5px;color:#666;margin-top:2px}
+.nav-global-link:hover .main-label,.nav-global-link.active .main-label{color:#1f4e78}
+.divider{margin:10px 0 25px}.divider .thin{height:1px;background:#d0d7dd;margin-bottom:4px}.divider .thick{height:4px;background:#a0a8b0}
+.card{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:24px;margin-bottom:20px}
+h1{font-size:20px;color:#1f4e78;margin-bottom:8px}
+.sub{color:#555;margin:0 0 12px;font-size:14px;line-height:1.5}
+.nav-tabs2{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.nav-tabs2 button{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px;color:#444}
+.nav-tabs2 button.on{background:#1f4e78;color:#fff;border-color:#1f4e78}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.bar input,.bar select{padding:7px 9px;border:1px solid #d0d7dd;border-radius:4px;background:#fff;color:#222;font:inherit;font-size:14px}
+.m{color:#666;font-size:12.5px}
+.wrap{border:1px solid #d0d7dd;border-radius:4px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid #e3e8ec;text-align:left;vertical-align:top}
+th{background:#f2f5f8;color:#1f4e78;font-size:12.5px;line-height:1.25}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.profit{color:#2e7d32;font-weight:700}.neg{color:#b12704;font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:#eef2f5;color:#666}
+.go{display:inline-block;background:#1f4e78;color:#fff;text-decoration:none;padding:6px 10px;border-radius:4px;font-size:12.5px;text-align:center;line-height:1.25}
+.go:hover{background:#2b5b84}.go.off{background:#f2f5f8;color:#777;border:1px dashed #c3ccd3;pointer-events:none}
+details summary{cursor:pointer;color:#1f4e78}
+.note{margin:12px 0 0;color:#666;font-size:13px;line-height:1.5}
+.live{margin-top:20px}
+footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
+@media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}</style><style>body{zoom:1.25}.nav-global-menu{gap:16px}
+.mv{border:1px solid #d0d7dd;border-radius:4px;padding:14px 16px;margin:0 0 14px;background:#fff}
+.mv h3{font-size:15px;color:#1f4e78;margin:0 0 2px}.mv .en{font-size:12px;color:#666;font-weight:400}
+.mv p{font-size:13.5px;line-height:1.5;margin:4px 0}
+.mv table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+.mv th,.mv td{border:1px solid #e3e8ec;padding:6px 8px;text-align:left;vertical-align:top}.mv th{background:#f2f5f8;color:#1f4e78;width:150px}
+.ap{background:#eef6ff;border-left:3px solid #1f4e78;padding:8px 10px;font-size:13px;line-height:1.5;margin-top:8px}
+.ap b{color:#1f4e78}.no{background:#fff4e5;border-left-color:#b26a00}
+.mx{width:100%;border-collapse:collapse;font-size:12.5px}.mx th,.mx td{border:1px solid #d0d7dd;padding:6px;text-align:center}.mx th{background:#f2f5f8;color:#1f4e78}.mx td:first-child{text-align:left;font-weight:600}
+.y{color:#2e7d32;font-weight:700}.n{color:#999}
+h2.s{font-size:17px;color:#1f4e78;margin:6px 0 10px}
+.toc a{color:#1f4e78;margin-right:12px;font-size:13.5px}
+@media print{.nav-global-menu,.top-utility-bar{display:none}.mv{break-inside:avoid}}</style></head>
+<body><div class="main-wrapper">
+<div class="top-utility-bar"><div style="font-weight:600;">Languages ⌵</div></div>
+<div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
+<div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
+<nav class="nav-global-menu">
+<a href="index_ru.html" class="nav-global-link"><span class="main-label">О ПРОЕКТЕ</span><span class="sub-label">автоматизированная система управления</span></a>
+<a href="flowsolve.html" class="nav-global-link"><span class="main-label">FLOWSOLVE</span><span class="sub-label">генератор решений</span></a>
+<a href="aristotle.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">АРИСТОТЕЛЬ</span><span class="sub-label">генератор технологий</span></a>
+<a href="ASUIRGemeniCalculatOptimizer_ru.html" class="nav-global-link"><span class="main-label">АСУИР</span><span class="sub-label">генератор эффективности</span></a>
+<a href="ASUIRServices_ru.html" class="nav-global-link"><span class="main-label">АСУИР — УСЛУГИ</span><span class="sub-label">генератор сверхэффективных услуг</span></a>
+<a href="Catalog_ru.html" class="nav-global-link"><span class="main-label">КАТАЛОГ</span><span class="sub-label">оборудование, модули и продукция</span></a>
+<a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">справка и формулы</span></a>
+</nav>
+<div class="divider"><div class="thin"></div><div class="thick"></div></div>
+<div class="card">
+<h1>Аристотель — генератор технологий. Библиотека манёвров</h1>
+<p class="sub">Аристотель — адаптация методологии технологического превосходства «Сократ» (М. Секора). Назначение — обеспечение преимущества над конкурентами за счёт технологических манёвров в четырёх измерениях технологического пространства.</p>
+<p class="sub">Ниже — полный набор манёвров по документу «Краткий обзор системы „Сократ“» (А. В. Долгов, 15.10.2012). Каждый наступательный манёвр выполняется в любом из четырёх измерений. Примеры компаний взяты из документа; строки «Применение» — предложения, подлежащие проверке автором.</p>
+<p class="sub"><a href="aristotle.html" style="color:#1f4e78">← к генератору технологий</a></p><div class="toc"><a href="#dims">Измерения</a><a href="#mx">Матрица</a><a href="#acq">Получение технологий</a><a href="#off">Наступательные</a><a href="#def">Оборонительные</a><a href="#impl">Реализация</a><a href="#gaps">Пробелы</a></div>
+</div>
+<div class="card" id="dims"><h2 class="s">Четыре измерения технологического пространства</h2><div class="wrap"><table><tr><th>Измерение</th><th>Содержание</th></tr>
+<tr><td><b>Структура</b></td><td>Какие технологии способны выполнить нужную функцию и как они связаны между собой (по законам физики).</td></tr>
+<tr><td><b>Возможность</b></td><td>Насколько хорошо технология выполняет требуемую функцию.</td></tr>
+<tr><td><b>Поток технологий</b></td><td>Откуда и как получить технологии, необходимые для решения задачи.</td></tr>
+<tr><td><b>Время</b></td><td>Эволюция трёх предыдущих измерений.</td></tr>
+</table></div><p class="note">Измерения ортогональны: движение в каждом независимо от других, поэтому преимущество можно искать в одном или нескольких измерениях одновременно.</p></div>
+<div class="card" id="mx"><h2 class="s">Матрица: наступательные манёвры × измерения</h2><p class="sub">✔ — в документе есть пример для этого сочетания.</p><div class="wrap"><table class="mx"><tr><th>Манёвр</th><th>Структура</th><th>Возможность</th><th>Поток технологий</th><th>Время</th></tr>
+<tr><td>Лобовая атака <span class='m'>(Tech Frontal Attack)</span></td><td class='y'>✔</td><td class='n'>—</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Фланговая атака <span class='m'>(Tech Flank Attack)</span></td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td></tr>
+<tr><td>Охват <span class='m'>(Tech Envelopment Offensive)</span></td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td></tr>
+<tr><td>Окружение <span class='m'>(Tech Encirclement Offensive)</span></td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td></tr>
+<tr><td>Манёвр подвижности <span class='m'>(Tech Mobility Offensive)</span></td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td></tr>
+<tr><td>Изолированное наступление <span class='m'>(Tech Isolation Offensive)</span></td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td></tr>
+<tr><td>Партизанские действия <span class='m'>(Tech Guerilla Offensive)</span></td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td><td class='y'>✔</td></tr>
+</table></div></div>
+<div class="card" id="acq"><h2 class="s">1. Манёвры получения технологий</h2>
+<div class="mv"><h3>Технологические альянсы</h3><p>Получение технологии совместно с другими участниками.</p><div class="ap"><b>Применение (предложение):</b> Совместная закупка оборудования и комплектующих участниками сети малых производств; общий доступ к технологиям участников.</div></div>
+<div class="mv"><h3>Технологические контральянсы</h3><p>Объединение против альянса конкурента.</p><div class="ap"><b>Применение (предложение):</b> Объединение малых производств одной отрасли против крупного импортёра: общий поставщик, общие стандарты модулей.</div></div>
+<div class="mv"><h3>Учёт местной специфики</h3><p>Технология адаптируется к условиям страны.</p><div class="ap"><b>Применение (предложение):</b> Пошлины, стандарты, требования рынка страны; выбор страны и доли сжатия в генераторе.</div></div>
+</div>
+<div class="card" id="off"><h2 class="s">2. Наступательные манёвры</h2>
+<div class="mv"><h3>2.1. Лобовая атака <span class="en">Tech Frontal Attack</span></h3><p>Атака конкурента теми же технологиями на том же поле; исход решает превосходство в ресурсах.</p><table><tr><th>Структура</th><td>Ford и GM в 1970-х: «война ресурсов» — алюминий в двигателях, рамах и т.д. Без превосходства в ресурсах ни одна компания преимущества не получила.</td></tr><tr><th>Возможность</th><td><span class=n>в документе нет примера</span></td></tr><tr><th>Поток технологий</th><td><span class=n>в документе нет примера</span></td></tr><tr><th>Время</th><td><span class=n>в документе нет примера</span></td></tr></table><div class="ap no"><b>Применение (предложение):</b> Против Китая не применяется: превосходства в ресурсах у малого производства нет. Пример из документа — предупреждение.</div></div>
+<div class="mv"><h3>2.2. Фланговая атака <span class="en">Tech Flank Attack</span></h3><p>Технология, которой у конкурента нет и на разработку которой ему потребуются большие затраты времени и ресурсов. Удар там, где конкурент меньше всего ожидает.</p><table><tr><th>Структура</th><td>Sony в 1960-х: замена вакуумных ламп транзисторами.</td></tr><tr><th>Возможность</th><td>Goodyear: несколько видов шин на одной технологии при 1–2 видах у конкурентов.</td></tr><tr><th>Поток технологий</th><td>Bausch &amp; Lomb: приобретение в странах бывшего СССР технологии одноразовых контактных линз.</td></tr><tr><th>Время</th><td>Dell: очень короткая производственная цепочка по сравнению с другими производителями.</td></tr></table><div class="ap"><b>Применение (предложение):</b> Основной манёвр АСУИР. Структура — роботизированная линия вместо оборудования, рассчитанного на ручной труд при китайской зарплате. Возможность — несколько изделий на одном оборудовании за счёт модулей. Время — производство в стране сбыта без доставки и пошлин.</div></div>
+<div class="mv"><h3>2.3. Охват <span class="en">Tech Envelopment Offensive</span></h3><p>Сжатие конкурента между фронтами: одновременное использование нескольких технологий или удовлетворение многих потребностей клиента сразу.</p><table><tr><th>Структура</th><td>Sony против Matsushita: несколько технологий одновременно снизили цену и улучшили характеристики телевизоров.</td></tr><tr><th>Возможность</th><td>TSMC (2001): одна 90-нм технология для процессоров с нормами 90, 130 и 250 нм при одной 250-нм у конкурентов.</td></tr><tr><th>Поток технологий</th><td>Toyota против GM: одновременное использование технологий японского и американского рынков.</td></tr><tr><th>Время</th><td>Microsoft против WordPerfect (1990–1995): Word 2.0 и Word 2.5 за короткое время.</td></tr></table><div class="ap"><b>Применение (предложение):</b> Одна линия с набором модулей выпускает изделия нескольких классов; конкурент с узкоспециализированным оборудованием сжат с двух сторон — по цене и по ассортименту.</div></div>
+<div class="mv"><h3>2.4. Окружение <span class="en">Tech Encirclement Offensive</span></h3><p>Окружение клиента средствами (технологиями, возможностями), несовместимыми со средствами конкурентов.</p><table><tr><th>Структура</th><td>Apple: технологии, малосовместимые с IBM PC.</td></tr><tr><th>Возможность</th><td>IBM: одновременное предложение нескольких видов серверов с разными возможностями.</td></tr><tr><th>Поток технологий</th><td>Sun Microsystems: средства разработки, несовместимые с технологиями Microsoft.</td></tr><tr><th>Время</th><td>Microsoft: частые выпуски всё более привлекательных версий, привязывающие клиентов.</td></tr></table><div class="ap"><b>Применение (предложение):</b> Семейство совместимых изделий одной линии и общий набор модулей для участников; регулярное обновление изделий модулями.</div></div>
+<div class="mv"><h3>2.5. Манёвр подвижности <span class="en">Tech Mobility Offensive</span></h3><p>Использование ресурсов за пределами обычной деятельности — в сфере с меньшей конкуренцией.</p><table><tr><th>Структура</th><td>Time Warner Cable: переход от кабельного ТВ к интернет-телефонии.</td></tr><tr><th>Возможность</th><td>Intel против AMD: улучшение процессора и переименование 486 в Pentium; позднее — дополнительные функции Xeon против Opteron.</td></tr><tr><th>Поток технологий</th><td>GM (1971–1979): выход на рынок грузовиков с технологиями меньшего энергопотребления во время нефтяного эмбарго.</td></tr><tr><th>Время</th><td>Pratt &amp; Whitney против Hercules: быстро предложенный масштабируемый проект двигателя Triton.</td></tr></table><div class="ap"><b>Применение (предложение):</b> Переналадка линии модулем на изделие с меньшей конкуренцией, без замены основного оборудования. Только при реальном улучшении изделия, не за счёт переименования.</div></div>
+<div class="mv"><h3>2.6. Изолированное наступление <span class="en">Tech Isolation Offensive</span></h3><p>Сосредоточение на узком участке, где можно добиться решающего превосходства.</p><table><tr><th>Структура</th><td>Kawasaki Aerospace (2002): композитные законцовки крыльев для около 1000 самолётов Boeing, снижение расхода топлива до 7%.</td></tr><tr><th>Возможность</th><td>Японские производители против GM в узком сегменте среднего класса автомобилей.</td></tr><tr><th>Поток технологий</th><td>Apple: поток технологий для лидерства в сегменте домашних компьютеров.</td></tr><tr><th>Время</th><td>Amazon: одновременный выход во все сегменты интернет-продаж книг.</td></tr></table><div class="ap"><b>Применение (предложение):</b> Узкое изделие или компонент с большим эффектом для массового пользователя: одна линия, один сегмент, полное превосходство в нём.</div></div>
+<div class="mv"><h3>2.7. Партизанские действия <span class="en">Tech Guerilla Offensive</span></h3><p>Средства, причиняющие неудобства конкуренту.</p><table><tr><th>Структура</th><td>Подражание конкуренту на основе патентов, незначительно отличающихся от его технологий.</td></tr><tr><th>Возможность</th><td>Удержание или скупка компонентов, нужных конкуренту.</td></tr><tr><th>Поток технологий</th><td>Патентование технологий, тормозящих технологии конкурента.</td></tr><tr><th>Время</th><td>Опережающая покупка веб-доменов, ассоциирующихся с крупными компаниями.</td></tr></table><div class="ap no"><b>Применение (предложение):</b> В открытой системе АСУИР не применяется: часть приёмов недобросовестна. Знание нужно для распознавания таких действий против себя.</div></div>
+</div>
+<div class="card" id="def"><h2 class="s">3. Оборонительные манёвры</h2>
+<div class="mv"><h3>3.1. Позиционная оборона <span class="en">Tech Position Defense</span></h3><p>Не допустить конкурента на поле своей технологии.</p><div class="ap"><b>Применение (предложение):</b> Себестоимость ниже цены импорта сама служит барьером входа.</div></div>
+<div class="mv"><h3>3.2. Фланговая оборона <span class="en">Tech Flank Position Defense</span></h3><p>Ответная фланговая атака на выступление конкурента.</p><div class="ap"><b>Применение (предложение):</b> Ответный модуль на новое изделие конкурента.</div></div>
+<div class="mv"><h3>3.3. Подвижная оборона <span class="en">Tech Mobility Defense</span></h3><p>Уход из-под атаки.</p><div class="ap"><b>Применение (предложение):</b> Переналадка линии на другое изделие при давлении на текущее.</div></div>
+<div class="mv"><h3>3.4. Упреждающий удар <span class="en">Tech Preemptive Strike</span></h3><p>Атака конкурента, когда он занят и не может защищаться.</p><div class="ap"><b>Применение (предложение):</b> Выход с изделием раньше, чем конкурент перестроит поставки.</div></div>
+<div class="mv"><h3>3.5. Контрнаступление <span class="en">Tech Counter Offense</span></h3><p>Восстановление инициативы.</p><div class="ap"><b>Применение (предложение):</b> Возврат рынка новым модулем или снижением цены за счёт роботизации.</div></div>
+<div class="mv"><h3>3.6. Стратегический отход <span class="en">Tech Strategic Withdrawal</span></h3><p>Перегруппировка с внешним видом поражения.</p><div class="ap"><b>Применение (предложение):</b> Временный уход с изделия с сохранением линии и модулей для возврата.</div></div>
+<div class="mv"><h3>3.7. Непрямая оборона («Сусанин») <span class="en">Tech Indirect Defense</span></h3><p>Вывод конкурента на ложный путь.</p><div class="ap no"><b>Применение (предложение):</b> В открытой системе АСУИР не применяется: предполагает введение в заблуждение.</div></div>
+<div class="mv"><h3>3.8. Сдерживание</h3><p class="n">В документе только заголовок.</p></div></div>
+<div class="card" id="impl"><h2 class="s">4. Реализация манёвра</h2><div class="wrap"><table><tr><th>Характеристика</th><th>Содержание</th></tr>
+<tr><td><b>Структурные характеристики манёвра</b></td><td>Какими технологиями и в каком измерении выполняется манёвр.</td></tr>
+<tr><td><b>Заданная длительность</b></td><td>Сколько длится манёвр.</td></tr>
+<tr><td><b>Заданная скорость цикла</b></td><td>Как часто повторяется цикл.</td></tr>
+<tr><td><b>Заданное время отклика</b></td><td>Как быстро отвечать на воздействие.</td></tr>
+</table></div></div>
+<div class="card" id="gaps"><h2 class="s">5. Что предстоит восстановить</h2><ul style="padding-left:20px"><li style='font-size:13.5px;line-height:1.6'>Технологии сдерживания — в документе только заголовок.</li><li style='font-size:13.5px;line-height:1.6'>Инструменты (Tools), правила реализации и философия манёвров (раздел 4, пп. 4–6) — в документе только заголовки.</li><li style='font-size:13.5px;line-height:1.6'>Примеры оборонительных манёвров — в документе отсутствуют.</li></ul></div>
+<footer>© 2025 АСУИР. Материалы сайта являются интеллектуальной собственностью автора. Разработчик: Долгов Анатолий Владимирович<br>Разработано при технической поддержке ИИ-ассистента Claude (Anthropic).<br>Код — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">лицензия MIT</a>, тексты и методика — <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.<br><a href="/privacy.html#ru" style="color:#6c7a8a;">Политика конфиденциальности</a></footer>
+</div></body></html>

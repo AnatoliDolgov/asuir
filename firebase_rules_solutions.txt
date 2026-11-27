@@ -1,0 +1,41 @@
+НАСТРОЙКА FIREBASE ДЛЯ ХРАНИЛИЩА ЗАДАЧ (делается один раз)
+=========================================================
+
+Консоль: https://console.firebase.google.com → проект asuir-gemini
+
+1. Вход через Google
+   Authentication → Sign-in method → Add new provider → Google → Enable → Save.
+
+2. Домен сайта
+   Authentication → Settings → Authorized domains → проверьте, что в списке есть asuir.org
+   (если нет — Add domain → asuir.org).
+
+3. Правило доступа к хранилищу
+   Realtime Database → Rules.
+   В открывшемся тексте НИЧЕГО не удаляйте. Внутри блока "rules": { ... } добавьте
+   раздел "solutions" — вставьте его перед последней закрывающей скобкой блока "rules",
+   поставив запятую после предыдущего раздела. Затем нажмите Publish.
+
+    "solutions": {
+      "public": {
+        ".read": true,
+        "$id": {
+          ".write": "auth != null && auth.token.firebase.sign_in_provider == 'google.com' && (data.exists() ? data.child('owner_uid').val() == auth.uid : newData.child('owner_uid').val() == auth.uid)"
+        }
+      },
+      "private": {
+        "$uid": {
+          ".read": "auth != null && auth.uid == $uid",
+          ".write": "auth != null && auth.uid == $uid && auth.token.firebase.sign_in_provider == 'google.com'"
+        }
+      }
+    }
+
+Что означает правило:
+ - solutions/public  — опубликованные задачи: читают все; записывать, менять и удалять
+   может только автор, вошедший через Google.
+ - solutions/private/<автор> — закрытые задачи: читает и пишет только сам автор.
+ - Разделы Каталога (equipment_listing и др.) это правило не затрагивает.
+
+Если при нажатии Publish консоль покажет ошибку — пришлите снимок экрана правил,
+я поправлю текст под ваш файл.
