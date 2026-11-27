@@ -104,6 +104,11 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <h1>4. Решения, дающие преимущество</h1>
 <p class="sub">Решения выведены из сравнения технологий. Отметьте ✓ те, что будете реализовывать — можно несколько сразу.</p>
 <div id="bestOut"></div>
+<h3 class="ln">Манёвры по проверенным выводам</h3>
+<p class="hint">Когда сравнение и выводы проверены и исправлены (раздел 3), решения нужно вывести заново — от проверенных выводов. Нажмите кнопку, вставьте запрос в ИИ, ответ вставьте ниже. Сравнение и выводы при этом не меняются; меняются только ветви и решения.</p>
+<div class="no-print"><button class="btn alt" onclick="copyMan()">Манёвры по проверенным выводам</button> <span id="manMsg" class="okk" style="font-size:13.5px"></span></div>
+<textarea id="manAns" placeholder="Сюда — ответ ИИ с новыми решениями" style="width:100%;min-height:60px;margin-top:6px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
+<div class="no-print"><button class="btn" onclick="parseMan()">Разобрать решения</button></div>
 </div>
 
 <div class="card lm" id="spCard" style="display:none">
@@ -161,8 +166,9 @@ let SOL={};
 const found=o=>o&&o.solution&&String(o.solution).trim()&&String(o.solution).trim()!=="—";
 const adv=o=>{const v=parseFloat(o&&o.advantage);return isFinite(v)?v:0};
 const stars=o=>{const v=adv(o);return v?`<span class="okk">${"★".repeat(Math.round(v))}${"☆".repeat(5-Math.round(v))}</span>`:""};
+function brLines(){return LINES_ORDER.map(L=>`ЛИНИЯ «${L}»:\n`+MAN.filter(m=>m.line===L).map(m=>`  ${m.n}${m.threat?" [ТОЛЬКО КАК УГРОЗА: как конкурент может применить это против нас и как защититься]":""} — ${m.h}\n`+DIMS.map((d,i)=>`    ${d.k}.${m.k} — «${d.n}»: ${m.q[i]}`).join("\n")).join("\n")).join("\n\n")}
 function mkPrompt(){
- const lines=LINES_ORDER.map(L=>`ЛИНИЯ «${L}»:\n`+MAN.filter(m=>m.line===L).map(m=>`  ${m.n}${m.threat?" [ТОЛЬКО КАК УГРОЗА: как конкурент может применить это против нас и как защититься]":""} — ${m.h}\n`+DIMS.map((d,i)=>`    ${d.k}.${m.k} — «${d.n}»: ${m.q[i]}`).join("\n")).join("\n")).join("\n\n");
+ const lines=brLines();
  return `Ты работаешь как генератор технологий «Аристотель» — методика технологического превосходства «Сократ» (М. Секора). Разработчику нужно решить задачу и получить преимущество над конкурентами. Всю аналитическую работу делаешь ты, строго по порядку этапов.
 
 ЗАДАЧА: ${$("#prob").value.trim()||"[задача]"}
@@ -245,6 +251,33 @@ ${Rv.map(r=>`Оценка (${r.reviewer}): ${r.summary}\nУпущено: ${r.mis
 {"criteria":[],"competitors":[],"technologies":[{"name":"","users":{},"levels":{},"strengths":"","weaknesses":"","sources":""}],"conclusions":{"weak":"","crowded":"","free":"","base":""},"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 или null,"response":"","cost":"","source":""}],"best":[{"title":"","why":"","response":"","cost":"","branches":[]}],"changes":"кратко: что исправлено"}`}
 async function copyFix(){const fm=t=>{$("#fixMsg").textContent=t};if(!CMP||!(CMP.checks||[]).length){fm("Сначала разберите ответ проверки");return}const p=mkFix();try{await navigator.clipboard.writeText(p);fm("✓ Запрос на исправление скопирован. Вставьте его в ИИ (Ctrl+V); исправленный ответ вставьте в шаг 2 и нажмите «Разобрать ответ».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");fm("✓ Запрос скопирован. Исправленный ответ — в шаг 2, «Разобрать ответ».")}catch(_){fm("Не удалось скопировать")}t.remove()}}
 function renderHist(){const H=(CMP&&CMP.history)||[];$("#histOut").innerHTML=H.length?`<h3 class="ln">Версии анализа</h3><div class="wrap"><table class="res"><tr><th>Версия</th><th>Проверки</th><th>Подтверждено</th><th>Что исправлено</th></tr>${H.map(x=>`<tr><td>${x.version}</td><td>${esc(x.reviewers||"—")}</td><td>${x.ok} из ${x.total}</td><td>${esc(x.changes||"")}</td></tr>`).join("")}<tr><td><b>${(CMP.version||1)}</b> (текущая)</td><td colspan="3">${(CMP.checks||[]).length?((CMP.checks||[]).filter(c=>/подтв/i.test(c.verdict||"")).length+" из "+CMP.checks.length+" подтверждено"):"ещё не проверена"}${CMP.changes?" · "+esc(CMP.changes):""}</td></tr></table></div>`:""}
+function mkMan(){const C=CMP||{};return `Ты работаешь как генератор технологий «Аристотель» (методика технологического превосходства «Сократ», М. Секора). Сравнение технологий и выводы уже выполнены, проверены независимым ИИ и исправлены. Принимай их как установленные данные и НЕ меняй. Твоя работа — только этапы 4 и 5.
+
+ЗАДАЧА: ${$("#prob").value.trim()}
+ЧТО ЕСТЬ У НАС: ${$("#own").value.trim()||"не указано"}
+ЖЕЛАЕМЫЙ РЕЗУЛЬТАТ: ${$("#ideal").value.trim()||"не указан"}
+
+ПРОВЕРЕННОЕ СРАВНЕНИЕ И ВЫВОДЫ:
+${JSON.stringify({criteria:C.criteria,competitors:C.competitors,technologies:(C.technologies||[]).map(t=>({name:t.name,users:t.users,levels:t.levels,strengths:t.strengths,weaknesses:t.weaknesses})),conclusions:C.conclusions})}
+
+ЦЕЛЬ: технологическое преимущество над конкурентами. Сборка из готовых покупных решений преимущества не даёт и решением не считается.
+ЕСЛИ ОСНОВНОЕ ПОЛЕ ЗАНЯТО: ищи преимущество уровнем ниже — в узлах и составляющих изделия, где у конкурентов слабые места (см. weaknesses), а также в том, чего ни у кого нет в серии.
+СИМБИОЗ: рассматривай не только борьбу с конкурентами, но и союз с ними — стать поставщиком узла, который решает их слабость. Оцени, что выгоднее.
+
+ЭТАП 4. Обход всех ${BR.length} ветвей ниже (технологический манёвр × измерение). Каждое решение выводи из проверенных выводов и слабых мест конкурентов. Если осмысленного решения нет — "solution": "—". Не повторяй одно решение во многих ветвях. Сомнительное помечай ≈.
+ЭТАП 5. Лучшие 3–7 решений — простым языком, без названий манёвров: что сделать, за счёт чего преимущество, может ли конкурент ответить и когда, во что обойдётся, коды ветвей.
+
+Ветви (код — «измерение»: вопрос ветви):
+${brLines()}
+
+Ответ дай ОДНИМ блоком JSON без пояснений вне блока:
+{"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 или null,"response":"","cost":"","source":""}],
+ "best":[{"title":"","why":"","response":"","cost":"","branches":["S.FLA"]}],
+ "rationale":"1–2 предложения: почему выбраны именно эти решения"}`}
+async function copyMan(){const mm=t=>{$("#manMsg").textContent=t};if(!CMP){mm("Сначала разберите ответ ИИ (шаг 2)");return}const p=mkMan();try{await navigator.clipboard.writeText(p);mm("✓ Запрос скопирован. Вставьте его в ИИ (Ctrl+V); ответ — в поле ниже, затем «Разобрать решения».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");mm("✓ Запрос скопирован.")}catch(_){mm("Не удалось скопировать")}t.remove()}}
+function parseMan(){const t=$("#manAns").value,a=t.indexOf("{"),z=t.lastIndexOf("}");let o=null;try{o=JSON.parse(t.slice(a,z+1))}catch(e){$("#manMsg").textContent="Ответ не читается как JSON";return}
+ SOL={};(o.branches||[]).forEach(b=>{if(b&&b.id)SOL[String(b.id).trim()]=b});BEST=(o.best||[]).map(b=>Object.assign({_sel:false},b));
+ CMP.maneuvers=(CMP.maneuvers||0)+1;CMP.man_rationale=o.rationale||"";$("#manAns").value="";$("#manMsg").textContent="Решения выведены заново от проверенных выводов"+(o.rationale?": "+o.rationale:"");render();renderBest();renderCmp();save(true);$("#bestCard").scrollIntoView({behavior:"smooth"})}
 function renderCmp(){if(!CMP||!(CMP.technologies||[]).length){$("#cmpCard").style.display="none";return}$("#cmpCard").style.display="block";
  const T=CMP.technologies,who=[...new Set(T.flatMap(t=>Object.keys(t.users||{})))],cr=CMP.criteria||[],C=CMP.conclusions||{};
  const mark=v=>{const s=String(v||"").toLowerCase();return s.startsWith("да")?'<span class="okk">да</span>':s.startsWith("част")?'<span class="wrn">частично</span>':s?'<span class="m">'+esc(v)+'</span>':"—"};
