@@ -55,7 +55,8 @@ footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-heigh
 div.q{color:#8a96a3;font-size:12px;font-style:italic;margin-bottom:3px}a.ed{color:#1f4e78;text-decoration:none;font-size:13px;float:right}
 h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table-layout:fixed}.mtx th:first-child,.mtx td:first-child{width:20%}.mtx td{vertical-align:top}.mtx tr.thr td{background:#fff4e5}.mtx label{cursor:pointer}
 #msg{color:#2e7d32;font-size:12.5px}.bar2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}
-@media print{.nav-global-menu,.top-utility-bar,.no-print{display:none}body{zoom:1}}</style></head>
+@media print{.nav-global-menu,.top-utility-bar,.no-print{display:none}body{zoom:1}}</style><style>.hid{display:none!important}</style>
+</head>
 <body><div class="main-wrapper">
 <div class="top-utility-bar"><div style="font-weight:600;">Languages ⌵</div></div>
 <div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
@@ -74,44 +75,44 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 
 <div class="card">
 <h1>Аристотель — генератор технологий</h1>
-<p class="sub">Разработчик ставит задачу — например, «создать устройство памяти». Дальше работу выполняет ИИ по методике технологического превосходства «Сократ» (М. Секора): сравнивает имеющиеся технологии, их сильные и слабые стороны, сопоставляет с технологиями конкурентов, делает выводы — и только на их основе находит решения, дающие преимущество. Затем определяется, с кем создавать изделие (разработка, опытный образец, испытания), и изделие передаётся в АСУИР Производство — генератор эффективности, где производство выстраивается с наименьшей себестоимостью, наивысшей зарплатой и наибольшим доходом одновременно.</p>
+<p class="sub">Технологическая разведка по методике «Сократ» (М. Секора): Аристотель выясняет, на каких технологиях работают конкуренты и в чём их достижения, сравнивает с нашей технологией (если делаем сами) и с помощью технологических манёвров находит, как нивелировать достижения конкурентов — чтобы покупали у нас.</p>
 </div>
 
 <div class="card">
-<div class="step"><h3>1. Задача</h3><p class="hint">Что нужно создать или в чём получить преимущество.</p>
+<div class="step"><h3>1. Задача</h3><p class="hint">Изделие или узел, по которому нужно превзойти конкурентов.</p>
 <textarea id="prob" placeholder="Например: создать устройство памяти большой ёмкости при низкой стоимости"></textarea>
-<div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:8px"><div><label>Конкуренты (если не знаете — ИИ определит)</label><textarea id="comp" placeholder="кто и чем силён"></textarea></div><div><label>Что есть у нас</label><textarea id="own" placeholder="технологии, оборудование, люди, партнёры"></textarea></div><div><label>Желаемый результат (необязательно)</label><textarea id="ideal" placeholder="каким должно быть изделие"></textarea></div></div></div>
+<div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:8px"><div><label>Конкуренты (если не знаете — ИИ определит)</label><textarea id="comp" placeholder="кто и чем силён"></textarea></div><div><label>Наша технология (если делаем сами; если нет — оставьте пустым)</label><textarea id="own" placeholder="как делаем сейчас, оборудование, люди"></textarea></div><div class="hid"><label>Желаемый результат (необязательно)</label><textarea id="ideal" placeholder="каким должно быть изделие"></textarea></div></div></div>
 
 <div class="step"><h3>2. Анализ ИИ</h3><p class="hint">Нажмите «Запрос для ИИ», вставьте текст в Claude, ChatGPT или Gemini, затем вставьте ответ ИИ в поле ниже и нажмите «Разобрать ответ».</p>
 <div class="no-print"><button class="btn" onclick="copyPrompt()">Запрос для ИИ</button><span id="msg"></span></div>
 <textarea id="answer" placeholder="Вставьте сюда ответ ИИ" style="min-height:90px;margin-top:6px"></textarea>
-<div class="no-print" style="margin-top:6px"><button class="btn" onclick="parseAnswer()">Разобрать ответ</button><button class="btn alt" onclick="loadExample()">Пример: устройство хранения информации</button><button class="btn alt" onclick="save()">Сохранить в браузере</button><button class="btn alt" onclick="window.print()">Печать / PDF</button></div></div>
+<div class="no-print" style="margin-top:6px"><button class="btn" onclick="parseAnswer()">Разобрать ответ</button><button class="btn alt hid" onclick="loadExample()">Пример: устройство хранения информации</button><button class="btn alt" onclick="save()">Сохранить в браузере</button><button class="btn alt" onclick="window.print()">Печать / PDF</button></div></div>
 </div>
 
 <div class="card" id="cmpCard" style="display:none">
-<h1>3. Сравнение технологий: мы и конкуренты</h1>
+<h1>3. На каких технологиях работают конкуренты</h1>
 <div id="cmpOut"></div>
 <h3 class="ln">Проверка другим ИИ</h3>
 <p class="hint">Анализ одного ИИ может содержать ошибки. Нажмите «Запрос на проверку», вставьте его в <b>другой</b> ИИ (если анализ делал Claude — в ChatGPT или Gemini), ответ вставьте ниже. Утверждения, которые независимая проверка подтвердила, отмечаются ✓; сомнительные — ?; неверные — ✗ с исправлением. Можно проверить несколькими ИИ по очереди — отметки накапливаются.</p>
 <div class="no-print"><button class="btn alt" onclick="copyCheck()">Запрос на проверку</button> <span id="chkMsg" class="okk" style="font-size:13.5px"></span></div>
 <textarea id="check" placeholder="Сюда — ответ проверяющего ИИ (сам запрос уже в буфере обмена после нажатия кнопки)" style="width:100%;min-height:60px;margin-top:6px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
-<div class="no-print"><button class="btn" onclick="parseCheck()">Разобрать проверку</button><button class="btn alt" onclick="copyFix()">Исправить анализ по проверке</button> <span id="fixMsg" class="okk" style="font-size:13.5px"></span></div>
-<div id="histOut"></div>
+<div class="no-print"><button class="btn" onclick="parseCheck()">Разобрать проверку</button><button class="btn alt hid" onclick="copyFix()">Исправить анализ по проверке</button> <span id="fixMsg" class="okk" style="font-size:13.5px"></span></div>
+<div id="histOut" class="hid"></div>
 <div id="checkOut"></div>
 </div>
 
 <div class="card" id="bestCard" style="display:none">
-<h1>4. Решения, дающие преимущество</h1>
-<p class="sub">Решения выведены из сравнения технологий. Отметьте ✓ те, что будете реализовывать — можно несколько сразу.</p>
+<h1>4. Как нивелировать достижения конкурентов</h1>
+<p class="sub">Решения получены технологическими манёврами из сравнения. Отметьте ✓ те, что будете реализовывать.</p>
 <div id="bestOut"></div>
-<h3 class="ln">Манёвры по проверенным выводам</h3>
+<div class="hid"><h3 class="ln">Манёвры по проверенным выводам</h3>
 <p class="hint">Когда сравнение и выводы проверены и исправлены (раздел 3), решения нужно вывести заново — от проверенных выводов. Нажмите кнопку, вставьте запрос в ИИ, ответ вставьте ниже. Сравнение и выводы при этом не меняются; меняются только ветви и решения.</p>
 <div class="no-print"><button class="btn alt" onclick="copyMan()">Манёвры по проверенным выводам</button> <span id="manMsg" class="okk" style="font-size:13.5px"></span></div>
 <textarea id="manAns" placeholder="Сюда — ответ ИИ с новыми решениями" style="width:100%;min-height:60px;margin-top:6px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
-<div class="no-print"><button class="btn" onclick="parseMan()">Разобрать решения</button></div>
+<div class="no-print"><button class="btn" onclick="parseMan()">Разобрать решения</button></div></div>
 </div>
 
-<div class="card lm" id="spCard" style="display:none">
+<div class="card lm hid" id="spCard" style="display:none">
 <h1>5. С кем создавать и передача в производство</h1>
 <p class="sub">Изделие создаётся вместе со смежниками — институтами и предприятиями: разработка, опытный образец, испытания, пилотная партия. Итог — исходные данные серийного производства для АСУИР Производство.</p>
 <div class="no-print"><button class="btn" onclick="copyPlan()">Запрос для ИИ: путь, смежники, этапы, серийное производство</button> <span id="planMsg" class="okk" style="font-size:13.5px"></span></div>
@@ -122,7 +123,7 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <p class="note">Кнопка открывает АСУИР Производство с уже заполненными полями: изделие, оборудование, выпуск, работники, цеховые расходы, комплектующие, цена. Сохранить линию в Каталог можно там же кнопкой генератора.</p>
 </div>
 
-<details class="card no-print" id="aiCard"><summary style="cursor:pointer;font-weight:600;color:#1f4e78">Подключение ИИ — чтобы шаги выполнялись одной кнопкой, без копирования</summary>
+<details class="card no-print hid" id="aiCard"><summary style="cursor:pointer;font-weight:600;color:#1f4e78">Подключение ИИ — чтобы шаги выполнялись одной кнопкой, без копирования</summary>
 <p class="hint">Ключи доступа (API key) хранятся только в этом браузере и отправляются только напрямую в Anthropic и OpenAI. Оплата — по тарифу вашего ключа. Если подключить оба ИИ, анализ делает один, а проверку — другой.</p>
 <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
 <div><label>Ключ Anthropic (Claude)</label><input id="aiAk" type="password" placeholder="sk-ant-…" style="width:100%"><label>Модель Claude</label><input id="aiAm" style="width:100%"></div>
@@ -131,11 +132,11 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <div style="margin-top:8px"><button class="btn" onclick="aiSave()">Сохранить подключение</button> <span id="aiState" class="m"></span></div>
 </details>
 <div class="card" id="stCard">
-<h1>6. Хранилище задач и решений</h1>
+<h1>5. Хранилище задач и решений</h1>
 <p class="sub">Задачи и решения накапливаются в хранилище. Запись по умолчанию закрыта — её видит только автор; после публикации её видят все. Сложная задача раскладывается на составляющие; найденное решение можно превратить в новую задачу. Так в хранилище растёт дерево задач.</p>
 <div id="auth" class="bar2"></div>
 <div class="grid" style="margin:8px 0"><div><label>Статус</label><select id="st_status"><option value="announced">объявлена</option><option value="solving">решается</option><option value="solved">решена</option></select></div>
-<div><label>Выход</label><select id="st_exit"><option value="">— не определён —</option><option value="suppliers">поставщики → АСУИР Производство</option><option value="institute">институт (разработка, образец, испытания)</option><option value="partial">частично: поставщики + институт</option></select></div></div>
+<div class="hid"><label>Выход</label><select id="st_exit"><option value="">— не определён —</option><option value="suppliers">поставщики → АСУИР Производство</option><option value="institute">институт (разработка, образец, испытания)</option><option value="partial">частично: поставщики + институт</option></select></div></div>
 <div class="no-print">
 <button class="btn" onclick="stSave()">Сохранить</button><button class="btn alt" onclick="stPublish(true)">Опубликовать</button><button class="btn alt" onclick="stPublish(false)">Снять с публикации</button><button class="btn alt" onclick="stNew()">Новая задача</button><br>
 <button class="btn alt" onclick="stFind()">Найти похожие задачи</button><button class="btn alt" onclick="stMine()">Мои задачи</button><button class="btn alt" onclick="stTree()">Дерево этой задачи</button>
@@ -177,18 +178,18 @@ const stars=o=>{const v=adv(o);return v?`<span class="okk">${"★".repeat(Math.r
 function brLines(){return LINES_ORDER.map(L=>`ЛИНИЯ «${L}»:\n`+MAN.filter(m=>m.line===L).map(m=>`  ${m.n}${m.threat?" [ТОЛЬКО КАК УГРОЗА: как конкурент может применить это против нас и как защититься]":""} — ${m.h}\n`+DIMS.map((d,i)=>`    ${d.k}.${m.k} — «${d.n}»: ${m.q[i]}`).join("\n")).join("\n")).join("\n\n")}
 function mkPrompt(){
  const lines=brLines();
- return `Ты работаешь как генератор технологий «Аристотель» — методика технологического превосходства «Сократ» (М. Секора). Разработчику нужно решить задачу и получить преимущество над конкурентами. Всю аналитическую работу делаешь ты, строго по порядку этапов.
+ return `Ты работаешь как генератор технологий «Аристотель» — методика технологического превосходства «Сократ» (М. Секора). Всю аналитическую работу делаешь ты, строго по порядку этапов.
 
 ЗАДАЧА: ${$("#prob").value.trim()||"[задача]"}
 КОНКУРЕНТЫ: ${$("#comp").value.trim()||"не указаны — определи 2–4 главных сам"}
-ЧТО ЕСТЬ У НАС: ${$("#own").value.trim()||"не указано"}
-ЖЕЛАЕМЫЙ РЕЗУЛЬТАТ: ${$("#ideal").value.trim()||"не указан"}
+НАША ТЕХНОЛОГИЯ: ${$("#own").value.trim()||"не указана — мы это не делаем"}
 
-ЭТАП 1. Критерии: 2–4 параметра, по которым покупатель выбирает такое изделие (например, ёмкость на единицу стоимости, время доступа).
-ЭТАП 2. Карта технологий: все технологии, способные выполнить нужную функцию, включая мало используемые и новые. Для каждой: кто её использует (мы и каждый конкурент) и уровень по каждому критерию; сильные и слабые стороны; источники (организация или издание и год) — без источника пиши "не подтверждено".
-ЭТАП 3. Выводы из сравнения: (а) наши слабые места; (б) где сосредоточены конкуренты; (в) незанятые или мало используемые технологии; (г) наши заделы в незанятых технологиях.
-ЭТАП 4. Только после выводов — обход всех ${BR.length} ветвей ниже (технологический манёвр × измерение). Решения в ветвях строй от выводов этапа 3. Если в ветви осмысленного решения нет — "solution": "—". Не повторяй одно решение во многих ветвях.
-ЭТАП 5. Лучшие 3–7 решений для разработчика — простым языком, БЕЗ названий манёвров: что сделать, за счёт чего преимущество, может ли конкурент ответить и когда, во что обойдётся; укажи коды ветвей, из которых решение получено.
+ЦЕЛЬ: технологическая разведка. Выяснить, на каких технологиях работают конкуренты и в чём их достижения, и найти, как нивелировать эти достижения, чтобы покупатель выбрал нас. Задачу не меняй и не расширяй.
+ЭТАП 1. Критерии: 2–4 параметра, по которым покупатель выбирает такое изделие.
+ЭТАП 2. Технологии конкурентов: для каждого конкурента — на какой технологии он делает это изделие, уровень по каждому критерию, его достижения (сильные стороны) и слабые места; источники (организация или издание и год), без источника — "не подтверждено". Если в поле «наша технология» указано, как делаем мы, — включи её в сравнение отдельной строкой; если не указано — мы это не делаем, и сравниваются только технологии конкурентов.
+ЭТАП 3. Выводы: (а) в чём конкуренты сильнее нас (их достижения, которые нужно нивелировать); (б) на каких технологиях они работают; (в) их слабые места; (г) наш задел (если делаем сами) или наиболее подходящая для нас технология (если не делаем).
+ЭТАП 4. Обход всех ${BR.length} ветвей ниже (технологический манёвр × измерение): в каждой ветви — как этот манёвр нивелирует достижения конкурентов из выводов этапа 3. Если делаем сами — как изменить нашу технологию, чтобы уйти в отрыв; если не делаем — какой вариант выбрать. Если в ветви осмысленного решения нет — "solution": "—". Не повторяй одно решение во многих ветвях.
+ЭТАП 5. Лучшие 3–7 решений простым языком, БЕЗ названий манёвров: что сделать, какое достижение конкурента это нивелирует и почему покупатель выберет нас, может ли конкурент ответить и когда, во что обойдётся; коды ветвей.
 
 Ветви (код — «измерение»: вопрос ветви):
 ${lines}
@@ -197,9 +198,9 @@ ${lines}
 {"criteria":["критерий 1","критерий 2"],
  "competitors":["конкурент A","конкурент B"],
  "technologies":[{"name":"технология","users":{"мы":"да / нет / частично","конкурент A":"да / нет / частично"},"levels":{"критерий 1":"оценка или значение"},"strengths":"сильные стороны","weaknesses":"слабые стороны","sources":"источники"}],
- "conclusions":{"weak":"наши слабые места","crowded":"где сосредоточены конкуренты","free":"незанятые технологии","base":"наши заделы в незанятых"},
+ "conclusions":{"weak":"в чём конкуренты сильнее нас","crowded":"на каких технологиях они работают","free":"их слабые места","base":"наш задел / подходящая для нас технология"},
  "branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 или null,"response":"","cost":"","source":""}],
- "best":[{"title":"что сделать","why":"за счёт чего преимущество","response":"может ли конкурент ответить и когда","cost":"затраты и сложность","branches":["S.FLA"]}]}
+ "best":[{"title":"что сделать","why":"какое достижение конкурента нивелирует и почему выберут нас","response":"может ли конкурент ответить и когда","cost":"затраты и сложность","branches":["S.FLA"]}]}
 Сомнительные данные помечай знаком ≈.`}
 async function copyPrompt(){const p=mkPrompt();try{await navigator.clipboard.writeText(p);msg("Запрос на "+BR.length+" ветвей скопирован — вставьте его в ИИ")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");msg("Запрос скопирован — вставьте его в ИИ")}catch(_){msg("Не удалось скопировать")}t.remove()}}
 function msg(t){$("#msg").textContent=t;setTimeout(()=>{if($("#msg").textContent===t)$("#msg").textContent=""},5000)}
@@ -241,7 +242,7 @@ function mkFix(){const C=CMP||{};const Rv=(C.reviews||[]);
 3. Пересмотри выводы (conclusions) с учётом исправлений: если «незанятая технология» оказалась занятой — скажи это прямо.
 4. Пересмотри ветви (branches) и лучшие решения (best), которые опирались на ошибочные утверждения. Решения, переставшие быть верными, убери или замени.
 5. Не меняй то, что проверка подтвердила.
-7. Цель анализа не меняется: найти, где возможно ТЕХНОЛОГИЧЕСКОЕ ПРЕИМУЩЕСТВО над конкурентами. Не заменяй её осторожной сборкой из готовых покупных решений — это не даёт преимущества. Если основное поле оказалось занятым, ищи преимущество уровнем ниже: в узлах и составляющих изделия, где у конкурентов слабые места.
+7. Цель не меняется: изделие клиента ЦЕЛИКОМ с технологическим преимуществом над конкурентами. Не меняй задачу; не заменяй её сборкой из покупного или продажей узлов. Если основное поле занято, ищи преимущество в узлах ЭТОГО изделия.
 6. У каждой технологии — sources (организация или издание и год).
 
 ЗАДАЧА: ${$("#prob").value.trim()}
@@ -272,8 +273,9 @@ ${kids.length?`РЕШЕНИЯ СОСТАВЛЯЮЩИХ (найдены отде�
 ${JSON.stringify(kids)}
 
 `:""}ЦЕЛЬ: технологическое преимущество над конкурентами. Сборка из готовых покупных решений преимущества не даёт и решением не считается.
-ЕСЛИ ОСНОВНОЕ ПОЛЕ ЗАНЯТО: ищи преимущество уровнем ниже — в узлах и составляющих изделия, где у конкурентов слабые места (см. weaknesses), а также в том, чего ни у кого нет в серии.
-СИМБИОЗ: рассматривай не только борьбу с конкурентами, но и союз с ними — стать поставщиком узла, который решает их слабость. Оцени, что выгоднее.
+ЦЕЛЬ КЛИЕНТА НЕИЗМЕННА: изделие из задачи — целиком. Не меняй задачу, не предлагай продавать узлы, лицензии или услуги вместо изделия.
+ЕСЛИ ОСНОВНОЕ ПОЛЕ ЗАНЯТО: ищи преимущество в узлах и составляющих ЭТОГО изделия, где у конкурентов слабые места — улучшенный узел делает лучше изделие клиента.
+СИМБИОЗ: смежники (институты, предприятия) делают для клиента то, чего он не умеет, и получают свою долю.
 
 ЭТАП 4. Обход всех ${BR.length} ветвей ниже (технологический манёвр × измерение). Каждое решение выводи из проверенных выводов и слабых мест конкурентов. Если осмысленного решения нет — "solution": "—". Не повторяй одно решение во многих ветвях. Сомнительное помечай ≈.
 ЭТАП 5. Лучшие 3–7 решений — простым языком, без названий манёвров: что сделать, за счёт чего преимущество, может ли конкурент ответить и когда, во что обойдётся, коды ветвей.
@@ -295,11 +297,11 @@ function renderCmp(){if(!CMP||!(CMP.technologies||[]).length){$("#cmpCard").styl
  $("#cmpOut").innerHTML=(cr.length?`<p class="sub"><b>Критерии выбора покупателя:</b> ${cr.map(esc).join("; ")}</p>`:"")+
  `<div class="wrap"><table class="res"><tr><th>Технология</th>${who.map(w=>`<th>${esc(w)}</th>`).join("")}${cr.map(c=>`<th>${esc(c)}</th>`).join("")}<th>Сильные стороны</th><th>Слабые стороны</th><th>Источники</th></tr>`+
  T.map(t=>`<tr><td><b>${esc(t.name)}</b>${chkMark(t.name)}</td>${who.map(w=>`<td>${mark((t.users||{})[w])}</td>`).join("")}${cr.map(c=>`<td>${esc((t.levels||{})[c]||"—")}</td>`).join("")}<td>${esc(t.strengths||"")}</td><td>${esc(t.weaknesses||"")}</td><td>${t.sources?esc(t.sources):'<span class="m">не подтверждено</span>'}</td></tr>`).join("")+`</table></div>`+
- `<h3 class="ln">Выводы</h3><div class="wrap"><table class="res"><tr><th style="width:28%">Наши слабые места</th><td>${esc(C.weak||"—")}</td></tr><tr><th>Где сосредоточены конкуренты</th><td>${esc(C.crowded||"—")}</td></tr><tr><th>Незанятые технологии</th><td>${esc(C.free||"—")}</td></tr><tr><th>Наши заделы в незанятых</th><td>${esc(C.base||"—")}</td></tr></table></div>`;renderCheck();renderHist()}
+ `<h3 class="ln">Выводы</h3><div class="wrap"><table class="res"><tr><th style="width:28%">В чём конкуренты сильнее нас</th><td>${esc(C.weak||"—")}</td></tr><tr><th>На каких технологиях они работают</th><td>${esc(C.crowded||"—")}</td></tr><tr><th>Их слабые места</th><td>${esc(C.free||"—")}</td></tr><tr><th>Наш задел / подходящая технология</th><td>${esc(C.base||"—")}</td></tr></table></div>`;renderCheck();renderHist()}
 function renderBest(){if(!BEST.length){$("#bestCard").style.display=Object.keys(SOL).length?"block":"none";$("#bestOut").innerHTML='<p class="m">ИИ не выделил лучшие решения — смотрите раздел «Как получены решения».</p>';return}
  $("#bestCard").style.display="block";$("#spCard").style.display="block";
  $("#bestOut").innerHTML=BEST.map((b,i)=>`<div class="step"><label style="cursor:pointer"><input type="checkbox" data-best="${i}"${b._sel?" checked":""}> <b style="font-size:14.5px;color:#1f4e78">${esc(b.title)}</b></label>
- <div style="font-size:13.5px;line-height:1.55;margin:6px 0 0 22px"><b>Преимущество:</b> ${esc(b.why||"—")}<br><b>Ответ конкурента:</b> ${esc(b.response||"—")}<br><b>Затраты:</b> ${esc(b.cost||"—")}</div></div>`).join("");
+ <div style="font-size:13.5px;line-height:1.55;margin:6px 0 0 22px"><b>Что нивелирует и почему выберут нас:</b> ${esc(b.why||"—")}<br><b>Ответ конкурента:</b> ${esc(b.response||"—")}<br><b>Затраты:</b> ${esc(b.cost||"—")}</div></div>`).join("");
  document.querySelectorAll("[data-best]").forEach(c=>c.onchange=()=>{BEST[+c.dataset.best]._sel=c.checked;save(true)})}
 function render(){const only=$("#onlyFound").checked,ord=$("#ord").value;let rows=BR.map(x=>({x,o:SOL[x.id]}));
  const nf=rows.filter(r=>found(r.o)).length,n4=rows.filter(r=>found(r.o)&&adv(r.o)>=4).length;
@@ -336,16 +338,12 @@ function planPrompt(){
 ВЫБРАННЫЕ РЕШЕНИЯ (реализуются совместно):
 ${selectedText()||BEST.map(b=>`- ${b.title}: ${b.why||""}`).join("\n")||"- [решений нет]"}
 
-Задача 0 — выбор пути выхода на рынок (главное стратегическое решение). Сравни как минимум три пути:
- (а) собственное изделие целиком — продаём своё устройство или услугу конечным заказчикам;
- (б) поставщик узла — продаём ключевой узел (тот, где у нас преимущество) производителям-конкурентам и смежникам, решая их слабое место: симбиоз вместо борьбы;
- (в) лицензия — продаём право на технологию, не производя сами.
-Для каждого пути: кто покупатели (реальные организации, если известны), откуда выручка, нужные вложения, срок до первой выручки, главный риск, как ответят конкуренты. Затем выбери путь (можно сочетание и очерёдность, например «сначала поставщик узла, потом своё изделие») и обоснуй выбор. Задачи 1 и 2 выполняй для ВЫБРАННОГО пути.
+ЦЕЛЬ КЛИЕНТА НЕИЗМЕННА: он создаёт и производит изделие ЦЕЛИКОМ. Не предлагай продавать узлы, лицензии или менять задачу.
 Задача 1 — симбиотический план, как в научно-исследовательском институте: изделие создаётся совместно со смежниками — другими предприятиями и организациями. Для каждого участника укажи: кто (тип или реальная организация), что вносит (технологию, мощности, научный задел, испытательную базу, финансы), что получает, форму сотрудничества (лицензия, альянс, совместное предприятие, контракт). Этапы ("stages") укажи в порядке работ института: разработка, изготовление опытного образца, испытания, доработка, пилотная партия, передача в серийное производство — с участниками и ориентировочными сроками каждого этапа.
 Задача 2 — серийное производство: параметры для расчёта в генераторе эффективности при зарплате $10 000 на работника в месяц и доле прямых расходов 10% себестоимости: изделие, оборудование серийной линии и его цена, выпуск шт/день, число работников, цеховые расходы $/день, комплектующие на 1 изделие (название, количество, цена), ориентир цены продажи.
 
 Ответ дай ОДНИМ блоком JSON без пояснений вне блока:
-{"paths":[{"path":"(а) / (б) / (в) и название","customers":"","revenue":"","investment":"","time":"","risk":"","response":""}],"choice":"выбранный путь и обоснование","partners":[{"who":"","contributes":"","gets":"","form":""}],"production":{"product":"","equipment":"","equipment_cost":число,"perf":число,"staff":число,"shop_cost_per_day":число,"price":число,"components":[{"name":"","qty":число,"price":число}]},"stages":["этап 1","этап 2"]}
+{"partners":[{"who":"","contributes":"","gets":"","form":""}],"production":{"product":"","equipment":"","equipment_cost":число,"perf":число,"staff":число,"shop_cost_per_day":число,"price":число,"components":[{"name":"","qty":число,"price":число}]},"stages":["этап 1","этап 2"]}
 Сомнительные цифры помечай знаком ≈ в названиях.`}
 async function copyPlan(){const pm=t=>{$("#planMsg").textContent=t};const p=planPrompt();try{await navigator.clipboard.writeText(p);pm("✓ Запрос скопирован. Вставьте его в ИИ (Ctrl+V); ответ — в поле ниже, затем «Разобрать план».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");pm("✓ Запрос скопирован.")}catch(_){pm("Не удалось скопировать")}t.remove()}}
 let PLAN=null;
