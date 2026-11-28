@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASUIR — Aristotle: technology generator</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#222;padding:20px 40px 60px}
+.main-wrapper{max-width:1400px;margin:0 auto}
+.top-utility-bar{display:flex;justify-content:flex-end;font-size:13px;margin-bottom:10px}
+.brand-title-block{text-align:center;margin:20px 0 15px}
+.brand-title-text{font-family:'Times New Roman',Times,Georgia,serif;font-size:52px;font-weight:400;letter-spacing:2px;color:#555;text-transform:uppercase;line-height:1}
+.nav-global-menu{display:flex;justify-content:center;align-items:center;gap:24px;padding:8px 0 12px;flex-wrap:wrap}
+.nav-global-link{text-decoration:none;text-align:center}
+.nav-global-link .main-label{display:block;font-size:13px;font-weight:700;color:#222;text-transform:uppercase;letter-spacing:.5px}
+.nav-global-link .sub-label{display:block;font-size:11.5px;color:#666;margin-top:2px}
+.nav-global-link:hover .main-label,.nav-global-link.active .main-label{color:#1f4e78}
+.divider{margin:10px 0 25px}.divider .thin{height:1px;background:#d0d7dd;margin-bottom:4px}.divider .thick{height:4px;background:#a0a8b0}
+.card{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:24px;margin-bottom:20px}
+h1{font-size:20px;color:#1f4e78;margin-bottom:8px}
+.sub{color:#555;margin:0 0 12px;font-size:14px;line-height:1.5}
+.nav-tabs2{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.nav-tabs2 button{background:#fff;border:1px solid #d0d7dd;border-radius:4px;padding:7px 12px;cursor:pointer;font:inherit;font-size:13px;color:#444}
+.nav-tabs2 button.on{background:#1f4e78;color:#fff;border-color:#1f4e78}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
+.bar input,.bar select{padding:7px 9px;border:1px solid #d0d7dd;border-radius:4px;background:#fff;color:#222;font:inherit;font-size:14px}
+.m{color:#666;font-size:12.5px}
+.wrap{border:1px solid #d0d7dd;border-radius:4px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:7px 6px;border-bottom:1px solid #e3e8ec;text-align:left;vertical-align:top}
+th{background:#f2f5f8;color:#1f4e78;font-size:12.5px;line-height:1.25}
+td.n,th.n{text-align:right}td.n{white-space:nowrap}
+.profit{color:#2e7d32;font-weight:700}.neg{color:#b12704;font-weight:700}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:10px;background:#eef2f5;color:#666}
+.go{display:inline-block;background:#1f4e78;color:#fff;text-decoration:none;padding:6px 10px;border-radius:4px;font-size:12.5px;text-align:center;line-height:1.25}
+.go:hover{background:#2b5b84}.go.off{background:#f2f5f8;color:#777;border:1px dashed #c3ccd3;pointer-events:none}
+details summary{cursor:pointer;color:#1f4e78}
+.note{margin:12px 0 0;color:#666;font-size:13px;line-height:1.5}
+.live{margin-top:20px}
+footer{text-align:center;color:#6c7a8a;font-size:12px;margin-top:30px;line-height:1.6}
+@media(max-width:700px){body{padding:12px 8px 40px}.brand-title-text{font-size:30px}}
+.tl{color:inherit;text-decoration:none;border-bottom:1px dotted #888}.tl:hover{color:#0a58ca;border-bottom-color:#0a58ca}.arr{color:#1f4e78;text-decoration:none;font-weight:700;font-size:13px}.arr:hover{color:#0a58ca}.sg{display:block;padding:7px 10px;color:#222;text-decoration:none;border-bottom:1px solid #eef1f4;font-size:13px}.sg:hover{background:#eef6ff}.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 9px;border:1px solid #c3ccd3;border-radius:12px;color:#1f4e78;text-decoration:none;font-size:12.5px;background:#fff}.chip:hover{background:#eef6ff}</style>
+<style>body{zoom:1.25}.nav-global-menu{gap:16px}
+.step{border:1px solid #e3e8ec;border-radius:4px;padding:14px 16px;margin:0 0 12px}
+.step h3{font-size:15px;color:#1f4e78;margin:0 0 4px}.hint{color:#666;font-size:12.5px;margin:0 0 8px;line-height:1.45}
+.step textarea{width:100%;min-height:54px;padding:8px 10px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px 12px}
+.grid label{font-size:12.5px;color:#555;display:block}.grid input,.grid select{width:100%;padding:6px 8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px}
+.btn{display:inline-block;background:#1f4e78;color:#fff;border:0;border-radius:4px;padding:8px 14px;font:inherit;font-size:13px;cursor:pointer;margin:0 6px 6px 0}
+.btn.alt{background:#fff;color:#1f4e78;border:1px solid #1f4e78}
+.res{font-size:12.5px}.res td{vertical-align:top}.res td.n{text-align:right;white-space:nowrap}
+.res tr.g td{background:#f2f5f8;color:#1f4e78;font-weight:700}.res tr.empty td{color:#999}
+.res tr.top td{background:#e2efda}.res tr.thr td{background:#fff4e5}
+.okk{color:#2e7d32;font-weight:700}.wrn{color:#b26a00;font-weight:700}
+.lm textarea{width:100%;min-height:44px;padding:6px 8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px}
+.lm label{display:block;font-size:13px;color:#1f4e78;font-weight:700;margin:8px 0 3px}
+div.q{color:#8a96a3;font-size:12px;font-style:italic;margin-bottom:3px}a.ed{color:#1f4e78;text-decoration:none;font-size:13px;float:right}
+h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table-layout:fixed}.mtx th:first-child,.mtx td:first-child{width:20%}.mtx td{vertical-align:top}.mtx tr.thr td{background:#fff4e5}.mtx label{cursor:pointer}
+#msg{color:#2e7d32;font-size:12.5px}.bar2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}
+@media print{.nav-global-menu,.top-utility-bar,.no-print{display:none}body{zoom:1}}</style><style>.hid{display:none!important}</style>
+</head>
+<body><div class="main-wrapper">
+<div class="top-utility-bar"><a href="aristotle.html" style="font-weight:600;color:#333;text-decoration:none">Languages ⌵</a></div>
+<div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">TECHNOLOGY MATRIX</h1></div>
+<div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
+<nav class="nav-global-menu">
+<a href="index.html" class="nav-global-link"><span class="main-label">ABOUT</span><span class="sub-label">automated management system</span></a>
+<a href="flowsolve_en.html" class="nav-global-link"><span class="main-label">FLOWSOLVE</span><span class="sub-label">solution generator</span></a>
+<a href="aristotle_en.html" class="nav-global-link active"><span class="main-label" style="color:#1f4e78;">ARISTOTLE</span><span class="sub-label">technology generator</span></a>
+<a href="ASUIRGeminiCalculationModule_en.html" class="nav-global-link"><span class="main-label">ASUIR</span><span class="sub-label">efficiency generator</span></a>
+<a href="ASUIRServices_en.html" class="nav-global-link"><span class="main-label">ASUIR — SERVICES</span><span class="sub-label">driver of ultra-efficient services</span></a>
+<a href="Catalog_en.html" class="nav-global-link"><span class="main-label">CATALOG</span><span class="sub-label">equipment, modules and products</span></a>
+<a href="Help_en.html" class="nav-global-link"><span class="main-label">Help</span><span class="sub-label">reference and formulas</span></a>
+</nav>
+<div class="divider"><div class="thin"></div><div class="thick"></div></div>
+
+
+<div class="card">
+<h1>Aristotle — technology generator</h1>
+<p class="sub">Technology intelligence based on the “Socrates” methodology (M. Secora): Aristotle establishes which technologies competitors use and what their achievements are, compares them with our own technology (if we make the product ourselves) and, by means of technology maneuvers, finds how to neutralize the competitors’ achievements — so that customers buy from us.</p>
+</div>
+
+<div class="card">
+<div class="step"><h3>1. Task</h3><p class="hint">The product or component on which competitors must be surpassed.</p>
+<textarea id="prob" placeholder="For example: create a high-capacity, low-cost memory device"></textarea>
+<div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:8px"><div><label>Competitors (if unknown — the AI will identify them)</label><textarea id="comp" placeholder="who they are and where they are strong"></textarea></div><div><label>Our technology (if we make it ourselves; if not — leave empty)</label><textarea id="own" placeholder="how we make it now, equipment, people"></textarea></div><div class="hid"><label>Desired result (optional)</label><textarea id="ideal" placeholder="what the product should be like"></textarea></div></div></div>
+
+<div class="step"><h3>2. AI analysis</h3><p class="hint">Press “Request for AI”, paste the text into Claude, ChatGPT or Gemini, then paste the AI’s answer into the field below and press “Parse answer”.</p>
+<div class="no-print"><button class="btn" onclick="copyPrompt()">Request for AI</button><button class="btn alt aiOnly" style="display:none" onclick="aiStep('analysis')">Run via connected AI</button><span id="msg"></span></div>
+<textarea id="answer" placeholder="Paste the AI’s answer here" style="min-height:90px;margin-top:6px"></textarea>
+<div class="no-print" style="margin-top:6px"><button class="btn" onclick="parseAnswer()">Parse answer</button><button class="btn alt hid" onclick="loadExample()">Example: information storage device</button><button class="btn alt" onclick="save()">Save in browser</button><button class="btn alt" onclick="window.print()">Print / PDF</button></div></div>
+</div>
+
+<div class="card" id="cmpCard" style="display:none">
+<h1>3. Which technologies competitors use</h1>
+<div id="cmpOut"></div>
+<h3 class="ln">Check by another AI</h3>
+<p class="hint">An analysis by one AI may contain errors. Press “Request for check”, paste it into <b>another</b> AI (if the analysis was made by Claude — into ChatGPT or Gemini), and paste the answer below. Statements confirmed by the independent check are marked ✓; doubtful ones ?; wrong ones ✗ with a correction. Several AIs can check in turn — the marks accumulate.</p>
+<div class="no-print"><button class="btn alt" onclick="copyCheck()">Request for check</button><button class="btn alt aiOnly" style="display:none" onclick="aiStep('check')">Check via second AI</button> <span id="chkMsg" class="okk" style="font-size:13.5px"></span></div>
+<textarea id="check" placeholder="Here — the checking AI’s answer (the request itself is already in the clipboard after pressing the button)" style="width:100%;min-height:60px;margin-top:6px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
+<div class="no-print"><button class="btn" onclick="parseCheck()">Parse check</button><button class="btn alt hid" onclick="copyFix()">Correct the analysis by the check</button> <span id="fixMsg" class="okk" style="font-size:13.5px"></span></div>
+<div id="histOut" class="hid"></div>
+<div id="checkOut"></div>
+</div>
+
+<div class="card" id="bestCard" style="display:none">
+<h1>4. How to neutralize the competitors’ achievements</h1>
+<p class="sub">Solutions obtained by technology maneuvers from the comparison. Mark ✓ those you will implement.</p>
+<div id="bestOut"></div>
+<div class="hid"><h3 class="ln">Maneuvers from verified conclusions</h3>
+<p class="hint">When the comparison and conclusions have been checked and corrected (section 3), the solutions should be derived again from the verified conclusions. Press the button, paste the request into an AI, paste the answer below. The comparison and conclusions do not change; only branches and solutions do.</p>
+<div class="no-print"><button class="btn alt" onclick="copyMan()">Maneuvers from verified conclusions</button> <span id="manMsg" class="okk" style="font-size:13.5px"></span></div>
+<textarea id="manAns" placeholder="Here — the AI’s answer with new solutions" style="width:100%;min-height:60px;margin-top:6px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
+<div class="no-print"><button class="btn" onclick="parseMan()">Parse solutions</button></div></div>
+</div>
+
+<div class="card lm hid" id="spCard" style="display:none">
+<h1>5. Partners and transfer to production</h1>
+<p class="sub">The product is created together with partners — institutes and enterprises: development, prototype, tests, pilot batch. The result is the input data for serial production in ASUIR Production.</p>
+<div class="no-print"><button class="btn" onclick="copyPlan()">Request for AI: partners, stages, serial production</button> <span id="planMsg" class="okk" style="font-size:13.5px"></span></div>
+<textarea id="plan" placeholder="Paste the AI’s answer here" style="min-height:80px;margin-top:6px"></textarea>
+<div class="no-print" style="margin-top:6px"><button class="btn" onclick="parsePlan()">Parse plan</button></div>
+<div id="planOut"></div>
+<button class="btn no-print" style="margin-top:10px" onclick="handoff()">Transfer to ASUIR Production →</button>
+<p class="note">The button opens ASUIR Production with the fields already filled in: product, equipment, output, workers, shop costs, components, price.</p>
+</div>
+
+<details class="card no-print" id="aiCard"><summary style="cursor:pointer;font-weight:600;color:#1f4e78">AI connection (optional) — analysis and check with one button, without copying between sites</summary>
+<p class="hint">Access keys (API keys) are stored only in this browser and are sent only directly to Anthropic and OpenAI. Billing is by your key’s plan. If both AIs are connected, one does the analysis and the other the check.</p>
+<div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+<div><label>Anthropic key (Claude)</label><input id="aiAk" type="password" placeholder="sk-ant-…" style="width:100%"><label>Claude model</label><input id="aiAm" style="width:100%"></div>
+<div><label>OpenAI key (ChatGPT)</label><input id="aiOk" type="password" placeholder="sk-…" style="width:100%"><label>ChatGPT model</label><input id="aiOm" style="width:100%"></div></div>
+<label>Analysis is done by</label><select id="aiMain"><option value="anthropic">Claude (check — ChatGPT)</option><option value="openai">ChatGPT (check — Claude)</option></select>
+<div style="margin-top:8px"><button class="btn" onclick="aiSave()">Save connection</button> <span id="aiState" class="m"></span></div>
+</details>
+<div class="card" id="stCard">
+<h1>5. Repository of tasks and solutions</h1>
+<p class="sub">Tasks and solutions accumulate in the repository. A record is private by default — only the author sees it; once published, everyone sees it. A complex task is decomposed into components; a solution found can be turned into a new task. This is how the task tree grows in the repository.</p>
+<div id="auth" class="bar2"></div>
+<div class="grid" style="margin:8px 0"><div><label>Status</label><select id="st_status"><option value="announced">announced</option><option value="solving">in progress</option><option value="solved">solved</option></select></div>
+<div class="hid"><label>Exit</label><select id="st_exit"><option value="">— not defined —</option><option value="suppliers">suppliers → ASUIR Production</option><option value="institute">institute (development, prototype, tests)</option><option value="partial">partly: suppliers + institute</option></select></div></div>
+<div class="no-print">
+<button class="btn" onclick="stSave()">Save</button><button class="btn alt" onclick="stPublish(true)">Publish</button><button class="btn alt" onclick="stPublish(false)">Unpublish</button><button class="btn alt" onclick="stNew()">New task</button><br>
+<button class="btn alt" onclick="stFind()">Find similar tasks</button><button class="btn alt" onclick="stMine()">My tasks</button><button class="btn alt" onclick="stTree()">Tree of this task</button>
+</div>
+<div id="stMsg" class="m" style="margin:6px 0"></div><div id="stInfo" class="m"></div>
+<h3 class="ln">Decomposition into components</h3>
+<p class="hint">Components are simpler tasks that are all needed together. The AI proposes a decomposition, the author edits it: one component per line.</p>
+<div class="no-print"><button class="btn alt" onclick="decPrompt()">Request for AI: decompose the task</button></div>
+<textarea id="parts" placeholder="One component per line" style="width:100%;min-height:70px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
+<div class="no-print"><button class="btn" onclick="stParts()">Create components</button><button class="btn alt" onclick="stChild()">Selected solution → new task (refinement)</button></div>
+<div id="stList"></div>
+</div>
+
+<details class="card" id="expert"><summary style="cursor:pointer;color:#1f4e78;font-weight:700">How the solutions were obtained (for the specialist): 84 branches of technology maneuvers</summary>
+<p class="sub" style="margin-top:10px">After the comparison conclusions, the AI goes through 84 branches: 21 technology maneuvers of “Socrates” (offensive, defensive, technology acquisition, implementation) in each of 4 dimensions — structure, capability, technology flow, time. Each cell answers its own question. Cells can be checked and filled in manually (✎). The list of maneuvers with examples is in the <a href="aristotle_lib.html" style="color:#1f4e78">maneuver library</a>.</p>
+<div id="resCard"><p class="sub" id="resSum"></p>
+<div class="bar2 no-print"><label style="font-size:13px"><input type="checkbox" id="onlyFound"> hide maneuvers without solutions</label><select id="ord"><option value="lines">view: maneuver lines × dimensions</option><option value="eff">view: by advantage</option></select></div>
+<div id="tblLines"></div><div class="wrap" id="tblEff"><table class="res"><thead><tr><th>✓</th><th>Dimension · maneuver</th><th>Solution</th><th class="n">Advantage</th><th>Competitor’s response</th><th>Costs</th><th>Source</th></tr></thead><tbody id="rt"></tbody></table></div></div>
+<div class="lm" id="lmCard"><h3 class="ln">Leadership model</h3><div id="sel" style="font-size:13px;margin-bottom:8px"></div>
+<label>Technologies giving the advantage</label><textarea id="lm_tech"></textarea>
+<label>Maneuvers, dimensions, against whom, timing</label><textarea id="lm_man"></textarea>
+<label>Technology sources (suppliers, licences, alliances)</label><textarea id="lm_src"></textarea>
+<label>Obstacles and measures to remove them</label><textarea id="lm_bar"></textarea>
+<label>Symbiotic effect</label><textarea id="lm_sym"></textarea></div>
+</details>
+
+
+<footer>© 2025 ASUIR. The site materials are the intellectual property of the author. Developer: Anatoli V. Dolgov<br>Developed with technical support from the AI assistant Claude (Anthropic).<br>Code — <a href="https://opensource.org/licenses/MIT" target="_blank" style="color:#6c7a8a;">MIT licence</a>, texts and methodology — <a href="https://creativecommons.org/licenses/by/4.0/deed.en" target="_blank" style="color:#6c7a8a;">CC BY 4.0</a>.<br><a href="/privacy.html#ru" style="color:#6c7a8a;">Privacy policy</a></footer>
+</div>
+<script>
+const KEY="asuir_aristotle3_en";
+const DIMS=[{"k": "S", "n": "Structure"}, {"k": "C", "n": "Capability"}, {"k": "F", "n": "Technology flow"}, {"k": "T", "n": "Time"}],MAN=[{"k": "FRO", "line": "offensive maneuvers", "n": "Frontal attack", "h": "the same technologies on the same field; superiority in resources decides", "q": ["Same technology as the competitor: do we have superior resources to win on its field?", "Can we surpass the competitor on the same parameters by resources — volume, price?", "Can we obtain the same technologies cheaper or in larger volume than the competitor?", "Can we produce the same faster than the competitor thanks to resources?"]}, {"k": "FLA", "line": "offensive maneuvers", "n": "Flanking attack", "h": "a technology the competitor lacks and whose creation would cost it a lot", "q": ["Which technology based on a different physical principle performs the same function and is absent at the competitors?", "Which capabilities — variants, parameters — can we offer that the competitor lacks and will not get quickly?", "Where to get a technology the competitor is not looking for and cannot obtain quickly: universities, other industries, other countries?", "How to shorten the development, production and delivery cycle so that the competitor cannot quickly repeat it?"]}, {"k": "ENV", "line": "offensive maneuvers", "n": "Envelopment", "h": "several technologies at once or meeting many needs at once", "q": ["Which combination of several technologies improves the product from different sides at once?", "How to cover several product classes or needs with one technology?", "How to combine technologies from different markets or industries in one product?", "How to release several versions in a row faster than the competitor responds to the first?"]}, {"k": "ENC", "line": "offensive maneuvers", "n": "Encirclement", "h": "surrounding the customer with means incompatible with the competitor’s", "q": ["Which technology platform will tie the customer and is incompatible with the competitor’s means?", "Which set of product variants will cover all the customer’s needs, leaving no room for the competitor?", "Which own set of tools or components can be made the standard for partners?", "Which update rhythm will retain the customer?"]}, {"k": "MOB", "line": "offensive maneuvers", "n": "Mobility maneuver", "h": "using resources in a field with less competition", "q": ["To which neighbouring field with less competition can our technologies be transferred?", "Which real improvement of parameters moves the product into a class with less competition?", "Which market to enter where the competitor has invested but lacks the needed technology?", "Which external event — regulation, crisis, trend — opens a window for a quick move?"]}, {"k": "ISO", "line": "offensive maneuvers", "n": "Isolated offensive", "h": "decisive superiority on a narrow sector", "q": ["Which narrow component or unit gives a decisive effect for a large fleet of products?", "In which narrow product class can full superiority be achieved?", "Which technology flow to concentrate on one narrow segment?", "How to occupy all sub-segments of a narrow niche at once?"]}, {"k": "GUE", "line": "offensive maneuvers", "n": "Guerrilla actions", "h": "causing inconvenience to the competitor", "threat": true, "q": ["How can the competitor copy us with close patents — and how to defend?", "How can the competitor cut off our components — and how to defend?", "How can the competitor block us with patents on adjacent technologies — and how to defend?", "How can the competitor get ahead of us in registering brands, domains, patents — and how to defend?"]}, {"k": "PDF", "line": "defensive maneuvers", "n": "Position defense", "h": "keep the competitor off the field of one’s own technology", "q": ["Which technology barriers — patents, know-how — will keep the competitor off our field?", "Which level of parameters and price makes the competitor’s entry unprofitable?", "How to secure key technology sources and suppliers for ourselves?", "How to keep the lead in time so that the position does not become obsolete?"]}, {"k": "FPD", "line": "defensive maneuvers", "n": "Flank defense", "h": "a counter flanking attack on the competitor’s move", "q": ["With which technology to answer the competitor’s new technology from its flank?", "Which parameter to strengthen in response to the competitor’s move?", "Where to quickly obtain a technology for the response?", "How quickly can we respond and how to shorten that time?"]}, {"k": "MDF", "line": "defensive maneuvers", "n": "Mobile defense", "h": "moving out from under the attack", "q": ["To which technology to move if the current one is attacked?", "To which product class to withdraw from pressure?", "Which alternative sources will ensure the transition?", "How long will the transition take and how to shorten it?"]}, {"k": "PRE", "line": "defensive maneuvers", "n": "Pre-emptive strike", "h": "attacking the competitor while it is busy and cannot defend", "q": ["Which technology to introduce before the competitor finishes its own?", "With which parameters to enter the market while the competitor is busy?", "Which technology sources to seize first?", "What is the time window when the competitor cannot respond?"]}, {"k": "CNT", "line": "defensive maneuvers", "n": "Counter-offensive", "h": "regaining the initiative", "q": ["With which technology to regain the initiative?", "Which parameters will give the upper hand after the competitor’s attack?", "With whom to join for the counter-strike?", "When to strike back?"]}, {"k": "WDR", "line": "defensive maneuvers", "n": "Strategic withdrawal", "h": "regrouping", "q": ["Which technology to leave temporarily while keeping the groundwork for a return?", "Which positions to give up without losing key capabilities?", "Which sources to keep during regrouping?", "How long will regrouping last and when to return?"]}, {"k": "IND", "line": "defensive maneuvers", "n": "Indirect defense", "h": "leading the competitor onto a false path", "threat": true, "q": ["How can the competitor lead us onto a false technology direction — and how to recognise it?", "How can the competitor impose false comparison parameters — and how to defend?", "How can the competitor lead us to false sources and partners — and how to check?", "How can the competitor impose false deadlines — and how not to give in?"]}, {"k": "ALL", "line": "technology acquisition", "n": "Technology alliance", "h": "obtaining a technology jointly with other participants", "q": ["With whom to combine technologies to obtain what cannot be created alone?", "Whose capabilities will complement ours to superiority?", "Which organisations — institutes, enterprises — will become partners and on what terms?", "How will the alliance shorten the timeline?"]}, {"k": "CAL", "line": "technology acquisition", "n": "Counter-alliance", "h": "uniting against the competitor’s alliance", "q": ["Against which alliance of competitors to unite, and with whose technologies?", "Which capabilities of the counter-alliance will surpass the competitors’ alliance?", "Whom to bring into the counter-alliance?", "How to assemble the counter-alliance quickly, before the competitors’ alliance strengthens?"]}, {"k": "LOC", "line": "technology acquisition", "n": "Local specifics", "h": "adapting to the country’s duties, standards and requirements", "q": ["Which technologies best suit the country’s conditions: raw materials, energy, personnel?", "Which requirements of the country’s market — standards, climate, preferences — give an advantage to a local producer?", "Which local technology sources and personnel to use?", "Which local timelines and procedures — certification, permits — to take into account?"]}, {"k": "STR", "line": "maneuver implementation", "n": "Structural characteristics of the maneuver", "h": "which technologies perform the maneuver", "q": ["Which technologies perform the chosen maneuver?", "Which parameters must each of them provide?", "Who supplies each technology of the maneuver?", "In what sequence to introduce the technologies?"]}, {"k": "DUR", "line": "maneuver implementation", "n": "Duration", "h": "time to launch the line or product", "q": ["Which technologies take the longest to introduce?", "Which parameters must be achieved by the end of the maneuver?", "How long will it take to obtain the technologies?", "What is the total duration of the maneuver until the result?"]}, {"k": "CYC", "line": "maneuver implementation", "n": "Cycle speed", "h": "frequency of product changes and updates", "q": ["Which technologies allow the product to be changed quickly?", "How often to update parameters to stay ahead of the competitor?", "How often to update technology sources?", "Which product update cycle will ensure the lead?"]}, {"k": "RSP", "line": "maneuver implementation", "n": "Response time", "h": "speed of reaction to competitors’ actions and market changes", "q": ["Which technologies allow a quick response to the competitor’s actions?", "Which parameters can be changed fastest?", "Which sources will provide a technology for a quick response?", "What is the acceptable response time to the competitor’s actions?"]}];
+const BR=[];DIMS.forEach(d=>MAN.forEach(m=>BR.push({id:d.k+"."+m.k,d,m})));const LINES_ORDER=[...new Set(MAN.map(m=>m.line))];
+const $=s=>document.querySelector(s),esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+let SOL={};
+const found=o=>o&&o.solution&&String(o.solution).trim()&&String(o.solution).trim()!=="—";
+const adv=o=>{const v=parseFloat(o&&o.advantage);return isFinite(v)?v:0};
+const stars=o=>{const v=adv(o);return v?`<span class="okk">${"★".repeat(Math.round(v))}${"☆".repeat(5-Math.round(v))}</span>`:""};
+function brLines(){return LINES_ORDER.map(L=>`LINE «${L}»:\n`+MAN.filter(m=>m.line===L).map(m=>`  ${m.n}${m.threat?" [THREAT ONLY: how a competitor may use this against us and how to defend]":""} — ${m.h}\n`+DIMS.map((d,i)=>`    ${d.k}.${m.k} — «${d.n}»: ${m.q[i]}`).join("\n")).join("\n")).join("\n\n")}
+function mkPrompt(){
+ const lines=brLines();
+ return `You act as the technology generator “Aristotle” — the technology superiority methodology “Socrates” (M. Secora). You do all the analytical work, strictly in the order of the stages.
+
+TASK: ${$("#prob").value.trim()||"[task]"}
+COMPETITORS: ${$("#comp").value.trim()||"not specified — identify the 2–4 main ones yourself"}
+OUR TECHNOLOGY: ${$("#own").value.trim()||"not specified — we do not make this"}
+
+GOAL: technology intelligence. Establish which technologies competitors use and what their achievements are, and find how to neutralize these achievements so that the buyer chooses us. Do not change or widen the task.
+STAGE 1. Criteria: 2–4 parameters by which a buyer chooses such a product.
+STAGE 2. Competitors’ technologies: for each competitor — which technology it uses to make this product, its level on each criterion, its achievements (strengths) and weak points; sources (organisation or publication and year), without a source — "not confirmed". If you have internet search, use it to verify the information on competitors and give links in sources. If the field “our technology” describes how we make it, include it in the comparison as a separate row; if it is empty, we do not make this, and only the competitors’ technologies are compared.
+STAGE 3. Conclusions: (a) where competitors are stronger than us (their achievements to be neutralized); (b) which technologies they use; (c) their weak points; (d) our groundwork (if we make it ourselves) or the technology best suited to us (if we do not).
+STAGE 4. Go through all ${BR.length} branches below (technology maneuver × dimension): in each branch — how this maneuver neutralizes the competitors’ achievements from the stage 3 conclusions. If we make it ourselves — how to change our technology to break away; if not — which option to choose. Include in the answer ONLY branches with a meaningful solution; do not output branches without a solution. Do not repeat one solution in many branches.
+STAGE 5. The best 3–7 solutions in plain language, WITHOUT maneuver names: what to do, which competitor achievement it neutralizes and why the buyer will choose us, whether the competitor can respond and when, what it will cost; branch codes.
+
+Branches (code — “dimension”: branch question):
+${lines}
+
+Give the answer as ONE JSON block with no explanations outside it:
+{"criteria":["criterion 1","criterion 2"],
+ "competitors":["competitor A","competitor B"],
+ "technologies":[{"name":"technology","users":{"we":"yes / no / partly","competitor A":"yes / no / partly"},"levels":{"criterion 1":"rating or value"},"strengths":"strengths","weaknesses":"weak points","sources":"sources"}],
+ "conclusions":{"weak":"where competitors are stronger than us","crowded":"which technologies they use","free":"their weak points","base":"our groundwork / technology suited to us"},
+ "branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 or null,"response":"","cost":"","source":""}],
+ "best":[{"title":"what to do","why":"which competitor achievement it neutralizes and why we will be chosen","response":"can the competitor respond and when","cost":"costs and complexity","branches":["S.FLA"]}]}
+Mark doubtful data with ≈.`}
+async function copyPrompt(){const p=mkPrompt();try{await navigator.clipboard.writeText(p);msg("Request for "+BR.length+" branches copied — paste it into the AI")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");msg("Request copied — paste it into the AI")}catch(_){msg("Could not copy")}t.remove()}}
+function msg(t){$("#msg").textContent=t;setTimeout(()=>{if($("#msg").textContent===t)$("#msg").textContent=""},5000)}
+let CMP=null,BEST=[];
+const EXAMPLE={};
+function loadExample(){CMP=null;for(const k of ["prob","comp","own","ideal","answer","parts"]){const e=document.getElementById(k);if(e)e.value=EXAMPLE[k]||""}parseAnswer();if(EXAMPLE.plan){const pl=document.getElementById("plan");if(pl){pl.value=EXAMPLE.plan;parsePlan()}}document.getElementById("cmpCard")&&document.getElementById("cmpCard").scrollIntoView({behavior:"smooth"})}
+function parseAnswer(){const t=$("#answer").value;let obj=null;const a=t.indexOf("{"),z=t.lastIndexOf("}");
+ try{if(a>=0&&z>a)obj=JSON.parse(t.slice(a,z+1))}catch(e){}
+ if(!obj||Array.isArray(obj)){const A=t.indexOf("["),Z=t.lastIndexOf("]");try{obj={branches:JSON.parse(t.slice(A,Z+1))}}catch(e){msg("The answer cannot be read as JSON: "+e.message);return}}
+ SOL={};(obj.branches||[]).forEach(o=>{if(o&&o.id)SOL[String(o.id).trim()]=o});
+ const OLD=CMP;CMP={criteria:obj.criteria||[],competitors:obj.competitors||[],technologies:obj.technologies||[],conclusions:obj.conclusions||{}};if(OLD&&(OLD.checks||[]).length){const ch=OLD.checks;CMP.history=(OLD.history||[]).concat([{version:OLD.version||1,reviewers:[...new Set(ch.map(c=>c.reviewer))].join(", "),ok:ch.filter(c=>/подтв|confirm/i.test(c.verdict||"")).length,total:ch.length,changes:OLD.changes||""}]);CMP.version=(OLD.version||1)+1;CMP.changes=obj.changes||""}else if(OLD&&OLD.history){CMP.history=OLD.history;CMP.version=OLD.version;CMP.changes=obj.changes||OLD.changes||""}
+ BEST=(obj.best||[]).map(b=>Object.assign({_sel:false},b));render();renderCmp();renderBest();save(true);$("#cmpCard").scrollIntoView({behavior:"smooth"})}
+function chkOf(name){const L=((CMP&&CMP.checks)||[]).filter(c=>c.item&&(String(c.item).toLowerCase().includes(String(name).toLowerCase().slice(0,14))||String(name).toLowerCase().includes(String(c.item).toLowerCase().slice(0,14))));return L}
+function chkMark(name){const L=chkOf(name);if(!L.length)return"";const bad=L.filter(c=>/невер|wrong|incorrect/i.test(c.verdict)).length,dub=L.filter(c=>/сомн|doubt/i.test(c.verdict)).length,ok=L.length-bad-dub;return ` <span title="check: confirmed ${ok}, doubtful ${dub}, wrong ${bad}">${ok?'<span class="okk">✓'+ok+'</span>':''}${dub?' <span class="wrn">?'+dub+'</span>':''}${bad?' <span style="color:#b00020">✗'+bad+'</span>':''}</span>`}
+function mkCheck(){const C=CMP||{};return `You are an independent expert reviewer. Another AI has performed a technology analysis of a task. Your job is to find errors, not to confirm the analysis. Check every factual statement: who uses which technology, levels on the criteria, strengths and weak points, dates, prices, conclusions and best solutions. If you have internet search, use it; rely on sources; if unsure, mark “doubtful”, not “confirmed”.
+
+TASK: ${$("#prob").value.trim()}
+
+ANALYSIS TO CHECK:
+${JSON.stringify({criteria:C.criteria,competitors:C.competitors,technologies:C.technologies,conclusions:C.conclusions,best:(BEST||[]).map(b=>({title:b.title,why:b.why,response:b.response,cost:b.cost}))},null,1)}
+
+Give the answer as ONE JSON block with no explanations outside it:
+{"reviewer":"name of your model","checks":[{"item":"technology name OR “conclusion” OR “solution N”","claim":"statement being checked","verdict":"confirmed / doubtful / wrong","correction":"correction, if doubtful or wrong","source":"source and year"}],"missing":"important technologies or competitors the analysis missed","summary":"overall assessment of the analysis reliability in 1–2 sentences"}`}
+async function copyCheck(){const cm=t=>{$("#chkMsg").textContent=t};if(!CMP){cm("First parse the AI’s answer (step 2)");return}const p=mkCheck();try{await navigator.clipboard.writeText(p);cm("✓ Request copied. Open ChatGPT or Gemini, paste with Ctrl+V, send; paste the answer into the field below.")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");cm("✓ Request copied. Paste it into another AI (Ctrl+V), the answer — into the field below.")}catch(_){cm("Could not copy")}t.remove()}}
+function parseCheck(){const t=$("#check").value,a=t.indexOf("{"),z=t.lastIndexOf("}");let o=null;try{o=JSON.parse(t.slice(a,z+1))}catch(e){$("#checkOut").innerHTML='<p class="wrn">The answer cannot be read as JSON</p>';return}
+ const who=o.reviewer||"checking AI";CMP.checks=(CMP.checks||[]).concat((o.checks||[]).map(c=>Object.assign({reviewer:who},c)));CMP.reviews=(CMP.reviews||[]).concat([{reviewer:who,missing:o.missing||"",summary:o.summary||""}]);$("#check").value="";renderCmp();save(true)}
+function renderCheck(){const L=(CMP&&CMP.checks)||[],R=(CMP&&CMP.reviews)||[];if(!L.length&&!R.length){$("#checkOut").innerHTML="";return}
+ const v=s=>/невер|wrong|incorrect/i.test(s)?'<span style="color:#b00020">✗ wrong</span>':/сомн|doubt/i.test(s)?'<span class="wrn">? doubtful</span>':'<span class="okk">✓ confirmed</span>';
+ const bad=L.filter(c=>!/подтв|confirm/i.test(c.verdict||""));
+ $("#checkOut").innerHTML=R.map(r=>`<p class="sub"><b>${esc(r.reviewer)}:</b> ${esc(r.summary)}${r.missing?`<br><b>Missed:</b> ${esc(r.missing)}`:""}</p>`).join("")+
+ `<p class="sub">Statements checked: ${L.length}; confirmed: ${L.length-bad.length}; need attention: ${bad.length}.</p>`+
+ (bad.length?`<div class="wrap"><table class="res"><tr><th>Where</th><th>Statement</th><th>Rating</th><th>Correction</th><th>Source</th><th>Checked by</th></tr>${bad.map(c=>`<tr><td>${esc(c.item)}</td><td>${esc(c.claim)}</td><td>${v(c.verdict)}</td><td>${esc(c.correction||"")}</td><td>${esc(c.source||"")}</td><td>${esc(c.reviewer)}</td></tr>`).join("")}</table></div>`:"")}
+function mkFix(){const C=CMP||{};const Rv=(C.reviews||[]);
+ return `You act as the technology generator “Aristotle” (methodology “Socrates”, M. Secora). Below are a technology analysis and the remarks of an independent check. Correct the analysis.
+
+RULES:
+1. Correct every remark “wrong”. Correct every “doubtful” one if there are grounds, otherwise mark the value with ≈ and write “not confirmed” in sources.
+2. Add the missed technologies and competitors from the “Missed” section to the technology map and to competitors.
+3. Revise the conclusions taking the corrections into account: if a “free technology” turned out to be occupied, say so directly.
+4. Revise the branches and best solutions that relied on wrong statements. Remove or replace solutions that are no longer valid.
+5. Do not change what the check confirmed.
+7. The goal does not change: the client’s product AS A WHOLE with a technology advantage over competitors. Do not change the task; do not replace it with an assembly of purchased parts or with selling components. If the main field is occupied, look for the advantage in the components of THIS product.
+6. Each technology must have sources (organisation or publication and year).
+
+TASK: ${$("#prob").value.trim()}
+COMPETITORS: ${$("#comp").value.trim()}
+WHAT WE HAVE: ${$("#own").value.trim()}
+
+ANALYSIS:
+${JSON.stringify({criteria:C.criteria,competitors:C.competitors,technologies:C.technologies,conclusions:C.conclusions,best:(BEST||[]).map(b=>({title:b.title,why:b.why,response:b.response,cost:b.cost,branches:b.branches})),branches:Object.entries(SOL||{}).filter(([k,o])=>o&&o.solution&&o.solution!=="—").map(([k,o])=>({id:k,solution:o.solution,technology:o.technology||"",advantage:o.advantage??null,response:o.response||"",cost:o.cost||"",source:o.source||""}))})}
+
+REMARKS OF THE CHECK:
+${JSON.stringify((C.checks||[]).filter(c=>!/подтв|confirm/i.test(c.verdict||"")).map(c=>({item:c.item,claim:c.claim,verdict:c.verdict,correction:c.correction,source:c.source})))}
+${Rv.map(r=>`Rating (${r.reviewer}): ${r.summary}\nMissed: ${r.missing}`).join("\n")}
+
+Give the answer as ONE JSON block in the same format, complete (all fields, all branches):
+{"criteria":[],"competitors":[],"technologies":[{"name":"","users":{},"levels":{},"strengths":"","weaknesses":"","sources":""}],"conclusions":{"weak":"","crowded":"","free":"","base":""},"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 or null,"response":"","cost":"","source":""}],"best":[{"title":"","why":"","response":"","cost":"","branches":[]}],"changes":"briefly: what was corrected"}`}
+async function copyFix(){const fm=t=>{$("#fixMsg").textContent=t};if(!CMP||!(CMP.checks||[]).length){fm("First parse the check answer");return}const p=mkFix();try{await navigator.clipboard.writeText(p);fm("✓ Correction request copied. Paste it into the AI (Ctrl+V); paste the corrected answer into step 2 and press “Parse answer”.")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");fm("✓ Request copied. The corrected answer goes to step 2, “Parse answer”.")}catch(_){fm("Could not copy")}t.remove()}}
+function renderHist(){const H=(CMP&&CMP.history)||[];$("#histOut").innerHTML=H.length?`<h3 class="ln">Analysis versions</h3><div class="wrap"><table class="res"><tr><th>Version</th><th>Checks</th><th>Confirmed</th><th>What was corrected</th></tr>${H.map(x=>`<tr><td>${x.version}</td><td>${esc(x.reviewers||"—")}</td><td>${x.ok} of ${x.total}</td><td>${esc(x.changes||"")}</td></tr>`).join("")}<tr><td><b>${(CMP.version||1)}</b> (current)</td><td colspan="3">${(CMP.checks||[]).length?((CMP.checks||[]).filter(c=>/подтв|confirm/i.test(c.verdict||"")).length+" of "+CMP.checks.length+" confirmed"):"not checked yet"}${CMP.changes?" · "+esc(CMP.changes):""}</td></tr></table></div>`:""}
+function mkMan(kids){const C=CMP||{};kids=kids||[];return `You act as the technology generator “Aristotle” (technology superiority methodology “Socrates”, M. Secora). The technology comparison and conclusions have already been made, checked by an independent AI and corrected. Take them as established data and do NOT change them. Your work is stages 4 and 5 only.
+
+TASK: ${$("#prob").value.trim()}
+WHAT WE HAVE: ${$("#own").value.trim()||"not specified"}
+DESIRED RESULT: ${$("#ideal").value.trim()||"not specified"}
+
+VERIFIED COMPARISON AND CONCLUSIONS:
+${JSON.stringify({criteria:C.criteria,competitors:C.competitors,technologies:(C.technologies||[]).map(t=>({name:t.name,users:t.users,levels:t.levels,strengths:t.strengths,weaknesses:t.weaknesses})),conclusions:C.conclusions})}
+
+${kids.length?`SOLUTIONS OF COMPONENTS (found by a separate analysis of this task’s components — the product’s advantage is built from the components’ advantages; use them):
+${JSON.stringify(kids)}
+
+`:""}GOAL: technology advantage over competitors. An assembly of ready-made purchased solutions gives no advantage and is not a solution.
+THE CLIENT’S GOAL IS FIXED: the product from the task — as a whole. Do not change the task, do not propose selling components, licences or services instead of the product.
+IF THE MAIN FIELD IS OCCUPIED: look for the advantage in the components of THIS product where competitors have weak points — an improved component makes the client’s product better.
+SYMBIOSIS: partners (institutes, enterprises) do for the client what it cannot do itself and receive their share.
+
+STAGE 4. Go through all ${BR.length} branches below (technology maneuver × dimension). Derive each solution from the verified conclusions and the competitors’ weak points. If there is no meaningful solution — "solution": "—". Do not repeat one solution in many branches. Mark doubtful items with ≈.
+STAGE 5. The best 3–7 solutions in plain language, without maneuver names: what to do, where the advantage comes from, whether the competitor can respond and when, what it will cost, branch codes.
+
+Branches (code — “dimension”: branch question):
+${brLines()}
+
+Give the answer as ONE JSON block with no explanations outside it:
+{"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 or null,"response":"","cost":"","source":""}],
+ "best":[{"title":"","why":"","response":"","cost":"","branches":["S.FLA"]}],
+ "rationale":"1–2 sentences: why exactly these solutions were chosen"}`}
+async function copyMan(){const mm=t=>{$("#manMsg").textContent=t};if(!CMP){mm("First parse the AI’s answer (step 2)");return}let kids=[];try{if(window.stChildBest)kids=await window.stChildBest()}catch(e){}const p=mkMan(kids);try{await navigator.clipboard.writeText(p);mm("✓ Request copied"+(kids.length?" (with solutions of "+kids.length+" components)":"")+". Paste it into the AI (Ctrl+V); the answer — into the field below, then “Parse solutions”.")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");mm("✓ Request copied.")}catch(_){mm("Could not copy")}t.remove()}}
+function parseMan(){const t=$("#manAns").value,a=t.indexOf("{"),z=t.lastIndexOf("}");let o=null;try{o=JSON.parse(t.slice(a,z+1))}catch(e){$("#manMsg").textContent="The answer cannot be read as JSON";return}
+ SOL={};(o.branches||[]).forEach(b=>{if(b&&b.id)SOL[String(b.id).trim()]=b});BEST=(o.best||[]).map(b=>Object.assign({_sel:false},b));
+ CMP.maneuvers=(CMP.maneuvers||0)+1;CMP.man_rationale=o.rationale||"";$("#manAns").value="";$("#manMsg").textContent="Solutions derived again from the verified conclusions"+(o.rationale?": "+o.rationale:"");render();renderBest();renderCmp();save(true);$("#bestCard").scrollIntoView({behavior:"smooth"})}
+function renderCmp(){if(!CMP||!(CMP.technologies||[]).length){$("#cmpCard").style.display="none";return}$("#cmpCard").style.display="block";
+ const T=CMP.technologies,who=[...new Set(T.flatMap(t=>Object.keys(t.users||{})))],cr=CMP.criteria||[],C=CMP.conclusions||{};
+ const mark=v=>{const s=String(v||"").toLowerCase();return s.startsWith("да")||s.startsWith("yes")?'<span class="okk">yes</span>':s.startsWith("част")||s.startsWith("part")?'<span class="wrn">partly</span>':s?'<span class="m">'+esc(v)+'</span>':"—"};
+ $("#cmpOut").innerHTML=(cr.length?`<p class="sub"><b>Buyer’s selection criteria:</b> ${cr.map(esc).join("; ")}</p>`:"")+
+ `<div class="wrap"><table class="res"><tr><th>Technology</th>${who.map(w=>`<th>${esc(w)}</th>`).join("")}${cr.map(c=>`<th>${esc(c)}</th>`).join("")}<th>Strengths</th><th>Weak points</th><th>Sources</th></tr>`+
+ T.map(t=>`<tr><td><b>${esc(t.name)}</b>${chkMark(t.name)}</td>${who.map(w=>`<td>${mark((t.users||{})[w])}</td>`).join("")}${cr.map(c=>`<td>${esc((t.levels||{})[c]||"—")}</td>`).join("")}<td>${esc(t.strengths||"")}</td><td>${esc(t.weaknesses||"")}</td><td>${t.sources?esc(t.sources):'<span class="m">not confirmed</span>'}</td></tr>`).join("")+`</table></div>`+
+ `<h3 class="ln">Conclusions</h3><div class="wrap"><table class="res"><tr><th style="width:28%">Where competitors are stronger than us</th><td>${esc(C.weak||"—")}</td></tr><tr><th>Which technologies they use</th><td>${esc(C.crowded||"—")}</td></tr><tr><th>Their weak points</th><td>${esc(C.free||"—")}</td></tr><tr><th>Our groundwork / suitable technology</th><td>${esc(C.base||"—")}</td></tr></table></div>`;renderCheck();renderHist()}
+function renderBest(){if(!BEST.length){$("#bestCard").style.display=Object.keys(SOL).length?"block":"none";$("#bestOut").innerHTML='<p class="m">The AI did not single out best solutions — see the section “How the solutions were obtained”.</p>';return}
+ $("#bestCard").style.display="block";$("#spCard").style.display="block";
+ $("#bestOut").innerHTML=BEST.map((b,i)=>`<div class="step"><label style="cursor:pointer"><input type="checkbox" data-best="${i}"${b._sel?" checked":""}> <b style="font-size:14.5px;color:#1f4e78">${esc(b.title)}</b></label>
+ <div style="font-size:13.5px;line-height:1.55;margin:6px 0 0 22px"><b>What it neutralizes and why we will be chosen:</b> ${esc(b.why||"—")}<br><b>Competitor’s response:</b> ${esc(b.response||"—")}<br><b>Costs:</b> ${esc(b.cost||"—")}</div></div>`).join("");
+ document.querySelectorAll("[data-best]").forEach(c=>c.onchange=()=>{BEST[+c.dataset.best]._sel=c.checked;save(true)})}
+function render(){const only=$("#onlyFound").checked,ord=$("#ord").value;let rows=BR.map(x=>({x,o:SOL[x.id]}));
+ const nf=rows.filter(r=>found(r.o)).length,n4=rows.filter(r=>found(r.o)&&adv(r.o)>=4).length;
+ $("#resSum").innerHTML=`Solutions found in <b>${nf}</b> of ${BR.length} branches; with advantage 4–5 — <b>${n4}</b>.`;
+ if(ord==="lines"){$("#tblEff").style.display="none";$("#tblLines").style.display="block";
+  $("#tblLines").innerHTML=LINES_ORDER.map(L=>{const ms=MAN.filter(m=>m.line===L).filter(m=>!only||DIMS.some(d=>found(SOL[d.k+"."+m.k])));if(!ms.length)return"";
+   return `<h3 class="ln">Line: ${esc(L)}</h3><div class="wrap"><table class="mtx"><tr><th>Maneuver</th>${DIMS.map(d=>`<th>${esc(d.n)}</th>`).join("")}</tr>`+ms.map(m=>`<tr class="${m.threat?"thr":""}"><td><b>${esc(m.n)}</b><div class="m">${esc(m.h)}</div></td>`+DIMS.map(d=>{const id=d.k+"."+m.k,o=SOL[id],f=found(o);
+     const di=DIMS.indexOf(d),q=m.q[di];
+     return `<td id="c_${id.replace('.','_')}">${f?`<label><input type="checkbox" data-id="${id}"${o._sel?" checked":""}> ${esc(o.solution)}</label>${o.technology?`<div class="m">${esc(o.technology)}</div>`:""}<div>${stars(o)}</div>${o.response?`<div class="m">Competitor’s response: ${esc(o.response)}</div>`:""}`:`<div class="q">${esc(q)}</div>`}<a href="#" class="ed no-print" data-ed="${id}" title="${esc(q)}">✎</a></td>`}).join("")+"</tr>").join("")+"</table></div>"}).join("")}
+ else{$("#tblLines").style.display="none";$("#tblEff").style.display="block";if(only)rows=rows.filter(r=>found(r.o));
+  rows.sort((a,b)=>adv(b.o)-adv(a.o));
+  $("#rt").innerHTML=rows.map((r,i)=>row(r,i<3&&adv(r.o)>=4)).join("")||'<tr><td colspan="7" class="m">No solutions.</td></tr>'}
+ 
+ document.querySelectorAll("#resCard input[type=checkbox][data-id]").forEach(c=>c.onchange=()=>{SOL[c.dataset.id]._sel=c.checked;combo();save(true)});combo()}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-ed]");if(!a)return;e.preventDefault();const id=a.dataset.ed,o=SOL[id]||{},td=a.closest("td");
+ const [dk,mk]=id.split("."),q=MAN.find(m=>m.k===mk).q[DIMS.findIndex(d=>d.k===dk)];
+ td.innerHTML=`<div class="q">${esc(q)}</div><textarea class="edt" style="width:100%;min-height:60px;font:inherit;font-size:12.5px">${esc(o.solution&&o.solution!=="—"?o.solution:"")}</textarea><select class="eda" style="font-size:12px"><option value="">advantage —</option>${[1,2,3,4,5].map(v=>`<option${adv(o)===v?" selected":""}>${v}</option>`).join("")}</select> <button class="btn" style="padding:3px 8px;font-size:12px">OK</button>`;
+ td.querySelector("button").onclick=()=>{const t=td.querySelector(".edt").value.trim();SOL[id]=Object.assign({},o,{id,solution:t||"—",advantage:td.querySelector(".eda").value||o.advantage||null,manual:true});render();save(true)}});
+function row(r,top){const o=r.o||{},f=found(o),cls=r.x.m.threat?"thr":top?"top":f?"":"empty";
+ return `<tr class="${cls}"><td>${f?`<input type="checkbox" data-id="${r.x.id}"${o._sel?" checked":""}>`:""}</td><td><b>${esc(r.x.d.n)}</b> · ${esc(r.x.m.n)}<div class="m">${r.x.id}</div></td><td>${f?esc(o.solution)+(o.technology?`<div class="m">${esc(o.technology)}</div>`:""):"—"}</td><td class="n">${stars(o)}</td><td>${esc(o.response||"")}</td><td>${esc(o.cost||"")}</td><td>${esc(o.source||"")}</td></tr>`}
+function combo(){const sel=BR.filter(x=>SOL[x.id]&&SOL[x.id]._sel).map(x=>({x,o:SOL[x.id]}));
+ $("#sel").innerHTML=sel.length?"<b>Selected for joint implementation:</b><br>"+sel.map(s=>`• ${esc(s.x.d.n)} · ${esc(s.x.m.n)}: ${esc(s.o.solution)}`).join("<br>"):"<span class=m>Mark ✓ solutions in the matrix.</span>";
+ if(sel.length){$("#lm_tech").placeholder=sel.map(s=>s.o.technology).filter(Boolean).join("; ");$("#lm_man").placeholder=sel.map(s=>s.x.m.n+" («"+s.x.d.n+"»)").join("; ");$("#lm_src").placeholder=sel.map(s=>s.o.source).filter(Boolean).join("; ")}}
+
+function selected(){return BR.filter(x=>SOL[x.id]&&SOL[x.id]._sel).map(x=>({x,o:SOL[x.id]}))}
+function selectedText(){const a=BEST.filter(b=>b._sel).map(b=>`- ${b.title}: ${b.why||""}`),b=selected().map(s=>`- ${s.o.solution}${s.o.technology?" ("+s.o.technology+")":""}`);return a.concat(b).join("\n")}
+function planPrompt(){
+ return `You act as the technology generator “Aristotle” (methodology “Socrates”, M. Secora) together with the ASUIR efficiency generator (asuir.org).
+PROBLEM / GOAL: ${$("#prob").value.trim()}
+COMPETITORS: ${$("#comp").value.trim()||"—"}
+OUR RESOURCES: ${$("#own").value.trim()||"—"}
+DESIRED RESULT: ${$("#ideal").value.trim()||"—"}
+CONCLUSIONS OF THE TECHNOLOGY COMPARISON: ${CMP&&CMP.conclusions?Object.values(CMP.conclusions).join("; "):"—"}
+SELECTED SOLUTIONS (implemented jointly):
+${selectedText()||BEST.map(b=>`- ${b.title}: ${b.why||""}`).join("\n")||"- [no solutions]"}
+
+THE CLIENT’S GOAL IS FIXED: it creates and manufactures the product AS A WHOLE. Do not propose selling components or licences or changing the task.
+Task 1 — a symbiotic plan, as in a research institute: the product is created together with partners — other enterprises and organisations. For each participant state: who (type or real organisation), what it contributes (technology, capacity, scientific groundwork, test facilities, finance), what it receives, the form of cooperation (licence, alliance, joint venture, contract). Stages ("stages") list in the order of an institute’s work: development, prototype manufacture, tests, refinement, pilot batch, transfer to serial production — with participants and approximate timing for each stage.
+Task 2 — serial production: parameters for the efficiency generator at a wage of $10 000 per worker per month and direct costs of 10% of the cost price: product, serial line equipment and its price, output pcs/day, number of workers, shop costs $/day, components per product (name, quantity, price), target selling price.
+
+Give the answer as ONE JSON block with no explanations outside it:
+{"partners":[{"who":"","contributes":"","gets":"","form":""}],"production":{"product":"","equipment":"","equipment_cost":number,"perf":number,"staff":number,"shop_cost_per_day":number,"price":number,"components":[{"name":"","qty":number,"price":number}]},"stages":["stage 1","stage 2"]}
+Mark doubtful figures with ≈ in the names.`}
+async function copyPlan(){const pm=t=>{$("#planMsg").textContent=t};const p=planPrompt();try{await navigator.clipboard.writeText(p);pm("✓ Request copied. Paste it into the AI (Ctrl+V); the answer — into the field below, then “Parse plan”.")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");pm("✓ Request copied.")}catch(_){pm("Could not copy")}t.remove()}}
+let PLAN=null;
+function parsePlan(){const t=$("#plan").value,a=t.indexOf("{"),z=t.lastIndexOf("}");if(a<0||z<a){$("#planOut").innerHTML='<p class="wrn">No { … } block found in the answer { … }</p>';return}
+ try{PLAN=JSON.parse(t.slice(a,z+1))}catch(e){$("#planOut").innerHTML='<p class="wrn">The answer cannot be read as JSON: '+esc(e.message)+'</p>';return}drawPlan();save(true)}
+function drawPlan(){if(!PLAN){$("#planOut").innerHTML="";return}const P=PLAN.partners||[],pr=PLAN.production||{},c=pr.components||[],st=PLAN.stages||[];
+ const bom=c.reduce((s,x)=>s+(+x.qty||0)*(+x.price||0),0);let calcHtml="";
+ if(+pr.perf>0&&bom>0){const s=.10,W=10000,staff=+pr.staff||1,fixed=(+pr.equipment_cost||0)/5/365+(+pr.shop_cost_per_day||0),dir=fixed+staff*W/30,unit=bom+dir/pr.perf,req=Math.ceil(dir/(bom*s));
+  const ok=pr.perf>=req,profit=pr.price?Math.round(pr.perf*(pr.price-unit)*30):null;
+  calcHtml=`<p class="sub" style="margin-top:8px"><b>Preliminary, by the generator’s formulas</b> (wage $10 000, 10%): cost price $${unit.toFixed(2)}; required ${req} pcs/day at an output of ${pr.perf} — ${ok?'<span class="okk">equipment is sufficient</span>':'<span class="wrn">short ×'+(req/pr.perf).toFixed(1)+'</span>'}${profit!=null?"; profit "+(profit<0?"−$":"$")+Math.abs(profit).toLocaleString("ru-RU")+"/month":""}. Exact calculation — in the generator.</p>`}
+ const PA=PLAN.paths||[];$("#planOut").innerHTML=(PA.length?`<h3 class="ln">Route to market</h3><div class="wrap"><table class="res"><tr><th>Route</th><th>Buyers</th><th>Revenue</th><th>Investment</th><th>Time</th><th>Risk</th><th>Competitors’ response</th></tr>${PA.map(x=>`<tr><td><b>${esc(x.path)}</b></td><td>${esc(x.customers)}</td><td>${esc(x.revenue)}</td><td>${esc(x.investment)}</td><td>${esc(x.time)}</td><td>${esc(x.risk)}</td><td>${esc(x.response)}</td></tr>`).join("")}</table></div>`:"")+(PLAN.choice?`<p class="sub" style="margin-top:8px"><b>Choice:</b> ${esc(PLAN.choice)}</p>`:"")+`<h3 class="ln">Participants of symbiotic creation</h3><div class="wrap"><table class="res"><tr><th>Who</th><th>Contributes</th><th>Receives</th><th>Form</th></tr>${P.map(x=>`<tr><td>${esc(x.who)}</td><td>${esc(x.contributes)}</td><td>${esc(x.gets)}</td><td>${esc(x.form)}</td></tr>`).join("")}</table></div>`+
+ (st.length?`<h3 class="ln">Stages: from development and prototype to series</h3><ol style="padding-left:20px;font-size:13.5px;line-height:1.6">${st.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:"")+
+ `<h3 class="ln">Serial production — data for the efficiency generator</h3><div class="wrap"><table class="res"><tr><th>Product</th><td>${esc(pr.product)}</td></tr><tr><th>Equipment</th><td>${esc(pr.equipment)} — $${(+pr.equipment_cost||0).toLocaleString("ru-RU")}</td></tr><tr><th>Output, pcs/day</th><td>${pr.perf??"—"}</td></tr><tr><th>Workers</th><td>${pr.staff??"—"}</td></tr><tr><th>Shop costs, $/day</th><td>${pr.shop_cost_per_day??"—"}</td></tr><tr><th>Selling price, $</th><td>${pr.price??"—"}</td></tr><tr><th>Components</th><td>${c.map(x=>`${esc(x.name)} × ${x.qty} — $${x.price}`).join("<br>")}<br><b>Total per unit: $${bom.toFixed(2)}</b></td></tr></table></div>`+calcHtml}
+
+function handoff(){if(!PLAN||!PLAN.production){msg("First obtain and parse the plan (step 5)");$("#spCard").scrollIntoView({behavior:"smooth"});return}
+ const H=PLAN.production;window.open("ASUIRGeminiCalculationModule_en.html#handoff="+encodeURIComponent(JSON.stringify(H)),"_blank")}
+function decPrompt(){const p=`Decompose the task into components — simpler tasks that are all needed together to solve the original one. For each component give one line: name — essence (what must be obtained). No more than 8 components. Do not give solutions, only the decomposition. The answer is only a list, one component per line, without numbering.
+
+TASK: ${$("#prob").value.trim()}
+IDEAL SOLUTION: ${$("#ideal").value.trim()}`;
+ navigator.clipboard.writeText(p).then(()=>msg("Decomposition request copied")).catch(()=>msg("Could not copy"))}
+function save(q){const s={SOL,PLAN,CMP,BEST};document.querySelectorAll("input,select,textarea").forEach(e=>{if(e.id&&e.type!=="checkbox")s[e.id]=e.value});s.onlyFound=$("#onlyFound").checked;
+ try{localStorage.setItem(KEY,JSON.stringify(s));if(!q)msg("Saved in this browser")}catch(e){if(!q)msg("The browser did not allow saving")}}
+function restore(){let s;try{s=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}if(!s)return;Object.entries(s).forEach(([k,v])=>{if(k==="SOL"||k==="CMP"||k==="BEST"||k==="PLAN")return;const e=document.getElementById(k);if(e){if(e.type==="checkbox")e.checked=v;else e.value=v}});SOL=s.SOL||{};PLAN=s.PLAN||null;CMP=s.CMP||null;BEST=s.BEST||[];if(Object.keys(SOL).length)render();renderCmp();renderBest();drawPlan()}
+$("#onlyFound").onchange=render;$("#ord").onchange=render;
+restore();if(!Object.keys(SOL).length)render();
+window.__AR={SOL:()=>SOL,PLAN:()=>PLAN,CMP:()=>CMP,BEST:()=>BEST,load:(S,P,C,B)=>{SOL=S;PLAN=P;try{$("#plan").value=P?JSON.stringify(P):""}catch(e){}CMP=C||null;BEST=B||[];render();renderCmp();renderBest();drawPlan();save(true)}};
+(()=>{const q=new URLSearchParams(location.search);if(q.get('prob')){$('#prob').value=q.get('prob');$('#ideal').value=q.get('ideal')||'';msg('Task transferred from FlowSolve')}})();
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set, get, remove, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+const app=initializeApp({apiKey:"AIzaSyAh0DERnVCDBf6KLpaDDnobKBds4c6SKmI",authDomain:"asuir-gemini.firebaseapp.com",projectId:"asuir-gemini",storageBucket:"asuir-gemini.firebasestorage.app",messagingSenderId:"53572749601",appId:"1:53572749601:web:e3c33578afd4bdac309660",databaseURL:"https://asuir-gemini-default-rtdb.firebaseio.com"},"solutions");
+const db=getDatabase(app),auth=getAuth(app);let U=null;
+const $=s=>document.querySelector(s),esc=s=>String(s==null?"":s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const sm=t=>{$("#stMsg").textContent=t};
+const PUB="solutions/public",PRIV=uid=>"solutions/private/"+uid;
+const STAT={announced:"announced",solving:"in progress",solved:"solved"},EXIT={suppliers:"suppliers",institute:"institute",partial:"partly"},LINK={part:"component",refine:"refinement"};
+let CUR=null,CUR_PUB=false,PARENT=null,LINKT=null;
+const q=new URLSearchParams(location.search);if(q.get("parent")){PARENT=q.get("parent");LINKT=q.get("link")||"refine"}
+function info(){$("#stInfo").innerHTML=(CUR?`Record <b>${esc(CUR)}</b> — ${CUR_PUB?"published":"private"}.`:"The record has not been saved yet.")+(PARENT?` Link to task ${esc(PARENT)}: ${LINK[LINKT]||LINKT}.`:"")}
+function authUI(){$("#auth").innerHTML=U?`<span class="m">Author: <b>${esc(U.displayName||U.email)}</b></span> <button class="btn alt" onclick="stOut()">Sign out</button>`:`<button class="btn" onclick="stIn()">Sign in with Google</button> <span class="m">Sign-in is needed to save tasks.</span>`}
+onAuthStateChanged(auth,u=>{U=u&&!u.isAnonymous?u:null;authUI();info()});
+window.stIn=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>sm("Sign-in failed: "+e.code+(e.code==="auth/unauthorized-domain"?" — add the domain in Firebase → Authentication → Settings → Authorized domains.":e.code==="auth/operation-not-allowed"?" — enable Google sign-in in Firebase → Authentication → Sign-in method.":"")));
+window.stOut=()=>signOut(auth);
+function record(){const S=window.__AR.SOL(),br={},sel=[];Object.entries(S).forEach(([id,o])=>{if(!o||!o.solution||o.solution==="—")return;br[id.replace(".","_")]={solution:o.solution||"",technology:o.technology||"",advantage:o.advantage??null,response:o.response||"",cost:o.cost||"",source:o.source||"",selected:!!o._sel,manual:!!o.manual};if(o._sel)sel.push(id)});
+ const v=id=>($(id)?$(id).value:"");const now=new Date().toISOString();
+ return {task:v("#prob").slice(0,3000),competitors:v("#comp").slice(0,3000),resources:v("#own").slice(0,3000),ideal:v("#ideal").slice(0,3000),
+  status:v("#st_status")||"announced",exit:v("#st_exit")||"",
+  result:{technology:v("#lm_tech"),maneuvers:v("#lm_man"),sources:v("#lm_src"),barriers:v("#lm_bar"),symbiosis:v("#lm_sym"),selected:sel},
+  branches:br,comparison:window.__AR.CMP()?JSON.stringify(window.__AR.CMP()):null,best:(window.__AR.BEST()||[]).map(b=>({title:b.title||"",why:b.why||"",response:b.response||"",cost:b.cost||"",branches:b.branches||[],selected:!!b._sel})),plan:window.__AR.PLAN()?JSON.stringify(window.__AR.PLAN()):null,parent_id:PARENT,link:LINKT,owner_uid:U.uid,author:U.displayName||U.email||"",updated_at:now}}
+const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const pathOf=(id,pub)=>(pub?PUB:PRIV(U.uid))+"/"+id;
+window.stSave=async()=>{if(!U){sm("Sign in with Google to save.");return}const r=record();if(!r.task.trim()){sm("First fill in the task.");return}
+ let joined=false;if(!CUR){const A=(await all()).filter(([id,x])=>x.owner_uid===U.uid&&String(x.task||"").trim()===r.task.trim());
+  if(A.length){const par=new Set((await all()).map(([i,x])=>x.parent_id).filter(Boolean));A.sort((a,b)=>(par.has(b[0])-par.has(a[0]))||String(b[1].updated_at||"").localeCompare(String(a[1].updated_at||"")));CUR=A[0][0];CUR_PUB=A[0][2];if(!r.parent_id&&A[0][1].parent_id){r.parent_id=A[0][1].parent_id;r.link=A[0][1].link||null;PARENT=r.parent_id;LINKT=r.link}joined=true}}
+ if(!CUR){CUR=newId();CUR_PUB=false;r.created_at=r.updated_at}else{const old=await get(child(ref(db),pathOf(CUR,CUR_PUB))).catch(()=>null);r.created_at=old&&old.exists()?old.val().created_at:r.updated_at}
+ try{await set(ref(db,pathOf(CUR,CUR_PUB)),r);sm((joined?"Your existing record with the same task has been updated — ":"Saved ")+"("+(CUR_PUB?"published":"private")+").");info()}catch(e){const c=String(e.code||e.message);sm("The repository rejected the record: "+c+(/permission/i.test(c)?". Check the Google sign-in and the access rule in the Firebase console.":""))}};
+window.stPublish=async(pub)=>{if(!U){sm("Sign in with Google.");return}if(!CUR){await window.stSave();if(!CUR)return}if(CUR_PUB===pub){sm(pub?"Already published.":"Already private.");return}
+ const r=record();try{const old=await get(child(ref(db),pathOf(CUR,CUR_PUB)));r.created_at=old.exists()?old.val().created_at:r.updated_at;await set(ref(db,pathOf(CUR,pub)),r);await remove(ref(db,pathOf(CUR,!pub)));CUR_PUB=pub;sm(pub?"Published: everyone sees the record.":"Unpublished: only the author sees the record.");info()}catch(e){sm("Failed: "+(e.code||e.message))}};
+window.stNew=()=>{location.href=location.pathname};
+async function all(){const out=[];try{const s=await get(child(ref(db),PUB));if(s.exists())Object.entries(s.val()).forEach(([id,r])=>out.push([id,r,true]))}catch(e){sm("Published records are unavailable: "+(e.code||e.message))}
+ if(U){try{const s=await get(child(ref(db),PRIV(U.uid)));if(s.exists())Object.entries(s.val()).forEach(([id,r])=>out.push([id,r,false]))}catch(e){}}return out}
+let CACHE={};
+const toks=t=>new Set(String(t||"").toLowerCase().match(/[a-zа-яё0-9]{4,}/g)?.map(w=>w.slice(0,6))||[]);
+function sim(a,b){if(!a.size||!b.size)return 0;let n=0;a.forEach(x=>{if(b.has(x))n++});return n/(a.size+b.size-n)}
+function list(rows,title){rows.forEach(([id,r,pub])=>CACHE[id]=[r,pub]);
+ $("#stList").innerHTML=rows.length?`<h3 class="ln">${title}</h3><div class="wrap"><table class="res"><tr><th>Task</th><th>Status · exit</th><th>Link</th><th>Author</th><th>Date</th><th></th></tr>${rows.map(([id,r,pub,s])=>`<tr><td>${esc(r.task).slice(0,180)}${s!=null?`<div class="m">similarity ${Math.round(s*100)}%</div>`:""}</td><td>${STAT[r.status]||""}${r.exit?" · "+EXIT[r.exit]:""}<div class="m">${pub?"published":"private"}</div></td><td>${r.parent_id?(LINK[r.link]||"")+" of task "+esc(r.parent_id):"—"}</td><td>${esc(r.author)}</td><td>${esc((r.updated_at||"").slice(0,10))}</td><td><a href="#" data-open="${esc(id)}">open</a></td></tr>`).join("")}</table></div>`:`<p class="m">${title}: nothing found.</p>`}
+window.stFind=async()=>{const a=await all(),t=toks($("#prob").value+" "+$("#ideal").value);list(a.map(([id,r,p])=>[id,r,p,sim(t,toks(r.task+" "+r.ideal))]).filter(x=>x[3]>0&&x[0]!==CUR).sort((x,y)=>y[3]-x[3]).slice(0,8),"Similar tasks")};
+window.stMine=async()=>{if(!U){sm("Sign in with Google.");return}const a=await all();list(a.filter(([id,r])=>r.owner_uid===U.uid).sort((x,y)=>(y[1].updated_at||"").localeCompare(x[1].updated_at||"")),"My tasks")};
+window.stChildBest=async()=>{if(!CUR||!U)return[];const a=await all();return a.filter(([id,r])=>r.parent_id===CUR).map(([id,r])=>({part:r.task,status:r.status||"",best:(r.best||[]).map(b=>({title:b.title,why:b.why}))})).filter(x=>x.best.length)};
+window.stTree=async()=>{if(!CUR){sm("First save the task.");return}const a=await all(),by={};a.forEach(([id,r,p])=>{CACHE[id]=[r,p];(by[r.parent_id]=by[r.parent_id]||[]).push([id,r,p])});
+ let root=CUR;for(let i=0;i<20;i++){const r=CACHE[root]&&CACHE[root][0];if(!r||!r.parent_id||!CACHE[r.parent_id])break;root=r.parent_id}
+ const node=(id,d)=>{const r=CACHE[id][0],kids=by[id]||[],parts=kids.filter(k=>k[1].link==="part"),done=parts.filter(k=>k[1].status==="solved").length;
+  return `<div style="margin-left:${d*22}px;padding:4px 0;border-left:${d?"2px solid #d0d7dd":"0"};padding-left:${d?8:0}px">${r.link&&d?`<span class="tag">${LINK[r.link]}</span> `:""}<a href="#" data-open="${esc(id)}"${id===CUR?' style="font-weight:700"':""}>${esc(r.task).slice(0,120)}</a> <span class="m">· ${STAT[r.status]||""}${r.exit?" · "+EXIT[r.exit]:""}${parts.length?` · components solved ${done} of ${parts.length}`:""}</span></div>`+kids.map(k=>node(k[0],d+1)).join("")};
+ $("#stList").innerHTML=`<h3 class="ln">Task tree</h3>`+node(root,0)};
+document.addEventListener("click",e=>{const a=e.target.closest("[data-open]");if(!a)return;e.preventDefault();const id=a.dataset.open,c=CACHE[id];if(!c)return;const [r,pub]=c;
+ const setv=(s,v)=>{if($(s))$(s).value=v||""};setv("#prob",r.task);setv("#comp",r.competitors);setv("#own",r.resources);setv("#ideal",r.ideal);setv("#st_status",r.status||"announced");setv("#st_exit",r.exit||"");
+ const R=r.result||{};setv("#lm_tech",R.technology);setv("#lm_man",R.maneuvers);setv("#lm_src",R.sources);setv("#lm_bar",R.barriers);setv("#lm_sym",R.symbiosis);
+ const S={};Object.entries(r.branches||{}).forEach(([k,o])=>{const id2=k.replace("_",".");S[id2]=Object.assign({id:id2},o,{_sel:!!o.selected})});
+ const J=v=>{if(!v)return null;if(typeof v==='string'){try{return JSON.parse(v)}catch(e){return null}}return v};window.__AR.load(S,J(r.plan),J(r.comparison),(r.best||[]).map(b=>Object.assign({},b,{_sel:!!b.selected})));PARENT=r.parent_id||null;LINKT=r.link||null;
+ if(U&&r.owner_uid===U.uid){CUR=id;CUR_PUB=pub;sm("Your task is open: changes will be saved to it.")}else{CUR=null;CUR_PUB=false;sm("Someone else’s task is open: saving will create your own copy.")}info();window.scrollTo(0,0)});
+window.stParts=async()=>{if(!U){sm("Sign in with Google.");return}if(!CUR){sm("First save the original task.");return}
+ const lines=$("#parts").value.split("\n").map(s=>s.replace(/^[\s\-•*\d.)]+/,"").trim()).filter(Boolean);if(!lines.length){sm("Enter the components, one per line.");return}
+ const now=new Date().toISOString();try{for(const t of lines){await set(ref(db,PRIV(U.uid)+"/"+newId()),{task:t,ideal:"",status:"announced",exit:"",parent_id:CUR,link:"part",owner_uid:U.uid,author:U.displayName||U.email||"",created_at:now,updated_at:now})}
+ sm("Components created: "+lines.length+" (private). Open them in the task tree.");$("#parts").value="";window.stTree()}catch(e){sm("Failed: "+(e.code||e.message))}};
+window.stChild=()=>{const S=window.__AR.SOL(),sel=(window.__AR.BEST()||[]).filter(b=>b._sel).map(b=>({solution:b.title})).concat(Object.values(S).filter(o=>o&&o._sel));if(!sel.length){sm("Mark ✓ a solution.");return}if(!CUR){sm("First save the task.");return}
+ location.href=location.pathname+"?parent="+encodeURIComponent(CUR)+"&link=refine&prob="+encodeURIComponent(sel.map(o=>o.solution).join("; "))};
+authUI();info();
+</script>
+<script>
+// ===== Direct AI connection (keys are stored only in this browser) =====
+const AIK="asuir_ai_keys";
+function aiCfg(){try{return JSON.parse(localStorage.getItem(AIK)||"{}")}catch(e){return{}}}
+function aiSave(){const c={ak:$("#aiAk").value.trim(),am:$("#aiAm").value.trim()||"claude-sonnet-5-5",ok:$("#aiOk").value.trim(),om:$("#aiOm").value.trim()||"gpt-5",main:$("#aiMain").value};try{localStorage.setItem(AIK,JSON.stringify(c))}catch(e){}aiShow();showNext()}
+function aiShow(){const c=aiCfg();$("#aiAk").value=c.ak||"";$("#aiAm").value=c.am||"claude-sonnet-5-5";$("#aiOk").value=c.ok||"";$("#aiOm").value=c.om||"gpt-5";$("#aiMain").value=c.main||"anthropic";
+ const n=(c.ak?1:0)+(c.ok?1:0);$("#aiState").textContent=n===2?"Both AIs connected: analysis — "+(c.main==="openai"?"ChatGPT":"Claude")+", check — "+(c.main==="openai"?"Claude":"ChatGPT")+".":n===1?"One AI connected: it will do both analysis and check (a check by another AI is more reliable).":"AI not connected — steps are done by copying the request."; aiBtns()}
+function aiReady(){const c=aiCfg();return !!(c.ak||c.ok)}
+function aiBtns(){const r=aiReady();document.querySelectorAll(".aiOnly").forEach(b=>b.style.display=r?"":"none")}
+function aiWho(role){const c=aiCfg();const main=c.main==="openai"?"openai":"anthropic";let p=role==="check"?(main==="openai"?"anthropic":"openai"):main;if(p==="anthropic"&&!c.ak)p="openai";if(p==="openai"&&!c.ok)p="anthropic";return p}
+async function aiCall(role,prompt,onTick){const c=aiCfg(),who=aiWho(role);const t0=Date.now();const tk=setInterval(()=>onTick&&onTick(Math.round((Date.now()-t0)/1000),who),1000);
+ try{if(who==="anthropic"){const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"content-type":"application/json","x-api-key":c.ak,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:c.am||"claude-sonnet-5-5",max_tokens:32000,messages:[{role:"user",content:prompt}]})});
+   const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return{text:(j.content||[]).filter(b=>b.type==="text").map(b=>b.text).join(""),who:"Claude ("+(c.am||"")+")"}}
+  else{const r=await fetch("https://api.openai.com/v1/chat/completions",{method:"POST",headers:{"content-type":"application/json","authorization":"Bearer "+c.ok},body:JSON.stringify({model:c.om||"gpt-5",messages:[{role:"user",content:prompt}],max_completion_tokens:32000})});
+   const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return{text:(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||"",who:"ChatGPT ("+(c.om||"")+")"}}}
+ finally{clearInterval(tk)}}
+// run a step automatically: role, prompt builder, target field, parser
+async function aiStep(kind){const note=t=>{const n=document.getElementById(kind==="check"?"chkMsg":"msg");if(n)n.textContent=t};
+ const map={analysis:["main",()=>mkPrompt(),"answer",()=>parseAnswer()],check:["check",()=>mkCheck(),"check",()=>parseCheck()],fix:["main",()=>mkFix(),"answer",()=>parseAnswer()],man:["main",()=>mkMan(window.__kids||[]),"manAns",()=>parseMan()],plan:["main",()=>planPrompt(),"plan",()=>parsePlan()]};
+ const m=map[kind];if(!m)return;if(kind==="man"){try{window.__kids=window.stChildBest?await window.stChildBest():[]}catch(e){window.__kids=[]}}const b=document.getElementById("nextAuto");if(b)b.disabled=true;
+ try{const res=await aiCall(m[0],m[1](),(s,w)=>note(`AI (${w==="openai"?"ChatGPT":"Claude"}) working… ${s} s. A full answer may take several minutes.`));
+  let txt=res.text;if(kind==="check"){try{const a=txt.indexOf("{"),z=txt.lastIndexOf("}");const o=JSON.parse(txt.slice(a,z+1));if(!o.reviewer)o.reviewer=res.who;txt=JSON.stringify(o)}catch(e){}}
+  document.getElementById(m[2]).value=txt;m[3]();note("✓ Done: "+res.who+". See the result on the page.")}
+ catch(e){note("AI error: "+e.message+". Check the key and model name in the “AI connection” section.")}
+ finally{if(b)b.disabled=false;setTimeout(showNext,300)}}
+</script>
+<script>
+function nextStep(){const C=typeof CMP!=="undefined"?CMP:null,prob=(document.getElementById("prob").value||"").trim();
+ const ch=C&&C.checks||[],ok=ch.filter(c=>/подтв|confirm/i.test(c.verdict||"")).length;
+ if(!prob)return{t:"Enter the task in field “1. Task” at the top of the page — or press the button to load the example.",b:"Load example",go:"prob",act:()=>loadExample()};
+ if(!C)return{t:"Copy the request and paste it into an AI (Claude, ChatGPT or Gemini). Paste the AI’s answer into the highlighted field and press “Parse answer”.",b:"Copy request for AI",go:"answer",act:()=>copyPrompt(),k:"analysis"};
+ if(!ch.length&&!C.skipCheck)return{t:(C.version>1?`Analysis corrected (version ${C.version}). Better check it once more by another AI — or press “Skip” to go to the solutions.`:"Analysis received. Check it by ANOTHER AI.")+" Copy the request, paste it into another AI, the answer — into the highlighted field, then “Parse check”.",b:"Copy request for check",go:"check",act:()=>copyCheck(),k:"check",skip:()=>{C.skipCheck=true;save(true);showNext()}};
+ if(ch.length&&!C.fixDone&&ok<ch.length)return{t:`Check: confirmed ${ok} of ${ch.length}. Correct the analysis: copy the request, paste it into an AI, the answer — into the step 2 highlighted field (instead of the old text), then “Parse answer”. If no correction is needed — “Skip”.`,b:"Copy correction request",go:"answer",act:()=>copyFix(),k:"fix",skip:()=>{C.fixDone=true;save(true);showNext()}};
+ if(!C.maneuvers)return{t:"Conclusions verified. Now derive solutions from the verified conclusions: copy the request, paste it into an AI, the answer — into the highlighted field, then “Parse solutions”.",b:"Copy maneuvers request",go:"manAns",act:()=>copyMan(),k:"man"};
+if(!PLAN||!PLAN.paths)return{t:"Solutions derived. Now section 5: partners, stages and production data. Copy the request, paste it into an AI, the answer — into the highlighted field, then “Parse plan”.",b:"Copy plan request",go:"plan",act:()=>copyPlan(),k:"plan"};
+ return{t:"Solutions derived. Mark ✓ the solutions you need in section 4, then save the task in the repository (bottom of the page).",b:"Go to saving",go:"stCard",act:()=>{}}}
+function nbHide(x){try{localStorage.setItem("asuir_nb_hidden",x?"1":"0")}catch(e){}nbApply()}
+function nbApply(){let x="1";try{x=localStorage.getItem("asuir_nb_hidden")||"1"}catch(e){}document.getElementById("nextBox").style.display=x==="1"?"none":"";document.getElementById("nextMini").style.display=x==="1"?"":"none"}
+function showNext(){return;nbApply();const s=nextStep();const au=document.getElementById("nextAuto");if(au){if(s.k&&aiReady()){au.style.display="";au.onclick=()=>aiStep(s.k)}else au.style.display="none"}document.getElementById("nextText").textContent=s.t;const b=document.getElementById("nextBtn");b.textContent=s.b;
+ b.onclick=async()=>{await s.act();const el=document.getElementById(s.go);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.style.outline="3px solid #e8a000";el.style.outlineOffset="2px";setTimeout(()=>el.style.outline="",6000);if(el.tagName==="TEXTAREA")el.focus()}
+  document.getElementById("nextNote").textContent=/Скопировать/.test(s.b)?"✓ Request copied — paste it into the AI (Ctrl+V). The field highlighted in orange is where to paste the answer.":"";setTimeout(showNext,500)};
+ let sk=document.getElementById("nextSkip");if(s.skip){if(!sk){sk=document.createElement("button");sk.id="nextSkip";sk.className="btn alt";sk.style.margin="0 0 0 6px";sk.textContent="Skip";b.after(sk)}sk.onclick=s.skip}else if(sk)sk.remove()}
+setTimeout(()=>{try{aiShow()}catch(e){}},300);
+</script>
+</body></html>

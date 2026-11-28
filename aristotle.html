@@ -58,7 +58,7 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 @media print{.nav-global-menu,.top-utility-bar,.no-print{display:none}body{zoom:1}}</style><style>.hid{display:none!important}</style>
 </head>
 <body><div class="main-wrapper">
-<div class="top-utility-bar"><div style="font-weight:600;">Languages ⌵</div></div>
+<div class="top-utility-bar"><a href="aristotle_en.html" style="font-weight:600;color:#333;text-decoration:none">Languages ⌵</a></div>
 <div class="brand-title-block"><h1 class="brand-title-text" style="color:#555;font-size:52px;margin:0">МАТРИЦА ТЕХНОЛОГИЙ</h1></div>
 <div style="height:1px;background:#d0d7dd;margin:15px 0 10px"></div>
 <nav class="nav-global-menu">
@@ -84,7 +84,7 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <div class="grid" style="grid-template-columns:1fr 1fr 1fr;margin-top:8px"><div><label>Конкуренты (если не знаете — ИИ определит)</label><textarea id="comp" placeholder="кто и чем силён"></textarea></div><div><label>Наша технология (если делаем сами; если нет — оставьте пустым)</label><textarea id="own" placeholder="как делаем сейчас, оборудование, люди"></textarea></div><div class="hid"><label>Желаемый результат (необязательно)</label><textarea id="ideal" placeholder="каким должно быть изделие"></textarea></div></div></div>
 
 <div class="step"><h3>2. Анализ ИИ</h3><p class="hint">Нажмите «Запрос для ИИ», вставьте текст в Claude, ChatGPT или Gemini, затем вставьте ответ ИИ в поле ниже и нажмите «Разобрать ответ».</p>
-<div class="no-print"><button class="btn" onclick="copyPrompt()">Запрос для ИИ</button><span id="msg"></span></div>
+<div class="no-print"><button class="btn" onclick="copyPrompt()">Запрос для ИИ</button><button class="btn alt aiOnly" style="display:none" onclick="aiStep('analysis')">Выполнить через подключённый ИИ</button><span id="msg"></span></div>
 <textarea id="answer" placeholder="Вставьте сюда ответ ИИ" style="min-height:90px;margin-top:6px"></textarea>
 <div class="no-print" style="margin-top:6px"><button class="btn" onclick="parseAnswer()">Разобрать ответ</button><button class="btn alt hid" onclick="loadExample()">Пример: устройство хранения информации</button><button class="btn alt" onclick="save()">Сохранить в браузере</button><button class="btn alt" onclick="window.print()">Печать / PDF</button></div></div>
 </div>
@@ -94,7 +94,7 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <div id="cmpOut"></div>
 <h3 class="ln">Проверка другим ИИ</h3>
 <p class="hint">Анализ одного ИИ может содержать ошибки. Нажмите «Запрос на проверку», вставьте его в <b>другой</b> ИИ (если анализ делал Claude — в ChatGPT или Gemini), ответ вставьте ниже. Утверждения, которые независимая проверка подтвердила, отмечаются ✓; сомнительные — ?; неверные — ✗ с исправлением. Можно проверить несколькими ИИ по очереди — отметки накапливаются.</p>
-<div class="no-print"><button class="btn alt" onclick="copyCheck()">Запрос на проверку</button> <span id="chkMsg" class="okk" style="font-size:13.5px"></span></div>
+<div class="no-print"><button class="btn alt" onclick="copyCheck()">Запрос на проверку</button><button class="btn alt aiOnly" style="display:none" onclick="aiStep('check')">Проверить через второй ИИ</button> <span id="chkMsg" class="okk" style="font-size:13.5px"></span></div>
 <textarea id="check" placeholder="Сюда — ответ проверяющего ИИ (сам запрос уже в буфере обмена после нажатия кнопки)" style="width:100%;min-height:60px;margin-top:6px;padding:8px;border:1px solid #d0d7dd;border-radius:4px;font:inherit;font-size:13.5px"></textarea>
 <div class="no-print"><button class="btn" onclick="parseCheck()">Разобрать проверку</button><button class="btn alt hid" onclick="copyFix()">Исправить анализ по проверке</button> <span id="fixMsg" class="okk" style="font-size:13.5px"></span></div>
 <div id="histOut" class="hid"></div>
@@ -123,7 +123,7 @@ h3.ln{font-size:15px;color:#1f4e78;margin:14px 0 6px}.mtx{font-size:12.5px;table
 <p class="note">Кнопка открывает АСУИР Производство с уже заполненными полями: изделие, оборудование, выпуск, работники, цеховые расходы, комплектующие, цена. Сохранить линию в Каталог можно там же кнопкой генератора.</p>
 </div>
 
-<details class="card no-print hid" id="aiCard"><summary style="cursor:pointer;font-weight:600;color:#1f4e78">Подключение ИИ — чтобы шаги выполнялись одной кнопкой, без копирования</summary>
+<details class="card no-print" id="aiCard"><summary style="cursor:pointer;font-weight:600;color:#1f4e78">Подключение ИИ (необязательно) — анализ и проверка одной кнопкой, без копирования между сайтами</summary>
 <p class="hint">Ключи доступа (API key) хранятся только в этом браузере и отправляются только напрямую в Anthropic и OpenAI. Оплата — по тарифу вашего ключа. Если подключить оба ИИ, анализ делает один, а проверку — другой.</p>
 <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
 <div><label>Ключ Anthropic (Claude)</label><input id="aiAk" type="password" placeholder="sk-ant-…" style="width:100%"><label>Модель Claude</label><input id="aiAm" style="width:100%"></div>
@@ -186,9 +186,9 @@ function mkPrompt(){
 
 ЦЕЛЬ: технологическая разведка. Выяснить, на каких технологиях работают конкуренты и в чём их достижения, и найти, как нивелировать эти достижения, чтобы покупатель выбрал нас. Задачу не меняй и не расширяй.
 ЭТАП 1. Критерии: 2–4 параметра, по которым покупатель выбирает такое изделие.
-ЭТАП 2. Технологии конкурентов: для каждого конкурента — на какой технологии он делает это изделие, уровень по каждому критерию, его достижения (сильные стороны) и слабые места; источники (организация или издание и год), без источника — "не подтверждено". Если в поле «наша технология» указано, как делаем мы, — включи её в сравнение отдельной строкой; если не указано — мы это не делаем, и сравниваются только технологии конкурентов.
+ЭТАП 2. Технологии конкурентов: для каждого конкурента — на какой технологии он делает это изделие, уровень по каждому критерию, его достижения (сильные стороны) и слабые места; источники (организация или издание и год), без источника — "не подтверждено". Если тебе доступен поиск в интернете — проверь им сведения о конкурентах и укажи ссылки в sources. Если в поле «наша технология» указано, как делаем мы, — включи её в сравнение отдельной строкой; если не указано — мы это не делаем, и сравниваются только технологии конкурентов.
 ЭТАП 3. Выводы: (а) в чём конкуренты сильнее нас (их достижения, которые нужно нивелировать); (б) на каких технологиях они работают; (в) их слабые места; (г) наш задел (если делаем сами) или наиболее подходящая для нас технология (если не делаем).
-ЭТАП 4. Обход всех ${BR.length} ветвей ниже (технологический манёвр × измерение): в каждой ветви — как этот манёвр нивелирует достижения конкурентов из выводов этапа 3. Если делаем сами — как изменить нашу технологию, чтобы уйти в отрыв; если не делаем — какой вариант выбрать. Если в ветви осмысленного решения нет — "solution": "—". Не повторяй одно решение во многих ветвях.
+ЭТАП 4. Обход всех ${BR.length} ветвей ниже (технологический манёвр × измерение): в каждой ветви — как этот манёвр нивелирует достижения конкурентов из выводов этапа 3. Если делаем сами — как изменить нашу технологию, чтобы уйти в отрыв; если не делаем — какой вариант выбрать. В ответ включай ТОЛЬКО ветви, где есть осмысленное решение; ветви без решения не выводи. Не повторяй одно решение во многих ветвях.
 ЭТАП 5. Лучшие 3–7 решений простым языком, БЕЗ названий манёвров: что сделать, какое достижение конкурента это нивелирует и почему покупатель выберет нас, может ли конкурент ответить и когда, во что обойдётся; коды ветвей.
 
 Ветви (код — «измерение»: вопрос ветви):
@@ -211,11 +211,11 @@ function parseAnswer(){const t=$("#answer").value;let obj=null;const a=t.indexOf
  try{if(a>=0&&z>a)obj=JSON.parse(t.slice(a,z+1))}catch(e){}
  if(!obj||Array.isArray(obj)){const A=t.indexOf("["),Z=t.lastIndexOf("]");try{obj={branches:JSON.parse(t.slice(A,Z+1))}}catch(e){msg("Ответ не читается как JSON: "+e.message);return}}
  SOL={};(obj.branches||[]).forEach(o=>{if(o&&o.id)SOL[String(o.id).trim()]=o});
- const OLD=CMP;CMP={criteria:obj.criteria||[],competitors:obj.competitors||[],technologies:obj.technologies||[],conclusions:obj.conclusions||{}};if(OLD&&(OLD.checks||[]).length){const ch=OLD.checks;CMP.history=(OLD.history||[]).concat([{version:OLD.version||1,reviewers:[...new Set(ch.map(c=>c.reviewer))].join(", "),ok:ch.filter(c=>/подтв/i.test(c.verdict||"")).length,total:ch.length,changes:OLD.changes||""}]);CMP.version=(OLD.version||1)+1;CMP.changes=obj.changes||""}else if(OLD&&OLD.history){CMP.history=OLD.history;CMP.version=OLD.version;CMP.changes=obj.changes||OLD.changes||""}
+ const OLD=CMP;CMP={criteria:obj.criteria||[],competitors:obj.competitors||[],technologies:obj.technologies||[],conclusions:obj.conclusions||{}};if(OLD&&(OLD.checks||[]).length){const ch=OLD.checks;CMP.history=(OLD.history||[]).concat([{version:OLD.version||1,reviewers:[...new Set(ch.map(c=>c.reviewer))].join(", "),ok:ch.filter(c=>/подтв|confirm/i.test(c.verdict||"")).length,total:ch.length,changes:OLD.changes||""}]);CMP.version=(OLD.version||1)+1;CMP.changes=obj.changes||""}else if(OLD&&OLD.history){CMP.history=OLD.history;CMP.version=OLD.version;CMP.changes=obj.changes||OLD.changes||""}
  BEST=(obj.best||[]).map(b=>Object.assign({_sel:false},b));render();renderCmp();renderBest();save(true);$("#cmpCard").scrollIntoView({behavior:"smooth"})}
 function chkOf(name){const L=((CMP&&CMP.checks)||[]).filter(c=>c.item&&(String(c.item).toLowerCase().includes(String(name).toLowerCase().slice(0,14))||String(name).toLowerCase().includes(String(c.item).toLowerCase().slice(0,14))));return L}
-function chkMark(name){const L=chkOf(name);if(!L.length)return"";const bad=L.filter(c=>/невер/i.test(c.verdict)).length,dub=L.filter(c=>/сомн/i.test(c.verdict)).length,ok=L.length-bad-dub;return ` <span title="проверка: подтверждено ${ok}, сомнительно ${dub}, неверно ${bad}">${ok?'<span class="okk">✓'+ok+'</span>':''}${dub?' <span class="wrn">?'+dub+'</span>':''}${bad?' <span style="color:#b00020">✗'+bad+'</span>':''}</span>`}
-function mkCheck(){const C=CMP||{};return `Ты — независимый эксперт-рецензент. Другой ИИ выполнил технологический анализ задачи. Твоя задача — найти ошибки, а не подтвердить анализ. Проверь каждое фактическое утверждение: кто какую технологию использует, уровни по критериям, сильные и слабые стороны, сроки, цены, выводы и лучшие решения. Опирайся на известные тебе источники; если не уверен — ставь «сомнительно», а не «подтверждаю».
+function chkMark(name){const L=chkOf(name);if(!L.length)return"";const bad=L.filter(c=>/невер|wrong|incorrect/i.test(c.verdict)).length,dub=L.filter(c=>/сомн|doubt/i.test(c.verdict)).length,ok=L.length-bad-dub;return ` <span title="проверка: подтверждено ${ok}, сомнительно ${dub}, неверно ${bad}">${ok?'<span class="okk">✓'+ok+'</span>':''}${dub?' <span class="wrn">?'+dub+'</span>':''}${bad?' <span style="color:#b00020">✗'+bad+'</span>':''}</span>`}
+function mkCheck(){const C=CMP||{};return `Ты — независимый эксперт-рецензент. Другой ИИ выполнил технологический анализ задачи. Твоя задача — найти ошибки, а не подтвердить анализ. Проверь каждое фактическое утверждение: кто какую технологию использует, уровни по критериям, сильные и слабые стороны, сроки, цены, выводы и лучшие решения. Если тебе доступен поиск в интернете — проверяй им; опирайся на источники; если не уверен — ставь «сомнительно», а не «подтверждаю».
 
 ЗАДАЧА: ${$("#prob").value.trim()}
 
@@ -228,8 +228,8 @@ async function copyCheck(){const cm=t=>{$("#chkMsg").textContent=t};if(!CMP){cm(
 function parseCheck(){const t=$("#check").value,a=t.indexOf("{"),z=t.lastIndexOf("}");let o=null;try{o=JSON.parse(t.slice(a,z+1))}catch(e){$("#checkOut").innerHTML='<p class="wrn">Ответ не читается как JSON</p>';return}
  const who=o.reviewer||"проверяющий ИИ";CMP.checks=(CMP.checks||[]).concat((o.checks||[]).map(c=>Object.assign({reviewer:who},c)));CMP.reviews=(CMP.reviews||[]).concat([{reviewer:who,missing:o.missing||"",summary:o.summary||""}]);$("#check").value="";renderCmp();save(true)}
 function renderCheck(){const L=(CMP&&CMP.checks)||[],R=(CMP&&CMP.reviews)||[];if(!L.length&&!R.length){$("#checkOut").innerHTML="";return}
- const v=s=>/невер/i.test(s)?'<span style="color:#b00020">✗ неверно</span>':/сомн/i.test(s)?'<span class="wrn">? сомнительно</span>':'<span class="okk">✓ подтверждено</span>';
- const bad=L.filter(c=>!/подтв/i.test(c.verdict||""));
+ const v=s=>/невер|wrong|incorrect/i.test(s)?'<span style="color:#b00020">✗ неверно</span>':/сомн|doubt/i.test(s)?'<span class="wrn">? сомнительно</span>':'<span class="okk">✓ подтверждено</span>';
+ const bad=L.filter(c=>!/подтв|confirm/i.test(c.verdict||""));
  $("#checkOut").innerHTML=R.map(r=>`<p class="sub"><b>${esc(r.reviewer)}:</b> ${esc(r.summary)}${r.missing?`<br><b>Упущено:</b> ${esc(r.missing)}`:""}</p>`).join("")+
  `<p class="sub">Проверено утверждений: ${L.length}; подтверждено: ${L.length-bad.length}; требуют внимания: ${bad.length}.</p>`+
  (bad.length?`<div class="wrap"><table class="res"><tr><th>Где</th><th>Утверждение</th><th>Оценка</th><th>Исправление</th><th>Источник</th><th>Кто проверял</th></tr>${bad.map(c=>`<tr><td>${esc(c.item)}</td><td>${esc(c.claim)}</td><td>${v(c.verdict)}</td><td>${esc(c.correction||"")}</td><td>${esc(c.source||"")}</td><td>${esc(c.reviewer)}</td></tr>`).join("")}</table></div>`:"")}
@@ -253,13 +253,13 @@ function mkFix(){const C=CMP||{};const Rv=(C.reviews||[]);
 ${JSON.stringify({criteria:C.criteria,competitors:C.competitors,technologies:C.technologies,conclusions:C.conclusions,best:(BEST||[]).map(b=>({title:b.title,why:b.why,response:b.response,cost:b.cost,branches:b.branches})),branches:Object.entries(SOL||{}).filter(([k,o])=>o&&o.solution&&o.solution!=="—").map(([k,o])=>({id:k,solution:o.solution,technology:o.technology||"",advantage:o.advantage??null,response:o.response||"",cost:o.cost||"",source:o.source||""}))})}
 
 ЗАМЕЧАНИЯ ПРОВЕРКИ:
-${JSON.stringify((C.checks||[]).filter(c=>!/подтв/i.test(c.verdict||"")).map(c=>({item:c.item,claim:c.claim,verdict:c.verdict,correction:c.correction,source:c.source})))}
+${JSON.stringify((C.checks||[]).filter(c=>!/подтв|confirm/i.test(c.verdict||"")).map(c=>({item:c.item,claim:c.claim,verdict:c.verdict,correction:c.correction,source:c.source})))}
 ${Rv.map(r=>`Оценка (${r.reviewer}): ${r.summary}\nУпущено: ${r.missing}`).join("\n")}
 
 Ответ дай ОДНИМ блоком JSON в том же формате, полностью (все поля, все ветви):
 {"criteria":[],"competitors":[],"technologies":[{"name":"","users":{},"levels":{},"strengths":"","weaknesses":"","sources":""}],"conclusions":{"weak":"","crowded":"","free":"","base":""},"branches":[{"id":"S.FLA","solution":"","technology":"","advantage":1-5 или null,"response":"","cost":"","source":""}],"best":[{"title":"","why":"","response":"","cost":"","branches":[]}],"changes":"кратко: что исправлено"}`}
 async function copyFix(){const fm=t=>{$("#fixMsg").textContent=t};if(!CMP||!(CMP.checks||[]).length){fm("Сначала разберите ответ проверки");return}const p=mkFix();try{await navigator.clipboard.writeText(p);fm("✓ Запрос на исправление скопирован. Вставьте его в ИИ (Ctrl+V); исправленный ответ вставьте в шаг 2 и нажмите «Разобрать ответ».")}catch(e){const t=document.createElement("textarea");t.value=p;document.body.appendChild(t);t.select();try{document.execCommand("copy");fm("✓ Запрос скопирован. Исправленный ответ — в шаг 2, «Разобрать ответ».")}catch(_){fm("Не удалось скопировать")}t.remove()}}
-function renderHist(){const H=(CMP&&CMP.history)||[];$("#histOut").innerHTML=H.length?`<h3 class="ln">Версии анализа</h3><div class="wrap"><table class="res"><tr><th>Версия</th><th>Проверки</th><th>Подтверждено</th><th>Что исправлено</th></tr>${H.map(x=>`<tr><td>${x.version}</td><td>${esc(x.reviewers||"—")}</td><td>${x.ok} из ${x.total}</td><td>${esc(x.changes||"")}</td></tr>`).join("")}<tr><td><b>${(CMP.version||1)}</b> (текущая)</td><td colspan="3">${(CMP.checks||[]).length?((CMP.checks||[]).filter(c=>/подтв/i.test(c.verdict||"")).length+" из "+CMP.checks.length+" подтверждено"):"ещё не проверена"}${CMP.changes?" · "+esc(CMP.changes):""}</td></tr></table></div>`:""}
+function renderHist(){const H=(CMP&&CMP.history)||[];$("#histOut").innerHTML=H.length?`<h3 class="ln">Версии анализа</h3><div class="wrap"><table class="res"><tr><th>Версия</th><th>Проверки</th><th>Подтверждено</th><th>Что исправлено</th></tr>${H.map(x=>`<tr><td>${x.version}</td><td>${esc(x.reviewers||"—")}</td><td>${x.ok} из ${x.total}</td><td>${esc(x.changes||"")}</td></tr>`).join("")}<tr><td><b>${(CMP.version||1)}</b> (текущая)</td><td colspan="3">${(CMP.checks||[]).length?((CMP.checks||[]).filter(c=>/подтв|confirm/i.test(c.verdict||"")).length+" из "+CMP.checks.length+" подтверждено"):"ещё не проверена"}${CMP.changes?" · "+esc(CMP.changes):""}</td></tr></table></div>`:""}
 function mkMan(kids){const C=CMP||{};kids=kids||[];return `Ты работаешь как генератор технологий «Аристотель» (методика технологического превосходства «Сократ», М. Секора). Сравнение технологий и выводы уже выполнены, проверены независимым ИИ и исправлены. Принимай их как установленные данные и НЕ меняй. Твоя работа — только этапы 4 и 5.
 
 ЗАДАЧА: ${$("#prob").value.trim()}
@@ -293,7 +293,7 @@ function parseMan(){const t=$("#manAns").value,a=t.indexOf("{"),z=t.lastIndexOf(
  CMP.maneuvers=(CMP.maneuvers||0)+1;CMP.man_rationale=o.rationale||"";$("#manAns").value="";$("#manMsg").textContent="Решения выведены заново от проверенных выводов"+(o.rationale?": "+o.rationale:"");render();renderBest();renderCmp();save(true);$("#bestCard").scrollIntoView({behavior:"smooth"})}
 function renderCmp(){if(!CMP||!(CMP.technologies||[]).length){$("#cmpCard").style.display="none";return}$("#cmpCard").style.display="block";
  const T=CMP.technologies,who=[...new Set(T.flatMap(t=>Object.keys(t.users||{})))],cr=CMP.criteria||[],C=CMP.conclusions||{};
- const mark=v=>{const s=String(v||"").toLowerCase();return s.startsWith("да")?'<span class="okk">да</span>':s.startsWith("част")?'<span class="wrn">частично</span>':s?'<span class="m">'+esc(v)+'</span>':"—"};
+ const mark=v=>{const s=String(v||"").toLowerCase();return s.startsWith("да")||s.startsWith("yes")?'<span class="okk">да</span>':s.startsWith("част")||s.startsWith("part")?'<span class="wrn">частично</span>':s?'<span class="m">'+esc(v)+'</span>':"—"};
  $("#cmpOut").innerHTML=(cr.length?`<p class="sub"><b>Критерии выбора покупателя:</b> ${cr.map(esc).join("; ")}</p>`:"")+
  `<div class="wrap"><table class="res"><tr><th>Технология</th>${who.map(w=>`<th>${esc(w)}</th>`).join("")}${cr.map(c=>`<th>${esc(c)}</th>`).join("")}<th>Сильные стороны</th><th>Слабые стороны</th><th>Источники</th></tr>`+
  T.map(t=>`<tr><td><b>${esc(t.name)}</b>${chkMark(t.name)}</td>${who.map(w=>`<td>${mark((t.users||{})[w])}</td>`).join("")}${cr.map(c=>`<td>${esc((t.levels||{})[c]||"—")}</td>`).join("")}<td>${esc(t.strengths||"")}</td><td>${esc(t.weaknesses||"")}</td><td>${t.sources?esc(t.sources):'<span class="m">не подтверждено</span>'}</td></tr>`).join("")+`</table></div>`+
@@ -442,8 +442,9 @@ const AIK="asuir_ai_keys";
 function aiCfg(){try{return JSON.parse(localStorage.getItem(AIK)||"{}")}catch(e){return{}}}
 function aiSave(){const c={ak:$("#aiAk").value.trim(),am:$("#aiAm").value.trim()||"claude-sonnet-5-5",ok:$("#aiOk").value.trim(),om:$("#aiOm").value.trim()||"gpt-5",main:$("#aiMain").value};try{localStorage.setItem(AIK,JSON.stringify(c))}catch(e){}aiShow();showNext()}
 function aiShow(){const c=aiCfg();$("#aiAk").value=c.ak||"";$("#aiAm").value=c.am||"claude-sonnet-5-5";$("#aiOk").value=c.ok||"";$("#aiOm").value=c.om||"gpt-5";$("#aiMain").value=c.main||"anthropic";
- const n=(c.ak?1:0)+(c.ok?1:0);$("#aiState").textContent=n===2?"Подключены оба ИИ: анализ — "+(c.main==="openai"?"ChatGPT":"Claude")+", проверка — "+(c.main==="openai"?"Claude":"ChatGPT")+".":n===1?"Подключён один ИИ: анализ и проверку будет делать он (проверка другим ИИ надёжнее).":"ИИ не подключён — шаги выполняются через копирование запроса."}
+ const n=(c.ak?1:0)+(c.ok?1:0);$("#aiState").textContent=n===2?"Подключены оба ИИ: анализ — "+(c.main==="openai"?"ChatGPT":"Claude")+", проверка — "+(c.main==="openai"?"Claude":"ChatGPT")+".":n===1?"Подключён один ИИ: анализ и проверку будет делать он (проверка другим ИИ надёжнее).":"ИИ не подключён — шаги выполняются через копирование запроса."; aiBtns()}
 function aiReady(){const c=aiCfg();return !!(c.ak||c.ok)}
+function aiBtns(){const r=aiReady();document.querySelectorAll(".aiOnly").forEach(b=>b.style.display=r?"":"none")}
 function aiWho(role){const c=aiCfg();const main=c.main==="openai"?"openai":"anthropic";let p=role==="check"?(main==="openai"?"anthropic":"openai"):main;if(p==="anthropic"&&!c.ak)p="openai";if(p==="openai"&&!c.ok)p="anthropic";return p}
 async function aiCall(role,prompt,onTick){const c=aiCfg(),who=aiWho(role);const t0=Date.now();const tk=setInterval(()=>onTick&&onTick(Math.round((Date.now()-t0)/1000),who),1000);
  try{if(who==="anthropic"){const r=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"content-type":"application/json","x-api-key":c.ak,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:c.am||"claude-sonnet-5-5",max_tokens:32000,messages:[{role:"user",content:prompt}]})});
@@ -452,7 +453,7 @@ async function aiCall(role,prompt,onTick){const c=aiCfg(),who=aiWho(role);const 
    const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||("HTTP "+r.status));return{text:(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||"",who:"ChatGPT ("+(c.om||"")+")"}}}
  finally{clearInterval(tk)}}
 // выполнить шаг автоматически: role, prompt builder, target field, parser
-async function aiStep(kind){const note=t=>{const n=document.getElementById("nextNote");if(n)n.textContent=t};
+async function aiStep(kind){const note=t=>{const n=document.getElementById(kind==="check"?"chkMsg":"msg");if(n)n.textContent=t};
  const map={analysis:["main",()=>mkPrompt(),"answer",()=>parseAnswer()],check:["check",()=>mkCheck(),"check",()=>parseCheck()],fix:["main",()=>mkFix(),"answer",()=>parseAnswer()],man:["main",()=>mkMan(window.__kids||[]),"manAns",()=>parseMan()],plan:["main",()=>planPrompt(),"plan",()=>parsePlan()]};
  const m=map[kind];if(!m)return;if(kind==="man"){try{window.__kids=window.stChildBest?await window.stChildBest():[]}catch(e){window.__kids=[]}}const b=document.getElementById("nextAuto");if(b)b.disabled=true;
  try{const res=await aiCall(m[0],m[1](),(s,w)=>note(`ИИ (${w==="openai"?"ChatGPT":"Claude"}) работает… ${s} с. Полный ответ может занять несколько минут.`));
@@ -463,7 +464,7 @@ async function aiStep(kind){const note=t=>{const n=document.getElementById("next
 </script>
 <script>
 function nextStep(){const C=typeof CMP!=="undefined"?CMP:null,prob=(document.getElementById("prob").value||"").trim();
- const ch=C&&C.checks||[],ok=ch.filter(c=>/подтв/i.test(c.verdict||"")).length;
+ const ch=C&&C.checks||[],ok=ch.filter(c=>/подтв|confirm/i.test(c.verdict||"")).length;
  if(!prob)return{t:"Впишите задачу в поле «1. Задача» вверху страницы — или нажмите кнопку, чтобы загрузить пример.",b:"Загрузить пример",go:"prob",act:()=>loadExample()};
  if(!C)return{t:"Скопируйте запрос и вставьте его в ИИ (Claude, ChatGPT или Gemini). Ответ ИИ вставьте в подсвеченное поле и нажмите «Разобрать ответ».",b:"Скопировать запрос для ИИ",go:"answer",act:()=>copyPrompt(),k:"analysis"};
  if(!ch.length&&!C.skipCheck)return{t:(C.version>1?`Анализ исправлен (версия ${C.version}). Лучше проверить его ещё раз другим ИИ — или нажмите «Пропустить», чтобы перейти к решениям.`:"Анализ получен. Проверьте его ДРУГИМ ИИ.")+" Скопируйте запрос, вставьте в другой ИИ, ответ — в подсвеченное поле, затем «Разобрать проверку».",b:"Скопировать запрос на проверку",go:"check",act:()=>copyCheck(),k:"check",skip:()=>{C.skipCheck=true;save(true);showNext()}};
